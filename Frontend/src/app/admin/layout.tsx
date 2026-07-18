@@ -3,8 +3,6 @@
 import { useState, type ReactNode } from "react"
 import { motion } from "framer-motion"
 import { AmbientBackground } from "@/components/effects/AmbientBackground"
-import { ToastContainer } from "@/components/effects/Toast"
-
 const adminNav = [
   { id: "dashboard", label: "Dashboard", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
   { id: "users", label: "Users", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
@@ -24,8 +22,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-screen relative" style={{ backgroundColor: "#050505" }}>
       <AmbientBackground />
-      <ToastContainer />
-      {/* Admin Sidebar */}
+            {/* Admin Sidebar */}
       <aside className="flex flex-col shrink-0 border-r transition-all duration-200" style={{
         width: collapsed ? 64 : 220,
         backgroundColor: "#0A0A0A",
@@ -70,3 +67,4 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     </div>
   )
 }
+

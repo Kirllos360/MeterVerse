@@ -30,7 +30,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
   const [reminders, setReminders] = useState([
     { icon: "📋", title: "12 invoices pending review", time: "2h", color: "#D97706" },
     { icon: "🔔", title: "3 meters require maintenance", time: "1d", color: "#DC2626" },
-    { icon: "📈", title: "Monthly report ready", time: "3h", color: "#00BFA5" },
+    { icon: "📈", title: "Monthly report ready", time: "3h", color: "var(--brand-primary)" },
     { icon: "✅", title: "All systems operational", time: "5m", color: "#059669" },
     { icon: "⚡", title: "Peak consumption today", time: "1h", color: "#3B82F6" },
   ])
@@ -40,7 +40,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
       {/* Left: System Name + Breadcrumb */}
       <div className="flex items-center gap-3 text-sm min-w-0 shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "#00BFA5" }}>
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand-primary)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--text-primary, #0A0A0A)" }}>MeterVerse</span>
@@ -92,7 +92,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 <span className="text-sm font-bold" style={{ color: "var(--text-primary, #0A0A0A)" }}>
                   {reminderMode === "add" ? (language === "ar" ? "إضافة تذكير" : "Add Reminder") : (language === "ar" ? "التذكيرات" : "Reminders")}
                 </span>
-                <button onClick={() => setReminderMode(reminderMode === "add" ? "list" : "add")} className="text-xs font-medium" style={{ color: "#00BFA5" }}>
+                <button onClick={() => setReminderMode(reminderMode === "add" ? "list" : "add")} className="text-xs font-medium" style={{ color: "var(--brand-primary)" }}>
                   {reminderMode === "add" ? (language === "ar" ? "رجوع" : "Back") : (language === "ar" ? "+ إضافة" : "+ Add")}
                 </button>
               </div>
@@ -103,7 +103,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                   <div>
                     <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary, #737373)" }}>{language === "ar" ? "التذكير" : "Reminder"}</label>
                     <input value={newReminder} onChange={(e) => setNewReminder(e.target.value)} placeholder={language === "ar" ? "أدخل التذكير..." : "Enter reminder..."}
-                      className="w-full px-3 py-2 rounded-lg border text-sm outline-none focus:border-[#00BFA5] transition-colors"
+                      className="w-full px-3 py-2 rounded-lg border text-sm outline-none focus:border-[var(--brand-primary)] transition-colors"
                       style={{ backgroundColor: "var(--surface-sunken, #F0F0F0)", borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }} />
                   </div>
                   <div className="flex gap-2">
@@ -122,7 +122,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                   </div>
                   <motion.button
                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                    onClick={() => { if (newReminder.trim()) { setReminders([{ icon: "📌", title: newReminder, time: "Now", color: "#00BFA5" }, ...reminders]); setNewReminder(""); setReminderMode("list") } }}
+                    onClick={() => { if (newReminder.trim()) { setReminders([{ icon: "📌", title: newReminder, time: "Now", color: "var(--brand-primary)" }, ...reminders]); setNewReminder(""); setReminderMode("list") } }}
                     className="w-full py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: newReminder.trim() ? "#00BFA5" : "rgba(0,191,165,0.3)" }}
                     disabled={!newReminder.trim()}
                   >
@@ -159,7 +159,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
             className="flex items-center gap-2 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/10 px-2 py-1"
             aria-label="User menu"
           >
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, #00BFA5, #00917A)" }}>AU</div>
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand-primary), var(--brand-secondary))" }}>AU</div>
             <div className="hidden lg:block text-left leading-tight">
               <div className="text-sm font-bold tracking-tight" style={{ color: "var(--text-primary, #0A0A0A)" }}>Admin User</div>
               <div className="text-[10px] font-medium" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Administrator</div>
@@ -180,7 +180,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
               >
                 <div className="p-3 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, #00BFA5, #00917A)" }}>AU</div>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand-primary), var(--brand-secondary))" }}>AU</div>
                     <div>
                       <div className="text-sm font-bold" style={{ color: "var(--text-primary, #0A0A0A)" }}>Admin User</div>
                       <div className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>admin@meterverse.com</div>
@@ -228,3 +228,4 @@ function ToolbarButton({ children, label, onClick, isActive }: { children: React
     </button>
   )
 }
+

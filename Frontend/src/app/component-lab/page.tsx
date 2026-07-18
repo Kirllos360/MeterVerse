@@ -1,12 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { DataTableRuntime, type Column } from "@/components/enterprise/data-table/DataTableRuntime"
-import { FormRuntime, type FieldDef } from "@/components/enterprise/forms/FormRuntime"
-import { ChartsRuntime } from "@/components/enterprise/charts/ChartsRuntime"
-import { Widget } from "@/components/enterprise/widgets/WidgetsRuntime"
-import { Dialog } from "@/components/enterprise/dialogs/DialogsRuntime"
-import { SkeletonLines, LoadingScreen, EmptyState, ErrorState, OfflineState } from "@/components/enterprise/loading/LoadingStates"
 
 interface DemoItem {
   id: number; name: string; email: string; role: string; status: string
@@ -45,14 +39,12 @@ export default function ComponentLabPage() {
 
         {/* DataTable */}
         <Section title="DataTable Runtime">
-          <DataTableRuntime columns={demoColumns} data={demoData} selectable pageSize={5} />
-        </Section>
+                  </Section>
 
         {/* Forms */}
         <Section title="Forms Runtime">
           <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
-            <FormRuntime fields={formFields} values={formVals} onChange={(id, val) => setFormVals((p) => ({ ...p, [id]: val }))} layout="two-column" />
-          </div>
+                      </div>
         </Section>
 
         {/* Charts */}
@@ -60,12 +52,10 @@ export default function ComponentLabPage() {
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
               <p className="text-xs mb-2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Line Chart</p>
-              <ChartsRuntime type="line" series={[{ name: "Revenue", data: [{ x: "Jan", y: 400 }, { x: "Feb", y: 300 }, { x: "Mar", y: 600 }, { x: "Apr", y: 500 }] }]} height={200} />
-            </div>
+                          </div>
             <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
               <p className="text-xs mb-2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Pie Chart</p>
-              <ChartsRuntime type="donut" series={[{ name: "Distribution", data: [{ x: "A", y: 35 }, { x: "B", y: 25 }, { x: "C", y: 20 }, { x: "D", y: 20 }] }]} height={200} />
-            </div>
+                          </div>
           </div>
         </Section>
 
@@ -114,3 +104,4 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </div>
   )
 }
+

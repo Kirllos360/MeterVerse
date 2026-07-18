@@ -34,7 +34,7 @@ export function SidebarContent() {
   const isExpanded = sidebarMode === "expanded"
   const setIsExpanded = (v: boolean) => setSidebarMode(v ? "expanded" : "collapsed")
   const isDock = sidebarMode === "dock"
-  const brand = "#00BFA5"
+  const brand = "var(--brand-primary)"
   const bg = "#064E3B"
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
 
@@ -186,7 +186,7 @@ export function SidebarContent() {
                               </motion.button>
                             </AnimatedBorder>
                             {isActive && !isExpanded && (
-                              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-3 rounded-r-full" style={{ backgroundColor: brand }} />
+                              <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-3 rounded-r-full" style={{ backgroundColor: "var(--brand-primary)" }} />
                             )}
                             {!isExpanded && !isActive && (
                               <div className="absolute left-full ml-2.5 px-2 py-1 rounded-lg opacity-0 group-hover/item:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 shadow-lg"
@@ -218,3 +218,4 @@ export function SidebarContent() {
     </div>
   )
 }
+
