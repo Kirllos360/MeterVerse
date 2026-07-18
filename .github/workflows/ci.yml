@@ -185,10 +185,10 @@ jobs:
         with:
           node-version: '24'
       - name: Dependency Cruiser
-        run: npx depcruise Meter/backend/src --output-type err || true
+        run: npx depcruise backend/src --output-type err || true
         continue-on-error: true
       - name: Madge Circular Check
-        run: npx madge --circular Meter/backend/src/index.ts || true
+        run: npx madge --circular backend/src/index.ts || true
         continue-on-error: true
       - name: Dead Code (knip + ts-prune)
         run: npx knip && npx ts-prune || true
@@ -224,7 +224,7 @@ jobs:
         with:
           node-version: '24'
       - name: TypeDoc Generation
-        run: npx typedoc Meter/backend/src --out docs/api || true
+        run: npx typedoc backend/src --out docs/api || true
         continue-on-error: true
 
   certification:
