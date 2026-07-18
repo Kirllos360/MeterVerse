@@ -65,3 +65,14 @@ backup files/
 
 # Embedded repositories
 Meter/
+
+# Large third-party files
+mcp/
+tools/downloads/
+make files/
+docs/site/
+*.zip
+*.exe
+*.png
+*.jpg
+*.pdf
