@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse MVEOS | Executive Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#842225",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#002117",
+                    "on-tertiary-container": "#711419",
+                    "tertiary-container": "#fc7c78",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "primary-container": "#10b981",
+                    "background-dark": "#0d1510",
+                    "on-tertiary-fixed": "#410005",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "surface-container": "#e8f0e9",
+                    "surface-container-low": "#eef6ee",
+                    "on-secondary-container": "#306d58",
+                    "surface": "#f4fbf4",
+                    "card-dark": "#16221a",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#ebf3eb",
+                    "background": "#f4fbf4",
+                    "electric-orange": "#f97316",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-high": "#e3eae3",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d4dcd5",
+                    "financial-gold": "#fbbf24",
+                    "secondary-fixed": "#b0f0d6",
+                    "sidebar-light": "#064e3b",
+                    "surface-variant": "#dde4dd",
+                    "surface-bright": "#f4fbf4",
+                    "secondary": "#2b6954",
+                    "tertiary-fixed": "#ffdad7",
+                    "outline": "#6c7a71",
+                    "inverse-primary": "#4edea3",
+                    "on-primary-fixed-variant": "#005236",
+                    "industrial-red": "#ef4444",
+                    "on-error": "#ffffff",
+                    "tertiary": "#a43a3a",
+                    "secondary-container": "#adedd3",
+                    "on-surface": "#161d19",
+                    "inverse-surface": "#2b322d",
+                    "primary-fixed": "#6ffbbe",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#dde4dd",
+                    "on-primary-fixed": "#002113",
+                    "water-cyan": "#06b6d4",
+                    "surface-tint": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "primary-fixed-dim": "#4edea3",
+                    "outline-variant": "#bbcabf",
+                    "on-error-container": "#93000a",
+                    "on-background": "#161d19",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "primary": "#006c49",
+                    "on-primary-container": "#00422b",
+                    "success-emerald": "#10b981"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "button": "10px",
+                    "card": "16px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "gutter": "16px",
+                    "sidebar-expanded": "260px",
+                    "margin-page": "24px",
+                    "stack-lg": "24px",
+                    "stack-md": "16px",
+                    "sidebar-collapsed": "72px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .rolling-number::after {
+            content: attr(data-value);
+            animation: roll 1.5s cubic-bezier(0.12, 0, 0.39, 0) forwards;
+        }
+        @keyframes pulse-emerald {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .connection-pulse { animation: pulse-emerald 2s infinite; }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bbcabf; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #006c49; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex overflow-hidden">
+<!-- SideNavBar Sidebar -->
+<aside class="fixed left-0 h-screen w-64 z-40 bg-sidebar-light text-white flex flex-col p-4 gap-4 border-r border-outline-variant/50">
+<div class="flex items-center gap-3 px-2 mb-6">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="font-headline-md text-[18px] leading-tight font-bold">MeterVerse</h1>
+<p class="text-[10px] uppercase tracking-widest text-secondary-fixed/60">Main Grid</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto space-y-1">
+<!-- Active Tab: Dashboard -->
+<a class="bg-secondary-container/10 text-secondary-container flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-secondary transition-transform duration-200 active:opacity-80 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">electric_meter</span>
+<span class="font-label-md text-label-md">Meters</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Readings</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Invoices</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">assignment_late</span>
+<span class="font-label-md text-label-md">Collections</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="font-label-md text-label-md">Finance</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 hover:text-white flex items-center gap-3 px-4 py-3 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<div class="mt-auto pt-4 border-t border-white/10 space-y-2">
+<button class="w-full bg-success-emerald text-on-primary py-3 px-4 rounded-button font-label-md text-label-md flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined">add_circle</span>
+                New Service Ticket
+            </button>
+<a class="text-white/70 hover:bg-white/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="text-white/70 hover:bg-white/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 h-screen flex flex-col overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="h-16 flex justify-between items-center w-full px-8 bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant/30">
+<div class="flex items-center gap-8">
+<h2 class="font-headline-md text-headline-md font-extrabold text-on-surface">MVEOS</h2>
+<!-- Command Center Global Search -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-high/50 border-none rounded-button py-2 pl-10 pr-20 w-80 text-body-md focus:ring-2 focus:ring-success-emerald transition-all" placeholder="Search grid, nodes, or records (Cmd+K)" type="text"/>
+<div class="absolute right-3 top-1/2 -translate-y-1/2 border border-outline-variant px-1.5 py-0.5 rounded text-[10px] text-outline font-label-sm">⌘K</div>
+</div>
+</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-success-emerald font-bold border-b-2 border-success-emerald pb-1 font-label-md text-label-md" href="#">Monitoring</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-success-emerald transition-colors" href="#">Reports</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-success-emerald transition-colors" href="#">Support</a>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-industrial-red rounded-full"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="flex items-center gap-3 pl-2">
+<div class="flex flex-col items-end">
+<span class="text-body-md font-bold">Admin Sarah</span>
+<span class="text-[10px] text-success-emerald flex items-center gap-1">
+<span class="connection-pulse w-1.5 h-1.5 bg-success-emerald rounded-full"></span>
+                                Real-time Live
+                            </span>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-success-emerald object-cover" data-alt="A professional high-resolution headshot of a corporate energy operator in a modern workspace, soft daylight illumination, looking towards the camera, high-quality digital photography style with a shallow depth of field, forest green and clean white brand accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeZkyBeTiwg0GC63xR_q49HM6Hpn5X4-KP1ucM8JM0hs5asgwN9gx8cCJvFwggM_6XjD6yOx9MGmr1p2mtVgW8K-GVsE5BZVl63zejQFZblo8Y_Tgch9X6VeNCMeJ5xr74QRzeZ6GplxL4LjF94d91nxkZGRNXkR2grAxcQlZ3e3vLNRuEKoUH5McfW5nA7hH5khHaaY2zikev11Sago_pGZzWaZCZbBE6NeE2J_kZf8METUB3EwQpTrUKTyi2xs10I7Wj1lUe"/>
+</div>
+</div>
+</nav>
+</header>
+<!-- Dashboard Canvas -->
+<div class="flex-1 overflow-y-auto p-8 space-y-6">
+<!-- KPI Strip -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Revenue KPI -->
+<div class="bg-white p-6 rounded-card shadow-sm border border-outline-variant/30 flex flex-col gap-2 hover:shadow-md transition-shadow relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-24 h-24 bg-success-emerald/5 rounded-full -mr-8 -mt-8"></div>
+<span class="text-outline font-label-sm text-label-sm uppercase tracking-wider">Annual Revenue</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-lg text-headline-lg text-on-surface">$</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">124.5</span>
+<span class="font-headline-lg text-headline-lg text-on-surface">M</span>
+</div>
+<div class="flex items-center gap-2 text-success-emerald text-[12px] font-bold">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+<span>+12.3% YoY</span>
+</div>
+</div>
+<!-- Active Meters KPI -->
+<div class="bg-white p-6 rounded-card shadow-sm border border-outline-variant/30 flex flex-col gap-2 hover:shadow-md transition-shadow">
+<span class="text-outline font-label-sm text-label-sm uppercase tracking-wider">Active Meters</span>
+<div class="font-headline-lg text-headline-lg text-on-surface">88,412</div>
+<div class="flex items-center gap-2 text-success-emerald text-[12px] font-bold">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Active Connection</span>
+</div>
+</div>
+<!-- Grid Health KPI -->
+<div class="bg-white p-6 rounded-card shadow-sm border border-outline-variant/30 flex flex-col gap-2 hover:shadow-md transition-shadow">
+<span class="text-outline font-label-sm text-label-sm uppercase tracking-wider">Grid Health</span>
+<div class="font-headline-lg text-headline-lg text-on-surface">98.2%</div>
+<div class="w-full bg-surface-container rounded-full h-1.5 mt-2">
+<div class="bg-success-emerald h-1.5 rounded-full" style="width: 98.2%"></div>
+</div>
+</div>
+<!-- Pending Approvals KPI -->
+<div class="bg-white p-6 rounded-card shadow-sm border border-outline-variant/30 flex flex-col gap-2 hover:shadow-md transition-shadow border-l-4 border-financial-gold">
+<span class="text-outline font-label-sm text-label-sm uppercase tracking-wider">Pending Approvals</span>
+<div class="font-headline-lg text-headline-lg text-on-surface">14</div>
+<div class="flex items-center gap-2 text-financial-gold text-[12px] font-bold">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+<span>Action Required</span>
+</div>
+</div>
+</div>
+<!-- Analytics Layer: Bento Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Revenue vs Collection Bar Chart -->
+<div class="col-span-12 lg:col-span-8 bg-white p-6 rounded-card shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-[18px] font-bold text-on-surface">Revenue vs. Collection</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1.5 text-label-sm text-outline font-label-sm">
+<span class="w-3 h-3 bg-primary rounded-full"></span> Revenue
+                            </span>
+<span class="flex items-center gap-1.5 text-label-sm text-outline font-label-sm">
+<span class="w-3 h-3 bg-secondary-container rounded-full"></span> Collection
+                            </span>
+</div>
+</div>
+<div class="h-64 w-full flex items-end justify-between gap-4 px-2">
+<!-- Simulated Bar Chart -->
+<div class="flex flex-col gap-1 w-full items-center group">
+<div class="flex gap-1 items-end h-48 w-full">
+<div class="w-1/2 bg-primary rounded-t-sm transition-all hover:opacity-80" style="height: 70%"></div>
+<div class="w-1/2 bg-secondary-container rounded-t-sm transition-all hover:opacity-80" style="height: 62%"></div>
+</div>
+<span class="text-[10px] text-outline font-label-sm">JAN</span>
+</div>
+<div class="flex flex-col gap-1 w-full items-center group">
+<div class="flex gap-1 items-end h-48 w-full">
+<div class="w-1/2 bg-primary rounded-t-sm" style="height: 85%"></div>
+<div class="w-1/2 bg-secondary-container rounded-t-sm" style="height: 78%"></div>
+</div>
+<span class="text-[10px] text-outline font-label-sm">FEB</span>
+</div>
+<div class="flex flex-col gap-1 w-full items-center group">
+<div class="flex gap-1 items-end h-48 w-full">
+<div class="w-1/2 bg-primary rounded-t-sm" style="height: 60%"></div>
+<div class="w-1/2 bg-secondary-container rounded-t-sm" style="height: 55%"></div>
+</div>
+<span class="text-[10px] text-outline font-label-sm">MAR</span>
+</div>
+<div class="flex flex-col gap-1 w-full items-center group">
+<div class="flex gap-1 items-end h-48 w-full">
+<div class="w-1/2 bg-primary rounded-t-sm" style="height: 95%"></div>
+<div class="w-1/2 bg-secondary-container rounded-t-sm" style="height: 90%"></div>
+</div>
+<span class="text-[10px] text-outline font-label-sm">APR</span>
+</div>
+<div class="flex flex-col gap-1 w-full items-center group">
+<div class="flex gap-1 items-end h-48 w-full">
+<div class="w-1/2 bg-primary rounded-t-sm" style="height: 80%"></div>
+<div class="w-1/2 bg-secondary-container rounded-t-sm" style="height: 75%"></div>
+</div>
+<span class="text-[10px] text-outline font-label-sm">MAY</span>
+</div>
+<div class="flex flex-col gap-1 w-full items-center group">
+<div class="flex gap-1 items-end h-48 w-full">
+<div class="w-1/2 bg-primary rounded-t-sm" style="height: 88%"></div>
+<div class="w-1/2 bg-secondary-container rounded-t-sm" style="height: 82%"></div>
+</div>
+<span class="text-[10px] text-outline font-label-sm">JUN</span>
+</div>
+</div>
+</div>
+<!-- Regional Consumption Treemap -->
+<div class="col-span-12 lg:col-span-4 bg-white p-6 rounded-card shadow-sm border border-outline-variant/30 flex flex-col">
+<h3 class="font-headline-md text-[18px] font-bold text-on-surface mb-6">Regional Consumption</h3>
+<div class="flex-1 grid grid-cols-3 grid-rows-3 gap-2">
+<div class="col-span-2 row-span-2 bg-primary/20 rounded-lg p-3 flex flex-col justify-between hover:bg-primary/30 transition-colors border border-primary/20">
+<span class="text-primary font-bold text-[14px]">North East</span>
+<span class="text-on-surface font-label-sm">42.4 GW</span>
+</div>
+<div class="bg-secondary-container/20 rounded-lg p-3 flex flex-col justify-between hover:bg-secondary-container/30 transition-colors border border-secondary-container/20">
+<span class="text-secondary font-bold text-[12px]">Central</span>
+<span class="text-on-surface font-label-sm text-[10px]">18.1 GW</span>
+</div>
+<div class="bg-water-cyan/20 rounded-lg p-3 flex flex-col justify-between hover:bg-water-cyan/30 transition-colors border border-water-cyan/20">
+<span class="text-on-surface-variant font-bold text-[12px]">Coastal</span>
+<span class="text-on-surface font-label-sm text-[10px]">12.5 GW</span>
+</div>
+<div class="col-span-3 bg-surface-container-high/40 rounded-lg p-3 flex items-center justify-between hover:bg-surface-container-high/60 transition-colors border border-outline-variant/20">
+<span class="text-outline font-bold text-[12px]">Special Zones</span>
+<span class="text-on-surface font-label-sm text-[12px]">2.2 GW</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Anomalies Table -->
+<div class="bg-white rounded-card shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-6 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low/30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-industrial-red/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-industrial-red text-[20px]">warning</span>
+</div>
+<h3 class="font-headline-md text-[18px] font-bold text-on-surface">Active Grid Anomalies</h3>
+</div>
+<button class="text-primary hover:bg-primary/10 px-4 py-2 rounded-button font-label-md transition-all flex items-center gap-2">
+                        View All Events <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="text-outline font-label-sm text-[12px] bg-surface-container/20">
+<th class="px-6 py-4">TIMESTAMP</th>
+<th class="px-6 py-4">EVENT TYPE</th>
+<th class="px-6 py-4">NODE / METER ID</th>
+<th class="px-6 py-4">REGION</th>
+<th class="px-6 py-4">SEVERITY</th>
+<th class="px-6 py-4">STATUS</th>
+</tr>
+</thead>
+<tbody class="text-body-md divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4 text-outline font-label-sm">14:22:15</td>
+<td class="px-6 py-4 font-bold text-on-surface">Voltage Surge</td>
+<td class="px-6 py-4 font-label-sm">#MTR-88219</td>
+<td class="px-6 py-4">North East District</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold uppercase">Critical</span>
+</td>
+<td class="px-6 py-4 flex items-center gap-2">
+<span class="w-2 h-2 bg-industrial-red rounded-full animate-pulse"></span> Investigating
+                                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4 text-outline font-label-sm">14:18:42</td>
+<td class="px-6 py-4 font-bold text-on-surface">Connectivity Lost</td>
+<td class="px-6 py-4 font-label-sm">#MTR-90045</td>
+<td class="px-6 py-4">Central Hub</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-surface-container-high text-on-surface-variant rounded-full text-[10px] font-bold uppercase">Minor</span>
+</td>
+<td class="px-6 py-4 flex items-center gap-2">
+<span class="w-2 h-2 bg-financial-gold rounded-full"></span> Auto-healing
+                                </td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-6 py-4 text-outline font-label-sm">13:55:01</td>
+<td class="px-6 py-4 font-bold text-on-surface">Unauthorized Access</td>
+<td class="px-6 py-4 font-label-sm">#NODE-V4</td>
+<td class="px-6 py-4">Coastal Industrial</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 bg-on-tertiary-fixed-variant/10 text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold uppercase">High</span>
+</td>
+<td class="px-6 py-4 flex items-center gap-2">
+<span class="w-2 h-2 bg-outline rounded-full"></span> Security Notified
+                                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Micro-interaction for CMD+K search focus
+        document.addEventListener('keydown', function(e) {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.querySelector('input[type="text"]').focus();
+            }
+        });
+
+        // Simulating live data updates
+        setInterval(() => {
+            const gridHealth = (98.0 + Math.random() * 0.4).toFixed(1);
+            const healthText = document.querySelector('.grid-health-val');
+            if(healthText) healthText.innerText = gridHealth + '%';
+        }, 5000);
+    </script>
+</body></html>

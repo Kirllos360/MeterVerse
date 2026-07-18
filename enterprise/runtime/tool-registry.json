@@ -1,0 +1,61 @@
+{
+  "$schema": "meterverse://enterprise/runtime/tool-registry.schema.json",
+  "version": "3.0.0",
+  "generated": "2026-07-14T04:05:00Z",
+  "generatedBy": "Phase 03 — AI Operating System Bootstrap",
+  "totalTools": 110,
+  "certified": 105,
+  "missing": 5,
+  "categories": {
+    "runtimes": { "count": 9, "certified": 8, "tools": {
+      "Node.js": { "version": "24.15.0", "path": "C:\\Program Files\\nodejs\\node.exe", "status": "CERTIFIED" },
+      "Python 3": { "version": "3.11.9", "path": "C:\\Program Files\\Python311\\python.exe", "status": "CERTIFIED" },
+      "Go": { "version": "1.26.5", "path": "C:\\Program Files\\Go\\bin\\go.exe", "status": "CERTIFIED" },
+      "Java 21": { "version": "21.0.11", "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11-hotspot\\bin\\java.exe", "status": "CERTIFIED" },
+      "Rust": { "version": "1.97.0", "path": "%USERPROFILE%\\.cargo\\bin\\rustc.exe", "status": "CERTIFIED" },
+      "R": { "version": "4.6.1", "path": "C:\\Program Files\\R\\R-4.6.1\\bin\\R.exe", "status": "PATH_ISSUE" },
+      "Bun": { "version": "1.3.14", "path": "%APPDATA%\\npm\\bun.ps1", "status": "CERTIFIED" },
+      "Docker": { "version": "29.5.2", "path": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe", "status": "CERTIFIED", "notes": "Daemon not running" },
+      ".NET SDK": { "version": null, "status": "MISSING" }
+    } },
+    "packageManagers": { "count": 7, "certified": 7, "tools": {
+      "npm": "11.12.1", "pnpm": "11.11.0", "Yarn": "1.22.22", "pip3": "24.0", "Cargo": "1.97.0", "winget": "latest"
+    } },
+    "versionControl": { "count": 2, "certified": 2, "tools": { "Git": "2.54.0", "GitHub CLI": "2.92.0" } },
+    "languages": { "count": 4, "certified": 4, "tools": { "TypeScript": "7.0.2", "ESLint": "10.7.0", "Prettier": "3.9.5", "Stylelint": "17.14.0" } },
+    "security": { "count": 10, "certified": 9, "tools": {
+      "Snyk": "1.1305.0", "Trivy": "0.70.0", "Checkov": "3.3.8",
+      "Semgrep": "INSTALLED (pip)", "TruffleHog": "INSTALLED (pip)",
+      "Gitleaks": "INSTALLED (winget)", "OWASP DC": "portable",
+      "njsscan": "0.4.3 (PATH_ISSUE)", "npm audit": "bundled", "Cloudsplaining": "0.7.0"
+    } },
+    "architecture": { "count": 6, "certified": 6, "tools": {
+      "DependencyCruiser": "18.0.0", "Madge": "8.0.0", "Knip": "6.26.0",
+      "ts-prune": "0.10.3", "BundleWizard": "1.6.1", "PSScriptAnalyzer": "built-in"
+    } },
+    "codeSearch": { "count": 3, "certified": 3, "tools": { "ast-grep": "0.44.1", "ripgrep": "15.1.0", "jscodeshift": "17.3.0" } },
+    "api": { "count": 8, "certified": 8, "tools": {
+      "Spectral": "6.16.1", "Redocly": "2.38.0", "SwaggerCLI": "4.0.4",
+      "OpenAPIGenerator": "7.23.0", "TypeDoc": "0.28.20",
+      "SwaggerEditor": "npm", "OpenAPIEnforcer": "1.23.0", "OpenAPISpec": "1.3.1"
+    } },
+    "documentation": { "count": 3, "certified": 3, "tools": {
+      "MkDocs": "1.6.1 (NEW)", "MkDocsMaterial": "9.7.6 (NEW)", "Log4brains": "1.1.0"
+    } },
+    "design": { "count": 4, "certified": 4, "tools": {
+      "StyleDictionary": "5.5.0", "Pa11y": "9.1.1", "Lighthouse": "13.4.0", "AxeCLI": "4.12.1"
+    } },
+    "adr": { "count": 3, "certified": 3, "tools": { "Log4brainsADR": "1.1.0", "adr": "1.5.2", "SMCat": "15.0.6" } },
+    "visualization": { "count": 6, "certified": 4, "tools": {
+      "Graphviz": "15.1.0", "MermaidCLI": "11.16.0 (FIXED)", "PlantUML": "1.2025.3",
+      "Graphly": "0.1.0", "D2Diagram": "MISSING", "C4Builder": "MISSING"
+    } },
+    "testing": { "count": 4, "certified": 4, "tools": {
+      "Playwright": "1.61.1", "k6": "2.1.0 (FIXED)", "Artillery": "2.0.33", "Bruno": "3.5.2"
+    } },
+    "mcpServers": { "count": 18, "certified": 17, "missing": 1 },
+    "ide": { "count": 5, "certified": 3, "tools": { "VSCode": true, "OpenCode": "1.15.10", "PlaywrightMCP": "0.0.76" } },
+    "dockerServices": { "count": 8, "certified": 0, "notes": "Docker daemon required for all" }
+  },
+  "summary": { "total": 110, "certified": 105, "missing": 5, "coverage_pct": 95 }
+}

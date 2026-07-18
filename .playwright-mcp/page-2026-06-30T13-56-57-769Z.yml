@@ -1,0 +1,204 @@
+- generic [active] [ref=f14e1]:
+  - banner [ref=f14e2]:
+    - generic [ref=f14e5]:
+      - generic [ref=f14e6]:
+        - link "+20 12 1149 2222" [ref=f14e7] [cursor=pointer]:
+          - /url: tel:+20 12 1149 2222
+          - img [ref=f14e8]
+          - text: +20 12 1149 2222
+        - link "info@epower.eg" [ref=f14e10] [cursor=pointer]:
+          - /url: mailto:info@epower.eg
+          - img [ref=f14e11]
+          - text: info@epower.eg
+      - link "My Account" [ref=f14e14] [cursor=pointer]:
+        - /url: /en/my-account
+        - img [ref=f14e15]
+        - text: My Account
+    - generic [ref=f14e18]:
+      - link "epower" [ref=f14e19] [cursor=pointer]:
+        - /url: /en
+        - img "epower" [ref=f14e21]
+      - button [ref=f14e23]:
+        - img [ref=f14e24]
+  - main [ref=f14e26]:
+    - main [ref=f14e27]:
+      - generic [ref=f14e32]:
+        - generic [ref=f14e34]: Join Our Team
+        - heading "Build the Future of Energy" [level=1] [ref=f14e36]:
+          - generic [ref=f14e37]: Build
+          - generic [ref=f14e38]: the
+          - generic [ref=f14e39]: Future
+          - generic [ref=f14e40]: of
+          - generic [ref=f14e41]: Energy
+        - paragraph [ref=f14e42]: Be part of something bigger. Help us power a sustainable world.
+      - generic [ref=f14e48]:
+        - generic [ref=f14e49]:
+          - img [ref=f14e51]
+          - paragraph [ref=f14e56]: 150+
+          - paragraph [ref=f14e57]: Team Members
+        - generic [ref=f14e58]:
+          - img [ref=f14e60]
+          - paragraph [ref=f14e64]: "5"
+          - paragraph [ref=f14e65]: Locations
+        - generic [ref=f14e66]:
+          - img [ref=f14e68]
+          - paragraph [ref=f14e71]: 40%
+          - paragraph [ref=f14e72]: Annual Growth
+        - generic [ref=f14e73]:
+          - img [ref=f14e75]
+          - paragraph [ref=f14e77]: "4.8"
+          - paragraph [ref=f14e78]: Glassdoor Rating
+      - generic [ref=f14e83]:
+        - generic [ref=f14e84]:
+          - generic [ref=f14e85]:
+            - img [ref=f14e86]
+            - text: Open Positions
+          - heading "Find Your Perfect Role" [level=2] [ref=f14e88]
+        - button "All Departments" [ref=f14e90]
+      - generic [ref=f14e120]:
+        - generic [ref=f14e121]:
+          - heading "Why Join epower?" [level=2] [ref=f14e122]
+          - paragraph [ref=f14e123]: We're not just building a company—we're building a movement toward sustainable energy for everyone.
+        - generic [ref=f14e124]:
+          - generic [ref=f14e125]:
+            - img [ref=f14e127]
+            - heading "Impact-Driven Work" [level=3] [ref=f14e129]
+            - paragraph [ref=f14e130]: Every project contributes to a cleaner, more sustainable future. Your work directly impacts the lives of millions.
+          - generic [ref=f14e131]:
+            - img [ref=f14e133]
+            - heading "Growth Opportunities" [level=3] [ref=f14e135]
+            - paragraph [ref=f14e136]: We invest in our people with training, mentorship, and clear career paths to help you reach your full potential.
+          - generic [ref=f14e137]:
+            - img [ref=f14e139]
+            - heading "Inclusive Culture" [level=3] [ref=f14e141]
+            - paragraph [ref=f14e142]: We celebrate diversity and foster an environment where everyone can bring their authentic selves to work.
+  - contentinfo [ref=f14e143]:
+    - generic [ref=f14e146]:
+      - generic [ref=f14e147]:
+        - heading "Stay Updated with Logo" [level=3] [ref=f14e148]:
+          - text: Stay Updated with
+          - img "Logo" [ref=f14e149]
+        - paragraph [ref=f14e150]: Subscribe to our newsletter for the latest energy insights and updates.
+      - generic [ref=f14e152]:
+        - textbox "Enter your email" [ref=f14e154]
+        - button "Subscribe" [ref=f14e155]:
+          - text: Subscribe
+          - img [ref=f14e156]
+    - generic [ref=f14e159]:
+      - generic [ref=f14e160]:
+        - link "epower" [ref=f14e161] [cursor=pointer]:
+          - /url: /en
+          - img "epower" [ref=f14e162]
+        - paragraph [ref=f14e163]: Powering a sustainable future with innovative energy solutions. Leading the transition to clean, renewable energy across Egypt.
+        - link [ref=f14e165] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/epower1/posts/?feedView=all
+          - img [ref=f14e166]
+      - generic [ref=f14e168]:
+        - heading "Services" [level=4] [ref=f14e169]: Services
+        - list [ref=f14e171]:
+          - listitem [ref=f14e172]:
+            - link "Contracting Services" [ref=f14e173] [cursor=pointer]:
+              - /url: /en/services/contracting-services
+              - img [ref=f14e174]
+              - generic [ref=f14e176]: Contracting Services
+          - listitem [ref=f14e177]:
+            - link "Metering Solutions" [ref=f14e178] [cursor=pointer]:
+              - /url: /en/services/metering-solutions
+              - img [ref=f14e179]
+              - generic [ref=f14e181]: Metering Solutions
+          - listitem [ref=f14e182]:
+            - link "Utility Services" [ref=f14e183] [cursor=pointer]:
+              - /url: /en/services/Utility-Services
+              - img [ref=f14e184]
+              - generic [ref=f14e186]: Utility Services
+          - listitem [ref=f14e187]:
+            - link "Facility Management" [ref=f14e188] [cursor=pointer]:
+              - /url: /en/services/facility-management
+              - img [ref=f14e189]
+              - generic [ref=f14e191]: Facility Management
+      - generic [ref=f14e192]:
+        - heading "Company" [level=4] [ref=f14e193]: Company
+        - list [ref=f14e195]:
+          - listitem [ref=f14e196]:
+            - link "About Us" [ref=f14e197] [cursor=pointer]:
+              - /url: /en/about
+              - img [ref=f14e198]
+              - generic [ref=f14e200]: About Us
+          - listitem [ref=f14e201]:
+            - link "Charging" [ref=f14e202] [cursor=pointer]:
+              - /url: /en/charging
+              - img [ref=f14e203]
+              - generic [ref=f14e205]: Charging
+          - listitem [ref=f14e206]:
+            - link "Careers" [ref=f14e207] [cursor=pointer]:
+              - /url: /en/careers
+              - img [ref=f14e208]
+              - generic [ref=f14e210]: Careers
+          - listitem [ref=f14e211]:
+            - link "Blogs" [ref=f14e212] [cursor=pointer]:
+              - /url: /en/blog
+              - img [ref=f14e213]
+              - generic [ref=f14e215]: Blogs
+          - listitem [ref=f14e216]:
+            - link "Contact" [ref=f14e217] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f14e218]
+              - generic [ref=f14e220]: Contact
+      - generic [ref=f14e221]:
+        - heading "Resources" [level=4] [ref=f14e222]: Resources
+        - list [ref=f14e224]:
+          - listitem [ref=f14e225]:
+            - link "Projects" [ref=f14e226] [cursor=pointer]:
+              - /url: /en/projects
+              - img [ref=f14e227]
+              - generic [ref=f14e229]: Projects
+          - listitem [ref=f14e230]:
+            - link "My Account" [ref=f14e231] [cursor=pointer]:
+              - /url: /en/my-account
+              - img [ref=f14e232]
+              - generic [ref=f14e234]: My Account
+          - listitem [ref=f14e235]:
+            - link "New Customer" [ref=f14e236] [cursor=pointer]:
+              - /url: /en/contract
+              - img [ref=f14e237]
+              - generic [ref=f14e239]: New Customer
+          - listitem [ref=f14e240]:
+            - link "FAQs" [ref=f14e241] [cursor=pointer]:
+              - /url: /en/faqs
+              - img [ref=f14e242]
+              - generic [ref=f14e244]: FAQs
+          - listitem [ref=f14e245]:
+            - link "Support" [ref=f14e246] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f14e247]
+              - generic [ref=f14e249]: Support
+      - generic [ref=f14e250]:
+        - heading "Contact" [level=4] [ref=f14e251]: Contact
+        - list [ref=f14e253]:
+          - listitem [ref=f14e254]:
+            - img [ref=f14e255]
+            - generic [ref=f14e258]: Palm Hills, 6th Of October, Golf Central Mall, Building B2, D2, 33F
+          - listitem [ref=f14e259]:
+            - link "+20 12 1149 2222" [ref=f14e260] [cursor=pointer]:
+              - /url: tel:+20 12 1149 2222
+              - img [ref=f14e261]
+              - generic [ref=f14e263]: +20 12 1149 2222
+          - listitem [ref=f14e264]:
+            - link "info@epower.eg" [ref=f14e265] [cursor=pointer]:
+              - /url: mailto:info@epower.eg
+              - img [ref=f14e266]
+              - generic [ref=f14e268]: info@epower.eg
+    - generic [ref=f14e271]:
+      - paragraph [ref=f14e272]:
+        - text: © 2026
+        - img "Logo" [ref=f14e273]
+        - text: . All rights reserved.
+      - generic [ref=f14e274]:
+        - link "Privacy Policy" [ref=f14e275] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=f14e276] [cursor=pointer]:
+          - /url: /en/terms
+        - link "Cookie Policy" [ref=f14e277] [cursor=pointer]:
+          - /url: /en/cookies
+  - button [ref=f14e278]:
+    - img [ref=f14e279]

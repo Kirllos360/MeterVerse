@@ -1,0 +1,95 @@
+[    1370ms] [LOG] Application started @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[    1545ms] [LOG] Opening Web Socket... @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[    2453ms] [LOG] Opening Web Socket... @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[    2566ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/websocket/tracker/info?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw&t=1781934950965:0
+[    2636ms] [LOG] Whoops! Lost connection to http://10.50.30.2:9999/websocket/tracker?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw: {event: a} @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[    2695ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/websocket/tracker/info?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw&t=1781934952052:0
+[    2709ms] [LOG] Whoops! Lost connection to http://10.50.30.2:9999/websocket/tracker?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw: {event: a} @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[   50721ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   50963ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   53108ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   53342ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   55484ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   55732ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   57865ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   58133ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   60252ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   60531ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   62636ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   62904ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   65000ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   65279ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   67367ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   67665ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   69739ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   70050ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   72103ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   72417ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   74478ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   74821ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   76882ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   77194ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   79242ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   79554ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   81606ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   81916ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   84011ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   84282ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   86401ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   86663ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   88777ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   89046ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   91158ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   91408ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   93553ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   93777ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   95973ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   96176ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   98345ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[   98548ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  100708ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  100894ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  103062ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  103267ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  105452ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  105623ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  107860ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  108013ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  110245ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  110386ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  112637ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  112745ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  115010ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  115106ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  117411ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  117476ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  119780ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  119859ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  122156ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  124813ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  125047ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  127199ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  127422ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  129594ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  129794ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  131971ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  132173ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  134334ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  134542ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  136706ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  136937ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  139062ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  139297ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  141408ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  141641ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  143746ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  143994ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  145117ms] [LOG] Application started @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[  145373ms] [LOG] Opening Web Socket... @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[  145432ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/websocket/tracker/info?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw&t=1781935094789:0
+[  145433ms] [LOG] Whoops! Lost connection to http://10.50.30.2:9999/websocket/tracker?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw: {event: a} @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[  146195ms] [LOG] Opening Web Socket... @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[  146398ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/websocket/tracker/info?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw&t=1781935095687:0
+[  146429ms] [LOG] Whoops! Lost connection to http://10.50.30.2:9999/websocket/tracker?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw: {event: a} @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[  198955ms] [LOG] C @ http://10.50.30.2:9999/app/22.533322af03ce50570c4f.chunk.js:0
+[  199092ms] [LOG] C @ http://10.50.30.2:9999/app/22.533322af03ce50570c4f.chunk.js:0

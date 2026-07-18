@@ -1,0 +1,132 @@
+- generic [ref=e7]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - link "Iskraemeco" [ref=e12] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e13]
+      - generic [ref=e14]:
+        - link " Dashboard" [ref=e15]:
+          - /url: "#/"
+          - generic [ref=e16]: 
+          - text: Dashboard
+        - link " Customers" [ref=e17] [cursor=pointer]:
+          - /url: "#/customer"
+          - generic [ref=e18]: 
+          - text: Customers
+        - link " Meters" [ref=e19] [cursor=pointer]:
+          - /url: "#/meter"
+          - generic [ref=e20]: 
+          - text: Meters
+        - link " Early Readings" [ref=e21] [cursor=pointer]:
+          - /url: "#/early-reading/search"
+          - generic [ref=e22]: 
+          - text: Early Readings
+        - link " Units" [ref=e23] [cursor=pointer]:
+          - /url: "#/location"
+          - generic [ref=e24]: 
+          - text: Units
+        - link " Payments" [ref=e25] [cursor=pointer]:
+          - /url: "#/payment/new"
+          - generic [ref=e26]: 
+          - text: Payments
+        - link " Invoices" [ref=e27] [cursor=pointer]:
+          - /url: "#/invoice"
+          - generic [ref=e28]: 
+          - text: Invoices
+        - link " Tariff" [ref=e29] [cursor=pointer]:
+          - /url: "#/tariff"
+          - generic [ref=e30]: 
+          - text: Tariff
+        - link " History" [ref=e31] [cursor=pointer]:
+          - /url: "#/payment"
+          - generic [ref=e32]: 
+          - text: History
+        - link " Reports" [ref=e33] [cursor=pointer]:
+          - /url: "#/reports"
+          - generic [ref=e34]: 
+          - text: Reports
+        - link " Data Upload" [ref=e35] [cursor=pointer]:
+          - /url: "#/data-upload"
+          - generic [ref=e36]: 
+          - text: Data Upload
+        - link " Running Activities" [ref=e37] [cursor=pointer]:
+          - /url: "#/running-activities"
+          - generic [ref=e38]: 
+          - text: Running Activities
+    - generic [ref=e39]:
+      - banner [ref=e41]:
+        - navigation [ref=e42]:
+          - link "Smart Meters Billing vDEV" [ref=e43] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - button "Toggle navigation" [ref=e45] [cursor=pointer]
+          - text:  
+      - generic [ref=e47]:
+        - link "Dashboard" [ref=e51] [cursor=pointer]:
+          - /url: javascript:void(0);
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - generic [ref=e56]:
+              - heading "Customers" [level=5] [ref=e57]
+              - heading "1422" [level=1] [ref=e58]
+            - generic [ref=e61]:
+              - heading "Meters" [level=5] [ref=e62]
+              - heading "2913" [level=1] [ref=e63]
+            - generic [ref=e66]:
+              - heading "Invoices (EGP)" [level=5] [ref=e67]
+              - heading "163,626,757" [level=1] [ref=e68]
+          - generic [ref=e69]:
+            - generic [ref=e72]:
+              - img [ref=e74]
+              - generic [ref=e86]:
+                - generic [ref=e87]: 1,422
+                - generic [ref=e88]: Total
+                - generic [ref=e90]:
+                  - generic [ref=e91] [cursor=pointer]:
+                    - generic [ref=e93]: 1,421
+                    - generic [ref=e94]: ACTIVE
+                    - generic [ref=e95]: 100%
+                  - generic [ref=e96] [cursor=pointer]:
+                    - generic [ref=e98]: "1"
+                    - generic [ref=e99]: INACTIVE
+                    - generic [ref=e100]: 0.07%
+                  - generic [ref=e101] [cursor=pointer]:
+                    - generic [ref=e103]: "0"
+                    - generic [ref=e104]: NEW
+                    - generic [ref=e105]: 0%
+            - generic [ref=e108]:
+              - img [ref=e110]
+              - generic [ref=e126]:
+                - generic [ref=e127]: 2,913
+                - generic [ref=e128]: Total
+                - generic [ref=e130]:
+                  - generic [ref=e131] [cursor=pointer]:
+                    - generic [ref=e133]: 2,888
+                    - generic [ref=e134]: ACTIVE
+                    - generic [ref=e135]: 99%
+                  - generic [ref=e136] [cursor=pointer]:
+                    - generic [ref=e138]: "2"
+                    - generic [ref=e139]: INACTIVE
+                    - generic [ref=e140]: 0.07%
+                  - generic [ref=e141] [cursor=pointer]:
+                    - generic [ref=e143]: "23"
+                    - generic [ref=e144]: NEW
+                    - generic [ref=e145]: 0.79%
+            - generic [ref=e148]:
+              - img [ref=e150]
+              - generic [ref=e162]:
+                - generic [ref=e163]: 163,626,757
+                - generic [ref=e164]: Total
+                - generic [ref=e166]:
+                  - generic [ref=e167] [cursor=pointer]:
+                    - generic [ref=e169]: 147,860,893
+                    - generic [ref=e170]: Paid Amount
+                    - generic [ref=e171]: 90%
+                  - generic [ref=e172] [cursor=pointer]:
+                    - generic [ref=e174]: 15,765,864
+                    - generic [ref=e175]: Open Amount
+                    - generic [ref=e176]: 9.64%

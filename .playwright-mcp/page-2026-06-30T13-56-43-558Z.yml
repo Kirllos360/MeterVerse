@@ -1,0 +1,189 @@
+- generic [active] [ref=f13e1]:
+  - banner [ref=f13e2]:
+    - generic [ref=f13e5]:
+      - generic [ref=f13e6]:
+        - link "+20 12 1149 2222" [ref=f13e7] [cursor=pointer]:
+          - /url: tel:+20 12 1149 2222
+          - img [ref=f13e8]
+          - text: +20 12 1149 2222
+        - link "info@epower.eg" [ref=f13e10] [cursor=pointer]:
+          - /url: mailto:info@epower.eg
+          - img [ref=f13e11]
+          - text: info@epower.eg
+      - link "My Account" [ref=f13e14] [cursor=pointer]:
+        - /url: /en/my-account
+        - img [ref=f13e15]
+        - text: My Account
+    - generic [ref=f13e18]:
+      - link "epower" [ref=f13e19] [cursor=pointer]:
+        - /url: /en
+        - img "epower" [ref=f13e21]
+      - button [ref=f13e23]:
+        - img [ref=f13e24]
+  - main [ref=f13e26]:
+    - main [ref=f13e27]:
+      - generic [ref=f13e32]:
+        - generic [ref=f13e34]: Charging Solutions
+        - heading "Smart Charging" [level=1] [ref=f13e36]:
+          - generic [ref=f13e37]: Smart
+          - generic [ref=f13e38]: Charging
+        - paragraph [ref=f13e39]: Take control of your energy with our smart metering solutions and advanced charging infrastructure.
+      - generic [ref=f13e45]:
+        - generic [ref=f13e47]: Our Services
+        - heading "Energy Management" [level=2] [ref=f13e49]
+        - paragraph [ref=f13e50]: Discover our comprehensive range of smart energy solutions designed to help you take control of your consumption.
+      - generic [ref=f13e62]:
+        - generic [ref=f13e63]:
+          - generic [ref=f13e64]:
+            - img [ref=f13e65]
+            - generic [ref=f13e68]: Why Choose Us
+          - heading "Smart Energy Benefits" [level=2] [ref=f13e69]
+          - paragraph [ref=f13e70]: Our smart metering solutions offer numerous advantages for your home or business.
+        - generic [ref=f13e71]:
+          - generic [ref=f13e72]:
+            - generic [ref=f13e73]: 📊
+            - heading "Accurate Billing" [level=3] [ref=f13e74]
+            - paragraph [ref=f13e75]: No more estimated bills
+          - generic [ref=f13e76]:
+            - generic [ref=f13e77]: 📱
+            - heading "Real-time Data" [level=3] [ref=f13e78]
+            - paragraph [ref=f13e79]: Monitor consumption anytime
+          - generic [ref=f13e80]:
+            - generic [ref=f13e81]: 💡
+            - heading "Energy Savings" [level=3] [ref=f13e82]
+            - paragraph [ref=f13e83]: Identify waste patterns
+          - generic [ref=f13e84]:
+            - generic [ref=f13e85]: 🌱
+            - heading "Eco-Friendly" [level=3] [ref=f13e86]
+            - paragraph [ref=f13e87]: Reduce carbon footprint
+  - contentinfo [ref=f13e88]:
+    - generic [ref=f13e91]:
+      - generic [ref=f13e92]:
+        - heading "Stay Updated with Logo" [level=3] [ref=f13e93]:
+          - text: Stay Updated with
+          - img "Logo" [ref=f13e94]
+        - paragraph [ref=f13e95]: Subscribe to our newsletter for the latest energy insights and updates.
+      - generic [ref=f13e97]:
+        - textbox "Enter your email" [ref=f13e99]
+        - button "Subscribe" [ref=f13e100]:
+          - text: Subscribe
+          - img [ref=f13e101]
+    - generic [ref=f13e104]:
+      - generic [ref=f13e105]:
+        - link "epower" [ref=f13e106] [cursor=pointer]:
+          - /url: /en
+          - img "epower" [ref=f13e107]
+        - paragraph [ref=f13e108]: Powering a sustainable future with innovative energy solutions. Leading the transition to clean, renewable energy across Egypt.
+        - link [ref=f13e110] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/epower1/posts/?feedView=all
+          - img [ref=f13e111]
+      - generic [ref=f13e113]:
+        - heading "Services" [level=4] [ref=f13e114]: Services
+        - list [ref=f13e116]:
+          - listitem [ref=f13e117]:
+            - link "Contracting Services" [ref=f13e118] [cursor=pointer]:
+              - /url: /en/services/contracting-services
+              - img [ref=f13e119]
+              - generic [ref=f13e121]: Contracting Services
+          - listitem [ref=f13e122]:
+            - link "Metering Solutions" [ref=f13e123] [cursor=pointer]:
+              - /url: /en/services/metering-solutions
+              - img [ref=f13e124]
+              - generic [ref=f13e126]: Metering Solutions
+          - listitem [ref=f13e127]:
+            - link "Utility Services" [ref=f13e128] [cursor=pointer]:
+              - /url: /en/services/Utility-Services
+              - img [ref=f13e129]
+              - generic [ref=f13e131]: Utility Services
+          - listitem [ref=f13e132]:
+            - link "Facility Management" [ref=f13e133] [cursor=pointer]:
+              - /url: /en/services/facility-management
+              - img [ref=f13e134]
+              - generic [ref=f13e136]: Facility Management
+      - generic [ref=f13e137]:
+        - heading "Company" [level=4] [ref=f13e138]: Company
+        - list [ref=f13e140]:
+          - listitem [ref=f13e141]:
+            - link "About Us" [ref=f13e142] [cursor=pointer]:
+              - /url: /en/about
+              - img [ref=f13e143]
+              - generic [ref=f13e145]: About Us
+          - listitem [ref=f13e146]:
+            - link "Charging" [ref=f13e147] [cursor=pointer]:
+              - /url: /en/charging
+              - img [ref=f13e148]
+              - generic [ref=f13e150]: Charging
+          - listitem [ref=f13e151]:
+            - link "Careers" [ref=f13e152] [cursor=pointer]:
+              - /url: /en/careers
+              - img [ref=f13e153]
+              - generic [ref=f13e155]: Careers
+          - listitem [ref=f13e156]:
+            - link "Blogs" [ref=f13e157] [cursor=pointer]:
+              - /url: /en/blog
+              - img [ref=f13e158]
+              - generic [ref=f13e160]: Blogs
+          - listitem [ref=f13e161]:
+            - link "Contact" [ref=f13e162] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f13e163]
+              - generic [ref=f13e165]: Contact
+      - generic [ref=f13e166]:
+        - heading "Resources" [level=4] [ref=f13e167]: Resources
+        - list [ref=f13e169]:
+          - listitem [ref=f13e170]:
+            - link "Projects" [ref=f13e171] [cursor=pointer]:
+              - /url: /en/projects
+              - img [ref=f13e172]
+              - generic [ref=f13e174]: Projects
+          - listitem [ref=f13e175]:
+            - link "My Account" [ref=f13e176] [cursor=pointer]:
+              - /url: /en/my-account
+              - img [ref=f13e177]
+              - generic [ref=f13e179]: My Account
+          - listitem [ref=f13e180]:
+            - link "New Customer" [ref=f13e181] [cursor=pointer]:
+              - /url: /en/contract
+              - img [ref=f13e182]
+              - generic [ref=f13e184]: New Customer
+          - listitem [ref=f13e185]:
+            - link "FAQs" [ref=f13e186] [cursor=pointer]:
+              - /url: /en/faqs
+              - img [ref=f13e187]
+              - generic [ref=f13e189]: FAQs
+          - listitem [ref=f13e190]:
+            - link "Support" [ref=f13e191] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f13e192]
+              - generic [ref=f13e194]: Support
+      - generic [ref=f13e195]:
+        - heading "Contact" [level=4] [ref=f13e196]: Contact
+        - list [ref=f13e198]:
+          - listitem [ref=f13e199]:
+            - img [ref=f13e200]
+            - generic [ref=f13e203]: Palm Hills, 6th Of October, Golf Central Mall, Building B2, D2, 33F
+          - listitem [ref=f13e204]:
+            - link "+20 12 1149 2222" [ref=f13e205] [cursor=pointer]:
+              - /url: tel:+20 12 1149 2222
+              - img [ref=f13e206]
+              - generic [ref=f13e208]: +20 12 1149 2222
+          - listitem [ref=f13e209]:
+            - link "info@epower.eg" [ref=f13e210] [cursor=pointer]:
+              - /url: mailto:info@epower.eg
+              - img [ref=f13e211]
+              - generic [ref=f13e213]: info@epower.eg
+    - generic [ref=f13e216]:
+      - paragraph [ref=f13e217]:
+        - text: © 2026
+        - img "Logo" [ref=f13e218]
+        - text: . All rights reserved.
+      - generic [ref=f13e219]:
+        - link "Privacy Policy" [ref=f13e220] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=f13e221] [cursor=pointer]:
+          - /url: /en/terms
+        - link "Cookie Policy" [ref=f13e222] [cursor=pointer]:
+          - /url: /en/cookies
+  - button [ref=f13e223]:
+    - img [ref=f13e224]
+  - alert [ref=f13e226]

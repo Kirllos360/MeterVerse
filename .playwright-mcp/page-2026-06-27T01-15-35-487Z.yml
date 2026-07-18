@@ -1,0 +1,362 @@
+- generic [ref=e2]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - link "Iskraemeco" [ref=e12] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e13]
+      - generic [ref=e14]:
+        - link " Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: "#/"
+          - generic [ref=e16]: 
+          - text: Dashboard
+        - link " Customers" [ref=e17] [cursor=pointer]:
+          - /url: "#/customer"
+          - generic [ref=e18]: 
+          - text: Customers
+        - link " Meters" [ref=e19] [cursor=pointer]:
+          - /url: "#/meter"
+          - generic [ref=e20]: 
+          - text: Meters
+        - link " Early Readings" [ref=e21] [cursor=pointer]:
+          - /url: "#/early-reading/search"
+          - generic [ref=e22]: 
+          - text: Early Readings
+        - link " Units" [ref=e23] [cursor=pointer]:
+          - /url: "#/location"
+          - generic [ref=e24]: 
+          - text: Units
+        - link " Payments" [ref=e25] [cursor=pointer]:
+          - /url: "#/payment/new"
+          - generic [ref=e26]: 
+          - text: Payments
+        - link " Invoices" [ref=e27]:
+          - /url: "#/invoice"
+          - generic [ref=e28]: 
+          - text: Invoices
+        - link " Tariff" [ref=e29] [cursor=pointer]:
+          - /url: "#/tariff"
+          - generic [ref=e30]: 
+          - text: Tariff
+        - link " History" [ref=e31] [cursor=pointer]:
+          - /url: "#/payment"
+          - generic [ref=e32]: 
+          - text: History
+        - link " Reports" [ref=e33] [cursor=pointer]:
+          - /url: "#/reports"
+          - generic [ref=e34]: 
+          - text: Reports
+        - link " Data Upload" [ref=e35] [cursor=pointer]:
+          - /url: "#/data-upload"
+          - generic [ref=e36]: 
+          - text: Data Upload
+        - link " Running Activities" [ref=e37] [cursor=pointer]:
+          - /url: "#/running-activities"
+          - generic [ref=e38]: 
+          - text: Running Activities
+    - generic [ref=e39]:
+      - banner [ref=e41]:
+        - navigation [ref=e42]:
+          - link "Smart Meters Billing vDEV" [ref=e43] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - list [ref=e46]:
+            - listitem [ref=e47]:
+              - link "" [ref=e48] [cursor=pointer]:
+                - /url: "#/alerts"
+                - generic [ref=e49]: 
+            - listitem [ref=e50]:
+              - link "" [ref=e51] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=e52]: 
+            - listitem [ref=e53]:
+              - link "admin" [ref=e54] [cursor=pointer]:
+                - /url: javascript:;
+      - generic [ref=e55]:
+        - generic [ref=e57]:
+          - link "All Invoices" [ref=e59] [cursor=pointer]:
+            - /url: javascript:void(0);
+          - generic [ref=e60]:
+            - link " Search" [ref=e61] [cursor=pointer]:
+              - /url: javascript:void(0);
+              - generic [ref=e62]:  Search
+            - generic [ref=e63]:
+              - link "" [ref=e64] [cursor=pointer]:
+                - /url: javascript:void(0);
+                - generic [ref=e65]: 
+              - text: 
+        - text: 
+        - generic [ref=e66]:
+          - table [ref=e67]:
+            - rowgroup [ref=e68]:
+              - row "ID Number Status Serial Issue Date Consumption Date Consumption KWH Amount EGP Paid Amount EGP Open Amount EGP Service" [ref=e69]:
+                - columnheader "ID" [ref=e70]
+                - columnheader "Number" [ref=e71]
+                - columnheader "Status" [ref=e72]
+                - columnheader "Serial" [ref=e73]
+                - columnheader "Issue Date" [ref=e74]:
+                  - generic [ref=e75]:
+                    - text: Issue
+                    - text: Date
+                - columnheader "Consumption Date" [ref=e76]:
+                  - generic [ref=e77]:
+                    - text: Consumption
+                    - text: Date
+                - columnheader "Consumption KWH" [ref=e78]:
+                  - generic [ref=e79]:
+                    - text: Consumption
+                    - text: KWH
+                - columnheader "Amount EGP" [ref=e80]:
+                  - generic [ref=e81]:
+                    - text: Amount
+                    - text: EGP
+                - columnheader "Paid Amount EGP" [ref=e82]:
+                  - generic [ref=e83]:
+                    - text: Paid Amount
+                    - text: EGP
+                - columnheader "Open Amount EGP" [ref=e84]:
+                  - generic [ref=e85]:
+                    - text: Open Amount
+                    - text: EGP
+                - columnheader "Service" [ref=e86]
+                - columnheader [ref=e87]
+            - rowgroup [ref=e88]:
+              - row "33620 2018-11-UUUUUUU1 ACTIVE 52052073 29-10-2019 Nov-18 1,480.711 2,214.13 2,214.13 0.00 ELECTRICITY " [ref=e89]:
+                - cell "33620" [ref=e90]:
+                  - link "33620" [ref=e91] [cursor=pointer]:
+                    - /url: "#/invoice/33620/view"
+                - cell "2018-11-UUUUUUU1" [ref=e92]
+                - cell "ACTIVE" [ref=e93]
+                - cell "52052073" [ref=e94]
+                - cell "29-10-2019" [ref=e95]
+                - cell "Nov-18" [ref=e96]
+                - cell "1,480.711" [ref=e97]
+                - cell "2,214.13" [ref=e98]
+                - cell "2,214.13" [ref=e99]
+                - cell "0.00" [ref=e100]
+                - cell "ELECTRICITY" [ref=e101]
+                - cell "" [ref=e102]:
+                  - generic [ref=e103]:
+                    - link "" [ref=e104] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e105]: 
+                    - text:   
+              - row "33621 2018-11-UUUUUUU2 ACTIVE 52052049 29-10-2019 Nov-18 0 36.01 36.01 0.00 ELECTRICITY " [ref=e106]:
+                - cell "33621" [ref=e107]:
+                  - link "33621" [ref=e108] [cursor=pointer]:
+                    - /url: "#/invoice/33621/view"
+                - cell "2018-11-UUUUUUU2" [ref=e109]
+                - cell "ACTIVE" [ref=e110]
+                - cell "52052049" [ref=e111]
+                - cell "29-10-2019" [ref=e112]
+                - cell "Nov-18" [ref=e113]
+                - cell "0" [ref=e114]
+                - cell "36.01" [ref=e115]
+                - cell "36.01" [ref=e116]
+                - cell "0.00" [ref=e117]
+                - cell "ELECTRICITY" [ref=e118]
+                - cell "" [ref=e119]:
+                  - generic [ref=e120]:
+                    - link "" [ref=e121] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e122]: 
+                    - text:   
+              - row "33622 2018-11-UUUUUUU3 ACTIVE 52052080 29-10-2019 Nov-18 0 36.01 36.01 0.00 ELECTRICITY " [ref=e123]:
+                - cell "33622" [ref=e124]:
+                  - link "33622" [ref=e125] [cursor=pointer]:
+                    - /url: "#/invoice/33622/view"
+                - cell "2018-11-UUUUUUU3" [ref=e126]
+                - cell "ACTIVE" [ref=e127]
+                - cell "52052080" [ref=e128]
+                - cell "29-10-2019" [ref=e129]
+                - cell "Nov-18" [ref=e130]
+                - cell "0" [ref=e131]
+                - cell "36.01" [ref=e132]
+                - cell "36.01" [ref=e133]
+                - cell "0.00" [ref=e134]
+                - cell "ELECTRICITY" [ref=e135]
+                - cell "" [ref=e136]:
+                  - generic [ref=e137]:
+                    - link "" [ref=e138] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e139]: 
+                    - text:   
+              - row "33623 2018-11-UUUUUUU4 ACTIVE 52052082 29-10-2019 Nov-18 19.849 32.42 32.42 0.00 ELECTRICITY " [ref=e140]:
+                - cell "33623" [ref=e141]:
+                  - link "33623" [ref=e142] [cursor=pointer]:
+                    - /url: "#/invoice/33623/view"
+                - cell "2018-11-UUUUUUU4" [ref=e143]
+                - cell "ACTIVE" [ref=e144]
+                - cell "52052082" [ref=e145]
+                - cell "29-10-2019" [ref=e146]
+                - cell "Nov-18" [ref=e147]
+                - cell "19.849" [ref=e148]
+                - cell "32.42" [ref=e149]
+                - cell "32.42" [ref=e150]
+                - cell "0.00" [ref=e151]
+                - cell "ELECTRICITY" [ref=e152]
+                - cell "" [ref=e153]:
+                  - generic [ref=e154]:
+                    - link "" [ref=e155] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e156]: 
+                    - text:   
+              - row "33624 2018-11-UUUUUUU5 ACTIVE 52052084 29-10-2019 Nov-18 1,378.863 2,066.45 2,066.45 0.00 ELECTRICITY " [ref=e157]:
+                - cell "33624" [ref=e158]:
+                  - link "33624" [ref=e159] [cursor=pointer]:
+                    - /url: "#/invoice/33624/view"
+                - cell "2018-11-UUUUUUU5" [ref=e160]
+                - cell "ACTIVE" [ref=e161]
+                - cell "52052084" [ref=e162]
+                - cell "29-10-2019" [ref=e163]
+                - cell "Nov-18" [ref=e164]
+                - cell "1,378.863" [ref=e165]
+                - cell "2,066.45" [ref=e166]
+                - cell "2,066.45" [ref=e167]
+                - cell "0.00" [ref=e168]
+                - cell "ELECTRICITY" [ref=e169]
+                - cell "" [ref=e170]:
+                  - generic [ref=e171]:
+                    - link "" [ref=e172] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e173]: 
+                    - text:   
+              - row "33625 2018-11-UUUUUUU6 ACTIVE 52052090 29-10-2019 Nov-18 158.606 90.20 90.20 0.00 ELECTRICITY " [ref=e174]:
+                - cell "33625" [ref=e175]:
+                  - link "33625" [ref=e176] [cursor=pointer]:
+                    - /url: "#/invoice/33625/view"
+                - cell "2018-11-UUUUUUU6" [ref=e177]
+                - cell "ACTIVE" [ref=e178]
+                - cell "52052090" [ref=e179]
+                - cell "29-10-2019" [ref=e180]
+                - cell "Nov-18" [ref=e181]
+                - cell "158.606" [ref=e182]
+                - cell "90.20" [ref=e183]
+                - cell "90.20" [ref=e184]
+                - cell "0.00" [ref=e185]
+                - cell "ELECTRICITY" [ref=e186]
+                - cell "" [ref=e187]:
+                  - generic [ref=e188]:
+                    - link "" [ref=e189] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e190]: 
+                    - text:   
+              - row "33626 2018-11-UUUUUUU7 ACTIVE 52052089 29-10-2019 Nov-18 567.896 415.21 415.21 0.00 ELECTRICITY " [ref=e191]:
+                - cell "33626" [ref=e192]:
+                  - link "33626" [ref=e193] [cursor=pointer]:
+                    - /url: "#/invoice/33626/view"
+                - cell "2018-11-UUUUUUU7" [ref=e194]
+                - cell "ACTIVE" [ref=e195]
+                - cell "52052089" [ref=e196]
+                - cell "29-10-2019" [ref=e197]
+                - cell "Nov-18" [ref=e198]
+                - cell "567.896" [ref=e199]
+                - cell "415.21" [ref=e200]
+                - cell "415.21" [ref=e201]
+                - cell "0.00" [ref=e202]
+                - cell "ELECTRICITY" [ref=e203]
+                - cell "" [ref=e204]:
+                  - generic [ref=e205]:
+                    - link "" [ref=e206] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e207]: 
+                    - text:   
+              - row "33627 2018-11-UUUUUUU8 ACTIVE 52052092 29-10-2019 Nov-18 0.012 36.01 36.01 0.00 ELECTRICITY " [ref=e208]:
+                - cell "33627" [ref=e209]:
+                  - link "33627" [ref=e210] [cursor=pointer]:
+                    - /url: "#/invoice/33627/view"
+                - cell "2018-11-UUUUUUU8" [ref=e211]
+                - cell "ACTIVE" [ref=e212]
+                - cell "52052092" [ref=e213]
+                - cell "29-10-2019" [ref=e214]
+                - cell "Nov-18" [ref=e215]
+                - cell "0.012" [ref=e216]
+                - cell "36.01" [ref=e217]
+                - cell "36.01" [ref=e218]
+                - cell "0.00" [ref=e219]
+                - cell "ELECTRICITY" [ref=e220]
+                - cell "" [ref=e221]:
+                  - generic [ref=e222]:
+                    - link "" [ref=e223] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e224]: 
+                    - text:   
+              - row "33628 2018-11-UUUUUUU9 ACTIVE 52052060 29-10-2019 Nov-18 619.76 461.88 461.88 0.00 ELECTRICITY " [ref=e225]:
+                - cell "33628" [ref=e226]:
+                  - link "33628" [ref=e227] [cursor=pointer]:
+                    - /url: "#/invoice/33628/view"
+                - cell "2018-11-UUUUUUU9" [ref=e228]
+                - cell "ACTIVE" [ref=e229]
+                - cell "52052060" [ref=e230]
+                - cell "29-10-2019" [ref=e231]
+                - cell "Nov-18" [ref=e232]
+                - cell "619.76" [ref=e233]
+                - cell "461.88" [ref=e234]
+                - cell "461.88" [ref=e235]
+                - cell "0.00" [ref=e236]
+                - cell "ELECTRICITY" [ref=e237]
+                - cell "" [ref=e238]:
+                  - generic [ref=e239]:
+                    - link "" [ref=e240] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e241]: 
+                    - text:   
+              - row "33629 2018-11-UUUUUU10 ACTIVE 52052071 29-10-2019 Nov-18 2,080.731 3,084.16 3,084.16 0.00 ELECTRICITY " [ref=e242]:
+                - cell "33629" [ref=e243]:
+                  - link "33629" [ref=e244] [cursor=pointer]:
+                    - /url: "#/invoice/33629/view"
+                - cell "2018-11-UUUUUU10" [ref=e245]
+                - cell "ACTIVE" [ref=e246]
+                - cell "52052071" [ref=e247]
+                - cell "29-10-2019" [ref=e248]
+                - cell "Nov-18" [ref=e249]
+                - cell "2,080.731" [ref=e250]
+                - cell "3,084.16" [ref=e251]
+                - cell "3,084.16" [ref=e252]
+                - cell "0.00" [ref=e253]
+                - cell "ELECTRICITY" [ref=e254]
+                - cell "" [ref=e255]:
+                  - generic [ref=e256]:
+                    - link "" [ref=e257] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e258]: 
+                    - text:   
+          - navigation [ref=e261]:
+            - list [ref=e262]:
+              - listitem [ref=e263]:
+                - link "First" [disabled]:
+                  - /url: ""
+              - listitem [ref=e264]:
+                - link "Previous" [disabled]:
+                  - /url: ""
+              - listitem [ref=e265]:
+                - link "1 (current)" [ref=e266] [cursor=pointer]:
+                  - /url: ""
+                  - text: "1"
+                  - generic [ref=e267]: (current)
+              - listitem [ref=e268]:
+                - link "2" [ref=e269] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e270]:
+                - link "3" [ref=e271] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e272]:
+                - link "4" [ref=e273] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e274]:
+                - link "5" [ref=e275] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e276]:
+                - generic: ...
+              - listitem [ref=e277]:
+                - link "12939" [ref=e278] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e279]:
+                - link "Next" [ref=e280] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e281]:
+                - link "Last" [ref=e282] [cursor=pointer]:
+                  - /url: ""

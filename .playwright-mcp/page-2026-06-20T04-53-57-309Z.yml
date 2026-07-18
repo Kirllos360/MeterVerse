@@ -1,0 +1,162 @@
+- generic [ref=e2]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e3]:
+    - generic [ref=e40]:
+      - link "Iskraemeco" [ref=e42] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e43]
+      - generic [ref=e44]:
+        - link " Dashboard" [ref=e45] [cursor=pointer]:
+          - /url: "#/"
+          - generic [ref=e46]: 
+          - text: Dashboard
+        - link " Customers" [ref=e47] [cursor=pointer]:
+          - /url: "#/customer"
+          - generic [ref=e48]: 
+          - text: Customers
+        - link " Meters" [ref=e49] [cursor=pointer]:
+          - /url: "#/meter"
+          - generic [ref=e50]: 
+          - text: Meters
+        - link " Early Readings" [ref=e51] [cursor=pointer]:
+          - /url: "#/early-reading/search"
+          - generic [ref=e52]: 
+          - text: Early Readings
+        - link " Units" [ref=e53] [cursor=pointer]:
+          - /url: "#/location"
+          - generic [ref=e54]: 
+          - text: Units
+        - link " Payments" [ref=e55] [cursor=pointer]:
+          - /url: "#/payment/new"
+          - generic [ref=e56]: 
+          - text: Payments
+        - link " Invoices" [ref=e57] [cursor=pointer]:
+          - /url: "#/invoice"
+          - generic [ref=e58]: 
+          - text: Invoices
+        - link " Tariff" [ref=e59] [cursor=pointer]:
+          - /url: "#/tariff"
+          - generic [ref=e60]: 
+          - text: Tariff
+        - link " History" [ref=e61] [cursor=pointer]:
+          - /url: "#/payment"
+          - generic [ref=e62]: 
+          - text: History
+        - link " Reports" [active] [ref=e63]:
+          - /url: "#/reports"
+          - generic [ref=e64]: 
+          - text: Reports
+        - link " Data Upload" [ref=e65] [cursor=pointer]:
+          - /url: "#/data-upload"
+          - generic [ref=e66]: 
+          - text: Data Upload
+        - link " Running Activities" [ref=e67] [cursor=pointer]:
+          - /url: "#/running-activities"
+          - generic [ref=e68]: 
+          - text: Running Activities
+    - generic [ref=e4]:
+      - banner [ref=e70]:
+        - navigation [ref=e71]:
+          - link "Smart Meters Billing vDEV" [ref=e72] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - list [ref=e75]:
+            - listitem [ref=e76]:
+              - link "" [ref=e77] [cursor=pointer]:
+                - /url: "#/alerts"
+                - generic [ref=e78]: 
+            - listitem [ref=e79]:
+              - link "" [ref=e80] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=e81]: 
+            - listitem [ref=e82]:
+              - link "admin" [ref=e83] [cursor=pointer]:
+                - /url: javascript:;
+      - generic [ref=e442]:
+        - heading "Reports" [level=1] [ref=e445]
+        - generic [ref=e447]:
+          - list [ref=e449]:
+            - listitem [ref=e450]:
+              - generic [ref=e451]: 
+              - text: Notifications
+            - listitem [ref=e452]:
+              - link "In Queue Notifications.." [ref=e453] [cursor=pointer]:
+                - /url: "#/reports/1/view"
+            - listitem [ref=e454]:
+              - link "Sent Notifications.." [ref=e455] [cursor=pointer]:
+                - /url: "#/reports/2/view"
+          - list [ref=e457]:
+            - listitem [ref=e458]:
+              - generic [ref=e459]: 
+              - text: Payments
+            - listitem [ref=e460]:
+              - link "Payments" [ref=e461] [cursor=pointer]:
+                - /url: "#/reports/3/view"
+            - listitem [ref=e462]:
+              - link "Current Balance Report" [ref=e463] [cursor=pointer]:
+                - /url: "#/reports/4/view"
+          - list [ref=e465]:
+            - listitem [ref=e466]:
+              - generic [ref=e467]: 
+              - text: Customer
+            - listitem [ref=e468]:
+              - link "Customers Details.." [ref=e469] [cursor=pointer]:
+                - /url: "#/reports/5/view"
+            - listitem [ref=e470]:
+              - link "Customer Statement Details.." [ref=e471] [cursor=pointer]:
+                - /url: "#/reports/11/view"
+            - listitem [ref=e472]:
+              - link "Customer Claims" [ref=e473] [cursor=pointer]:
+                - /url: "#/reports/18/view"
+          - list [ref=e475]:
+            - listitem [ref=e476]:
+              - generic [ref=e477]: 
+              - text: Meters
+            - listitem [ref=e478]:
+              - link "Disconnected Meters.." [ref=e479] [cursor=pointer]:
+                - /url: "#/reports/6/view"
+            - listitem [ref=e480]:
+              - link "Aggregated Readings Report" [ref=e481] [cursor=pointer]:
+                - /url: "#/reports/10/view"
+            - listitem [ref=e482]:
+              - link "Missing or Wrong Consumptions" [ref=e483] [cursor=pointer]:
+                - /url: "#/reports/19/view"
+            - listitem [ref=e484]:
+              - link "Unallocated Meters" [ref=e485] [cursor=pointer]:
+                - /url: "#/reports/20/view"
+          - list [ref=e487]:
+            - listitem [ref=e488]:
+              - generic [ref=e489]: 
+              - text: Invoices
+            - listitem [ref=e490]:
+              - link "Invoices Summary.." [ref=e491] [cursor=pointer]:
+                - /url: "#/reports/8/view"
+            - listitem [ref=e492]:
+              - link "Canceled Invoices.." [ref=e493] [cursor=pointer]:
+                - /url: "#/reports/9/view"
+            - listitem [ref=e494]:
+              - link "Monthly Finance" [ref=e495] [cursor=pointer]:
+                - /url: "#/reports/12/view"
+            - listitem [ref=e496]:
+              - link "Monthly Invoices.." [ref=e497] [cursor=pointer]:
+                - /url: "#/reports/13/view"
+          - list [ref=e499]:
+            - listitem [ref=e500]:
+              - generic [ref=e501]: 
+              - text: Consumptions
+            - listitem [ref=e502]:
+              - link "Monthly Consumption.." [ref=e503] [cursor=pointer]:
+                - /url: "#/reports/14/view"
+            - listitem [ref=e504]:
+              - link "Consumption Steps Details.." [ref=e505] [cursor=pointer]:
+                - /url: "#/reports/15/view"
+          - list [ref=e507]:
+            - listitem [ref=e508]:
+              - generic [ref=e509]: 
+              - text: System
+            - listitem [ref=e510]:
+              - link "User Audit Log.." [ref=e511] [cursor=pointer]:
+                - /url: "#/reports/16/view"

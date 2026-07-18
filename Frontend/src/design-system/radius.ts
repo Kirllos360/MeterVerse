@@ -1,0 +1,30 @@
+export const radius = {
+  none: "0px",
+  sm: "4px",
+  md: "6px",
+  lg: "8px",
+  xl: "12px",
+  "2xl": "16px",
+  "3xl": "20px",
+  full: "9999px",
+  component: {
+    button: "6px",
+    input: "6px",
+    card: "8px",
+    dialog: "12px",
+    drawer: "8px",
+    sidebar: "8px",
+    sidebarPanel: "16px",
+    search: "8px",
+    avatar: "9999px",
+    badge: "9999px",
+    tooltip: "6px",
+    toast: "8px",
+    dock: "20px",
+    floatingPanel: "16px",
+    tabs: "6px",
+    table: "0px",
+  },
+} as const
+
+export type MeterVerseRadius = typeof radius

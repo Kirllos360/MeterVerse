@@ -1,0 +1,240 @@
+- generic [active] [ref=f12e1]:
+  - banner [ref=f12e2]:
+    - generic [ref=f12e5]:
+      - generic [ref=f12e6]:
+        - link "+20 12 1149 2222" [ref=f12e7] [cursor=pointer]:
+          - /url: tel:+20 12 1149 2222
+          - img [ref=f12e8]
+          - text: +20 12 1149 2222
+        - link "info@epower.eg" [ref=f12e10] [cursor=pointer]:
+          - /url: mailto:info@epower.eg
+          - img [ref=f12e11]
+          - text: info@epower.eg
+      - link "My Account" [ref=f12e14] [cursor=pointer]:
+        - /url: /en/my-account
+        - img [ref=f12e15]
+        - text: My Account
+    - generic [ref=f12e18]:
+      - link "epower" [ref=f12e19] [cursor=pointer]:
+        - /url: /en
+        - img "epower" [ref=f12e21]
+      - button [ref=f12e23]:
+        - img [ref=f12e24]
+  - main [ref=f12e26]:
+    - main [ref=f12e27]:
+      - generic [ref=f12e32]:
+        - generic [ref=f12e34]: Our Projects
+        - heading "Caesar" [level=1] [ref=f12e36]:
+          - generic [ref=f12e37]: Caesar
+        - paragraph [ref=f12e38]: Caesar SODIC is a luxury beachfront development by SODIC located in Ras El Hekma on Egypt’s North Coast. The project offers high-end villas and chalets with contemporary designs, direct beach access, and premium amenities, creating an exclusive coastal living experience with a focus on privacy, relaxation, and upscale leisure.
+      - generic [ref=f12e43]:
+        - link "Back to All Projects" [ref=f12e45] [cursor=pointer]:
+          - /url: /en/projects
+          - img [ref=f12e46]
+          - text: Back to All Projects
+        - generic [ref=f12e48]:
+          - generic [ref=f12e49]:
+            - generic [ref=f12e50]:
+              - img [ref=f12e52]
+              - generic [ref=f12e55]: Location
+            - paragraph [ref=f12e56]: North Coast
+          - generic [ref=f12e57]:
+            - generic [ref=f12e58]:
+              - img [ref=f12e60]
+              - generic [ref=f12e62]: Year Completed
+            - paragraph [ref=f12e63]: "2024"
+        - img "Caesar" [ref=f12e65]
+      - generic [ref=f12e71]:
+        - generic [ref=f12e73]:
+          - generic [ref=f12e74]:
+            - img [ref=f12e76]
+            - heading "Project Overview" [level=2] [ref=f12e80]
+          - paragraph [ref=f12e81]: <p><br></p>
+        - generic [ref=f12e83]:
+          - generic [ref=f12e84]:
+            - generic [ref=f12e85]:
+              - img [ref=f12e86]
+              - heading "Start Your Project" [level=3] [ref=f12e89]
+            - paragraph [ref=f12e90]: Ready to achieve similar results? Let's discuss your energy needs.
+            - link "Contact Us" [ref=f12e91] [cursor=pointer]:
+              - /url: /en/contact
+              - text: Contact Us
+              - img [ref=f12e92]
+          - generic [ref=f12e94]:
+            - heading "Other Projects" [level=3] [ref=f12e95]
+            - generic [ref=f12e96]:
+              - link "Uvenues East Cairo • 2023" [ref=f12e98] [cursor=pointer]:
+                - /url: /en/projects/uvenues
+                - heading "Uvenues" [level=4] [ref=f12e99]
+                - generic [ref=f12e100]:
+                  - generic [ref=f12e101]:
+                    - img [ref=f12e102]
+                    - text: East Cairo
+                  - generic [ref=f12e105]: • 2023
+              - link "Badya West Cairo • 2020" [ref=f12e107] [cursor=pointer]:
+                - /url: /en/projects/Badya
+                - heading "Badya" [level=4] [ref=f12e108]
+                - generic [ref=f12e109]:
+                  - generic [ref=f12e110]:
+                    - img [ref=f12e111]
+                    - text: West Cairo
+                  - generic [ref=f12e114]: • 2020
+              - link "Palmet Palm East Cairo • 2026" [ref=f12e116] [cursor=pointer]:
+                - /url: /en/projects/palmet-palm
+                - heading "Palmet Palm" [level=4] [ref=f12e117]
+                - generic [ref=f12e118]:
+                  - generic [ref=f12e119]:
+                    - img [ref=f12e120]
+                    - text: East Cairo
+                  - generic [ref=f12e123]: • 2026
+              - link "The Gray Mall East Cairo • 2025" [ref=f12e125] [cursor=pointer]:
+                - /url: /en/projects/the-gray-mall
+                - heading "The Gray Mall" [level=4] [ref=f12e126]
+                - generic [ref=f12e127]:
+                  - generic [ref=f12e128]:
+                    - img [ref=f12e129]
+                    - text: East Cairo
+                  - generic [ref=f12e132]: • 2025
+      - generic [ref=f12e137]:
+        - generic [ref=f12e138]:
+          - img [ref=f12e139]
+          - generic [ref=f12e142]: Get Started Today
+        - heading "Have a Similar Project?" [level=2] [ref=f12e143]
+        - paragraph [ref=f12e144]: Let our experts help you achieve exceptional results for your energy infrastructure.
+        - generic [ref=f12e145]:
+          - link "Get Started" [ref=f12e146] [cursor=pointer]:
+            - /url: /en/contact
+            - text: Get Started
+            - img [ref=f12e147]
+          - link "View Services" [ref=f12e149] [cursor=pointer]:
+            - /url: /en/services
+  - contentinfo [ref=f12e150]:
+    - generic [ref=f12e153]:
+      - generic [ref=f12e154]:
+        - heading "Stay Updated with Logo" [level=3] [ref=f12e155]:
+          - text: Stay Updated with
+          - img "Logo" [ref=f12e156]
+        - paragraph [ref=f12e157]: Subscribe to our newsletter for the latest energy insights and updates.
+      - generic [ref=f12e159]:
+        - textbox "Enter your email" [ref=f12e161]
+        - button "Subscribe" [ref=f12e162]:
+          - text: Subscribe
+          - img [ref=f12e163]
+    - generic [ref=f12e166]:
+      - generic [ref=f12e167]:
+        - link "epower" [ref=f12e168] [cursor=pointer]:
+          - /url: /en
+          - img "epower" [ref=f12e169]
+        - paragraph [ref=f12e170]: Powering a sustainable future with innovative energy solutions. Leading the transition to clean, renewable energy across Egypt.
+        - link [ref=f12e172] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/epower1/posts/?feedView=all
+          - img [ref=f12e173]
+      - generic [ref=f12e175]:
+        - heading "Services" [level=4] [ref=f12e176]: Services
+        - list [ref=f12e178]:
+          - listitem [ref=f12e179]:
+            - link "Contracting Services" [ref=f12e180] [cursor=pointer]:
+              - /url: /en/services/contracting-services
+              - img [ref=f12e181]
+              - generic [ref=f12e183]: Contracting Services
+          - listitem [ref=f12e184]:
+            - link "Metering Solutions" [ref=f12e185] [cursor=pointer]:
+              - /url: /en/services/metering-solutions
+              - img [ref=f12e186]
+              - generic [ref=f12e188]: Metering Solutions
+          - listitem [ref=f12e189]:
+            - link "Utility Services" [ref=f12e190] [cursor=pointer]:
+              - /url: /en/services/Utility-Services
+              - img [ref=f12e191]
+              - generic [ref=f12e193]: Utility Services
+          - listitem [ref=f12e194]:
+            - link "Facility Management" [ref=f12e195] [cursor=pointer]:
+              - /url: /en/services/facility-management
+              - img [ref=f12e196]
+              - generic [ref=f12e198]: Facility Management
+      - generic [ref=f12e199]:
+        - heading "Company" [level=4] [ref=f12e200]: Company
+        - list [ref=f12e202]:
+          - listitem [ref=f12e203]:
+            - link "About Us" [ref=f12e204] [cursor=pointer]:
+              - /url: /en/about
+              - img [ref=f12e205]
+              - generic [ref=f12e207]: About Us
+          - listitem [ref=f12e208]:
+            - link "Charging" [ref=f12e209] [cursor=pointer]:
+              - /url: /en/charging
+              - img [ref=f12e210]
+              - generic [ref=f12e212]: Charging
+          - listitem [ref=f12e213]:
+            - link "Careers" [ref=f12e214] [cursor=pointer]:
+              - /url: /en/careers
+              - img [ref=f12e215]
+              - generic [ref=f12e217]: Careers
+          - listitem [ref=f12e218]:
+            - link "Blogs" [ref=f12e219] [cursor=pointer]:
+              - /url: /en/blog
+              - img [ref=f12e220]
+              - generic [ref=f12e222]: Blogs
+          - listitem [ref=f12e223]:
+            - link "Contact" [ref=f12e224] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f12e225]
+              - generic [ref=f12e227]: Contact
+      - generic [ref=f12e228]:
+        - heading "Resources" [level=4] [ref=f12e229]: Resources
+        - list [ref=f12e231]:
+          - listitem [ref=f12e232]:
+            - link "Projects" [ref=f12e233] [cursor=pointer]:
+              - /url: /en/projects
+              - img [ref=f12e234]
+              - generic [ref=f12e236]: Projects
+          - listitem [ref=f12e237]:
+            - link "My Account" [ref=f12e238] [cursor=pointer]:
+              - /url: /en/my-account
+              - img [ref=f12e239]
+              - generic [ref=f12e241]: My Account
+          - listitem [ref=f12e242]:
+            - link "New Customer" [ref=f12e243] [cursor=pointer]:
+              - /url: /en/contract
+              - img [ref=f12e244]
+              - generic [ref=f12e246]: New Customer
+          - listitem [ref=f12e247]:
+            - link "FAQs" [ref=f12e248] [cursor=pointer]:
+              - /url: /en/faqs
+              - img [ref=f12e249]
+              - generic [ref=f12e251]: FAQs
+          - listitem [ref=f12e252]:
+            - link "Support" [ref=f12e253] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f12e254]
+              - generic [ref=f12e256]: Support
+      - generic [ref=f12e257]:
+        - heading "Contact" [level=4] [ref=f12e258]: Contact
+        - list [ref=f12e260]:
+          - listitem [ref=f12e261]:
+            - img [ref=f12e262]
+            - generic [ref=f12e265]: Palm Hills, 6th Of October, Golf Central Mall, Building B2, D2, 33F
+          - listitem [ref=f12e266]:
+            - link "+20 12 1149 2222" [ref=f12e267] [cursor=pointer]:
+              - /url: tel:+20 12 1149 2222
+              - img [ref=f12e268]
+              - generic [ref=f12e270]: +20 12 1149 2222
+          - listitem [ref=f12e271]:
+            - link "info@epower.eg" [ref=f12e272] [cursor=pointer]:
+              - /url: mailto:info@epower.eg
+              - img [ref=f12e273]
+              - generic [ref=f12e275]: info@epower.eg
+    - generic [ref=f12e278]:
+      - paragraph [ref=f12e279]:
+        - text: © 2026
+        - img "Logo" [ref=f12e280]
+        - text: . All rights reserved.
+      - generic [ref=f12e281]:
+        - link "Privacy Policy" [ref=f12e282] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=f12e283] [cursor=pointer]:
+          - /url: /en/terms
+        - link "Cookie Policy" [ref=f12e284] [cursor=pointer]:
+          - /url: /en/cookies
+  - button [ref=f12e285]:
+    - img [ref=f12e286]

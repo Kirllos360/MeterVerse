@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse MVEOS | Enterprise Foundation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#410005",
+                      "surface-container-highest": "#dde4dd",
+                      "surface": "#f4fbf4",
+                      "on-background": "#161d19",
+                      "primary-fixed-dim": "#4edea3",
+                      "sidebar-light": "#064e3b",
+                      "industrial-red": "#ef4444",
+                      "on-tertiary": "#ffffff",
+                      "surface-variant": "#dde4dd",
+                      "secondary-container": "#adedd3",
+                      "card-dark": "#16221a",
+                      "on-primary": "#ffffff",
+                      "secondary": "#2b6954",
+                      "on-secondary-fixed": "#002117",
+                      "on-error-container": "#93000a",
+                      "primary-container": "#10b981",
+                      "tertiary-container": "#fc7c78",
+                      "surface-bright": "#f4fbf4",
+                      "inverse-on-surface": "#ebf3eb",
+                      "inverse-surface": "#2b322d",
+                      "background-dark": "#0d1510",
+                      "surface-dim": "#d4dcd5",
+                      "on-primary-container": "#00422b",
+                      "error": "#ba1a1a",
+                      "surface-container": "#e8f0e9",
+                      "financial-gold": "#fbbf24",
+                      "surface-container-low": "#eef6ee",
+                      "on-tertiary-container": "#711419",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed": "#b0f0d6",
+                      "background": "#f4fbf4",
+                      "outline-variant": "#bbcabf",
+                      "on-surface-variant": "#3c4a42",
+                      "inverse-primary": "#4edea3",
+                      "tertiary": "#a43a3a",
+                      "on-surface": "#161d19",
+                      "on-error": "#ffffff",
+                      "water-cyan": "#06b6d4",
+                      "tertiary-fixed": "#ffdad7",
+                      "primary": "#006c49",
+                      "outline": "#6c7a71",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "on-primary-fixed-variant": "#005236",
+                      "surface-container-high": "#e3eae3",
+                      "electric-orange": "#f97316",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-fixed": "#6ffbbe",
+                      "secondary-fixed-dim": "#95d3ba",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#002113",
+                      "on-secondary-container": "#306d58",
+                      "on-secondary-fixed-variant": "#0b513d",
+                      "surface-tint": "#006c49",
+                      "success-emerald": "#10b981"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "10px",
+                      "xl": "16px",
+                      "2xl": "20px",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-expanded": "260px",
+                      "margin-page": "24px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "stack-lg": "24px",
+                      "sidebar-collapsed": "72px"
+              },
+              "fontFamily": {
+                      "body-md": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "label-sm": ["JetBrains Mono"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; transition: background-color 300ms ease-in-out, color 300ms ease-in-out; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .sidebar-transition { transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1); }
+        .skeleton { background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite linear; }
+        .dark .skeleton { background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%); background-size: 200% 100%; }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .glass-modal { backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.7); }
+        .dark .glass-modal { background: rgba(13, 21, 16, 0.8); }
+        .tab-active-indicator { transition: all 300ms ease; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface dark:bg-background-dark dark:text-on-background overflow-hidden">
+<!-- Global Application Shell -->
+<div class="flex h-screen w-full relative">
+<!-- SideNavBar [NAV-01] -->
+<aside class="sidebar-transition fixed left-0 h-screen w-64 z-40 bg-sidebar-light dark:bg-surface-container-lowest border-r border-outline-variant/50 flex flex-col p-4 gap-4" id="main-sidebar">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-2 py-4">
+<div class="w-10 h-10 rounded-lg bg-success-emerald flex items-center justify-center text-white shadow-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">electric_meter</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-white dark:text-on-surface">MeterVerse</span>
+<span class="text-[10px] font-label-sm uppercase tracking-widest text-emerald-200/60">Operational Center</span>
+</div>
+</div>
+<!-- Workspace Selector -->
+<div class="bg-emerald-900/40 dark:bg-surface-container-high rounded-xl p-3 flex items-center justify-between group cursor-pointer hover:bg-emerald-800/50 transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-white/20">
+<img class="w-full h-full object-cover" data-alt="A minimalist logo for a high-tech energy grid management workspace, featuring emerald green geometric lines on a clean white background. The style is modern, professional, and corporate, evoking feelings of sustainability and industrial precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAv0c8GZ_JMDbjAKErgEtlGSMuLX1nqh2GOOGlITGDERGs4glL0Tq_68v4wV0xHvI9MJerMhNr7rOsegOhUpl4ikn_bmls93pmD4gnJ95fi9O3sKfkWj_tSDdXjvy1VIjokC2e05IAM9wBHDjP70jnQ_61BK3UcIIRC3K6FVTDEA36NVSKvM5EULMzHHFxj_Nakx0036NScJpiuv5Nj12EOyfr7Z_Q8fBfdSR1CHUzZwn9fh9ikUxjlSqLu0LbY997MzJXaV122"/>
+</div>
+<div>
+<p class="text-white dark:text-on-surface font-medium text-sm">Main Grid</p>
+<p class="text-emerald-300/60 dark:text-on-surface-variant/60 text-[11px]">Primary Workspace</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-white/40 text-sm">unfold_more</span>
+</div>
+<!-- Primary Navigation -->
+<nav class="flex-1 overflow-y-auto space-y-1 custom-scrollbar pr-1">
+<!-- Dashboard Active State Applied Autonomously -->
+<a class="bg-secondary-container/10 text-secondary-container dark:text-secondary-fixed flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-secondary hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">electric_meter</span>
+<span class="font-label-md text-label-md">Meters</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Readings</span>
+</a>
+<div class="py-2 px-4 text-[10px] font-bold text-emerald-200/30 dark:text-on-surface-variant/30 uppercase tracking-widest">Finance</div>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Invoices</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+</nav>
+<!-- Footer Actions -->
+<div class="mt-auto space-y-1 pt-4 border-t border-white/10">
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg text-emerald-50/70 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace Area -->
+<main class="flex-1 flex flex-col ml-64 min-h-screen transition-all duration-300" id="main-content">
+<!-- TopNavBar [NAV-02] -->
+<header class="h-16 flex items-center justify-between px-6 bg-surface/80 dark:bg-surface-container-high/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant dark:border-neutral-gray-border/10">
+<div class="flex items-center gap-8">
+<button class="p-2 hover:bg-surface-container dark:hover:bg-surface-container-high rounded-full transition-colors" id="sidebar-toggle">
+<span class="material-symbols-outlined">menu_open</span>
+</button>
+<!-- Breadcrumbs [NAV-03] -->
+<nav class="flex items-center text-sm font-medium gap-2">
+<span class="text-on-surface-variant">Workspace</span>
+<span class="material-symbols-outlined text-xs text-outline">chevron_right</span>
+<span class="text-on-surface-variant">Main Grid</span>
+<span class="material-symbols-outlined text-xs text-outline">chevron_right</span>
+<span class="text-success-emerald font-bold">Dashboard</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search [on_left context from JSON] -->
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container dark:bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-success-emerald transition-all" placeholder="Search operational records..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4 ml-2">
+<button class="p-2 hover:bg-surface-container rounded-full text-on-surface-variant relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-industrial-red rounded-full border-2 border-surface"></span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full text-on-surface-variant" id="theme-toggle">
+<span class="material-symbols-outlined dark:hidden">dark_mode</span>
+<span class="material-symbols-outlined hidden dark:block">light_mode</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-1"></div>
+<div class="flex items-center gap-3 pl-2 cursor-pointer group">
+<div class="flex flex-col items-end">
+<span class="text-sm font-bold">Alex Operator</span>
+<span class="text-[10px] text-on-surface-variant font-medium">Lvl 3 Technical Admin</span>
+</div>
+<img class="w-10 h-10 rounded-lg object-cover ring-2 ring-transparent group-hover:ring-success-emerald transition-all" data-alt="A professional headshot of a modern technician operator in a clean corporate uniform, set against a soft blurred industrial control room background. High-end portrait photography style, soft key lighting, 4k resolution, capturing a sense of reliable expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyuFKHyVPf8FXQKLpyamsSpYJ2r2BYZ-3kB_82sC83Wh3JfZ0CPon7I_7H5vVLt3Lp0OmpFc-3cbZjm3_15TXqstIVY3byorJQ2qxFzAKKVPgWJE8H6cJtF9T8ndYnEq5XwdJ1420GDfq794HLK9AhRomAmBxsUIB6aE5IvGheQLCgyDPsQ_y9ZEDuj4GWuB2XQMtAC3Yk_dyJyclq0oKv4xtDTuwSsKihWnL_do5IECJ947siUDhGgGGEjpzazPq99BoTP_Kr"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Workspace Content Canvas -->
+<div class="p-6 overflow-y-auto space-y-6">
+<!-- KPI Skeleton Row [FEED-03] -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest dark:bg-card-dark rounded-xl p-5 border border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="skeleton h-4 w-24 rounded-full"></div>
+<div class="skeleton h-8 w-8 rounded-lg"></div>
+</div>
+<div class="skeleton h-10 w-32 rounded-lg mb-2"></div>
+<div class="skeleton h-3 w-40 rounded-full"></div>
+</div>
+<div class="bg-surface-container-lowest dark:bg-card-dark rounded-xl p-5 border border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="skeleton h-4 w-24 rounded-full"></div>
+<div class="skeleton h-8 w-8 rounded-lg"></div>
+</div>
+<div class="skeleton h-10 w-32 rounded-lg mb-2"></div>
+<div class="skeleton h-3 w-40 rounded-full"></div>
+</div>
+<div class="bg-surface-container-lowest dark:bg-card-dark rounded-xl p-5 border border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="skeleton h-4 w-24 rounded-full"></div>
+<div class="skeleton h-8 w-8 rounded-lg"></div>
+</div>
+<div class="skeleton h-10 w-32 rounded-lg mb-2"></div>
+<div class="skeleton h-3 w-40 rounded-full"></div>
+</div>
+<div class="bg-surface-container-lowest dark:bg-card-dark rounded-xl p-5 border border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="skeleton h-4 w-24 rounded-full"></div>
+<div class="skeleton h-8 w-8 rounded-lg"></div>
+</div>
+<div class="skeleton h-10 w-32 rounded-lg mb-2"></div>
+<div class="skeleton h-3 w-40 rounded-full"></div>
+</div>
+</div>
+<!-- Main Content Bento Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Large Chart Area -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest dark:bg-card-dark rounded-2xl border border-outline-variant/30 shadow-sm p-6 overflow-hidden relative group">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="font-headline-md text-headline-md font-bold">Power Load Distribution</h3>
+<p class="text-on-surface-variant text-sm">Real-time grid performance analytics</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container rounded-lg text-sm font-medium hover:bg-outline-variant transition-colors">Daily</button>
+<button class="px-4 py-2 bg-success-emerald text-white rounded-lg text-sm font-medium shadow-md shadow-success-emerald/20">Weekly</button>
+</div>
+</div>
+<!-- Animation Engine Placeholder: Grid Shader -->
+<div class="w-full h-[320px] rounded-xl overflow-hidden relative bg-surface-container flex items-center justify-center">
+
+<div class="z-10 text-center">
+<span class="material-symbols-outlined text-6xl text-success-emerald/30 animate-pulse">monitoring</span>
+<p class="text-on-surface-variant mt-4 font-medium italic">Establishing secure grid handshake...</p>
+</div>
+</div>
+</div>
+<!-- Right Rail: Operational Alerts -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-lowest dark:bg-card-dark rounded-2xl border border-outline-variant/30 shadow-sm p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-bold">Active Tickets</h3>
+<span class="bg-industrial-red/10 text-industrial-red px-3 py-1 rounded-full text-xs font-bold">12 Critical</span>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4 p-3 hover:bg-surface-container rounded-xl transition-all cursor-pointer group">
+<div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold group-hover:text-success-emerald transition-colors">Substation #04 Failure</p>
+<p class="text-xs text-on-surface-variant">2 mins ago • Urgent</p>
+</div>
+</div>
+<div class="flex gap-4 p-3 hover:bg-surface-container rounded-xl transition-all cursor-pointer group">
+<div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold group-hover:text-success-emerald transition-colors">Maintenance Complete</p>
+<p class="text-xs text-on-surface-variant">1 hour ago • Info</p>
+</div>
+</div>
+<div class="flex gap-4 p-3 hover:bg-surface-container rounded-xl transition-all cursor-pointer group">
+<div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div class="flex-1">
+<p class="text-sm font-bold group-hover:text-success-emerald transition-colors">New Firmware Update</p>
+<p class="text-xs text-on-surface-variant">4 hours ago • System</p>
+</div>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="bg-sidebar-light rounded-2xl p-6 text-white relative overflow-hidden group shadow-xl">
+<div class="absolute -right-10 -bottom-10 opacity-20 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[160px]">bolt</span>
+</div>
+<h4 class="text-xl font-bold mb-2 relative z-10">Expand Network</h4>
+<p class="text-emerald-100/60 text-sm mb-6 relative z-10">Add new metering endpoints to your current operational cluster.</p>
+<button class="bg-success-emerald hover:bg-emerald-400 text-white font-bold py-3 px-6 rounded-lg shadow-lg relative z-10 transition-all scale-95 active:scale-90">
+                                Register New Meter
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Toast Notification Foundation [FLOW-01] -->
+<div class="fixed bottom-6 right-6 z-[60] flex flex-col gap-3" id="toast-container">
+<div class="bg-surface-container-highest dark:bg-inverse-surface border-l-4 border-success-emerald p-4 rounded-xl shadow-2xl flex items-center gap-4 animate-bounce-in">
+<span class="material-symbols-outlined text-success-emerald" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="pr-8">
+<p class="font-bold text-sm">Framework Loaded</p>
+<p class="text-xs text-on-surface-variant">Enterprise Engine V4.2.0 active.</p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-sm">close</span></button>
+</div>
+</div>
+<!-- Glass Modal Foundation [FLOW-01] (Hidden by default) -->
+<div class="fixed inset-0 z-[100] glass-modal flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300" id="modal-overlay">
+<div class="bg-surface-container-lowest dark:bg-card-dark w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden transform scale-95 transition-transform duration-300 border border-outline-variant/30">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md font-bold">New Service Ticket</h3>
+<button class="p-2 hover:bg-surface-container rounded-full" id="close-modal"><span class="material-symbols-outlined">close</span></button>
+</div>
+<div class="p-8 space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase text-on-surface-variant">Priority</label>
+<select class="w-full bg-surface-container border-none rounded-lg focus:ring-2 focus:ring-success-emerald transition-all">
+<option>P1 - Critical</option>
+<option>P2 - High</option>
+<option>P3 - Medium</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase text-on-surface-variant">Department</label>
+<select class="w-full bg-surface-container border-none rounded-lg focus:ring-2 focus:ring-success-emerald transition-all">
+<option>Grid Ops</option>
+<option>Customer Support</option>
+<option>Technical Maintenance</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-xs font-bold uppercase text-on-surface-variant">Issue Description</label>
+<textarea class="w-full bg-surface-container border-none rounded-lg focus:ring-2 focus:ring-success-emerald transition-all h-24" placeholder="Describe the service request..."></textarea>
+</div>
+</div>
+<div class="p-6 bg-surface-container flex justify-end gap-3">
+<button class="px-6 py-2 font-medium hover:text-industrial-red transition-colors" id="cancel-modal">Cancel</button>
+<button class="bg-success-emerald text-white px-8 py-2 rounded-lg font-bold shadow-lg shadow-success-emerald/20 hover:scale-105 active:scale-95 transition-all">Submit Ticket</button>
+</div>
+</div>
+</div>
+<!-- Layout & Interaction Scripts -->
+<script>
+        const sidebar = document.getElementById('main-sidebar');
+        const mainContent = document.getElementById('main-content');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const themeToggle = document.getElementById('theme-toggle');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const openModalBtn = document.querySelector('[data-icon="add_circle"]')?.parentElement || document.querySelector('.bg-sidebar-light button'); // Contextual fallback
+
+        let isSidebarCollapsed = false;
+
+        // Sidebar Toggle Micro-interaction
+        sidebarToggle.addEventListener('click', () => {
+            isSidebarCollapsed = !isSidebarCollapsed;
+            if (isSidebarCollapsed) {
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-20');
+                mainContent.classList.remove('ml-64');
+                mainContent.classList.add('ml-20');
+                // Optional: Hide text labels for collapsed state
+                document.querySelectorAll('.font-label-md').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('.font-headline-md').forEach(el => el.classList.add('hidden'));
+            } else {
+                sidebar.classList.remove('w-20');
+                sidebar.classList.add('w-64');
+                mainContent.classList.remove('ml-20');
+                mainContent.classList.add('ml-64');
+                document.querySelectorAll('.font-label-md').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('.font-headline-md').forEach(el => el.classList.remove('hidden'));
+            }
+        });
+
+        // Theme Switcher Engine
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+
+        // Modal Logic
+        const showModal = () => {
+            modalOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            modalOverlay.children[0].classList.remove('scale-95');
+            modalOverlay.children[0].classList.add('scale-100');
+        };
+
+        const hideModal = () => {
+            modalOverlay.classList.add('opacity-0', 'pointer-events-none');
+            modalOverlay.children[0].classList.add('scale-95');
+            modalOverlay.children[0].classList.remove('scale-100');
+        };
+
+        document.getElementById('close-modal').addEventListener('click', hideModal);
+        document.getElementById('cancel-modal').addEventListener('click', hideModal);
+
+        // Simulation of task-focused entry (Trigger Modal)
+        setTimeout(() => {
+            console.log('UI Foundation Active');
+        }, 1000);
+
+        // Basic RTL Toggle Hook for demonstration
+        function toggleRTL() {
+            const isRTL = document.dir === 'rtl';
+            document.dir = isRTL ? 'ltr' : 'rtl';
+            sidebar.classList.toggle('left-0');
+            sidebar.classList.toggle('right-0');
+            mainContent.classList.toggle('ml-64');
+            mainContent.classList.toggle('mr-64');
+        }
+    </script>
+</body></html>

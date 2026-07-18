@@ -1,0 +1,15 @@
+{
+  "decision": "APPROVED FOR PHASE G",
+  "total_records": 221,
+  "invoices_replayed": 206,
+  "settlements_replayed": 15,
+  "exact_match_rate": "100.00%",
+  "variance_rate": "0.00%",
+  "deterministic": "True",
+  "workflow_validated": "PASS",
+  "stress_validated": "1000/1000 clean cycles",
+  "clean_50_cycles": "True",
+  "critical_findings": 0,
+  "high_findings": 0,
+  "replay_sha256": "4a4c87595c170728d4a11583163b64d71c0dcb11e2cc949d3eb212da881cf7ef"
+}

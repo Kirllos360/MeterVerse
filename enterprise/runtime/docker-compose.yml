@@ -1,0 +1,92 @@
+# MeterVerse Enterprise Monitoring Stack
+# Start: docker-compose -f enterprise/runtime/docker-compose.yml up -d
+# Requires Docker daemon running
+
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: meterverse-prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: meterverse-grafana
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "3030:3000"
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: meterverse-jaeger
+    ports:
+      - "16686:16686"
+      - "4318:4318"
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    container_name: meterverse-redis-insight
+    ports:
+      - "5540:5540"
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: meterverse-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@meterverse.dev
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+
+  vault:
+    image: hashicorp/vault:latest
+    container_name: meterverse-vault
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+
+  plantuml:
+    image: plantuml/plantuml-server:latest
+    container_name: meterverse-plantuml
+    ports:
+      - "8080:8080"
+    networks:
+      - meterverse-monitor
+    restart: unless-stopped
+
+networks:
+  meterverse-monitor:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

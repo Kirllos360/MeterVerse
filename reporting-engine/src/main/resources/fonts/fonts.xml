@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+    <fontFamily name="DejaVu Sans" familyName="DejaVu Sans" pdfEncoding="Identity-H" pdfEmbedded="true">
+        <normal><![CDATA[fonts/DejaVuSans.ttf]]></normal>
+        <bold><![CDATA[fonts/DejaVuSans-Bold.ttf]]></bold>
+        <italic><![CDATA[fonts/DejaVuSans-Oblique.ttf]]></italic>
+        <boldItalic><![CDATA[fonts/DejaVuSans-BoldOblique.ttf]]></boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <supportsArabic>true</supportsArabic>
+        <supportsJapanese>false</supportsJapanese>
+        <supportsKorean>false</supportsKorean>
+        <supportsChinese>false</supportsChinese>
+    </fontFamily>
+
+    <fontFamily name="DejaVu Sans Mono" familyName="DejaVu Sans Mono" pdfEncoding="Identity-H" pdfEmbedded="true">
+        <normal><![CDATA[fonts/DejaVuSansMono.ttf]]></normal>
+        <bold><![CDATA[fonts/DejaVuSansMono-Bold.ttf]]></bold>
+        <italic><![CDATA[fonts/DejaVuSansMono-Oblique.ttf]]></italic>
+        <boldItalic><![CDATA[fonts/DejaVuSansMono-BoldOblique.ttf]]></boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <supportsArabic>true</supportsArabic>
+    </fontFamily>
+
+    <fontFamily name="Arial" familyName="Arial" pdfEncoding="Identity-H" pdfEmbedded="true">
+        <normal><![CDATA[fonts/Arial.ttf]]></normal>
+        <bold><![CDATA[fonts/Arial-Bold.ttf]]></bold>
+        <italic><![CDATA[fonts/Arial-Italic.ttf]]></italic>
+        <boldItalic><![CDATA[fonts/Arial-BoldItalic.ttf]]></boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <supportsArabic>true</supportsArabic>
+    </fontFamily>
+
+    <fontFamily name="Times New Roman" familyName="Times New Roman" pdfEncoding="Identity-H" pdfEmbedded="true">
+        <normal><![CDATA[fonts/TimesNewRoman.ttf]]></normal>
+        <bold><![CDATA[fonts/TimesNewRoman-Bold.ttf]]></bold>
+        <italic><![CDATA[fonts/TimesNewRoman-Italic.ttf]]></italic>
+        <boldItalic><![CDATA[fonts/TimesNewRoman-BoldItalic.ttf]]></boldItalic>
+        <pdfEncoding>Identity-H</pdfEncoding>
+        <pdfEmbedded>true</pdfEmbedded>
+        <supportsArabic>true</supportsArabic>
+    </fontFamily>
+</fontFamilies>

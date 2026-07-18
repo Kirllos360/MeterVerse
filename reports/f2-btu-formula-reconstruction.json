@@ -1,0 +1,298 @@
+{
+  "files_processed": 38,
+  "total_rows": 941,
+  "match_count": 926,
+  "mismatch_count": 15,
+  "match_percentage": 98.4,
+  "by_property": {
+    "GC": {
+      "rows": 0,
+      "match": 411,
+      "mismatch": 9
+    },
+    "PC": {
+      "rows": 0,
+      "match": 189,
+      "mismatch": 0
+    },
+    "IZAR": {
+      "rows": 0,
+      "match": 201,
+      "mismatch": 4
+    },
+    "CORRECTION": {
+      "rows": 0,
+      "match": 38,
+      "mismatch": 1
+    },
+    "PREVIOUS": {
+      "rows": 0,
+      "match": 87,
+      "mismatch": 1
+    }
+  },
+  "by_month": {
+    "02-2025": {
+      "rows": 0,
+      "match": 83,
+      "mismatch": 2
+    },
+    "03-2025": {
+      "rows": 0,
+      "match": 79,
+      "mismatch": 1
+    },
+    "04-2025": {
+      "rows": 0,
+      "match": 57,
+      "mismatch": 1
+    },
+    "05-2025": {
+      "rows": 0,
+      "match": 95,
+      "mismatch": 2
+    },
+    "06-2025": {
+      "rows": 0,
+      "match": 89,
+      "mismatch": 0
+    },
+    "07-2025": {
+      "rows": 0,
+      "match": 91,
+      "mismatch": 1
+    },
+    "08-2025": {
+      "rows": 0,
+      "match": 76,
+      "mismatch": 1
+    },
+    "09-2025": {
+      "rows": 0,
+      "match": 96,
+      "mismatch": 1
+    },
+    "10-2025": {
+      "rows": 0,
+      "match": 77,
+      "mismatch": 1
+    },
+    "11-2025": {
+      "rows": 0,
+      "match": 91,
+      "mismatch": 4
+    },
+    "12-2025": {
+      "rows": 0,
+      "match": 92,
+      "mismatch": 1
+    }
+  },
+  "rate_distribution": {
+    "3.0": 455,
+    "2.641123": 1,
+    "2.782332": 1,
+    "2.782954": 1,
+    "2.822241": 1,
+    "2.838834": 1,
+    "2.890384": 1,
+    "2.826132": 1,
+    "2.875603": 1,
+    "2.804802": 1,
+    "2.999998": 4,
+    "2.999999": 5,
+    "0.0": 5,
+    "2.99995": 1,
+    "2.999994": 4,
+    "2.999988": 1,
+    "2.999992": 3,
+    "2.999949": 1,
+    "2.999977": 1,
+    "2.999035": 1,
+    "2.999989": 1,
+    "2.999963": 1,
+    "2.999995": 2,
+    "2.99996": 1,
+    "2.999996": 3,
+    "2.999941": 1,
+    "2.999969": 1,
+    "2.999993": 2,
+    "2.999135": 1,
+    "2.999921": 1,
+    "2.99999": 1,
+    "2.999956": 2,
+    "2.999891": 1,
+    "2.999997": 1,
+    "2.999936": 1,
+    "2.999991": 1,
+    "2.999416": 1,
+    "2.999948": 1,
+    "2.99998": 1,
+    "2.770635": 1,
+    "2.710837": 1
+  },
+  "anomalies": [
+    {
+      "file": "D:\\Operation\\Months\\02-2025\\Golf Central 02-2025\\Golf Central Mall BTU Invoices 02-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 25449.167,
+      "total": 67214.375,
+      "expected_3": 76347.5,
+      "actual_rate": 2.641123,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\03-2025\\Done\\golf central\\Golf Central Mall BTU Invoices 03-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 41959.17300333333,
+      "total": 116744.37,
+      "expected_3": 125877.52,
+      "type": "FORMULA_MISMATCH"
+    },
+    {
+      "file": "D:\\Operation\\Months\\04-2025\\Done\\GC\\Golf Central Mall BTU Invoices 04-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 42079.16666666666,
+      "total": 117104.4,
+      "expected_3": 126237.5,
+      "actual_rate": 2.782954,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\05-2025\\GC\\Golf Central Mall BTU Invoices 05-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 51379.166666666686,
+      "total": 145004.4,
+      "expected_3": 154137.5,
+      "actual_rate": 2.822241,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\07-2025\\Done\\GC\\Golf Central Mall BTU Invoices 07-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 56669.166666666686,
+      "total": 160874.37,
+      "expected_3": 170007.5,
+      "actual_rate": 2.838834,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\08-2025\\Done\\GC\\Golf Central Mall BTU Invoices 08-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 83319.167,
+      "total": 240824.37099999998,
+      "expected_3": 249957.5,
+      "type": "FORMULA_MISMATCH"
+    },
+    {
+      "file": "D:\\Operation\\Months\\09-2025\\DONE\\GC\\Golf Central Mall BTU Invoices 09-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 52529.16667333327,
+      "total": 148454.37,
+      "expected_3": 157587.5,
+      "actual_rate": 2.826132,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\10-2025\\Done\\GC\\Golf Central Mall BTU Invoices 10-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 73419.16666666663,
+      "total": 211124.37,
+      "expected_3": 220257.5,
+      "actual_rate": 2.875603,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\11-2025\\Done\\GC\\Golf Central Mall BTU Invoices 11-2025.xlsx",
+      "label": "GC",
+      "row": 3,
+      "customer": 0,
+      "consumption": 46789.167,
+      "total": 131234.37,
+      "expected_3": 140367.5,
+      "type": "FORMULA_MISMATCH"
+    },
+    {
+      "file": "D:\\Operation\\Months\\05-2025\\Done\\Izar\\05-2025\\Izar Mall BTU Invoices 05-2025.xlsx",
+      "label": "IZAR",
+      "row": 7,
+      "customer": 0,
+      "consumption": 0.9779999999999998,
+      "total": 0.0,
+      "expected_3": 2.93,
+      "actual_rate": 0.0,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\11-2025\\Done\\IZAR\\Izar Mall BTU Invoices 11-2025.xlsx",
+      "label": "IZAR",
+      "row": 2,
+      "customer": 0,
+      "consumption": 0.113999999999578,
+      "total": 0.0,
+      "expected_3": 0.34,
+      "actual_rate": 0.0,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\11-2025\\Done\\IZAR\\Izar Mall BTU Invoices 11-2025.xlsx",
+      "label": "IZAR",
+      "row": 3,
+      "customer": 0,
+      "consumption": 0.22800000000000864,
+      "total": 0.0,
+      "expected_3": 0.68,
+      "actual_rate": 0.0,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\11-2025\\Done\\IZAR\\Izar Mall BTU Invoices 11-2025.xlsx",
+      "label": "IZAR",
+      "row": 7,
+      "customer": 0,
+      "consumption": 0.9369999999999994,
+      "total": 0.0,
+      "expected_3": 2.81,
+      "actual_rate": 0.0,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\12-2025\\Done\\GC\\Golf Central Mall BTU Correction Invoices 12-2025.xlsx",
+      "label": "CORRECTION",
+      "row": 3,
+      "customer": 0,
+      "consumption": 39819.167,
+      "total": 110324.366666667,
+      "expected_3": 119457.5,
+      "actual_rate": 2.770635,
+      "type": "DIFFERENT_RATE"
+    },
+    {
+      "file": "D:\\Operation\\Months\\02-2025\\Golf Central 02-2025\\Golf Central Mall Previous BTU Invoices.xlsx",
+      "label": "PREVIOUS",
+      "row": 20,
+      "customer": 0,
+      "consumption": 34455.927,
+      "total": 93404.4,
+      "expected_3": 103367.78,
+      "actual_rate": 2.710837,
+      "type": "DIFFERENT_RATE"
+    }
+  ]
+}

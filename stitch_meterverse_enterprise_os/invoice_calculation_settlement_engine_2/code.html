@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #46464d; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #76767e; }
+        .glass-card {
+            background: rgba(27, 27, 29, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 231, 235, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "utility-lime": "#AACE38",
+                      "surface-container-highest": "#e5e2e4",
+                      "primary-fixed": "#dce1ff",
+                      "tertiary-container": "#2c1603",
+                      "on-primary-fixed-variant": "#3f465f",
+                      "on-surface": "#1b1b1d",
+                      "surface-dim": "#dcd9db",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#46464d",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "background": "#fcf8fb",
+                      "surface-variant": "#e5e2e4",
+                      "neutral-gray-surface": "#F9FAFB",
+                      "on-secondary-fixed-variant": "#004395",
+                      "on-background": "#1b1b1d",
+                      "on-tertiary-container": "#a17d61",
+                      "inverse-surface": "#303032",
+                      "info-cyan": "#06B6D4",
+                      "outline-variant": "#c6c6ce",
+                      "surface-container-low": "#f6f3f5",
+                      "warning-amber": "#F59E0B",
+                      "surface-container-lowest": "#ffffff",
+                      "monitoring-purple": "#8B5CF6",
+                      "on-secondary-fixed": "#001a42",
+                      "surface-tint": "#575d78",
+                      "outline": "#76767e",
+                      "primary": "#000000",
+                      "on-secondary-container": "#fefcff",
+                      "error-container": "#ffdad6",
+                      "inverse-on-surface": "#f3f0f2",
+                      "surface-container-high": "#eae7ea",
+                      "primary-container": "#141a32",
+                      "surface-bright": "#fcf8fb",
+                      "secondary": "#0058be",
+                      "on-tertiary-fixed": "#2c1603",
+                      "success-emerald": "#10B981",
+                      "on-tertiary-fixed-variant": "#5e4029",
+                      "inverse-primary": "#bfc5e4",
+                      "tertiary-fixed": "#ffdcc3",
+                      "on-primary-fixed": "#141a32",
+                      "error-red": "#EF4444",
+                      "neutral-gray-border": "#E5E7EB",
+                      "on-primary-container": "#7c839f",
+                      "surface": "#fcf8fb",
+                      "primary-fixed-dim": "#bfc5e4",
+                      "surface-container": "#f0edef",
+                      "secondary-container": "#2170e4",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed-dim": "#e8be9f",
+                      "tertiary": "#000000",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "grid-margin": "24px",
+                      "gutter": "16px",
+                      "compact-row": "8px",
+                      "section-gap": "32px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "label-sm": ["JetBrains Mono"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["JetBrains Mono"],
+                      "headline-lg-mobile": ["Hanken Grotesk"],
+                      "body-md": ["Inter"],
+                      "display-lg": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["13px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface dark:bg-surface-container-lowest text-on-surface dark:text-on-background min-h-screen font-body-md">
+<!-- TopNavBar -->
+<nav class="bg-surface/80 dark:bg-surface-container-high/80 backdrop-blur-md docked full-width top-0 sticky z-50 border-b border-outline-variant dark:border-neutral-gray-border/10 shadow-sm flex justify-between items-center w-full px-grid-margin py-base">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-background">MeterVerse MVEOS</span>
+<div class="hidden md:flex gap-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 font-label-md text-label-md hover:text-success-emerald transition-colors duration-200" href="#">Monitoring</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 font-label-md text-label-md hover:text-success-emerald transition-colors duration-200" href="#">Reports</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant/80 font-label-md text-label-md hover:text-success-emerald transition-colors duration-200" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-success-emerald transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-success-emerald transition-colors">settings</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-success-emerald transition-colors">help</span>
+</div>
+<button class="bg-success-emerald text-white px-4 py-2 rounded-lg font-label-md text-label-md scale-95 active:scale-90 transition-transform">Create Record</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a utility network operator in a technical environment, soft cinematic lighting, professional corporate style with high clarity and neutral background tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3lOwcVxG8nxnl6rfyuJVJaEeB5V9wNbwQ3F4PWgi3UQcJiqiZxxEsDvxlXLA2jV3PRioOz2RHu9_Mlew-qfjqtMwPmpUHsXKcOEJCxsjw86G3RNK5mRcN0ulPv77pp43t_k2vuVmYko5c_D3WHk9hGZJ9tUd9SCNjNXcboPbWpbT4At0aOkeSQ17-EbSvsPhS8dc-Qp9IkUXfvsc0QCoXGR4eew0YANWmE4geL2y983VaE82sHlc4TYXJBecQ4iWj-5j9Wj_0"/>
+</div>
+</div>
+</nav>
+<div class="flex min-h-[calc(100vh-64px)]">
+<!-- SideNavBar -->
+<aside class="bg-surface-container dark:bg-surface-container-lowest fixed left-0 h-screen w-64 z-40 border-r border-outline-variant/50 hidden lg:flex flex-col h-full p-4 gap-compact-row">
+<div class="flex items-center gap-3 mb-6 p-2">
+<div class="w-10 h-10 bg-secondary-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white">grid_view</span>
+</div>
+<div>
+<p class="font-headline-md text-label-md font-bold text-on-surface dark:text-on-background">Main Grid</p>
+<p class="text-on-surface-variant font-body-sm text-body-sm">Operational Center</p>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="bg-secondary-container/10 text-secondary-container dark:text-secondary-fixed flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-secondary opacity-80 scale-[0.98]" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Invoices</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">electric_meter</span>
+<span class="font-label-md text-label-md">Meters</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Readings</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant flex items-center gap-3 px-4 py-3 rounded-lg hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 space-y-1">
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center gap-3 px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high flex items-center gap-3 px-4 py-3 rounded-lg" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-64 flex-1 p-grid-margin pb-32">
+<!-- Hero Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-gutter mb-section-gap">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md mb-2">
+<span class="hover:text-secondary cursor-pointer">Billing</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-secondary cursor-pointer">Invoices</span>
+</nav>
+<h1 class="font-headline-lg text-headline-lg text-on-surface dark:text-white mb-1">Invoice #MV-8829</h1>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-full bg-warning-amber/10 text-warning-amber border border-warning-amber/20 font-label-sm text-label-sm uppercase tracking-wider">PENDING_APPROVAL</span>
+<span class="text-on-surface-variant font-body-sm text-body-sm">Created: Oct 24, 2023 • Billing Period: Sep 2023</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-high dark:bg-surface-variant border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-outline-variant/20 transition-all">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                        Audit Log
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-high dark:bg-surface-variant border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-outline-variant/20 transition-all">
+<span class="material-symbols-outlined text-[18px]">share</span>
+                        Share
+                    </button>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column: Calculations & Table -->
+<div class="col-span-12 xl:col-span-8 space-y-gutter">
+<!-- Calculation Log -->
+<section class="glass-card rounded-xl p-6">
+<h3 class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-info-cyan">terminal</span>
+                            Calculation Log
+                        </h3>
+<div class="space-y-4">
+<!-- Step 01 -->
+<div class="flex gap-4 items-start group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-white font-label-sm text-label-sm">01</div>
+<div class="w-px h-full bg-outline-variant my-1"></div>
+</div>
+<div class="flex-1 pb-4">
+<h4 class="font-label-md text-label-md text-on-background group-hover:text-secondary transition-colors">Base Aggregation</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Aggregated meter readings from 12 edge nodes. Total Raw Consumption: 842,000 kWh.</p>
+<div class="bg-black/20 rounded p-3 font-label-sm text-label-sm text-success-emerald tabular-nums">
+                                        SUM(nodes.usage) -&gt; result: 842,000.00
+                                    </div>
+</div>
+</div>
+<!-- Step 02 -->
+<div class="flex gap-4 items-start group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-white font-label-sm text-label-sm">02</div>
+<div class="w-px h-full bg-outline-variant my-1"></div>
+</div>
+<div class="flex-1 pb-4">
+<h4 class="font-label-md text-label-md text-on-background group-hover:text-secondary transition-colors">Efficiency Adjust</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Applied Grid Efficiency Coefficient (GEC) based on node temperature and line loss telemetry.</p>
+<div class="bg-black/20 rounded p-3 font-label-sm text-label-sm text-success-emerald tabular-nums">
+                                        base * coefficient(0.985) -&gt; result: 829,370.00
+                                    </div>
+</div>
+</div>
+<!-- Step 03 -->
+<div class="flex gap-4 items-start group">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-white font-label-sm text-label-sm">03</div>
+</div>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-background group-hover:text-secondary transition-colors">Peak Multiplier</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Weighted average for 14:00-18:00 interval surcharge application.</p>
+<div class="bg-black/20 rounded p-3 font-label-sm text-label-sm text-success-emerald tabular-nums">
+                                        829,370.00 * peak_load(1.12) -&gt; FINAL_UNITS: 928,894.40
+                                    </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Detailed Tariff Table -->
+<section class="glass-card rounded-xl overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-md text-label-md uppercase tracking-widest text-on-surface-variant">Detailed Tariff Breakdown</h3>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                                Filter
+                            </button>
+</div>
+<div class="overflow-x-auto max-h-[400px]">
+<table class="w-full text-left border-collapse tabular-nums">
+<thead class="sticky top-0 bg-surface-container dark:bg-surface-container-lowest z-10">
+<tr>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Charge Component</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">Unit Rate ($)</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-right">Consumption (kWh)</th>
+<th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-right">Subtotal ($)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-secondary-container/5 transition-colors">
+<td class="px-6 py-4 font-body-md text-body-md">Standard Industrial - Tier 1</td>
+<td class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant">0.085</td>
+<td class="px-6 py-4 font-body-md text-body-md text-right">500,000.00</td>
+<td class="px-6 py-4 font-label-md text-label-md text-right text-on-background">$42,500.00</td>
+</tr>
+<tr class="hover:bg-secondary-container/5 transition-colors bg-white/2">
+<td class="px-6 py-4 font-body-md text-body-md">Standard Industrial - Tier 2</td>
+<td class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant">0.125</td>
+<td class="px-6 py-4 font-body-md text-body-md text-right">300,000.00</td>
+<td class="px-6 py-4 font-label-md text-label-md text-right text-on-background">$37,500.00</td>
+</tr>
+<tr class="hover:bg-secondary-container/5 transition-colors">
+<td class="px-6 py-4 font-body-md text-body-md">Peak Overload Surcharge</td>
+<td class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant">0.180</td>
+<td class="px-6 py-4 font-body-md text-body-md text-right">128,894.40</td>
+<td class="px-6 py-4 font-label-md text-label-md text-right text-on-background">$23,200.99</td>
+</tr>
+<tr class="hover:bg-secondary-container/5 transition-colors bg-white/2">
+<td class="px-6 py-4 font-body-md text-body-md">Grid Maintenance Levy</td>
+<td class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant">0.020</td>
+<td class="px-6 py-4 font-body-md text-body-md text-right">928,894.40</td>
+<td class="px-6 py-4 font-label-md text-label-md text-right text-on-background">$18,577.89</td>
+</tr>
+<tr class="hover:bg-secondary-container/5 transition-colors">
+<td class="px-6 py-4 font-body-md text-body-md">Reactive Power Charge</td>
+<td class="px-6 py-4 font-label-sm text-label-sm text-on-surface-variant">0.005</td>
+<td class="px-6 py-4 font-body-md text-body-md text-right">842,000.00</td>
+<td class="px-6 py-4 font-label-md text-label-md text-right text-on-background">$4,210.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Column: Summary Card -->
+<div class="col-span-12 xl:col-span-4">
+<div class="sticky top-24 space-y-gutter">
+<!-- Summary Card -->
+<div class="bg-primary-container text-on-primary-container rounded-xl p-8 shadow-xl border border-secondary/20 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<h3 class="font-label-md text-label-md uppercase tracking-widest opacity-60 mb-8">Settlement Summary</h3>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center tabular-nums">
+<span class="font-body-md text-body-md opacity-80">Subtotal</span>
+<span class="font-label-md text-label-md">$125,988.88</span>
+</div>
+<div class="flex justify-between items-center tabular-nums">
+<span class="font-body-md text-body-md opacity-80">Tax (VAT 5%)</span>
+<span class="font-label-md text-label-md">$6,299.44</span>
+</div>
+<div class="flex justify-between items-center tabular-nums text-success-emerald">
+<span class="font-body-md text-body-md">Industrial Credit (Disc.)</span>
+<span class="font-label-md text-label-md">-$7,288.32</span>
+</div>
+<div class="pt-4 border-t border-white/10"></div>
+<div class="flex justify-between items-end tabular-nums">
+<span class="font-headline-md text-headline-md font-bold text-white">Grand Total</span>
+<span class="font-headline-md text-headline-md font-bold text-white tracking-tight">$125,000.00</span>
+</div>
+</div>
+<div class="bg-secondary-container/20 rounded-lg p-4 mb-8 border border-secondary/30">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-secondary">info</span>
+<p class="font-body-sm text-body-sm text-on-primary-container/80 leading-relaxed">
+                                        Settlement of this invoice will trigger an automatic release of the Oct '23 operating subsidy.
+                                    </p>
+</div>
+</div>
+<div class="space-y-3">
+<p class="font-label-sm text-label-sm opacity-50 uppercase text-center">Required Reviewers</p>
+<div class="flex justify-center -space-x-3">
+<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Corporate headshot of a finance director, focused and professional, minimalist office backdrop, high resolution, soft lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOwrP9rbLIKoEU-Xqc2cP5IRwk5WoHgdsXKPAKLArD9lbnCKpn7YzASqKNS7NSnpgpGs4iMPn1tpPG0lKfEDIWnbW4vJ_n7cOtlOhxSM6-sbopvUeV6-SvLGUIMU5O-VAeEXr2mJ9ZgF1CuKGJ3nVeP6F-vxDDR_vHxzbsSborWQNd7XtSm24WfwCtbOd28rmD-OTns4U01ucJ7aea2zj8O5JWkPZ5WhAPEltPEhui6mwtNGqVriS_8ZMjOnquM4z9NGVlJMxa"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a utility operations manager, technical attire, bright modern industrial office setting, neutral colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB1Fn-LLWrrSDZ3C529rUOvN7Qd2pi8AJBVS0kP-xgfxbgK2_Elh-FoCaFnGAeWInkbzmGo8Tn8X5aRGCfsOp7ypAJd8dLr5TvZwQLjSjbDYnV2vcCQOWOsVsGR8cF8ZNBFjdhfQyFXqKAd0LL00AcCso2nP4k1iDonW-Lg3QXDc8FDuJcJ1Soi5kG671m2ElBwlUdxWJ77M9TET3OvArSU1g0kZokYs9KwHOLvnw4gj2NnQe8o1Zu_92FGD5avOSPyhRnTSj-"/>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary-container bg-surface-variant flex items-center justify-center font-label-sm text-label-sm text-on-surface">
+                                        +2
+                                    </div>
+</div>
+</div>
+</div>
+<!-- Data Visualizer Placeholder -->
+<div class="glass-card rounded-xl p-6 h-48 flex flex-col justify-center items-center text-center">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl mb-4">analytics</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Consumption Trends Analysis</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant/60">Historical comparison unavailable in preview</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Sticky Footer -->
+<footer class="fixed bottom-0 left-0 right-0 bg-surface-container/90 dark:bg-surface-container-lowest/90 backdrop-blur-xl border-t border-outline-variant z-50 py-4 px-grid-margin shadow-[0_-10px_30px_rgba(0,0,0,0.2)]">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-gutter">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-emerald animate-pulse"></span>
+<span class="font-label-md text-label-md">Real-time Calculation Engine Active</span>
+</span>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-6 py-2.5 rounded-lg border border-error-red/30 text-error-red font-label-md text-label-md hover:bg-error-red/10 transition-all">
+                    Reject
+                </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg border border-outline-variant text-on-background font-label-md text-label-md hover:bg-outline-variant/20 transition-all">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                    Print PDF
+                </button>
+<button class="flex-[2] md:flex-none flex items-center justify-center gap-2 px-8 py-2.5 rounded-lg bg-success-emerald text-white font-label-md text-label-md hover:brightness-110 shadow-lg shadow-success-emerald/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+                    Approve Settlement
+                </button>
+</div>
+</div>
+</footer>
+<!-- Global Monitoring Action Center -->
+<div class="fixed bottom-24 right-8 z-50">
+<div class="glass-card rounded-2xl p-4 shadow-2xl flex items-center gap-4 animate-bounce hover:animate-none group cursor-pointer border-success-emerald/30">
+<div class="w-12 h-12 rounded-xl bg-success-emerald/20 flex items-center justify-center text-success-emerald">
+<span class="material-symbols-outlined text-3xl">query_stats</span>
+</div>
+<div class="pr-2">
+<p class="font-label-md text-label-md text-on-background leading-none mb-1">Global Monitoring</p>
+<p class="font-body-sm text-body-sm text-success-emerald">All Grids Operational</p>
+</div>
+<div class="absolute -top-2 -right-2 bg-error-red text-white text-[10px] font-bold px-1.5 rounded-full border-2 border-surface">3</div>
+</div>
+</div>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('mousedown', () => {
+                row.classList.add('scale-[0.99]', 'transition-transform');
+            });
+            row.addEventListener('mouseup', () => {
+                row.classList.remove('scale-[0.99]');
+            });
+        });
+
+        // Toggle Dark Mode Simulation (already active by default)
+        console.log('MeterVerse MVEOS Invoice Workspace Initialized');
+    </script>
+</body></html>

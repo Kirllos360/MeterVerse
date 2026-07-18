@@ -1,0 +1,37 @@
+/* ── Utility validators for repository responses ── */
+
+export function ensureArray<T>(v: unknown, fallback: T[] = []): T[] {
+  return Array.isArray(v) ? v : fallback;
+}
+
+export function ensureString(v: unknown, fallback = ""): string {
+  if (typeof v === "string") return v;
+  if (typeof v === "number") return String(v);
+  return fallback;
+}
+
+export function ensureNumber(v: unknown, fallback = 0): number {
+  if (typeof v === "number" && !Number.isNaN(v)) return v;
+  const n = Number(v);
+  return Number.isNaN(n) ? fallback : n;
+}
+
+export function ensureDate(v: unknown, fallback = ""): string {
+  if (typeof v === "string" && v.length > 0) return v;
+  return fallback;
+}
+
+export function ensureId(v: unknown, fallback = ""): string {
+  if (typeof v === "string" && v.length > 0) return v;
+  if (typeof v === "number") return String(v);
+  return fallback;
+}
+
+export function ensureBoolean(v: unknown, fallback = false): boolean {
+  return typeof v === "boolean" ? v : fallback;
+}
+
+export function ensureRecord<T>(v: unknown, fallback: Record<string, T> = {}): Record<string, T> {
+  if (v && typeof v === "object" && !Array.isArray(v)) return v as Record<string, T>;
+  return fallback;
+}

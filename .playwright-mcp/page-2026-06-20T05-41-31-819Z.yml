@@ -1,0 +1,144 @@
+- generic [ref=e7]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - link "Iskraemeco" [ref=e12] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e13]
+      - generic [ref=e177]:
+        - link " System Settings" [ref=e178] [cursor=pointer]:
+          - /url: javascript:;
+          - generic [ref=e179]: 
+          - text: System Settings
+        - link " Dashboard" [ref=e181] [cursor=pointer]:
+          - /url: "#/"
+          - generic [ref=e182]: 
+          - text: Dashboard
+        - link " Users" [ref=e183] [cursor=pointer]:
+          - /url: "#/admin/user-management"
+          - generic [ref=e184]: 
+          - text: Users
+        - link " Run Bill Cycle" [ref=e185] [cursor=pointer]:
+          - /url: "#/bill-cycle"
+          - generic [ref=e186]: 
+          - text: Run Bill Cycle
+        - link " Delete Readings" [ref=e187] [cursor=pointer]:
+          - /url: "#/monthly-reading/delete"
+          - generic [ref=e188]: 
+          - text: Delete Readings
+        - link " Delete Multi Readings" [ref=e189] [cursor=pointer]:
+          - /url: "#/delete-multi-readings"
+          - generic [ref=e190]: 
+          - text: Delete Multi Readings
+        - link " Payment Centers" [ref=e191] [cursor=pointer]:
+          - /url: "#/payment-center"
+          - generic [ref=e192]: 
+          - text: Payment Centers
+        - link " Settlement Types" [active] [ref=e193]:
+          - /url: "#/settlements"
+          - generic [ref=e194]: 
+          - text: Settlement Types
+        - link " Holidays" [ref=e195] [cursor=pointer]:
+          - /url: "#/holiday"
+          - generic [ref=e196]: 
+          - text: Holidays
+        - link " General Settings" [ref=e197] [cursor=pointer]:
+          - /url: "#/general-settings"
+          - generic [ref=e198]: 
+          - text: General Settings
+        - link " Customer Groups" [ref=e199] [cursor=pointer]:
+          - /url: "#/customer-group"
+          - generic [ref=e200]: 
+          - text: Customer Groups
+        - link " Projects" [ref=e201] [cursor=pointer]:
+          - /url: "#/projects"
+          - generic [ref=e202]: 
+          - text: Projects
+        - link " Bank Accounts" [ref=e203] [cursor=pointer]:
+          - /url: "#/bank-account"
+          - generic [ref=e204]: 
+          - text: Bank Accounts
+        - link " POS Terminals" [ref=e205] [cursor=pointer]:
+          - /url: "#/pos-terminal"
+          - generic [ref=e206]: 
+          - text: POS Terminals
+        - link " Unit Types" [ref=e207] [cursor=pointer]:
+          - /url: "#/location-type"
+          - generic [ref=e208]: 
+          - text: Unit Types
+        - link " Unit Zones" [ref=e209] [cursor=pointer]:
+          - /url: "#/location-zone"
+          - generic [ref=e210]: 
+          - text: Unit Zones
+    - generic [ref=e39]:
+      - banner [ref=e41]:
+        - navigation [ref=e42]:
+          - link "Smart Meters Billing vDEV" [ref=e43] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - button "Toggle navigation" [ref=e45] [cursor=pointer]
+          - text:  
+      - generic [ref=e404]:
+        - generic [ref=e406]:
+          - generic [ref=e408]: Settlements Types
+          - generic [ref=e409]:
+            - link " New" [ref=e410] [cursor=pointer]:
+              - /url: "#/settlements/new"
+              - generic [ref=e411]: 
+              - text: New
+            - generic [ref=e412]:
+              - link "" [ref=e413] [cursor=pointer]:
+                - /url: javascript:void(0);
+                - generic [ref=e414]: 
+              - text: 
+        - generic [ref=e415]:
+          - table [ref=e416]:
+            - rowgroup [ref=e417]:
+              - row "ID Name Allowed Months" [ref=e418]:
+                - columnheader "ID" [ref=e419]
+                - columnheader "Name" [ref=e420]
+                - columnheader "Allowed Months" [ref=e421]
+                - columnheader [ref=e422]
+            - rowgroup [ref=e423]:
+              - row "1 فرق تعريفة 1 " [ref=e424]:
+                - cell "1" [ref=e425]
+                - cell "فرق تعريفة" [ref=e426]
+                - cell "1" [ref=e427]
+                - cell "" [ref=e428]:
+                  - generic [ref=e429]:
+                    - link "" [ref=e430] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e431]: 
+                    - text:  
+              - row "4 تسويه استهلاك 1 " [ref=e432]:
+                - cell "4" [ref=e433]
+                - cell "تسويه استهلاك" [ref=e434]
+                - cell "1" [ref=e435]
+                - cell "" [ref=e436]:
+                  - generic [ref=e437]:
+                    - link "" [ref=e438] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e439]: 
+                    - text:  
+          - navigation [ref=e442]:
+            - list [ref=e443]:
+              - listitem [ref=e444]:
+                - link "First" [disabled]:
+                  - /url: ""
+              - listitem [ref=e445]:
+                - link "Previous" [disabled]:
+                  - /url: ""
+              - listitem [ref=e446]:
+                - link "1 (current)" [ref=e447] [cursor=pointer]:
+                  - /url: ""
+                  - text: "1"
+                  - generic [ref=e448]: (current)
+              - listitem [ref=e449]:
+                - link "Next" [disabled]:
+                  - /url: ""
+              - listitem [ref=e450]:
+                - link "Last" [disabled]:
+                  - /url: ""

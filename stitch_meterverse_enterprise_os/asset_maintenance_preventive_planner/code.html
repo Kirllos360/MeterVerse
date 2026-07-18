@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse | Asset Maintenance Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#adedd3",
+                    "tertiary-fixed": "#ffdad7",
+                    "primary": "#006c49",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "on-surface": "#161d19",
+                    "outline": "#6c7a71",
+                    "on-tertiary-container": "#711419",
+                    "on-primary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#fc7c78",
+                    "on-primary-fixed": "#002113",
+                    "tertiary": "#a43a3a",
+                    "primary-fixed-dim": "#4edea3",
+                    "surface-container-low": "#eef6ee",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#10b981",
+                    "card-dark": "#16221a",
+                    "surface-variant": "#dde4dd",
+                    "on-tertiary-fixed": "#410005",
+                    "on-primary-container": "#00422b",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "surface-dim": "#d4dcd5",
+                    "inverse-primary": "#4edea3",
+                    "error": "#ba1a1a",
+                    "background-dark": "#0d1510",
+                    "outline-variant": "#bbcabf",
+                    "on-secondary": "#ffffff",
+                    "financial-gold": "#fbbf24",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-primary-fixed-variant": "#005236",
+                    "inverse-surface": "#2b322d",
+                    "on-error-container": "#93000a",
+                    "water-cyan": "#06b6d4",
+                    "surface": "#f4fbf4",
+                    "industrial-red": "#ef4444",
+                    "on-background": "#161d19",
+                    "surface-container-high": "#e3eae3",
+                    "on-surface-variant": "#3c4a42",
+                    "surface-container": "#e8f0e9",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#306d58",
+                    "on-secondary-fixed": "#002117",
+                    "surface-tint": "#006c49",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "surface-bright": "#f4fbf4",
+                    "secondary": "#2b6954",
+                    "background": "#f4fbf4",
+                    "sidebar-light": "#064e3b",
+                    "inverse-on-surface": "#ebf3eb",
+                    "surface-container-highest": "#dde4dd",
+                    "electric-orange": "#f97316",
+                    "primary-fixed": "#6ffbbe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-collapsed": "72px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "stack-sm": "8px",
+                    "gutter": "16px",
+                    "sidebar-expanded": "260px",
+                    "margin-page": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #f4fbf4; color: #161d19; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+        .glass-panel { backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(187, 202, 191, 0.4); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bbcabf; border-radius: 10px; }
+        @media (max-width: 768px) { .sidebar-desktop { display: none; } }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- Side Navigation Shell -->
+<aside class="sidebar-desktop flex flex-col h-screen fixed left-0 top-0 bg-sidebar-light dark:bg-card-dark w-[260px] z-50 shadow-lg">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary leading-tight">MeterVerse</h1>
+<p class="text-xs text-on-primary/60 font-label-sm uppercase tracking-wider">Energy Grid Solutions</p>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-1 mt-4 overflow-y-auto custom-scrollbar">
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">Workspace</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container text-on-primary-container rounded-lg px-4 py-3 transition-colors duration-300 shadow-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+<span class="font-body-md text-body-md font-semibold">Operations</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body-md text-body-md">Financial</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-body-md text-body-md">Monitoring</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-body-md text-body-md">Center</span>
+</a>
+<a class="flex items-center gap-3 text-on-primary/70 hover:text-on-primary px-4 py-3 hover:bg-on-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Admin</span>
+</a>
+</nav>
+<div class="p-4 border-t border-on-primary/10">
+<div class="flex items-center gap-3 px-4 py-2 bg-on-primary/5 rounded-xl">
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed" data-alt="A professional portrait of a senior energy operations manager with a confident expression, wearing industrial-safe business casual attire. The background is a blurred high-tech control room with emerald glowing screens and clean white architectural lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByXTJ99Kc1mw_9A_vamjKGjcx1VmGC64bASnJIhZ596ov7CUv-ys2TN2yNZ3JtUjGsL6Y61HP1frLi89T6hF1LHkcSaqvSANv5uxZhqvFPkp9wZlOq8H8vbHpq9KBADLEm9iU88sy7ckuEXrkhiCTbyasjqBwm65uHom5Wk3cU-CnYzdTCUI580UH8kYZfGp6QdlKkR4IoMegMLRxQUx2DRN-2G5xoO1X9m7WB9u7bIUFxgYoo2imdhREWxlELUwnCIM9XbNOA"/>
+<div class="overflow-hidden">
+<p class="text-on-primary font-body-md font-bold truncate">Alex Thorne</p>
+<p class="text-on-primary/60 text-[10px] font-label-sm uppercase">Grid Director</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-[260px] h-screen overflow-y-auto flex flex-col bg-surface relative">
+<!-- Top Navigation -->
+<header class="flex justify-between items-center h-16 px-6 sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-96 max-w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary" placeholder="Search assets, work orders, or crews..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">contrast</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
+<span class="material-symbols-outlined">language</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg flex items-center gap-2 hover:brightness-110 transition-all font-body-md font-medium shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+                    New Plan
+                </button>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-margin-page space-y-6 max-w-[1600px] mx-auto w-full pb-20">
+<!-- Hero & Breadcrumbs -->
+<section class="space-y-1">
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-sm uppercase text-[10px] tracking-[0.1em]">
+<span>Operations</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span>Maintenance</span>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-primary font-bold">Planner</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Asset Maintenance Planner</h2>
+</section>
+<!-- Filters Ribbon -->
+<section class="bg-surface-container p-3 rounded-xl flex flex-wrap items-center gap-4 border border-outline-variant/30 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">filter_list</span>
+<span class="font-body-md text-on-surface-variant font-medium">Filters:</span>
+</div>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 text-sm font-body-md focus:ring-primary focus:border-primary">
+<option>All Regions</option>
+<option>North District</option>
+<option>South Sector</option>
+<option>East Grid</option>
+</select>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 text-sm font-body-md focus:ring-primary focus:border-primary">
+<option>Asset Type: All</option>
+<option>Transformer</option>
+<option>Meter</option>
+<option>Feeder</option>
+</select>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1.5 text-sm font-body-md focus:ring-primary focus:border-primary">
+<option>Priority: All</option>
+<option>High (Critical)</option>
+<option>Medium</option>
+<option>Low</option>
+</select>
+<div class="flex-1"></div>
+<div class="flex bg-surface-container-low p-1 rounded-lg gap-1 border border-outline-variant">
+<button class="px-4 py-1 rounded bg-white shadow-sm font-medium text-primary text-sm transition-all">Month</button>
+<button class="px-4 py-1 rounded hover:bg-white/50 text-on-surface-variant text-sm transition-all">Week</button>
+<button class="px-4 py-1 rounded hover:bg-white/50 text-on-surface-variant text-sm transition-all">Day</button>
+</div>
+</section>
+<!-- KPI Strip -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant shadow-sm hover:translate-y-[-4px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-3">
+<div class="p-2 bg-primary-container/20 rounded-xl text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+</div>
+<span class="text-xs font-label-sm text-on-surface-variant">+8% from last month</span>
+</div>
+<p class="text-3xl font-bold text-on-surface font-headline-md">42</p>
+<p class="text-sm font-body-md text-on-surface-variant font-medium uppercase tracking-wide">Scheduled Tasks</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant shadow-sm hover:translate-y-[-4px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-3">
+<div class="p-2 bg-industrial-red/10 rounded-xl text-industrial-red">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<span class="text-xs font-label-sm text-industrial-red font-bold">Action Required</span>
+</div>
+<p class="text-3xl font-bold text-on-surface font-headline-md">3</p>
+<p class="text-sm font-body-md text-on-surface-variant font-medium uppercase tracking-wide">Overdue</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant shadow-sm hover:translate-y-[-4px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-3">
+<div class="p-2 bg-water-cyan/10 rounded-xl text-water-cyan">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">engineering</span>
+</div>
+<span class="text-xs font-label-sm text-on-surface-variant">Live Tracking</span>
+</div>
+<p class="text-3xl font-bold text-on-surface font-headline-md">12</p>
+<p class="text-sm font-body-md text-on-surface-variant font-medium uppercase tracking-wide">Technicians On-Site</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-2xl border border-outline-variant shadow-sm hover:translate-y-[-4px] transition-transform duration-300">
+<div class="flex justify-between items-start mb-3">
+<div class="p-2 bg-financial-gold/10 rounded-xl text-financial-gold">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<span class="text-xs font-label-sm text-primary font-bold">Excellence</span>
+</div>
+<p class="text-3xl font-bold text-on-surface font-headline-md">98.4%</p>
+<p class="text-sm font-body-md text-on-surface-variant font-medium uppercase tracking-wide">Compliance Score</p>
+</div>
+</section>
+<!-- Main Workspace Area -->
+<div class="grid grid-cols-12 gap-6 items-start">
+<!-- Calendar (Content) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container/30">
+<h3 class="font-headline-md text-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">event_note</span>
+                            October 2024
+                        </h3>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="px-3 py-1 font-medium text-sm hover:bg-surface-container rounded-lg">Today</button>
+<button class="p-2 hover:bg-surface-container rounded-lg"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="grid grid-cols-7 border-b border-outline-variant bg-surface-container-low/50">
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant">MON</div>
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant">TUE</div>
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant">WED</div>
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant">THU</div>
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant">FRI</div>
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant text-industrial-red">SAT</div>
+<div class="py-2 text-center text-xs font-label-sm font-bold text-on-surface-variant text-industrial-red">SUN</div>
+</div>
+<div class="calendar-grid flex-1">
+<!-- Simplified Calendar Cells (Loop for visual density) -->
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30 text-on-surface-variant/40 text-sm font-medium">28</div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30 text-on-surface-variant/40 text-sm font-medium">29</div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30 text-on-surface-variant/40 text-sm font-medium">30</div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30 text-on-surface-variant/40 text-sm font-medium">31</div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30 bg-surface-container-low/20">
+<span class="text-sm font-bold text-on-surface">1</span>
+<div class="mt-1 space-y-1">
+<div class="text-[10px] bg-primary-container text-on-primary-container p-1 rounded font-medium border-l-2 border-primary truncate">WO-920: Transformer X</div>
+<div class="text-[10px] bg-secondary-container text-on-secondary-container p-1 rounded font-medium border-l-2 border-secondary truncate">WO-921: Feeder Check</div>
+</div>
+</div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">2</span></div>
+<div class="min-h-[120px] p-2 border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">3</span></div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">4</span></div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30 ring-2 ring-primary ring-inset bg-primary/5">
+<span class="text-sm font-bold text-primary">5</span>
+<div class="mt-1 space-y-1">
+<div class="text-[10px] bg-tertiary-container text-on-tertiary-container p-1 rounded font-medium border-l-2 border-tertiary truncate">WO-2024-981: Critical</div>
+<div class="text-[10px] bg-primary-container/20 text-primary p-1 rounded font-medium border-l-2 border-primary truncate">WO-985: Route C</div>
+</div>
+</div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">6</span></div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">7</span></div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">8</span></div>
+<div class="min-h-[120px] p-2 border-r border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">9</span></div>
+<div class="min-h-[120px] p-2 border-b border-outline-variant/30"><span class="text-sm font-bold text-on-surface">10</span></div>
+<!-- Continued cells for density -->
+<div class="min-h-[120px] p-2 border-r border-outline-variant/30"><span class="text-sm font-bold text-on-surface">11</span></div>
+<div class="min-h-[120px] p-2 border-r border-outline-variant/30"><span class="text-sm font-bold text-on-surface">12</span></div>
+<div class="min-h-[120px] p-2 border-r border-outline-variant/30"><span class="text-sm font-bold text-on-surface">13</span></div>
+<div class="min-h-[120px] p-2 border-r border-outline-variant/30"><span class="text-sm font-bold text-on-surface">14</span></div>
+<div class="min-h-[120px] p-2 border-r border-outline-variant/30"><span class="text-sm font-bold text-on-surface">15</span></div>
+<div class="min-h-[120px] p-2 border-r border-outline-variant/30"><span class="text-sm font-bold text-on-surface">16</span></div>
+<div class="min-h-[120px] p-2"><span class="text-sm font-bold text-on-surface">17</span></div>
+</div>
+</section>
+<!-- Side Panel (Inspector) -->
+<aside class="col-span-12 lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-lg flex flex-col overflow-hidden sticky top-20">
+<div class="p-6 bg-gradient-to-br from-primary/10 to-transparent border-b border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="bg-tertiary text-on-tertiary text-[10px] font-label-sm px-2 py-0.5 rounded-full uppercase font-bold tracking-widest">Urgent Maintenance</span>
+<h4 class="font-headline-md text-xl text-on-surface mt-2">WO-2024-981</h4>
+<p class="text-on-surface-variant font-body-md">Transformer Unit Alpha-4 Overheating</p>
+</div>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+</div>
+</div>
+<div class="p-6 space-y-6 flex-1 custom-scrollbar overflow-y-auto">
+<div class="space-y-2">
+<label class="font-label-sm text-[10px] uppercase text-on-surface-variant font-bold tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">schedule</span> SLA Deadline
+                            </label>
+<p class="font-body-lg font-bold text-industrial-red">Oct 05, 2024 • 14:00 (2h remaining)</p>
+</div>
+<div class="space-y-3">
+<label class="font-label-sm text-[10px] uppercase text-on-surface-variant font-bold tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">group</span> Assigned Crew
+                            </label>
+<div class="flex items-center gap-3 bg-surface-container/50 p-3 rounded-xl border border-outline-variant/50">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-primary-fixed flex items-center justify-center text-[10px] font-bold">JD</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-secondary-fixed flex items-center justify-center text-[10px] font-bold">ML</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-tertiary-fixed flex items-center justify-center text-[10px] font-bold">+1</div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-none">Response Team Echo</p>
+<p class="text-[10px] text-on-surface-variant font-medium">3 Technicians • On Route</p>
+</div>
+</div>
+</div>
+<div class="space-y-3">
+<label class="font-label-sm text-[10px] uppercase text-on-surface-variant font-bold tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">inventory_2</span> Required Spare Parts
+                            </label>
+<div class="space-y-2">
+<div class="flex justify-between items-center p-2 rounded-lg bg-surface-container/30 border border-outline-variant/20">
+<span class="text-sm font-medium">High-Thermal Seal Kit</span>
+<span class="text-xs bg-primary-container/20 text-primary-container px-2 py-0.5 rounded font-bold">x2</span>
+</div>
+<div class="flex justify-between items-center p-2 rounded-lg bg-surface-container/30 border border-outline-variant/20">
+<span class="text-sm font-medium">Insulating Oil (Grade A)</span>
+<span class="text-xs bg-primary-container/20 text-primary-container px-2 py-0.5 rounded font-bold">20L</span>
+</div>
+<div class="flex justify-between items-center p-2 rounded-lg bg-surface-container/30 border border-outline-variant/20 opacity-50">
+<span class="text-sm font-medium">Voltage Regulator Unit</span>
+<span class="text-xs bg-industrial-red/20 text-industrial-red px-2 py-0.5 rounded font-bold">Out of Stock</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low border-t border-outline-variant grid grid-cols-2 gap-3">
+<button class="px-4 py-2 border border-outline text-on-surface-variant font-bold text-sm rounded-xl hover:bg-surface-variant transition-all">Reschedule</button>
+<button class="px-4 py-2 bg-primary text-on-primary font-bold text-sm rounded-xl shadow-lg shadow-primary/20 hover:brightness-110 transition-all">Dispatch Now</button>
+</div>
+</aside>
+<!-- Upcoming Work Orders Table -->
+<section class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded-2xl shadow-sm overflow-hidden">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center">
+<div>
+<h3 class="font-headline-md text-lg text-on-surface">Upcoming Work Orders</h3>
+<p class="text-sm text-on-surface-variant">Queue for the next 48 hours</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:underline">
+                            View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-6 py-4 font-label-sm text-[10px] uppercase tracking-[0.15em] text-on-surface-variant">Order ID</th>
+<th class="px-6 py-4 font-label-sm text-[10px] uppercase tracking-[0.15em] text-on-surface-variant">Asset</th>
+<th class="px-6 py-4 font-label-sm text-[10px] uppercase tracking-[0.15em] text-on-surface-variant">Task Type</th>
+<th class="px-6 py-4 font-label-sm text-[10px] uppercase tracking-[0.15em] text-on-surface-variant">Priority</th>
+<th class="px-6 py-4 font-label-sm text-[10px] uppercase tracking-[0.15em] text-on-surface-variant">Status</th>
+<th class="px-6 py-4 font-label-sm text-[10px] uppercase tracking-[0.15em] text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-on-surface">WO-2024-1002</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">bolt</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Substation 42 - Main Feeder</p>
+<p class="text-xs text-on-surface-variant">North District</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-body-md text-on-surface">Preventive Insulation Check</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-secondary-container/30 text-secondary text-[10px] font-bold uppercase tracking-wide">Medium</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline animate-pulse"></div>
+<span class="text-sm font-medium text-on-surface-variant">Unassigned</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-primary-container/20 text-on-primary-container px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-primary-container hover:text-white transition-all">Assign</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-on-surface">WO-2024-1005</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">settings_input_component</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">Residential Smart Meter Hub</p>
+<p class="text-xs text-on-surface-variant">East Grid Sector B</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-body-md text-on-surface">Firmware Cluster Update</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-surface-container-high text-on-surface-variant text-[10px] font-bold uppercase tracking-wide">Low</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<span class="text-sm font-medium text-on-surface-variant">Scheduled</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-primary-container/20 text-on-primary-container px-4 py-1.5 rounded-lg text-sm font-bold hover:bg-primary-container hover:text-white transition-all">Assign</button>
+</td>
+</tr>
+<tr class="hover:bg-primary/5 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-on-surface text-industrial-red">WO-2024-1010</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-industrial-red/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-industrial-red text-lg">electric_meter</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface">City Center Core Transformer</p>
+<p class="text-xs text-on-surface-variant">South Metropolitan</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-body-md text-on-surface">Emergency Oil Leak Repair</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded bg-tertiary-container/30 text-tertiary text-[10px] font-bold uppercase tracking-wide">Critical</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-industrial-red animate-ping"></div>
+<span class="text-sm font-medium text-industrial-red font-bold">Pending Review</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-lg text-sm font-bold hover:brightness-110 transition-all shadow-md">Assign</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="flex justify-between items-center py-4 px-margin-page w-full bg-surface-container-lowest border-t border-outline-variant mt-auto">
+<div class="flex items-center gap-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 MeterVerse Energy Forest. All rights reserved.</p>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">System Status</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Documentation</a>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-[10px] uppercase text-primary font-bold">System Online</span>
+</div>
+</footer>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform duration-300">add</span>
+<div class="absolute right-16 bg-on-surface text-surface text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Create Maintenance Task
+        </div>
+</button>
+<script>
+        // Micro-interactions and effects
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.classList.add('scale-95');
+            });
+            el.addEventListener('mouseup', () => {
+                el.classList.remove('scale-95');
+            });
+            el.addEventListener('mouseleave', () => {
+                el.classList.remove('scale-95');
+            });
+        });
+
+        // Simulating inspector task selection
+        const tableRows = document.querySelectorAll('tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('click', () => {
+                // In a real app, this would update the side panel content
+                row.classList.add('bg-primary/10');
+                setTimeout(() => row.classList.remove('bg-primary/10'), 1000);
+            });
+        });
+    </script>
+</body></html>

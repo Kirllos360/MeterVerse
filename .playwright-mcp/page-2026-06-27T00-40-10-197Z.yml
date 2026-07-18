@@ -1,0 +1,142 @@
+- generic [ref=e2]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - link "Iskraemeco" [ref=e12] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e13]
+      - generic [ref=e14]:
+        - link " Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: "#/"
+          - generic [ref=e16]: 
+          - text: Dashboard
+        - link " Customers" [ref=e17] [cursor=pointer]:
+          - /url: "#/customer"
+          - generic [ref=e18]: 
+          - text: Customers
+        - link " Meters" [ref=e19] [cursor=pointer]:
+          - /url: "#/meter"
+          - generic [ref=e20]: 
+          - text: Meters
+        - link " Early Readings" [ref=e21] [cursor=pointer]:
+          - /url: "#/early-reading/search"
+          - generic [ref=e22]: 
+          - text: Early Readings
+        - link " Units" [ref=e23]:
+          - /url: "#/location"
+          - generic [ref=e24]: 
+          - text: Units
+        - link " Payments" [ref=e25] [cursor=pointer]:
+          - /url: "#/payment/new"
+          - generic [ref=e26]: 
+          - text: Payments
+        - link " Invoices" [ref=e27] [cursor=pointer]:
+          - /url: "#/invoice"
+          - generic [ref=e28]: 
+          - text: Invoices
+        - link " Tariff" [ref=e29] [cursor=pointer]:
+          - /url: "#/tariff"
+          - generic [ref=e30]: 
+          - text: Tariff
+        - link " History" [ref=e31] [cursor=pointer]:
+          - /url: "#/payment"
+          - generic [ref=e32]: 
+          - text: History
+        - link " Reports" [ref=e33] [cursor=pointer]:
+          - /url: "#/reports"
+          - generic [ref=e34]: 
+          - text: Reports
+        - link " Data Upload" [ref=e35] [cursor=pointer]:
+          - /url: "#/data-upload"
+          - generic [ref=e36]: 
+          - text: Data Upload
+        - link " Running Activities" [ref=e37] [cursor=pointer]:
+          - /url: "#/running-activities"
+          - generic [ref=e38]: 
+          - text: Running Activities
+    - generic [ref=e39]:
+      - banner [ref=e41]:
+        - navigation [ref=e42]:
+          - link "Smart Meters Billing vDEV" [ref=e43] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - list [ref=e46]:
+            - listitem [ref=e47]:
+              - link "" [ref=e48] [cursor=pointer]:
+                - /url: "#/alerts"
+                - generic [ref=e49]: 
+            - listitem [ref=e50]:
+              - link "" [ref=e51] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=e52]: 
+            - listitem [ref=e53]:
+              - link "admin" [ref=e54] [cursor=pointer]:
+                - /url: javascript:;
+      - generic [ref=e55]:
+        - heading "Assign New Unit" [level=1] [ref=e58]
+        - heading " You can create new unit or, search for existing unit by it's number and assign meter to it." [level=3] [ref=e61]:
+          - generic [ref=e62]: 
+          - text: You can
+          - link "create new unit" [ref=e63] [cursor=pointer]:
+            - /url: javascript:;
+          - text: or, search for
+          - link "existing" [ref=e64] [cursor=pointer]:
+            - /url: javascript:;
+          - text: unit by it's number and assign meter to it.
+        - form [ref=e65]:
+          - generic [ref=e66]:
+            - generic [ref=e67]:
+              - generic [ref=e68]: ID
+              - textbox "ID" [ref=e69]
+            - generic [ref=e70]:
+              - generic [ref=e71]: Meter Id
+              - textbox "Meter Id" [ref=e72]: "239364"
+            - generic [ref=e73]:
+              - generic [ref=e75]: Unit No.
+              - generic [ref=e77]:
+                - textbox "Unit No." [ref=e79]
+                - text: 
+            - generic [ref=e80]:
+              - generic [ref=e82]: Unit Type
+              - combobox [ref=e86]:
+                - option "APARTMENT"
+                - option "VILLA"
+                - option "Commercial Unit"
+                - option "house of worship"
+            - generic [ref=e87]:
+              - generic [ref=e89]: Unit Zone
+              - combobox [ref=e93]:
+                - option "Zone1"
+                - option "Golf_Central"
+                - option "Palm_Central"
+                - option "Banha"
+                - option "Golf Extension"
+                - option "Golf Views"
+                - option "The Crowm"
+                - option "Palm Valley"
+                - option "Intersection Mall"
+                - option "Cairo University Compound"
+                - option "Poly Park"
+            - generic [ref=e94]:
+              - generic [ref=e96]: Address
+              - generic [ref=e98]:
+                - textbox "English" [ref=e100]
+                - textbox "Arabic" [ref=e102]
+            - generic [ref=e103]:
+              - generic [ref=e105]: City
+              - textbox "City" [ref=e109]
+            - generic [ref=e110]:
+              - generic [ref=e112]: No of Rooms
+              - spinbutton [ref=e116]
+            - generic [ref=e117]:
+              - generic [ref=e119]: Building No.
+              - textbox "Building No." [ref=e123]
+            - generic [ref=e124]:
+              - generic [ref=e126]: Floor No.
+              - textbox "Floor No." [ref=e130]
+            - generic [ref=e133]:
+              - button "Save" [disabled] [ref=e134] [cursor=pointer]
+              - button "Back" [ref=e135] [cursor=pointer]

@@ -1,0 +1,57 @@
+- generic [active]:
+  - button "Open Next.js Dev Tools" [ref=e6] [cursor=pointer]:
+    - img [ref=e7]
+  - alert [ref=e10]
+  - generic [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - img [ref=e22]
+        - heading "ميتر فيرس" [level=1] [ref=e25]
+        - paragraph [ref=e26]: تسجيل الدخول إلى حساب ميتر فيرس
+      - generic [ref=e27]:
+        - generic [ref=e28]:
+          - generic [ref=e29]: تسجيل الدخول كـ
+          - combobox "تسجيل الدخول كـ" [ref=e30]:
+            - option "Super Admin" [selected]
+            - option "System Admin"
+            - option "Admin"
+            - option "Area Manager"
+            - option "Team Leader"
+            - option "Operator"
+            - option "Technician"
+            - option "Finance"
+            - option "Support"
+            - option "Customer"
+            - option "Collector"
+            - option "Meter Reader"
+            - option "Inspector"
+            - option "Supervisor"
+            - option "Accountant"
+            - option "Viewer"
+        - generic [ref=e31]:
+          - generic [ref=e32]: البريد الإلكتروني
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - textbox "البريد الإلكتروني" [ref=e37]:
+              - /placeholder: admin@meterpulse.com
+              - text: admin@meterpulse.com
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - generic [ref=e40]: كلمة المرور
+            - button "نسيت كلمة المرور؟" [ref=e41]
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - textbox "كلمة المرور" [ref=e46]:
+              - /placeholder: أدخل كلمة المرور
+              - text: admin123
+            - button [ref=e47]:
+              - img [ref=e48]
+        - button "تسجيل الدخول" [ref=e51]
+      - generic [ref=e54]:
+        - img [ref=e56]
+        - generic [ref=e58]:
+          - paragraph [ref=e59]: وضع العرض التوضيحي
+          - paragraph [ref=e60]: اختر أي دور من القائمة وانقر على تسجيل الدخول لاستكشاف لوحة التحكم بمستويات صلاحيات مختلفة.
+    - paragraph [ref=e61]: © 2026 ميتر فيرس. جميع الحقوق محفوظة.
+  - region "Notifications (F8)":
+    - list

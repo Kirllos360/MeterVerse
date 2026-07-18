@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse MVEOS | System Health &amp; API Monitoring</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-emerald {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: pulse-emerald 2s infinite;
+        }
+        @keyframes pulse-emerald {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #3c4a42; border-radius: 10px; }
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            background: rgba(22, 34, 26, 0.8);
+            border: 1px solid rgba(187, 202, 191, 0.1);
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-background": "#161d19",
+                "secondary": "#2b6954",
+                "inverse-primary": "#4edea3",
+                "sidebar-light": "#064e3b",
+                "primary-fixed-dim": "#4edea3",
+                "surface-variant": "#dde4dd",
+                "surface-container": "#e8f0e9",
+                "background-dark": "#0d1510",
+                "surface-container-lowest": "#ffffff",
+                "error-container": "#ffdad6",
+                "card-dark": "#16221a",
+                "on-secondary-container": "#306d58",
+                "surface-container-low": "#eef6ee",
+                "on-surface-variant": "#3c4a42",
+                "background": "#f4fbf4",
+                "inverse-on-surface": "#ebf3eb",
+                "primary-fixed": "#6ffbbe",
+                "on-primary-fixed": "#002113",
+                "tertiary": "#a43a3a",
+                "primary": "#006c49",
+                "on-error-container": "#93000a",
+                "on-surface": "#161d19",
+                "on-secondary-fixed-variant": "#0b513d",
+                "secondary-fixed-dim": "#95d3ba",
+                "inverse-surface": "#2b322d",
+                "on-tertiary-container": "#711419",
+                "on-secondary-fixed": "#002117",
+                "surface-dim": "#d4dcd5",
+                "on-primary": "#ffffff",
+                "surface-bright": "#f4fbf4",
+                "surface-container-high": "#e3eae3",
+                "tertiary-fixed-dim": "#ffb3af",
+                "tertiary-fixed": "#ffdad7",
+                "industrial-red": "#ef4444",
+                "electric-orange": "#f97316",
+                "water-cyan": "#06b6d4",
+                "surface": "#f4fbf4",
+                "surface-container-highest": "#dde4dd",
+                "financial-gold": "#fbbf24",
+                "on-primary-container": "#00422b",
+                "on-primary-fixed-variant": "#005236",
+                "outline": "#6c7a71",
+                "secondary-container": "#adedd3",
+                "on-secondary": "#ffffff",
+                "secondary-fixed": "#b0f0d6",
+                "error": "#ba1a1a",
+                "primary-container": "#10b981",
+                "outline-variant": "#bbcabf",
+                "on-tertiary-fixed": "#410005",
+                "on-tertiary": "#ffffff",
+                "tertiary-container": "#fc7c78",
+                "on-tertiary-fixed-variant": "#842225",
+                "surface-tint": "#006c49",
+                "on-error": "#ffffff",
+                "success-emerald": "#10b981"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "fontFamily": {
+                "headline-lg": ["Hanken Grotesk"],
+                "label-sm": ["JetBrains Mono"],
+                "body-md": ["Hanken Grotesk"],
+                "body-lg": ["Hanken Grotesk"],
+                "headline-md": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background-dark text-on-surface-variant font-body-md overflow-hidden h-screen flex">
+<!-- SideNavBar (Shared Component) -->
+<aside class="bg-surface-container-lowest dark:bg-background-dark border-r border-outline-variant/10 w-64 flex flex-col h-full z-40 fixed left-0">
+<div class="p-6 flex flex-col gap-1">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-primary-fixed">Main Grid</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant/60">Operational Center</p>
+</div>
+<nav class="flex-1 px-4 py-2 space-y-1 overflow-y-auto custom-scrollbar">
+<!-- Active: Monitoring -->
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">electric_meter</span>
+<span class="font-label-md text-label-md">Meters</span>
+</a>
+<!-- Selected Tab based on user intent -->
+<a class="bg-secondary-container/10 text-success-emerald flex items-center gap-3 px-4 py-3 rounded-lg border-l-4 border-success-emerald scale-[0.98]" href="#">
+<span class="material-symbols-outlined">visibility</span>
+<span class="font-label-md text-label-md">Monitoring</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-md text-label-md">Readings</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-md text-label-md">Invoices</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-md text-label-md">Payments</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md text-label-md">Reports</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant/10 flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200" href="#">
+<span class="material-symbols-outlined">admin_panel_settings</span>
+<span class="font-label-md text-label-md">Administration</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant/10">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-md flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add_task</span>
+                New Service Ticket
+            </button>
+<div class="mt-4 flex flex-col gap-1">
+<a class="text-on-surface-variant/70 hover:text-on-surface flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+                    Support
+                </a>
+<a class="text-on-surface-variant/70 hover:text-industrial-red flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+                    Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-64 flex flex-col h-screen relative overflow-hidden bg-background-dark">
+<!-- Background Animation Overlay -->
+
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface/5 dark:bg-surface-container-high/5 backdrop-blur-md sticky top-0 z-50 flex justify-between items-center w-full px-6 py-4 border-b border-outline-variant/10">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-extrabold text-success-emerald tracking-tight">MeterVerse MVEOS</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-success-emerald font-bold border-b-2 border-success-emerald pb-1 font-label-md text-label-md transition-colors duration-200" href="#">Monitoring</a>
+<a class="text-on-surface-variant/80 hover:text-success-emerald font-label-md text-label-md transition-colors duration-200" href="#">Reports</a>
+<a class="text-on-surface-variant/80 hover:text-success-emerald font-label-md text-label-md transition-colors duration-200" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant/80 hover:text-success-emerald transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-on-surface-variant/80 hover:text-success-emerald transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-2 text-on-surface-variant/80 hover:text-success-emerald transition-colors"><span class="material-symbols-outlined">help</span></button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/20 mx-2"></div>
+<button class="bg-success-emerald text-on-background px-5 py-2 rounded-lg font-label-md font-bold transition-transform active:scale-95">Create Record</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-success-emerald/30 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female systems engineer in her 30s with a confident expression, set against a blurred high-tech control room background. The lighting is soft and cinematic with emerald green and charcoal tones, matching the corporate modern aesthetic of the MeterVerse platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKxm1xF5apm0wHUB7TRX85j2q3DOeHw9mXo-G_0QhIp5RuOM_b_ZQp1LIyR1uWkpjU9ttUakTjAIZTtCQPMujxITBassG0N_bmsru47XJr4Enb3Q2dR5huOh_Ao_x7FjFyVqM_PSeIonEvdLC_V5_NzIaOlcOz4RVUiKx7GVRsehbPVF6wQ0UobIfyhPMXGDJqZUBg_1gFGtQ3jfJ6QJsWmOEImKIlV6cORXNw9IveUPtVCYN698_rp7VQQnVAe5-AeZXKaYev"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 p-6 overflow-y-auto custom-scrollbar z-10">
+<!-- Global Health Headline -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-primary-fixed">System Monitoring</h2>
+<p class="text-on-surface-variant/60 font-body-lg">Control Room &amp; Core Infrastructure Health</p>
+</div>
+<div class="flex gap-4">
+<div class="glass-panel px-4 py-2 rounded-xl flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-success-emerald pulse-emerald"></div>
+<span class="font-label-sm text-label-sm text-success-emerald uppercase tracking-wider">All Systems Operational</span>
+</div>
+<div class="glass-panel px-4 py-2 rounded-xl flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="text-sm">Uptime: 99.998%</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6">
+<!-- KPI Strip -->
+<div class="col-span-12 grid grid-cols-4 gap-6">
+<div class="glass-panel p-6 rounded-2xl hover:translate-y-[-4px] transition-transform cursor-pointer border-l-4 border-success-emerald">
+<div class="flex justify-between items-start mb-2">
+<span class="text-on-surface-variant/60 font-label-md uppercase tracking-widest text-[10px]">Total API Calls</span>
+<span class="material-symbols-outlined text-success-emerald">api</span>
+</div>
+<div class="text-3xl font-bold text-on-primary-fixed">14.2M</div>
+<div class="text-xs text-success-emerald flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12% from last hour
+                        </div>
+</div>
+<div class="glass-panel p-6 rounded-2xl hover:translate-y-[-4px] transition-transform cursor-pointer border-l-4 border-water-cyan">
+<div class="flex justify-between items-start mb-2">
+<span class="text-on-surface-variant/60 font-label-md uppercase tracking-widest text-[10px]">Avg Latency</span>
+<span class="material-symbols-outlined text-water-cyan">timer</span>
+</div>
+<div class="text-3xl font-bold text-on-primary-fixed">42ms</div>
+<div class="text-xs text-water-cyan flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> -4ms improvement
+                        </div>
+</div>
+<div class="glass-panel p-6 rounded-2xl hover:translate-y-[-4px] transition-transform cursor-pointer border-l-4 border-electric-orange">
+<div class="flex justify-between items-start mb-2">
+<span class="text-on-surface-variant/60 font-label-md uppercase tracking-widest text-[10px]">Active Workers</span>
+<span class="material-symbols-outlined text-electric-orange">settings_suggest</span>
+</div>
+<div class="text-3xl font-bold text-on-primary-fixed">128/128</div>
+<div class="text-xs text-on-surface-variant/60 flex items-center gap-1 mt-1">
+                            Peak load at 94%
+                        </div>
+</div>
+<div class="glass-panel p-6 rounded-2xl hover:translate-y-[-4px] transition-transform cursor-pointer border-l-4 border-tertiary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="text-on-surface-variant/60 font-label-md uppercase tracking-widest text-[10px]">Error Rate</span>
+<span class="material-symbols-outlined text-tertiary-container">error</span>
+</div>
+<div class="text-3xl font-bold text-on-primary-fixed">0.02%</div>
+<div class="text-xs text-tertiary-container flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> 4 non-critical issues
+                        </div>
+</div>
+</div>
+<!-- API Latency Chart (Large Glass Card) -->
+<div class="col-span-8 glass-panel p-6 rounded-3xl h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-success-emerald">insights</span>
+                            API Latency (Real-time)
+                        </h3>
+<div class="flex gap-2">
+<button class="bg-surface-variant/10 text-on-surface-variant px-3 py-1 rounded-full text-xs hover:bg-surface-variant/20 transition-colors">1H</button>
+<button class="bg-success-emerald/20 text-success-emerald px-3 py-1 rounded-full text-xs font-bold">24H</button>
+<button class="bg-surface-variant/10 text-on-surface-variant px-3 py-1 rounded-full text-xs hover:bg-surface-variant/20 transition-colors">7D</button>
+</div>
+</div>
+<div class="flex-1 relative">
+<!-- Chart Mockup with CSS -->
+<div class="absolute inset-0 flex items-end gap-1 px-4">
+<!-- Simulated bars for a bar-line hybrid look -->
+<div class="flex-1 bg-success-emerald/10 rounded-t-sm" style="height: 40%"></div>
+<div class="flex-1 bg-success-emerald/15 rounded-t-sm" style="height: 45%"></div>
+<div class="flex-1 bg-success-emerald/10 rounded-t-sm" style="height: 38%"></div>
+<div class="flex-1 bg-success-emerald/20 rounded-t-sm" style="height: 52%"></div>
+<div class="flex-1 bg-success-emerald/30 rounded-t-sm" style="height: 65%"></div>
+<div class="flex-1 bg-success-emerald/20 rounded-t-sm" style="height: 48%"></div>
+<div class="flex-1 bg-industrial-red/20 rounded-t-sm" style="height: 85%"></div>
+<div class="flex-1 bg-success-emerald/20 rounded-t-sm" style="height: 42%"></div>
+<div class="flex-1 bg-success-emerald/15 rounded-t-sm" style="height: 35%"></div>
+<div class="flex-1 bg-success-emerald/10 rounded-t-sm" style="height: 40%"></div>
+<div class="flex-1 bg-success-emerald/15 rounded-t-sm" style="height: 45%"></div>
+<div class="flex-1 bg-success-emerald/10 rounded-t-sm" style="height: 38%"></div>
+<div class="flex-1 bg-success-emerald/20 rounded-t-sm" style="height: 52%"></div>
+</div>
+<!-- SVG Path Line -->
+<svg class="absolute inset-0 w-full h-full overflow-visible" viewbox="0 0 1000 400">
+<path d="M0,280 Q100,240 200,260 T400,200 T600,100 T800,220 T1000,180" fill="none" stroke="#10b981" stroke-linecap="round" stroke-width="3"></path>
+<circle class="pulse-emerald" cx="600" cy="100" fill="#10b981" r="6"></circle>
+<text fill="#10b981" font-family="JetBrains Mono" font-size="12" x="615" y="90">Peak Latency: 112ms</text>
+</svg>
+<!-- Grid Lines -->
+<div class="absolute inset-0 grid grid-rows-4 pointer-events-none opacity-10">
+<div class="border-t border-on-surface-variant"></div>
+<div class="border-t border-on-surface-variant"></div>
+<div class="border-t border-on-surface-variant"></div>
+<div class="border-t border-on-surface-variant"></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 font-label-sm text-label-sm text-on-surface-variant/40 px-2">
+<span>08:00 AM</span>
+<span>12:00 PM</span>
+<span>04:00 PM</span>
+<span>08:00 PM</span>
+<span>12:00 AM</span>
+</div>
+</div>
+<!-- Worker Status (Asymmetric Card) -->
+<div class="col-span-4 glass-panel p-6 rounded-3xl h-[400px] flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-primary-fixed mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-orange">memory</span>
+                        Worker Health
+                    </h3>
+<div class="space-y-4 overflow-y-auto custom-scrollbar flex-1 pr-2">
+<!-- Worker Row -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-variant/5 border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-success-emerald pulse-emerald"></div>
+<div>
+<p class="text-on-primary-fixed font-bold text-sm">worker-node-01</p>
+<p class="text-[10px] text-on-surface-variant/60 font-label-sm">Region: US-East-1</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant font-label-sm">CPU: 12%</p>
+<div class="w-16 h-1 bg-outline-variant/20 rounded-full mt-1">
+<div class="h-full bg-success-emerald rounded-full" style="width: 12%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-variant/5 border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-success-emerald pulse-emerald"></div>
+<div>
+<p class="text-on-primary-fixed font-bold text-sm">worker-node-02</p>
+<p class="text-[10px] text-on-surface-variant/60 font-label-sm">Region: US-East-1</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant font-label-sm">CPU: 45%</p>
+<div class="w-16 h-1 bg-outline-variant/20 rounded-full mt-1">
+<div class="h-full bg-success-emerald rounded-full" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-variant/5 border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-success-emerald pulse-emerald"></div>
+<div>
+<p class="text-on-primary-fixed font-bold text-sm">worker-node-03</p>
+<p class="text-[10px] text-on-surface-variant/60 font-label-sm">Region: EU-Central-1</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-on-surface-variant font-label-sm">CPU: 88%</p>
+<div class="w-16 h-1 bg-outline-variant/20 rounded-full mt-1">
+<div class="h-full bg-electric-orange rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-variant/5 border border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-tertiary pulse-emerald" style="animation-duration: 0.5s;"></div>
+<div>
+<p class="text-on-primary-fixed font-bold text-sm">worker-node-04</p>
+<p class="text-[10px] text-on-surface-variant/60 font-label-sm">Region: EU-West-1</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-xs text-tertiary font-label-sm">Critical</p>
+<div class="w-16 h-1 bg-outline-variant/20 rounded-full mt-1">
+<div class="h-full bg-tertiary rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Queue Depth (Bottom Left) -->
+<div class="col-span-5 glass-panel p-6 rounded-3xl h-[350px] flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-primary-fixed mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-water-cyan">stacked_bar_chart</span>
+                        Queue Depth
+                    </h3>
+<div class="flex-1 flex flex-col gap-4 justify-center">
+<div class="space-y-1">
+<div class="flex justify-between text-xs font-label-sm text-on-surface-variant/80 mb-1">
+<span>Billing Processor</span>
+<span>4.2k items</span>
+</div>
+<div class="h-6 bg-surface-variant/5 border border-outline-variant/10 rounded-lg overflow-hidden">
+<div class="h-full bg-gradient-to-r from-success-emerald/40 to-success-emerald transition-all duration-1000" style="width: 65%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs font-label-sm text-on-surface-variant/80 mb-1">
+<span>Grid Signal Router</span>
+<span>850 items</span>
+</div>
+<div class="h-6 bg-surface-variant/5 border border-outline-variant/10 rounded-lg overflow-hidden">
+<div class="h-full bg-gradient-to-r from-water-cyan/40 to-water-cyan transition-all duration-1000" style="width: 15%"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs font-label-sm text-on-surface-variant/80 mb-1">
+<span>IoT Device Handlers</span>
+<span>12.9k items</span>
+</div>
+<div class="h-6 bg-surface-variant/5 border border-outline-variant/10 rounded-lg overflow-hidden">
+<div class="h-full bg-gradient-to-r from-electric-orange/40 to-electric-orange transition-all duration-1000" style="width: 92%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Logs (High Density List) -->
+<div class="col-span-7 glass-panel p-6 rounded-3xl h-[350px] flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-primary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+                            System Logs
+                        </h3>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-sm">search</span>
+<input class="bg-surface-variant/5 border border-outline-variant/10 rounded-lg pl-9 pr-4 py-1.5 text-xs text-on-primary-fixed focus:ring-1 focus:ring-success-emerald focus:border-success-emerald outline-none" placeholder="Filter logs..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant/60 hover:text-success-emerald">download</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar pr-2 font-label-sm text-[11px]">
+<table class="w-full text-left border-separate border-spacing-y-1">
+<thead class="sticky top-0 bg-background-dark/95 z-10 text-on-surface-variant/40 uppercase tracking-tighter">
+<tr>
+<th class="pb-2 font-normal">Timestamp</th>
+<th class="pb-2 font-normal">Level</th>
+<th class="pb-2 font-normal">Source</th>
+<th class="pb-2 font-normal">Message</th>
+</tr>
+</thead>
+<tbody class="text-on-surface-variant/80">
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:22:01.004</td>
+<td class="py-2"><span class="text-success-emerald bg-success-emerald/10 px-2 py-0.5 rounded">INFO</span></td>
+<td class="py-2">AUTH_SRV</td>
+<td class="py-2 group-hover:text-on-primary-fixed">User session extended for node_7721</td>
+</tr>
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:21:58.821</td>
+<td class="py-2"><span class="text-electric-orange bg-electric-orange/10 px-2 py-0.5 rounded">WARN</span></td>
+<td class="py-2">DB_PRIMARY</td>
+<td class="py-2 group-hover:text-on-primary-fixed">Slow query detected in billing_main (421ms)</td>
+</tr>
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:21:55.332</td>
+<td class="py-2"><span class="text-success-emerald bg-success-emerald/10 px-2 py-0.5 rounded">INFO</span></td>
+<td class="py-2">LOAD_BAL</td>
+<td class="py-2 group-hover:text-on-primary-fixed">Traffic redirected to secondary shard EU-1</td>
+</tr>
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:21:50.012</td>
+<td class="py-2"><span class="text-industrial-red bg-industrial-red/10 px-2 py-0.5 rounded">FAIL</span></td>
+<td class="py-2">WORKER_4</td>
+<td class="py-2 group-hover:text-on-primary-fixed">Connection timeout on upstream API socket</td>
+</tr>
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:21:48.552</td>
+<td class="py-2"><span class="text-success-emerald bg-success-emerald/10 px-2 py-0.5 rounded">INFO</span></td>
+<td class="py-2">CORE_OS</td>
+<td class="py-2 group-hover:text-on-primary-fixed">Kernel heartbeat stable - all systems go</td>
+</tr>
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:21:44.211</td>
+<td class="py-2"><span class="text-success-emerald bg-success-emerald/10 px-2 py-0.5 rounded">INFO</span></td>
+<td class="py-2">API_GATE</td>
+<td class="py-2 group-hover:text-on-primary-fixed">Request 4022 processed from 192.168.1.1</td>
+</tr>
+<tr class="hover:bg-surface-variant/5 transition-colors group">
+<td class="py-2 text-on-surface-variant/40">14:21:40.100</td>
+<td class="py-2"><span class="text-success-emerald bg-success-emerald/10 px-2 py-0.5 rounded">INFO</span></td>
+<td class="py-2">GRID_MON</td>
+<td class="py-2 group-hover:text-on-primary-fixed">New data packet received from SmartMeter_AX9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for the dashboard items
+        document.querySelectorAll('.glass-panel').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = 'rgba(187, 202, 191, 0.1)';
+            });
+        });
+
+        // Real-time log update simulation
+        const logTable = document.querySelector('tbody');
+        const levels = ['INFO', 'WARN', 'FAIL', 'INFO', 'INFO'];
+        const sources = ['API_GATE', 'DB_PRIMARY', 'AUTH_SRV', 'CORE_OS', 'GRID_MON'];
+        const messages = [
+            'Incoming handshake verified',
+            'Connection pool capacity reached 85%',
+            'User settings cache invalidated',
+            'Synchronizing global clock...',
+            'Metadata update complete'
+        ];
+
+        setInterval(() => {
+            const now = new Date();
+            const timeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                          now.getMinutes().toString().padStart(2, '0') + ':' + 
+                          now.getSeconds().toString().padStart(2, '0') + '.' + 
+                          Math.floor(Math.random() * 999).toString().padStart(3, '0');
+            
+            const levelIdx = Math.floor(Math.random() * levels.length);
+            const level = levels[levelIdx];
+            const colorClass = level === 'INFO' ? 'success-emerald' : level === 'WARN' ? 'electric-orange' : 'industrial-red';
+            
+            const newRow = document.createElement('tr');
+            newRow.className = 'hover:bg-surface-variant/5 transition-colors group opacity-0 translate-x-4';
+            newRow.innerHTML = `
+                <td class="py-2 text-on-surface-variant/40">${timeStr}</td>
+                <td class="py-2"><span class="text-${colorClass} bg-${colorClass}/10 px-2 py-0.5 rounded">${level}</span></td>
+                <td class="py-2">${sources[Math.floor(Math.random() * sources.length)]}</td>
+                <td class="py-2 group-hover:text-on-primary-fixed">${messages[Math.floor(Math.random() * messages.length)]}</td>
+            `;
+            
+            logTable.prepend(newRow);
+            if (logTable.children.length > 20) logTable.lastElementChild.remove();
+            
+            requestAnimationFrame(() => {
+                newRow.classList.remove('opacity-0', 'translate-x-4');
+                newRow.classList.add('duration-500');
+            });
+        }, 3000);
+    </script>
+</body></html>

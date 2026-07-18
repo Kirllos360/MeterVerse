@@ -1,0 +1,31 @@
+- generic [ref=e2]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - img
+    - main [ref=e8]:
+      - generic [ref=e12]:
+        - form [ref=e15]:
+          - generic [ref=e16]:
+            - generic [ref=e17]: Login
+            - textbox "Login" [active] [ref=e18]:
+              - /placeholder: Your username
+          - generic [ref=e19]:
+            - generic [ref=e20]: Password
+            - textbox "Password" [ref=e21]:
+              - /placeholder: Your password
+          - generic [ref=e22]:
+            - generic [ref=e23]: Projects
+            - combobox "Projects" [ref=e24]
+          - generic [ref=e26]:
+            - checkbox "Remember me" [ref=e27]
+            - text: Remember me
+          - generic [ref=e28]:
+            - button "Login" [disabled] [ref=e30] [cursor=pointer]
+            - button "Forgot password?" [ref=e32] [cursor=pointer]
+        - generic [ref=e35]:
+          - heading "Billing System" [level=2] [ref=e36]
+          - paragraph [ref=e37]: Our aim is to bring intelligence to Energy. By using our metering solutions we’ve helped utility companies all over the globe improve their efficiency, lower operating costs and provide better customer service.

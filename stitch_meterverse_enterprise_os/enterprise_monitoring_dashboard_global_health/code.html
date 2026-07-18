@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse OS | Global System Health</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#95d3ba",
+                    "secondary": "#2b6954",
+                    "surface-dim": "#d4dcd5",
+                    "secondary-container": "#adedd3",
+                    "surface-variant": "#dde4dd",
+                    "on-primary-container": "#00422b",
+                    "surface-bright": "#f4fbf4",
+                    "industrial-red": "#ef4444",
+                    "tertiary-container": "#fc7c78",
+                    "surface-container-low": "#eef6ee",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-tertiary-fixed": "#410005",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#6ffbbe",
+                    "inverse-surface": "#2b322d",
+                    "background-dark": "#0d1510",
+                    "on-tertiary-container": "#711419",
+                    "background": "#f4fbf4",
+                    "inverse-on-surface": "#ebf3eb",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#10b981",
+                    "tertiary": "#a43a3a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#dde4dd",
+                    "surface": "#f4fbf4",
+                    "surface-container": "#e8f0e9",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "outline-variant": "#bbcabf",
+                    "card-dark": "#16221a",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed": "#002117",
+                    "surface-tint": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "surface-container-high": "#e3eae3",
+                    "on-secondary-container": "#306d58",
+                    "water-cyan": "#06b6d4",
+                    "outline": "#6c7a71",
+                    "sidebar-light": "#064e3b",
+                    "error-container": "#ffdad6",
+                    "electric-orange": "#f97316",
+                    "on-primary-fixed": "#002113",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#4edea3",
+                    "tertiary-fixed": "#ffdad7",
+                    "financial-gold": "#fbbf24",
+                    "primary": "#006c49",
+                    "on-surface": "#161d19",
+                    "on-background": "#161d19",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-tertiary-fixed-variant": "#842225"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-expanded": "260px",
+                    "stack-lg": "24px",
+                    "stack-sm": "8px",
+                    "sidebar-collapsed": "72px",
+                    "stack-md": "16px",
+                    "margin-page": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .live-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md transition-colors duration-300">
+<!-- Top Navigation Anchor -->
+<header class="bg-surface dark:bg-background-dark shadow-sm flex justify-between items-center w-full px-margin-page py-stack-sm sticky top-0 z-50">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">MeterVerse OS</span>
+<div class="hidden md:flex gap-stack-md ml-stack-lg">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary font-bold pb-1 font-label-sm text-label-sm" href="#">Analytics</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">Assets</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors duration-300 font-label-sm text-label-sm" href="#">Operations</a>
+</div>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors scale-95 active:scale-95 duration-300">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors scale-95 active:scale-95 duration-300">
+<span class="material-symbols-outlined text-primary">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a female energy grid operator in a modern control center, lit with soft green ambient light and technical displays in the background. The style is sharp, corporate, and clean with a focus on professional excellence and energy sector expertise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC99BYi6NBxq0x1_rr_s7rq4iKydCW-nGfq_3gen3MTZlUvSAhWiA18AbPPtVtow6SsFSGflQ2qXhChm30WNZTZQOOKuF02__Vlx1ltrbg0k8Xx-pVYz_U70F1SXtH_2_B4-f-7xKUpg6klGi0imxDXjVv_4SNIePkPQPoR1EJiXPEa0B0clGFRHqKgKrQQqP4nVkh17H8Adek8TOZO0sDU7oBt0ZraYtxdlJIZCKuYKzE9G0us3pF8AJfxqQ1oYimmIbhwG1QO"/>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-56px)] overflow-hidden">
+<!-- Sidebar Shell -->
+<aside class="fixed left-0 top-14 bottom-0 h-[calc(100vh-56px)] z-40 hidden lg:flex flex-col py-stack-lg bg-sidebar-light dark:bg-card-dark w-sidebar-expanded shadow-lg transition-all duration-300">
+<div class="px-4 mb-stack-lg">
+<div class="flex items-center gap-3 px-2 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">energy_program_saving</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-white leading-tight">MVEOS</div>
+<div class="text-[10px] text-primary-fixed-dim uppercase tracking-widest font-label-sm">Utility Control</div>
+</div>
+</div>
+<button class="w-full py-3 px-4 bg-primary-container text-on-primary-container rounded-xl flex items-center justify-center gap-2 font-bold hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined">add_circle</span>
+<span>Add New Meter</span>
+</button>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-stack-md bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 scale-98 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-label-sm text-label-sm">Grid Monitoring</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">factory</span>
+<span class="font-label-sm text-label-sm">Asset Registry</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm">Energy Flows</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Financials</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-label-sm text-label-sm">Work Orders</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-white/10 pt-4">
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-sm text-label-sm">System Status</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-sm text-label-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 lg:ml-sidebar-expanded overflow-y-auto px-margin-page py-stack-lg bg-surface">
+<!-- Breadcrumbs & Header Actions -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-stack-lg gap-4">
+<div>
+<nav class="flex items-center gap-2 mb-2 text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<span>System</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Monitoring</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Health</span>
+</nav>
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Global System Health</h1>
+<div class="flex items-center gap-2 bg-primary-container/10 px-3 py-1 rounded-full border border-primary/20">
+<span class="w-2 h-2 rounded-full bg-primary live-pulse"></span>
+<span class="text-primary font-label-sm text-label-sm font-bold uppercase tracking-widest">Live Feed</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface border border-outline-variant px-4 py-2.5 rounded-lg flex items-center gap-2 font-label-sm text-label-sm hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">download</span> Export Data
+                    </button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg flex items-center gap-2 font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
+<span class="material-symbols-outlined">refresh</span> Resync Grid
+                    </button>
+</div>
+</div>
+<!-- KPI Strip -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-sm border border-outline-variant hover:shadow-lg transition-all group">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-secondary-container/30 rounded-lg">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+</div>
+<span class="text-primary font-bold text-label-sm">+0.002%</span>
+</div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">System Availability</p>
+<h2 class="text-[28px] font-bold text-on-surface leading-none">99.998%</h2>
+<div class="mt-4 h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[99.998%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-sm border border-outline-variant hover:shadow-lg transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-tertiary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-tertiary">warning</span>
+</div>
+<span class="text-industrial-red font-bold text-label-sm">High Risk</span>
+</div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">Active Alarms</p>
+<div class="flex items-baseline gap-2">
+<h2 class="text-[28px] font-bold text-industrial-red leading-none">03</h2>
+<span class="text-on-surface-variant font-label-sm">/ 12 Warning</span>
+</div>
+<div class="mt-4 flex gap-1">
+<div class="h-1 flex-1 bg-industrial-red rounded-full"></div>
+<div class="h-1 flex-1 bg-industrial-red rounded-full"></div>
+<div class="h-1 flex-1 bg-industrial-red rounded-full"></div>
+<div class="h-1 flex-1 bg-electric-orange rounded-full"></div>
+<div class="h-1 flex-1 bg-surface-container rounded-full"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-sm border border-outline-variant hover:shadow-lg transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-primary-container/20 rounded-lg">
+<span class="material-symbols-outlined text-primary">done_all</span>
+</div>
+<span class="text-primary font-bold text-label-sm">98.4%</span>
+</div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">Healthy Assets</p>
+<h2 class="text-[28px] font-bold text-on-surface leading-none">12,842</h2>
+<p class="mt-4 text-[10px] text-on-surface-variant font-label-sm">Total registered devices: 13,050</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-[20px] shadow-sm border border-outline-variant hover:shadow-lg transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="p-2 bg-surface-container-highest rounded-lg">
+<span class="material-symbols-outlined text-outline">wifi_off</span>
+</div>
+<span class="text-outline font-bold text-label-sm">Maintenance</span>
+</div>
+<p class="text-on-surface-variant font-label-sm text-label-sm uppercase mb-1">Offline Devices</p>
+<h2 class="text-[28px] font-bold text-on-surface leading-none">04</h2>
+<div class="mt-4 flex items-center -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-bold">M1</div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-bold">M2</div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-bold">S4</div>
+<div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-container-high flex items-center justify-center text-[10px] font-bold">+1</div>
+</div>
+</div>
+</div>
+<!-- Main Layout Bento Grid -->
+<div class="bento-grid">
+<!-- Regional Health Map (Large Span) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-[20px] shadow-sm border border-outline-variant overflow-hidden flex flex-col h-[600px]">
+<div class="p-stack-md flex justify-between items-center border-b border-outline-variant bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">public</span> Regional Asset Density
+                        </h3>
+<div class="flex gap-2">
+<button class="bg-surface-container px-3 py-1.5 rounded-lg text-label-sm font-bold border border-outline-variant hover:bg-surface-container-high">Heatmap</button>
+<button class="bg-primary text-on-primary px-3 py-1.5 rounded-lg text-label-sm font-bold border border-primary">Cluster View</button>
+</div>
+</div>
+<div class="relative flex-1 bg-surface-dim">
+<!-- Simulated Map Content -->
+<div class="absolute inset-0 grayscale opacity-40 mix-blend-multiply" data-alt="A detailed aerial satellite map view of a metropolitan city infrastructure with visible grid lines, major transit corridors, and industrial zones. The aesthetic is clean, professional, and slightly desaturated to allow UI elements to pop. Top-down perspective, high resolution, industrial emerald and dark charcoal color palette." data-location="Chicago" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOg-mIsBSB4chf0neD1pcVZ5kDpuzr-ruU3MpwpKGOHJI5Fmc50n18i7YMjWmSRVGThQkIwycc30I7EcYHljv9YivX7wBeYqcC3C-vG4muFh7_Gjnc_wDj78swT0pJYycLPNr-lJllzj-XB9Qen_bCUHnXYZp4TyKBc1MLliyiZ1ydTkM9xmKGMMuZ_YmWY7bcrEanCATpuHwBbFs7wrjPF8zjrJdxUFH73e6b-IeXvfD_6mNgf9HLyYZlsit7PEGHhLhxopHE')"></div>
+<!-- Map Interactive Overlay (Simulated Nodes) -->
+<div class="absolute top-1/4 left-1/3 w-12 h-12 bg-primary/20 border-2 border-primary rounded-full animate-ping flex items-center justify-center"></div>
+<div class="absolute top-1/4 left-1/3 w-4 h-4 bg-primary rounded-full shadow-lg shadow-primary"></div>
+<div class="absolute top-1/2 left-2/3 w-8 h-8 bg-industrial-red/20 border-2 border-industrial-red rounded-full flex items-center justify-center">
+<div class="w-3 h-3 bg-industrial-red rounded-full animate-pulse"></div>
+</div>
+<div class="absolute bottom-1/4 left-1/2 w-6 h-6 bg-financial-gold/20 border-2 border-financial-gold rounded-full flex items-center justify-center">
+<div class="w-2 h-2 bg-financial-gold rounded-full"></div>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-4 right-4 flex flex-col gap-2">
+<button class="bg-surface p-2 rounded-lg shadow-lg border border-outline-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="bg-surface p-2 rounded-lg shadow-lg border border-outline-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="bg-surface p-2 rounded-lg shadow-lg border border-outline-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<!-- Map Legend Glass Card -->
+<div class="absolute top-4 left-4 p-4 bg-surface/80 backdrop-blur-md rounded-xl border border-white/40 shadow-xl w-48">
+<h4 class="font-bold text-on-surface mb-3 text-label-sm uppercase tracking-wider">Status Indicators</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-2 text-label-sm">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span>Optimal (8,420)</span>
+</div>
+<div class="flex items-center gap-2 text-label-sm">
+<span class="w-3 h-3 rounded-full bg-financial-gold"></span>
+<span>Warning (1,202)</span>
+</div>
+<div class="flex items-center gap-2 text-label-sm">
+<span class="w-3 h-3 rounded-full bg-industrial-red"></span>
+<span>Critical (314)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Health Distribution Donut -->
+<section class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-[20px] shadow-sm border border-outline-variant p-stack-md flex flex-col justify-between h-[600px]">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">pie_chart</span> Health Distribution
+                        </h3>
+<div class="relative w-full aspect-square flex items-center justify-center">
+<!-- SVG Donut Chart -->
+<svg class="w-64 h-64 transform -rotate-90">
+<circle class="text-surface-container" cx="128" cy="128" fill="transparent" r="100" stroke="currentColor" stroke-width="24"></circle>
+<circle class="transition-all duration-1000" cx="128" cy="128" fill="transparent" r="100" stroke="#006c49" stroke-dasharray="628" stroke-dashoffset="120" stroke-width="24"></circle>
+<circle class="transition-all duration-1000" cx="128" cy="128" fill="transparent" r="100" stroke="#fbbf24" stroke-dasharray="628" stroke-dashoffset="520" stroke-width="24"></circle>
+<circle class="transition-all duration-1000" cx="128" cy="128" fill="transparent" r="100" stroke="#ba1a1a" stroke-dasharray="628" stroke-dashoffset="600" stroke-width="24"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="font-headline-lg text-headline-lg text-on-surface leading-none">94.2%</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase mt-1">Average Score</span>
+</div>
+</div>
+</div>
+<div class="space-y-4 pt-6 border-t border-outline-variant">
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-10 bg-primary rounded-full"></div>
+<div>
+<p class="font-bold text-on-surface">Stable Infrastructure</p>
+<p class="text-[12px] text-on-surface-variant">Tier 1 &amp; 2 Nodes</p>
+</div>
+</div>
+<span class="font-label-sm text-primary font-bold">82%</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-10 bg-financial-gold rounded-full"></div>
+<div>
+<p class="font-bold text-on-surface">Fluctuating Nodes</p>
+<p class="text-[12px] text-on-surface-variant">Edge Devices</p>
+</div>
+</div>
+<span class="font-label-sm text-financial-gold font-bold">12%</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-10 bg-industrial-red rounded-full"></div>
+<div>
+<p class="font-bold text-on-surface">Faulty Units</p>
+<p class="text-[12px] text-on-surface-variant">Critical Errors</p>
+</div>
+</div>
+<span class="font-label-sm text-industrial-red font-bold">6%</span>
+</div>
+</div>
+</section>
+<!-- Alarm Feed Table (Full Width) -->
+<section class="col-span-12 bg-surface-container-lowest rounded-[20px] shadow-sm border border-outline-variant overflow-hidden">
+<div class="p-stack-md flex justify-between items-center bg-surface-container-low border-b border-outline-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-industrial-red">notifications_active</span> Real-time Alarm Feed
+                        </h3>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-label-sm text-on-surface-variant bg-surface rounded-full px-4 py-1.5 border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-industrial-red animate-pulse"></span> Streaming Data
+                            </div>
+<div class="h-6 w-[1px] bg-outline-variant"></div>
+<button class="text-primary font-bold text-label-sm hover:underline">Clear All Resolved</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container text-on-surface-variant border-b border-outline-variant">
+<th class="py-4 px-6 font-bold text-label-sm uppercase">Severity</th>
+<th class="py-4 px-6 font-bold text-label-sm uppercase">Asset ID</th>
+<th class="py-4 px-6 font-bold text-label-sm uppercase">Issue Description</th>
+<th class="py-4 px-6 font-bold text-label-sm uppercase">Timestamp</th>
+<th class="py-4 px-6 font-bold text-label-sm uppercase">Location</th>
+<th class="py-4 px-6 font-bold text-label-sm uppercase">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-industrial-red/[0.03] transition-colors">
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-error-container text-on-error-container font-bold text-[10px] uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">error</span> CRITICAL
+                                        </span>
+</td>
+<td class="py-4 px-6 font-label-sm text-on-surface">#TR-9942-A</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Main Transformer Phase Overload - Threshold Exceeded</td>
+<td class="py-4 px-6 font-label-sm text-on-surface-variant">Today, 14:32:01</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Sector 4G - Central Park</td>
+<td class="py-4 px-6">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">launch</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-container font-bold text-[10px] uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">warning</span> WARNING
+                                        </span>
+</td>
+<td class="py-4 px-6 font-label-sm text-on-surface">#SM-3310-C</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Edge Meter Communication Timeout (Retry 3/5)</td>
+<td class="py-4 px-6 font-label-sm text-on-surface-variant">Today, 14:28:44</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Sector 12 - Riverside</td>
+<td class="py-4 px-6">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">launch</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-bold text-[10px] uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">info</span> INFO
+                                        </span>
+</td>
+<td class="py-4 px-6 font-label-sm text-on-surface">#GW-1002-X</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Firmware Update Sync Completed Successfully</td>
+<td class="py-4 px-6 font-label-sm text-on-surface-variant">Today, 14:15:22</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Remote Site - 01</td>
+<td class="py-4 px-6">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">launch</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-container font-bold text-[10px] uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">warning</span> WARNING
+                                        </span>
+</td>
+<td class="py-4 px-6 font-label-sm text-on-surface">#BT-0021-V</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Backup Battery Low Voltage - Replace Battery</td>
+<td class="py-4 px-6 font-label-sm text-on-surface-variant">Today, 13:58:10</td>
+<td class="py-4 px-6 font-body-md text-on-surface">Sector 09 - Airport Dist</td>
+<td class="py-4 px-6">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-primary transition-all">
+<span class="material-symbols-outlined">launch</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Floating UI Effects Script -->
+<script>
+        // Smooth hover micro-interactions for KPI cards
+        document.querySelectorAll('.bento-grid section, .grid > div').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.classList.add('translate-y-[-4px]');
+            });
+            card.addEventListener('mouseleave', () => {
+                card.classList.remove('translate-y-[-4px]');
+            });
+        });
+
+        // Theme switching logic (optional base)
+        const root = document.documentElement;
+        function toggleTheme() {
+            root.classList.toggle('dark');
+        }
+
+        // Live Clock Implementation
+        setInterval(() => {
+            const timeStrings = document.querySelectorAll('.timestamp-live');
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            timeStrings.forEach(el => el.textContent = time);
+        }, 1000);
+    </script>
+</body></html>

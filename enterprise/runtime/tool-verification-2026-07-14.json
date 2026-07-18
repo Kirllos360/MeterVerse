@@ -1,0 +1,62 @@
+﻿{
+    "git":  [
+                "  [PASS] Git: git version 2.54.0.windows.1",
+                "OPERATIONAL"
+            ],
+    "eslint":  [
+                   "  [PASS] ESLint: v10.7.0",
+                   "OPERATIONAL"
+               ],
+    "docker":  [
+                   "  [PASS] Docker: Docker version 29.5.2, build 79eb04c",
+                   "OPERATIONAL"
+               ],
+    "node":  [
+                 "  [PASS] Node.js: v24.15.0",
+                 "OPERATIONAL"
+             ],
+    "madge":  [
+                  "  [PASS] Madge: 8.0.0",
+                  "OPERATIONAL"
+              ],
+    "trivy":  [
+                  "  [PASS] Trivy: Version: 0.70.0",
+                  "OPERATIONAL"
+              ],
+    "snyk":  [
+                 "  [PASS] Snyk: 1.1305.0",
+                 "OPERATIONAL"
+             ],
+    "python":  [
+                   "  [PASS] Python: Python 3.11.9",
+                   "OPERATIONAL"
+               ],
+    "depcruise":  [
+                      "  [PASS] DepCruiser: 18.0.0",
+                      "OPERATIONAL"
+                  ],
+    "tsc":  [
+                "  [PASS] TypeScript: Version 7.0.2",
+                "OPERATIONAL"
+            ],
+    "gh":  [
+               "  [PASS] GitHub CLI: gh version 2.92.0 (2026-04-28)",
+               "OPERATIONAL"
+           ],
+    "npm":  [
+                "  [PASS] npm: 11.12.1",
+                "OPERATIONAL"
+            ],
+    "checkov":  [
+                    "  [PASS] Checkov: 3.3.8",
+                    "OPERATIONAL"
+                ],
+    "playwright":  [
+                       "  [PASS] Playwright: Version 1.61.1",
+                       "OPERATIONAL"
+                   ],
+    "mkdocs":  [
+                   "  [PASS] MkDocs: mkdocs, version 1.6.1 from C:\\Users\\EPower\\AppData\\Roaming\\Python\\Python311\\site...",
+                   "OPERATIONAL"
+               ]
+}

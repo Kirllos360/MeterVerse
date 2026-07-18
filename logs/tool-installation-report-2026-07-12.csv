@@ -1,0 +1,19 @@
+"Status","Secondary","Primary","Tool","Command"
+"INSTALLED","ripgrep 15.1.0","ast-grep 0.44.1","1.SemanticCodeSearch","sg / rg"
+"INSTALLED","ast-grep","jscodeshift 17.3.0","2.ASTAnalysis","jscodeshift / sg"
+"INSTALLED","adr 1.5.2","log4brains 1.1.0","3.ADRManager","log4brains / npx adr"
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,
+,,,,

@@ -1,0 +1,29 @@
+﻿{
+    "generated":  "2026-07-16T10:40:51Z",
+    "total_executions":  2,
+    "version":  "1.0.0",
+    "executions":  [
+                       {
+                           "execution_id":  "EXEC-001",
+                           "decision_id":  "DEC-BOOTSTRAP",
+                           "task_type":  "SELF_TEST",
+                           "total_duration_ms":  12398,
+                           "timestamp":  "2026-07-16T10:40:51Z",
+                           "has_report":  true,
+                           "status":  "SUCCESS",
+                           "certification_score":  94.5,
+                           "chain_id":  "CHAIN-CODE"
+                       },
+                       {
+                           "execution_id":  "EXEC-002",
+                           "decision_id":  "DEC-BOOTSTRAP-SEC",
+                           "task_type":  "SECURITY",
+                           "total_duration_ms":  91166,
+                           "timestamp":  "2026-07-16T10:40:51Z",
+                           "has_report":  true,
+                           "status":  "SUCCESS",
+                           "certification_score":  94.5,
+                           "chain_id":  "CHAIN-SEC"
+                       }
+                   ]
+}

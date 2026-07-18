@@ -1,0 +1,66 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-07-12T06:58:00Z",
+  "routes": {
+    "architecture_review": {
+      "tools": ["depcruise","madge","knip","ts-prune"],
+      "fallback": ["ast-grep","code2flow"],
+      "mandatory": true,
+      "validation": { "metric": "certification", "operator": ">=", "value": 80 }
+    },
+    "security_audit": {
+      "tools": ["snyk","trivy","checkov","semgrep","trufflehog"],
+      "fallback": ["npm audit","grype"],
+      "mandatory": true,
+      "validation": { "metric": "vulnerabilities", "operator": "eq", "value": 0, "severity": "high" }
+    },
+    "implementation": {
+      "tools": ["ast-grep","jscodeshift","prettier","eslint"],
+      "fallback": ["ripgrep"],
+      "mandatory": false,
+      "validation": { "metric": "compile_lint", "operator": "eq", "value": 0 }
+    },
+    "testing": {
+      "tools": ["playwright","artillery","bruno"],
+      "fallback": ["k6"],
+      "mandatory": true,
+      "validation": { "metric": "coverage", "operator": ">=", "value": 100, "scope": "critical" }
+    },
+    "api_lint": {
+      "tools": ["spectral","redocly","swagger-cli"],
+      "fallback": [],
+      "mandatory": true,
+      "validation": { "metric": "errors", "operator": "eq", "value": 0 }
+    },
+    "dependency_audit": {
+      "tools": ["snyk","npm audit","madge"],
+      "fallback": ["trivy"],
+      "mandatory": true,
+      "validation": { "metric": "deps", "operator": "eq", "value": 0, "conditions": ["no_circular","no_high_vulns"] }
+    },
+    "bundle_analysis": {
+      "tools": ["bundle-wizard","lighthouse"],
+      "fallback": [],
+      "mandatory": false,
+      "validation": { "metric": "bundle_size", "operator": "<", "value": "threshold" }
+    },
+    "accessibility": {
+      "tools": ["pa11y","lighthouse","axe"],
+      "fallback": [],
+      "mandatory": true,
+      "validation": { "metric": "a11y_score", "operator": ">=", "value": 90 }
+    },
+    "design_sync": {
+      "tools": ["@figma-export/cli","style-dictionary"],
+      "fallback": [],
+      "mandatory": false,
+      "validation": { "metric": "token_match", "operator": "eq", "value": true }
+    },
+    "documentation": {
+      "tools": ["typedoc","log4brains","adr"],
+      "fallback": ["mermaid-cli","plantuml"],
+      "mandatory": false,
+      "validation": { "metric": "broken_links", "operator": "eq", "value": 0 }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+﻿python : Traceback (most recent call last):
+At line:1 char:1
++ python -X utf8 scripts/f4-settlement-replay.py 2>&1 | Out-String -Wid ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "D:\meter\scripts\f4-settlement-replay.py", line 98, in <module>
+    safe_print("=" * 80)
+    ^^^^^^^^^^
+NameError: name 'safe_print' is not defined
+

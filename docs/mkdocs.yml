@@ -1,0 +1,31 @@
+﻿site_name: MeterVerse Enterprise AI OS
+site_description: Multi-tenant metering, billing, and energy management platform
+site_author: MeterVerse Engineering
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.top
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Architecture:
+    - Overview: architecture/overview.md
+  - Enterprise AI:
+    - Overview: enterprise/overview.md
+  - API: api/overview.md
+  - Deployment: deployment/guide.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+
+plugins:
+  - search

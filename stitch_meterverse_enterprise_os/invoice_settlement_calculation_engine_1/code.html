@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse | Invoice Settlement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-dialog {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #bbcabf;
+            border-radius: 10px;
+        }
+    </style>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "water-cyan": "#06b6d4",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "on-background": "#161d19",
+                    "on-tertiary-container": "#711419",
+                    "surface-variant": "#dde4dd",
+                    "surface-container-low": "#eef6ee",
+                    "inverse-surface": "#2b322d",
+                    "outline-variant": "#bbcabf",
+                    "surface-container-highest": "#dde4dd",
+                    "primary-fixed": "#6ffbbe",
+                    "financial-gold": "#fbbf24",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#3c4a42",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "background": "#f4fbf4",
+                    "tertiary-container": "#fc7c78",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-surface": "#161d19",
+                    "surface-dim": "#d4dcd5",
+                    "secondary": "#2b6954",
+                    "on-tertiary-fixed": "#410005",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "inverse-primary": "#4edea3",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-primary-fixed": "#002113",
+                    "sidebar-light": "#064e3b",
+                    "primary-container": "#10b981",
+                    "surface-bright": "#f4fbf4",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "tertiary": "#a43a3a",
+                    "error": "#ba1a1a",
+                    "card-dark": "#16221a",
+                    "on-primary-container": "#00422b",
+                    "surface": "#f4fbf4",
+                    "primary-fixed-dim": "#4edea3",
+                    "surface-container": "#e8f0e9",
+                    "secondary-container": "#adedd3",
+                    "on-tertiary": "#ffffff",
+                    "industrial-red": "#ef4444",
+                    "electric-orange": "#f97316",
+                    "primary": "#006c49",
+                    "on-secondary-container": "#306d58",
+                    "error-container": "#ffdad6",
+                    "background-dark": "#0d1510",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#002117",
+                    "surface-tint": "#006c49",
+                    "outline": "#6c7a71",
+                    "inverse-on-surface": "#ebf3eb",
+                    "surface-container-high": "#e3eae3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "sidebar-collapsed": "72px",
+                    "margin-page": "24px",
+                    "sidebar-expanded": "260px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar Navigation (JSON Anchor: SideNavBar) -->
+<aside class="docked h-screen w-[260px] left-0 top-0 bg-sidebar-light flex flex-col py-6 px-4 shrink-0 shadow-lg z-50">
+<div class="flex items-center gap-3 mb-10 px-2">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed leading-tight">MeterVerse</h1>
+<p class="font-label-sm text-label-sm text-secondary-fixed opacity-70">Enterprise OS</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md">Grid Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg shadow-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+<span class="font-body-md font-semibold">Assets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-body-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-body-md">Work Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 border-t border-white/10 pt-6">
+<button class="w-full bg-primary hover:bg-primary-container text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined">add</span>
+                    New Workspace
+                </button>
+<div class="pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:text-primary-fixed text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:text-primary-fixed text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span>Logs</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Header (JSON Anchor: TopNavBar) -->
+<header class="flex justify-between items-center px-margin-page h-16 w-full bg-surface/80 backdrop-blur-md sticky top-0 z-40 border-b border-outline-variant">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-extrabold text-primary">MVEOS</span>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-semibold" href="#">Global View</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Grid Alpha</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-semibold" href="#">Site Beta</a>
+</div>
+</div>
+<div class="flex-1 max-w-md mx-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary focus:outline-none border-none" placeholder="Command Palette..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">translate</span>
+</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-industrial-red rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden lg:block">
+<p class="text-xs font-bold">Admin Panel</p>
+<p class="text-[10px] text-outline uppercase tracking-wider">Superuser</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary object-cover" data-alt="A professional high-definition portrait of a senior energy systems administrator, featuring a soft-focus industrial office background with deep emerald and charcoal accents. The lighting is cinematic, highlighting the expert's confident expression while maintaining the clean, modern corporate aesthetic of the MeterVerse platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrLHpudgpzzm7jQJsRFg6-iY30Cn2Ka4lLmQW306hgvXLt5K9qCiGzf_YlWBe4X38BT6Q00-y_rrkdSBQGIqqWaTMxqpiB9kMxIJNEf3bxmk0D4fTI_RN5XlfeZ61St-Dd46zPCzkGuDIzUzLL7hyoQDjLFbuAoHy0ASvF1b8tv01-Cs4wKKPuaDRRcEhG4e0BbgkNnvhUDMXiiuRDSmnnCOyjqEylBqpsgowBO44AGzWdgDIz0yaDVRiuWjC1gjgEJPFmPrJi"/>
+</div>
+</div>
+</header>
+<!-- Workspace Hero -->
+<section class="p-margin-page pb-0">
+<nav class="flex items-center gap-2 text-outline mb-4">
+<span class="font-body-md hover:text-primary cursor-pointer">Financial</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="font-body-md font-semibold text-on-surface">Invoices</span>
+</nav>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Invoice Explorer</h2>
+<p class="text-on-surface-variant max-w-2xl">Review and settle pending energy distributions for the Q3 Grid Alpha cycle. Audit individual line items and approve settlement batches below.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-5 py-2.5 rounded-[10px] border border-outline-variant hover:bg-surface-container transition-all flex items-center gap-2 font-semibold">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+                            Filter View
+                        </button>
+<button class="px-5 py-2.5 rounded-[10px] bg-primary text-white hover:bg-primary-container shadow-md transition-all flex items-center gap-2 font-semibold active:scale-95">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+                            Batch Generate
+                        </button>
+</div>
+</div>
+</section>
+<!-- Main Content Area: Table -->
+<section class="flex-1 px-margin-page pb-margin-page overflow-y-auto custom-scrollbar">
+<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-on-surface-variant">
+<tr>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest">
+<input class="rounded text-primary focus:ring-primary" type="checkbox"/>
+</th>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest">Invoice ID</th>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest">Participant</th>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest text-center">Line Items</th>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest">Total Cost</th>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest">Status</th>
+<th class="px-6 py-4 font-semibold text-xs uppercase tracking-widest text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Row 1 (Active/Selected) -->
+<tr class="bg-primary/5 border-l-4 border-l-primary transition-colors cursor-pointer group">
+<td class="px-6 py-5"><input checked="" class="rounded text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-6 py-5 font-label-sm text-primary font-bold">INV-2024-001</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-water-cyan/20 text-water-cyan flex items-center justify-center font-bold">NH</div>
+<div>
+<p class="font-bold">NeoHub Industrial</p>
+<p class="text-xs text-outline">District 7-A</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-label-sm">142</td>
+<td class="px-6 py-5 font-label-sm font-bold text-on-surface">$12,450.00</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-financial-gold/20 text-on-secondary-fixed-variant text-xs font-bold border border-financial-gold/30">Pending Settlement</span>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-all" onclick="document.getElementById('calculation-overlay').classList.remove('hidden')">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</td>
+</tr>
+<!-- More Rows -->
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="px-6 py-5"><input class="rounded text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-6 py-5 font-label-sm">INV-2024-002</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-electric-orange/20 text-electric-orange flex items-center justify-center font-bold">SR</div>
+<div>
+<p class="font-bold">Solaris Residential</p>
+<p class="text-xs text-outline">Sector 4-B</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-label-sm">89</td>
+<td class="px-6 py-5 font-label-sm font-bold text-on-surface">$4,120.50</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-xs font-bold border border-primary/30">Approved</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/50 transition-colors">
+<td class="px-6 py-5"><input class="rounded text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="px-6 py-5 font-label-sm">INV-2024-003</td>
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary/20 text-primary flex items-center justify-center font-bold">VT</div>
+<div>
+<p class="font-bold">Vertex Tech Park</p>
+<p class="text-xs text-outline">District 2-C</p>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 text-center font-label-sm">210</td>
+<td class="px-6 py-5 font-label-sm font-bold text-on-surface">$28,900.00</td>
+<td class="px-6 py-5">
+<span class="px-3 py-1 rounded-full bg-industrial-red/20 text-industrial-red text-xs font-bold border border-industrial-red/30">Rejected</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Footer (JSON Anchor: Footer) -->
+<footer class="flex justify-between items-center px-margin-page py-4 w-full bg-surface-container-lowest border-t border-outline-variant/20">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm font-bold text-on-surface">© 2024 MeterVerse Utility OS.</span>
+<div class="flex gap-4">
+<a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="flex gap-6 items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary-container border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-secondary-container border-2 border-white"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary-container border-2 border-white"></div>
+</div>
+<span class="font-label-sm text-on-surface-variant">Systems Operational</span>
+</div>
+</footer>
+<!-- Premium Glass Dialog Overlay -->
+<div class="absolute inset-0 z-50 flex items-center justify-center p-10 bg-black/40 backdrop-blur-sm transition-opacity duration-300" id="calculation-overlay">
+<div class="glass-dialog w-full max-w-5xl h-[870px] rounded-[20px] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Dialog Header -->
+<div class="p-8 border-b border-white/40 flex justify-between items-start">
+<div>
+<div class="flex items-center gap-2 text-on-surface-variant text-xs mb-1 uppercase tracking-widest font-bold">
+<span>Financial</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span>Settlement Calculation</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Invoice #INV-2024-001</h3>
+</div>
+<button class="p-2 hover:bg-white/50 rounded-full transition-colors" onclick="document.getElementById('calculation-overlay').classList.add('hidden')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Dialog Body -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left: Calculation Log -->
+<div class="flex-1 p-8 overflow-y-auto custom-scrollbar">
+<h4 class="font-bold text-sm uppercase text-outline mb-6">Engine Audit Log</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<div class="w-0.5 h-12 bg-outline-variant/30 mt-2"></div>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">Base Consumption Pulled</p>
+<p class="text-sm text-on-surface-variant mb-2">Validated 142 metering points from Alpha Cluster.</p>
+<div class="bg-white/50 p-3 rounded-lg font-label-sm text-secondary flex justify-between">
+<span>45,200 kWh @ $0.18</span>
+<span class="font-bold">$8,136.00</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-electric-orange/20 text-electric-orange flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div class="w-0.5 h-12 bg-outline-variant/30 mt-2"></div>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">Peak Demand Adjustments</p>
+<p class="text-sm text-on-surface-variant mb-2">Applied surge pricing for 14:00 - 16:00 peak windows.</p>
+<div class="bg-white/50 p-3 rounded-lg font-label-sm text-electric-orange flex justify-between">
+<span>Surge Multiplier (1.4x)</span>
+<span class="font-bold">+$2,450.00</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-financial-gold/20 text-financial-gold flex items-center justify-center">
+<span class="material-symbols-outlined text-sm">account_balance_wallet</span>
+</div>
+<div class="w-0.5 h-12 bg-outline-variant/30 mt-2"></div>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">Regional Tariffs &amp; Levies</p>
+<p class="text-sm text-on-surface-variant mb-2">District 7-A Environmental Surcharge (Municipal V2).</p>
+<div class="bg-white/50 p-3 rounded-lg font-label-sm text-financial-gold flex justify-between">
+<span>Regulatory Fee (R-704)</span>
+<span class="font-bold">+$1,864.00</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-white" style="font-variation-settings: 'FILL' 1;">functions</span>
+</div>
+</div>
+<div class="flex-1">
+<p class="font-bold text-on-surface">Final Aggregation</p>
+<p class="text-sm text-on-surface-variant mb-2">Total settlement ready for ledger entry.</p>
+<div class="bg-primary/10 border border-primary/20 p-4 rounded-lg font-headline-md text-headline-md text-primary flex justify-between items-center">
+<span class="font-bold text-lg">Final Amount</span>
+<span class="font-extrabold">$12,450.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Preview Chart -->
+<div class="w-80 border-l border-white/40 p-8 flex flex-col">
+<h4 class="font-bold text-sm uppercase text-outline mb-6">Settlement Preview</h4>
+<div class="flex-1 flex flex-col justify-end gap-2">
+<div class="flex items-end gap-3 h-48 w-full justify-center">
+<div class="w-10 bg-primary/40 rounded-t-md hover:bg-primary transition-all cursor-help relative group" style="height: 65%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Base: $8.1k</div>
+</div>
+<div class="w-10 bg-electric-orange/40 rounded-t-md hover:bg-electric-orange transition-all cursor-help relative group" style="height: 35%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Surge: $2.4k</div>
+</div>
+<div class="w-10 bg-financial-gold/40 rounded-t-md hover:bg-financial-gold transition-all cursor-help relative group" style="height: 25%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-background text-white text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Tax: $1.8k</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-1 pt-4 border-t border-outline-variant/30 text-[10px] font-bold text-center text-outline">
+<span>BASE</span>
+<span>PEAK</span>
+<span>TAX</span>
+</div>
+</div>
+<div class="mt-8 space-y-4">
+<div class="p-4 bg-white/40 rounded-xl">
+<p class="text-[10px] font-bold text-outline uppercase mb-1">Grid Health Impact</p>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="w-[82%] h-full bg-primary"></div>
+</div>
+<span class="text-xs font-bold text-primary">82%</span>
+</div>
+</div>
+<img class="w-full h-32 object-cover rounded-xl shadow-inner border border-white/50" data-alt="A clean, minimalist 3D rendering of an abstract energy network node, featuring transparent glowing pipes and emerald digital light particles. The visual should feel architectural and financial, with a polished corporate light-mode atmosphere, perfectly representing high-precision utility data." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWHo1JNb0XV83ntSLJDDmDOVH-UEPSfYreDFoyJfJs5P5VPJ12rVJ4KIMXJ04O3Sq5UkbiwKHuJe8h4Ey6XRrHRPT5QpSlB-dq7zgEpLoVFl70lQSaotBpgaSF5YwS5-nj932u_ss_Ew7u7Wb3F49XzHwhcgpFhhTrWXwNh42RmMwRAuXMd-BikjG8JWS_GaTZTvUmzgJ-g-uCitvRJVNc1qDCCc29wA4gIntnVNYvbj9RQB05ZH2B6__kREA4-ZcnvjxC8vNS"/>
+</div>
+</div>
+</div>
+<!-- Dialog Footer -->
+<div class="p-8 border-t border-white/40 flex justify-end gap-3 bg-white/30">
+<button class="px-6 py-2.5 rounded-[10px] text-tertiary font-bold hover:bg-error-container transition-all">Reject</button>
+<button class="px-6 py-2.5 rounded-[10px] border border-outline-variant text-on-surface-variant font-bold hover:bg-white/50 transition-all">Request Review</button>
+<button class="px-8 py-2.5 rounded-[10px] bg-primary text-white font-bold hover:bg-primary-container shadow-lg shadow-primary/20 active:scale-95 transition-all">Approve Settlement</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        // Simple logic for the demo overlay
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('calculation-overlay').classList.add('hidden');
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse | Live Grid Monitoring</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#711419",
+                    "surface-dim": "#d4dcd5",
+                    "secondary-fixed": "#b0f0d6",
+                    "surface-tint": "#006c49",
+                    "tertiary-fixed": "#ffdad7",
+                    "error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "water-cyan": "#06b6d4",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "surface-container-highest": "#dde4dd",
+                    "primary-container": "#10b981",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f4fbf4",
+                    "on-secondary-container": "#306d58",
+                    "outline-variant": "#bbcabf",
+                    "primary": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "industrial-red": "#ef4444",
+                    "on-primary-container": "#00422b",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#ebf3eb",
+                    "background-dark": "#0d1510",
+                    "surface-container-low": "#eef6ee",
+                    "tertiary": "#a43a3a",
+                    "on-background": "#161d19",
+                    "surface-container": "#e8f0e9",
+                    "on-secondary-fixed": "#002117",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "outline": "#6c7a71",
+                    "surface": "#f4fbf4",
+                    "error": "#ba1a1a",
+                    "financial-gold": "#fbbf24",
+                    "primary-fixed-dim": "#4edea3",
+                    "surface-container-high": "#e3eae3",
+                    "background": "#f4fbf4",
+                    "on-tertiary-fixed": "#410005",
+                    "electric-orange": "#f97316",
+                    "on-surface": "#161d19",
+                    "surface-variant": "#dde4dd",
+                    "card-dark": "#16221a",
+                    "sidebar-light": "#064e3b",
+                    "on-primary-fixed": "#002113",
+                    "on-primary-fixed-variant": "#005236",
+                    "primary-fixed": "#6ffbbe",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#2b322d",
+                    "secondary": "#2b6954",
+                    "tertiary-container": "#fc7c78",
+                    "secondary-container": "#adedd3",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#4edea3",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-collapsed": "72px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "sidebar-expanded": "260px",
+                    "margin-page": "24px",
+                    "gutter": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+      body {
+        background-color: #0d1510;
+        color: #f4fbf4;
+        font-family: 'Hanken Grotesk', sans-serif;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+      }
+      .glow-emerald {
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+      }
+      .bento-card {
+        background-color: #16221a;
+        border: 1px solid rgba(187, 202, 191, 0.1);
+        transition: all 0.3s ease-in-out;
+      }
+      .bento-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      }
+      .gauge-svg {
+        transform: rotate(-90deg);
+      }
+      .progress-ring__circle {
+        transition: stroke-dashoffset 0.8s ease;
+        stroke-linecap: round;
+      }
+    </style>
+</head>
+<body class="flex overflow-hidden">
+<!-- SideNavBar Shell -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 bg-sidebar-light dark:bg-card-dark shadow-lg w-[260px] z-50">
+<div class="p-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary leading-none">MeterVerse</h1>
+<p class="text-[10px] text-primary-fixed uppercase tracking-widest opacity-70">Energy Grid Solutions</p>
+</div>
+</div>
+<nav class="mt-4 flex-1 px-4 space-y-1">
+<!-- Nav Mapping: Dashboard, Workspace, Operations, Financial, Analytics, Monitoring (Active), Center, Admin -->
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+<span class="font-body-md text-body-md">Workspace</span>
+</a>
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">precision_manufacturing</span>
+<span class="font-body-md text-body-md">Operations</span>
+</a>
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+<span class="font-body-md text-body-md">Financial</span>
+</a>
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+<a class="flex items-center bg-primary-container text-on-primary-container rounded-lg px-4 py-3 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span class="font-body-md text-body-md font-bold">Monitoring</span>
+</a>
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">upload_file</span>
+<span class="font-body-md text-body-md">Center</span>
+</a>
+<a class="flex items-center text-on-primary/70 hover:text-on-primary px-4 py-3 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-body-md text-body-md">Admin</span>
+</a>
+</nav>
+<div class="p-6 mt-auto">
+<div class="flex items-center gap-3 bg-on-primary/10 p-3 rounded-xl border border-on-primary/5">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-primary-container/30">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged female energy engineer wearing a subtle dark green headset. She is looking forward with a focused expression in a high-tech control room with soft emerald ambient lighting. The background features blurred digital screens and a dark wood finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy2IP7VqiOTZxK_YwclrsBGa74UsAjOSDpUl9lflrwv03JVlcmcLreOG_x0NDiA-DhRH7aA6wp8-Tr3kO6X8OoGnkfYfqdCl7GBo7o3wGlFFX42fcCRF55qL0y8qofa83jTNhjMsTCPwXAexuA24cY7YlMnPjCO9eYIakKCkHOftMNH_8sbWAQ4nZGcdkgpnmRaLrSHeUXZxtLT4xtKrm0i0vHJP5pPslL3-YL5Y3U3qkoNKNEMnAaEUPADfGKDc6BLrZw1m5r"/>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="font-body-md text-body-md font-bold text-on-primary truncate">Elenora Vance</p>
+<p class="text-xs text-on-primary/50 truncate">Grid Supervisor</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-[260px] h-screen overflow-y-auto bg-background-dark relative">
+<!-- TopNavBar Shell -->
+<header class="flex justify-between items-center h-16 px-6 sticky top-0 z-40 bg-background-dark/80 backdrop-blur-md border-b border-outline/20">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low/5 border-outline/20 rounded-lg pl-10 pr-4 py-2 text-body-md text-on-surface focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all" placeholder="Search grid nodes, assets, or events..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 ml-6">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">contrast</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined">language</span>
+</button>
+<div class="h-8 w-[1px] bg-outline/20 mx-2"></div>
+<div class="flex items-center gap-2 px-3 py-1 bg-primary-container/20 border border-primary-container/40 rounded-full">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim">SYSTEM LIVE</span>
+</div>
+</div>
+</header>
+<!-- Page Canvas Content -->
+<div class="p-margin-page space-y-stack-lg max-w-[1600px] mx-auto">
+<!-- Breadcrumbs & Hero -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<nav class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="font-label-sm text-label-sm hover:text-primary cursor-pointer">Monitoring</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-label-sm text-label-sm text-primary">Live Grid</span>
+</nav>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Live Grid Monitoring</h2>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 bg-primary-container hover:bg-primary text-on-primary-container font-bold rounded-xl transition-all glow-emerald group active:scale-95">
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">sync</span>
+<span>Resync Grid</span>
+</button>
+</div>
+<!-- KPI Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bento-card p-5 rounded-2xl">
+<p class="text-on-surface-variant font-label-sm text-label-sm flex justify-between items-center">
+                        System Latency
+                        <span class="material-symbols-outlined text-water-cyan text-lg">speed</span>
+</p>
+<div class="mt-2 flex items-baseline gap-2">
+<h3 class="text-3xl font-bold text-on-surface">14.2<span class="text-sm font-normal text-on-surface-variant">ms</span></h3>
+<span class="text-xs text-primary-fixed-dim flex items-center">
+<span class="material-symbols-outlined text-xs">arrow_downward</span> 2.1%
+                        </span>
+</div>
+<div class="w-full h-1 bg-surface-container-high/20 rounded-full mt-4 overflow-hidden">
+<div class="h-full bg-water-cyan w-[75%]"></div>
+</div>
+</div>
+<div class="bento-card p-5 rounded-2xl">
+<p class="text-on-surface-variant font-label-sm text-label-sm flex justify-between items-center">
+                        Active Assets
+                        <span class="material-symbols-outlined text-primary-fixed-dim text-lg">bolt</span>
+</p>
+<div class="mt-2">
+<h3 class="text-3xl font-bold text-on-surface">12,842</h3>
+<p class="text-xs text-on-surface-variant mt-1">99.8% Connectivity Rate</p>
+</div>
+</div>
+<div class="bento-card p-5 rounded-2xl">
+<p class="text-on-surface-variant font-label-sm text-label-sm flex justify-between items-center">
+                        Current Flow
+                        <span class="material-symbols-outlined text-electric-orange text-lg">tsunami</span>
+</p>
+<div class="mt-2 flex items-baseline gap-2">
+<h3 class="text-3xl font-bold text-on-surface">4.2<span class="text-sm font-normal text-on-surface-variant">GW</span></h3>
+<span class="text-xs text-industrial-red flex items-center">
+<span class="material-symbols-outlined text-xs">arrow_upward</span> 0.4%
+                        </span>
+</div>
+<div class="flex gap-1 mt-4">
+<div class="h-2 flex-1 bg-electric-orange rounded-sm"></div>
+<div class="h-2 flex-1 bg-electric-orange rounded-sm"></div>
+<div class="h-2 flex-1 bg-electric-orange rounded-sm"></div>
+<div class="h-2 flex-1 bg-surface-container-high/20 rounded-sm"></div>
+<div class="h-2 flex-1 bg-surface-container-high/20 rounded-sm"></div>
+</div>
+</div>
+<div class="bento-card p-5 rounded-2xl border-l-4 border-l-industrial-red">
+<p class="text-on-surface-variant font-label-sm text-label-sm flex justify-between items-center">
+                        System Alerts
+                        <span class="material-symbols-outlined text-industrial-red text-lg">warning</span>
+</p>
+<div class="mt-2">
+<h3 class="text-3xl font-bold text-industrial-red">03 <span class="text-sm font-normal text-on-surface-variant">Critical</span></h3>
+<p class="text-xs text-industrial-red/80 mt-1">Immediate Action Required</p>
+</div>
+</div>
+</div>
+<!-- Main Interactive Content Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Infrastructure Map: 8 columns -->
+<div class="col-span-12 lg:col-span-8 bento-card rounded-3xl overflow-hidden flex flex-col h-[600px]">
+<div class="p-6 flex items-center justify-between border-b border-outline/10">
+<h4 class="font-headline-md text-headline-md flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">map</span>
+                            Infrastructure Map
+                        </h4>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">zoom_in</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">zoom_out</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-on-surface-variant"><span class="material-symbols-outlined">layers</span></button>
+</div>
+</div>
+<div class="flex-1 relative bg-background-dark overflow-hidden">
+<!-- Simulated Map with WebGL-like Shader or Background -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#10b981 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Map Image -->
+<div class="absolute inset-0" data-alt="A stylized satellite-view energy grid map of a metropolitan area at night. The map features glowing emerald lines representing high-voltage transmission, with nodes pulsing in bright green, amber, and deep red. The aesthetic is tech-focused and dark, reminiscent of a cyber-security control room display with subtle topographic contours." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEI6WV8d-zubWbHuAGB-YVTBbK19Lr2YhY4pLqR2g-YszUgdnSpwteOGQBo5Pj3uFf9VT8kip738AQ6m8aqb2KTfl2JL59xOLvECCPXiRyzbzB0JOD3c3CCFJ7Y12wR-S7aCHU9hxfa8jfcwhvJIHPYR7fwRotIMGIprq9K2pZCXf9tGN_-lF5dS6mD5oUayS4vqC_-mT-qXxmonmM1PypCyxozCzc6TVk1vQdArRGBlJxzOKJne5a1PoeZp7PVMUYOdlIgFee')"></div>
+<!-- Data Nodes (Simulated Floating Markers) -->
+<div class="absolute top-[30%] left-[40%] group cursor-pointer">
+<div class="w-4 h-4 bg-primary-container rounded-full animate-ping absolute"></div>
+<div class="w-4 h-4 bg-primary-container rounded-full relative shadow-[0_0_15px_#10b981] border-2 border-on-primary"></div>
+<div class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-card-dark p-3 rounded-lg border border-primary/40 shadow-2xl z-10">
+<p class="text-xs font-bold text-primary-fixed-dim">Substation B-42</p>
+<p class="text-[10px] text-on-surface-variant">Status: Optimal</p>
+<p class="text-[10px] text-on-surface-variant">Output: 842 MW</p>
+</div>
+</div>
+<div class="absolute top-[60%] left-[70%] group cursor-pointer">
+<div class="w-4 h-4 bg-industrial-red rounded-full animate-pulse absolute"></div>
+<div class="w-4 h-4 bg-industrial-red rounded-full relative shadow-[0_0_15px_#ef4444] border-2 border-on-primary"></div>
+<div class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-card-dark p-3 rounded-lg border border-industrial-red/40 shadow-2xl z-10">
+<p class="text-xs font-bold text-industrial-red">Switchgear J-19</p>
+<p class="text-[10px] text-on-surface-variant">Status: Critical Failure</p>
+<p class="text-[10px] text-on-surface-variant">Voltage: Overload (440kV)</p>
+</div>
+</div>
+<!-- Floating Legend -->
+<div class="absolute bottom-6 left-6 bg-card-dark/80 backdrop-blur-md p-4 rounded-xl border border-outline/20">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Node Health</p>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-xs text-on-surface">Stable (9,412)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-financial-gold"></span>
+<span class="text-xs text-on-surface">Fluctuating (204)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-industrial-red"></span>
+<span class="text-xs text-on-surface">Offline (03)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column Widgets (Timeline + Gauge) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Aggregate Load Capacity -->
+<div class="bento-card p-6 rounded-3xl flex-1 flex flex-col items-center justify-center text-center">
+<h4 class="font-headline-md text-headline-md mb-6 w-full text-left">Aggregate Load</h4>
+<div class="relative w-48 h-48 mb-6">
+<svg class="gauge-svg w-full h-full" viewbox="0 0 100 100">
+<circle class="progress-ring__circle-bg text-surface-container-high/10" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="progress-ring__circle text-primary-container" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="62.8" stroke-width="8" style="filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.6));"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-bold text-on-surface">75%</span>
+<span class="text-xs text-on-surface-variant">Capacity Used</span>
+</div>
+</div>
+<div class="w-full grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low/5 p-3 rounded-xl border border-outline/10">
+<p class="text-xs text-on-surface-variant mb-1">Peak Demand</p>
+<p class="text-lg font-bold">5.4 GW</p>
+</div>
+<div class="bg-surface-container-low/5 p-3 rounded-xl border border-outline/10">
+<p class="text-xs text-on-surface-variant mb-1">Grid Margin</p>
+<p class="text-lg font-bold text-primary-fixed-dim">1.2 GW</p>
+</div>
+</div>
+</div>
+<!-- Event Timeline -->
+<div class="bento-card p-6 rounded-3xl flex-1 max-h-[300px] overflow-hidden flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h4 class="font-headline-md text-headline-md">Event Log</h4>
+<span class="font-label-sm text-label-sm text-primary-fixed-dim bg-primary-container/10 px-2 py-1 rounded">Live</span>
+</div>
+<div class="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+<!-- Timeline Item -->
+<div class="flex gap-4 relative">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 rounded-full bg-primary-container glow-emerald z-10"></div>
+<div class="w-[2px] h-full bg-outline/10 absolute top-3"></div>
+</div>
+<div class="pb-4">
+<p class="text-xs font-bold text-on-surface">Auth successful</p>
+<p class="text-[10px] text-on-surface-variant mb-1">User: Vance_E · 14:02:11</p>
+<span class="text-[10px] px-1.5 py-0.5 bg-surface-container-high/10 rounded border border-outline/10">SYSTEM_AUDIT</span>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="flex gap-4 relative">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 rounded-full bg-primary-container z-10"></div>
+<div class="w-[2px] h-full bg-outline/10 absolute top-3"></div>
+</div>
+<div class="pb-4">
+<p class="text-xs font-bold text-on-surface">Node resync complete</p>
+<p class="text-[10px] text-on-surface-variant mb-1">Sector 7G-North · 14:01:45</p>
+<span class="text-[10px] px-1.5 py-0.5 bg-primary-container/10 text-primary-fixed-dim rounded border border-primary-container/20">OPERATIONAL</span>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="flex gap-4 relative">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 rounded-full bg-industrial-red z-10"></div>
+<div class="w-[2px] h-full bg-outline/10 absolute top-3"></div>
+</div>
+<div class="pb-4">
+<p class="text-xs font-bold text-industrial-red">Voltage spike detected</p>
+<p class="text-[10px] text-on-surface-variant mb-1">Feeder Line X-2 · 13:58:22</p>
+<span class="text-[10px] px-1.5 py-0.5 bg-industrial-red/10 text-industrial-red rounded border border-industrial-red/20">CRITICAL</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Shell -->
+<footer class="flex justify-between items-center py-6 px-margin-page w-full bg-surface-container-lowest/5 border-t border-outline/10 mt-margin-page">
+<div class="flex items-center gap-6">
+<span class="font-label-sm text-label-sm font-bold text-primary">MeterVerse Forest</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Energy Forest Grid Ops. All rights reserved.</p>
+</div>
+<div class="flex items-center gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">System Status</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Documentation</a>
+</div>
+</footer>
+</main>
+<!-- Floating Action Button Contextual Logic (Monitoring Home) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 glow-emerald">
+<span class="material-symbols-outlined text-3xl">add_alert</span>
+</button>
+<script>
+        // Micro-interactions and real-time feel
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulate live data updates
+            const kpiValues = document.querySelectorAll('.text-3xl.font-bold');
+            setInterval(() => {
+                const latency = (14 + Math.random() * 0.5).toFixed(1);
+                if(kpiValues[0]) kpiValues[0].innerHTML = `${latency}<span class="text-sm font-normal text-on-surface-variant">ms</span>`;
+            }, 3000);
+
+            // Resync button effect
+            const resyncBtn = document.querySelector('button:contains("Resync Grid")');
+            if(resyncBtn) {
+                resyncBtn.addEventListener('click', () => {
+                    resyncBtn.disabled = true;
+                    resyncBtn.querySelector('span:first-child').classList.add('animate-spin');
+                    setTimeout(() => {
+                        resyncBtn.disabled = false;
+                        resyncBtn.querySelector('span:first-child').classList.remove('animate-spin');
+                        alert("Grid parameters synchronized successfully.");
+                    }, 2000);
+                });
+            }
+        });
+
+        // Simple helper for finding elements by text
+        window.NodeList.prototype.forEach = Array.prototype.forEach;
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.textContent.includes("Resync Grid")) {
+                btn.addEventListener('click', () => {
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    icon.style.animation = 'spin 1s linear infinite';
+                    setTimeout(() => icon.style.animation = '', 2000);
+                });
+            }
+        });
+    </script>
+<style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 10px;
+        }
+    </style>
+</body></html>

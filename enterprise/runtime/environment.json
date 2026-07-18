@@ -1,0 +1,50 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-07-12T06:50:00Z",
+  "machine": {
+    "hostname": "DESKTOP-E0JM8VA",
+    "os": "Microsoft Windows 11 Pro",
+    "osVersion": "10.0.26200",
+    "kernel": "NT 10.0",
+    "arch": "x86_64",
+    "shell": "PowerShell 5.1.26100",
+    "user": "EPower",
+    "homeDir": "C:\\Users\\EPower"
+  },
+  "paths": {
+    "projectRoot": "D:\\meter",
+    "appdata": "C:\\Users\\EPower\\AppData\\Roaming",
+    "localAppdata": "C:\\Users\\EPower\\AppData\\Local",
+    "programFiles": "C:\\Program Files",
+    "userProfile": "C:\\Users\\EPower",
+    "cargo": "C:\\Users\\EPower\\.cargo\\bin",
+    "go": "C:\\Program Files\\Go\\bin",
+    "java": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11-hotspot\\bin",
+    "python": "C:\\Program Files\\Python311",
+    "pythonScripts": "C:\\Program Files\\Python311\\Scripts",
+    "node": "C:\\Program Files\\nodejs",
+    "npm": "C:\\Users\\EPower\\AppData\\Roaming\\npm",
+    "graphviz": "C:\\Program Files\\Graphviz\\bin",
+    "wingetPackages": "C:\\Users\\EPower\\AppData\\Local\\Microsoft\\WinGet\\Packages"
+  },
+  "pathEntries": [
+    "%USERPROFILE%\\.cargo\\bin",
+    "C:\\Program Files\\Go\\bin",
+    "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11-hotspot\\bin",
+    "C:\\Program Files\\Graphviz\\bin",
+    "%APPDATA%\\Python\\Scripts",
+    "%APPDATA%\\npm",
+    "C:\\Program Files\\Python311\\Scripts",
+    "D:\\meter\\node_modules\\.bin"
+  ],
+  "network": {
+    "hasInternet": true,
+    "gitRemote": null,
+    "dockerDaemonRunning": false
+  },
+  "vscode": {
+    "installed": true,
+    "path": "C:\\Users\\EPower\\AppData\\Local\\Programs\\Microsoft VS Code\\bin\\code.cmd",
+    "extensions": ["opencode","blackbox","python","next-js","xml","git-viz"]
+  }
+}

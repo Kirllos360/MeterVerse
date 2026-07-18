@@ -1,0 +1,43 @@
+- generic [active]:
+  - generic [ref=e6]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - img [ref=e12]
+        - heading "ميتر فيرس" [level=1] [ref=e15]
+        - paragraph [ref=e16]: تسجيل الدخول إلى حساب ميتر فيرس
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - generic [ref=e19]: تسجيل الدخول كـ
+          - combobox "تسجيل الدخول كـ" [ref=e20]:
+            - option "Super Admin" [selected]
+            - option "Project Admin"
+            - option "Operator"
+            - option "Technician"
+            - option "Finance"
+            - option "Support"
+            - option "Customer"
+        - generic [ref=e21]:
+          - generic [ref=e22]: البريد الإلكتروني
+          - generic [ref=e23]:
+            - img [ref=e24]
+            - textbox "البريد الإلكتروني" [ref=e27]:
+              - /placeholder: admin@meterpulse.com
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - generic [ref=e30]: كلمة المرور
+            - button "نسيت كلمة المرور؟" [ref=e31]
+          - generic [ref=e32]:
+            - img [ref=e33]
+            - textbox "كلمة المرور" [ref=e36]:
+              - /placeholder: أدخل كلمة المرور
+            - button [ref=e37]:
+              - img [ref=e38]
+        - button "تسجيل الدخول" [ref=e41]
+      - generic [ref=e44]:
+        - img [ref=e46]
+        - generic [ref=e48]:
+          - paragraph [ref=e49]: وضع العرض التوضيحي
+          - paragraph [ref=e50]: اختر أي دور من القائمة وانقر على تسجيل الدخول لاستكشاف لوحة التحكم بمستويات صلاحيات مختلفة.
+    - paragraph [ref=e51]: © 2026 ميتر فيرس. جميع الحقوق محفوظة.
+  - region "Notifications (F8)":
+    - list

@@ -22,6 +22,60 @@
         "ODOO_USERNAME": "your_username",
         "ODOO_PASSWORD": "your_password"
       }
+    },
+    "playwright": {
+      "type": "local",
+      "command": ["npx", "-y", "@playwright/mcp"],
+      "enabled": true
+    },
+    "context7": {
+      "type": "local",
+      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "enabled": true,
+      "env": {
+        "CONTEXT7_API_KEY": ""
+      }
+    },
+    "figma-context": {
+      "type": "local",
+      "command": ["npx", "-y", "figma-developer-mcp", "--stdio"],
+      "enabled": true,
+      "env": {
+        "FIGMA_API_KEY": ""
+      }
+    },
+    "serena": {
+      "type": "local",
+      "command": ["uvx", "serena-agent", "start-mcp-server", "--project-from-cwd"],
+      "enabled": true
+    },
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp"],
+      "enabled": true
+    },
+    "codebase-memory": {
+      "type": "local",
+      "command": ["npx", "-y", "codebase-memory-mcp"],
+      "enabled": true
+    },
+    "ast-grep": {
+      "type": "local",
+      "command": ["sg", "--mcp"],
+      "enabled": false,
+      "description": "Semantic code search and structural AST analysis"
+    },
+    "storybook-mcp": {
+      "type": "local",
+      "command": ["npx", "-y", "@storybook/mcp"],
+      "enabled": true,
+      "description": "Storybook project analysis via MCP"
+    },
+    "spectral": {
+      "type": "local",
+      "command": ["spectral", "--help"],
+      "enabled": false,
+      "description": "OpenAPI/AsyncAPI contract validation"
     }
   }
 }

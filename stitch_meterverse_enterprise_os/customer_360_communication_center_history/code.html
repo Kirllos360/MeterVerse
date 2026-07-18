@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer 360 | Communication Center</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "primary-fixed-dim": "#4edea3",
+                "surface-container-low": "#eef6ee",
+                "on-tertiary": "#ffffff",
+                "primary-container": "#10b981",
+                "card-dark": "#16221a",
+                "tertiary": "#a43a3a",
+                "surface-container-lowest": "#ffffff",
+                "surface-variant": "#dde4dd",
+                "on-tertiary-fixed": "#410005",
+                "on-primary-container": "#00422b",
+                "secondary-fixed-dim": "#95d3ba",
+                "on-secondary-fixed-variant": "#0b513d",
+                "error": "#ba1a1a",
+                "surface-dim": "#d4dcd5",
+                "inverse-primary": "#4edea3",
+                "secondary-container": "#adedd3",
+                "tertiary-fixed": "#ffdad7",
+                "primary": "#006c49",
+                "on-tertiary-fixed-variant": "#842225",
+                "on-surface": "#161d19",
+                "on-tertiary-container": "#711419",
+                "on-primary": "#ffffff",
+                "error-container": "#ffdad6",
+                "outline": "#6c7a71",
+                "tertiary-container": "#fc7c78",
+                "on-primary-fixed": "#002113",
+                "on-secondary-fixed": "#002117",
+                "surface-bright": "#f4fbf4",
+                "surface-tint": "#006c49",
+                "tertiary-fixed-dim": "#ffb3af",
+                "secondary": "#2b6954",
+                "background": "#f4fbf4",
+                "inverse-on-surface": "#ebf3eb",
+                "surface-container-highest": "#dde4dd",
+                "electric-orange": "#f97316",
+                "primary-fixed": "#6ffbbe",
+                "sidebar-light": "#064e3b",
+                "on-secondary": "#ffffff",
+                "financial-gold": "#fbbf24",
+                "background-dark": "#0d1510",
+                "outline-variant": "#bbcabf",
+                "water-cyan": "#06b6d4",
+                "surface": "#f4fbf4",
+                "industrial-red": "#ef4444",
+                "secondary-fixed": "#b0f0d6",
+                "on-primary-fixed-variant": "#005236",
+                "inverse-surface": "#2b322d",
+                "on-error-container": "#93000a",
+                "surface-container-high": "#e3eae3",
+                "on-surface-variant": "#3c4a42",
+                "on-background": "#161d19",
+                "surface-container": "#e8f0e9",
+                "on-error": "#ffffff",
+                "on-secondary-container": "#306d58"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px",
+                "card": "16px"
+            },
+            "spacing": {
+                "stack-sm": "8px",
+                "gutter": "16px",
+                "margin-page": "24px",
+                "sidebar-expanded": "260px",
+                "sidebar-collapsed": "72px",
+                "stack-lg": "24px",
+                "stack-md": "16px",
+                "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                "label-sm": ["JetBrains Mono"],
+                "headline-lg": ["Hanken Grotesk"],
+                "body-md": ["Hanken Grotesk"],
+                "headline-md": ["Hanken Grotesk"],
+                "body-lg": ["Hanken Grotesk"],
+                "display-lg": ["Hanken Grotesk"],
+                "title-md": ["Hanken Grotesk"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f4fbf4; /* surface-bright */
+            color: #161d19; /* on-surface */
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(187, 202, 191, 0.4);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .timeline-track::before {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, #bbcabf 0, #bbcabf 4px, transparent 4px, transparent 8px);
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: slideIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopNavBar (JSON Managed) -->
+<header class="bg-surface-glass-light/70 backdrop-blur-xl text-primary font-title-md text-title-md docked full-width top-0 sticky z-40 border-b border-outline-variant shadow-sm flex justify-between items-center w-full px-margin-desktop h-20">
+<div class="flex items-center gap-8">
+<h1 class="font-display-lg text-display-lg font-bold tracking-tight text-primary">MeterVerse</h1>
+<nav class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:bg-surface-container-high/50 transition-colors cursor-pointer active:scale-95 duration-200" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/50 transition-colors cursor-pointer active:scale-95 duration-200" href="#">Analytics</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high/50 transition-colors cursor-pointer active:scale-95 duration-200" href="#">Telemetry</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-bold" href="#">Grid Control</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 rounded-full bg-surface-container-high text-primary font-medium hover:bg-surface-container-highest transition-all duration-200">Command Palette</button>
+<div class="flex gap-2">
+<span class="material-symbols-outlined p-2 hover:bg-surface-container-high rounded-full cursor-pointer">translate</span>
+<span class="material-symbols-outlined p-2 hover:bg-surface-container-high rounded-full cursor-pointer">notifications</span>
+<span class="material-symbols-outlined p-2 hover:bg-surface-container-high rounded-full cursor-pointer">settings</span>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img class="w-full h-full object-cover" data-alt="Professional portrait of a grid administrator in a modern office, soft focus background of server monitors, wearing a corporate vest with a subtle green logo, clean lighting, high resolution, industrial emerald aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDO22t2UaBfNb3wExOVaHpok6Epbf_jZW7-Qa9T2bu5fxzTC-M7fhJ2Zr4K2XcoYh9EvFdh8IkuzevXrX6YNP91eZ1qnd4FIhFptZL7u6VP5eS41k_HewdGTk-lyEIQeaCIHmdr8DkO5LUN2VQsvRMuty6dN9yW_rX3dqr4Pu2oQdw2OYOjp4yK5yWRgW7dLKeIljRtAGRDs54Omd5YQEVMhVABYhKulotsY9StjhLcCQ1_XD8_KstNGD2zmiQ8ejIhoIk_uwe"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (JSON Managed) -->
+<aside class="bg-surface-container backdrop-blur-2xl text-secondary font-label-md text-label-md fixed inset-y-0 start-0 w-64 z-50 border-inline-end border-outline-variant shadow-xl flex flex-col h-full py-8 px-4 gap-6 transition-all duration-300 ease-in-out md:sticky md:top-20 md:h-[calc(100vh-80px)]">
+<div class="flex items-center gap-3 px-2">
+<div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div>
+<div class="font-headline-lg text-headline-lg font-black text-primary leading-tight">MeterVerse OS</div>
+<div class="text-xs opacity-70 uppercase tracking-widest font-bold">Enterprise Utility</div>
+</div>
+</div>
+<button class="w-full py-3 bg-primary text-on-primary rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+                New Asset
+            </button>
+<nav class="flex flex-col gap-1">
+<div class="px-2 py-3 flex items-center gap-4 text-secondary hover:bg-surface-container-highest transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">grid_view</span>
+                    Home
+                </div>
+<div class="px-2 py-3 flex items-center gap-4 bg-primary-container text-on-primary-container rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">bolt</span>
+                    Operations
+                </div>
+<div class="px-2 py-3 flex items-center gap-4 text-secondary hover:bg-surface-container-highest transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">factory</span>
+                    Infrastructure
+                </div>
+<div class="px-2 py-3 flex items-center gap-4 text-secondary hover:bg-surface-container-highest transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">verified_user</span>
+                    Compliance
+                </div>
+<div class="px-2 py-3 flex items-center gap-4 text-secondary hover:bg-surface-container-highest transition-all duration-300 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">assessment</span>
+                    Reporting
+                </div>
+</nav>
+<div class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant/30">
+<div class="px-2 py-3 flex items-center gap-4 text-secondary hover:bg-surface-container-highest transition-all rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </div>
+<div class="px-2 py-3 flex items-center gap-4 text-tertiary hover:bg-tertiary-container/10 transition-all rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">logout</span>
+                    Sign Out
+                </div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-6 md:p-margin-page overflow-y-auto bg-surface-bright">
+<!-- Breadcrumb -->
+<nav class="flex items-center gap-2 mb-6 text-on-surface-variant font-label-sm text-label-sm">
+<span class="cursor-pointer hover:text-primary">Workspace</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="cursor-pointer hover:text-primary">Customers</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="cursor-pointer hover:text-primary">Al-Hamra Towers</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Communications</span>
+</nav>
+<!-- Hero Section -->
+<section class="mb-10 relative overflow-hidden rounded-card h-48 flex items-end p-8 bg-primary">
+<div class="absolute inset-0 opacity-20">
+
+</div>
+<div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between w-full">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-primary">Customer 360: Al-Hamra Towers</h2>
+<p class="text-primary-fixed-dim font-body-lg text-body-lg">Enterprise Utility Communication Hub</p>
+</div>
+<div class="mt-4 md:mt-0 flex gap-3">
+<button class="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md px-6 py-2 rounded-full font-bold border border-white/20 transition-all">
+                            View Profile
+                        </button>
+<button class="bg-primary-fixed text-on-primary-fixed px-6 py-2 rounded-full font-bold shadow-lg hover:scale-105 transition-all">
+                            Active Contract
+                        </button>
+</div>
+</div>
+</section>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Timeline Section (Left) -->
+<div class="lg:col-span-8">
+<div class="bg-white rounded-card shadow-sm border border-outline-variant p-6 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-md text-headline-md flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                                Communication Timeline
+                            </h3>
+<div class="flex gap-2">
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs font-bold text-on-surface-variant">Last 30 Days</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">filter_list</span>
+</div>
+</div>
+<!-- Timeline Data [DATA-04] -->
+<div class="relative pl-10 timeline-track flex flex-col gap-8">
+<!-- SMS Entry -->
+<div class="relative animate-fade-up">
+<div class="absolute -left-[31px] w-10 h-10 bg-primary-container rounded-full flex items-center justify-center border-4 border-white">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">sms</span>
+</div>
+<div class="glass-card p-5 rounded-card flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<span class="font-bold text-primary">SMS Alert</span>
+<span class="mx-2 text-outline-variant">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">To: +965 2240 ****</span>
+</div>
+<span class="text-xs text-outline">2h ago</span>
+</div>
+<p class="text-on-surface text-body-md font-body-md">Scheduled maintenance notification: System bypass active for Substation 4A. No interruption expected.</p>
+<div class="flex gap-2 mt-2">
+<span class="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded uppercase font-bold tracking-tighter">Delivered</span>
+</div>
+</div>
+</div>
+<!-- Email Entry -->
+<div class="relative animate-fade-up" style="animation-delay: 0.1s;">
+<div class="absolute -left-[31px] w-10 h-10 bg-secondary rounded-full flex items-center justify-center border-4 border-white">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<div class="glass-card p-5 rounded-card flex flex-col gap-2 border-l-4 border-l-secondary">
+<div class="flex justify-between items-start">
+<div>
+<span class="font-bold text-secondary">Billing Invoice - Q3</span>
+<span class="mx-2 text-outline-variant">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">From: accounts@meterverse.io</span>
+</div>
+<span class="text-xs text-outline">Yesterday</span>
+</div>
+<p class="text-on-surface text-body-md font-body-md">Your quarterly enterprise usage report and invoice (INV-2024-088) are now available for review.</p>
+<div class="flex gap-4 mt-2">
+<div class="flex items-center gap-1 text-xs text-secondary-fixed-dim hover:underline cursor-pointer">
+<span class="material-symbols-outlined text-sm">attachment</span>
+                                            invoice_q3.pdf
+                                        </div>
+<div class="flex items-center gap-1 text-xs text-secondary-fixed-dim hover:underline cursor-pointer">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                                            Opened (4x)
+                                        </div>
+</div>
+</div>
+</div>
+<!-- System Notification Entry -->
+<div class="relative animate-fade-up" style="animation-delay: 0.2s;">
+<div class="absolute -left-[31px] w-10 h-10 bg-electric-orange rounded-full flex items-center justify-center border-4 border-white">
+<span class="material-symbols-outlined text-white text-sm" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="glass-card p-5 rounded-card flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<div>
+<span class="font-bold text-electric-orange">System Threshold Alert</span>
+<span class="mx-2 text-outline-variant">•</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Automated Workflow</span>
+</div>
+<span class="text-xs text-outline">Oct 24, 2024</span>
+</div>
+<p class="text-on-surface text-body-md font-body-md">Load balance exceeded 85% on Primary Feed Tower A. Automated mitigation sequence initiated.</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="text-[10px] bg-orange-100 text-orange-700 px-2 py-0.5 rounded uppercase font-bold">Priority: High</span>
+<span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded uppercase font-bold">Resolved</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full py-4 border-2 border-dashed border-outline-variant rounded-card text-outline hover:text-primary hover:border-primary transition-all font-bold">
+                            Load 24 more interactions
+                        </button>
+</div>
+</div>
+<!-- Side Panel (Right) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Quick Actions -->
+<div class="bg-white rounded-card shadow-sm border border-outline-variant p-6">
+<h4 class="font-headline-md text-headline-md mb-6">Quick Actions</h4>
+<div class="flex flex-col gap-3">
+<button class="flex items-center justify-between p-4 bg-primary text-on-primary rounded-xl hover:shadow-lg active:scale-[0.98] transition-all group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined p-2 bg-white/20 rounded-lg">campaign</span>
+<span class="font-bold">Send Alert</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="flex items-center justify-between p-4 bg-surface-container-high text-primary rounded-xl hover:bg-surface-container-highest active:scale-[0.98] transition-all group border border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined p-2 bg-primary/10 rounded-lg">request_quote</span>
+<span class="font-bold">Request Document</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+<button class="flex items-center justify-between p-4 bg-surface-container-high text-primary rounded-xl hover:bg-surface-container-highest active:scale-[0.98] transition-all group border border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined p-2 bg-primary/10 rounded-lg">phone_callback</span>
+<span class="font-bold">Log Call</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Customer Intelligence Widget -->
+<div class="bg-card-dark rounded-card p-6 text-white relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 opacity-30">
+<span class="material-symbols-outlined text-[160px] text-primary-fixed-dim">analytics</span>
+</div>
+<div class="relative z-10">
+<h4 class="font-title-md text-title-md text-primary-fixed-dim mb-2">Communication Pulse</h4>
+<div class="text-3xl font-black mb-4">98.2%</div>
+<p class="text-sm opacity-80 mb-6">Customer responsiveness score. Based on email open rates and portal interaction frequency.</p>
+<div class="space-y-4">
+<div class="w-full bg-white/10 h-2 rounded-full overflow-hidden">
+<div class="bg-primary-fixed w-[98.2%] h-full"></div>
+</div>
+<div class="flex justify-between text-xs font-label-sm">
+<span class="opacity-70">Benchmark: 74%</span>
+<span class="text-primary-fixed font-bold">+24.2% Apex</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Details -->
+<div class="bg-white rounded-card shadow-sm border border-outline-variant p-6">
+<h4 class="font-headline-md text-headline-md mb-4">Account Contacts</h4>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a female Middle Eastern executive in a professional business suit, focused expression, corporate setting with soft architectural lighting, high contrast, industrial emerald accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYC0Hgh17JFYX3yaxn3hfam-G51pDgzrUk7EB10VvLZO2sHfO-udbdjCaa1dOBUIT1-LTY1tfw53z14NiiKfJZIT07fM4Hsf-CdH1qvqKHkLySRijNaQ2SR30ah1zluocP5w_DhrVfl30z314f4V7YmnlvIyXxBpyq0BZ8F152t8MWJHFuhx0QcWA4xMXHibkpmTUCOmKIpzUdJnq4W27PvzgzRSLECRSkNkhgqlPJ0n3PPmgskBtD0XNay7bL1ITz8x8gN9GO"/>
+</div>
+<div class="flex-1">
+<div class="font-bold text-on-surface">Layla Al-Sayed</div>
+<div class="text-xs text-outline uppercase font-bold tracking-tighter">Chief Ops Officer</div>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-primary/10 p-2 rounded-full">call</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Portrait of a senior male engineer in a technical utility uniform, professional and experienced look, modern industrial background, sharp lighting, high resolution, emerald green color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpmJPZl5SBFs4D6M-5a-aqRlEsxzUmWQb7XhwgDkWBMhgerat7974fvjH_7s340ssXdH7Hzm31pb1zp2F0NegMwhPjPPo2f3oLprpffV_AMCssL1nysMkH4V4Mv00C6wt24VjmtaH0-UJqGM_vWeTWvXD_CNHKMxnBspEyz7bTQ_q2alf4Dz34L_TiHmHMevlpXAT81HF2OhpgYlFTcJjJn5kZvdx41Uik0O7FfMsWw0i20Sn9D9wQLjtLcLsOK0Nm_gZA9wEw"/>
+</div>
+<div class="flex-1">
+<div class="font-bold text-on-surface">Ahmed Hassan</div>
+<div class="text-xs text-outline uppercase font-bold tracking-tighter">Facility Director</div>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-primary/10 p-2 rounded-full">mail</span>
+</div>
+</div>
+<button class="mt-6 w-full py-2 text-primary font-bold text-sm border border-primary/20 rounded-lg hover:bg-primary/5 transition-all">Manage Directory</button>
+</div>
+</div>
+</div>
+<!-- Footer (JSON Managed) -->
+<footer class="bg-surface-dim mt-12 py-8 border-t border-outline-variant flex justify-between items-center px-margin-desktop text-secondary font-body-sm text-body-sm w-full">
+<div class="flex items-center gap-4">
+<span class="font-label-md text-label-md font-bold text-on-surface">MeterVerse</span>
+<span>© 2024 MeterVerse Utility OS. All systems operational.</span>
+</div>
+<div class="flex gap-6">
+<a class="hover:text-primary transition-opacity duration-200" href="#">Terms of Service</a>
+<a class="hover:text-primary transition-opacity duration-200" href="#">Security Protocol</a>
+<a class="hover:text-primary transition-opacity duration-200" href="#">System Status</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-3xl">chat_bubble</span>
+<span class="absolute right-full mr-4 px-3 py-1 bg-surface-container-lowest text-primary text-sm font-bold rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md pointer-events-none">
+            Direct Messaging
+        </span>
+</button>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+                card.style.boxShadow = '0 10px 30px -5px rgba(0, 108, 73, 0.1)';
+                card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'none';
+            });
+        });
+    </script>
+</body></html>

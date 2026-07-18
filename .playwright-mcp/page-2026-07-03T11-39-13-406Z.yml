@@ -1,0 +1,223 @@
+- generic [active] [ref=f4e1]:
+  - generic [ref=f4e2]:
+    - generic [ref=f4e3]: ⚠ DESIGN STUDIO — NOT PRODUCTION. All visuals are DRAFT prototypes for evaluation only.
+    - generic [ref=f4e5]:
+      - generic [ref=f4e6]:
+        - link "🎨 Design Studio" [ref=f4e7] [cursor=pointer]:
+          - /url: /design-studio
+          - generic [ref=f4e8]: 🎨
+          - generic [ref=f4e9]: Design Studio
+        - generic [ref=f4e10]: DRAFT
+      - navigation [ref=f4e11]:
+        - link "Enterprise Premium" [ref=f4e12] [cursor=pointer]:
+          - /url: /design-studio/concept-a
+        - link "Neo Futuristic" [ref=f4e13] [cursor=pointer]:
+          - /url: /design-studio/concept-b
+        - link "Executive Luxury" [ref=f4e14] [cursor=pointer]:
+          - /url: /design-studio/concept-c
+    - main [ref=f4e15]:
+      - generic [ref=f4e16]:
+        - generic:
+          - img
+        - complementary [ref=f4e17]:
+          - button "◇ Overview" [ref=f4e18]:
+            - generic [ref=f4e19]: ◇
+            - generic [ref=f4e20]: Overview
+          - button "▣ Meters" [ref=f4e22]:
+            - generic [ref=f4e23]: ▣
+            - generic [ref=f4e24]: Meters
+          - button "⚡ Energy" [ref=f4e25]:
+            - generic [ref=f4e26]: ⚡
+            - generic [ref=f4e27]: Energy
+          - button "◈ Billing" [ref=f4e28]:
+            - generic [ref=f4e29]: ◈
+            - generic [ref=f4e30]: Billing
+          - button "◎ Analytics" [ref=f4e31]:
+            - generic [ref=f4e32]: ◎
+            - generic [ref=f4e33]: Analytics
+          - button "⚙ System" [ref=f4e34]:
+            - generic [ref=f4e35]: ⚙
+            - generic [ref=f4e36]: System
+        - generic [ref=f4e37]:
+          - generic [ref=f4e38]:
+            - generic [ref=f4e39]:
+              - heading "METER VERSE" [level=1] [ref=f4e41]
+              - generic [ref=f4e43]: DRAFT — NOT PRODUCTION
+            - generic [ref=f4e44]:
+              - generic [ref=f4e45]:
+                - generic [ref=f4e48]: DB
+                - generic [ref=f4e51]: WS
+                - generic [ref=f4e54]: API
+              - generic [ref=f4e55]: SYSTEM ONLINE
+          - generic [ref=f4e58]:
+            - generic [ref=f4e59]:
+              - heading "Live Metrics" [level=2] [ref=f4e60]
+              - generic [ref=f4e61]:
+                - generic [ref=f4e65]:
+                  - paragraph [ref=f4e66]: Active Meters
+                  - paragraph [ref=f4e67]: "0"
+                  - paragraph [ref=f4e68]: +12.4%
+                - generic [ref=f4e72]:
+                  - paragraph [ref=f4e73]: Areas Online
+                  - paragraph [ref=f4e74]: "0"
+                  - paragraph [ref=f4e75]: 100%
+                - generic [ref=f4e79]:
+                  - paragraph [ref=f4e80]: Readings Today
+                  - paragraph [ref=f4e81]: "0"
+                  - paragraph [ref=f4e82]: +8.2%
+                - generic [ref=f4e86]:
+                  - paragraph [ref=f4e87]: Pending Alerts
+                  - paragraph [ref=f4e88]: "0"
+                  - paragraph [ref=f4e89]: "-5%"
+                - generic [ref=f4e93]:
+                  - paragraph [ref=f4e94]: Avg Response
+                  - paragraph [ref=f4e95]: "0"
+                  - paragraph [ref=f4e96]: "-3ms"
+                - generic [ref=f4e100]:
+                  - paragraph [ref=f4e101]: Billing Cycle
+                  - paragraph [ref=f4e102]: Active
+                  - paragraph [ref=f4e103]: June 2026
+            - generic [ref=f4e104]:
+              - generic [ref=f4e105]:
+                - generic [ref=f4e106]:
+                  - heading "Energy Flow" [level=3] [ref=f4e107]
+                  - generic [ref=f4e108]: realtime
+                - generic [ref=f4e109]:
+                  - generic [ref=f4e111]:
+                    - generic [ref=f4e112]: Readings / sec
+                    - generic [ref=f4e113]: 1,245
+                  - generic [ref=f4e118]:
+                    - generic [ref=f4e119]: Active Sessions
+                    - generic [ref=f4e120]: "892"
+                  - generic [ref=f4e125]:
+                    - generic [ref=f4e126]: Data Throughput
+                    - generic [ref=f4e127]: "487"
+                  - generic [ref=f4e132]:
+                    - generic [ref=f4e133]: Queue Depth
+                    - generic [ref=f4e134]: "23"
+              - generic [ref=f4e138]:
+                - heading "Weekly Trend" [level=3] [ref=f4e139]
+                - img [ref=f4e140]
+                - generic [ref=f4e143]:
+                  - generic [ref=f4e144]:
+                    - generic [ref=f4e145]: Mon
+                    - generic [ref=f4e146]: 45,230
+                  - generic [ref=f4e147]:
+                    - generic [ref=f4e148]: Tue
+                    - generic [ref=f4e149]: 48,920
+                  - generic [ref=f4e150]:
+                    - generic [ref=f4e151]: Wed
+                    - generic [ref=f4e152]: 51,200
+                  - generic [ref=f4e153]:
+                    - generic [ref=f4e154]: Thu
+                    - generic [ref=f4e155]: 49,800
+                  - generic [ref=f4e156]:
+                    - generic [ref=f4e157]: Fri
+                    - generic [ref=f4e158]: 52,300
+                  - generic [ref=f4e159]:
+                    - generic [ref=f4e160]: Sat
+                    - generic [ref=f4e161]: 48,100
+                  - generic [ref=f4e162]:
+                    - generic [ref=f4e163]: Sun
+                    - generic [ref=f4e164]: 50,200
+            - generic [ref=f4e165]:
+              - heading "Service Mesh" [level=3] [ref=f4e166]
+              - generic [ref=f4e167]:
+                - generic [ref=f4e168]:
+                  - generic [ref=f4e171]: Runtime Gateway
+                  - generic [ref=f4e172]:
+                    - generic [ref=f4e173]: 99.98%
+                    - generic [ref=f4e174]: 4 pods
+                - generic [ref=f4e175]:
+                  - generic [ref=f4e178]: Event Bus
+                  - generic [ref=f4e179]:
+                    - generic [ref=f4e180]: 99.95%
+                    - generic [ref=f4e181]: 3 pods
+                - generic [ref=f4e182]:
+                  - generic [ref=f4e185]: Graph Engine
+                  - generic [ref=f4e186]:
+                    - generic [ref=f4e187]: 99.99%
+                    - generic [ref=f4e188]: 2 pods
+                - generic [ref=f4e189]:
+                  - generic [ref=f4e192]: Intelligence
+                  - generic [ref=f4e193]:
+                    - generic [ref=f4e194]: 98.5%
+                    - generic [ref=f4e195]: 2 pods
+                - generic [ref=f4e196]:
+                  - generic [ref=f4e199]: Deployment Engine
+                  - generic [ref=f4e200]:
+                    - generic [ref=f4e201]: 100%
+                    - generic [ref=f4e202]: 2 pods
+                - generic [ref=f4e203]:
+                  - generic [ref=f4e206]: Workspace Registry
+                  - generic [ref=f4e207]:
+                    - generic [ref=f4e208]: 99.97%
+                    - generic [ref=f4e209]: 3 pods
+            - generic [ref=f4e210]:
+              - generic [ref=f4e211]:
+                - heading "Workspace Health" [level=3] [ref=f4e212]
+                - generic [ref=f4e213]:
+                  - generic [ref=f4e214]:
+                    - generic [ref=f4e215]:
+                      - generic [ref=f4e216]: October
+                      - generic [ref=f4e217]: 97%
+                    - generic [ref=f4e220]:
+                      - generic [ref=f4e221]: 12,453 meters
+                      - generic [ref=f4e222]: active
+                  - generic [ref=f4e223]:
+                    - generic [ref=f4e224]:
+                      - generic [ref=f4e225]: New Cairo
+                      - generic [ref=f4e226]: 94%
+                    - generic [ref=f4e229]:
+                      - generic [ref=f4e230]: 8,932 meters
+                      - generic [ref=f4e231]: active
+                  - generic [ref=f4e232]:
+                    - generic [ref=f4e233]:
+                      - generic [ref=f4e234]: SODIC EDNC
+                      - generic [ref=f4e235]: 91%
+                    - generic [ref=f4e238]:
+                      - generic [ref=f4e239]: 6,721 meters
+                      - generic [ref=f4e240]: active
+                  - generic [ref=f4e241]:
+                    - generic [ref=f4e242]:
+                      - generic [ref=f4e243]: SODIC Estates
+                      - generic [ref=f4e244]: 88%
+                    - generic [ref=f4e247]:
+                      - generic [ref=f4e248]: 5,432 meters
+                      - generic [ref=f4e249]: active
+                  - generic [ref=f4e250]:
+                    - generic [ref=f4e251]:
+                      - generic [ref=f4e252]: Badya City
+                      - generic [ref=f4e253]: 72%
+                    - generic [ref=f4e256]:
+                      - generic [ref=f4e257]: 3,891 meters
+                      - generic [ref=f4e258]: degraded
+                  - generic [ref=f4e259]:
+                    - generic [ref=f4e260]:
+                      - generic [ref=f4e261]: North Coast
+                      - generic [ref=f4e262]: 95%
+                    - generic [ref=f4e265]:
+                      - generic [ref=f4e266]: 2,953 meters
+                      - generic [ref=f4e267]: active
+                  - generic [ref=f4e268]:
+                    - generic [ref=f4e269]:
+                      - generic [ref=f4e270]: Uvinus Mall
+                      - generic [ref=f4e271]: 45%
+                    - generic [ref=f4e274]:
+                      - generic [ref=f4e275]: 1,210 meters
+                      - generic [ref=f4e276]: maintenance
+              - generic [ref=f4e277]:
+                - heading "Event Stream" [level=3] [ref=f4e278]
+                - generic [ref=f4e280]:
+                  - generic [ref=f4e281]: deployment
+                  - generic [ref=f4e282]:
+                    - paragraph [ref=f4e283]: ▌
+                    - paragraph [ref=f4e284]: 2m ago
+            - generic [ref=f4e285]:
+              - generic [ref=f4e286]: ◆
+              - text: METER VERSE v2.0 • NEO FUTURISTIC • ALL SYSTEMS NOMINAL
+              - generic [ref=f4e287]: ◆
+  - region "Notifications (F8)":
+    - list
+  - button "Open Next.js Dev Tools" [ref=f4e293] [cursor=pointer]:
+    - img [ref=f4e294]

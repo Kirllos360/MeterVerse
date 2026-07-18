@@ -1,0 +1,39 @@
+JXLS template for Electricity Invoice
+This is a binary XLSX file template.
+The actual template should be created in Excel with JXLS markup comments:
+jx:area(lastCell="L15")
+
+Key cells with JXLS markup:
+A2: ${invoice.invoiceTitle} (فاتورة كهرباء)
+C2: ${invoice.areaName}
+C3: ${invoice.projectName}
+C4: ${invoice.unitNumber}
+F4: ${invoice.invoiceNumber}
+A6: ${invoice.meterType}
+B6: ${invoice.customerCode}
+C6: ${invoice.issueDate}
+E6: ${invoice.billingPeriod}
+G6: ${invoice.meterSerial}
+K6: ${invoice.companyLicense}
+A8: عدد العددات
+B8: السيد/
+K8: ${invoice.currentReading}
+L8: قراءة عداد
+A10: مقابل القدرة
+B10: العنوان/
+K10: ${invoice.previousReading}
+A12: خصومات (جم)
+B12: ${invoice.discountAmount}
+D12: ${invoice.settlementAmount}
+F12: ${invoice.stampFees}
+H12: ${invoice.consumptionValue}
+K12: ${invoice.consumptionUnits}
+L12: ${invoice.customerServiceFees}
+A14: ${invoice.totalLabel}
+B14: ${invoice.amountInWords}
+L14: ${invoice.totalLabel}
+A15: ${invoice.totalAmount}
+K17: ${invoice.signatureLabel}
+
+JXLS commands:
+jx:forEach(items="invoices" var="invoice" lastCell="L17" on="electricity")

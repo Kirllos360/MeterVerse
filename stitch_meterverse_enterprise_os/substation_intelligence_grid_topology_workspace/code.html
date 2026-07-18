@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse | Substation &amp; Feeder Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+        .glass-blur { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .energy-forest-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+        }
+        /* Custom Scrollbar for High Density Tables */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bbcabf; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #006c49; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#10b981",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#e8f0e9",
+                        "secondary-fixed": "#b0f0d6",
+                        "surface-container-high": "#e3eae3",
+                        "on-surface": "#161d19",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-background": "#161d19",
+                        "on-secondary-fixed-variant": "#0b513d",
+                        "inverse-primary": "#4edea3",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-secondary-container": "#306d58",
+                        "industrial-red": "#ef4444",
+                        "surface-dim": "#d4dcd5",
+                        "error": "#ba1a1a",
+                        "primary": "#006c49",
+                        "on-error": "#ffffff",
+                        "sidebar-light": "#064e3b",
+                        "error-container": "#ffdad6",
+                        "background": "#f4fbf4",
+                        "tertiary": "#a43a3a",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-tertiary-fixed": "#410005",
+                        "surface-tint": "#006c49",
+                        "secondary-container": "#adedd3",
+                        "financial-gold": "#fbbf24",
+                        "background-dark": "#0d1510",
+                        "tertiary-fixed-dim": "#ffb3af",
+                        "on-primary-container": "#00422b",
+                        "water-cyan": "#06b6d4",
+                        "tertiary-container": "#fc7c78",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#6ffbbe",
+                        "on-surface-variant": "#3c4a42",
+                        "on-secondary-fixed": "#002117",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#95d3ba",
+                        "on-primary-fixed": "#002113",
+                        "surface-variant": "#dde4dd",
+                        "outline": "#6c7a71",
+                        "on-tertiary-container": "#711419",
+                        "card-dark": "#16221a",
+                        "surface-container-highest": "#dde4dd",
+                        "secondary": "#2b6954",
+                        "inverse-on-surface": "#ebf3eb",
+                        "surface-container-low": "#eef6ee",
+                        "surface-bright": "#f4fbf4",
+                        "on-tertiary-fixed-variant": "#842225",
+                        "surface": "#f4fbf4",
+                        "inverse-surface": "#2b322d",
+                        "electric-orange": "#f97316",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#bbcabf"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "industrial": "10px",
+                        "card": "16px"
+                    },
+                    "spacing": {
+                        "sidebar-collapsed": "72px",
+                        "stack-sm": "8px",
+                        "stack-md": "16px",
+                        "margin-page": "24px",
+                        "stack-lg": "24px",
+                        "sidebar-expanded": "260px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden h-screen flex">
+<!-- SideNavBar (Predicted Asset) -->
+<aside class="hidden md:flex flex-col h-screen w-[260px] bg-sidebar-light text-white py-6 px-4 shrink-0 shadow-lg z-50">
+<div class="flex items-center gap-3 mb-10 px-2">
+<span class="material-symbols-outlined text-primary-fixed text-3xl" style="font-variation-settings: 'FILL' 1;">energy_savings_leaf</span>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed tracking-tight">MeterVerse</span>
+<span class="font-label-sm text-label-sm opacity-70 uppercase tracking-widest">Enterprise OS</span>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-white/5 rounded-industrial transition-all duration-300" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-industrial shadow-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-body-md font-semibold">Grid Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-white/5 rounded-industrial transition-all duration-300" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span>
+<span class="font-body-md">Assets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-white/5 rounded-industrial transition-all duration-300" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-body-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-white/5 rounded-industrial transition-all duration-300" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-body-md">Work Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-white/5 rounded-industrial transition-all duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-white/10 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopNavBar (Predicted Asset) -->
+<header class="flex justify-between items-center px-margin-page h-16 w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-primary">MVEOS</span>
+<div class="hidden lg:flex items-center gap-4">
+<a class="text-on-surface-variant hover:text-primary font-body-md transition-colors" href="#">Global View</a>
+<a class="text-on-surface-variant hover:text-primary font-body-md transition-colors" href="#">Grid Alpha</a>
+<a class="text-primary font-bold border-b-2 border-primary py-4" href="#">Site Beta</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-outline">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</span>
+<input class="bg-surface-container-high border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-primary-container transition-all" placeholder="Command Palette (⌘+K)" type="text"/>
+</div>
+<button class="p-2 hover:bg-surface-container rounded-full text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="Close up professional corporate headshot of a female energy grid administrator wearing a modern smart casual outfit, soft studio lighting, sharp focus, high-quality professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBx7mH2Jt1ZubSzdXKNBfPnTaYJjBnwg9z6og-l0CdMQGK8VWcephJdzWN6mwEPO98LtTXnR4cwTDN5kfOW0_9kElEzY-u6A_VmxHa7Auje-JDZuvJdml5JAn7Oxl4Nc0amvxXftJa3oQLzqfCGGO87Huh1wCGGdDcJ7PPfgxfOV8jEX_zMkY7nQIAoGZIDt8JmbxuZHe_6I7v_jeeHqlRDVA-BlSvd39EiFPCttFBl7iKJut71MDE3loT4jPBlUYP2vPTJpCQ"/>
+</div>
+</div>
+</header>
+<!-- Breadcrumb Ribbon -->
+<div class="px-margin-page py-3 bg-surface-container-low border-b border-outline-variant flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+<span>Grid</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Northern Region</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary font-bold">Central Substation-09</span>
+</div>
+<div class="flex-1 overflow-y-auto p-margin-page custom-scrollbar">
+<!-- Workspace Hero -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-stack-lg">
+<div class="md:col-span-1 energy-forest-gradient rounded-card p-6 text-white shadow-xl flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-4">
+<span class="font-label-sm opacity-80 uppercase">Primary Node</span>
+<span class="bg-primary-container/30 px-2 py-1 rounded text-[10px] font-bold">STATION-ID: CS-09</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg mb-1">Central Substation-09</h1>
+<p class="font-body-md opacity-80">Tier 1 Transmission Hub</p>
+</div>
+<div class="mt-8 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim animate-pulse"></div>
+<span class="font-label-sm">Active &amp; Synced</span>
+</div>
+</div>
+<!-- KPI Strip -->
+<div class="bg-surface-container-lowest rounded-card border border-outline-variant p-6 flex flex-col justify-between group hover:border-primary-container transition-all duration-300">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-water-cyan">bolt</span>
+<span class="font-label-sm font-bold uppercase">Total Capacity</span>
+</div>
+<div>
+<div class="text-3xl font-bold tabular-nums">480.5 <span class="text-sm font-normal text-outline">MVA</span></div>
+<div class="h-1.5 w-full bg-surface-container rounded-full mt-3 overflow-hidden">
+<div class="h-full bg-water-cyan w-[72%]"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-card border border-outline-variant p-6 flex flex-col justify-between group hover:border-primary-container transition-all duration-300">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-electric-orange">trending_up</span>
+<span class="font-label-sm font-bold uppercase">Peak Load</span>
+</div>
+<div>
+<div class="text-3xl font-bold tabular-nums">342.1 <span class="text-sm font-normal text-outline">MW</span></div>
+<div class="flex items-center gap-1 text-industrial-red mt-2">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+<span class="font-label-sm">4.2% from yest.</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-card border border-outline-variant p-6 flex flex-col justify-between group hover:border-primary-container transition-all duration-300">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary">hub</span>
+<span class="font-label-sm font-bold uppercase">Network Vitals</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-outline">Active Feeders</span>
+<span class="font-bold tabular-nums">12/12</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-outline">Healthy Transformers</span>
+<span class="font-bold tabular-nums">18/20</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Toolbar -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-stack-md bg-white p-4 rounded-industrial border border-outline-variant">
+<div class="flex items-center gap-3 w-full md:w-auto">
+<div class="relative flex-1 md:flex-none">
+<select class="appearance-none bg-surface-container-high border-none rounded-industrial px-4 py-2 pr-10 text-sm font-medium focus:ring-2 focus:ring-primary w-full cursor-pointer">
+<option>All Assets</option>
+<option>Critical Only</option>
+<option>Feeders</option>
+<option>Transformers</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline text-[18px]">keyboard_arrow_down</span>
+</div>
+<div class="relative flex-1 md:flex-none">
+<select class="appearance-none bg-surface-container-high border-none rounded-industrial px-4 py-2 pr-10 text-sm font-medium focus:ring-2 focus:ring-primary w-full cursor-pointer">
+<option>Load &gt; 80%</option>
+<option>Load &gt; 90%</option>
+<option>All Thresholds</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline text-[18px]">filter_alt</span>
+</div>
+</div>
+<div class="flex items-center gap-2 w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-white px-6 py-2 rounded-industrial hover:bg-on-primary-fixed-variant transition-all font-semibold active:scale-95 duration-300">
+<span class="material-symbols-outlined">add</span>
+<span>Deploy Asset</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-industrial hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-industrial hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Main Content: Split View -->
+<div class="grid grid-cols-1 lg:grid-cols-10 gap-gutter h-full min-h-[600px]">
+<!-- Left: Distribution Topology Explorer (65%) -->
+<div class="lg:col-span-6 bg-surface-container-lowest rounded-card border border-outline-variant overflow-hidden flex flex-col">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+<h2 class="font-headline-md text-[18px]">Distribution Topology Explorer</h2>
+</div>
+<span class="text-xs font-bold text-outline uppercase tracking-widest">32 Total Units</span>
+</div>
+<div class="flex-1 overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low z-10">
+<tr>
+<th class="px-6 py-3 font-label-sm text-outline border-b border-outline-variant uppercase">Asset ID</th>
+<th class="px-6 py-3 font-label-sm text-outline border-b border-outline-variant uppercase">Type</th>
+<th class="px-6 py-3 font-label-sm text-outline border-b border-outline-variant uppercase">Status</th>
+<th class="px-6 py-3 font-label-sm text-outline border-b border-outline-variant uppercase">Load (%)</th>
+<th class="px-6 py-3 font-label-sm text-outline border-b border-outline-variant uppercase">Health</th>
+<th class="px-6 py-3 font-label-sm text-outline border-b border-outline-variant uppercase">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-primary">FDR-ALPHA-01</td>
+<td class="px-6 py-4">Feeder</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-primary-container text-xs font-bold">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                                            Operational
+                                        </span>
+</td>
+<td class="px-6 py-4 font-bold tabular-nums">72.4%</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[94%]"></div>
+</div>
+<span class="text-xs font-bold">94</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-primary">TX-BETA-092</td>
+<td class="px-6 py-4">Transformer</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-electric-orange text-xs font-bold">
+<span class="w-2 h-2 rounded-full bg-electric-orange"></span>
+                                            High Load
+                                        </span>
+</td>
+<td class="px-6 py-4 font-bold tabular-nums text-electric-orange">89.1%</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-electric-orange w-[61%]"></div>
+</div>
+<span class="text-xs font-bold">61</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group bg-error-container/10">
+<td class="px-6 py-4 font-label-sm font-bold text-industrial-red">FDR-GAMMA-44</td>
+<td class="px-6 py-4">Feeder</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-industrial-red text-xs font-bold">
+<span class="w-2 h-2 rounded-full bg-industrial-red animate-pulse"></span>
+                                            Critical
+                                        </span>
+</td>
+<td class="px-6 py-4 font-bold tabular-nums text-industrial-red">96.8%</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-industrial-red w-[28%]"></div>
+</div>
+<span class="text-xs font-bold">28</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-industrial-red">
+<span class="material-symbols-outlined text-[18px]">emergency_home</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-primary">TX-EPS-112</td>
+<td class="px-6 py-4">Transformer</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-primary-container text-xs font-bold">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                                            Operational
+                                        </span>
+</td>
+<td class="px-6 py-4 font-bold tabular-nums">45.0%</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[98%]"></div>
+</div>
+<span class="text-xs font-bold">98</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-primary">FDR-DELTA-05</td>
+<td class="px-6 py-4">Feeder</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-primary-container text-xs font-bold">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                                            Operational
+                                        </span>
+</td>
+<td class="px-6 py-4 font-bold tabular-nums">61.2%</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[88%]"></div>
+</div>
+<span class="text-xs font-bold">88</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4 font-label-sm font-bold text-primary">TX-SIGMA-400</td>
+<td class="px-6 py-4">Transformer</td>
+<td class="px-6 py-4">
+<span class="flex items-center gap-2 text-primary-container text-xs font-bold">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                                            Operational
+                                        </span>
+</td>
+<td class="px-6 py-4 font-bold tabular-nums">12.5%</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container w-[100%]"></div>
+</div>
+<span class="text-xs font-bold">100</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<button class="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-primary">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right: Grid Intelligence Inspector (35%) -->
+<div class="lg:col-span-4 space-y-gutter flex flex-col">
+<!-- Forecast Chart -->
+<div class="bg-surface-container-lowest rounded-card border border-outline-variant p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">query_stats</span>
+<h3 class="font-headline-md text-[18px]">Load Balancing Forecast</h3>
+</div>
+<span class="font-label-sm text-outline">Next 24h</span>
+</div>
+<div class="h-40 w-full relative">
+<!-- Simple CSS Sparkline/Chart Placeholder -->
+<div class="absolute inset-0 flex items-end justify-between gap-1">
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 40%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 45%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 55%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 80%"></div>
+<div class="bg-industrial-red/40 hover:bg-industrial-red transition-all rounded-t-sm w-full" style="height: 95%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 70%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 50%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 35%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 25%"></div>
+<div class="bg-primary/20 hover:bg-primary transition-all rounded-t-sm w-full" style="height: 30%"></div>
+</div>
+<div class="absolute bottom-0 w-full h-[1px] bg-outline-variant"></div>
+</div>
+<div class="mt-4 p-3 bg-surface-container rounded-industrial flex items-start gap-3">
+<span class="material-symbols-outlined text-electric-orange">warning</span>
+<p class="text-xs leading-relaxed text-on-surface-variant">
+<strong>Forecast Alert:</strong> Peak demand expected at 18:00 exceeds node safety threshold by 4.2%. Dynamic load shedding active for commercial sectors.
+                            </p>
+</div>
+</div>
+<!-- GIS Peek Widget -->
+<div class="bg-card-dark rounded-card overflow-hidden h-48 relative shadow-lg group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" data-alt="A dark-themed industrial GIS map interface showing satellite imagery of a large utility substation hub. Neon green lines represent high-voltage feeders radiating from the center. Digital overlays of heat maps and signal pulses indicate active energy flow across a city grid at night. High-contrast, tech-noir aesthetic." data-location="Northern Region Industrial Substation Map" style="background-image: url('https://www.gstatic.com/labs-code/stitch/stitch-placeholder-300x300.svg')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<h4 class="font-bold text-sm">Regional GIS Peek</h4>
+<p class="text-[10px] opacity-70">LAT: 41.8781 | LONG: -87.6298</p>
+</div>
+<button class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 backdrop-blur-md p-2 rounded-full text-white transition-all">
+<span class="material-symbols-outlined">open_in_full</span>
+</button>
+</div>
+<!-- Related Assets -->
+<div class="bg-surface-container-lowest rounded-card border border-outline-variant p-6 flex-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">link</span>
+<h3 class="font-headline-md text-[18px]">Related Assets</h3>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 border border-outline-variant rounded-industrial hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">router</span>
+<div>
+<p class="font-bold text-xs uppercase tracking-tight">GW-IoT-Central-01</p>
+<p class="text-[10px] text-outline">LoRaWAN Gateway</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 border border-outline-variant rounded-industrial hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">speed</span>
+<div>
+<p class="font-bold text-xs uppercase tracking-tight">MTR-GROUP-B4</p>
+<p class="text-[10px] text-outline">Smart Meter Aggregator</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-3 border border-outline-variant rounded-industrial hover:bg-surface-container transition-colors cursor-pointer opacity-60">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">memory</span>
+<div>
+<p class="font-bold text-xs uppercase tracking-tight">RTU-FIELD-99</p>
+<p class="text-[10px] text-outline">Remote Terminal Unit</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline">cloud_off</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Predicted Asset) -->
+<footer class="flex justify-between items-center px-margin-page py-3 w-full bg-surface-container-lowest border-t border-outline-variant text-on-surface-variant z-40">
+<div class="flex items-center gap-4">
+<span class="font-label-sm font-bold text-on-surface">© 2024 MeterVerse Utility OS</span>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<div class="flex gap-4 text-label-sm">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm opacity-60">Security:</span>
+<span class="flex items-center gap-1 font-label-sm text-primary">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                    E2E Encrypted
+                </span>
+</div>
+</footer>
+</main>
+<script>
+        // Micro-interactions for interactive elements
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.95)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = 'scale(1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple mock for tabular hover effects
+        const rows = document.querySelectorAll('tbody tr');
+        rows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.classList.add('bg-primary/5');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('bg-primary/5');
+            });
+        });
+    </script>
+</body></html>

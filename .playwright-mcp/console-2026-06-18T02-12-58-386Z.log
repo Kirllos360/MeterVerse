@@ -1,0 +1,365 @@
+[     602ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[    1006ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[    1394ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[    2196ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[    2548ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[    5380ms] [LOG] [Fast Refresh] done in 3352ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[    7308ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/dashboard/kpis' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[    7312ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/dashboard/kpis:0
+[    7314ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/dashboard/consumption-trend' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[    7316ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[    7317ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/dashboard/recent-activity' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[    7317ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[    8365ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/dashboard/kpis' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[    8365ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/dashboard/kpis:0
+[    8373ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/dashboard/consumption-trend' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[    8374ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[    8374ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/dashboard/recent-activity' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[    8375ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[   13845ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/projects' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[   13845ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/projects:0
+[   14860ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/projects' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[   14861ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/projects:0
+[   20477ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/projects/PRJ-001' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[   20477ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/projects/PRJ-001:0
+[   21490ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/projects/PRJ-001' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[   21490ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/projects/PRJ-001:0
+[   29216ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/invoices' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[   29216ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/invoices:0
+[   30226ms] [ERROR] Access to fetch at 'http://localhost:3001/api/v1/invoices' from origin 'http://localhost:3000' has been blocked by CORS policy: Request header field x-correlation-id is not allowed by Access-Control-Allow-Headers in preflight response. @ http://localhost:3000/:0
+[   30226ms] [ERROR] Failed to load resource: net::ERR_FAILED @ http://localhost:3001/api/v1/invoices:0
+[   57793ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[   57976ms] [LOG] [Fast Refresh] done in 294ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  157159ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  157310ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  157492ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  157747ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  159971ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/kpis:0
+[  159975ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[  159976ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[  159998ms] [ERROR] [API] NotFoundException (404) correlationId=946149c5-68f3-4685-a858-0c93d824df7f {message: Cannot GET /api/v1/dashboard/kpis, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  160004ms] [ERROR] [API] NotFoundException (404) correlationId=2e209634-5b17-41d0-a11c-7d7dcab9f7e3 {message: Cannot GET /api/v1/dashboard/consumption-trend, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  160005ms] [ERROR] [API] NotFoundException (404) correlationId=3ea5056e-faaa-4a9e-bbe8-ebac6a59e14c {message: Cannot GET /api/v1/dashboard/recent-activity, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  160207ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  160228ms] [LOG] [Fast Refresh] done in 149ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  161011ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/kpis:0
+[  161012ms] [ERROR] [API] NotFoundException (404) correlationId=d77cdb90-b5e9-49e4-bfcb-d8880a0838f9 {message: Cannot GET /api/v1/dashboard/kpis, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  161022ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[  161022ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[  161040ms] [ERROR] [API] NotFoundException (404) correlationId=accc5911-7efd-4dce-a63f-523c05bd6119 {message: Cannot GET /api/v1/dashboard/consumption-trend, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  161041ms] [ERROR] [API] NotFoundException (404) correlationId=3e70b1f8-91ea-4d4d-967e-7d4dff7b2dab {message: Cannot GET /api/v1/dashboard/recent-activity, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  167584ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  167585ms] [ERROR] [API] UnauthorizedException (401) correlationId=9baf0265-c6a6-4f76-86c7-6fd794566073 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  168599ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  168600ms] [ERROR] [API] UnauthorizedException (401) correlationId=98221b8b-228b-41f4-abc9-d055b57ff706 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  172856ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects/PRJ-001:0
+[  172857ms] [ERROR] [API] UnauthorizedException (401) correlationId=17562f7e-8375-4cd9-85ef-5fafeebc99af {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  173863ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects/PRJ-001:0
+[  173866ms] [ERROR] [API] UnauthorizedException (401) correlationId=37584310-5b0c-4620-9423-92c13910692c {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  176849ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  176850ms] [ERROR] [API] UnauthorizedException (401) correlationId=7b7e0c8a-0d56-4ee8-9420-b1e6b7318beb {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  176852ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects/PRJ-001/locations:0
+[  176855ms] [ERROR] [API] UnauthorizedException (401) correlationId=fbd9542b-10f1-47d6-80f5-8bbd04974acc {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  177863ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  177865ms] [ERROR] [API] UnauthorizedException (401) correlationId=794bb044-64bf-4782-b04e-1042d81c53f7 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  177865ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects/PRJ-001/locations:0
+[  177873ms] [ERROR] [API] UnauthorizedException (401) correlationId=b64a04fe-2517-46ad-afc4-c07a6b40dc51 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  183459ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  183460ms] [ERROR] [API] UnauthorizedException (401) correlationId=07ad1457-bcbd-42ec-9fac-2ae528382547 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  184468ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  184468ms] [ERROR] [API] UnauthorizedException (401) correlationId=a84f6510-8a9a-4b28-b0f9-c07ff0441586 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  185976ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  185977ms] [ERROR] [API] UnauthorizedException (401) correlationId=0b178ef7-e4cd-4701-a762-6a61239b80bb {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  186986ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  186987ms] [ERROR] [API] UnauthorizedException (401) correlationId=ca5ef718-058e-483c-8463-39d0737d77a6 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  193155ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  193156ms] [ERROR] [API] UnauthorizedException (401) correlationId=e026eca4-e57f-47e0-8950-46a8fb5ae223 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  194164ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  194165ms] [ERROR] [API] UnauthorizedException (401) correlationId=e53f0e06-827f-4c82-bdbb-5fb3dc0dbccc {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  195825ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  195826ms] [ERROR] [API] UnauthorizedException (401) correlationId=c0ab3fc2-3244-4eeb-a5e1-78338d9f96d5 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  196844ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  196845ms] [ERROR] [API] UnauthorizedException (401) correlationId=d9d72905-9b6f-45f5-95a1-28a3f35f691e {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  198006ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  198007ms] [ERROR] [API] UnauthorizedException (401) correlationId=5588afe5-934f-48a7-9339-e92c251b4a8e {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  199025ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  199026ms] [ERROR] [API] UnauthorizedException (401) correlationId=7b95c664-2c3b-4b28-be44-6ded33045f4a {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  199836ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/sim-cards:0
+[  199836ms] [ERROR] [API] UnauthorizedException (401) correlationId=68168795-d724-4c45-91fd-9d4c4959299b {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  200845ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/sim-cards:0
+[  200846ms] [ERROR] [API] UnauthorizedException (401) correlationId=b5297c39-a370-4f17-9500-0acd1d335f90 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  206404ms] ReferenceError: mockProjects is not defined
+    at ReadingsPage (http://localhost:3000/_next/static/chunks/src_components_0~s0-7j._.js:5294:38)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158
+[  206560ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  206576ms] [LOG] [Fast Refresh] done in 118ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  215516ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  215584ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  215610ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  221724ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  221758ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  221798ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  222199ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  224586ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/kpis:0
+[  224588ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[  224589ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[  224616ms] [ERROR] [API] NotFoundException (404) correlationId=7260a060-1ee9-4b11-b3df-da7e3704601c {message: Cannot GET /api/v1/dashboard/kpis, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  224617ms] [ERROR] [API] NotFoundException (404) correlationId=3c9cf709-d71d-4e4d-a38d-d6a06c9d3fc5 {message: Cannot GET /api/v1/dashboard/consumption-trend, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  224617ms] [ERROR] [API] NotFoundException (404) correlationId=dc2b3526-3db9-4c92-971a-3ac5d9568c1d {message: Cannot GET /api/v1/dashboard/recent-activity, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  225634ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/kpis:0
+[  225634ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[  225634ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[  225635ms] [ERROR] [API] NotFoundException (404) correlationId=d4f6a165-b4e8-4596-a288-224ce9388ad2 {message: Cannot GET /api/v1/dashboard/kpis, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  225635ms] [ERROR] [API] NotFoundException (404) correlationId=b73e564d-54cb-45dd-8b0f-1540f2cb4cc1 {message: Cannot GET /api/v1/dashboard/consumption-trend, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  225635ms] [ERROR] [API] NotFoundException (404) correlationId=a74129d1-3f03-43aa-b76a-ef1200a563af {message: Cannot GET /api/v1/dashboard/recent-activity, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  227340ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  227341ms] [ERROR] [API] UnauthorizedException (401) correlationId=510744e7-e331-4fa5-8725-c59010aa5b7f {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  228350ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  228350ms] [ERROR] [API] UnauthorizedException (401) correlationId=c0cb4eda-0187-46f2-bf96-4a427d94252c {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  229623ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects/PRJ-001:0
+[  229624ms] [ERROR] [API] UnauthorizedException (401) correlationId=696fe4b5-951a-44c3-b038-167adb628a22 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  230634ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects/PRJ-001:0
+[  230635ms] [ERROR] [API] UnauthorizedException (401) correlationId=11a22e19-7a16-46c6-9f7d-e626a0c57406 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  232267ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  232267ms] [ERROR] [API] UnauthorizedException (401) correlationId=095fa5eb-ef57-4fa8-a351-e21dc18fd53a {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  233283ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  233284ms] [ERROR] [API] UnauthorizedException (401) correlationId=ad1a198c-5ff7-4d37-b8c8-caa6a8c950b4 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  241307ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  241308ms] [ERROR] [API] UnauthorizedException (401) correlationId=2ca018b8-4447-4154-92ff-4bc763f45b71 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  242319ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  242320ms] [ERROR] [API] UnauthorizedException (401) correlationId=5af562bb-394c-4fc7-a108-bdb03d9418d0 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  247236ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  247237ms] [ERROR] [API] UnauthorizedException (401) correlationId=5e40d159-bf46-4657-9087-64d71bfd85f7 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  248242ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  248246ms] [ERROR] [API] UnauthorizedException (401) correlationId=e5d853fa-bea0-428c-ae90-1fab35cec7f7 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  249103ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  249105ms] [ERROR] [API] UnauthorizedException (401) correlationId=bb598271-2c94-41e0-88a6-ee0759e84b92 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  250109ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/meters:0
+[  250110ms] [ERROR] [API] UnauthorizedException (401) correlationId=f715bdca-5fb0-4f56-8485-e6649b209c6b {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  251030ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/sim-cards:0
+[  251031ms] [ERROR] [API] UnauthorizedException (401) correlationId=f1ad284b-8041-4b44-b0a7-b87dd5e0e179 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  252041ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/sim-cards:0
+[  252042ms] [ERROR] [API] UnauthorizedException (401) correlationId=645d1bbc-b962-411a-a187-b5ab7e9ec45a {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  262123ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3001/api/v1/projects/PRJ-001/water-balance?from=2026-01-01&to=2026-01-31:0
+[  262124ms] [ERROR] [API] BadRequestException (400) correlationId=bcb3c7e6-a814-4cd4-8dd9-9d9e38ad431e {message: Validation failed (uuid is expected), error: Bad Request, statusCode: 400} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  263132ms] [ERROR] Failed to load resource: the server responded with a status of 400 (Bad Request) @ http://localhost:3001/api/v1/projects/PRJ-001/water-balance?from=2026-01-01&to=2026-01-31:0
+[  263132ms] [ERROR] [API] BadRequestException (400) correlationId=1c05482d-2a30-4305-b318-8b9bf235f1d4 {message: Validation failed (uuid is expected), error: Bad Request, statusCode: 400} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  268233ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/invoices:0
+[  268234ms] [ERROR] [API] UnauthorizedException (401) correlationId=ab9141b4-6926-4449-8985-280ee66fd266 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  269242ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/invoices:0
+[  269243ms] [ERROR] [API] UnauthorizedException (401) correlationId=a97e1bc9-f0ca-4295-a9c1-1c7b31a63dc8 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  275038ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/payments:0
+[  275039ms] [ERROR] [API] UnauthorizedException (401) correlationId=5252048b-3d3e-4ce5-a98e-d5f723332aca {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  276044ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/payments:0
+[  276044ms] [ERROR] [API] UnauthorizedException (401) correlationId=b2dfeb5d-d0a8-43bd-8234-228879d8d0b2 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  357691ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/kpis:0
+[  357692ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[  357692ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[  357700ms] [ERROR] [API] NotFoundException (404) correlationId=e4977b3d-13cd-417a-b690-83ba55f264bc {message: Cannot GET /api/v1/dashboard/kpis, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  357700ms] [ERROR] [API] NotFoundException (404) correlationId=002aab24-a869-49c1-b201-c506f3efa7b7 {message: Cannot GET /api/v1/dashboard/consumption-trend, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  357701ms] [ERROR] [API] NotFoundException (404) correlationId=0a5caa02-4f9d-4162-90ed-23feca20948a {message: Cannot GET /api/v1/dashboard/recent-activity, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  358712ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/kpis:0
+[  358712ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/consumption-trend:0
+[  358712ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3001/api/v1/dashboard/recent-activity:0
+[  358713ms] [ERROR] [API] NotFoundException (404) correlationId=96edeb3a-3966-487e-a894-51c32fbbb5ee {message: Cannot GET /api/v1/dashboard/kpis, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  358713ms] [ERROR] [API] NotFoundException (404) correlationId=239628fb-c7d8-433e-8ed2-05152e72ef44 {message: Cannot GET /api/v1/dashboard/consumption-trend, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  358714ms] [ERROR] [API] NotFoundException (404) correlationId=38a35fe6-f873-4637-b506-94b70fcf628e {message: Cannot GET /api/v1/dashboard/recent-activity, error: Not Found, statusCode: 404} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  363352ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  363352ms] [ERROR] [API] UnauthorizedException (401) correlationId=081870a8-4d8e-40b7-bdb2-1f4737e7bf02 {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  364356ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:3001/api/v1/projects:0
+[  364357ms] [ERROR] [API] UnauthorizedException (401) correlationId=a87863bc-df6d-414e-95da-aeae5c4aa0bc {message: Unauthorized, statusCode: 401} @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:3318
+[  466564ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  467812ms] [LOG] [Fast Refresh] done in 1299ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  467954ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  467963ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  468438ms] [LOG] [Fast Refresh] done in 575ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  493727ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  493954ms] [LOG] [Fast Refresh] done in 305ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  494066ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  494255ms] [LOG] [Fast Refresh] done in 296ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  882104ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  883183ms] [LOG] [Fast Refresh] done in 1199ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  915321ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  919197ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  919603ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  919933ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  920745ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  985044ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=9vGg0ixxGr3OfIYDWmYDn' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[  988419ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=9vGg0ixxGr3OfIYDWmYDn' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[  992391ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  994430ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[  994486ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  994566ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[  994993ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1077060ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1080415ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1083772ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1087132ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1090485ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1097839ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1105186ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1112545ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1119917ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1127297ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1134646ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=G6zXU6HdEq_FeVOrfUhRB' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1139687ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1140780ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1140909ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1141043ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1141561ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1208679ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=2jrYHIRXj9kbetY4DypXU' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1212041ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=2jrYHIRXj9kbetY4DypXU' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1215424ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=2jrYHIRXj9kbetY4DypXU' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1218805ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=2jrYHIRXj9kbetY4DypXU' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13322
+[ 1223437ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1227249ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1227322ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1227532ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1228062ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1341617ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1341691ms] [LOG] [Fast Refresh] done in 222ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1378069ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1380543ms] [LOG] [Fast Refresh] done in 2250ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1385901ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/auth/dev-login:0
+[ 1388546ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 1388546ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 1388547ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 1391631ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 1391632ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 1391632ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 1393834ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1394074ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 1394207ms] [LOG] [Fast Refresh] done in 481ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1397277ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 1402978ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 1406055ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 1410851ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 1414423ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 1467565ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1467603ms] [LOG] [Fast Refresh] done in 147ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1508651ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1508682ms] [LOG] [Fast Refresh] done in 133ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1627755ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 1627761ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 1628256ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 1628260ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 1629686ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 1633498ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 1636568ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 1873280ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1873484ms] [LOG] [Fast Refresh] done in 311ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1873816ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1873893ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1874038ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1874343ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 1878845ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/auth/dev-login:0
+[ 1881243ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 1881274ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 1881508ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 1884334ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 1884335ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 1884573ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 1891377ms] ReferenceError: useMemo is not defined
+    at ReadingNewPage (http://localhost:3000/_next/static/chunks/src_components_0~s0-7j._.js:5419:22)
+    at Object.react_stack_bottom_frame (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6691:24)
+    at runWithFiberInDEV (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performSyncWorkOnRoot (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10263:9)
+    at flushSyncWorkAcrossRoots_impl (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10179:316)
+    at processRootScheduleInMicrotask (http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10200:106)
+    at http://localhost:3000/_next/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10274:158
+[ 1891549ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 1891587ms] [LOG] [Fast Refresh] done in 138ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2255710ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2255948ms] [LOG] [Fast Refresh] done in 349ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2294135ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2425207ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2425276ms] [LOG] [Fast Refresh] done in 171ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2471679ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2471867ms] [LOG] [Fast Refresh] done in 293ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2699254ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2699432ms] [LOG] [Fast Refresh] done in 293ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2700047ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 2700163ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2700360ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2700812ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 2711931ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_TIMED_OUT @ http://host.docker.internal:3001/api/v1/auth/dev-login:0
+[ 2715428ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 2715442ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 2715454ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 2718540ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 2718555ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 2718556ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 2722921ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 2726086ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 2731838ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 2734901ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 2951142ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2968031ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2968083ms] [LOG] [Fast Refresh] done in 162ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2968354ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 2968426ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2968566ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 2968901ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 2973598ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/auth/dev-login:0
+[ 2975925ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 2976234ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 2976867ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 2977887ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 2978997ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 2979315ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 2982395ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 2992848ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 2995925ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001:0
+[ 3026109ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3026189ms] [LOG] [Fast Refresh] done in 187ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3092960ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3092962ms] [LOG] [Fast Refresh] done in 105ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3173717ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3173958ms] [LOG] [Fast Refresh] done in 366ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3318049ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 3318153ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3318318ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3318762ms] [VERBOSE] [DOM] Password field is not contained in a form: (More info: https://goo.gl/9p2vKq) %o @ http://localhost:3000/:0
+[ 3324266ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/auth/dev-login:0
+[ 3326556ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 3326567ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 3326818ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/recent-activity:0
+[ 3328059ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/kpis:0
+[ 3329637ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/dashboard/consumption-trend:0
+[ 3329646ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 3332719ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 3338972ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 3338972ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001/locations:0
+[ 3342122ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 3342138ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects/PRJ-001/locations:0
+[ 3345487ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 3348573ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://host.docker.internal:3001/api/v1/projects:0
+[ 3365605ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3365652ms] [LOG] [Fast Refresh] done in 153ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3420921ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3422773ms] [LOG] [Fast Refresh] done in 1916ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3422887ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3423106ms] [LOG] [Fast Refresh] done in 327ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3447656ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3449388ms] [LOG] [Fast Refresh] done in 1834ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3468458ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477
+[ 3468468ms] [LOG] [Fast Refresh] done in 125ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2477

@@ -1,0 +1,248 @@
+- generic [active] [ref=f15e1]:
+  - banner [ref=f15e2]:
+    - generic [ref=f15e5]:
+      - generic [ref=f15e6]:
+        - link "+20 12 1149 2222" [ref=f15e7] [cursor=pointer]:
+          - /url: tel:+20 12 1149 2222
+          - img [ref=f15e8]
+          - text: +20 12 1149 2222
+        - link "info@epower.eg" [ref=f15e10] [cursor=pointer]:
+          - /url: mailto:info@epower.eg
+          - img [ref=f15e11]
+          - text: info@epower.eg
+      - link "My Account" [ref=f15e14] [cursor=pointer]:
+        - /url: /en/my-account
+        - img [ref=f15e15]
+        - text: My Account
+    - generic [ref=f15e18]:
+      - link "epower" [ref=f15e19] [cursor=pointer]:
+        - /url: /en
+        - img "epower" [ref=f15e21]
+      - button [ref=f15e23]:
+        - img [ref=f15e24]
+  - main [ref=f15e26]:
+    - main [ref=f15e27]:
+      - generic [ref=f15e32]:
+        - generic [ref=f15e34]: Insights & Updates
+        - heading "Our Blog" [level=1] [ref=f15e36]:
+          - generic [ref=f15e37]: Our
+          - generic [ref=f15e38]: Blog
+        - paragraph [ref=f15e39]: Stay informed with the latest energy industry insights, company news, and sustainability updates.
+      - generic [ref=f15e44]:
+        - generic [ref=f15e45]:
+          - generic [ref=f15e47]: Latest Article
+          - heading "Featured Post" [level=2] [ref=f15e49]
+        - link "The Future of Sustainable Energy Featured February 12, 2026 1 min read The Future of Sustainable Energy Exploring how renewables are reshaping the grid. Read Full Article" [ref=f15e51] [cursor=pointer]:
+          - /url: /en/blog/future-sustainable-energy
+          - generic [ref=f15e52]:
+            - generic [ref=f15e54]:
+              - img "The Future of Sustainable Energy" [ref=f15e55]
+              - generic [ref=f15e56]: Featured
+            - generic [ref=f15e57]:
+              - generic [ref=f15e58]:
+                - generic [ref=f15e59]:
+                  - img [ref=f15e60]
+                  - text: February 12, 2026
+                - generic [ref=f15e62]:
+                  - img [ref=f15e63]
+                  - text: 1 min read
+              - heading "The Future of Sustainable Energy" [level=2] [ref=f15e66]
+              - paragraph [ref=f15e67]: Exploring how renewables are reshaping the grid.
+              - generic [ref=f15e68]:
+                - text: Read Full Article
+                - img [ref=f15e69]
+      - generic [ref=f15e75]:
+        - generic [ref=f15e76]:
+          - generic [ref=f15e78]: All Articles
+          - heading "More Articles" [level=2] [ref=f15e80]
+          - paragraph [ref=f15e81]: Explore our collection of insights on energy, sustainability, and industry trends.
+        - generic [ref=f15e82]:
+          - link "Smart Metering Systems Explained February 7, 2026 1 min Smart Metering Systems Explained How smart meters save money and improve efficiency. Read More" [ref=f15e84] [cursor=pointer]:
+            - /url: /en/blog/smart-metering-systems
+            - img "Smart Metering Systems Explained" [ref=f15e86]
+            - generic [ref=f15e88]:
+              - generic [ref=f15e89]:
+                - generic [ref=f15e90]:
+                  - img [ref=f15e91]
+                  - text: February 7, 2026
+                - generic [ref=f15e93]:
+                  - img [ref=f15e94]
+                  - text: 1 min
+              - heading "Smart Metering Systems Explained" [level=3] [ref=f15e97]
+              - paragraph [ref=f15e98]: How smart meters save money and improve efficiency.
+              - generic [ref=f15e99]:
+                - text: Read More
+                - img [ref=f15e100]
+          - link "Power Infrastructure Development in Egypt February 2, 2026 1 min Power Infrastructure Development in Egypt How Egypt is modernizing its power grid for the future. Read More" [ref=f15e103] [cursor=pointer]:
+            - /url: /en/blog/power-infrastructure-egypt
+            - img "Power Infrastructure Development in Egypt" [ref=f15e105]
+            - generic [ref=f15e107]:
+              - generic [ref=f15e108]:
+                - generic [ref=f15e109]:
+                  - img [ref=f15e110]
+                  - text: February 2, 2026
+                - generic [ref=f15e112]:
+                  - img [ref=f15e113]
+                  - text: 1 min
+              - heading "Power Infrastructure Development in Egypt" [level=3] [ref=f15e116]
+              - paragraph [ref=f15e117]: How Egypt is modernizing its power grid for the future.
+              - generic [ref=f15e118]:
+                - text: Read More
+                - img [ref=f15e119]
+          - link "Energy Efficiency Tips for Businesses January 28, 2026 1 min Energy Efficiency Tips for Businesses Practical strategies to reduce your energy consumption. Read More" [ref=f15e122] [cursor=pointer]:
+            - /url: /en/blog/energy-efficiency-tips
+            - img "Energy Efficiency Tips for Businesses" [ref=f15e124]
+            - generic [ref=f15e126]:
+              - generic [ref=f15e127]:
+                - generic [ref=f15e128]:
+                  - img [ref=f15e129]
+                  - text: January 28, 2026
+                - generic [ref=f15e131]:
+                  - img [ref=f15e132]
+                  - text: 1 min
+              - heading "Energy Efficiency Tips for Businesses" [level=3] [ref=f15e135]
+              - paragraph [ref=f15e136]: Practical strategies to reduce your energy consumption.
+              - generic [ref=f15e137]:
+                - text: Read More
+                - img [ref=f15e138]
+      - generic [ref=f15e145]:
+        - generic [ref=f15e146]:
+          - img [ref=f15e147]
+          - generic [ref=f15e150]: Stay Informed
+        - heading "Subscribe to Our Newsletter" [level=2] [ref=f15e151]
+        - paragraph [ref=f15e152]: Get the latest energy insights, industry news, and company updates delivered directly to your inbox.
+        - generic [ref=f15e153]:
+          - generic [ref=f15e154]:
+            - img [ref=f15e155]
+            - textbox "Enter your email" [ref=f15e158]
+          - button "Subscribe" [ref=f15e159]
+  - contentinfo [ref=f15e160]:
+    - generic [ref=f15e163]:
+      - generic [ref=f15e164]:
+        - heading "Stay Updated with Logo" [level=3] [ref=f15e165]:
+          - text: Stay Updated with
+          - img "Logo" [ref=f15e166]
+        - paragraph [ref=f15e167]: Subscribe to our newsletter for the latest energy insights and updates.
+      - generic [ref=f15e169]:
+        - textbox "Enter your email" [ref=f15e171]
+        - button "Subscribe" [ref=f15e172]:
+          - text: Subscribe
+          - img [ref=f15e173]
+    - generic [ref=f15e176]:
+      - generic [ref=f15e177]:
+        - link "epower" [ref=f15e178] [cursor=pointer]:
+          - /url: /en
+          - img "epower" [ref=f15e179]
+        - paragraph [ref=f15e180]: Powering a sustainable future with innovative energy solutions. Leading the transition to clean, renewable energy across Egypt.
+        - link [ref=f15e182] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/epower1/posts/?feedView=all
+          - img [ref=f15e183]
+      - generic [ref=f15e185]:
+        - heading "Services" [level=4] [ref=f15e186]: Services
+        - list [ref=f15e188]:
+          - listitem [ref=f15e189]:
+            - link "Contracting Services" [ref=f15e190] [cursor=pointer]:
+              - /url: /en/services/contracting-services
+              - img [ref=f15e191]
+              - generic [ref=f15e193]: Contracting Services
+          - listitem [ref=f15e194]:
+            - link "Metering Solutions" [ref=f15e195] [cursor=pointer]:
+              - /url: /en/services/metering-solutions
+              - img [ref=f15e196]
+              - generic [ref=f15e198]: Metering Solutions
+          - listitem [ref=f15e199]:
+            - link "Utility Services" [ref=f15e200] [cursor=pointer]:
+              - /url: /en/services/Utility-Services
+              - img [ref=f15e201]
+              - generic [ref=f15e203]: Utility Services
+          - listitem [ref=f15e204]:
+            - link "Facility Management" [ref=f15e205] [cursor=pointer]:
+              - /url: /en/services/facility-management
+              - img [ref=f15e206]
+              - generic [ref=f15e208]: Facility Management
+      - generic [ref=f15e209]:
+        - heading "Company" [level=4] [ref=f15e210]: Company
+        - list [ref=f15e212]:
+          - listitem [ref=f15e213]:
+            - link "About Us" [ref=f15e214] [cursor=pointer]:
+              - /url: /en/about
+              - img [ref=f15e215]
+              - generic [ref=f15e217]: About Us
+          - listitem [ref=f15e218]:
+            - link "Charging" [ref=f15e219] [cursor=pointer]:
+              - /url: /en/charging
+              - img [ref=f15e220]
+              - generic [ref=f15e222]: Charging
+          - listitem [ref=f15e223]:
+            - link "Careers" [ref=f15e224] [cursor=pointer]:
+              - /url: /en/careers
+              - img [ref=f15e225]
+              - generic [ref=f15e227]: Careers
+          - listitem [ref=f15e228]:
+            - link "Blogs" [ref=f15e229] [cursor=pointer]:
+              - /url: /en/blog
+              - img [ref=f15e230]
+              - generic [ref=f15e232]: Blogs
+          - listitem [ref=f15e233]:
+            - link "Contact" [ref=f15e234] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f15e235]
+              - generic [ref=f15e237]: Contact
+      - generic [ref=f15e238]:
+        - heading "Resources" [level=4] [ref=f15e239]: Resources
+        - list [ref=f15e241]:
+          - listitem [ref=f15e242]:
+            - link "Projects" [ref=f15e243] [cursor=pointer]:
+              - /url: /en/projects
+              - img [ref=f15e244]
+              - generic [ref=f15e246]: Projects
+          - listitem [ref=f15e247]:
+            - link "My Account" [ref=f15e248] [cursor=pointer]:
+              - /url: /en/my-account
+              - img [ref=f15e249]
+              - generic [ref=f15e251]: My Account
+          - listitem [ref=f15e252]:
+            - link "New Customer" [ref=f15e253] [cursor=pointer]:
+              - /url: /en/contract
+              - img [ref=f15e254]
+              - generic [ref=f15e256]: New Customer
+          - listitem [ref=f15e257]:
+            - link "FAQs" [ref=f15e258] [cursor=pointer]:
+              - /url: /en/faqs
+              - img [ref=f15e259]
+              - generic [ref=f15e261]: FAQs
+          - listitem [ref=f15e262]:
+            - link "Support" [ref=f15e263] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f15e264]
+              - generic [ref=f15e266]: Support
+      - generic [ref=f15e267]:
+        - heading "Contact" [level=4] [ref=f15e268]: Contact
+        - list [ref=f15e270]:
+          - listitem [ref=f15e271]:
+            - img [ref=f15e272]
+            - generic [ref=f15e275]: Palm Hills, 6th Of October, Golf Central Mall, Building B2, D2, 33F
+          - listitem [ref=f15e276]:
+            - link "+20 12 1149 2222" [ref=f15e277] [cursor=pointer]:
+              - /url: tel:+20 12 1149 2222
+              - img [ref=f15e278]
+              - generic [ref=f15e280]: +20 12 1149 2222
+          - listitem [ref=f15e281]:
+            - link "info@epower.eg" [ref=f15e282] [cursor=pointer]:
+              - /url: mailto:info@epower.eg
+              - img [ref=f15e283]
+              - generic [ref=f15e285]: info@epower.eg
+    - generic [ref=f15e288]:
+      - paragraph [ref=f15e289]:
+        - text: © 2026
+        - img "Logo" [ref=f15e290]
+        - text: . All rights reserved.
+      - generic [ref=f15e291]:
+        - link "Privacy Policy" [ref=f15e292] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=f15e293] [cursor=pointer]:
+          - /url: /en/terms
+        - link "Cookie Policy" [ref=f15e294] [cursor=pointer]:
+          - /url: /en/cookies
+  - button [ref=f15e295]:
+    - img [ref=f15e296]

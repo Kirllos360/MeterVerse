@@ -1,0 +1,134 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-07-12T06:53:00Z",
+  "aiRoles": {
+    "chiefArchitect": {
+      "name": "Chief Architect",
+      "responsibilities": ["Architecture decisions", "ADR creation", "Stack evolution", "Quality standards"],
+      "activatedBy": ["feature:architecture", "adr:*", "quality:gate"],
+      "approvedBy": "Principal Engineer"
+    },
+    "seniorDev": {
+      "name": "Senior Developer",
+      "responsibilities": ["Feature implementation", "Code review", "Testing strategy", "Documentation"],
+      "activatedBy": ["task:implement", "task:refactor", "pr:*"],
+      "approvedBy": "Chief Architect"
+    },
+    "qa": {
+      "name": "Quality Assurance",
+      "responsibilities": ["Test writing", "Test execution", "Coverage tracking", "Bug reporting"],
+      "activatedBy": ["test:*", "quality:*"],
+      "approvedBy": "Senior Developer"
+    },
+    "securityEngineer": {
+      "name": "Security Engineer",
+      "responsibilities": ["Vulnerability scanning", "Dependency auditing", "SAST/DAST", "Secret leak detection"],
+      "activatedBy": ["security:*", "audit:*"],
+      "approvedBy": "Chief Architect"
+    },
+    "devops": {
+      "name": "DevOps Engineer",
+      "responsibilities": ["CI/CD pipelines", "Container management", "Infrastructure", "Deployment"],
+      "activatedBy": ["ci:*", "deploy:*", "docker:*", "infra:*"],
+      "approvedBy": "Senior Developer"
+    },
+    "techWriter": {
+      "name": "Technical Writer",
+      "responsibilities": ["Documentation", "API docs", "Change logs", "ADR formatting"],
+      "activatedBy": ["doc:*", "api:docs", "adr:write"],
+      "approvedBy": "Senior Developer"
+    },
+    "releaseManager": {
+      "name": "Release Manager",
+      "responsibilities": ["Version bumping", "Changelog generation", "Release notes", "Tagging"],
+      "activatedBy": ["release:*", "publish:*"],
+      "approvedBy": "Chief Architect"
+    }
+  },
+  "toolRouting": {
+    "architectureReview": {
+      "taskType": "architecture_review",
+      "tools": ["depcruise","madge","knip","ts-prune"],
+      "fallbackTools": ["ast-grep","code2flow"],
+      "mandatory": true,
+      "validation": "certification >= 80"
+    },
+    "securityAudit": {
+      "taskType": "security_audit",
+      "tools": ["snyk","trivy","checkov","semgrep","trufflehog"],
+      "fallbackTools": ["npm audit","grype"],
+      "mandatory": true,
+      "validation": "all high/critical fixed"
+    },
+    "implementation": {
+      "taskType": "implementation",
+      "tools": ["ast-grep","jscodeshift","prettier","eslint"],
+      "fallbackTools": ["ripgrep"],
+      "mandatory": false,
+      "validation": "tsc + eslint pass"
+    },
+    "documentation": {
+      "taskType": "documentation",
+      "tools": ["typedoc","log4brains","adr"],
+      "fallbackTools": ["mermaid-cli","plantuml"],
+      "mandatory": false,
+      "validation": "no broken links"
+    },
+    "testing": {
+      "taskType": "testing",
+      "tools": ["playwright","artillery","bruno"],
+      "fallbackTools": ["k6"],
+      "mandatory": true,
+      "validation": "100% critical paths"
+    },
+    "apiLint": {
+      "taskType": "api_lint",
+      "tools": ["spectral","redocly","swagger-cli"],
+      "fallbackTools": [],
+      "mandatory": true,
+      "validation": "no errors"
+    },
+    "dependencyAudit": {
+      "taskType": "dependency_audit",
+      "tools": ["snyk","npm audit","madge"],
+      "fallbackTools": ["trivy"],
+      "mandatory": true,
+      "validation": "no circular deps + no high vulns"
+    },
+    "bundleAnalysis": {
+      "taskType": "bundle_analysis",
+      "tools": ["bundle-wizard","lighthouse"],
+      "fallbackTools": [],
+      "mandatory": false,
+      "validation": "bundle size < threshold"
+    },
+    "accessibility": {
+      "taskType": "accessibility",
+      "tools": ["pa11y","lighthouse","axe"],
+      "fallbackTools": [],
+      "mandatory": true,
+      "validation": "score >= 90"
+    },
+    "designSync": {
+      "taskType": "design_sync",
+      "tools": ["@figma-export/cli","style-dictionary"],
+      "fallbackTools": [],
+      "mandatory": false,
+      "validation": "tokens match"
+    }
+  },
+  "mcpCapabilities": {
+    "notion": { "purpose": "Documentation & Knowledge Management", "readOnly": false },
+    "odoo": { "purpose": "ERP & Project Management", "readOnly": true },
+    "playwright": { "purpose": "Browser Automation & E2E Testing", "readOnly": false },
+    "chromeDevtools": { "purpose": "Debugging & Performance Analysis", "readOnly": true },
+    "context7": { "purpose": "Web Search & Context Retrieval", "readOnly": true },
+    "serena": { "purpose": "AI Assistance & Code Generation", "readOnly": false },
+    "codebaseMemory": { "purpose": "Codebase Memory & RAG", "readOnly": true },
+    "figma": { "purpose": "Design System Sync", "readOnly": true },
+    "storybook": { "purpose": "Component Documentation", "readOnly": true },
+    "filesystem": { "purpose": "File Operations", "readOnly": false },
+    "gitlab": { "purpose": "Git Repository Management", "readOnly": false },
+    "postgres": { "purpose": "Database Querying", "readOnly": true }
+  }
+}

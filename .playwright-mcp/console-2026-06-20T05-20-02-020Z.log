@@ -1,0 +1,33 @@
+[     564ms] [LOG] Application started @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[     601ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/account:0
+[     607ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/account:0
+[     740ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://10.50.30.2:9999/#/login:0
+[   20700ms] [LOG] Opening Web Socket... @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[   21124ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/websocket/tracker/info?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw&t=1781932823086:0
+[   21151ms] [LOG] Whoops! Lost connection to http://10.50.30.2:9999/websocket/tracker?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzg0NTI0ODIyfQ.8eIPcmf4qF-DhtIpgH5TthduZ1PNLUeHed9PJkxrc26I9fF_whk6A5_vEkxnx1-QWc-KiSup1HUxU5nvb_UDEw: {event: a} @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
+[   46181ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/tariff:0
+[   46227ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/tariff?projectId=1:0
+[   46260ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/tariff/all:0
+[   46339ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/tariff/list:0
+[   46358ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/tariffs:0
+[   64742ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/tariff:0
+[   82627ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/app/api/tariff:0
+[  104915ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  134686ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  134966ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  137077ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  166565ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  166889ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  168967ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  169309ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  171425ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  171766ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  173854ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  174179ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  176255ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  204870ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  205136ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  207275ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  207511ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  209687ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0
+[  209936ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ http://localhost:8085/swagger-ui.html:0

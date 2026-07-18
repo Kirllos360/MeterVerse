@@ -1,0 +1,301 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Toolchain: Dependency Check",
+      "type": "shell",
+      "command": "depcruise src --output-type err && madge --circular src/index.ts",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Toolchain: Security Scan",
+      "type": "shell",
+      "command": "semgrep --config=auto . --metrics=off && trivy fs --severity CRITICAL,HIGH .",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Toolchain: Full Validation",
+      "type": "shell",
+      "command": "Invoke-ToolchainCheck",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Toolchain: Performance Audit",
+      "type": "shell",
+      "command": "npx lighthouse http://localhost:3030 --output=html --output-path=./lighthouse-report.html && axe http://localhost:3030",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Semantic Code Search",
+      "type": "shell",
+      "command": "sg search --pattern \"${input:pattern}\"",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: AST Analysis (jscodeshift)",
+      "type": "shell",
+      "command": "jscodeshift --help",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: ADR Manager (log4brains)",
+      "type": "shell",
+      "command": "log4brains --help",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Design Token (style-dictionary)",
+      "type": "shell",
+      "command": "style-dictionary build --config \"${input:configFile}\"",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Dead Code (knip)",
+      "type": "shell",
+      "command": "knip",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Dead Code (ts-prune)",
+      "type": "shell",
+      "command": "ts-prune",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Bundle Intelligence",
+      "type": "shell",
+      "command": "bundle-wizard ${workspaceFolder}",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Accessibility (pa11y)",
+      "type": "shell",
+      "command": "pa11y ${input:url}",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: API Contract (spectral)",
+      "type": "shell",
+      "command": "spectral lint ${input:specFile}",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Architecture Lint",
+      "type": "shell",
+      "command": "depcruise src --output-type err",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: State Flow (smcat)",
+      "type": "shell",
+      "command": "smcat --help",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Call Graph",
+      "type": "shell",
+      "command": "ts-call-graph --rootDir ${workspaceFolder}",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Security (checkov)",
+      "type": "shell",
+      "command": "checkov --directory .",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Dependency Risk (snyk)",
+      "type": "shell",
+      "command": "snyk test",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: OWASP DC",
+      "type": "shell",
+      "command": "dependency-check.bat --scan .",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Docs (typedoc)",
+      "type": "shell",
+      "command": "typedoc src --out docs",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Knowledge Graph (madge)",
+      "type": "shell",
+      "command": "madge --circular src/index.ts",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Figma Export",
+      "type": "shell",
+      "command": "npx @figma-export/cli --help",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Database Visualizer",
+      "type": "shell",
+      "command": "npx prisma-erd-generator",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Lint (ESLint)",
+      "type": "shell",
+      "command": "eslint . --ext .ts,.tsx",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Format (Prettier)",
+      "type": "shell",
+      "command": "prettier --check .",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Style (Stylelint)",
+      "type": "shell",
+      "command": "stylelint **/*.css",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: TypeScript Check",
+      "type": "shell",
+      "command": "npx tsc --noEmit",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: API Docs (Redocly)",
+      "type": "shell",
+      "command": "redocly lint openapi.yaml",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: API Gen (OpenAPI Generator)",
+      "type": "shell",
+      "command": "openapi-generator-cli generate -i openapi.yaml -g typescript",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Graphviz Diagram",
+      "type": "shell",
+      "command": "dot -Tpng input.dot -o output.png",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: PlantUML",
+      "type": "shell",
+      "command": "java -jar D:\\meter\\tools\\portable\\plantuml.jar -tsvg input.puml",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Tool: Playwright Test",
+      "type": "shell",
+      "command": "npx playwright test",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Architecture Scan",
+      "type": "shell",
+      "command": "depcruise src --output-type err && madge --circular src/index.ts && knip && ts-prune",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Security Scan Full",
+      "type": "shell",
+      "command": "semgrep --config=auto . --metrics=off && snyk test && trivy fs --severity CRITICAL,HIGH . && trufflehog filesystem . --only-verified",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Documentation Generate",
+      "type": "shell",
+      "command": "typedoc src --out docs/api && log4brains build",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Dead Code Analysis",
+      "type": "shell",
+      "command": "knip && ts-prune",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Bundle Analysis",
+      "type": "shell",
+      "command": "bundle-wizard .",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Accessibility Scan",
+      "type": "shell",
+      "command": "pa11y http://localhost:3030 && npx lighthouse http://localhost:3030 --output=html --output-path=./reports/lighthouse-report.html",
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "Enterprise: Full Certification",
+      "type": "shell",
+      "command": "npx tsc --noEmit && eslint . --ext .ts,.tsx && depcruise src --output-type err && madge --circular src/index.ts && knip && ts-prune",
+      "problemMatcher": [],
+      "group": "test"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "pattern",
+      "type": "promptString",
+      "description": "Search pattern for ast-grep"
+    },
+    {
+      "id": "configFile",
+      "type": "promptString",
+      "description": "Path to style-dictionary config"
+    },
+    {
+      "id": "url",
+      "type": "promptString",
+      "description": "URL to test for accessibility"
+    },
+    {
+      "id": "specFile",
+      "type": "promptString",
+      "description": "API spec file to lint",
+      "default": "openapi.yaml"
+    }
+  ]
+}

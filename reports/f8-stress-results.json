@@ -1,0 +1,99 @@
+{
+  "cycles": 1000,
+  "all_deterministic": true,
+  "all_passed": true,
+  "clean_cycles": 1000,
+  "common_sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+  "details": [
+    {
+      "cycle": 1,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 2,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 3,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 4,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 5,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 6,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 7,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 8,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 9,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 10,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 996,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 997,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 998,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 999,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    },
+    {
+      "cycle": 1000,
+      "sha256": "0def5bb955964dec74ac82a5c3762d49219b40cec2375f44c7765e05d5efa66a",
+      "deterministic": true,
+      "passed": true
+    }
+  ]
+}

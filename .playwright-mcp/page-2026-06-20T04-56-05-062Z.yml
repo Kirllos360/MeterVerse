@@ -1,0 +1,158 @@
+- generic [ref=e2]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e3]:
+    - generic [ref=e40]:
+      - link "Iskraemeco" [ref=e42] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e43]
+      - generic [ref=e512]:
+        - link " System Settings" [ref=e513] [cursor=pointer]:
+          - /url: javascript:;
+          - generic [ref=e514]: 
+          - text: System Settings
+        - link " Dashboard" [active] [ref=e516]:
+          - /url: "#/"
+          - generic [ref=e517]: 
+          - text: Dashboard
+        - link " Users" [ref=e518] [cursor=pointer]:
+          - /url: "#/admin/user-management"
+          - generic [ref=e519]: 
+          - text: Users
+        - link " Run Bill Cycle" [ref=e520] [cursor=pointer]:
+          - /url: "#/bill-cycle"
+          - generic [ref=e521]: 
+          - text: Run Bill Cycle
+        - link " Delete Readings" [ref=e522] [cursor=pointer]:
+          - /url: "#/monthly-reading/delete"
+          - generic [ref=e523]: 
+          - text: Delete Readings
+        - link " Delete Multi Readings" [ref=e524] [cursor=pointer]:
+          - /url: "#/delete-multi-readings"
+          - generic [ref=e525]: 
+          - text: Delete Multi Readings
+        - link " Payment Centers" [ref=e526] [cursor=pointer]:
+          - /url: "#/payment-center"
+          - generic [ref=e527]: 
+          - text: Payment Centers
+        - link " Settlement Types" [ref=e528] [cursor=pointer]:
+          - /url: "#/settlements"
+          - generic [ref=e529]: 
+          - text: Settlement Types
+        - link " Holidays" [ref=e530] [cursor=pointer]:
+          - /url: "#/holiday"
+          - generic [ref=e531]: 
+          - text: Holidays
+        - link " General Settings" [ref=e532] [cursor=pointer]:
+          - /url: "#/general-settings"
+          - generic [ref=e533]: 
+          - text: General Settings
+        - link " Customer Groups" [ref=e534] [cursor=pointer]:
+          - /url: "#/customer-group"
+          - generic [ref=e535]: 
+          - text: Customer Groups
+        - link " Projects" [ref=e536] [cursor=pointer]:
+          - /url: "#/projects"
+          - generic [ref=e537]: 
+          - text: Projects
+        - link " Bank Accounts" [ref=e538] [cursor=pointer]:
+          - /url: "#/bank-account"
+          - generic [ref=e539]: 
+          - text: Bank Accounts
+        - link " POS Terminals" [ref=e540] [cursor=pointer]:
+          - /url: "#/pos-terminal"
+          - generic [ref=e541]: 
+          - text: POS Terminals
+        - link " Unit Types" [ref=e542] [cursor=pointer]:
+          - /url: "#/location-type"
+          - generic [ref=e543]: 
+          - text: Unit Types
+        - link " Unit Zones" [ref=e544] [cursor=pointer]:
+          - /url: "#/location-zone"
+          - generic [ref=e545]: 
+          - text: Unit Zones
+    - generic [ref=e4]:
+      - banner [ref=e70]:
+        - navigation [ref=e71]:
+          - link "Smart Meters Billing vDEV" [ref=e72] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - list [ref=e75]:
+            - listitem [ref=e76]:
+              - link "" [ref=e77] [cursor=pointer]:
+                - /url: "#/alerts"
+                - generic [ref=e78]: 
+            - listitem [ref=e79]:
+              - link "" [ref=e546] [cursor=pointer]:
+                - /url: javascript:;
+                - generic [ref=e547]: 
+            - listitem [ref=e82]:
+              - link "admin" [ref=e83] [cursor=pointer]:
+                - /url: javascript:;
+      - generic [ref=e548]:
+        - link "Dashboard" [ref=e552] [cursor=pointer]:
+          - /url: javascript:void(0);
+        - generic [ref=e553]:
+          - generic [ref=e554]:
+            - generic [ref=e557]:
+              - heading "Customers" [level=5] [ref=e558]
+              - heading "1422" [level=1] [ref=e559]
+            - generic [ref=e562]:
+              - heading "Meters" [level=5] [ref=e563]
+              - heading "2913" [level=1] [ref=e564]
+            - generic [ref=e567]:
+              - heading "Invoices (EGP)" [level=5] [ref=e568]
+              - heading "163,626,755" [level=1] [ref=e569]
+          - generic [ref=e570]:
+            - generic [ref=e573]:
+              - img [ref=e575]
+              - generic [ref=e587]:
+                - generic [ref=e588]: 1,422
+                - generic [ref=e589]: Total
+                - generic [ref=e591]:
+                  - generic [ref=e592] [cursor=pointer]:
+                    - generic [ref=e594]: 1,421
+                    - generic [ref=e595]: ACTIVE
+                    - generic [ref=e596]: 100%
+                  - generic [ref=e597] [cursor=pointer]:
+                    - generic [ref=e599]: "1"
+                    - generic [ref=e600]: INACTIVE
+                    - generic [ref=e601]: 0.07%
+                  - generic [ref=e602] [cursor=pointer]:
+                    - generic [ref=e604]: "0"
+                    - generic [ref=e605]: NEW
+                    - generic [ref=e606]: 0%
+            - generic [ref=e609]:
+              - img [ref=e611]
+              - generic [ref=e627]:
+                - generic [ref=e628]: 2,913
+                - generic [ref=e629]: Total
+                - generic [ref=e631]:
+                  - generic [ref=e632] [cursor=pointer]:
+                    - generic [ref=e634]: 2,888
+                    - generic [ref=e635]: ACTIVE
+                    - generic [ref=e636]: 99%
+                  - generic [ref=e637] [cursor=pointer]:
+                    - generic [ref=e639]: "2"
+                    - generic [ref=e640]: INACTIVE
+                    - generic [ref=e641]: 0.07%
+                  - generic [ref=e642] [cursor=pointer]:
+                    - generic [ref=e644]: "23"
+                    - generic [ref=e645]: NEW
+                    - generic [ref=e646]: 0.79%
+            - generic [ref=e649]:
+              - img [ref=e651]
+              - generic [ref=e663]:
+                - generic [ref=e664]: 163,501,774
+                - generic [ref=e665]: Total
+                - generic [ref=e667]:
+                  - generic [ref=e668] [cursor=pointer]:
+                    - generic [ref=e670]: 147,747,954
+                    - generic [ref=e671]: Paid Amount
+                    - generic [ref=e672]: 90%
+                  - generic [ref=e673] [cursor=pointer]:
+                    - generic [ref=e675]: 15,753,820
+                    - generic [ref=e676]: Open Amount
+                    - generic [ref=e677]: 9.63%

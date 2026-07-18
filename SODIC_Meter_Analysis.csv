@@ -1,0 +1,86 @@
+MeterName,Category,RT5_Count,RT6_Count,RT10_Count,InDeviceSumConfig,ProblemReason
+2-0-1/2/10/11_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-0-9_94246384_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-1-1/2_94246875_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-1-7_94246797_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-2-3_94246303_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-2-4_94246362_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-2-5_94246764_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-3-1_94246383_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-3-2_94246802_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-3-3_94246766_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+2-4-1_94246791_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+303_91969842_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+307_91969828_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+308_96181025_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-1_94246729_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-10_94246313_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-11_94246751_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-3_94246368_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-4_94246365_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-8_94246746_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-0-9_94246711_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-1-11_94246790_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-1-12_94246885_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-1-5_94246730_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-1-6_94246726_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-1-9_94246367_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-2-5_94246353_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-2-6_94246719_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-2-7_94246874_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-1_94246716_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-10_94246355_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-4_94246788_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-5_94246728_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-6_94246748_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-7_94246777_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-3-9_94246371_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-4-4/5_94246719_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-4-6_94246310_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+4-4-7_94246715_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-1-5_94246708_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+516 Retail_94247202_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-1-6_94246879_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-2-3_94246549_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-2-5_94246712_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-2-8_94246349_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-3-3/4/5_94246721_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+5-4-4_94246356_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-0-1_94246706_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-0-3_94246357_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-0-6_94246316_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-1-2_94246768_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-1-4_94246710_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-2-7_94246784_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+6-3-3_94246858_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+701_96180984_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-0-2_94246718_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-0-3_94246359_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-1-2_94246717_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-1-7_94246551_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-1-8_94246548_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-1-9_94246770_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-2-1\2\3\4\5_96181014_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-2-7/8/9_94246785_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-1_94246775_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-2_94246714_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-3_94246725_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-4_94246308_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-5_94246720_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-7_94246776_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-8_94246767_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+7-3-9_94246779_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+Rowad_89384486_LP2,No SCADA data,0,0,0,Yes,SCADA never sent import or export readings for this meter
+Chiller1_91980638_LP2,Excluded from DeviceSumConfig,493,493,0,NO,Has 493 matched RT5+RT6 rows with perfect timestamp alignment BUT device not in DeviceSumConfig -> trigger cannot fire -> add device to DeviceSumConfig
+Chiller2_91980639_LP2,Excluded from DeviceSumConfig,492,492,0,NO,Has 492 matched RT5+RT6 rows but device not in DeviceSumConfig -> add to DeviceSumConfig
+Chiller3_91980640_LP2,Excluded from DeviceSumConfig,493,493,0,NO,Has 493 matched RT5+RT6 rows but device not in DeviceSumConfig -> add to DeviceSumConfig
+Chiller4_91980641_LP2,Excluded from DeviceSumConfig,492,492,0,NO,Has 492 matched RT5+RT6 rows but device not in DeviceSumConfig -> add to DeviceSumConfig
+6-2-6_94247191_LP2,Excluded from DeviceSumConfig,0,0,0,NO,Not in DeviceSumConfig (also no SCADA data)
+6-4-4_92004493_LP2,Excluded from DeviceSumConfig,0,0,0,NO,Not in DeviceSumConfig (also no SCADA data)
+2-1-9_94246703_LP2,Timestamp mismatch (RT5 < RT6),431,485,431,Yes,RT5 has 431 timestamps but RT6 has 485 -> 54 timestamps unmatched, combined follows RT5 (431) -> trigger will fill future pairs
+4_1_10_88546845_LP2,Timestamp mismatch (RT5 < RT6),725,728,725,Yes,3 RT6 timestamps have no matching RT5 -> combined follows RT5 (725) -> trigger will fill future pairs
+4-4-1/2_94246350_LP2,Timestamp mismatch (RT5 < RT6),450,455,450,Yes,5 RT6 timestamps have no matching RT5 -> combined follows RT5 (450)
+5-0-4_94246361_LP2,Timestamp mismatch (RT5 < RT6),504,506,504,Yes,2 RT6 timestamps have no matching RT5 -> combined follows RT5 (504)
+2-4-9_94246772_LP2,Timestamp mismatch (RT5 < RT6),412,415,412,Yes,3 RT6 timestamps have no matching RT5 -> combined follows RT5 (412)
+7-0-1_94246358_LP2,Timestamp mismatch (RT5 < RT6),451,452,451,Yes,1 RT6 timestamp has no matching RT5 -> combined follows RT5 (451)
+BELTONE_91980642_LP2,Timestamp mismatch (RT5 < RT6),428,1219,428,Yes,RT6 has 791 more rows than RT5 -> only 428 matching timestamps combined -> missing historically, trigger will fill future pairs

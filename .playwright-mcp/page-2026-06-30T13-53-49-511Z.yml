@@ -1,0 +1,233 @@
+- generic [active] [ref=f5e1]:
+  - banner [ref=f5e2]:
+    - generic [ref=f5e5]:
+      - generic [ref=f5e6]:
+        - link "+20 12 1149 2222" [ref=f5e7] [cursor=pointer]:
+          - /url: tel:+20 12 1149 2222
+          - img [ref=f5e8]
+          - text: +20 12 1149 2222
+        - link "info@epower.eg" [ref=f5e10] [cursor=pointer]:
+          - /url: mailto:info@epower.eg
+          - img [ref=f5e11]
+          - text: info@epower.eg
+      - link "My Account" [ref=f5e14] [cursor=pointer]:
+        - /url: /en/my-account
+        - img [ref=f5e15]
+        - text: My Account
+    - generic [ref=f5e18]:
+      - link "epower" [ref=f5e19] [cursor=pointer]:
+        - /url: /en
+        - img "epower" [ref=f5e21]
+      - button [ref=f5e23]:
+        - img [ref=f5e24]
+  - main [ref=f5e26]:
+    - main [ref=f5e27]:
+      - generic [ref=f5e32]:
+        - generic [ref=f5e34]: Our Services
+        - heading "Utility Services" [level=1] [ref=f5e36]:
+          - generic [ref=f5e37]: Utility
+          - generic [ref=f5e38]: Services
+        - paragraph [ref=f5e39]: End-to-end utility services including electricity distribution, operations management, and smart infrastructure solutions—delivered with a focus on efficiency, reliability, and full regulatory compliance.
+        - link "Back to All Services" [ref=f5e41] [cursor=pointer]:
+          - /url: /en/services
+          - img [ref=f5e42]
+          - text: Back to All Services
+      - generic [ref=f5e47]:
+        - generic [ref=f5e48]:
+          - img "Utility Services" [ref=f5e51]
+          - generic [ref=f5e54]:
+            - heading "About This Service" [level=2] [ref=f5e55]:
+              - img [ref=f5e57]
+              - text: About This Service
+            - paragraph [ref=f5e59]: <p>1 - Electricity Distribution</p><p><br></p><p>Value Based-Engineering service, to reach a realistic and</p><p>practical value for the maximum diversified demand for the</p><p>project, estimated based on various solid international</p><p>standard methods and field measurements conducted in this</p><p>respect , to ensure that the detailed design for the networks</p><p>shall be carried out in an optimum way.</p><p><br></p><p>During the construction phase, active coordination with</p><p>governmental electricity authorities is undertaken to secure</p><p>the required power supply, along with review and approval of</p><p>the electrical distribution network design and specifications,</p><p>evaluation of manufacturer’s drawings for all electrical</p><p>equipment, witnessing and approving factory acceptance</p><p>tests, and on-site supervision of electrical works through to the</p><p>successful commissioning of the project.</p><p><br></p><p>Operations and Maintenance (O&amp;M) of electrical networks,</p><p>ensuring continuous reliability and optimal performance.</p><p>Billing issuance, collection, and payment management systems</p><p>to ensure smooth financial operations.</p><p>Round-the-clock customer support and emergency response</p><p>services to address unforeseen issues promptly.</p><p><br></p><p>2 - Water</p><p>Billing issuance, collection, and payment management systems to</p><p>ensure smooth financial operations.</p><p>Round-the-clock customer support and emergency response</p><p>services to address unforeseen issues promptly.</p><p>3 - BTU </p><p>Billing issuance, collection, and payment management systems to</p><p>ensure smooth financial operations.</p><p>Round-the-clock customer support and emergency response</p><p>services to address unforeseen issues promptly.</p>
+          - generic [ref=f5e60]:
+            - heading "Key Benefits" [level=3] [ref=f5e61]
+            - generic [ref=f5e62]:
+              - generic [ref=f5e63]:
+                - img [ref=f5e65]
+                - generic [ref=f5e68]: Value-based engineering and optimized network design
+              - generic [ref=f5e69]:
+                - img [ref=f5e71]
+                - generic [ref=f5e74]: Coordination with electricity authorities
+              - generic [ref=f5e75]:
+                - img [ref=f5e77]
+                - generic [ref=f5e82]: Electrical network design review and approval
+              - generic [ref=f5e83]:
+                - img [ref=f5e85]
+                - generic [ref=f5e88]: Factory acceptance testing and site supervision
+              - generic [ref=f5e89]:
+                - img [ref=f5e91]
+                - generic [ref=f5e93]: Engineering, Procurement, and Construction (EPC) of electrical networks
+              - generic [ref=f5e94]:
+                - img [ref=f5e96]
+                - generic [ref=f5e98]: Operations and maintenance of distribution systems
+              - generic [ref=f5e99]:
+                - img [ref=f5e101]
+                - generic [ref=f5e104]: Billing, collection, and payment management
+              - generic [ref=f5e105]:
+                - img [ref=f5e107]
+                - generic [ref=f5e110]: 24/7 customer support and emergency response
+        - generic [ref=f5e112]:
+          - generic [ref=f5e115]:
+            - heading "Need This Service?" [level=3] [ref=f5e116]
+            - paragraph [ref=f5e117]: Contact us today to learn how we can help with your energy needs.
+            - link "Get a Quote" [ref=f5e118] [cursor=pointer]:
+              - /url: /en/contact
+              - text: Get a Quote
+              - img [ref=f5e119]
+          - generic [ref=f5e121]:
+            - heading "Other Services" [level=3] [ref=f5e122]
+            - generic [ref=f5e123]:
+              - link "Contracting Services Comprehensive EPC services covering electrical networks, substations, desalination, and district cooling projects. epower delivers end-to-end solutions from design and construction to testing and commissioning, ensuring high performance, regulatory compliance, and operational efficiency. With expertise in medium and high-voltage systems, EV infrastructure, and sustainable utilities, epower supports large-scale developments through reliable and future-ready infrastructure." [ref=f5e124] [cursor=pointer]:
+                - /url: /en/services/contracting-services
+                - heading "Contracting Services" [level=4] [ref=f5e125]
+                - paragraph [ref=f5e126]: Comprehensive EPC services covering electrical networks, substations, desalination, and district cooling projects. epower delivers end-to-end solutions from design and construction to testing and commissioning, ensuring high performance, regulatory compliance, and operational efficiency. With expertise in medium and high-voltage systems, EV infrastructure, and sustainable utilities, epower supports large-scale developments through reliable and future-ready infrastructure.
+              - link "Metering Solutions Integrated metering solutions covering smart and prepaid meter deployment, unified management platforms, mobile payment integration, and consumption analytics to enhance efficiency and optimize utility performance." [ref=f5e127] [cursor=pointer]:
+                - /url: /en/services/metering-solutions
+                - heading "Metering Solutions" [level=4] [ref=f5e128]
+                - paragraph [ref=f5e129]: Integrated metering solutions covering smart and prepaid meter deployment, unified management platforms, mobile payment integration, and consumption analytics to enhance efficiency and optimize utility performance.
+              - link "Facility Management Facility Management services covering operation and maintenance of electrical, HVAC, plumbing, and firefighting systems, with energy optimization, safety compliance, and 24/7 support to ensure efficient and reliable facility operations." [ref=f5e130] [cursor=pointer]:
+                - /url: /en/services/facility-management
+                - heading "Facility Management" [level=4] [ref=f5e131]
+                - paragraph [ref=f5e132]: Facility Management services covering operation and maintenance of electrical, HVAC, plumbing, and firefighting systems, with energy optimization, safety compliance, and 24/7 support to ensure efficient and reliable facility operations.
+      - generic [ref=f5e137]:
+        - heading "Ready to Get Started?" [level=2] [ref=f5e138]
+        - paragraph [ref=f5e139]: Let our experts help you with your energy infrastructure needs.
+        - generic [ref=f5e140]:
+          - link "Contact Us" [ref=f5e141] [cursor=pointer]:
+            - /url: /en/contact
+            - text: Contact Us
+            - img [ref=f5e142]
+          - link "View Our Projects" [ref=f5e144] [cursor=pointer]:
+            - /url: /en/projects
+  - contentinfo [ref=f5e145]:
+    - generic [ref=f5e148]:
+      - generic [ref=f5e149]:
+        - heading "Stay Updated with Logo" [level=3] [ref=f5e150]:
+          - text: Stay Updated with
+          - img "Logo" [ref=f5e151]
+        - paragraph [ref=f5e152]: Subscribe to our newsletter for the latest energy insights and updates.
+      - generic [ref=f5e154]:
+        - textbox "Enter your email" [ref=f5e156]
+        - button "Subscribe" [ref=f5e157]:
+          - text: Subscribe
+          - img [ref=f5e158]
+    - generic [ref=f5e161]:
+      - generic [ref=f5e162]:
+        - link "epower" [ref=f5e163] [cursor=pointer]:
+          - /url: /en
+          - img "epower" [ref=f5e164]
+        - paragraph [ref=f5e165]: Powering a sustainable future with innovative energy solutions. Leading the transition to clean, renewable energy across Egypt.
+        - link [ref=f5e167] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/epower1/posts/?feedView=all
+          - img [ref=f5e168]
+      - generic [ref=f5e170]:
+        - heading "Services" [level=4] [ref=f5e171]: Services
+        - list [ref=f5e173]:
+          - listitem [ref=f5e174]:
+            - link "Contracting Services" [ref=f5e175] [cursor=pointer]:
+              - /url: /en/services/contracting-services
+              - img [ref=f5e176]
+              - generic [ref=f5e178]: Contracting Services
+          - listitem [ref=f5e179]:
+            - link "Metering Solutions" [ref=f5e180] [cursor=pointer]:
+              - /url: /en/services/metering-solutions
+              - img [ref=f5e181]
+              - generic [ref=f5e183]: Metering Solutions
+          - listitem [ref=f5e184]:
+            - link "Utility Services" [ref=f5e185] [cursor=pointer]:
+              - /url: /en/services/Utility-Services
+              - img [ref=f5e186]
+              - generic [ref=f5e188]: Utility Services
+          - listitem [ref=f5e189]:
+            - link "Facility Management" [ref=f5e190] [cursor=pointer]:
+              - /url: /en/services/facility-management
+              - img [ref=f5e191]
+              - generic [ref=f5e193]: Facility Management
+      - generic [ref=f5e194]:
+        - heading "Company" [level=4] [ref=f5e195]: Company
+        - list [ref=f5e197]:
+          - listitem [ref=f5e198]:
+            - link "About Us" [ref=f5e199] [cursor=pointer]:
+              - /url: /en/about
+              - img [ref=f5e200]
+              - generic [ref=f5e202]: About Us
+          - listitem [ref=f5e203]:
+            - link "Charging" [ref=f5e204] [cursor=pointer]:
+              - /url: /en/charging
+              - img [ref=f5e205]
+              - generic [ref=f5e207]: Charging
+          - listitem [ref=f5e208]:
+            - link "Careers" [ref=f5e209] [cursor=pointer]:
+              - /url: /en/careers
+              - img [ref=f5e210]
+              - generic [ref=f5e212]: Careers
+          - listitem [ref=f5e213]:
+            - link "Blogs" [ref=f5e214] [cursor=pointer]:
+              - /url: /en/blog
+              - img [ref=f5e215]
+              - generic [ref=f5e217]: Blogs
+          - listitem [ref=f5e218]:
+            - link "Contact" [ref=f5e219] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f5e220]
+              - generic [ref=f5e222]: Contact
+      - generic [ref=f5e223]:
+        - heading "Resources" [level=4] [ref=f5e224]: Resources
+        - list [ref=f5e226]:
+          - listitem [ref=f5e227]:
+            - link "Projects" [ref=f5e228] [cursor=pointer]:
+              - /url: /en/projects
+              - img [ref=f5e229]
+              - generic [ref=f5e231]: Projects
+          - listitem [ref=f5e232]:
+            - link "My Account" [ref=f5e233] [cursor=pointer]:
+              - /url: /en/my-account
+              - img [ref=f5e234]
+              - generic [ref=f5e236]: My Account
+          - listitem [ref=f5e237]:
+            - link "New Customer" [ref=f5e238] [cursor=pointer]:
+              - /url: /en/contract
+              - img [ref=f5e239]
+              - generic [ref=f5e241]: New Customer
+          - listitem [ref=f5e242]:
+            - link "FAQs" [ref=f5e243] [cursor=pointer]:
+              - /url: /en/faqs
+              - img [ref=f5e244]
+              - generic [ref=f5e246]: FAQs
+          - listitem [ref=f5e247]:
+            - link "Support" [ref=f5e248] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f5e249]
+              - generic [ref=f5e251]: Support
+      - generic [ref=f5e252]:
+        - heading "Contact" [level=4] [ref=f5e253]: Contact
+        - list [ref=f5e255]:
+          - listitem [ref=f5e256]:
+            - img [ref=f5e257]
+            - generic [ref=f5e260]: Palm Hills, 6th Of October, Golf Central Mall, Building B2, D2, 33F
+          - listitem [ref=f5e261]:
+            - link "+20 12 1149 2222" [ref=f5e262] [cursor=pointer]:
+              - /url: tel:+20 12 1149 2222
+              - img [ref=f5e263]
+              - generic [ref=f5e265]: +20 12 1149 2222
+          - listitem [ref=f5e266]:
+            - link "info@epower.eg" [ref=f5e267] [cursor=pointer]:
+              - /url: mailto:info@epower.eg
+              - img [ref=f5e268]
+              - generic [ref=f5e270]: info@epower.eg
+    - generic [ref=f5e273]:
+      - paragraph [ref=f5e274]:
+        - text: © 2026
+        - img "Logo" [ref=f5e275]
+        - text: . All rights reserved.
+      - generic [ref=f5e276]:
+        - link "Privacy Policy" [ref=f5e277] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=f5e278] [cursor=pointer]:
+          - /url: /en/terms
+        - link "Cookie Policy" [ref=f5e279] [cursor=pointer]:
+          - /url: /en/cookies
+  - button:
+    - img
+  - alert [ref=f5e280]

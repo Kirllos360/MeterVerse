@@ -1,0 +1,7737 @@
+[
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 1279.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3837.0,
+    "total": 3837.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 1279.0,
+    "rate": 3.0,
+    "total": 3837.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.999999645902961,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 2767.5999933329877,
+    "rate": 2.999999645902961,
+    "fixed": 0,
+    "variable": 8302.8,
+    "total": 8302.8,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 2767.5999933329877,
+    "rate": 2.999999645902961,
+    "total": 8302.8
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 1643.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4929.0,
+    "total": 4929.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 1643.0,
+    "rate": 3.0,
+    "total": 4929.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 5581.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 16743.0,
+    "total": 16743.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 5581.0,
+    "rate": 3.0,
+    "total": 16743.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 12584.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 37752.0,
+    "total": 37752.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 12584.0,
+    "rate": 3.0,
+    "total": 37752.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 2486.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 7458.0,
+    "total": 7458.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 2486.0,
+    "rate": 3.0,
+    "total": 7458.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 1115.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3345.0,
+    "total": 3345.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 1115.0,
+    "rate": 3.0,
+    "total": 3345.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 2912.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 8736.0,
+    "total": 8736.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 2912.0,
+    "rate": 3.0,
+    "total": 8736.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 3166.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9498.0,
+    "total": 9498.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 3166.0,
+    "rate": 3.0,
+    "total": 9498.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 2130.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 6390.0,
+    "total": 6390.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 2130.0,
+    "rate": 3.0,
+    "total": 6390.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 515.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1545.0,
+    "total": 1545.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 515.0,
+    "rate": 3.0,
+    "total": 1545.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 2990.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 8970.0,
+    "total": 8970.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 2990.0,
+    "rate": 3.0,
+    "total": 8970.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 16,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 16,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 20.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 60.0,
+    "total": 60.0,
+    "version": 17,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 17,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 20.0,
+    "rate": 3.0,
+    "total": 60.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 231.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 693.0,
+    "total": 693.0,
+    "version": 18,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 18,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 231.0,
+    "rate": 3.0,
+    "total": 693.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 3090.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9270.0,
+    "total": 9270.0,
+    "version": 19,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 19,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 3090.0,
+    "rate": 3.0,
+    "total": 9270.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 207.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 621.0,
+    "total": 621.0,
+    "version": 20,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 20,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 207.0,
+    "rate": 3.0,
+    "total": 621.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 119.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 357.0,
+    "total": 357.0,
+    "version": 21,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 21,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 119.0,
+    "rate": 3.0,
+    "total": 357.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 22,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 22,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 244.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 732.0,
+    "total": 732.0,
+    "version": 23,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 23,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 244.0,
+    "rate": 3.0,
+    "total": 732.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 227.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 681.0,
+    "total": 681.0,
+    "version": 24,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 24,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 227.0,
+    "rate": 3.0,
+    "total": 681.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 25,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 25,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 409.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1227.0,
+    "total": 1227.0,
+    "version": 26,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 26,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 409.0,
+    "rate": 3.0,
+    "total": 1227.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 827.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2481.0,
+    "total": 2481.0,
+    "version": 27,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 27,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 827.0,
+    "rate": 3.0,
+    "total": 2481.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 469.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1407.0,
+    "total": 1407.0,
+    "version": 28,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 28,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 469.0,
+    "rate": 3.0,
+    "total": 1407.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 440.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1320.0,
+    "total": 1320.0,
+    "version": 29,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 29,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 440.0,
+    "rate": 3.0,
+    "total": 1320.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 30,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 30,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 31,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 31,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 2724.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 8172.0,
+    "total": 8172.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 2724.0,
+    "rate": 3.0,
+    "total": 8172.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.8048024449762057,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 46789.167,
+    "rate": 2.8048024449762057,
+    "fixed": 0,
+    "variable": 131234.37,
+    "total": 131234.37,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 46789.167,
+    "rate": 2.8048024449762057,
+    "total": 131234.37
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 3166.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9498.0,
+    "total": 9498.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 3166.0,
+    "rate": 3.0,
+    "total": 9498.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 5354.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 16062.0,
+    "total": 16062.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 5354.0,
+    "rate": 3.0,
+    "total": 16062.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 2358.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 7074.0,
+    "total": 7074.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 2358.0,
+    "rate": 3.0,
+    "total": 7074.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 782.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2346.0,
+    "total": 2346.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 782.0,
+    "rate": 3.0,
+    "total": 2346.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 4853.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 14559.0,
+    "total": 14559.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 4853.0,
+    "rate": 3.0,
+    "total": 14559.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 7231.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 21693.0,
+    "total": 21693.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 7231.0,
+    "rate": 3.0,
+    "total": 21693.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 5100.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 15300.0,
+    "total": 15300.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 5100.0,
+    "rate": 3.0,
+    "total": 15300.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 575.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1725.0,
+    "total": 1725.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 575.0,
+    "rate": 3.0,
+    "total": 1725.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 8410.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 25230.0,
+    "total": 25230.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 8410.0,
+    "rate": 3.0,
+    "total": 25230.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 240.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 720.0,
+    "total": 720.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 240.0,
+    "rate": 3.0,
+    "total": 720.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 248.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 744.0,
+    "total": 744.0,
+    "version": 16,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 16,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 248.0,
+    "rate": 3.0,
+    "total": 744.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 17,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 17,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 533.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1599.0,
+    "total": 1599.0,
+    "version": 18,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 18,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 533.0,
+    "rate": 3.0,
+    "total": 1599.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 211.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 633.0,
+    "total": 633.0,
+    "version": 19,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 19,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 211.0,
+    "rate": 3.0,
+    "total": 633.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 534.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1602.0,
+    "total": 1602.0,
+    "version": 20,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 20,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 534.0,
+    "rate": 3.0,
+    "total": 1602.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 2609.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 7827.0,
+    "total": 7827.0,
+    "version": 21,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 21,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 2609.0,
+    "rate": 3.0,
+    "total": 7827.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 22,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 22,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 587.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1761.0,
+    "total": 1761.0,
+    "version": 23,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 23,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 587.0,
+    "rate": 3.0,
+    "total": 1761.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 425.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1275.0,
+    "total": 1275.0,
+    "version": 24,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 24,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 425.0,
+    "rate": 3.0,
+    "total": 1275.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 25,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 25,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 1024.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3072.0,
+    "total": 3072.0,
+    "version": 26,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 26,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 1024.0,
+    "rate": 3.0,
+    "total": 3072.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 365.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1095.0,
+    "total": 1095.0,
+    "version": 27,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 27,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 365.0,
+    "rate": 3.0,
+    "total": 1095.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 28,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 28,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 29,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 29,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 351.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1053.0,
+    "total": 1053.0,
+    "version": 30,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 30,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 351.0,
+    "rate": 3.0,
+    "total": 1053.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 1212.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3636.0,
+    "total": 3636.0,
+    "version": 31,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 31,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 1212.0,
+    "rate": 3.0,
+    "total": 3636.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 8.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 24.0,
+    "total": 24.0,
+    "version": 32,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 32,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 8.0,
+    "rate": 3.0,
+    "total": 24.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 155.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 465.0,
+    "total": 465.0,
+    "version": 33,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 33,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 155.0,
+    "rate": 3.0,
+    "total": 465.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 3598.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 10794.0,
+    "total": 10794.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 3598.0,
+    "rate": 3.0,
+    "total": 10794.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.8756029193103543,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 73419.16666666663,
+    "rate": 2.8756029193103543,
+    "fixed": 0,
+    "variable": 211124.37,
+    "total": 211124.37,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 73419.16666666663,
+    "rate": 2.8756029193103543,
+    "total": 211124.37
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 100.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 300.0,
+    "total": 300.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 100.0,
+    "rate": 3.0,
+    "total": 300.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 5546.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 16638.0,
+    "total": 16638.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 5546.0,
+    "rate": 3.0,
+    "total": 16638.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 7591.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 22773.0,
+    "total": 22773.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 7591.0,
+    "rate": 3.0,
+    "total": 22773.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 10358.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 31074.0,
+    "total": 31074.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 10358.0,
+    "rate": 3.0,
+    "total": 31074.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 3154.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9462.0,
+    "total": 9462.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 3154.0,
+    "rate": 3.0,
+    "total": 9462.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 1087.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3261.0,
+    "total": 3261.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 1087.0,
+    "rate": 3.0,
+    "total": 3261.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 6460.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 19380.0,
+    "total": 19380.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 6460.0,
+    "rate": 3.0,
+    "total": 19380.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 11173.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 33519.0,
+    "total": 33519.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 11173.0,
+    "rate": 3.0,
+    "total": 33519.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 10610.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 31830.0,
+    "total": 31830.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 10610.0,
+    "rate": 3.0,
+    "total": 31830.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 611.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1833.0,
+    "total": 1833.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 611.0,
+    "rate": 3.0,
+    "total": 1833.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 12490.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 37470.0,
+    "total": 37470.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 12490.0,
+    "rate": 3.0,
+    "total": 37470.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 511.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1533.0,
+    "total": 1533.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 511.0,
+    "rate": 3.0,
+    "total": 1533.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 716.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2148.0,
+    "total": 2148.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 716.0,
+    "rate": 3.0,
+    "total": 2148.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 3578.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 10734.0,
+    "total": 10734.0,
+    "version": 16,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 16,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 3578.0,
+    "rate": 3.0,
+    "total": 10734.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 17,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 17,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 641.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1923.0,
+    "total": 1923.0,
+    "version": 18,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 18,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 641.0,
+    "rate": 3.0,
+    "total": 1923.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 601.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1803.0,
+    "total": 1803.0,
+    "version": 19,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 19,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 601.0,
+    "rate": 3.0,
+    "total": 1803.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 20,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 20,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 1266.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3798.0,
+    "total": 3798.0,
+    "version": 21,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 21,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 1266.0,
+    "rate": 3.0,
+    "total": 3798.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 547.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1641.0,
+    "total": 1641.0,
+    "version": 22,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 22,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 547.0,
+    "rate": 3.0,
+    "total": 1641.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 23,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 23,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 261.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 783.0,
+    "total": 783.0,
+    "version": 24,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 24,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 261.0,
+    "rate": 3.0,
+    "total": 783.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 1463.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4389.0,
+    "total": 4389.0,
+    "version": 25,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 25,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 1463.0,
+    "rate": 3.0,
+    "total": 4389.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 3560.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 10680.0,
+    "total": 10680.0,
+    "version": 26,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 26,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 3560.0,
+    "rate": 3.0,
+    "total": 10680.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 27,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 27,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 416.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1248.0,
+    "total": 1248.0,
+    "version": 28,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 28,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 416.0,
+    "rate": 3.0,
+    "total": 1248.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 29,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 29,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 489.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1467.0,
+    "total": 1467.0,
+    "version": 30,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 30,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 489.0,
+    "rate": 3.0,
+    "total": 1467.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 2428.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 7284.0,
+    "total": 7284.0,
+    "version": 31,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 31,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 2428.0,
+    "rate": 3.0,
+    "total": 7284.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-10-01",
+    "consumption": 798.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2394.0,
+    "total": 2394.0,
+    "version": 32,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 32,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-10-01",
+    "consumption": 798.0,
+    "rate": 3.0,
+    "total": 2394.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72057331",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72057331",
+    "date": "2025-09-01",
+    "consumption": 3321.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9963.0,
+    "total": 9963.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72057331",
+    "month": "2025-09-01",
+    "consumption": 3321.0,
+    "rate": 3.0,
+    "total": 9963.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72062584",
+    "rate": 2.826132211904357,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72062584",
+    "date": "2025-09-01",
+    "consumption": 52529.16667333327,
+    "rate": 2.826132211904357,
+    "fixed": 0,
+    "variable": 148454.37,
+    "total": 148454.37,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72062584",
+    "month": "2025-09-01",
+    "consumption": 52529.16667333327,
+    "rate": 2.826132211904357,
+    "total": 148454.37
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71455878",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71455878",
+    "date": "2025-09-01",
+    "consumption": 900.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2700.0,
+    "total": 2700.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71455878",
+    "month": "2025-09-01",
+    "consumption": 900.0,
+    "rate": 3.0,
+    "total": 2700.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72057355",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72057355",
+    "date": "2025-09-01",
+    "consumption": 4281.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 12843.0,
+    "total": 12843.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72057355",
+    "month": "2025-09-01",
+    "consumption": 4281.0,
+    "rate": 3.0,
+    "total": 12843.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71779556",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71779556",
+    "date": "2025-09-01",
+    "consumption": 6803.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 20409.0,
+    "total": 20409.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71779556",
+    "month": "2025-09-01",
+    "consumption": 6803.0,
+    "rate": 3.0,
+    "total": 20409.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "69136060",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "69136060",
+    "date": "2025-09-01",
+    "consumption": 6585.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 19755.0,
+    "total": 19755.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "69136060",
+    "month": "2025-09-01",
+    "consumption": 6585.0,
+    "rate": 3.0,
+    "total": 19755.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71199219",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71199219",
+    "date": "2025-09-01",
+    "consumption": 3015.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9045.0,
+    "total": 9045.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71199219",
+    "month": "2025-09-01",
+    "consumption": 3015.0,
+    "rate": 3.0,
+    "total": 9045.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71454326",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71454326",
+    "date": "2025-09-01",
+    "consumption": 1047.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3141.0,
+    "total": 3141.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71454326",
+    "month": "2025-09-01",
+    "consumption": 1047.0,
+    "rate": 3.0,
+    "total": 3141.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71454330",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71454330",
+    "date": "2025-09-01",
+    "consumption": 6780.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 20340.0,
+    "total": 20340.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71454330",
+    "month": "2025-09-01",
+    "consumption": 6780.0,
+    "rate": 3.0,
+    "total": 20340.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71093705",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71093705",
+    "date": "2025-09-01",
+    "consumption": 7384.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 22152.0,
+    "total": 22152.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71093705",
+    "month": "2025-09-01",
+    "consumption": 7384.0,
+    "rate": 3.0,
+    "total": 22152.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71183218",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71183218",
+    "date": "2025-09-01",
+    "consumption": 7700.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 23100.0,
+    "total": 23100.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71183218",
+    "month": "2025-09-01",
+    "consumption": 7700.0,
+    "rate": 3.0,
+    "total": 23100.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71459720",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71459720",
+    "date": "2025-09-01",
+    "consumption": 846.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2538.0,
+    "total": 2538.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71459720",
+    "month": "2025-09-01",
+    "consumption": 846.0,
+    "rate": 3.0,
+    "total": 2538.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "24657060",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "24657060",
+    "date": "2025-09-01",
+    "consumption": 12040.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 36120.0,
+    "total": 36120.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "24657060",
+    "month": "2025-09-01",
+    "consumption": 12040.0,
+    "rate": 3.0,
+    "total": 36120.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71928522",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71928522",
+    "date": "2025-09-01",
+    "consumption": 654.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1962.0,
+    "total": 1962.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71928522",
+    "month": "2025-09-01",
+    "consumption": 654.0,
+    "rate": 3.0,
+    "total": 1962.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71928510",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71928510",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71928510",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "71928545",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "71928545",
+    "date": "2025-09-01",
+    "consumption": 863.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2589.0,
+    "total": 2589.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "71928545",
+    "month": "2025-09-01",
+    "consumption": 863.0,
+    "rate": 3.0,
+    "total": 2589.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72572555",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72572555",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72572555",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72572411",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72572411",
+    "date": "2025-09-01",
+    "consumption": 371.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1113.0,
+    "total": 1113.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72572411",
+    "month": "2025-09-01",
+    "consumption": 371.0,
+    "rate": 3.0,
+    "total": 1113.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72572488",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72572488",
+    "date": "2025-09-01",
+    "consumption": 1273.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3819.0,
+    "total": 3819.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72572488",
+    "month": "2025-09-01",
+    "consumption": 1273.0,
+    "rate": 3.0,
+    "total": 3819.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72572341",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72572341",
+    "date": "2025-09-01",
+    "consumption": 1642.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4926.0,
+    "total": 4926.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72572341",
+    "month": "2025-09-01",
+    "consumption": 1642.0,
+    "rate": 3.0,
+    "total": 4926.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72652001",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72652001",
+    "date": "2025-09-01",
+    "consumption": 3087.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9261.0,
+    "total": 9261.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72652001",
+    "month": "2025-09-01",
+    "consumption": 3087.0,
+    "rate": 3.0,
+    "total": 9261.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72572554",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72572554",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72572554",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72057363",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72057363",
+    "date": "2025-09-01",
+    "consumption": 417.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1251.0,
+    "total": 1251.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72057363",
+    "month": "2025-09-01",
+    "consumption": 417.0,
+    "rate": 3.0,
+    "total": 1251.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72057359",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72057359",
+    "date": "2025-09-01",
+    "consumption": 1392.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4176.0,
+    "total": 4176.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72057359",
+    "month": "2025-09-01",
+    "consumption": 1392.0,
+    "rate": 3.0,
+    "total": 4176.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "72057334",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "72057334",
+    "date": "2025-09-01",
+    "consumption": 61.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 183.0,
+    "total": 183.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "72057334",
+    "month": "2025-09-01",
+    "consumption": 61.0,
+    "rate": 3.0,
+    "total": 183.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 9607.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 28821.0,
+    "total": 28821.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 9607.0,
+    "rate": 3.0,
+    "total": 28821.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 1357.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4071.0,
+    "total": 4071.0,
+    "version": 2,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 2,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 1357.0,
+    "rate": 3.0,
+    "total": 4071.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 3,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 3,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 4,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 4,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 167.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 501.0,
+    "total": 501.0,
+    "version": 5,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 5,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 167.0,
+    "rate": 3.0,
+    "total": 501.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 11273.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 33819.0,
+    "total": 33819.0,
+    "version": 6,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 6,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 11273.0,
+    "rate": 3.0,
+    "total": 33819.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 1065.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3195.0,
+    "total": 3195.0,
+    "version": 7,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 7,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 1065.0,
+    "rate": 3.0,
+    "total": 3195.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 1104.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 3312.0,
+    "total": 3312.0,
+    "version": 8,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 8,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 1104.0,
+    "rate": 3.0,
+    "total": 3312.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 16,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 16,
+    "date": "2025-09-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-09-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 10.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 30.0,
+    "total": 30.0,
+    "version": 32,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 32,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 10.0,
+    "rate": 3.0,
+    "total": 30.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.9999999999956346,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 10.000000000014552,
+    "rate": 2.9999999999956346,
+    "fixed": 0,
+    "variable": 30.0,
+    "total": 30.0,
+    "version": 33,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 33,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 10.000000000014552,
+    "rate": 2.9999999999956346,
+    "total": 30.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.999950000002183,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 19.999999999985448,
+    "rate": 2.999950000002183,
+    "fixed": 0,
+    "variable": 60.0,
+    "total": 60.0,
+    "version": 34,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 34,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 19.999999999985448,
+    "rate": 2.999950000002183,
+    "total": 60.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 10.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 30.0,
+    "total": 30.0,
+    "version": 35,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 35,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 10.0,
+    "rate": 3.0,
+    "total": 30.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.9999985163205394,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 673.9999999999854,
+    "rate": 2.9999985163205394,
+    "fixed": 0,
+    "variable": 2022.0,
+    "total": 2022.0,
+    "version": 36,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 36,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 673.9999999999854,
+    "rate": 2.9999985163205394,
+    "total": 2022.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.999993750000273,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 159.99999999998545,
+    "rate": 2.999993750000273,
+    "fixed": 0,
+    "variable": 480.0,
+    "total": 480.0,
+    "version": 37,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 37,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 159.99999999998545,
+    "rate": 2.999993750000273,
+    "total": 480.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.9999999999999845,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-12-01",
+    "consumption": 5600.000000000029,
+    "rate": 2.9999999999999845,
+    "fixed": 0,
+    "variable": 16800.0,
+    "total": 16800.0,
+    "version": 38,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 38,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-12-01",
+    "consumption": 5600.000000000029,
+    "rate": 2.9999999999999845,
+    "total": 16800.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 16,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 16,
+    "date": "2025-12-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-12-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.999999999999909,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 480.00000000001455,
+    "rate": 2.999999999999909,
+    "fixed": 0,
+    "variable": 1440.0,
+    "total": 1440.0,
+    "version": 34,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 34,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 480.00000000001455,
+    "rate": 2.999999999999909,
+    "total": 1440.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 930.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2790.0,
+    "total": 2790.0,
+    "version": 35,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 35,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 930.0,
+    "rate": 3.0,
+    "total": 2790.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.999999999999992,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 5341.000000000015,
+    "rate": 2.999999999999992,
+    "fixed": 0,
+    "variable": 16023.0,
+    "total": 16023.0,
+    "version": 36,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 36,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 5341.000000000015,
+    "rate": 2.999999999999992,
+    "total": 16023.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 600.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1800.0,
+    "total": 1800.0,
+    "version": 37,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 37,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 600.0,
+    "rate": 3.0,
+    "total": 1800.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 2670.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 8010.0,
+    "total": 8010.0,
+    "version": 38,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 38,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 2670.0,
+    "rate": 3.0,
+    "total": 8010.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 2.9999999999999725,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 1590.0000000000146,
+    "rate": 2.9999999999999725,
+    "fixed": 0,
+    "variable": 4770.0,
+    "total": 4770.0,
+    "version": 39,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 39,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 1590.0000000000146,
+    "rate": 2.9999999999999725,
+    "total": 4770.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "Chilled Water",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "Chilled Water",
+    "date": "2025-11-01",
+    "consumption": 12200.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 36600.0,
+    "total": 36600.0,
+    "version": 40,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 40,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "Chilled Water",
+    "month": "2025-11-01",
+    "consumption": 12200.0,
+    "rate": 3.0,
+    "total": 36600.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 16,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 16,
+    "date": "2025-11-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-11-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1006049",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1006049",
+    "date": "2025-10-01",
+    "consumption": 840.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2520.0,
+    "total": 2520.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1006049",
+    "month": "2025-10-01",
+    "consumption": 840.0,
+    "rate": 3.0,
+    "total": 2520.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1006055",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1006055",
+    "date": "2025-10-01",
+    "consumption": 570.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1710.0,
+    "total": 1710.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1006055",
+    "month": "2025-10-01",
+    "consumption": 570.0,
+    "rate": 3.0,
+    "total": 1710.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1005996",
+    "rate": 2.9999999999999787,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1005996",
+    "date": "2025-10-01",
+    "consumption": 1020.0000000000073,
+    "rate": 2.9999999999999787,
+    "fixed": 0,
+    "variable": 3060.0,
+    "total": 3060.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1005996",
+    "month": "2025-10-01",
+    "consumption": 1020.0000000000073,
+    "rate": 2.9999999999999787,
+    "total": 3060.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1006060",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1006060",
+    "date": "2025-10-01",
+    "consumption": 2170.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 6510.0,
+    "total": 6510.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1006060",
+    "month": "2025-10-01",
+    "consumption": 2170.0,
+    "rate": 3.0,
+    "total": 6510.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1005990",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1005990",
+    "date": "2025-10-01",
+    "consumption": 1920.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 5760.0,
+    "total": 5760.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1005990",
+    "month": "2025-10-01",
+    "consumption": 1920.0,
+    "rate": 3.0,
+    "total": 5760.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1005998",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1005998",
+    "date": "2025-10-01",
+    "consumption": 8600.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 25800.0,
+    "total": 25800.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1005998",
+    "month": "2025-10-01",
+    "consumption": 8600.0,
+    "rate": 3.0,
+    "total": 25800.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1006058",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1006058",
+    "date": "2025-10-01",
+    "consumption": 1650.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4950.0,
+    "total": 4950.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1006058",
+    "month": "2025-10-01",
+    "consumption": 1650.0,
+    "rate": 3.0,
+    "total": 4950.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "1010557",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "1010557",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 1,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "1010557",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 9,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 9,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 10,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 10,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 11,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 11,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 12,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 12,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 13,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 13,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 14,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 14,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "",
+    "meter": "",
+    "date": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 15,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "",
+    "version": 15,
+    "date": "2025-10-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "",
+    "meter": "",
+    "month": "2025-10-01",
+    "consumption": 0.0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "برنش اند كيك للضايفه",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "برنش اند كيك للضايفه",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 4140.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 12420.0,
+    "total": 12420.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "برنش اند كيك للضايفه",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "برنش اند كيك للضايفه",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 4140.0,
+    "rate": 3.0,
+    "total": 12420.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "ناش ام للتجاره",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "ناش ام للتجاره",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 550.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 1650.0,
+    "total": 1650.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "ناش ام للتجاره",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "ناش ام للتجاره",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 550.0,
+    "rate": 3.0,
+    "total": 1650.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "شركة دلتا  اروماتيك انترناشيونال",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "شركة دلتا  اروماتيك انترناشيونال",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 1560.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 4680.0,
+    "total": 4680.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "شركة دلتا  اروماتيك انترناشيونال",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "شركة دلتا  اروماتيك انترناشيونال",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 1560.0,
+    "rate": 3.0,
+    "total": 4680.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "شركة امبر سوب انترناشيونال",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "شركة امبر سوب انترناشيونال",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 3000.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9000.0,
+    "total": 9000.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "شركة امبر سوب انترناشيونال",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "شركة امبر سوب انترناشيونال",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 3000.0,
+    "rate": 3.0,
+    "total": 9000.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "وان استيب هيد للالعاب الترفيهية",
+    "meter": "",
+    "rate": 2.44,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "وان استيب هيد للالعاب الترفيهية",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 7627.868852459016,
+    "rate": 2.44,
+    "fixed": 0,
+    "variable": 18612.0,
+    "total": 18612.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "وان استيب هيد للالعاب الترفيهية",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "وان استيب هيد للالعاب الترفيهية",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 7627.868852459016,
+    "rate": 2.44,
+    "total": 18612.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "محمد محمود عبدالله محمد القاضى",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "محمد محمود عبدالله محمد القاضى",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 1800.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 5400.0,
+    "total": 5400.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "محمد محمود عبدالله محمد القاضى",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "محمد محمود عبدالله محمد القاضى",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 1800.0,
+    "rate": 3.0,
+    "total": 5400.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "ايل",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "ايل",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 3408.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 10224.0,
+    "total": 10224.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "ايل",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "ايل",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 3408.0,
+    "rate": 3.0,
+    "total": 10224.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "شركة الهنا شوب للتجاره والاستيراد",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "شركة الهنا شوب للتجاره والاستيراد",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "شركة الهنا شوب للتجاره والاستيراد",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "شركة الهنا شوب للتجاره والاستيراد",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "جي جي كايرو لادارة المطاعم",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "جي جي كايرو لادارة المطاعم",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 3088.66666666666,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 9266.0,
+    "total": 9266.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "جي جي كايرو لادارة المطاعم",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "جي جي كايرو لادارة المطاعم",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 3088.66666666666,
+    "rate": 3.0,
+    "total": 9266.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "هكا للادويه",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "هكا للادويه",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "هكا للادويه",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "هكا للادويه",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 0,
+    "rate": 3.0,
+    "total": 0.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "مايا للتسويق العقاري و الاستيراد و التصدير",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "مايا للتسويق العقاري و الاستيراد و التصدير",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 900.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 2700.0,
+    "total": 2700.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "مايا للتسويق العقاري و الاستيراد و التصدير",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "مايا للتسويق العقاري و الاستيراد و التصدير",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 900.0,
+    "rate": 3.0,
+    "total": 2700.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "مون ماكي للضيافه",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "مون ماكي للضيافه",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 2580.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 7740.0,
+    "total": 7740.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "مون ماكي للضيافه",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "مون ماكي للضيافه",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 2580.0,
+    "rate": 3.0,
+    "total": 7740.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "انطوان ابراهيم ونجيلي واسيلي",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "انطوان ابراهيم ونجيلي واسيلي",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 1800.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 5400.0,
+    "total": 5400.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "انطوان ابراهيم ونجيلي واسيلي",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "انطوان ابراهيم ونجيلي واسيلي",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 1800.0,
+    "rate": 3.0,
+    "total": 5400.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "فيلا لوكا",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "فيلا لوكا",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 3360.0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 10080.0,
+    "total": 10080.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "فيلا لوكا",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "فيلا لوكا",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 3360.0,
+    "rate": 3.0,
+    "total": 10080.0
+  },
+  {
+    "action": "CREATE_CONFIG",
+    "customer": "مي محمد ابراهيم عبدالرحمن الطباخ",
+    "meter": "",
+    "rate": 3.0,
+    "fixed": 0
+  },
+  {
+    "action": "CREATE_SETTLEMENT",
+    "customer": "مي محمد ابراهيم عبدالرحمن الطباخ",
+    "meter": "",
+    "date": "2025-08-01",
+    "consumption": 0,
+    "rate": 3.0,
+    "fixed": 0,
+    "variable": 0.0,
+    "total": 0.0,
+    "version": 1,
+    "carry_forward": 0
+  },
+  {
+    "action": "APPROVE",
+    "customer": "مي محمد ابراهيم عبدالرحمن الطباخ",
+    "version": 1,
+    "date": "2025-08-01"
+  },
+  {
+    "action": "GENERATE_INVOICE",
+    "customer": "مي محمد ابراهيم عبدالرحمن الطباخ",
+    "meter": "",
+    "month": "2025-08-01",
+    "consumption": 0,
+    "rate": 3.0,
+    "total": 0.0
+  }
+]

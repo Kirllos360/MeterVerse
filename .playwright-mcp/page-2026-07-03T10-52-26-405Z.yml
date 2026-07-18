@@ -1,0 +1,43 @@
+- generic [active] [ref=f6e1]:
+  - generic [ref=f6e2]:
+    - generic [ref=f6e3]:
+      - generic [ref=f6e4]: 🎨
+      - generic [ref=f6e5]: Enterprise Live Design Sandbox
+      - generic [ref=f6e6]: DRAFT
+      - generic [ref=f6e7]: All designs are preview — nothing is production
+    - generic [ref=f6e8]:
+      - navigation [ref=f6e9]:
+        - link "🏠 Overview" [ref=f6e10] [cursor=pointer]:
+          - /url: /sandbox
+          - generic [ref=f6e11]: 🏠
+          - text: Overview
+        - link "✨ Brand Identity" [ref=f6e12] [cursor=pointer]:
+          - /url: /sandbox/brand
+          - generic [ref=f6e13]: ✨
+          - text: Brand Identity
+        - link "🎨 Themes" [ref=f6e14] [cursor=pointer]:
+          - /url: /sandbox/themes
+          - generic [ref=f6e15]: 🎨
+          - text: Themes
+        - link "🔤 Typography" [ref=f6e16] [cursor=pointer]:
+          - /url: /sandbox/typography
+          - generic [ref=f6e17]: 🔤
+          - text: Typography
+        - link "🎛️ Experience Mixer" [ref=f6e18] [cursor=pointer]:
+          - /url: /sandbox/mixer
+          - generic [ref=f6e19]: 🎛️
+          - text: Experience Mixer
+        - link "📋 Design Review" [ref=f6e20] [cursor=pointer]:
+          - /url: /sandbox/review
+          - generic [ref=f6e21]: 📋
+          - text: Design Review
+        - link "🔮 Future Pages" [ref=f6e22] [cursor=pointer]:
+          - /url: /sandbox/future
+          - generic [ref=f6e23]: 🔮
+          - text: Future Pages
+      - main [ref=f6e24]:
+        - generic [ref=f6e25]: Loading...
+  - region "Notifications (F8)":
+    - list
+  - button "Open Next.js Dev Tools" [ref=f6e31] [cursor=pointer]:
+    - img [ref=f6e32]

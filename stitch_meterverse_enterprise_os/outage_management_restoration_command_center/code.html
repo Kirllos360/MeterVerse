@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse | Enterprise Outage &amp; Restoration Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(187, 202, 191, 0.4);
+        }
+        .heatmap-pulse {
+            animation: pulse-red 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-red {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.3; transform: scale(1.1); }
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #bbcabf;
+            z-index: 0;
+        }
+        .revenue-bar {
+            transition: width 1s ease-out;
+        }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#10b981",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#e8f0e9",
+                      "secondary-fixed": "#b0f0d6",
+                      "surface-container-high": "#e3eae3",
+                      "on-surface": "#161d19",
+                      "primary-fixed-dim": "#4edea3",
+                      "on-background": "#161d19",
+                      "on-secondary-fixed-variant": "#0b513d",
+                      "inverse-primary": "#4edea3",
+                      "tertiary-fixed": "#ffdad7",
+                      "on-secondary-container": "#306d58",
+                      "industrial-red": "#ef4444",
+                      "surface-dim": "#d4dcd5",
+                      "error": "#ba1a1a",
+                      "primary": "#006c49",
+                      "on-error": "#ffffff",
+                      "sidebar-light": "#064e3b",
+                      "error-container": "#ffdad6",
+                      "background": "#f4fbf4",
+                      "tertiary": "#a43a3a",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-tertiary-fixed": "#410005",
+                      "surface-tint": "#006c49",
+                      "secondary-container": "#adedd3",
+                      "financial-gold": "#fbbf24",
+                      "background-dark": "#0d1510",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "on-primary-container": "#00422b",
+                      "water-cyan": "#06b6d4",
+                      "tertiary-container": "#fc7c78",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#6ffbbe",
+                      "on-surface-variant": "#3c4a42",
+                      "on-secondary-fixed": "#002117",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed-dim": "#95d3ba",
+                      "on-primary-fixed": "#002113",
+                      "surface-variant": "#dde4dd",
+                      "outline": "#6c7a71",
+                      "on-tertiary-container": "#711419",
+                      "card-dark": "#16221a",
+                      "surface-container-highest": "#dde4dd",
+                      "secondary": "#2b6954",
+                      "inverse-on-surface": "#ebf3eb",
+                      "surface-container-low": "#eef6ee",
+                      "surface-bright": "#f4fbf4",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "surface": "#f4fbf4",
+                      "inverse-surface": "#2b322d",
+                      "electric-orange": "#f97316",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#bbcabf"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-collapsed": "72px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "margin-page": "24px",
+                      "stack-lg": "24px",
+                      "sidebar-expanded": "260px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Hanken Grotesk"],
+                      "headline-lg": ["Hanken Grotesk"],
+                      "body-md": ["Hanken Grotesk"],
+                      "label-sm": ["JetBrains Mono"],
+                      "body-lg": ["Hanken Grotesk"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface transition-colors duration-300">
+<!-- Layout Container -->
+<div class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="fixed h-screen w-[260px] left-0 top-0 bg-sidebar-light dark:bg-card-dark flex flex-col py-6 px-4 shadow-lg dark:shadow-none z-50">
+<div class="mb-10 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-fixed text-4xl" data-icon="energy_savings_leaf">energy_savings_leaf</span>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed leading-none">MeterVerse</h1>
+<p class="font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-widest">Enterprise OS</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Dashboard Active -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg transition-all duration-300 scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md text-body-md">Grid Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="font-body-md text-body-md">Assets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+<span class="font-body-md text-body-md">Work Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 rounded-lg transition-colors duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<button class="mt-4 w-full py-3 bg-primary-fixed text-on-primary-fixed font-bold rounded-xl shadow-md hover:brightness-110 transition-all">
+                New Workspace
+            </button>
+<div class="mt-auto pt-6 border-t border-white/10 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:text-primary-fixed font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Support
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:text-primary-fixed font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Logs
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar Component -->
+<header class="sticky top-0 z-40 h-16 w-full flex justify-between items-center px-margin-page bg-surface/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-outline-variant dark:border-outline/30">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">MVEOS</span>
+<div class="relative w-96">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container border-none rounded-full font-body-md text-body-md focus:ring-2 focus:ring-primary" placeholder="Search grid components..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Global View</a>
+<a class="font-label-sm text-label-sm text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary" href="#">Grid Alpha</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" href="#">Site Beta</a>
+</nav>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<button class="p-2 hover:bg-surface-container rounded-full transition-all material-symbols-outlined" data-icon="dark_mode">dark_mode</button>
+<button class="p-2 hover:bg-surface-container rounded-full transition-all material-symbols-outlined" data-icon="translate">translate</button>
+<div class="flex items-center gap-3 pl-4">
+<div class="text-right hidden lg:block">
+<p class="font-label-sm text-label-sm font-bold">Admin Panel</p>
+<p class="text-[10px] text-outline uppercase tracking-tighter">System Administrator</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="Close up professional portrait of a tech executive in a clean minimalist environment, high key lighting, emerald green and dark charcoal tones, professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo-i4mERehO_oozTFbFQjHhotP29K9jzPDNTmP54mBUD5LWdjYliHoSiN0jp1408MmhvbOLJfKrFRbp0QCBQLj_XEqNuMpF7HEhaziv_zIyON7Nd5MgQJQ5fKdrq7Nhek9h5fGvdWAfgnlrDIn2okakwg4JCDSLLrxemr42gpLwB3QSkKaEjLzBWjSCdnz3ARggCfUpTVN7XRS_bnkJcgY4vVDYziB-9OpN1vS1Kexqa84itKiqikC9eLPxioGVOG8x-kKYD6F"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-margin-page space-y-6">
+<!-- KPI Strip -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Critical Outages -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-error/20 shadow-sm relative overflow-hidden group hover:shadow-lg transition-all">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-error" data-icon="warning">warning</span>
+</div>
+<p class="font-label-sm text-label-sm text-outline uppercase font-bold">Active Outages</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h2 class="font-headline-lg text-headline-lg text-error">12</h2>
+<span class="text-error font-label-sm text-label-sm flex items-center bg-error-container px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_up">trending_up</span> +3
+                            </span>
+</div>
+<p class="mt-4 font-body-md text-body-md text-on-surface-variant">4 Priority-1 disruptions active</p>
+</div>
+<!-- Affected Customers -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-lg transition-all">
+<p class="font-label-sm text-label-sm text-outline uppercase font-bold">Affected Customers</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">18,492</h2>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-4 overflow-hidden">
+<div class="bg-primary h-full w-3/4 rounded-full"></div>
+</div>
+<p class="mt-2 font-body-md text-body-md text-on-surface-variant">4.2% of total service base</p>
+</div>
+<!-- Affected Revenue -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-lg transition-all">
+<p class="font-label-sm text-label-sm text-outline uppercase font-bold">Revenue Impact (Est.)</p>
+<div class="flex items-baseline gap-2 mt-2 text-financial-gold">
+<span class="text-xl font-bold">$</span>
+<h2 class="font-headline-lg text-headline-lg">242,500</h2>
+</div>
+<p class="mt-4 font-body-md text-body-md text-on-surface-variant">Calculated per minute average</p>
+</div>
+<!-- MTTR -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm hover:shadow-lg transition-all">
+<p class="font-label-sm text-label-sm text-outline uppercase font-bold">Mean Time to Restoration</p>
+<div class="flex items-baseline gap-2 mt-2">
+<h2 class="font-headline-lg text-headline-lg text-primary">142m</h2>
+<span class="text-primary font-label-sm text-label-sm flex items-center bg-primary-fixed-dim/20 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-sm mr-1" data-icon="trending_down">trending_down</span> -12%
+                            </span>
+</div>
+<p class="mt-4 font-body-md text-body-md text-on-surface-variant">Target MTTR: 120 minutes</p>
+</div>
+</div>
+<!-- Main Grid: Heatmap and Analysis -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Live Outage Heatmap -->
+<div class="col-span-12 lg:col-span-8 bg-card-dark rounded-xl relative overflow-hidden h-[500px] shadow-xl border border-white/5">
+<div class="absolute inset-0 z-0 opacity-40">
+<div class="w-full h-full bg-cover bg-center" data-alt="A dark-themed high-fidelity satellite map of a metropolitan energy grid with glowing green network lines and pulsing translucent red circular overlays indicating outage zones. Modern UI aesthetic with tactical industrial precision, dark forest green and neon red accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVj2FAgH8useCHtXzsuWaZbhGgJbmygm5cVTB3UvzSaN-OnCl5Mm25hANk9_T59f6c0DZwpbH9sw5dBSxh61IB93Zedf-An2J5E9Q6F7aRpS6rPJBv2i3AMUGLE89t6WYekSX-y3jD_gOpCahRJ5zXOglYcNTj82WVQf2VDLr1F6MCzvYKbIW5ViNBn2Go2X9bJgYE4oHvGdMQ7RblUEDnu2abSo4R8JWQGmj4nHNk0rC1JeSBipVXwz7AcI0FTr1bhQjKA9Gw')"></div>
+</div>
+<!-- UI Overlays -->
+<div class="absolute top-4 left-4 z-10 glass-panel p-4 rounded-lg flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-error heatmap-pulse"></div>
+<span class="font-label-sm text-label-sm text-on-surface font-bold uppercase">Live GIS Feed</span>
+</div>
+<div class="flex items-center gap-4 text-outline font-label-sm text-label-sm">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Online</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> Outage</div>
+</div>
+</div>
+<div class="absolute bottom-4 right-4 z-10 glass-panel p-3 rounded-lg flex gap-4">
+<button class="p-2 hover:bg-white/10 rounded material-symbols-outlined text-on-surface" data-icon="zoom_in">zoom_in</button>
+<button class="p-2 hover:bg-white/10 rounded material-symbols-outlined text-on-surface" data-icon="zoom_out">zoom_out</button>
+<button class="p-2 hover:bg-white/10 rounded material-symbols-outlined text-on-surface" data-icon="layers">layers</button>
+</div>
+<!-- Simulated Hotspots -->
+<div class="absolute top-1/3 left-1/4 w-32 h-32 bg-error/30 rounded-full blur-2xl heatmap-pulse"></div>
+<div class="absolute top-1/2 right-1/3 w-24 h-24 bg-error/40 rounded-full blur-2xl heatmap-pulse"></div>
+</div>
+<!-- Restoration Timeline & Crew Status -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant flex flex-col h-full shadow-sm">
+<h3 class="font-headline-md text-headline-md mb-6">Restoration Status</h3>
+<!-- Timeline -->
+<div class="relative timeline-line pl-8 space-y-8 flex-1">
+<div class="relative">
+<div class="absolute -left-[23px] w-[18px] h-[18px] rounded-full bg-primary-container ring-4 ring-background z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" data-icon="check">check</span>
+</div>
+<p class="font-label-sm text-label-sm font-bold text-primary">Incident Detected</p>
+<p class="font-body-md text-body-md text-on-surface-variant">14:02 - SCADA Alert #992</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] w-[18px] h-[18px] rounded-full bg-primary-container ring-4 ring-background z-10 flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" data-icon="check">check</span>
+</div>
+<p class="font-label-sm text-label-sm font-bold text-primary">Crew Dispatched</p>
+<p class="font-body-md text-body-md text-on-surface-variant">14:15 - Alpha Unit 04</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] w-[18px] h-[18px] rounded-full bg-financial-gold ring-4 ring-background z-10 animate-pulse"></div>
+<p class="font-label-sm text-label-sm font-bold text-on-surface">On-Site Assessment</p>
+<p class="font-body-md text-body-md text-on-surface-variant">In Progress - Est. 15 mins</p>
+</div>
+<div class="relative opacity-40">
+<div class="absolute -left-[23px] w-[18px] h-[18px] rounded-full bg-outline ring-4 ring-background z-10"></div>
+<p class="font-label-sm text-label-sm font-bold text-on-surface">Testing &amp; Restoration</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Pending assessment</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant">
+<h4 class="font-label-sm text-label-sm font-bold uppercase mb-4 text-outline">Active Crew Assignments</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-2 rounded bg-surface-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Alpha Unit 04</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm">Active</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-surface-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="group">group</span>
+<span class="font-body-md text-body-md">Rapid Response 02</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-financial-gold/10 text-financial-gold font-label-sm text-label-sm">En-Route</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Financials and Analysis -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6">
+<!-- Revenue Impact Waterfall -->
+<div class="lg:col-span-8 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md">Revenue Impact Waterfall</h3>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span> Export Report
+                            </button>
+</div>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md font-bold">Manufacturing Sector</span>
+<span class="font-label-sm text-label-sm text-error">-$142,000</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error revenue-bar" style="width: 75%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md font-bold">Commercial Real Estate</span>
+<span class="font-label-sm text-label-sm text-industrial-red">-$68,500</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-industrial-red revenue-bar" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-body-md text-body-md font-bold">Residential Grid</span>
+<span class="font-label-sm text-label-sm text-electric-orange">-$32,000</span>
+</div>
+<div class="h-4 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-electric-orange revenue-bar" style="width: 25%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-primary/5 rounded-lg border border-primary/10 flex justify-between items-center">
+<span class="font-body-md text-body-md font-bold text-on-surface">Total Projected Loss</span>
+<span class="font-headline-md text-headline-md text-error">$242,500</span>
+</div>
+</div>
+<!-- Root Cause Distribution -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col">
+<h3 class="font-headline-md text-headline-md mb-6">Root Cause Dist.</h3>
+<div class="relative flex-1 flex items-center justify-center">
+<!-- Custom Donut SVG -->
+<svg class="w-48 h-48 transform -rotate-90">
+<circle class="text-surface-container" cx="96" cy="96" fill="transparent" r="80" stroke="currentColor" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#006c49" stroke-dasharray="502" stroke-dashoffset="150" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#f97316" stroke-dasharray="502" stroke-dashoffset="350" stroke-width="24"></circle>
+<circle cx="96" cy="96" fill="transparent" r="80" stroke="#ef4444" stroke-dasharray="502" stroke-dashoffset="450" stroke-width="24"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-headline-md">12</span>
+<span class="font-label-sm text-label-sm text-outline">Total Incidents</span>
+</div>
+</div>
+<div class="mt-6 space-y-2">
+<div class="flex items-center justify-between font-body-md text-body-md">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-primary"></span> Weather Events</div>
+<span class="font-bold">60%</span>
+</div>
+<div class="flex items-center justify-between font-body-md text-body-md">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-electric-orange"></span> Equip. Failure</div>
+<span class="font-bold">25%</span>
+</div>
+<div class="flex items-center justify-between font-body-md text-body-md">
+<div class="flex items-center gap-2"><span class="w-3 h-3 rounded bg-industrial-red"></span> External Interference</div>
+<span class="font-bold">15%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Component -->
+<footer class="mt-auto flex justify-between items-center px-margin-page py-4 w-full bg-surface-container-lowest dark:bg-background-dark border-t border-outline-variant dark:border-outline/20">
+<p class="font-label-sm text-label-sm font-bold text-on-surface">© 2024 MeterVerse Utility OS. All Rights Reserved.</p>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Security Architecture</a>
+</div>
+</footer>
+</main>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple theme toggle logic
+        document.querySelector('[data-icon="dark_mode"]').addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+
+        // Simulating live data updates
+        setInterval(() => {
+            const revenueValue = document.querySelector('.text-financial-gold h2');
+            if(revenueValue) {
+                let current = parseInt(revenueValue.innerText.replace(',', ''));
+                current += Math.floor(Math.random() * 100);
+                revenueValue.innerText = current.toLocaleString();
+            }
+        }, 5000);
+    </script>
+</body></html>

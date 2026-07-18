@@ -1,0 +1,65 @@
+﻿{
+    "execution_id":  "EXEC-002",
+    "decision_id":  "DEC-BOOTSTRAP-SEC",
+    "task_type":  "SECURITY",
+    "errors":  [
+
+               ],
+    "total_duration_ms":  91166,
+    "certification":  {
+                          "level":  "CERTIFIED",
+                          "overall_score":  94.5
+                      },
+    "rollback_triggered":  false,
+    "timestamp":  "2026-07-16T10:40:51Z",
+    "risk_level":  "LOW",
+    "chain_id":  "CHAIN-SEC",
+    "tools":  [
+                  {
+                      "exit_code":  1,
+                      "name":  "Semgrep",
+                      "mcp_routed":  false,
+                      "retries":  0,
+                      "duration_ms":  92,
+                      "status":  "FAIL"
+                  },
+                  {
+                      "exit_code":  0,
+                      "name":  "Snyk",
+                      "mcp_routed":  false,
+                      "retries":  0,
+                      "duration_ms":  28664,
+                      "status":  "SUCCESS"
+                  },
+                  {
+                      "exit_code":  0,
+                      "name":  "Trivy",
+                      "mcp_routed":  false,
+                      "retries":  0,
+                      "duration_ms":  2188,
+                      "status":  "SUCCESS"
+                  },
+                  {
+                      "exit_code":  0,
+                      "name":  "Gitleaks",
+                      "mcp_routed":  false,
+                      "retries":  0,
+                      "duration_ms":  2336,
+                      "status":  "SUCCESS"
+                  },
+                  {
+                      "exit_code":  0,
+                      "name":  "Checkov",
+                      "mcp_routed":  false,
+                      "retries":  0,
+                      "duration_ms":  45315,
+                      "status":  "SUCCESS"
+                  }
+              ],
+    "validation":  {
+                       "overall_status":  "FAIL",
+                       "pass_rate":  100,
+                       "warnings":  0,
+                       "blockers":  0
+                   }
+}

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse | Live Grid Monitoring</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Tokens & Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "water-cyan": "#06b6d4",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "on-background": "#161d19",
+                    "on-tertiary-container": "#711419",
+                    "surface-variant": "#dde4dd",
+                    "surface-container-low": "#eef6ee",
+                    "inverse-surface": "#2b322d",
+                    "outline-variant": "#bbcabf",
+                    "surface-container-highest": "#dde4dd",
+                    "primary-fixed": "#6ffbbe",
+                    "financial-gold": "#fbbf24",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#3c4a42",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#95d3ba",
+                    "background": "#f4fbf4",
+                    "tertiary-container": "#fc7c78",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-surface": "#161d19",
+                    "surface-dim": "#d4dcd5",
+                    "secondary": "#2b6954",
+                    "on-tertiary-fixed": "#410005",
+                    "on-tertiary-fixed-variant": "#842225",
+                    "inverse-primary": "#4edea3",
+                    "tertiary-fixed": "#ffdad7",
+                    "on-primary-fixed": "#002113",
+                    "sidebar-light": "#064e3b",
+                    "primary-container": "#10b981",
+                    "surface-bright": "#f4fbf4",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "tertiary": "#a43a3a",
+                    "error": "#ba1a1a",
+                    "card-dark": "#16221a",
+                    "on-primary-container": "#00422b",
+                    "surface": "#f4fbf4",
+                    "primary": "#006c49",
+                    "on-secondary-container": "#306d58",
+                    "error-container": "#ffdad6",
+                    "background-dark": "#0d1510",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#002117",
+                    "surface-tint": "#006c49",
+                    "outline": "#6c7a71",
+                    "inverse-on-surface": "#ebf3eb",
+                    "surface-container-high": "#e3eae3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "sidebar-collapsed": "72px",
+                    "margin-page": "24px",
+                    "sidebar-expanded": "260px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-md": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0d1510;
+            color: #ebf3eb;
+            overflow: hidden;
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-emerald {
+            box-shadow: 0 0 15px rgba(111, 251, 190, 0.2);
+        }
+        .pulse-node {
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 0.4; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .glass-panel {
+            background: rgba(22, 34, 26, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(111, 251, 190, 0.1);
+        }
+        .gauge-svg {
+            transform: rotate(-90deg);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(111, 251, 190, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex h-screen w-full">
+<!-- Sidebar (Shared Component) -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 bg-sidebar-light dark:bg-card-dark docked h-screen w-[260px] left-0 top-0 shadow-lg dark:shadow-none z-50">
+<div class="flex items-center gap-3 mb-10">
+<div class="w-10 h-10 bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed leading-none">MeterVerse</h1>
+<p class="font-label-sm text-label-sm opacity-60">Enterprise OS</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-lg group scale-95 active:scale-90 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md text-body-md">Grid Monitor</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="font-body-md text-body-md">Assets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+<span class="font-body-md text-body-md">Work Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed hover:bg-primary/10 transition-colors duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-6 border-t border-white/5">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-lg font-body-md flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+                New Workspace
+            </button>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-sm text-label-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-secondary-fixed-dim hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-sm text-label-sm">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col relative overflow-hidden bg-background-dark">
+<!-- Top Nav (Shared Component) -->
+<header class="flex justify-between items-center px-margin-page h-16 w-full sticky top-0 z-40 bg-surface/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-outline/30">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">MVEOS</span>
+<div class="hidden lg:flex items-center gap-4">
+<a class="text-on-surface-variant dark:text-surface-variant font-label-sm hover:text-primary transition-colors" href="#">Global View</a>
+<a class="text-primary dark:text-primary-fixed-dim font-bold border-b-2 border-primary font-label-sm" href="#">Grid Alpha</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-label-sm hover:text-primary transition-colors" href="#">Site Beta</a>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden sm:flex items-center bg-surface-container dark:bg-surface-variant/10 px-4 py-1.5 rounded-full text-on-surface-variant border border-outline/20">
+<span class="material-symbols-outlined text-[20px] mr-2">search</span>
+<span class="text-label-sm">Command Palette</span>
+<span class="ml-4 opacity-40 text-xs">⌘K</span>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container dark:hover:bg-surface-variant/10 text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container dark:hover:bg-surface-variant/10 text-on-surface-variant">
+<span class="material-symbols-outlined">translate</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20 cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Close up professional portrait of a tech administrator in a modern dimly lit office environment with emerald lighting reflecting in their glasses, high-end digital aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMsvg44cyOuNvOikeMnfRtIa651z28MaHaHU_oi8nz3z-ya3N_hFQOMpItwFXWDAIOloPVuSJrOAfs86rPVzXKKneuBnN_C9wJQZHtz7IQvU9eknRyeAX3jK_0Zvq5JvtQRxpxCI0a6IKfeURJT1bonJ5flI_joDhpIt8bKPWHngpubEHZlmSWH8NnBGFKrJxeVZyj4eP0CUbaKtqW9GdccscaWb76KQEz7KiRGus-BDosUrdbxGlKOftOSQ9RuZYWGv0wVrwQ"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 p-stack-lg overflow-y-auto custom-scrollbar">
+<!-- Hero Header -->
+<div class="flex justify-between items-end mb-stack-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary-fixed-dim">Live Grid Monitoring</h2>
+<p class="text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container pulse-node"></span>
+                        Alpha Sector • Live Stream Synced
+                    </p>
+</div>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-secondary-container text-on-secondary-container rounded-lg font-bold hover:scale-[1.02] active:scale-95 transition-all glow-emerald">
+<span class="material-symbols-outlined">refresh</span>
+                    Resync Grid
+                </button>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- KPI Section -->
+<div class="col-span-12 lg:col-span-3 space-y-gutter">
+<!-- KPI Card 1 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-sm opacity-60">LATENCY</span>
+<span class="material-symbols-outlined text-primary-fixed-dim">speed</span>
+</div>
+<div class="font-label-sm text-[32px] font-bold text-primary-fixed">14.2<span class="text-lg ml-1 font-normal opacity-60">ms</span></div>
+<div class="text-xs text-primary-container flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-xs">trending_down</span>
+                            -2.4% from avg
+                        </div>
+</div>
+<!-- KPI Card 2 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-sm opacity-60">ACTIVE ASSETS</span>
+<span class="material-symbols-outlined text-water-cyan">factory</span>
+</div>
+<div class="font-label-sm text-[32px] font-bold text-water-cyan">12,842</div>
+<div class="text-xs text-water-cyan flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                            99.9% Operational
+                        </div>
+</div>
+<!-- KPI Card 3 -->
+<div class="glass-panel p-6 rounded-xl relative overflow-hidden group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-sm opacity-60">CURRENT FLOW</span>
+<span class="material-symbols-outlined text-financial-gold">electric_bolt</span>
+</div>
+<div class="font-label-sm text-[32px] font-bold text-financial-gold">4.2<span class="text-lg ml-1 font-normal opacity-60">GW</span></div>
+<div class="text-xs text-financial-gold flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-xs">show_chart</span>
+                            Peak Demand Window
+                        </div>
+</div>
+<!-- KPI Card 4 -->
+<div class="glass-panel p-6 rounded-xl border-l-4 border-industrial-red">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-sm opacity-60">SYSTEM ALERTS</span>
+<span class="material-symbols-outlined text-industrial-red">warning</span>
+</div>
+<div class="font-label-sm text-[32px] font-bold text-industrial-red">03</div>
+<div class="text-xs text-industrial-red mt-2">Requires immediate review</div>
+</div>
+</div>
+<!-- Main Map Visualization -->
+<div class="col-span-12 lg:col-span-6 glass-panel rounded-xl relative min-h-[500px] overflow-hidden group">
+<div class="absolute inset-0 z-0">
+<!-- Abstract Grid Map Visual -->
+<div class="w-full h-full opacity-30 grayscale contrast-150" style="background-image: radial-gradient(circle at 2px 2px, rgba(111, 251, 190, 0.15) 1px, transparent 0); background-size: 40px 40px;"></div>
+<div class="absolute top-1/4 left-1/3 w-4 h-4 bg-primary-fixed rounded-full pulse-node glow-emerald"></div>
+<div class="absolute top-1/2 left-2/3 w-3 h-3 bg-water-cyan rounded-full pulse-node"></div>
+<div class="absolute top-2/3 left-1/4 w-3 h-3 bg-primary-container rounded-full pulse-node"></div>
+<div class="absolute top-1/3 left-1/2 w-4 h-4 bg-primary-fixed rounded-full pulse-node glow-emerald"></div>
+<!-- Map Location Overlay -->
+<div class="absolute inset-0" data-location="Berlin, Germany" style="">
+<img class="w-full h-full object-cover opacity-40 mix-blend-screen" data-alt="A stylized satellite-view digital map of a European city grid at night. The streets are represented by thin glowing emerald lines, with large pulsating cyan nodes at major intersections. The aesthetic is high-contrast dark green and charcoal, with a subtle grainy tech-overlay effect." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDArW6oECbGnNLtfJBKbGpUUxqa0p0Sgj2ZaADFZrIvFDrKcSzer8fz0QwQGgnY7SRYfT72SlWY0Fn2fm8WnySeJPoQpy0kOpPwGfF9DVYkVkxfwKEc16_-jiSRuogf2VucbhA96IBCQemgbGwzo7XICma0abk1NnDuOH6SZivQiRwFaqXLUc3jdJO9QR5qQohzhMJF0viVvZ9d6X1xM8yadcjYT7qsyQEaqfZUX1t1FT63bBKmN2dcyEfYNW7QcIPu5EEjd6oY"/>
+</div>
+</div>
+<!-- Map UI HUD -->
+<div class="absolute top-4 left-4 flex flex-col gap-2">
+<div class="glass-panel px-3 py-1.5 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary-fixed">my_location</span>
+<span class="text-xs font-label-sm">NODE ALPHA-7</span>
+</div>
+</div>
+<div class="absolute bottom-4 right-4 flex gap-2">
+<button class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-primary/20">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-primary/20">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="w-10 h-10 glass-panel rounded-lg flex items-center justify-center hover:bg-primary/20">
+<span class="material-symbols-outlined">layers</span>
+</button>
+</div>
+<div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
+</div>
+<!-- Right Utility Column -->
+<div class="col-span-12 lg:col-span-3 space-y-gutter">
+<!-- Load Gauge -->
+<div class="glass-panel p-6 rounded-xl flex flex-col items-center justify-center">
+<div class="relative w-32 h-32 mb-4">
+<svg class="gauge-svg w-32 h-32" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="45" stroke="rgba(255,255,255,0.05)" stroke-width="8"></circle>
+<circle class="text-primary-container transition-all duration-1000" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-dasharray="283" stroke-dashoffset="70" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-label-sm text-2xl font-bold">76%</span>
+<span class="text-[10px] opacity-60">AGGREGATE</span>
+</div>
+</div>
+<p class="text-label-sm text-center">Stable Distribution</p>
+</div>
+<!-- Event Timeline -->
+<div class="glass-panel rounded-xl flex flex-col h-[320px]">
+<div class="p-4 border-b border-white/5 flex justify-between items-center">
+<span class="text-label-sm font-bold">EVENT TIMELINE</span>
+<span class="material-symbols-outlined text-sm opacity-40">filter_list</span>
+</div>
+<div class="flex-1 p-4 overflow-y-auto custom-scrollbar space-y-4">
+<!-- Timeline Item -->
+<div class="flex gap-3 relative">
+<div class="w-0.5 bg-primary/20 absolute left-[7px] top-6 bottom-[-16px]"></div>
+<div class="w-4 h-4 rounded-full bg-primary-container flex-shrink-0 z-10"></div>
+<div>
+<p class="text-xs font-bold text-primary-fixed-dim">14:02:11</p>
+<p class="text-body-md opacity-80">Grid synchronization complete for Alpha-Sector-9.</p>
+</div>
+</div>
+<div class="flex gap-3 relative">
+<div class="w-0.5 bg-primary/20 absolute left-[7px] top-6 bottom-[-16px]"></div>
+<div class="w-4 h-4 rounded-full bg-water-cyan flex-shrink-0 z-10"></div>
+<div>
+<p class="text-xs font-bold text-water-cyan">13:58:45</p>
+<p class="text-body-md opacity-80">Load balancer shifted 400MW to reservoir storage.</p>
+</div>
+</div>
+<div class="flex gap-3 relative">
+<div class="w-0.5 bg-primary/20 absolute left-[7px] top-6 bottom-[-16px]"></div>
+<div class="w-4 h-4 rounded-full bg-industrial-red flex-shrink-0 z-10"></div>
+<div>
+<p class="text-xs font-bold text-industrial-red">13:45:02</p>
+<p class="text-body-md opacity-80">Critical: Voltage fluctuation detected at Site Beta-2.</p>
+</div>
+</div>
+<div class="flex gap-3">
+<div class="w-4 h-4 rounded-full bg-primary/30 flex-shrink-0"></div>
+<div>
+<p class="text-xs font-bold opacity-40">13:30:15</p>
+<p class="text-body-md opacity-40">Automatic system diagnostic initiated.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (Shared Component) -->
+<footer class="flex justify-between items-center px-margin-page py-4 w-full bg-surface-container-lowest dark:bg-background-dark border-t border-outline/20">
+<div class="flex items-center gap-4">
+<span class="font-label-sm text-label-sm font-bold text-on-surface dark:text-primary-fixed">© 2024 MeterVerse Utility OS.</span>
+<div class="flex gap-3">
+<a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="hidden sm:flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-label-sm opacity-60">System Online</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">security</span>
+<span class="text-label-sm opacity-60">Encrypted P2P Link</span>
+</div>
+</div>
+</footer>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Fake real-time data updates
+        setInterval(() => {
+            const elements = document.querySelectorAll('.font-label-sm.text-\\[32px\\]');
+            elements.forEach(el => {
+                if(el.innerText.includes('ms')) {
+                    const newVal = (14.0 + (Math.random() * 0.5)).toFixed(1);
+                    el.innerHTML = `${newVal}<span class="text-lg ml-1 font-normal opacity-60">ms</span>`;
+                }
+            });
+        }, 3000);
+
+        // Command Palette Simulation
+        document.addEventListener('keydown', (e) => {
+            if (e.metaKey && e.key === 'k') {
+                e.preventDefault();
+                alert('Command Palette Initializing...');
+            }
+        });
+    </script>
+</body></html>

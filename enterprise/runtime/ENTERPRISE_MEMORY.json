@@ -1,0 +1,169 @@
+{
+  "version": "3.0.0",
+  "generated": "2026-07-14T04:15:00Z",
+  "generatedBy": "Phase 03 — AI Operating System Bootstrap",
+  "history": {
+    "decisions": [
+      {
+        "id": "ADR-001",
+        "phase": "Phase 01",
+        "title": "Initial toolchain selection",
+        "date": "2026-07-12",
+        "impact": "Selected 18 engineering tools + 92 total tools in registry"
+      },
+      {
+        "id": "ADR-002",
+        "phase": "Phase 02",
+        "title": "Enterprise runtime directory structure",
+        "date": "2026-07-12",
+        "impact": "Created enterprise/runtime/ as single source of truth"
+      },
+      {
+        "id": "ADR-003",
+        "phase": "Phase 02",
+        "title": "AI Role system and tool routing",
+        "date": "2026-07-12",
+        "impact": "Defined 7 AI roles, 10 tool routes, 22 quality gates"
+      },
+      {
+        "id": "ADR-004",
+        "phase": "Phase 03",
+        "title": "Master registry unification",
+        "date": "2026-07-14",
+        "impact": "Unified all tool registries into master-registry.json (110 tools, 95% coverage)"
+      },
+      {
+        "id": "ADR-005",
+        "phase": "Phase 03",
+        "title": "Enterprise Tool Router (decision trees)",
+        "date": "2026-07-14",
+        "impact": "Built 10 decision trees (A-J) + enterprise tree (Z) for automatic tool routing"
+      },
+      {
+        "id": "ADR-006",
+        "phase": "Phase 03",
+        "title": "Expanded AI Roles to 14",
+        "date": "2026-07-14",
+        "impact": "Expanded from 7 to 14 roles with dedicated tools and quality gates"
+      },
+      {
+        "id": "ADR-007",
+        "phase": "Phase 03",
+        "title": "Certification Engine v3",
+        "date": "2026-07-14",
+        "impact": "8 weighted scores with overall certification (0-100)"
+      },
+      {
+        "id": "ADR-008",
+        "phase": "Phase 03",
+        "title": "Knowledge Graph architecture",
+        "date": "2026-07-14",
+        "impact": "Mapped all project layers, dependencies, APIs, DB, UI, workflows, events"
+      },
+      {
+        "id": "ADR-009",
+        "phase": "Phase 03",
+        "title": "Enterprise Memory system",
+        "date": "2026-07-14",
+        "impact": "Persistent decision/prompt/task/tool/installation/regression history"
+      },
+      {
+        "id": "ADR-010",
+        "phase": "Phase 03",
+        "title": "MCP server installations",
+        "date": "2026-07-14",
+        "impact": "Added 5 MCP servers (Memory, SQLite, Git, OpenAPI, SequentialThinking)"
+      },
+      {
+        "id": "ADR-011",
+        "phase": "Phase 03",
+        "title": "Missing tool remediation",
+        "date": "2026-07-14",
+        "impact": "Installed semgrep, trufflehog, gitleaks, mkdocs, mkdocs-material; confirmed mermaid-cli, k6 pre-installed"
+      }
+    ],
+    "tasks": [
+      { "id": "T001", "phase": "Phase 01", "description": "Initial toolchain installation (18 tools)", "status": "COMPLETED" },
+      { "id": "T002", "phase": "Phase 01", "description": "Full enterprise tool certification (91 tools)", "status": "COMPLETED" },
+      { "id": "T003", "phase": "Phase 02", "description": "AI Runtime & Orchestration (21 files, 68KB)", "status": "COMPLETED" },
+      { "id": "T004", "phase": "Phase 03", "description": "AI Operating System Bootstrap (110 tools, 95% certified, 14 roles, 11 decision trees)", "status": "COMPLETED" },
+      { "id": "T005", "phase": "Phase 04", "description": "Enterprise AI Integration & Autonomous Orchestration — Step 1-6: Intelligence Layer, Dependency Graph, Selection Engine, Task Planner", "status": "COMPLETED" },
+      { "id": "T006", "phase": "Phase 04", "description": "Enterprise AI Integration & Autonomous Orchestration — Step 7-12: Decision Engine, Orchestrator, Validation Engine, Self Learning, Dashboard, API Contracts", "status": "COMPLETED" },
+      { "id": "T007", "phase": "Phase 04", "description": "Enterprise AI Integration & Autonomous Orchestration — Step 13-14: Registry updates, full certification", "status": "COMPLETED" },
+      { "id": "T008", "phase": "Phase 04", "description": "Gap remediation: Graphviz PATH, 3 missing tools, MkDocs site, docker-compose, ADR-017", "status": "COMPLETED" }
+    ],
+    "decisions_phase04_gap_remediation": [
+      {
+        "id": "ADR-017",
+        "phase": "Phase 04",
+        "title": "Gap remediation — Phase 04 closure",
+        "date": "2026-07-14",
+        "impact": "Fixed Graphviz PATH (v15.1.0 accessible), installed bundle-wizard v1.6.1 + ts-prune + redocly v2.39.0, created MkDocs project site (4 pages, builds clean), created docker-compose.yml for monitoring stack (Prometheus+Grafana+Jaeger), updated CERT-004 from null to 94.5 CERTIFIED"
+      }
+    ],
+    "decisions_phase04": [
+      {
+        "id": "ADR-012",
+        "phase": "Phase 04",
+        "title": "AI Decision Engine architecture",
+        "date": "2026-07-14",
+        "impact": "Created TOOL_DECISION_ENGINE.md — autonomous decision pipeline with 9 rules (classification, role selection, tool chain, execution order, MCP routing, validation, documentation, certification, reporting)"
+      },
+      {
+        "id": "ADR-013",
+        "phase": "Phase 04",
+        "title": "Runtime Orchestrator state machine",
+        "date": "2026-07-14",
+        "impact": "Created RUNTIME_ORCHESTRATOR.md — task lifecycle with 7 states (PENDING, QUEUED, RUNNING, SUCCESS, FAIL, HALTED, ROLLED_BACK), priority queue, parallel pool, retry with backoff, rollback manager"
+      },
+      {
+        "id": "ADR-014",
+        "phase": "Phase 04",
+        "title": "12-domain Validation Engine",
+        "date": "2026-07-14",
+        "impact": "Created VALIDATION_ENGINE.md — 12 validation domains with BLOCKER/HIGH/MEDIUM severity, per-domain gates, pass/fail criteria, automated gate execution commands"
+      },
+      {
+        "id": "ADR-015",
+        "phase": "Phase 04",
+        "title": "Self Learning Layer with feedback loop",
+        "date": "2026-07-14",
+        "impact": "Created SELF_LEARNING.md — execution recorder, pattern analyzer, insight generator, score/threshold adjustment algorithms, 5-level maturity model (currently Level 2)"
+      },
+      {
+        "id": "ADR-016",
+        "phase": "Phase 04",
+        "title": "10 Runtime API Contracts",
+        "date": "2026-07-14",
+        "impact": "Created RUNTIME_API_CONTRACTS.md — 10 internal APIs (Tool, Execution, Certification, Validation, Knowledge, Memory, Planning, Decision, Monitoring, Automation) with full request/response schemas and error handling"
+      }
+    ],
+    "prompts": [
+      { "id": "PROMPT-001", "description": "Master Execution Prompt (Phase 02)", "location": "enterprise/runtime/MASTER_EXECUTION_PROMPT.md" },
+      { "id": "PROMPT-002", "description": "Phase 03 Bootstrap prompt", "location": "Current conversation" },
+      { "id": "PROMPT-003", "description": "Phase 04 Decision Engine prompt", "location": "enterprise/runtime/TOOL_DECISION_ENGINE.md" },
+      { "id": "PROMPT-004", "description": "Phase 04 Orchestrator execution contract", "location": "enterprise/runtime/RUNTIME_ORCHESTRATOR.md" }
+    ],
+    "certifications": [
+      { "id": "CERT-001", "phase": "Phase 01", "score": 89, "level": "QUALIFIED", "date": "2026-07-12" },
+      { "id": "CERT-002", "phase": "Phase 02", "score": 87.5, "level": "QUALIFIED", "date": "2026-07-12" },
+      { "id": "CERT-003", "phase": "Phase 03", "score": 95, "level": "CERTIFIED", "date": "2026-07-14" },
+      { "id": "CERT-004", "phase": "Phase 04", "score": 94.5, "level": "CERTIFIED", "date": "2026-07-14" }
+    ],
+    "installations": [
+      { "phase": "Phase 01", "date": "2026-07-12", "toolsInstalled": ["ast-grep","ripgrep","jscodeshift","log4brains","adr","style-dictionary","knip","ts-prune","bundle-wizard","pa11y","spectral","dependency-cruiser","@storybook/mcp","@figma-export/cli","prisma-erd-generator","smcat","ts-call-graph","code2flow","checkov","snyk","OWASPDC","typedoc","madge"] },
+      { "phase": "Phase 03", "date": "2026-07-14", "toolsInstalled": ["mcp-server-git","mcp-server-sqlite-npx","mcp-sequential-thinking","mcp-openapi","mkdocs","mkdocs-material","gitleaks"], "toolsConfirmed": ["semgrep","trufflehog","mermaid-cli","k6"] },
+      { "phase": "Phase 03", "date": "2026-07-14", "toolsRepaired": ["semgrep (reclassified from MISSING to CERTIFIED)","trufflehog (reclassified from MISSING to CERTIFIED)","mermaid-cli (reclassified from MISSING to CERTIFIED)","k6 (reclassified from MISSING to CERTIFIED)"] }
+    ],
+    "regressions": [
+      {
+        "id": "REG-001",
+        "date": "2026-07-12",
+        "description": "Pre-existing circular dependency: common/events/event-bus.service.ts → event-persistence.service.ts",
+        "severity": "LOW",
+        "status": "TRACKED",
+        "resolution": "Deferred to Phase 04"
+      }
+    ]
+  }
+}

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MeterVerse OS - MTR-8821 Diagnostics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#95d3ba",
+                    "secondary": "#2b6954",
+                    "surface-dim": "#d4dcd5",
+                    "secondary-container": "#adedd3",
+                    "surface-variant": "#dde4dd",
+                    "on-primary-container": "#00422b",
+                    "surface-bright": "#f4fbf4",
+                    "industrial-red": "#ef4444",
+                    "tertiary-container": "#fc7c78",
+                    "surface-container-low": "#eef6ee",
+                    "secondary-fixed": "#b0f0d6",
+                    "on-tertiary-fixed": "#410005",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#6ffbbe",
+                    "inverse-surface": "#2b322d",
+                    "background-dark": "#0d1510",
+                    "on-tertiary-container": "#711419",
+                    "background": "#f4fbf4",
+                    "inverse-on-surface": "#ebf3eb",
+                    "tertiary-fixed-dim": "#ffb3af",
+                    "on-primary": "#ffffff",
+                    "primary-container": "#10b981",
+                    "tertiary": "#a43a3a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#dde4dd",
+                    "surface": "#f4fbf4",
+                    "surface-container": "#e8f0e9",
+                    "on-secondary-fixed-variant": "#0b513d",
+                    "outline-variant": "#bbcabf",
+                    "card-dark": "#16221a",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed": "#002117",
+                    "surface-tint": "#006c49",
+                    "on-surface-variant": "#3c4a42",
+                    "surface-container-high": "#e3eae3",
+                    "on-secondary-container": "#306d58",
+                    "water-cyan": "#06b6d4",
+                    "outline": "#6c7a71",
+                    "sidebar-light": "#064e3b",
+                    "error-container": "#ffdad6",
+                    "electric-orange": "#f97316",
+                    "on-primary-fixed": "#002113",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#4edea3",
+                    "tertiary-fixed": "#ffdad7",
+                    "financial-gold": "#fbbf24",
+                    "primary": "#006c49",
+                    "on-surface": "#161d19",
+                    "on-background": "#161d19",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-tertiary-fixed-variant": "#842225"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "16px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-expanded": "260px",
+                    "stack-lg": "24px",
+                    "stack-sm": "8px",
+                    "sidebar-collapsed": "72px",
+                    "stack-md": "16px",
+                    "margin-page": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(244, 251, 244, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(187, 202, 191, 0.4);
+        }
+        .terminal-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .terminal-scroll::-webkit-scrollbar-thumb {
+            background: #006c49;
+            border-radius: 10px;
+        }
+        @keyframes pulse-emerald {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-emerald 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        .energy-gradient {
+            background: linear-gradient(135deg, #006c49 0%, #064e3b 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar Navigation Shell -->
+<aside class="fixed left-0 top-0 bottom-0 h-full z-40 hidden lg:flex flex-col py-stack-lg bg-sidebar-light w-sidebar-expanded shadow-lg">
+<div class="px-6 mb-stack-lg">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-fixed rounded-xl flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">eco</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed leading-tight">MVEOS</h1>
+<p class="font-label-sm text-label-sm text-primary-fixed-dim/70 uppercase tracking-widest">Utility Control</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Grid Monitoring maps to Dashboard/Home context, but for diagnostics we look for Asset Registry -->
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-label-sm text-label-sm">Grid Monitoring</span>
+</a>
+<!-- Active State: Asset Registry for a specific device workspace -->
+<a class="flex items-center gap-stack-md bg-primary-container text-on-primary-container rounded-lg px-4 py-3 mx-2 active:scale-95 transition-all duration-300 shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">factory</span>
+<span class="font-label-sm text-label-sm font-bold">Asset Registry</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label-sm text-label-sm">Energy Flows</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-sm text-label-sm">Financials</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-label-sm text-label-sm">Work Orders</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 mx-2 hover:bg-primary/10 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</a>
+</nav>
+<div class="px-4 mb-stack-lg">
+<button class="w-full py-3 bg-primary-fixed text-on-primary-fixed font-bold rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-sm text-label-sm">Add New Meter</span>
+</button>
+</div>
+<div class="mt-auto pt-stack-md border-t border-white/10 mx-2">
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-sm text-label-sm">System Status</span>
+</a>
+<a class="flex items-center gap-stack-md text-on-primary-fixed-variant hover:text-primary-fixed px-4 py-3 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-sm text-label-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-sidebar-expanded min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center w-full px-margin-page py-stack-sm sticky top-0 z-50 bg-surface shadow-sm">
+<div class="flex items-center gap-stack-lg">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">arrow_back</span>
+<span class="font-headline-md text-headline-md font-bold">MeterVerse OS</span>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant hidden md:block"></div>
+<nav class="hidden md:flex items-center gap-stack-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-sm text-label-sm" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-sm text-label-sm" href="#">Analytics</a>
+<a class="text-primary border-b-2 border-primary font-bold pb-1 font-label-sm text-label-sm" href="#">Assets</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-label-sm text-label-sm" href="#">Operations</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary text-body-md font-body-md w-64" placeholder="Search Assets..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">help</span></button>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a technical engineer in a high-tech energy control room, soft focus background of glowing data screens, modern corporate photography style with natural emerald lighting and clean composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgv1G8w-f7D8k9kWNh2hHZbzF7wa6DBins_-N6T8M1SSRwNDZvbg0Vf3m79oyoIqcPFFO2OTjcLXydSxPJL4j-EzNwl_2cuZrxv7-51s8TC4uxCqRxkiLDHkxoIZLPBELf8mMXq9HqBpAodkVk-6Uw4t6jAu0poqg1f-fTG3dC-KbUfnrxr3saydOYszaKDyp0qWu9ksxAW6UCoGP2QD3rXuFg8nQveEdeASU4LqHGl0xQ1z4PXdRUMJenDH4_-YfSzjCcEG13"/>
+</div>
+</div>
+</header>
+<!-- Workspace Hero -->
+<section class="px-margin-page pt-stack-lg pb-stack-md">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-container text-on-primary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-on-primary-container mr-1.5 animate-pulse"></span>
+                            Live Telemetry
+                        </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Device ID: MTR-8821</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Technical Diagnostic Suite</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Advanced monitoring and remote orchestration for Industrial Smart Metering.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-xl bg-surface-container-high text-on-surface font-bold hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">share</span>
+                        Export
+                    </button>
+<button class="px-4 py-2 rounded-xl bg-primary text-on-primary font-bold hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined">refresh</span>
+                        Refresh Device
+                    </button>
+</div>
+</div>
+</section>
+<!-- KPI Strip -->
+<section class="px-margin-page grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter mb-stack-lg">
+<!-- Signal Quality -->
+<div class="bg-surface-container rounded-2xl p-stack-md flex flex-col justify-between h-32 hover:translate-y-[-4px] transition-transform duration-300 shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary">rss_feed</span>
+<span class="text-primary font-bold font-label-sm text-label-sm">+2.4%</span>
+</div>
+<div>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Signal Quality</span>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">-64 <span class="text-body-md font-normal text-on-surface-variant">dBm</span></div>
+</div>
+</div>
+<!-- Battery -->
+<div class="bg-surface-container rounded-2xl p-stack-md flex flex-col justify-between h-32 hover:translate-y-[-4px] transition-transform duration-300 shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary-container">battery_full</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Steady</span>
+</div>
+<div>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Battery</span>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">92%</div>
+</div>
+</div>
+<!-- Firmware -->
+<div class="bg-surface-container rounded-2xl p-stack-md flex flex-col justify-between h-32 hover:translate-y-[-4px] transition-transform duration-300 shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-electric-orange">system_update</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Latest</span>
+</div>
+<div>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Firmware</span>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">v4.2.1</div>
+</div>
+</div>
+<!-- Voltage -->
+<div class="bg-surface-container rounded-2xl p-stack-md flex flex-col justify-between h-32 hover:translate-y-[-4px] transition-transform duration-300 shadow-sm border border-outline-variant/30">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-water-cyan">bolt</span>
+<span class="text-industrial-red font-bold font-label-sm text-label-sm">Spike Alert</span>
+</div>
+<div>
+<span class="text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">Voltage</span>
+<div class="text-headline-md font-headline-md text-on-surface font-bold">234.2 <span class="text-body-md font-normal text-on-surface-variant">V</span></div>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Area (Bento Layout) -->
+<section class="px-margin-page grid grid-cols-12 gap-gutter flex-1 mb-stack-lg">
+<!-- Main Content Area: Multi-parameter Chart -->
+<div class="col-span-12 lg:col-span-8 space-y-gutter">
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/50 p-6 flex flex-col shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Telemetry Analysis</h3>
+<p class="text-on-surface-variant text-body-md font-body-md">Live Consumption vs. Voltage vs. Frequency (Last 60min)</p>
+</div>
+<div class="flex gap-2">
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-primary-container"></span> Consumption
+                            </span>
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-water-cyan"></span> Voltage
+                            </span>
+<span class="flex items-center gap-1.5 font-label-sm text-label-sm text-on-surface-variant">
+<span class="w-3 h-3 rounded-full bg-electric-orange"></span> Frequency
+                            </span>
+</div>
+</div>
+<div class="relative w-full h-[360px] bg-surface-container-low/30 rounded-xl overflow-hidden border border-outline-variant/20">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-0 grid grid-cols-12 grid-rows-6 opacity-20">
+<div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-b border-outline"></div>
+<div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-b border-outline"></div>
+<div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-b border-outline"></div>
+<div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-r border-b border-outline"></div><div class="border-b border-outline"></div>
+</div>
+<!-- Visual representation of live chart lines (SVG overlay) -->
+<svg class="absolute inset-0 w-full h-full px-4 py-8" preserveaspectratio="none">
+<!-- Consumption Path -->
+<path class="opacity-80" d="M0,240 Q100,180 200,220 T400,150 T600,190 T800,100 T1000,140" fill="none" stroke="#10b981" stroke-width="3"></path>
+<!-- Voltage Path -->
+<path class="opacity-60" d="M0,120 Q150,130 300,110 T600,140 T900,115 T1000,125" fill="none" stroke="#06b6d4" stroke-width="2"></path>
+<!-- Frequency Path -->
+<path class="opacity-60" d="M0,280 Q200,285 400,278 T800,282 T1000,275" fill="none" stroke="#f97316" stroke-width="2"></path>
+</svg>
+<!-- Data Points -->
+<div class="absolute top-[150px] left-[400px] group">
+<div class="w-3 h-3 bg-primary rounded-full border-2 border-white shadow-lg animate-pulse"></div>
+<div class="hidden group-hover:block absolute top-[-50px] left-[-40px] bg-inverse-surface text-inverse-on-surface px-2 py-1 rounded text-[10px] whitespace-nowrap z-10">
+                                4.2 kW @ 14:22:10
+                            </div>
+</div>
+</div>
+</div>
+<!-- Communication Log (Terminal Style) -->
+<div class="bg-card-dark rounded-2xl p-stack-md border border-outline/30 flex flex-col h-64 overflow-hidden shadow-2xl">
+<div class="flex items-center justify-between border-b border-outline/20 pb-stack-sm mb-stack-sm">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-industrial-red"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-financial-gold"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary-fixed"></div>
+<span class="ml-2 font-label-sm text-label-sm text-primary-fixed uppercase tracking-widest">Communication Log</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary-fixed/50">MTR_SH_8821.log</span>
+</div>
+<div class="flex-1 overflow-y-auto terminal-scroll font-label-sm text-label-sm text-primary-fixed/80 space-y-1">
+<p><span class="text-primary-fixed-dim">[14:22:01]</span> <span class="text-financial-gold">SYS:</span> Established handshake via MQTT Bridge protocol 2.4.1</p>
+<p><span class="text-primary-fixed-dim">[14:22:05]</span> <span class="text-primary-container">NET:</span> RSSI stable at -64 dBm. High jitter detected (8ms).</p>
+<p><span class="text-primary-fixed-dim">[14:22:15]</span> <span class="text-industrial-red">ERR:</span> Voltage peak at 238.1V detected. Internal relay safe-check triggered.</p>
+<p><span class="text-primary-fixed-dim">[14:22:30]</span> <span class="text-primary-fixed">LOG:</span> Heartbeat confirmed. Battery state 92.4% health.</p>
+<p><span class="text-primary-fixed-dim">[14:23:01]</span> <span class="text-financial-gold">SYS:</span> Buffering telemetry packet MTR_PKT_09912...</p>
+<p><span class="text-primary-fixed-dim">[14:23:05]</span> <span class="text-primary-container">NET:</span> Packet delivered successfully. Acknowledgement received.</p>
+<p><span class="text-primary-fixed-dim">[14:23:10]</span> <span class="text-primary-fixed">LOG:</span> Remote diagnostics requested by Admin_01.</p>
+<p class="animate-pulse">_</p>
+</div>
+</div>
+</div>
+<!-- Sidebar: Remote Commands -->
+<aside class="col-span-12 lg:col-span-4 space-y-gutter">
+<div class="bg-surface-container rounded-2xl border border-outline-variant/50 p-6 flex flex-col shadow-sm h-full">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Remote Commands</h3>
+</div>
+<div class="space-y-4">
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-xl hover:border-primary hover:bg-primary/5 transition-all group">
+<div class="flex items-center gap-3 text-on-surface-variant group-hover:text-primary">
+<span class="material-symbols-outlined">network_ping</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-tight">Ping Device</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform group-hover:translate-x-1">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-xl hover:border-industrial-red hover:bg-industrial-red/5 transition-all group">
+<div class="flex items-center gap-3 text-on-surface-variant group-hover:text-industrial-red">
+<span class="material-symbols-outlined">restart_alt</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-tight">Restart Gateway</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-industrial-red transition-transform group-hover:translate-x-1">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-xl hover:border-primary hover:bg-primary/5 transition-all group">
+<div class="flex items-center gap-3 text-on-surface-variant group-hover:text-primary">
+<span class="material-symbols-outlined">publish</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-tight">Push Firmware</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-transform group-hover:translate-x-1">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-between p-4 bg-surface-container-lowest border border-outline-variant rounded-xl hover:border-water-cyan hover:bg-water-cyan/5 transition-all group">
+<div class="flex items-center gap-3 text-on-surface-variant group-hover:text-water-cyan">
+<span class="material-symbols-outlined">biotech</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-tight">Diagnostics Run</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-water-cyan transition-transform group-hover:translate-x-1">chevron_right</span>
+</button>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant">
+<div class="bg-primary/5 rounded-xl p-4">
+<h4 class="font-label-sm text-label-sm text-primary font-bold mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">info</span>
+                                COMMAND SAFETY
+                            </h4>
+<p class="text-on-surface-variant text-[11px] leading-relaxed">
+                                Executing firmware updates or hardware restarts during peak load cycles may result in telemetry gaps of up to 120 seconds. Ensure backup redundancy is active before proceeding.
+                            </p>
+</div>
+</div>
+</div>
+</aside>
+</section>
+<!-- Floating Action Button Contextual Logic -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 z-50">
+<span class="material-symbols-outlined text-3xl">emergency_home</span>
+</button>
+</main>
+<script>
+        // Micro-interactions for terminal log simulation
+        const terminalLog = document.querySelector('.terminal-scroll');
+        const lines = [
+            "[14:24:12] <span class='text-primary-fixed'>LOG:</span> Routine check-up completed.",
+            "[14:24:45] <span class='text-primary-container'>NET:</span> Latency spike to 124ms.",
+            "[14:25:02] <span class='text-financial-gold'>SYS:</span> Packet MTR_PKT_09913 acknowledged.",
+            "[14:25:30] <span class='text-primary-fixed-dim'>[ALERT]</span> High frequency resonance detected in segment A3."
+        ];
+        let lineIdx = 0;
+
+        setInterval(() => {
+            const p = document.createElement('p');
+            p.innerHTML = `<span class='text-primary-fixed-dim'>[${new Date().toLocaleTimeString('en-GB')}]</span> ${lines[lineIdx]}`;
+            terminalLog.appendChild(p);
+            terminalLog.scrollTop = terminalLog.scrollHeight;
+            lineIdx = (lineIdx + 1) % lines.length;
+        }, 8000);
+
+        // Micro-interaction for command buttons
+        document.querySelectorAll('aside button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const command = btn.querySelector('span:last-child').innerText;
+                const p = document.createElement('p');
+                p.innerHTML = `<span class='text-primary-fixed-dim'>[${new Date().toLocaleTimeString('en-GB')}]</span> <span class='text-water-cyan'>CMD_EXE:</span> Initializing ${command}...`;
+                terminalLog.appendChild(p);
+                terminalLog.scrollTop = terminalLog.scrollHeight;
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,259 @@
+- generic [ref=e2]:
+  - generic:
+    - alert
+  - generic:
+    - alert
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - link "Iskraemeco" [ref=e12] [cursor=pointer]:
+        - /url: "#"
+        - img "Iskraemeco" [ref=e13]
+      - generic [ref=e14]:
+        - link " Dashboard" [ref=e15] [cursor=pointer]:
+          - /url: "#/"
+          - generic [ref=e16]: 
+          - text: Dashboard
+        - link " Customers" [ref=e17] [cursor=pointer]:
+          - /url: "#/customer"
+          - generic [ref=e18]: 
+          - text: Customers
+        - link " Meters" [ref=e19] [cursor=pointer]:
+          - /url: "#/meter"
+          - generic [ref=e20]: 
+          - text: Meters
+        - link " Early Readings" [ref=e21] [cursor=pointer]:
+          - /url: "#/early-reading/search"
+          - generic [ref=e22]: 
+          - text: Early Readings
+        - link " Units" [ref=e23] [cursor=pointer]:
+          - /url: "#/location"
+          - generic [ref=e24]: 
+          - text: Units
+        - link " Payments" [ref=e25] [cursor=pointer]:
+          - /url: "#/payment/new"
+          - generic [ref=e26]: 
+          - text: Payments
+        - link " Invoices" [ref=e27] [cursor=pointer]:
+          - /url: "#/invoice"
+          - generic [ref=e28]: 
+          - text: Invoices
+        - link " Tariff" [ref=e29] [cursor=pointer]:
+          - /url: "#/tariff"
+          - generic [ref=e30]: 
+          - text: Tariff
+        - link " History" [ref=e31] [cursor=pointer]:
+          - /url: "#/payment"
+          - generic [ref=e32]: 
+          - text: History
+        - link " Reports" [ref=e33] [cursor=pointer]:
+          - /url: "#/reports"
+          - generic [ref=e34]: 
+          - text: Reports
+        - link " Data Upload" [ref=e35] [cursor=pointer]:
+          - /url: "#/data-upload"
+          - generic [ref=e36]: 
+          - text: Data Upload
+        - link " Running Activities" [ref=e37] [cursor=pointer]:
+          - /url: "#/running-activities"
+          - generic [ref=e38]: 
+          - text: Running Activities
+    - generic [ref=e39]:
+      - banner [ref=e41]:
+        - navigation [ref=e42]:
+          - link "Smart Meters Billing vDEV" [ref=e43] [cursor=pointer]:
+            - /url: "#"
+            - text: Smart Meters Billing vDEV
+          - button "Toggle navigation" [ref=e45] [cursor=pointer]
+          - text:  
+      - generic [ref=e121]:
+        - generic [ref=e123]:
+          - link "All Billing Logs" [ref=e125] [cursor=pointer]:
+            - /url: javascript:void(0);
+          - generic [ref=e126]:
+            - link " New" [ref=e127] [cursor=pointer]:
+              - /url: "#/bill-cycle/new"
+              - generic [ref=e128]: 
+              - text: New
+            - generic [ref=e129]:
+              - link "" [ref=e130] [cursor=pointer]:
+                - /url: javascript:void(0);
+                - generic [ref=e131]: 
+              - text: 
+        - generic [ref=e133]:
+          - table [ref=e134]:
+            - rowgroup [ref=e135]:
+              - row "ID Month Service Success Count Failed Count Cancelled Count" [ref=e136]:
+                - columnheader "ID" [ref=e137]
+                - columnheader "Month" [ref=e138]
+                - columnheader "Service" [ref=e139]
+                - columnheader "Success Count" [ref=e140]
+                - columnheader "Failed Count" [ref=e141]
+                - columnheader "Cancelled Count" [ref=e142]
+                - columnheader [ref=e143]
+            - rowgroup [ref=e144]:
+              - row "1 Jan 2000 ELECTRICITY -21882 0 21882 " [ref=e145]:
+                - cell "1" [ref=e146]
+                - cell "Jan 2000" [ref=e147]
+                - cell "ELECTRICITY" [ref=e148]
+                - cell "-21882" [ref=e149]
+                - cell "0" [ref=e150]
+                - cell "21882" [ref=e151]
+                - cell "" [ref=e152]:
+                  - generic [ref=e153]:
+                    - link "" [ref=e154] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e155]: 
+                    - text:   
+              - row "2 Jan 2000 WATER -108 0 108 " [ref=e156]:
+                - cell "2" [ref=e157]
+                - cell "Jan 2000" [ref=e158]
+                - cell "WATER" [ref=e159]
+                - cell "-108" [ref=e160]
+                - cell "0" [ref=e161]
+                - cell "108" [ref=e162]
+                - cell "" [ref=e163]:
+                  - generic [ref=e164]:
+                    - link "" [ref=e165] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e166]: 
+                    - text:   
+              - row "10009 Oct 2023 ELECTRICITY 860 2 611 " [ref=e167]:
+                - cell "10009" [ref=e168]
+                - cell "Oct 2023" [ref=e169]
+                - cell "ELECTRICITY" [ref=e170]
+                - cell "860" [ref=e171]
+                - cell "2" [ref=e172]
+                - cell "611" [ref=e173]
+                - cell "" [ref=e174]:
+                  - generic [ref=e175]:
+                    - link "" [ref=e176] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e177]: 
+                    - text:   
+              - row "10010 Nov 2023 ELECTRICITY 887 0 618 " [ref=e178]:
+                - cell "10010" [ref=e179]
+                - cell "Nov 2023" [ref=e180]
+                - cell "ELECTRICITY" [ref=e181]
+                - cell "887" [ref=e182]
+                - cell "0" [ref=e183]
+                - cell "618" [ref=e184]
+                - cell "" [ref=e185]:
+                  - generic [ref=e186]:
+                    - link "" [ref=e187] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e188]: 
+                    - text:   
+              - row "10011 Oct 2023 WATER 802 2 126 " [ref=e189]:
+                - cell "10011" [ref=e190]
+                - cell "Oct 2023" [ref=e191]
+                - cell "WATER" [ref=e192]
+                - cell "802" [ref=e193]
+                - cell "2" [ref=e194]
+                - cell "126" [ref=e195]
+                - cell "" [ref=e196]:
+                  - generic [ref=e197]:
+                    - link "" [ref=e198] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e199]: 
+                    - text:   
+              - row "10012 Nov 2023 WATER 825 0 206 " [ref=e200]:
+                - cell "10012" [ref=e201]
+                - cell "Nov 2023" [ref=e202]
+                - cell "WATER" [ref=e203]
+                - cell "825" [ref=e204]
+                - cell "0" [ref=e205]
+                - cell "206" [ref=e206]
+                - cell "" [ref=e207]:
+                  - generic [ref=e208]:
+                    - link "" [ref=e209] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e210]: 
+                    - text:   
+              - row "10013 Sep 2023 ELECTRICITY 183 0 10 " [ref=e211]:
+                - cell "10013" [ref=e212]
+                - cell "Sep 2023" [ref=e213]
+                - cell "ELECTRICITY" [ref=e214]
+                - cell "183" [ref=e215]
+                - cell "0" [ref=e216]
+                - cell "10" [ref=e217]
+                - cell "" [ref=e218]:
+                  - generic [ref=e219]:
+                    - link "" [ref=e220] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e221]: 
+                    - text:   
+              - row "10014 Aug 2023 ELECTRICITY 116 0 8 " [ref=e222]:
+                - cell "10014" [ref=e223]
+                - cell "Aug 2023" [ref=e224]
+                - cell "ELECTRICITY" [ref=e225]
+                - cell "116" [ref=e226]
+                - cell "0" [ref=e227]
+                - cell "8" [ref=e228]
+                - cell "" [ref=e229]:
+                  - generic [ref=e230]:
+                    - link "" [ref=e231] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e232]: 
+                    - text:   
+              - row "10015 Dec 2023 ELECTRICITY 909 1 24 " [ref=e233]:
+                - cell "10015" [ref=e234]
+                - cell "Dec 2023" [ref=e235]
+                - cell "ELECTRICITY" [ref=e236]
+                - cell "909" [ref=e237]
+                - cell "1" [ref=e238]
+                - cell "24" [ref=e239]
+                - cell "" [ref=e240]:
+                  - generic [ref=e241]:
+                    - link "" [ref=e242] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e243]: 
+                    - text:   
+              - row "10016 Dec 2023 WATER 861 0 149 " [ref=e244]:
+                - cell "10016" [ref=e245]
+                - cell "Dec 2023" [ref=e246]
+                - cell "WATER" [ref=e247]
+                - cell "861" [ref=e248]
+                - cell "0" [ref=e249]
+                - cell "149" [ref=e250]
+                - cell "" [ref=e251]:
+                  - generic [ref=e252]:
+                    - link "" [ref=e253] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e254]: 
+                    - text:   
+          - navigation [ref=e257]:
+            - list [ref=e258]:
+              - listitem [ref=e259]:
+                - link "First" [disabled]:
+                  - /url: ""
+              - listitem [ref=e260]:
+                - link "Previous" [disabled]:
+                  - /url: ""
+              - listitem [ref=e261]:
+                - link "1 (current)" [ref=e262] [cursor=pointer]:
+                  - /url: ""
+                  - text: "1"
+                  - generic [ref=e263]: (current)
+              - listitem [ref=e264]:
+                - link "2" [ref=e265] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e266]:
+                - link "3" [ref=e267] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e268]:
+                - link "4" [ref=e269] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e270]:
+                - link "5" [ref=e271] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e272]:
+                - generic: ...
+              - listitem [ref=e273]:
+                - link "18" [ref=e274] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e275]:
+                - link "Next" [ref=e276] [cursor=pointer]:
+                  - /url: ""
+              - listitem [ref=e277]:
+                - link "Last" [ref=e278] [cursor=pointer]:
+                  - /url: ""

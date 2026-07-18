@@ -1,0 +1,255 @@
+- generic [active] [ref=f7e1]:
+  - banner [ref=f7e2]:
+    - generic [ref=f7e5]:
+      - generic [ref=f7e6]:
+        - link "+20 12 1149 2222" [ref=f7e7] [cursor=pointer]:
+          - /url: tel:+20 12 1149 2222
+          - img [ref=f7e8]
+          - text: +20 12 1149 2222
+        - link "info@epower.eg" [ref=f7e10] [cursor=pointer]:
+          - /url: mailto:info@epower.eg
+          - img [ref=f7e11]
+          - text: info@epower.eg
+      - link "My Account" [ref=f7e14] [cursor=pointer]:
+        - /url: /en/my-account
+        - img [ref=f7e15]
+        - text: My Account
+    - generic [ref=f7e18]:
+      - link "epower" [ref=f7e19] [cursor=pointer]:
+        - /url: /en
+        - img "epower" [ref=f7e21]
+      - button [ref=f7e23]:
+        - img [ref=f7e24]
+  - main [ref=f7e26]:
+    - main [ref=f7e27]:
+      - generic [ref=f7e32]:
+        - generic [ref=f7e34]: Industries
+        - heading "Sectors We Serve" [level=1] [ref=f7e36]:
+          - generic [ref=f7e37]: Sectors
+          - generic [ref=f7e38]: We
+          - generic [ref=f7e39]: Serve
+        - paragraph [ref=f7e40]: Delivering tailored energy solutions across diverse industries.
+      - generic [ref=f7e45]:
+        - generic [ref=f7e46]:
+          - generic [ref=f7e48]: Industry Expertise
+          - heading "Powering Every Industry" [level=2] [ref=f7e50]
+          - paragraph [ref=f7e51]: We understand the unique energy challenges of each sector and deliver customized solutions.
+        - generic [ref=f7e52]:
+          - link "Governmental Entities Infrastructure support for national projects. Learn More" [ref=f7e54] [cursor=pointer]:
+            - /url: /en/sectors/governmental-entities
+            - generic [ref=f7e57]:
+              - img [ref=f7e59]
+              - heading "Governmental Entities" [level=3] [ref=f7e61]
+              - paragraph [ref=f7e62]: Infrastructure support for national projects.
+              - generic [ref=f7e63]:
+                - generic [ref=f7e64]: Learn More
+                - img [ref=f7e65]
+          - link "Real Estate Developers Integrated energy solutions for large-scale developments. Learn More" [ref=f7e68] [cursor=pointer]:
+            - /url: /en/sectors/developers
+            - generic [ref=f7e71]:
+              - img [ref=f7e73]
+              - heading "Real Estate Developers" [level=3] [ref=f7e76]
+              - paragraph [ref=f7e77]: Integrated energy solutions for large-scale developments.
+              - generic [ref=f7e78]:
+                - generic [ref=f7e79]: Learn More
+                - img [ref=f7e80]
+          - link "Industrial & Commercial Entities Powering factories, malls, and business districts. Learn More" [ref=f7e83] [cursor=pointer]:
+            - /url: /en/sectors/industrial-commercial
+            - generic [ref=f7e86]:
+              - img [ref=f7e88]
+              - heading "Industrial & Commercial Entities" [level=3] [ref=f7e90]
+              - paragraph [ref=f7e91]: Powering factories, malls, and business districts.
+              - generic [ref=f7e92]:
+                - generic [ref=f7e93]: Learn More
+                - img [ref=f7e94]
+      - generic [ref=f7e101]:
+        - generic [ref=f7e102]:
+          - img [ref=f7e104]
+          - generic [ref=f7e108]: 3+
+          - generic [ref=f7e109]: Industry Sectors
+        - generic [ref=f7e110]:
+          - img [ref=f7e112]
+          - generic [ref=f7e114]: 150+
+          - generic [ref=f7e115]: Projects Delivered
+        - generic [ref=f7e116]:
+          - img [ref=f7e118]
+          - generic [ref=f7e120]: 25+
+          - generic [ref=f7e121]: Years Experience
+        - generic [ref=f7e122]:
+          - img [ref=f7e124]
+          - generic [ref=f7e129]: 98%
+          - generic [ref=f7e130]: Client Satisfaction
+      - generic [ref=f7e135]:
+        - generic [ref=f7e136]:
+          - generic [ref=f7e138]: Our Expertise
+          - heading "Why Choose epower" [level=2] [ref=f7e140]
+          - paragraph [ref=f7e141]: Industry-leading expertise across all sectors
+        - generic [ref=f7e142]:
+          - generic [ref=f7e143]:
+            - img [ref=f7e145]
+            - heading "Deep Industry Knowledge" [level=3] [ref=f7e147]
+            - paragraph [ref=f7e148]: We understand the unique requirements of each sector we serve.
+          - generic [ref=f7e149]:
+            - img [ref=f7e151]
+            - heading "Customized Solutions" [level=3] [ref=f7e153]
+            - paragraph [ref=f7e154]: Tailored energy infrastructure designed for your specific needs.
+          - generic [ref=f7e155]:
+            - img [ref=f7e157]
+            - heading "Proven Track Record" [level=3] [ref=f7e159]
+            - paragraph [ref=f7e160]: Decades of successful project delivery across all industries.
+          - generic [ref=f7e161]:
+            - img [ref=f7e163]
+            - heading "Regulatory Compliance" [level=3] [ref=f7e165]
+            - paragraph [ref=f7e166]: Full adherence to industry standards and local regulations.
+          - generic [ref=f7e167]:
+            - img [ref=f7e169]
+            - heading "Sustainable Practices" [level=3] [ref=f7e171]
+            - paragraph [ref=f7e172]: Eco-friendly solutions that reduce environmental impact.
+          - generic [ref=f7e173]:
+            - img [ref=f7e175]
+            - heading "24/7 Support" [level=3] [ref=f7e177]
+            - paragraph [ref=f7e178]: Round-the-clock technical assistance for all our clients.
+      - generic [ref=f7e184]:
+        - generic [ref=f7e185]:
+          - img [ref=f7e186]
+          - generic [ref=f7e189]: Find Your Solution
+        - heading "Which Sector Are You In?" [level=2] [ref=f7e190]
+        - paragraph [ref=f7e191]: No matter your industry, epower has the expertise to deliver reliable energy solutions tailored to your specific needs.
+        - generic [ref=f7e192]:
+          - link "Discuss Your Needs" [ref=f7e193] [cursor=pointer]:
+            - /url: /en/contact
+            - text: Discuss Your Needs
+            - img [ref=f7e194]
+          - link "View Our Services" [ref=f7e196] [cursor=pointer]:
+            - /url: /en/services
+  - contentinfo [ref=f7e197]:
+    - generic [ref=f7e200]:
+      - generic [ref=f7e201]:
+        - heading "Stay Updated with Logo" [level=3] [ref=f7e202]:
+          - text: Stay Updated with
+          - img "Logo" [ref=f7e203]
+        - paragraph [ref=f7e204]: Subscribe to our newsletter for the latest energy insights and updates.
+      - generic [ref=f7e206]:
+        - textbox "Enter your email" [ref=f7e208]
+        - button "Subscribe" [ref=f7e209]:
+          - text: Subscribe
+          - img [ref=f7e210]
+    - generic [ref=f7e213]:
+      - generic [ref=f7e214]:
+        - link "epower" [ref=f7e215] [cursor=pointer]:
+          - /url: /en
+          - img "epower" [ref=f7e216]
+        - paragraph [ref=f7e217]: Powering a sustainable future with innovative energy solutions. Leading the transition to clean, renewable energy across Egypt.
+        - link [ref=f7e219] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/epower1/posts/?feedView=all
+          - img [ref=f7e220]
+      - generic [ref=f7e222]:
+        - heading "Services" [level=4] [ref=f7e223]: Services
+        - list [ref=f7e225]:
+          - listitem [ref=f7e226]:
+            - link "Contracting Services" [ref=f7e227] [cursor=pointer]:
+              - /url: /en/services/contracting-services
+              - img [ref=f7e228]
+              - generic [ref=f7e230]: Contracting Services
+          - listitem [ref=f7e231]:
+            - link "Metering Solutions" [ref=f7e232] [cursor=pointer]:
+              - /url: /en/services/metering-solutions
+              - img [ref=f7e233]
+              - generic [ref=f7e235]: Metering Solutions
+          - listitem [ref=f7e236]:
+            - link "Utility Services" [ref=f7e237] [cursor=pointer]:
+              - /url: /en/services/Utility-Services
+              - img [ref=f7e238]
+              - generic [ref=f7e240]: Utility Services
+          - listitem [ref=f7e241]:
+            - link "Facility Management" [ref=f7e242] [cursor=pointer]:
+              - /url: /en/services/facility-management
+              - img [ref=f7e243]
+              - generic [ref=f7e245]: Facility Management
+      - generic [ref=f7e246]:
+        - heading "Company" [level=4] [ref=f7e247]: Company
+        - list [ref=f7e249]:
+          - listitem [ref=f7e250]:
+            - link "About Us" [ref=f7e251] [cursor=pointer]:
+              - /url: /en/about
+              - img [ref=f7e252]
+              - generic [ref=f7e254]: About Us
+          - listitem [ref=f7e255]:
+            - link "Charging" [ref=f7e256] [cursor=pointer]:
+              - /url: /en/charging
+              - img [ref=f7e257]
+              - generic [ref=f7e259]: Charging
+          - listitem [ref=f7e260]:
+            - link "Careers" [ref=f7e261] [cursor=pointer]:
+              - /url: /en/careers
+              - img [ref=f7e262]
+              - generic [ref=f7e264]: Careers
+          - listitem [ref=f7e265]:
+            - link "Blogs" [ref=f7e266] [cursor=pointer]:
+              - /url: /en/blog
+              - img [ref=f7e267]
+              - generic [ref=f7e269]: Blogs
+          - listitem [ref=f7e270]:
+            - link "Contact" [ref=f7e271] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f7e272]
+              - generic [ref=f7e274]: Contact
+      - generic [ref=f7e275]:
+        - heading "Resources" [level=4] [ref=f7e276]: Resources
+        - list [ref=f7e278]:
+          - listitem [ref=f7e279]:
+            - link "Projects" [ref=f7e280] [cursor=pointer]:
+              - /url: /en/projects
+              - img [ref=f7e281]
+              - generic [ref=f7e283]: Projects
+          - listitem [ref=f7e284]:
+            - link "My Account" [ref=f7e285] [cursor=pointer]:
+              - /url: /en/my-account
+              - img [ref=f7e286]
+              - generic [ref=f7e288]: My Account
+          - listitem [ref=f7e289]:
+            - link "New Customer" [ref=f7e290] [cursor=pointer]:
+              - /url: /en/contract
+              - img [ref=f7e291]
+              - generic [ref=f7e293]: New Customer
+          - listitem [ref=f7e294]:
+            - link "FAQs" [ref=f7e295] [cursor=pointer]:
+              - /url: /en/faqs
+              - img [ref=f7e296]
+              - generic [ref=f7e298]: FAQs
+          - listitem [ref=f7e299]:
+            - link "Support" [ref=f7e300] [cursor=pointer]:
+              - /url: /en/contact
+              - img [ref=f7e301]
+              - generic [ref=f7e303]: Support
+      - generic [ref=f7e304]:
+        - heading "Contact" [level=4] [ref=f7e305]: Contact
+        - list [ref=f7e307]:
+          - listitem [ref=f7e308]:
+            - img [ref=f7e309]
+            - generic [ref=f7e312]: Palm Hills, 6th Of October, Golf Central Mall, Building B2, D2, 33F
+          - listitem [ref=f7e313]:
+            - link "+20 12 1149 2222" [ref=f7e314] [cursor=pointer]:
+              - /url: tel:+20 12 1149 2222
+              - img [ref=f7e315]
+              - generic [ref=f7e317]: +20 12 1149 2222
+          - listitem [ref=f7e318]:
+            - link "info@epower.eg" [ref=f7e319] [cursor=pointer]:
+              - /url: mailto:info@epower.eg
+              - img [ref=f7e320]
+              - generic [ref=f7e322]: info@epower.eg
+    - generic [ref=f7e325]:
+      - paragraph [ref=f7e326]:
+        - text: © 2026
+        - img "Logo" [ref=f7e327]
+        - text: . All rights reserved.
+      - generic [ref=f7e328]:
+        - link "Privacy Policy" [ref=f7e329] [cursor=pointer]:
+          - /url: /en/privacy
+        - link "Terms of Service" [ref=f7e330] [cursor=pointer]:
+          - /url: /en/terms
+        - link "Cookie Policy" [ref=f7e331] [cursor=pointer]:
+          - /url: /en/cookies
+  - button [ref=f7e332]:
+    - img [ref=f7e333]
+  - alert [ref=f7e335]
