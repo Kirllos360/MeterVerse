@@ -37,7 +37,7 @@ export function Dialog({ open, onClose, title, children, footer, width = "md" }:
             {title && (
               <div className="flex items-center justify-between px-5 py-3.5 border-b shrink-0" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
                 <h2 className="text-base font-semibold" style={{ color: "var(--text-primary, #0A0A0A)" }}>{title}</h2>
-                <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-black/5">
+                <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-lg hover:bg-black/5" aria-label="Close dialog">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>
@@ -50,3 +50,4 @@ export function Dialog({ open, onClose, title, children, footer, width = "md" }:
     </AnimatePresence>
   )
 }
+

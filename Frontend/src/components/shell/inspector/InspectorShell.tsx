@@ -56,3 +56,4 @@ export function InspectorShell({ header, children, tabBar }: InspectorShellProps
     </motion.aside>
   )
 }
+

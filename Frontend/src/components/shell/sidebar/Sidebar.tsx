@@ -42,7 +42,7 @@ export function Sidebar({ header, children, footer }: SidebarProps) {
     >
       {header && <div className="shrink-0">{header}</div>}
 
-      <nav className="flex-1 overflow-y-auto px-2 py-3 scrollbar-thin" role="menu">
+      <div className="flex-1 overflow-y-auto px-2 py-3 scrollbar-thin" role="menu">
         <AnimatePresence mode="wait">
           <motion.div
             key={sidebarMode}
@@ -53,7 +53,7 @@ export function Sidebar({ header, children, footer }: SidebarProps) {
             {children}
           </motion.div>
         </AnimatePresence>
-      </nav>
+      </div>
 
       {footer && <div className="shrink-0">{footer}</div>}
 
@@ -86,3 +86,4 @@ export function Sidebar({ header, children, footer }: SidebarProps) {
     </motion.aside>
   )
 }
+

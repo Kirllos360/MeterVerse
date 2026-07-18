@@ -73,7 +73,7 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
               <input ref={inputRef} value={query} onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0) }} onKeyDown={handleKeyDown}
                 placeholder="Search commands..."
                 className="flex-1 text-sm outline-none bg-transparent" style={{ color: "var(--text-primary, #0A0A0A)" }}
-                aria-label="Search commands" role="combobox" aria-expanded="true" aria-controls="command-list"
+                aria-label="Search commands" aria-expanded="true" aria-controls="command-list"
               />
               <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--surface-sunken, #F0F0F0)", color: "var(--text-tertiary, #A3A3A3)" }}>ESC</span>
             </div>

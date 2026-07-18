@@ -100,7 +100,7 @@ export function DataTableRuntime<T extends { id: string | number }>({
         </svg>
         <input
           value={search} onChange={(e) => { setSearch(e.target.value); setPage(0) }}
-          placeholder="Search..." className="flex-1 bg-transparent text-sm outline-none min-w-0" style={{ color: "var(--text-primary, #0A0A0A)" }}
+          placeholder="Search..." aria-label="Search table" className="flex-1 bg-transparent text-sm outline-none min-w-0" style={{ color: "var(--text-primary, #0A0A0A)" }}
         />
         <span className="text-xs shrink-0" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{sorted.length} items</span>
       </div>
@@ -112,7 +112,7 @@ export function DataTableRuntime<T extends { id: string | number }>({
             <tr className="sticky top-0 z-10" style={{ backgroundColor: "var(--surface-tableHeader, #F5F5F5)" }}>
               {selectable && (
                 <th className="p-2 text-center border-r" style={{ width: 40, borderColor: "var(--border-default, #E5E5E5)" }}>
-                  <input type="checkbox" checked={selected.size === pageData.length && pageData.length > 0} onChange={toggleAll} className="cursor-pointer" />
+                  <input type="checkbox" checked={selected.size === pageData.length && pageData.length > 0} onChange={toggleAll} className="cursor-pointer" aria-label="Select all" />
                 </th>
               )}
               {visibleCols.map((col) => (
@@ -164,7 +164,7 @@ export function DataTableRuntime<T extends { id: string | number }>({
                 >
                   {selectable && (
                     <td className="p-2 text-center border-r" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
-                      <input type="checkbox" checked={selected.has(row.id)} onChange={() => toggleRow(row.id)} className="cursor-pointer" />
+                      <input type="checkbox" checked={selected.has(row.id)} onChange={() => toggleRow(row.id)} className="cursor-pointer" aria-label={`Select row ${row.id}`} />
                     </td>
                   )}
                   {visibleCols.map((col) => (

@@ -26,22 +26,6 @@ interface ChartsRuntimeProps {
 const COLORS = ["#00BFA5", "#6366F1", "#F59E0B", "#EC4899", "#8B5CF6", "#14B8A6", "#F97316", "#06B6D4"]
 
 export function ChartsRuntime({ type, series, height = 280, showLegend = false, showGrid = true }: ChartsRuntimeProps) {
-  if (type === "gauge") {
-    const val = series[0]?.data[0]?.y ?? 0
-    const pct = Math.min(100, Math.max(0, val))
-    return (
-      <div className="flex flex-col items-center justify-center" style={{ height }}>
-        <svg width="160" height="160" viewBox="0 0 160 160">
-          <circle cx="80" cy="80" r="65" fill="none" stroke="#E5E5E5" strokeWidth="12" />
-          <circle cx="80" cy="80" r="65" fill="none" stroke="#00BFA5" strokeWidth="12"
-            strokeDasharray={`${(pct / 100) * 408.4} 408.4`} transform="rotate(-90, 80, 80)" strokeLinecap="round" />
-          <text x="80" y="75" textAnchor="middle" fontSize="28" fontWeight="bold" fill="var(--text-primary, #0A0A0A)">{pct}%</text>
-          <text x="80" y="95" textAnchor="middle" fontSize="11" fill="var(--text-tertiary, #A3A3A3)">{series[0]?.name || ""}</text>
-        </svg>
-      </div>
-    )
-  }
-
   const chartData = useMemo(() => {
     if (type === "pie" || type === "donut") {
       return series[0]?.data.map((d) => ({ name: d.x, value: d.y })) ?? []
@@ -107,6 +91,21 @@ export function ChartsRuntime({ type, series, height = 280, showLegend = false, 
             <Tooltip />
           </PieChart>
         )
+      case "gauge": {
+        const val = series[0]?.data[0]?.y ?? 0
+        const pct = Math.min(100, Math.max(0, val))
+        return (
+          <div className="flex flex-col items-center justify-center w-full" style={{ height }}>
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#E5E5E5" strokeWidth="12" />
+              <circle cx="80" cy="80" r="65" fill="none" stroke="#00BFA5" strokeWidth="12"
+                strokeDasharray={`${(pct / 100) * 408.4} 408.4`} transform="rotate(-90, 80, 80)" strokeLinecap="round" />
+              <text x="80" y="75" textAnchor="middle" fontSize="28" fontWeight="bold" fill="var(--text-primary, #0A0A0A)">{pct}%</text>
+              <text x="80" y="95" textAnchor="middle" fontSize="11" fill="var(--text-tertiary, #A3A3A3)">{series[0]?.name || ""}</text>
+            </svg>
+          </div>
+        )
+      }
     }
   }
 
