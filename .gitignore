@@ -1,0 +1,39 @@
+﻿# Dependencies
+node_modules/
+.next/
+dist/
+**/.next/**
+**/node_modules/**
+**/dist/**
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Build
+.next
+dist
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+test-reports/
+session-snapshot/
+memory files/
+text files/
+yaml files/
+graphify-out/cache/
