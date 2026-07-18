@@ -1,0 +1,76 @@
+﻿# Dependencies
+node_modules/
+Frontend/node_modules/
+backend/node_modules/
+**/node_modules/
+
+# Build output
+Frontend/.next/
+Frontend/out/
+backend/dist/
+**/dist/
+**/.next/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.example
+backend/.env
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Third-party tools
+mcp/
+.playwright-mcp/
+tools/
+tmp/
+
+# Reports & testing
+test-reports/
+reports/
+session-snapshot/
+
+# Design & media files (too large)
+design-figma/
+design-figma.zip
+make files/
+**/*.make
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.gif
+**/*.ico
+**/*.pdf
+**/*.csv
+
+# Generated docs
+docs/site/
+
+# Large embedded repos
+Meter/
+stitch_meterverse_enterprise_os/
+MVEOS_Master_Execution_Framework/
+AI/
+memory files/
+text files/
+yaml files/
+
+# Databases
+*.db
+*.sqlite
+
+# Backups
+backup files/
