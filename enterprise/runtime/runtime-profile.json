@@ -1,0 +1,102 @@
+{
+  "$schema": "meterverse://enterprise/runtime/runtime-profile.schema.json",
+  "version": "1.0.0",
+  "generated": "2026-07-12T06:50:00Z",
+  "project": {
+    "name": "MeterVerse",
+    "organization": "MeterVerse Enterprise",
+    "root": "D:\\meter",
+    "description": "Enterprise Utility Operating System — multi-tenant metering, billing, and energy management platform"
+  },
+  "environment": {
+    "os": "Microsoft Windows 11 Pro",
+    "osVersion": "10.0.26200",
+    "shell": "PowerShell 5.1.26100",
+    "hostname": "DESKTOP-E0JM8VA",
+    "user": "EPower",
+    "arch": "64-bit"
+  },
+  "runtimes": {
+    "node": { "version": "24.15.0", "path": "C:\\Program Files\\nodejs\\node.exe" },
+    "python": { "version": "3.11.9", "path": "C:\\Program Files\\Python311\\python.exe" },
+    "go": { "version": "1.26.5", "path": "C:\\Program Files\\Go\\bin\\go.exe" },
+    "java": { "version": "21.0.11", "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.11-hotspot\\bin\\java.exe" },
+    "rust": { "version": "1.97.0", "path": "%USERPROFILE%\\.cargo\\bin\\rustc.exe" },
+    "bun": { "version": "1.3.14", "path": "%APPDATA%\\npm\\bun.ps1" }
+  },
+  "packageManagers": {
+    "npm": "11.12.1",
+    "pnpm": "11.11.0",
+    "yarn": "1.22.22",
+    "pip": "24.0",
+    "cargo": "1.97.0"
+  },
+  "versionControl": {
+    "git": "2.54.0",
+    "gh": "2.92.0"
+  },
+  "infrastructure": {
+    "docker": { "version": "29.5.2", "daemonRunning": false },
+    "dockerCompose": { "version": "v5.1.3" },
+    "wsl": { "version": "2" },
+    "redis": { "version": "8.0.5", "location": "WSL Ubuntu", "running": false }
+  },
+  "activeProjects": [
+    {
+      "name": "Backend (NestJS)",
+      "path": "Meter\\backend",
+      "framework": "NestJS 10",
+      "orm": "Prisma",
+      "database": "PostgreSQL",
+      "auth": "Passport + JWT"
+    },
+    {
+      "name": "Frontend (Next.js)",
+      "path": "Meter\\Frontend",
+      "framework": "Next.js 16",
+      "ui": "shadcn/ui + Radix",
+      "state": "Zustand + TanStack Query"
+    },
+    {
+      "name": "Frontend (New)",
+      "path": "Frontend\\meterverse-ui",
+      "framework": "Next.js 16",
+      "ui": "shadcn/ui + Radix",
+      "state": "Zustand + TanStack Query"
+    },
+    {
+      "name": "Backend (Duplicate)",
+      "path": "Frontend\\backend",
+      "framework": "NestJS 10",
+      "orm": "Prisma",
+      "database": "PostgreSQL"
+    }
+  ],
+  "prismaSchemas": [
+    { "path": "Meter\\backend\\prisma\\schema.prisma", "active": true },
+    { "path": "Frontend\\backend\\prisma\\schema.prisma", "active": false },
+    { "path": "Meter\\Frontend\\prisma\\schema.prisma", "active": false }
+  ],
+  "envFiles": [],
+  "ciCd": {
+    "provider": "GitHub Actions",
+    "config": ".github\\workflows\\ci.yml",
+    "jobs": ["backend", "frontend", "quality-gate", "security", "secret-scan"]
+  },
+  "mcpRegistry": {
+    "configured": ["notion","odoo","playwright","context7","figma","serena","chrome-devtools","codebase-memory","storybook"],
+    "available": ["filesystem","gitlab","postgres"],
+    "pending": ["docker"]
+  },
+  "qualityGates": {
+    "tsc": "npx tsc --noEmit",
+    "eslint": "eslint . --ext .ts,.tsx",
+    "depcruise": "depcruise src --output-type err",
+    "madge": "madge --circular src/index.ts",
+    "playwright": "npx playwright test",
+    "snyk": "snyk test",
+    "trivy": "trivy fs --severity CRITICAL,HIGH .",
+    "spectral": "spectral lint **/*.ts",
+    "lighthouse": "npx lighthouse http://localhost:3030 --output=html"
+  }
+}

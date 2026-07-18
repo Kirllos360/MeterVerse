@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "generated": "2026-07-12T06:52:00Z",
+  "project": {
+    "name": "MeterVerse",
+    "type": "Enterprise Utility OS",
+    "rootDir": "D:\\meter"
+  },
+  "frameworks": {
+    "backend": ["NestJS 10", "Express"],
+    "frontend": ["Next.js 16", "React 20"],
+    "api": ["REST", "WebSocket"],
+    "orm": ["Prisma 6"],
+    "testing": ["Playwright", "Jest", "Vitest"],
+    "ui": ["shadcn/ui", "Radix UI", "Tailwind CSS 4"],
+    "state": ["Zustand", "TanStack Query"],
+    "auth": ["Passport", "JWT"],
+    "queue": ["Bull/BullMQ (likely)"],
+    "cache": ["ioredis (likely)"]
+  },
+  "languages": {
+    "primary": "TypeScript",
+    "secondary": "Python",
+    "tertiary": ["SQL", "Bash", "PowerShell"]
+  },
+  "databases": {
+    "primary": "PostgreSQL (via Prisma)",
+    "cache": "Redis 8.0.5"
+  },
+  "projects": {
+    "backend": {
+      "path": "Meter\\backend",
+      "packageJson": "Meter\\backend\\package.json",
+      "framework": "NestJS 10",
+      "orm": "Prisma",
+      "database": "PostgreSQL",
+      "auth": "Passport + JWT",
+      "testing": "Jest"
+    },
+    "frontendOld": {
+      "path": "Meter\\Frontend",
+      "packageJson": "Meter\\Frontend\\package.json",
+      "framework": "Next.js 16",
+      "ui": "shadcn/ui + Radix + Tailwind CSS",
+      "state": "Zustand + TanStack Query",
+      "testing": "Playwright"
+    },
+    "frontendNew": {
+      "path": "Frontend\\meterverse-ui",
+      "packageJson": "Frontend\\meterverse-ui\\package.json",
+      "framework": "Next.js 16",
+      "ui": "shadcn/ui + Radix + Tailwind CSS",
+      "state": "Zustand + TanStack Query",
+      "testing": "Playwright"
+    },
+    "backendDuplicate": {
+      "path": "Frontend\\backend",
+      "packageJson": "Frontend\\backend\\package.json",
+      "framework": "NestJS 10",
+      "orm": "Prisma"
+    }
+  },
+  "infrastructure": {
+    "ci": "GitHub Actions",
+    "cd": "Manual/Docker",
+    "container": "Docker 29.5.2",
+    "orchestration": "Docker Compose",
+    "secrets": "GitHub Secrets"
+  },
+  "designSystem": {
+    "tool": "shadcn/ui",
+    "tokens": "Tailwind CSS 4",
+    "figma": true,
+    "storybook": true
+  },
+  "capabilities": {
+    "restApi": true,
+    "websocket": true,
+    "graphql": false,
+    "grpc": false,
+    "eventSourcing": false,
+    "caching": true,
+    "queueing": true,
+    "scheduledJobs": true,
+    "multiTenancy": true,
+    "fileUpload": true,
+    "email": true,
+    "pushNotifications": false,
+    "realTime": true,
+    "ssr": true,
+    "ssg": true,
+    "isr": true,
+    "responsiveDesign": true,
+    "darkMode": true,
+    "a11y": true,
+    "i18n": false,
+    "pwa": false,
+    "mobile": false,
+    "desktop": false,
+    "cli": false
+  }
+}

@@ -1,0 +1,1832 @@
+{
+  "D:\\meter\\Meter-\\backend\\src\\app.controller.ts": {
+    "mtime": 1779791105.2491703,
+    "ast_hash": "caf69443aea61aa95cdfeacbd8ea5222",
+    "semantic_hash": "caf69443aea61aa95cdfeacbd8ea5222"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\app.module.ts": {
+    "mtime": 1780211336.0257094,
+    "ast_hash": "bbc241ece85c48855c89fc5a84bc70f8",
+    "semantic_hash": "bbc241ece85c48855c89fc5a84bc70f8"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\audit\\audit.decorator.ts": {
+    "mtime": 1780203373.9206252,
+    "ast_hash": "ae2feb926881eabe3a3fa6a00810f871",
+    "semantic_hash": "ae2feb926881eabe3a3fa6a00810f871"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\audit\\audit.interceptor.ts": {
+    "mtime": 1780203373.9985826,
+    "ast_hash": "02bbde0944fb7dcb29ae7621164ae7f0",
+    "semantic_hash": "02bbde0944fb7dcb29ae7621164ae7f0"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\audit\\audit.module.ts": {
+    "mtime": 1780203374.0155983,
+    "ast_hash": "1ec62b540876c3560ec3f2ae94a53202",
+    "semantic_hash": "1ec62b540876c3560ec3f2ae94a53202"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\audit\\audit.service.ts": {
+    "mtime": 1780203374.0508065,
+    "ast_hash": "8c0a52ef24e2f4da6b81140072bf1305",
+    "semantic_hash": "8c0a52ef24e2f4da6b81140072bf1305"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\auth.module.ts": {
+    "mtime": 1780203374.08418,
+    "ast_hash": "f2eda73d724767cd8f9e9c64f65f81dd",
+    "semantic_hash": "f2eda73d724767cd8f9e9c64f65f81dd"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\constants\\index.ts": {
+    "mtime": 1780203374.1187885,
+    "ast_hash": "0626a45900201508b11c69e2c4396d46",
+    "semantic_hash": "0626a45900201508b11c69e2c4396d46"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\constants\\jwt.constants.ts": {
+    "mtime": 1780203374.1337936,
+    "ast_hash": "53f11c1b6fbe57082ca0b7f5ec4868bb",
+    "semantic_hash": "53f11c1b6fbe57082ca0b7f5ec4868bb"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\interfaces\\index.ts": {
+    "mtime": 1780203374.148802,
+    "ast_hash": "1e27132a05f44487e2af5478ecc5c0f4",
+    "semantic_hash": "1e27132a05f44487e2af5478ecc5c0f4"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\interfaces\\jwt-payload.interface.ts": {
+    "mtime": 1780203374.1603286,
+    "ast_hash": "223c13005fbb460f84733bf066d551c2",
+    "semantic_hash": "223c13005fbb460f84733bf066d551c2"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\interfaces\\request-with-user.interface.ts": {
+    "mtime": 1780203374.1714795,
+    "ast_hash": "6ed9f45a9ae54820e2246d87d0b361b4",
+    "semantic_hash": "6ed9f45a9ae54820e2246d87d0b361b4"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\jwt.strategy.ts": {
+    "mtime": 1780203374.1964993,
+    "ast_hash": "5500093fd7807623a62d4ec5eba129c4",
+    "semantic_hash": "5500093fd7807623a62d4ec5eba129c4"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\roles.decorator.ts": {
+    "mtime": 1780203374.2100708,
+    "ast_hash": "9ac903e849be19aac63e6e84e43f08d1",
+    "semantic_hash": "9ac903e849be19aac63e6e84e43f08d1"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\roles.guard.ts": {
+    "mtime": 1780203374.235246,
+    "ast_hash": "84799be788b8be750d28fc7b97e2eec0",
+    "semantic_hash": "84799be788b8be750d28fc7b97e2eec0"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\types\\index.ts": {
+    "mtime": 1780203374.2482462,
+    "ast_hash": "21f7addab8f1b8e68066dbf67cfc0a82",
+    "semantic_hash": "21f7addab8f1b8e68066dbf67cfc0a82"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\auth\\types\\role.enum.ts": {
+    "mtime": 1780203374.2599907,
+    "ast_hash": "be32f4df5311637a004a57811dc49857",
+    "semantic_hash": "be32f4df5311637a004a57811dc49857"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\billing\\billing.controller.ts": {
+    "mtime": 1780208105.9473288,
+    "ast_hash": "ee9e5f67336e08a44574b7b1054f93d6",
+    "semantic_hash": "ee9e5f67336e08a44574b7b1054f93d6"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\billing\\billing.module.ts": {
+    "mtime": 1780208105.9670227,
+    "ast_hash": "7f18cfef93a7fd8a968b07590e8751b1",
+    "semantic_hash": "7f18cfef93a7fd8a968b07590e8751b1"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\config\\config.module.ts": {
+    "mtime": 1779791105.2789257,
+    "ast_hash": "b9980287dd3fe38f7f9c819eecd93a91",
+    "semantic_hash": "b9980287dd3fe38f7f9c819eecd93a91"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\database\\database.module.ts": {
+    "mtime": 1780203374.296786,
+    "ast_hash": "70c187e3e477e5673600b7a9c5d10c51",
+    "semantic_hash": "70c187e3e477e5673600b7a9c5d10c51"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\database\\database.service.ts": {
+    "mtime": 1779791105.348086,
+    "ast_hash": "e4f11648fee32af612ad3b7e8829807e",
+    "semantic_hash": "e4f11648fee32af612ad3b7e8829807e"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\database\\prisma.service.ts": {
+    "mtime": 1780203374.3541763,
+    "ast_hash": "5f446f0b4c6fc92b244f1ede2122a753",
+    "semantic_hash": "5f446f0b4c6fc92b244f1ede2122a753"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\http\\all-exceptions.filter.ts": {
+    "mtime": 1780203374.3804967,
+    "ast_hash": "0247a768d6f628c3ae31d4bf3bc2b6f9",
+    "semantic_hash": "0247a768d6f628c3ae31d4bf3bc2b6f9"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\http\\correlation.middleware.ts": {
+    "mtime": 1780203374.3964958,
+    "ast_hash": "e00185ec8e6837696ea00a0a7fa74d70",
+    "semantic_hash": "e00185ec8e6837696ea00a0a7fa74d70"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\http\\error-envelope.ts": {
+    "mtime": 1780203374.4250185,
+    "ast_hash": "e72251194c9800796fc5854a6008ddbf",
+    "semantic_hash": "e72251194c9800796fc5854a6008ddbf"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\common\\openapi\\openapi.setup.ts": {
+    "mtime": 1780203374.450032,
+    "ast_hash": "887ca043ca84bae9e18022f9fff642c0",
+    "semantic_hash": "887ca043ca84bae9e18022f9fff642c0"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\customers\\customers.controller.ts": {
+    "mtime": 1780203374.4898942,
+    "ast_hash": "ab1ff3b4e1e58c85cd1e3329084c8a37",
+    "semantic_hash": "ab1ff3b4e1e58c85cd1e3329084c8a37"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\customers\\customers.module.ts": {
+    "mtime": 1780203374.4998937,
+    "ast_hash": "dc38ad511e00d30f56e0694ce64fe134",
+    "semantic_hash": "dc38ad511e00d30f56e0694ce64fe134"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\customers\\customers.service.ts": {
+    "mtime": 1780203374.5630178,
+    "ast_hash": "6e178492ae878349b533e50d7f965752",
+    "semantic_hash": "6e178492ae878349b533e50d7f965752"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\customers\\dto\\create-customer.dto.ts": {
+    "mtime": 1780122122.8943307,
+    "ast_hash": "0387da8f1b826104a39d4cdb09a17687",
+    "semantic_hash": "0387da8f1b826104a39d4cdb09a17687"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\customers\\dto\\customer-response.dto.ts": {
+    "mtime": 1780049847.1310866,
+    "ast_hash": "9f7091b12ac47c390fdfe4125a7a0817",
+    "semantic_hash": "9f7091b12ac47c390fdfe4125a7a0817"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\customers\\dto\\update-customer.dto.ts": {
+    "mtime": 1780049846.0475795,
+    "ast_hash": "4616f958e48a235018d5b95eb4279613",
+    "semantic_hash": "4616f958e48a235018d5b95eb4279613"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\idempotency\\idempotency.interceptor.ts": {
+    "mtime": 1780203374.6619418,
+    "ast_hash": "86af8613f60c2bd013422a768ac1be96",
+    "semantic_hash": "86af8613f60c2bd013422a768ac1be96"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\idempotency\\idempotency.module.ts": {
+    "mtime": 1780203374.6764686,
+    "ast_hash": "bfe871fc4810f1aeab18311cccf36736",
+    "semantic_hash": "bfe871fc4810f1aeab18311cccf36736"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\idempotency\\idempotency.service.ts": {
+    "mtime": 1780203374.7140932,
+    "ast_hash": "b66e051ad02d50d29ca719f88ae47082",
+    "semantic_hash": "b66e051ad02d50d29ca719f88ae47082"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\main.ts": {
+    "mtime": 1780211332.301808,
+    "ast_hash": "667a611d8b6b75131da0c32fdaa68e0a",
+    "semantic_hash": "667a611d8b6b75131da0c32fdaa68e0a"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\assign-meter.dto.ts": {
+    "mtime": 1780047918.6316576,
+    "ast_hash": "2ed016a9d2d7a4ad4759f4d02bf5e5eb",
+    "semantic_hash": "2ed016a9d2d7a4ad4759f4d02bf5e5eb"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\create-meter.dto.ts": {
+    "mtime": 1780050831.6654491,
+    "ast_hash": "94cec6ce68b0ff222f1568934c65759a",
+    "semantic_hash": "94cec6ce68b0ff222f1568934c65759a"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\meter-assignment.dto.ts": {
+    "mtime": 1780047566.668242,
+    "ast_hash": "5b034ec28f313f1e8533bc1d98a720bc",
+    "semantic_hash": "5b034ec28f313f1e8533bc1d98a720bc"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\meter-response.dto.ts": {
+    "mtime": 1780203374.8146098,
+    "ast_hash": "0742c8a42d92c7c4f58fd1d175e1942b",
+    "semantic_hash": "0742c8a42d92c7c4f58fd1d175e1942b"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\query-meter.dto.ts": {
+    "mtime": 1780203374.8350077,
+    "ast_hash": "8d71ef845e64eb85f996bc9ad33f916c",
+    "semantic_hash": "8d71ef845e64eb85f996bc9ad33f916c"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\terminate-meter.dto.ts": {
+    "mtime": 1780048791.6748998,
+    "ast_hash": "34a79d917a196bfad6235f9887956d3c",
+    "semantic_hash": "34a79d917a196bfad6235f9887956d3c"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\dto\\update-meter.dto.ts": {
+    "mtime": 1780203374.8950334,
+    "ast_hash": "840c1777dd37c79b1433ec6a2fd9612a",
+    "semantic_hash": "840c1777dd37c79b1433ec6a2fd9612a"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\meters.controller.ts": {
+    "mtime": 1780203374.9460344,
+    "ast_hash": "989db0b7f36556da344556370d93f89d",
+    "semantic_hash": "989db0b7f36556da344556370d93f89d"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\meters.module.ts": {
+    "mtime": 1780203374.9592931,
+    "ast_hash": "16ce6d930c2063bc3f888b39cf401743",
+    "semantic_hash": "16ce6d930c2063bc3f888b39cf401743"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\meters\\meters.service.ts": {
+    "mtime": 1780203375.036335,
+    "ast_hash": "33e2090155c7baae06f85bb67b737503",
+    "semantic_hash": "33e2090155c7baae06f85bb67b737503"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dashboard\\dashboard.controller.ts": {
+    "mtime": 1780203375.084657,
+    "ast_hash": "708226ca447e7209940436617d9caefb",
+    "semantic_hash": "708226ca447e7209940436617d9caefb"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dashboard\\dashboard.module.ts": {
+    "mtime": 1780203375.1020067,
+    "ast_hash": "f6b3b8c46d4ffdb231e828955842a6d5",
+    "semantic_hash": "f6b3b8c46d4ffdb231e828955842a6d5"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dashboard\\dashboard.service.ts": {
+    "mtime": 1780203375.2173316,
+    "ast_hash": "d7ae55f596770e6814f7f5c8a0d1c23d",
+    "semantic_hash": "d7ae55f596770e6814f7f5c8a0d1c23d"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dashboard\\dto\\consumption-trend.dto.ts": {
+    "mtime": 1780050118.197563,
+    "ast_hash": "b7c46a36ac972451f0671660ca9ad098",
+    "semantic_hash": "b7c46a36ac972451f0671660ca9ad098"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dashboard\\dto\\kpi-summary.dto.ts": {
+    "mtime": 1780050117.520742,
+    "ast_hash": "2dbc6205de12dcc221451cfd6f6f0b62",
+    "semantic_hash": "2dbc6205de12dcc221451cfd6f6f0b62"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dashboard\\dto\\recent-activity.dto.ts": {
+    "mtime": 1780050118.959686,
+    "ast_hash": "abca7eff607076956d90102ee06b97d2",
+    "semantic_hash": "abca7eff607076956d90102ee06b97d2"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dto\\create-project.dto.ts": {
+    "mtime": 1780049527.2443519,
+    "ast_hash": "55d3e2fe31191e32983b98b6db337cec",
+    "semantic_hash": "55d3e2fe31191e32983b98b6db337cec"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dto\\project-response.dto.ts": {
+    "mtime": 1780049529.8431888,
+    "ast_hash": "a1ce5a7acae838a0d2631d730cbcf338",
+    "semantic_hash": "a1ce5a7acae838a0d2631d730cbcf338"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\dto\\update-project.dto.ts": {
+    "mtime": 1780049528.738429,
+    "ast_hash": "661512f6770bff2100b1c40e703dee56",
+    "semantic_hash": "661512f6770bff2100b1c40e703dee56"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\locations\\dto\\create-location.dto.ts": {
+    "mtime": 1780049723.9517462,
+    "ast_hash": "6936ec4ee4fe734accdb460f30fa560e",
+    "semantic_hash": "6936ec4ee4fe734accdb460f30fa560e"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\locations\\dto\\location-response.dto.ts": {
+    "mtime": 1780049726.0568342,
+    "ast_hash": "17bc17c6ade44d796fe5ccaa88fa2e4b",
+    "semantic_hash": "17bc17c6ade44d796fe5ccaa88fa2e4b"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\locations\\dto\\update-location.dto.ts": {
+    "mtime": 1780049724.9846544,
+    "ast_hash": "5bc9e798128563a500dfb0c2aa042299",
+    "semantic_hash": "5bc9e798128563a500dfb0c2aa042299"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\locations\\locations.controller.ts": {
+    "mtime": 1780203375.4519894,
+    "ast_hash": "46d1e520d921b049cd44082d8aa2e735",
+    "semantic_hash": "46d1e520d921b049cd44082d8aa2e735"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\locations\\locations.module.ts": {
+    "mtime": 1780203375.4794831,
+    "ast_hash": "d621d6a85263161d0a98145fd8addc05",
+    "semantic_hash": "d621d6a85263161d0a98145fd8addc05"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\locations\\locations.service.ts": {
+    "mtime": 1780203375.5465484,
+    "ast_hash": "3e6d44b23d6963f6f4d0707b18eb5a11",
+    "semantic_hash": "3e6d44b23d6963f6f4d0707b18eb5a11"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\projects.controller.ts": {
+    "mtime": 1780203375.5971446,
+    "ast_hash": "9becde5f702d9061855c189d98e1422b",
+    "semantic_hash": "9becde5f702d9061855c189d98e1422b"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\projects.module.ts": {
+    "mtime": 1780203375.6183126,
+    "ast_hash": "f15ae00c8da16777367ce119806174a8",
+    "semantic_hash": "f15ae00c8da16777367ce119806174a8"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\projects.service.ts": {
+    "mtime": 1780203375.6958153,
+    "ast_hash": "63128cbb77c4531bd72e4fa8b515e3c5",
+    "semantic_hash": "63128cbb77c4531bd72e4fa8b515e3c5"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\thresholds\\threshold.service.ts": {
+    "mtime": 1780203375.7340682,
+    "ast_hash": "cbdd05d59cf6055f1a922d00cc82ff52",
+    "semantic_hash": "cbdd05d59cf6055f1a922d00cc82ff52"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\projects\\thresholds\\thresholds.module.ts": {
+    "mtime": 1780203375.7510736,
+    "ast_hash": "a93c549f6ec1e5fb331f86cae371e6f8",
+    "semantic_hash": "a93c549f6ec1e5fb331f86cae371e6f8"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\readings\\dto\\create-reading.dto.ts": {
+    "mtime": 1780122124.355367,
+    "ast_hash": "6d7c868469876760e23391460eaea434",
+    "semantic_hash": "6d7c868469876760e23391460eaea434"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\readings\\dto\\reading-response.dto.ts": {
+    "mtime": 1780203375.9160714,
+    "ast_hash": "f0d845dfb675163d3f81483bce534964",
+    "semantic_hash": "f0d845dfb675163d3f81483bce534964"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\readings\\readings.controller.ts": {
+    "mtime": 1780208106.0308201,
+    "ast_hash": "11b88cf102eb78bd685ab532170971d2",
+    "semantic_hash": "11b88cf102eb78bd685ab532170971d2"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\readings\\readings.module.ts": {
+    "mtime": 1780203375.9423087,
+    "ast_hash": "0e24c9a41eebf61f59532ee0941b2345",
+    "semantic_hash": "0e24c9a41eebf61f59532ee0941b2345"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\readings\\readings.service.ts": {
+    "mtime": 1780208106.140579,
+    "ast_hash": "654b89447eae8693b5813c9ac9420176",
+    "semantic_hash": "654b89447eae8693b5813c9ac9420176"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\dto\\create-sim-card.dto.ts": {
+    "mtime": 1780122124.9289224,
+    "ast_hash": "05b27265b929c4fabd1b7cd44f75a380",
+    "semantic_hash": "05b27265b929c4fabd1b7cd44f75a380"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\dto\\query-sim-card.dto.ts": {
+    "mtime": 1780203376.0168302,
+    "ast_hash": "04ef7cb8f996f1afbb017feb2fad001d",
+    "semantic_hash": "04ef7cb8f996f1afbb017feb2fad001d"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\dto\\sim-card-response.dto.ts": {
+    "mtime": 1780203376.035829,
+    "ast_hash": "0e646d165b4a293e83107f0e788c1a99",
+    "semantic_hash": "0e646d165b4a293e83107f0e788c1a99"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\dto\\sim-eligibility.dto.ts": {
+    "mtime": 1780049160.6133416,
+    "ast_hash": "3888af693928938a2feacb332e21a995",
+    "semantic_hash": "3888af693928938a2feacb332e21a995"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\dto\\update-sim-card.dto.ts": {
+    "mtime": 1780203376.065044,
+    "ast_hash": "0edcb0f7d6a2d98e3fb665c8fb2fcf5a",
+    "semantic_hash": "0edcb0f7d6a2d98e3fb665c8fb2fcf5a"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\sim-cards.controller.ts": {
+    "mtime": 1780203376.0882092,
+    "ast_hash": "e69d0a7fdc4fa11a5084f43d4de71ff0",
+    "semantic_hash": "e69d0a7fdc4fa11a5084f43d4de71ff0"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\sim-cards.module.ts": {
+    "mtime": 1780203376.121626,
+    "ast_hash": "478bd35afbbbcdb81fc4c5763ba6a1a7",
+    "semantic_hash": "478bd35afbbbcdb81fc4c5763ba6a1a7"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\sim-cards\\sim-cards.service.ts": {
+    "mtime": 1780203376.1637864,
+    "ast_hash": "e885af5850fb73e063770be5780094cc",
+    "semantic_hash": "e885af5850fb73e063770be5780094cc"
+  },
+  "D:\\meter\\Meter-\\backend\\src\\types\\express.d.ts": {
+    "mtime": 1780203376.182867,
+    "ast_hash": "4e8a55df7f43e174f44f636d3191af9f",
+    "semantic_hash": "4e8a55df7f43e174f44f636d3191af9f"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\audit\\audit.decorator.spec.ts": {
+    "mtime": 1780210497.1659954,
+    "ast_hash": "58aae4832290032f907ad5e28c1b7272",
+    "semantic_hash": "58aae4832290032f907ad5e28c1b7272"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\audit\\audit.interceptor.spec.ts": {
+    "mtime": 1780210497.3329468,
+    "ast_hash": "9bd32f427c140486566df263b3f5dcf3",
+    "semantic_hash": "9bd32f427c140486566df263b3f5dcf3"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\audit\\audit.service.spec.ts": {
+    "mtime": 1780210497.3831165,
+    "ast_hash": "c7144c25218972e67f654bb87812b515",
+    "semantic_hash": "c7144c25218972e67f654bb87812b515"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\auth\\jwt.strategy.spec.ts": {
+    "mtime": 1780210497.5327268,
+    "ast_hash": "56edce9ce04b017e934f0a01eb0ecabb",
+    "semantic_hash": "56edce9ce04b017e934f0a01eb0ecabb"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\auth\\roles.decorator.spec.ts": {
+    "mtime": 1780210497.5645044,
+    "ast_hash": "ddc5fc15efc4031f37823267ae211da8",
+    "semantic_hash": "ddc5fc15efc4031f37823267ae211da8"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\auth\\roles.guard.spec.ts": {
+    "mtime": 1780210497.630764,
+    "ast_hash": "5c9e29a29969a829d5b2bad88790ce2b",
+    "semantic_hash": "5c9e29a29969a829d5b2bad88790ce2b"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\invoice-adjustment.contract.spec.ts": {
+    "mtime": 1780210497.6852677,
+    "ast_hash": "0af20c11e270c78f0724ac6fe6d78f3d",
+    "semantic_hash": "0af20c11e270c78f0724ac6fe6d78f3d"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\invoice-generate.contract.spec.ts": {
+    "mtime": 1780210497.7420096,
+    "ast_hash": "dcb4e31ab0a28a3f453aee912104692f",
+    "semantic_hash": "dcb4e31ab0a28a3f453aee912104692f"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\invoice-issue.contract.spec.ts": {
+    "mtime": 1780210497.793656,
+    "ast_hash": "ec3181c7e92ed346d7c139974896a544",
+    "semantic_hash": "ec3181c7e92ed346d7c139974896a544"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\meter-assign.contract.spec.ts": {
+    "mtime": 1780210497.9534173,
+    "ast_hash": "daab1730a8cfc5a3b5fc63ed05b6de1b",
+    "semantic_hash": "daab1730a8cfc5a3b5fc63ed05b6de1b"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\meter-terminate.contract.spec.ts": {
+    "mtime": 1780210498.0560782,
+    "ast_hash": "ad21af399d78ab36ee0c8581d3ca4cf8",
+    "semantic_hash": "ad21af399d78ab36ee0c8581d3ca4cf8"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\reading-create.contract.spec.ts": {
+    "mtime": 1780210498.1307738,
+    "ast_hash": "1481acdc0889d9d886eada1e779f3b5d",
+    "semantic_hash": "1481acdc0889d9d886eada1e779f3b5d"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\reading-review-queue.contract.spec.ts": {
+    "mtime": 1780210498.2143726,
+    "ast_hash": "748cc72b4b504dd8415b6a416c08c7ef",
+    "semantic_hash": "748cc72b4b504dd8415b6a416c08c7ef"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\setup.spec.ts": {
+    "mtime": 1780210498.3745923,
+    "ast_hash": "18a6dc303f9f161852dc073c9c2d31ac",
+    "semantic_hash": "18a6dc303f9f161852dc073c9c2d31ac"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\setup.ts": {
+    "mtime": 1780210498.565897,
+    "ast_hash": "34676136a2a6df11a332c512bf81b824",
+    "semantic_hash": "34676136a2a6df11a332c512bf81b824"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\contract\\sim-eligibility.contract.spec.ts": {
+    "mtime": 1780210498.6059465,
+    "ast_hash": "3f333fbf822e486d61e1d1a531ff3f93",
+    "semantic_hash": "3f333fbf822e486d61e1d1a531ff3f93"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\correlation.spec.ts": {
+    "mtime": 1780210498.6449575,
+    "ast_hash": "31e3e8e93c8c80046f52025a8abd9afe",
+    "semantic_hash": "31e3e8e93c8c80046f52025a8abd9afe"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\error-envelope.spec.ts": {
+    "mtime": 1780210498.6749926,
+    "ast_hash": "e985bfc22ab128597d5eb8df8b91c510",
+    "semantic_hash": "e985bfc22ab128597d5eb8df8b91c510"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\idempotency.spec.ts": {
+    "mtime": 1780210498.70143,
+    "ast_hash": "5aa164a15fb1b71173327653eeaddbbc",
+    "semantic_hash": "5aa164a15fb1b71173327653eeaddbbc"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\integration\\reading-validation.spec.ts": {
+    "mtime": 1780210498.7641304,
+    "ast_hash": "ba28bca6f982a412a85db329f7bc4bae",
+    "semantic_hash": "ba28bca6f982a412a85db329f7bc4bae"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\integration\\sim-reuse.spec.ts": {
+    "mtime": 1780210498.8817756,
+    "ast_hash": "2a8006e2fc859ab7b85855897a3cb252",
+    "semantic_hash": "2a8006e2fc859ab7b85855897a3cb252"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\customers\\customers.controller.spec.ts": {
+    "mtime": 1780210498.9322355,
+    "ast_hash": "d1106817e9d3f4038721f6ba0410bbbb",
+    "semantic_hash": "d1106817e9d3f4038721f6ba0410bbbb"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\customers\\customers.service.spec.ts": {
+    "mtime": 1780210498.968929,
+    "ast_hash": "3d9dd326be29b6a75635ec2a43c1e313",
+    "semantic_hash": "3d9dd326be29b6a75635ec2a43c1e313"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\meters\\meters.controller.spec.ts": {
+    "mtime": 1780210499.0074177,
+    "ast_hash": "9c86326d6213f94eea2b17951cbc3036",
+    "semantic_hash": "9c86326d6213f94eea2b17951cbc3036"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\meters\\meters.service.spec.ts": {
+    "mtime": 1780210499.0451949,
+    "ast_hash": "05d270f4ae83b09c7772dfd78a314baf",
+    "semantic_hash": "05d270f4ae83b09c7772dfd78a314baf"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\dashboard\\dashboard.controller.spec.ts": {
+    "mtime": 1780210499.0786207,
+    "ast_hash": "a87ac7c835b8284d767751e6fd15ff2c",
+    "semantic_hash": "a87ac7c835b8284d767751e6fd15ff2c"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\dashboard\\dashboard.service.spec.ts": {
+    "mtime": 1780210499.1073878,
+    "ast_hash": "b2d6be3c7b8f79ca5794ca9e9d543647",
+    "semantic_hash": "b2d6be3c7b8f79ca5794ca9e9d543647"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\locations\\locations.controller.spec.ts": {
+    "mtime": 1780210499.157354,
+    "ast_hash": "783c823df8c743dcca9e7059ab9a8fca",
+    "semantic_hash": "783c823df8c743dcca9e7059ab9a8fca"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\locations\\locations.service.spec.ts": {
+    "mtime": 1780210499.2198846,
+    "ast_hash": "478d5640c8675911ab657679214761e1",
+    "semantic_hash": "478d5640c8675911ab657679214761e1"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\projects.controller.spec.ts": {
+    "mtime": 1780210499.248678,
+    "ast_hash": "905846245b37fd7c5f931d7a5051e270",
+    "semantic_hash": "905846245b37fd7c5f931d7a5051e270"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\projects.service.spec.ts": {
+    "mtime": 1780210499.291484,
+    "ast_hash": "f55958b09afd8535443f018b8329c301",
+    "semantic_hash": "f55958b09afd8535443f018b8329c301"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\projects\\thresholds\\threshold.service.spec.ts": {
+    "mtime": 1780210499.3156877,
+    "ast_hash": "45c591d9d80da7457c2c8ba9d610551a",
+    "semantic_hash": "45c591d9d80da7457c2c8ba9d610551a"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\readings\\readings.service.spec.ts": {
+    "mtime": 1780210499.35039,
+    "ast_hash": "cbf28ea77cfb90db7d201fcd76527f73",
+    "semantic_hash": "cbf28ea77cfb90db7d201fcd76527f73"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\sim-cards\\sim-cards.controller.spec.ts": {
+    "mtime": 1780210499.3894198,
+    "ast_hash": "1a84d76700e38dfb9a38313fc0439751",
+    "semantic_hash": "1a84d76700e38dfb9a38313fc0439751"
+  },
+  "D:\\meter\\Meter-\\backend\\test\\unit\\sim-cards\\sim-cards.service.spec.ts": {
+    "mtime": 1780210499.4645598,
+    "ast_hash": "5f6efe6ac346da91cebe296bcc9c2236",
+    "semantic_hash": "5f6efe6ac346da91cebe296bcc9c2236"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\app\\api\\route.ts": {
+    "mtime": 1779718058.7453985,
+    "ast_hash": "7757df45634fbc4e3ef174d7a895573b",
+    "semantic_hash": "7757df45634fbc4e3ef174d7a895573b"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\app\\layout.tsx": {
+    "mtime": 1780037135.6959796,
+    "ast_hash": "ce520af3db34f0e909e7bb9107da183b",
+    "semantic_hash": "ce520af3db34f0e909e7bb9107da183b"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\app\\page.tsx": {
+    "mtime": 1779718058.7473967,
+    "ast_hash": "09c7019bc937b623073bc0b357d8b4f1",
+    "semantic_hash": "09c7019bc937b623073bc0b357d8b4f1"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\alerts\\AlertsPage.tsx": {
+    "mtime": 1779718058.7484076,
+    "ast_hash": "1c526a95d2ef7a1a576c48a3ae6f3ade",
+    "semantic_hash": "1c526a95d2ef7a1a576c48a3ae6f3ade"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\billing\\BalancesPage.tsx": {
+    "mtime": 1779718058.7484076,
+    "ast_hash": "0dd82e5801e3037365eaca2c9b977151",
+    "semantic_hash": "0dd82e5801e3037365eaca2c9b977151"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\billing\\ConsumptionPage.tsx": {
+    "mtime": 1779718058.7484076,
+    "ast_hash": "0f476af76aace4de24580b00adf71c52",
+    "semantic_hash": "0f476af76aace4de24580b00adf71c52"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\billing\\InvoiceDetailPage.tsx": {
+    "mtime": 1779718058.749408,
+    "ast_hash": "d4f96157e5032c2f2dcc8216acbdd725",
+    "semantic_hash": "d4f96157e5032c2f2dcc8216acbdd725"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\billing\\InvoicesPage.tsx": {
+    "mtime": 1779718058.749408,
+    "ast_hash": "758c90d0c70351182905669d97139779",
+    "semantic_hash": "758c90d0c70351182905669d97139779"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\billing\\PaymentsPage.tsx": {
+    "mtime": 1779718058.749408,
+    "ast_hash": "582308d02ac2aa7ae4303b0e3cb818f0",
+    "semantic_hash": "582308d02ac2aa7ae4303b0e3cb818f0"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\billing\\WaterBalancePage.tsx": {
+    "mtime": 1779718058.7504053,
+    "ast_hash": "81e9b8f6145d7921f8f19aeacc5f3802",
+    "semantic_hash": "81e9b8f6145d7921f8f19aeacc5f3802"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\customers\\CustomerDetailPage.tsx": {
+    "mtime": 1780052120.108444,
+    "ast_hash": "99d19b23d3f3803ec3b5b2f6b759215f",
+    "semantic_hash": "99d19b23d3f3803ec3b5b2f6b759215f"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\customers\\CustomersPage.tsx": {
+    "mtime": 1780052159.8332467,
+    "ast_hash": "c405838ed37b0976861cb9627c6894a9",
+    "semantic_hash": "c405838ed37b0976861cb9627c6894a9"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\dashboard\\DashboardPage.tsx": {
+    "mtime": 1780113735.2550144,
+    "ast_hash": "45df2846c92bc6654d47d74ad9767602",
+    "semantic_hash": "45df2846c92bc6654d47d74ad9767602"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\AppShell.tsx": {
+    "mtime": 1779718058.7534804,
+    "ast_hash": "0bb00f9774028b8afe667f40dde62814",
+    "semantic_hash": "0bb00f9774028b8afe667f40dde62814"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\AppSidebar.tsx": {
+    "mtime": 1779718058.7534804,
+    "ast_hash": "d3f440002d297ba273cea11e86a5f73b",
+    "semantic_hash": "d3f440002d297ba273cea11e86a5f73b"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\LoginPage.tsx": {
+    "mtime": 1779718058.7544446,
+    "ast_hash": "5c3725dcc4eb1772624555360e162c58",
+    "semantic_hash": "5c3725dcc4eb1772624555360e162c58"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\PageHeader.tsx": {
+    "mtime": 1779718058.7544446,
+    "ast_hash": "f7d3b5319ca9e7d1b623e67d9ad5ce22",
+    "semantic_hash": "f7d3b5319ca9e7d1b623e67d9ad5ce22"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\PagePlaceholder.tsx": {
+    "mtime": 1779718058.7554433,
+    "ast_hash": "0f731ced67b287681ee5ed7975abaab0",
+    "semantic_hash": "0f731ced67b287681ee5ed7975abaab0"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\RoleSwitcher.tsx": {
+    "mtime": 1779718058.7554433,
+    "ast_hash": "b5a0c67c30732bffdabe2d38c3a36c7d",
+    "semantic_hash": "b5a0c67c30732bffdabe2d38c3a36c7d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\ThemeProvider.tsx": {
+    "mtime": 1779718058.7554433,
+    "ast_hash": "56c3e6e17cb292827a15e4fb9b5549f8",
+    "semantic_hash": "56c3e6e17cb292827a15e4fb9b5549f8"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\layout\\TopNav.tsx": {
+    "mtime": 1779718058.756433,
+    "ast_hash": "11553464036306d852512b38dcbf25cd",
+    "semantic_hash": "11553464036306d852512b38dcbf25cd"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\meters\\MeterAssignPage.tsx": {
+    "mtime": 1779718058.756433,
+    "ast_hash": "7070ad57125554c3cccacfbfaf494716",
+    "semantic_hash": "7070ad57125554c3cccacfbfaf494716"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\meters\\MeterDetailPage.tsx": {
+    "mtime": 1780113924.6000774,
+    "ast_hash": "b7cb48818e3eb5711fb9e00b935de78d",
+    "semantic_hash": "b7cb48818e3eb5711fb9e00b935de78d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\meters\\MeterReplacePage.tsx": {
+    "mtime": 1780114268.6346514,
+    "ast_hash": "2420b82fd88ee0dc949af6fb8060508b",
+    "semantic_hash": "2420b82fd88ee0dc949af6fb8060508b"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\meters\\MetersPage.tsx": {
+    "mtime": 1780113873.1881626,
+    "ast_hash": "a7fc2ac2884a32d52dbc25e3446adc8c",
+    "semantic_hash": "a7fc2ac2884a32d52dbc25e3446adc8c"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\meters\\MeterTerminatePage.tsx": {
+    "mtime": 1780114150.719579,
+    "ast_hash": "d41d31a339de191ae283446e5222100e",
+    "semantic_hash": "d41d31a339de191ae283446e5222100e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\projects\\LocationsPage.tsx": {
+    "mtime": 1780051824.886616,
+    "ast_hash": "2d4622be53f238b3dc635379a8143291",
+    "semantic_hash": "2d4622be53f238b3dc635379a8143291"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\projects\\ProjectDetailPage.tsx": {
+    "mtime": 1780037170.3540537,
+    "ast_hash": "7c3ba5cd107e24c8d0ae0b159ca30060",
+    "semantic_hash": "7c3ba5cd107e24c8d0ae0b159ca30060"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\projects\\ProjectsPage.tsx": {
+    "mtime": 1780037144.3191798,
+    "ast_hash": "685257b80031133db76e73139b1964c7",
+    "semantic_hash": "685257b80031133db76e73139b1964c7"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\readings\\ReadingNewPage.tsx": {
+    "mtime": 1779718058.7594378,
+    "ast_hash": "384103c3c41731c311ad5823a85254be",
+    "semantic_hash": "384103c3c41731c311ad5823a85254be"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\readings\\ReadingsPage.tsx": {
+    "mtime": 1779718058.7594378,
+    "ast_hash": "0a0714377f007b76b0ad5e1f6d271f3d",
+    "semantic_hash": "0a0714377f007b76b0ad5e1f6d271f3d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\reports\\ReportsPage.tsx": {
+    "mtime": 1779718058.7614353,
+    "ast_hash": "db1e525eb264c3b9a765f8507fc4c0d4",
+    "semantic_hash": "db1e525eb264c3b9a765f8507fc4c0d4"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\reports\\SettingsPage.tsx": {
+    "mtime": 1779718058.7614353,
+    "ast_hash": "06cea61558c94f61e23bd54b08deb503",
+    "semantic_hash": "06cea61558c94f61e23bd54b08deb503"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\shared\\PageHelpers.tsx": {
+    "mtime": 1779718058.762435,
+    "ast_hash": "fe73bdfdf391c4bf2aac7c7e5fc20e26",
+    "semantic_hash": "fe73bdfdf391c4bf2aac7c7e5fc20e26"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\shared\\QueryBoundary.tsx": {
+    "mtime": 1780037128.9409382,
+    "ast_hash": "d3b447034b07c9733864658a53b19880",
+    "semantic_hash": "d3b447034b07c9733864658a53b19880"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\shared\\StatusBadge.tsx": {
+    "mtime": 1779718058.7634342,
+    "ast_hash": "8c218db19663b992933c99db613a4ac7",
+    "semantic_hash": "8c218db19663b992933c99db613a4ac7"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\sim-cards\\SimCardsPage.tsx": {
+    "mtime": 1780114354.492144,
+    "ast_hash": "f66b55dc4bfa94b7a634bfd1da373491",
+    "semantic_hash": "f66b55dc4bfa94b7a634bfd1da373491"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\smart-table\\SmartTable.tsx": {
+    "mtime": 1779718058.764447,
+    "ast_hash": "c1f605961d1fe4ca635c49202469b4b1",
+    "semantic_hash": "c1f605961d1fe4ca635c49202469b4b1"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\tickets\\SupportPage.tsx": {
+    "mtime": 1779718058.764447,
+    "ast_hash": "0a3915542c469ceddc4c33f9774767cd",
+    "semantic_hash": "0a3915542c469ceddc4c33f9774767cd"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\tickets\\TicketsPage.tsx": {
+    "mtime": 1779718058.765439,
+    "ast_hash": "22a0a9c5129feba1e8ae9e01a86bb1d7",
+    "semantic_hash": "22a0a9c5129feba1e8ae9e01a86bb1d7"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\accordion.tsx": {
+    "mtime": 1779718058.765439,
+    "ast_hash": "9acd8f651844143bd32aa3f4ebdd8498",
+    "semantic_hash": "9acd8f651844143bd32aa3f4ebdd8498"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\alert-dialog.tsx": {
+    "mtime": 1779718058.7664385,
+    "ast_hash": "96289b446b05be92f5fa68a99489c908",
+    "semantic_hash": "96289b446b05be92f5fa68a99489c908"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\alert.tsx": {
+    "mtime": 1779718058.7664385,
+    "ast_hash": "60a1358bb82344b005cea0eca2cbf275",
+    "semantic_hash": "60a1358bb82344b005cea0eca2cbf275"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\aspect-ratio.tsx": {
+    "mtime": 1779718058.7664385,
+    "ast_hash": "dcb189013ec808fefffceed9f15bcc3b",
+    "semantic_hash": "dcb189013ec808fefffceed9f15bcc3b"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\avatar.tsx": {
+    "mtime": 1779718058.7664385,
+    "ast_hash": "dfe8c1ef8f73aa7f91230c14a4a21b71",
+    "semantic_hash": "dfe8c1ef8f73aa7f91230c14a4a21b71"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\badge.tsx": {
+    "mtime": 1779718058.767486,
+    "ast_hash": "b18d5e3e077aac3937008f6f09eb12d9",
+    "semantic_hash": "b18d5e3e077aac3937008f6f09eb12d9"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\breadcrumb.tsx": {
+    "mtime": 1779718058.767486,
+    "ast_hash": "908958673b534e7ab8af02a47d450bf3",
+    "semantic_hash": "908958673b534e7ab8af02a47d450bf3"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\button.tsx": {
+    "mtime": 1779718058.767486,
+    "ast_hash": "ec47dd35a37fd626e7911239dedf5f18",
+    "semantic_hash": "ec47dd35a37fd626e7911239dedf5f18"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\calendar.tsx": {
+    "mtime": 1779718058.7684834,
+    "ast_hash": "4be1da833b44c7bbe86a3538d2bd0b9e",
+    "semantic_hash": "4be1da833b44c7bbe86a3538d2bd0b9e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\card.tsx": {
+    "mtime": 1779718058.7684834,
+    "ast_hash": "486b4175c685923e8ace5592259f93c4",
+    "semantic_hash": "486b4175c685923e8ace5592259f93c4"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\carousel.tsx": {
+    "mtime": 1779718058.7684834,
+    "ast_hash": "61511ca1762ddf6b333c382a4e921c52",
+    "semantic_hash": "61511ca1762ddf6b333c382a4e921c52"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\chart.tsx": {
+    "mtime": 1779718058.7694836,
+    "ast_hash": "08b75566d66e68af949d1cfbc3a9a632",
+    "semantic_hash": "08b75566d66e68af949d1cfbc3a9a632"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\checkbox.tsx": {
+    "mtime": 1779718058.7694836,
+    "ast_hash": "d2a583d1dcaf06dcf1ef6d83430f620f",
+    "semantic_hash": "d2a583d1dcaf06dcf1ef6d83430f620f"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\collapsible.tsx": {
+    "mtime": 1779718058.7694836,
+    "ast_hash": "6dc9bbf54b5bdb11466bfa79966c2755",
+    "semantic_hash": "6dc9bbf54b5bdb11466bfa79966c2755"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\command.tsx": {
+    "mtime": 1779718058.7694836,
+    "ast_hash": "c1db40a6f8892dba4122046b4b448484",
+    "semantic_hash": "c1db40a6f8892dba4122046b4b448484"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\context-menu.tsx": {
+    "mtime": 1779718058.7704837,
+    "ast_hash": "87a6fe9d4a224f1750dd6e83dfee98ea",
+    "semantic_hash": "87a6fe9d4a224f1750dd6e83dfee98ea"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\dialog.tsx": {
+    "mtime": 1779718058.7704837,
+    "ast_hash": "8735cc509ecf04f07f2e611bb03c3d6f",
+    "semantic_hash": "8735cc509ecf04f07f2e611bb03c3d6f"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\drawer.tsx": {
+    "mtime": 1779718058.7704837,
+    "ast_hash": "d013d8a10c5205e0436e0a0aceeb943e",
+    "semantic_hash": "d013d8a10c5205e0436e0a0aceeb943e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\dropdown-menu.tsx": {
+    "mtime": 1779718058.7714846,
+    "ast_hash": "1f52d5f575d66293a8a16de5261e5064",
+    "semantic_hash": "1f52d5f575d66293a8a16de5261e5064"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\form.tsx": {
+    "mtime": 1779718058.7714846,
+    "ast_hash": "99de6156a685803cbd5e1f044694502d",
+    "semantic_hash": "99de6156a685803cbd5e1f044694502d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\hover-card.tsx": {
+    "mtime": 1779718058.7714846,
+    "ast_hash": "f681899e530942801ad3d2a98fa868d4",
+    "semantic_hash": "f681899e530942801ad3d2a98fa868d4"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\input-otp.tsx": {
+    "mtime": 1779718058.7724843,
+    "ast_hash": "7943a8f7c2ccb786bf71682042e7ec00",
+    "semantic_hash": "7943a8f7c2ccb786bf71682042e7ec00"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\input.tsx": {
+    "mtime": 1779718058.7724843,
+    "ast_hash": "e26a9d621d7015887b408d4428a6c869",
+    "semantic_hash": "e26a9d621d7015887b408d4428a6c869"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\label.tsx": {
+    "mtime": 1779718058.7724843,
+    "ast_hash": "54182f15eaa11b2f35bc2ff903e2557b",
+    "semantic_hash": "54182f15eaa11b2f35bc2ff903e2557b"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\menubar.tsx": {
+    "mtime": 1779718058.7724843,
+    "ast_hash": "5ba9104f5c8183c72a6c9ec4f2643c4e",
+    "semantic_hash": "5ba9104f5c8183c72a6c9ec4f2643c4e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\navigation-menu.tsx": {
+    "mtime": 1779718058.773484,
+    "ast_hash": "74d588ba6187fb0c5620fcc3e5bfd19a",
+    "semantic_hash": "74d588ba6187fb0c5620fcc3e5bfd19a"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\pagination.tsx": {
+    "mtime": 1779718058.773484,
+    "ast_hash": "c4a1175870e223fe4af7cf5e89eb410d",
+    "semantic_hash": "c4a1175870e223fe4af7cf5e89eb410d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\popover.tsx": {
+    "mtime": 1779718058.773484,
+    "ast_hash": "6a3f7b8119ecbf80cad8bbe2848266ba",
+    "semantic_hash": "6a3f7b8119ecbf80cad8bbe2848266ba"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\progress.tsx": {
+    "mtime": 1779718058.774485,
+    "ast_hash": "9c90dcb71b3ebb4af52e5b5bab7c4492",
+    "semantic_hash": "9c90dcb71b3ebb4af52e5b5bab7c4492"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\radio-group.tsx": {
+    "mtime": 1779718058.774485,
+    "ast_hash": "0f087070684fb1f5ca5eb2c1a263ad5f",
+    "semantic_hash": "0f087070684fb1f5ca5eb2c1a263ad5f"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\resizable.tsx": {
+    "mtime": 1779718058.774485,
+    "ast_hash": "4ad1d7d1dba79f66fee0f602394ba62e",
+    "semantic_hash": "4ad1d7d1dba79f66fee0f602394ba62e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\scroll-area.tsx": {
+    "mtime": 1779718058.774485,
+    "ast_hash": "bcfa838c604a2e1b3cba179c2c174989",
+    "semantic_hash": "bcfa838c604a2e1b3cba179c2c174989"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\select.tsx": {
+    "mtime": 1779718058.7754903,
+    "ast_hash": "e2968fe993602c0f40c7884a15682f25",
+    "semantic_hash": "e2968fe993602c0f40c7884a15682f25"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\separator.tsx": {
+    "mtime": 1779718058.7754903,
+    "ast_hash": "981488d95a2e21d07ed8acfd3963d7e9",
+    "semantic_hash": "981488d95a2e21d07ed8acfd3963d7e9"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\sheet.tsx": {
+    "mtime": 1779718058.7754903,
+    "ast_hash": "edbeb83948a72bc767f0052a40bc0dca",
+    "semantic_hash": "edbeb83948a72bc767f0052a40bc0dca"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\sidebar.tsx": {
+    "mtime": 1779718058.7764845,
+    "ast_hash": "341bbb5b6d1852ca38bbd7de13fb4c2c",
+    "semantic_hash": "341bbb5b6d1852ca38bbd7de13fb4c2c"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\skeleton.tsx": {
+    "mtime": 1779718058.7764845,
+    "ast_hash": "cbb09a6a9e8a6f87d3bbe20567e22c6e",
+    "semantic_hash": "cbb09a6a9e8a6f87d3bbe20567e22c6e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\slider.tsx": {
+    "mtime": 1779718058.7774794,
+    "ast_hash": "5fdb371d39dedd5962bbfae6e7282ead",
+    "semantic_hash": "5fdb371d39dedd5962bbfae6e7282ead"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\sonner.tsx": {
+    "mtime": 1779718058.7774794,
+    "ast_hash": "c94f3201849c1d1f3e679a631106c7a3",
+    "semantic_hash": "c94f3201849c1d1f3e679a631106c7a3"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\switch.tsx": {
+    "mtime": 1779718058.7784793,
+    "ast_hash": "881e0aadc25f61839d2e97dd646f3ae3",
+    "semantic_hash": "881e0aadc25f61839d2e97dd646f3ae3"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\table.tsx": {
+    "mtime": 1779718058.7784793,
+    "ast_hash": "1b339aeaa78100603808436dd1ae9fe2",
+    "semantic_hash": "1b339aeaa78100603808436dd1ae9fe2"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\tabs.tsx": {
+    "mtime": 1779718058.7784793,
+    "ast_hash": "c40b57c831b57166ae18690a41e5d5b3",
+    "semantic_hash": "c40b57c831b57166ae18690a41e5d5b3"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\textarea.tsx": {
+    "mtime": 1779718058.779479,
+    "ast_hash": "16e5d792f0aed75752e902fa141a1f18",
+    "semantic_hash": "16e5d792f0aed75752e902fa141a1f18"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\toast.tsx": {
+    "mtime": 1779718058.779479,
+    "ast_hash": "15bd047aca7fa00a0e13cf76d70e724d",
+    "semantic_hash": "15bd047aca7fa00a0e13cf76d70e724d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\toaster.tsx": {
+    "mtime": 1779718058.779479,
+    "ast_hash": "f2e6f8929cb1d83cfc7ab4ec4e3f5f03",
+    "semantic_hash": "f2e6f8929cb1d83cfc7ab4ec4e3f5f03"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\toggle-group.tsx": {
+    "mtime": 1779718058.780479,
+    "ast_hash": "b351a550a05e42fb26146c4d79e326f3",
+    "semantic_hash": "b351a550a05e42fb26146c4d79e326f3"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\toggle.tsx": {
+    "mtime": 1779718058.780479,
+    "ast_hash": "dd6df1b1c6551cff6a71aed52ece9236",
+    "semantic_hash": "dd6df1b1c6551cff6a71aed52ece9236"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\components\\ui\\tooltip.tsx": {
+    "mtime": 1779718058.781486,
+    "ast_hash": "c660b43af1749d010755b523f12d4d96",
+    "semantic_hash": "c660b43af1749d010755b523f12d4d96"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-customers.ts": {
+    "mtime": 1780051787.1630006,
+    "ast_hash": "b9463bbe016e65e50565e56623cf6898",
+    "semantic_hash": "b9463bbe016e65e50565e56623cf6898"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-dashboard.ts": {
+    "mtime": 1780113696.1909509,
+    "ast_hash": "12aef7e2d4fb8b637b0d8149e36a6205",
+    "semantic_hash": "12aef7e2d4fb8b637b0d8149e36a6205"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-locations.ts": {
+    "mtime": 1780051786.488829,
+    "ast_hash": "da8df1f6f5b1c7b54de488ed8e7d6e20",
+    "semantic_hash": "da8df1f6f5b1c7b54de488ed8e7d6e20"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-meters.ts": {
+    "mtime": 1780113839.5719502,
+    "ast_hash": "7200e7b00df34e1fc5a0097e39b23e79",
+    "semantic_hash": "7200e7b00df34e1fc5a0097e39b23e79"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-mobile.ts": {
+    "mtime": 1779718058.781486,
+    "ast_hash": "654e2ca2e9fddc27eb7e3954900dc48e",
+    "semantic_hash": "654e2ca2e9fddc27eb7e3954900dc48e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-projects.ts": {
+    "mtime": 1780051793.1511488,
+    "ast_hash": "d02e341b68dd18619ddfdfaa0892d926",
+    "semantic_hash": "d02e341b68dd18619ddfdfaa0892d926"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-replace-meter.ts": {
+    "mtime": 1780114229.0844238,
+    "ast_hash": "9452dad10b92deedee8a04998c1c0b64",
+    "semantic_hash": "9452dad10b92deedee8a04998c1c0b64"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-sim-cards.ts": {
+    "mtime": 1780113844.9387856,
+    "ast_hash": "c956a469738f4ffb2285d7cd9ee2ea97",
+    "semantic_hash": "c956a469738f4ffb2285d7cd9ee2ea97"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-sim-eligibility.ts": {
+    "mtime": 1780114329.2931652,
+    "ast_hash": "dcb08f3a6f5c7fc2835c5a61dc68a73d",
+    "semantic_hash": "dcb08f3a6f5c7fc2835c5a61dc68a73d"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-terminate-meter.ts": {
+    "mtime": 1780114112.0548637,
+    "ast_hash": "104dfdd47ed3c53758d36f9e06ee2d86",
+    "semantic_hash": "104dfdd47ed3c53758d36f9e06ee2d86"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\hooks\\use-toast.ts": {
+    "mtime": 1779718058.781486,
+    "ast_hash": "7b28c570f5c22615bb4d91c30130e061",
+    "semantic_hash": "7b28c570f5c22615bb4d91c30130e061"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\api\\auth.ts": {
+    "mtime": 1779957725.8454697,
+    "ast_hash": "d0f680137b1e099ca28688dfc310fd4e",
+    "semantic_hash": "d0f680137b1e099ca28688dfc310fd4e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\api\\client.ts": {
+    "mtime": 1779954374.8435125,
+    "ast_hash": "abe6aee36e98ed959b7d559a9bda8275",
+    "semantic_hash": "abe6aee36e98ed959b7d559a9bda8275"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\api\\errors.ts": {
+    "mtime": 1779954367.6362307,
+    "ast_hash": "bccba0ccb6d3c4e6973e4e0aad73768e",
+    "semantic_hash": "bccba0ccb6d3c4e6973e4e0aad73768e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\api\\index.ts": {
+    "mtime": 1780037124.8584528,
+    "ast_hash": "13b096ed6671c2712d52dfa1bb5f7ffc",
+    "semantic_hash": "13b096ed6671c2712d52dfa1bb5f7ffc"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\api\\query-client.tsx": {
+    "mtime": 1780037109.8104186,
+    "ast_hash": "e55c6c20b0c14b5624dd0f011fc20ce2",
+    "semantic_hash": "e55c6c20b0c14b5624dd0f011fc20ce2"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\db.ts": {
+    "mtime": 1779718058.7824793,
+    "ast_hash": "c083539b3e6fd753bb01f2eb6d888017",
+    "semantic_hash": "c083539b3e6fd753bb01f2eb6d888017"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\feature-flags.ts": {
+    "mtime": 1780041051.5402462,
+    "ast_hash": "15134139cfeba744f118598d122277c6",
+    "semantic_hash": "15134139cfeba744f118598d122277c6"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\mock-auth.ts": {
+    "mtime": 1779954391.282036,
+    "ast_hash": "de22780a508d1479083e67f60edfd81a",
+    "semantic_hash": "de22780a508d1479083e67f60edfd81a"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\mock-data.ts": {
+    "mtime": 1779718058.7834787,
+    "ast_hash": "238deba7b5e338d564813a942cb52f0f",
+    "semantic_hash": "238deba7b5e338d564813a942cb52f0f"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\navigation.ts": {
+    "mtime": 1779718058.7834787,
+    "ast_hash": "caf13828a50e42cb99f66cc7cd680fc9",
+    "semantic_hash": "caf13828a50e42cb99f66cc7cd680fc9"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\router-store.ts": {
+    "mtime": 1779718058.7834787,
+    "ast_hash": "7973b9c3be1f8c7fcefd756ffc721671",
+    "semantic_hash": "7973b9c3be1f8c7fcefd756ffc721671"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\types.ts": {
+    "mtime": 1780051785.7858918,
+    "ast_hash": "2fead162ee99c9911fb5c085b81048b0",
+    "semantic_hash": "2fead162ee99c9911fb5c085b81048b0"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\lib\\utils.ts": {
+    "mtime": 1779718058.7844794,
+    "ast_hash": "1d8011eb18769078bf77502b220daa5e",
+    "semantic_hash": "1d8011eb18769078bf77502b220daa5e"
+  },
+  "D:\\meter\\Meter-\\Frontend\\src\\pages\\api\\features.ts": {
+    "mtime": 1780040785.0059402,
+    "ast_hash": "9fb67c3055a2a36866d43cc1d07adb07",
+    "semantic_hash": "9fb67c3055a2a36866d43cc1d07adb07"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\checklists\\requirements.md": {
+    "mtime": 1779718058.7874851,
+    "ast_hash": "a343a11ed01a2fcf64eeb754e6e87660",
+    "semantic_hash": "a343a11ed01a2fcf64eeb754e6e87660"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\data-model.md": {
+    "mtime": 1779718058.7884789,
+    "ast_hash": "a21519b2ed68a0b166b86a82df12b33b",
+    "semantic_hash": "a21519b2ed68a0b166b86a82df12b33b"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\plan.md": {
+    "mtime": 1779718058.7884789,
+    "ast_hash": "dbd6e9c20cc49d1ed486377d8a64ebb2",
+    "semantic_hash": "dbd6e9c20cc49d1ed486377d8a64ebb2"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\quickstart.md": {
+    "mtime": 1779718058.7884789,
+    "ast_hash": "ae2b9abc8bf8047ec9daa1ea22bc4b05",
+    "semantic_hash": "ae2b9abc8bf8047ec9daa1ea22bc4b05"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\research.md": {
+    "mtime": 1779718058.7894783,
+    "ast_hash": "56047ad0798f87b388afe75078e24b68",
+    "semantic_hash": "56047ad0798f87b388afe75078e24b68"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\spec.md": {
+    "mtime": 1779718058.7894783,
+    "ast_hash": "6a31f97ea410ff029543ba8af2a6e942",
+    "semantic_hash": "6a31f97ea410ff029543ba8af2a6e942"
+  },
+  "D:\\meter\\Meter-\\specs\\001-metering-billing-platform\\tasks.md": {
+    "mtime": 1780208743.7878315,
+    "ast_hash": "fff65f776050fea18137e5475e293445",
+    "semantic_hash": "fff65f776050fea18137e5475e293445"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\00-index.md": {
+    "mtime": 1780212510.6201553,
+    "ast_hash": "07c1e618a451847fbbe42d8039945bd6",
+    "semantic_hash": "07c1e618a451847fbbe42d8039945bd6"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\01-conversation-log.md": {
+    "mtime": 1780212418.5809457,
+    "ast_hash": "67e676ddce77910419ea7653336ddf4c",
+    "semantic_hash": "67e676ddce77910419ea7653336ddf4c"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\02-memory-files.md": {
+    "mtime": 1780211694.9478672,
+    "ast_hash": "155ad7a006c33ecb4c2f2ee76dc81e39",
+    "semantic_hash": "155ad7a006c33ecb4c2f2ee76dc81e39"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\03-database-schema-overview.md": {
+    "mtime": 1779795833.995019,
+    "ast_hash": "6c8ee72803d113e491163a8ed211005c",
+    "semantic_hash": "6c8ee72803d113e491163a8ed211005c"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\05-programming-languages.md": {
+    "mtime": 1779795833.9960215,
+    "ast_hash": "8a5903d7c9be1ead434494d2fe2f3cf5",
+    "semantic_hash": "8a5903d7c9be1ead434494d2fe2f3cf5"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\06-github-packages-needed.md": {
+    "mtime": 1780043855.7870762,
+    "ast_hash": "5dc954e50750fac47acce82301e0af96",
+    "semantic_hash": "5dc954e50750fac47acce82301e0af96"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\09-git-commit-log.md": {
+    "mtime": 1780212402.5356379,
+    "ast_hash": "01b92ad314c90fd69ad306f76eb2671a",
+    "semantic_hash": "01b92ad314c90fd69ad306f76eb2671a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\10-progress-health-report.md": {
+    "mtime": 1779946065.8983865,
+    "ast_hash": "bc36ef3573ce305e05733e1c28ee01a2",
+    "semantic_hash": "bc36ef3573ce305e05733e1c28ee01a2"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\11-email-report-log.md": {
+    "mtime": 1779946065.900023,
+    "ast_hash": "28cb30fd52638cbbc064551880d3c9dd",
+    "semantic_hash": "28cb30fd52638cbbc064551880d3c9dd"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\12-T002-T003-verification-report.md": {
+    "mtime": 1779795833.99802,
+    "ast_hash": "fbdc1101d8b42a55c3f07655b9d339a8",
+    "semantic_hash": "fbdc1101d8b42a55c3f07655b9d339a8"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T001-validation-report.md": {
+    "mtime": 1779869965.5828588,
+    "ast_hash": "7086c3857a23c55796d2f1e3f409752f",
+    "semantic_hash": "7086c3857a23c55796d2f1e3f409752f"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T002-validation-report.md": {
+    "mtime": 1779869965.5828588,
+    "ast_hash": "2313a4951de1cc1dc95e083d21f8ca78",
+    "semantic_hash": "2313a4951de1cc1dc95e083d21f8ca78"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T003-validation-report.md": {
+    "mtime": 1779869965.5848577,
+    "ast_hash": "7dab8d858e1e60784d1d8ddb57a916ad",
+    "semantic_hash": "7dab8d858e1e60784d1d8ddb57a916ad"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T004-validation-report.md": {
+    "mtime": 1779869965.5854473,
+    "ast_hash": "8f0cffa7344a3e432881ef0a0197c0d5",
+    "semantic_hash": "8f0cffa7344a3e432881ef0a0197c0d5"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T005-validation-report.md": {
+    "mtime": 1779946065.900533,
+    "ast_hash": "0696cd792c3c125cc435c85111e43f45",
+    "semantic_hash": "0696cd792c3c125cc435c85111e43f45"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T006-validation-report.md": {
+    "mtime": 1779946065.901083,
+    "ast_hash": "443673ba5e73d99de4c2cd68913c2c3f",
+    "semantic_hash": "443673ba5e73d99de4c2cd68913c2c3f"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T007-validation-report.md": {
+    "mtime": 1779946065.9016168,
+    "ast_hash": "5e771dacdf12d546e9b123f9e4d4be3a",
+    "semantic_hash": "5e771dacdf12d546e9b123f9e4d4be3a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T008-validation-report.md": {
+    "mtime": 1779946065.9021463,
+    "ast_hash": "19425b750ebe6c5ed097983efc9f18cf",
+    "semantic_hash": "19425b750ebe6c5ed097983efc9f18cf"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T009-validation-report.md": {
+    "mtime": 1779874942.3373785,
+    "ast_hash": "5ab2c86c1d9b2e1d7b03de84c704750e",
+    "semantic_hash": "5ab2c86c1d9b2e1d7b03de84c704750e"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T010-validation-report.md": {
+    "mtime": 1779874942.3392913,
+    "ast_hash": "b4edd0c670ea3b766be544a06e463385",
+    "semantic_hash": "b4edd0c670ea3b766be544a06e463385"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T011-validation-report.md": {
+    "mtime": 1779874942.3402982,
+    "ast_hash": "d05b3a2b4ea1e7d74bb2ce7cda0ec4c8",
+    "semantic_hash": "d05b3a2b4ea1e7d74bb2ce7cda0ec4c8"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T012-validation-report.md": {
+    "mtime": 1779946065.9026837,
+    "ast_hash": "cacb8fd1fb2bafaaf1958eee847fa97d",
+    "semantic_hash": "cacb8fd1fb2bafaaf1958eee847fa97d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T013-validation-report.md": {
+    "mtime": 1779946065.9032233,
+    "ast_hash": "f3ca80e141032a003b6a27708ab43ec8",
+    "semantic_hash": "f3ca80e141032a003b6a27708ab43ec8"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T014-validation-report.md": {
+    "mtime": 1779946065.9037638,
+    "ast_hash": "aa06c407a0e0534ccb0c13b6d4c3bb9d",
+    "semantic_hash": "aa06c407a0e0534ccb0c13b6d4c3bb9d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T015-validation-report.md": {
+    "mtime": 1779946065.9043183,
+    "ast_hash": "16fd85c1cc1270ef38c37fb44fb6e0c9",
+    "semantic_hash": "16fd85c1cc1270ef38c37fb44fb6e0c9"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T016-validation-report.md": {
+    "mtime": 1779946065.9048724,
+    "ast_hash": "81e5bd3298adc39ffbb1ebd9e450d35e",
+    "semantic_hash": "81e5bd3298adc39ffbb1ebd9e450d35e"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T017-validation-report.md": {
+    "mtime": 1779946065.9054112,
+    "ast_hash": "7f4488f868ec803d4ac6c35a8a304409",
+    "semantic_hash": "7f4488f868ec803d4ac6c35a8a304409"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T018-validation-report.md": {
+    "mtime": 1779948623.548349,
+    "ast_hash": "d994fe3d6f19ef9af829528aa4e873a7",
+    "semantic_hash": "d994fe3d6f19ef9af829528aa4e873a7"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T019-validation-report.md": {
+    "mtime": 1779949631.8482215,
+    "ast_hash": "869187c364545ca6fb5a67dcdcf5197a",
+    "semantic_hash": "869187c364545ca6fb5a67dcdcf5197a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T020-validation-report.md": {
+    "mtime": 1779962535.1712701,
+    "ast_hash": "56c8a4358004e2d04a44ee1c7f3f22cd",
+    "semantic_hash": "56c8a4358004e2d04a44ee1c7f3f22cd"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T023-validation-report.md": {
+    "mtime": 1780046416.4592838,
+    "ast_hash": "c4c05c37ba4a134b423fb1707c1cbaa1",
+    "semantic_hash": "c4c05c37ba4a134b423fb1707c1cbaa1"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T024-validation-report.md": {
+    "mtime": 1780046596.5194566,
+    "ast_hash": "52a19b17c4e4a2d20c0043c216f4996a",
+    "semantic_hash": "52a19b17c4e4a2d20c0043c216f4996a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T025-validation-report.md": {
+    "mtime": 1780046725.6138198,
+    "ast_hash": "6be51e70117dff2825c291f41fb3b7f1",
+    "semantic_hash": "6be51e70117dff2825c291f41fb3b7f1"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T026-validation-report.md": {
+    "mtime": 1780046873.950983,
+    "ast_hash": "df5e8bb779882ed48b52fcd5bce05ed9",
+    "semantic_hash": "df5e8bb779882ed48b52fcd5bce05ed9"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\13-T027-validation-report.md": {
+    "mtime": 1780047074.8391564,
+    "ast_hash": "38e37b9b025a8aa5413028dc3fa2c153",
+    "semantic_hash": "38e37b9b025a8aa5413028dc3fa2c153"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\14-mcp-setup.md": {
+    "mtime": 1779946781.811013,
+    "ast_hash": "9762b867a8d94760662aecd0fb0481ef",
+    "semantic_hash": "9762b867a8d94760662aecd0fb0481ef"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\15-task-list.md": {
+    "mtime": 1780212378.2291725,
+    "ast_hash": "c012936dcc907f7a92dc583ff3ca63ab",
+    "semantic_hash": "c012936dcc907f7a92dc583ff3ca63ab"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\16-checkpoint-report.md": {
+    "mtime": 1780211686.2927213,
+    "ast_hash": "5b4ee209014694fc37a7ece905209f16",
+    "semantic_hash": "5b4ee209014694fc37a7ece905209f16"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\17-extended-governance-rules.md": {
+    "mtime": 1780044629.5660932,
+    "ast_hash": "40c83d0dc49b3b91a2c57debb86f0c1d",
+    "semantic_hash": "40c83d0dc49b3b91a2c57debb86f0c1d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\01-task-analysis-report.md": {
+    "mtime": 1780045135.8297827,
+    "ast_hash": "b42f8c75c0e59a42a9996bf7b77b9b2d",
+    "semantic_hash": "b42f8c75c0e59a42a9996bf7b77b9b2d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\02-acceptance-coverage-matrix.md": {
+    "mtime": 1780045140.6806636,
+    "ast_hash": "a2e9b124ed39d72d709852cb2697937d",
+    "semantic_hash": "a2e9b124ed39d72d709852cb2697937d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\03-file-impact-analysis.md": {
+    "mtime": 1780045146.3162348,
+    "ast_hash": "404b636ca18e7988bb2a6591d2dd4c2c",
+    "semantic_hash": "404b636ca18e7988bb2a6591d2dd4c2c"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\04-dependency-matrix.md": {
+    "mtime": 1780045150.1444886,
+    "ast_hash": "73e63c7bbe89821719b0d697985a5c1d",
+    "semantic_hash": "73e63c7bbe89821719b0d697985a5c1d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\05-risk-mitigation-report.md": {
+    "mtime": 1780045155.1258645,
+    "ast_hash": "f32348510ee34ea8680905ada4f506d0",
+    "semantic_hash": "f32348510ee34ea8680905ada4f506d0"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\06-validation-readiness-report.md": {
+    "mtime": 1780045159.7745602,
+    "ast_hash": "36dbf246bcb5c1887f2070cf308c3107",
+    "semantic_hash": "36dbf246bcb5c1887f2070cf308c3107"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\07-hidden-requirement-report.md": {
+    "mtime": 1780045171.4460578,
+    "ast_hash": "6e50e87ee22603fc9afa322d84ff01fd",
+    "semantic_hash": "6e50e87ee22603fc9afa322d84ff01fd"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\08-implementation-coverage-report.md": {
+    "mtime": 1780045174.2163768,
+    "ast_hash": "a80fa06ab476f9b3e1361ec903f30bcf",
+    "semantic_hash": "a80fa06ab476f9b3e1361ec903f30bcf"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\09-cross-task-coverage-report.md": {
+    "mtime": 1780045177.7766461,
+    "ast_hash": "1ed4b2b9724e614b6bdf5fdb5ec413d4",
+    "semantic_hash": "1ed4b2b9724e614b6bdf5fdb5ec413d4"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\10-phase-consistency-report.md": {
+    "mtime": 1780045181.7261791,
+    "ast_hash": "1a1fc748a7cf4793f19f71c384959255",
+    "semantic_hash": "1a1fc748a7cf4793f19f71c384959255"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\11-overall-confidence-score.md": {
+    "mtime": 1780045317.8133569,
+    "ast_hash": "c1325d7185f282ca239ee008a0e9a65d",
+    "semantic_hash": "c1325d7185f282ca239ee008a0e9a65d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\12-task-analysis-report.md": {
+    "mtime": 1780046247.4249845,
+    "ast_hash": "3d8715346d14c28dc330552f31bf62f3",
+    "semantic_hash": "3d8715346d14c28dc330552f31bf62f3"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\13-acceptance-coverage-matrix.md": {
+    "mtime": 1780046255.190506,
+    "ast_hash": "dd5ba21e5ebd84c7c9994c347fec5284",
+    "semantic_hash": "dd5ba21e5ebd84c7c9994c347fec5284"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\14-file-impact-analysis.md": {
+    "mtime": 1780046257.933609,
+    "ast_hash": "62e17304710c183d122614acf5eb683f",
+    "semantic_hash": "62e17304710c183d122614acf5eb683f"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\15-dependency-matrix.md": {
+    "mtime": 1780046262.5739434,
+    "ast_hash": "97ac3563e3a1a753e695871be2ca557a",
+    "semantic_hash": "97ac3563e3a1a753e695871be2ca557a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\16-risk-mitigation-report.md": {
+    "mtime": 1780046268.5469513,
+    "ast_hash": "d4a37687ccf1a886b08793c1db6c89aa",
+    "semantic_hash": "d4a37687ccf1a886b08793c1db6c89aa"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\17-hidden-requirement-report.md": {
+    "mtime": 1780046274.5647943,
+    "ast_hash": "f37827270f220a9801d0c4708632f8b3",
+    "semantic_hash": "f37827270f220a9801d0c4708632f8b3"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\18-task-analysis-report.md": {
+    "mtime": 1780046496.3666396,
+    "ast_hash": "555e4b5713c5536b3463b21bf9be9680",
+    "semantic_hash": "555e4b5713c5536b3463b21bf9be9680"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\19-acceptance-coverage-matrix.md": {
+    "mtime": 1780046497.9448123,
+    "ast_hash": "1c84444dcee0937d73ae0faa694f46ad",
+    "semantic_hash": "1c84444dcee0937d73ae0faa694f46ad"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\20-file-impact-analysis.md": {
+    "mtime": 1780046498.871177,
+    "ast_hash": "b679d1ac53876faae453f8c6e8bc558a",
+    "semantic_hash": "b679d1ac53876faae453f8c6e8bc558a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\21-dependency-matrix.md": {
+    "mtime": 1780046499.9505153,
+    "ast_hash": "9a7f1282ddf4240d930f795851a44834",
+    "semantic_hash": "9a7f1282ddf4240d930f795851a44834"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\22-risk-mitigation-report.md": {
+    "mtime": 1780046501.3665667,
+    "ast_hash": "fc340454deb84cd2c823d648d2fbcffb",
+    "semantic_hash": "fc340454deb84cd2c823d648d2fbcffb"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\23-hidden-requirement-report.md": {
+    "mtime": 1780046502.834741,
+    "ast_hash": "ca3016dd1ab4cde98650711a50b2adb1",
+    "semantic_hash": "ca3016dd1ab4cde98650711a50b2adb1"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\24-task-analysis-report.md": {
+    "mtime": 1780046643.271402,
+    "ast_hash": "ec4cf95265d8667420050923cb2fac83",
+    "semantic_hash": "ec4cf95265d8667420050923cb2fac83"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\25-acceptance-coverage-matrix.md": {
+    "mtime": 1780046644.4585595,
+    "ast_hash": "6f96b4c6579a1261bc557b4557f8dc1d",
+    "semantic_hash": "6f96b4c6579a1261bc557b4557f8dc1d"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\26-file-impact-analysis.md": {
+    "mtime": 1780046645.1614213,
+    "ast_hash": "4b8ca5fd43c4f78ff4ec7315cdca7be9",
+    "semantic_hash": "4b8ca5fd43c4f78ff4ec7315cdca7be9"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\27-dependency-matrix.md": {
+    "mtime": 1780046645.8681307,
+    "ast_hash": "cc6b6543fce793d948696be3294a6c4e",
+    "semantic_hash": "cc6b6543fce793d948696be3294a6c4e"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\28-risk-mitigation-report.md": {
+    "mtime": 1780046647.0800674,
+    "ast_hash": "f48a0c5981fa33985cd3a060068243f3",
+    "semantic_hash": "f48a0c5981fa33985cd3a060068243f3"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\29-hidden-requirement-report.md": {
+    "mtime": 1780046647.8319042,
+    "ast_hash": "2e96a3522d80892ad023bfec5f6d38c9",
+    "semantic_hash": "2e96a3522d80892ad023bfec5f6d38c9"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\30-task-analysis-report.md": {
+    "mtime": 1780046785.5220346,
+    "ast_hash": "723cbe295fb12adca776aa9551594a8f",
+    "semantic_hash": "723cbe295fb12adca776aa9551594a8f"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\31-acceptance-coverage-matrix.md": {
+    "mtime": 1780046786.437719,
+    "ast_hash": "1b75bfe13b323190b28a0993461f1779",
+    "semantic_hash": "1b75bfe13b323190b28a0993461f1779"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\32-file-impact-analysis.md": {
+    "mtime": 1780046787.0636938,
+    "ast_hash": "d3b8264bd9a2f9f07c18080ae6234363",
+    "semantic_hash": "d3b8264bd9a2f9f07c18080ae6234363"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\33-dependency-matrix.md": {
+    "mtime": 1780046787.7557573,
+    "ast_hash": "e005a71e5b09e956cdf1d1158804b343",
+    "semantic_hash": "e005a71e5b09e956cdf1d1158804b343"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\34-risk-mitigation-report.md": {
+    "mtime": 1780046788.8512716,
+    "ast_hash": "31cb59a96e2acff90577ecbc7e66341e",
+    "semantic_hash": "31cb59a96e2acff90577ecbc7e66341e"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\35-hidden-requirement-report.md": {
+    "mtime": 1780046790.1636016,
+    "ast_hash": "d33ddc5c6a5846130b1c9e4d26c59948",
+    "semantic_hash": "d33ddc5c6a5846130b1c9e4d26c59948"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\36-task-analysis-report.md": {
+    "mtime": 1780046909.9863667,
+    "ast_hash": "10e7b690b21049431c64375606de8edd",
+    "semantic_hash": "10e7b690b21049431c64375606de8edd"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\37-acceptance-coverage-matrix.md": {
+    "mtime": 1780046910.841493,
+    "ast_hash": "94a14bbc869f2546a161ea86b8de02c5",
+    "semantic_hash": "94a14bbc869f2546a161ea86b8de02c5"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\38-file-impact-analysis.md": {
+    "mtime": 1780046911.3416436,
+    "ast_hash": "6d9bf535313c606ceb3162489a1f4e05",
+    "semantic_hash": "6d9bf535313c606ceb3162489a1f4e05"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\39-dependency-matrix.md": {
+    "mtime": 1780046911.9326124,
+    "ast_hash": "71f7d860211f15f3cd646461fa2bd659",
+    "semantic_hash": "71f7d860211f15f3cd646461fa2bd659"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\40-risk-mitigation-report.md": {
+    "mtime": 1780046912.7791128,
+    "ast_hash": "4256a28a4f5ecab70d0da01ea6572a27",
+    "semantic_hash": "4256a28a4f5ecab70d0da01ea6572a27"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\41-hidden-requirement-report.md": {
+    "mtime": 1780046913.3312545,
+    "ast_hash": "2aef0bb03bbbb0a3fc4c383e590d32d6",
+    "semantic_hash": "2aef0bb03bbbb0a3fc4c383e590d32d6"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\42-task-analysis-report.md": {
+    "mtime": 1780047108.0896804,
+    "ast_hash": "774b8578dc58fefcb1e7239d5f2da785",
+    "semantic_hash": "774b8578dc58fefcb1e7239d5f2da785"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\43-acceptance-coverage-matrix.md": {
+    "mtime": 1780047108.8936398,
+    "ast_hash": "95d3c14733de41809088a88348503477",
+    "semantic_hash": "95d3c14733de41809088a88348503477"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\44-file-impact-analysis.md": {
+    "mtime": 1780047109.365319,
+    "ast_hash": "6f7c1a01765bebe6afd0ca5b16be4f9a",
+    "semantic_hash": "6f7c1a01765bebe6afd0ca5b16be4f9a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\45-dependency-matrix.md": {
+    "mtime": 1780047109.7882912,
+    "ast_hash": "fdf13e62db9153c2f9355e2d0a7a7f61",
+    "semantic_hash": "fdf13e62db9153c2f9355e2d0a7a7f61"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\46-risk-mitigation-report.md": {
+    "mtime": 1780047110.2719903,
+    "ast_hash": "05c8ac9c1b22e5e015aad4e25328f7f5",
+    "semantic_hash": "05c8ac9c1b22e5e015aad4e25328f7f5"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\47-hidden-requirement-report.md": {
+    "mtime": 1780047110.612876,
+    "ast_hash": "03dab3dba3f9fd155b9dcd2d50ec7c05",
+    "semantic_hash": "03dab3dba3f9fd155b9dcd2d50ec7c05"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\48-task-analysis-report.md": {
+    "mtime": 1780047165.9458802,
+    "ast_hash": "c9714677b4ede81c4f9c8038098649e8",
+    "semantic_hash": "c9714677b4ede81c4f9c8038098649e8"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\49-acceptance-coverage-matrix.md": {
+    "mtime": 1780047166.486083,
+    "ast_hash": "896c37f9e842d658fe4dbcdce91f59b9",
+    "semantic_hash": "896c37f9e842d658fe4dbcdce91f59b9"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\50-file-impact-analysis.md": {
+    "mtime": 1780047166.9480577,
+    "ast_hash": "c4b3df04e802756239ea2942286e4a5c",
+    "semantic_hash": "c4b3df04e802756239ea2942286e4a5c"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\51-dependency-matrix.md": {
+    "mtime": 1780047167.3394735,
+    "ast_hash": "fdf13e62db9153c2f9355e2d0a7a7f61",
+    "semantic_hash": "fdf13e62db9153c2f9355e2d0a7a7f61"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\52-risk-mitigation-report.md": {
+    "mtime": 1780047167.8155544,
+    "ast_hash": "0adc60a1f399cdad814092a441b2c7f1",
+    "semantic_hash": "0adc60a1f399cdad814092a441b2c7f1"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\53-hidden-requirement-report.md": {
+    "mtime": 1780047168.1509013,
+    "ast_hash": "03dab3dba3f9fd155b9dcd2d50ec7c05",
+    "semantic_hash": "03dab3dba3f9fd155b9dcd2d50ec7c05"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\54-task-analysis-report.md": {
+    "mtime": 1780047259.449413,
+    "ast_hash": "adfadacd970394800ed678ecff79c2cf",
+    "semantic_hash": "adfadacd970394800ed678ecff79c2cf"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\55-acceptance-coverage-matrix.md": {
+    "mtime": 1780047260.0163143,
+    "ast_hash": "c834b2ad63bc39c70267c0d00b952579",
+    "semantic_hash": "c834b2ad63bc39c70267c0d00b952579"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\56-file-impact-analysis.md": {
+    "mtime": 1780047260.4281225,
+    "ast_hash": "6a15f45995419a7cfe769b46c31ace47",
+    "semantic_hash": "6a15f45995419a7cfe769b46c31ace47"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\57-dependency-matrix.md": {
+    "mtime": 1780047260.832474,
+    "ast_hash": "96322fbff64a322bb38d347dd7f41deb",
+    "semantic_hash": "96322fbff64a322bb38d347dd7f41deb"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\58-risk-mitigation-report.md": {
+    "mtime": 1780047261.3082294,
+    "ast_hash": "9d78378dbe42c1db41f6b40225fa3ffa",
+    "semantic_hash": "9d78378dbe42c1db41f6b40225fa3ffa"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\deep-coverage\\59-hidden-requirement-report.md": {
+    "mtime": 1780047261.6453927,
+    "ast_hash": "03dab3dba3f9fd155b9dcd2d50ec7c05",
+    "semantic_hash": "03dab3dba3f9fd155b9dcd2d50ec7c05"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\phase-3-execution-prompt.md": {
+    "mtime": 1780046051.837047,
+    "ast_hash": "b37b6127a790e8b742071d2711d8af3a",
+    "semantic_hash": "b37b6127a790e8b742071d2711d8af3a"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\security-assessment.md": {
+    "mtime": 1780211237.6107826,
+    "ast_hash": "d7c17709b6628815e4e2e45d11473ccb",
+    "semantic_hash": "d7c17709b6628815e4e2e45d11473ccb"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\security-gap-analysis.md": {
+    "mtime": 1780211264.2353168,
+    "ast_hash": "2d8d995f6784511d63ce473403f77a7f",
+    "semantic_hash": "2d8d995f6784511d63ce473403f77a7f"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\security-roadmap.md": {
+    "mtime": 1780211286.762365,
+    "ast_hash": "eb2a803152d1c138ffe211889509965b",
+    "semantic_hash": "eb2a803152d1c138ffe211889509965b"
+  },
+  "D:\\meter\\Meter-\\documentation\\markdown\\security-validation-report.md": {
+    "mtime": 1780211663.063878,
+    "ast_hash": "c6cc71219004cce5dc9abc3f3f2ec5ba",
+    "semantic_hash": "c6cc71219004cce5dc9abc3f3f2ec5ba"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\03-database-schema.sql": {
+    "mtime": 1779795834.0102248,
+    "ast_hash": "7ddd34ba3aa0d814b34c255c2aae2340",
+    "semantic_hash": "7ddd34ba3aa0d814b34c255c2aae2340"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T001-validation-report.sql": {
+    "mtime": 1779869965.598226,
+    "ast_hash": "79cf549c38b90c1eb8fa254376cc091b",
+    "semantic_hash": "79cf549c38b90c1eb8fa254376cc091b"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T002-validation-report.sql": {
+    "mtime": 1779869965.5992255,
+    "ast_hash": "d0b5aa1d50272ecd45c0402ac731ab6d",
+    "semantic_hash": "d0b5aa1d50272ecd45c0402ac731ab6d"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T003-validation-report.sql": {
+    "mtime": 1779869965.5992255,
+    "ast_hash": "33b915286b1e463a41b963f7a0f9cb6d",
+    "semantic_hash": "33b915286b1e463a41b963f7a0f9cb6d"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T004-validation-report.sql": {
+    "mtime": 1779869965.601516,
+    "ast_hash": "2c2795ea6d4ebae4a0760d386bb4039b",
+    "semantic_hash": "2c2795ea6d4ebae4a0760d386bb4039b"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T009-validation-report.sql": {
+    "mtime": 1779874942.3402982,
+    "ast_hash": "485e8d399867374464309c0e31ec332c",
+    "semantic_hash": "485e8d399867374464309c0e31ec332c"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T010-validation-report.sql": {
+    "mtime": 1779874942.341298,
+    "ast_hash": "47764c7a7e762bf9a3a18eafcd032abc",
+    "semantic_hash": "47764c7a7e762bf9a3a18eafcd032abc"
+  },
+  "D:\\meter\\Meter-\\documentation\\sql\\13-T011-validation-report.sql": {
+    "mtime": 1779874942.3418136,
+    "ast_hash": "afb715638beb2232b3b47698d8da3bc7",
+    "semantic_hash": "afb715638beb2232b3b47698d8da3bc7"
+  },
+  "D:\\meter\\Meter-\\.specify\\feature.json": {
+    "mtime": 1779718058.7013988,
+    "ast_hash": "45e160ecb52330f191a8a7f3c9adb428",
+    "semantic_hash": "45e160ecb52330f191a8a7f3c9adb428"
+  },
+  "D:\\meter\\Meter-\\.specify\\init-options.json": {
+    "mtime": 1779718058.702401,
+    "ast_hash": "d6229946ea129d5b6659d5f2b73dfd25",
+    "semantic_hash": "d6229946ea129d5b6659d5f2b73dfd25"
+  },
+  "D:\\meter\\Meter-\\.specify\\integration.json": {
+    "mtime": 1779718058.702401,
+    "ast_hash": "6c807443f685b28cc01c1e5aea3b4aad",
+    "semantic_hash": "6c807443f685b28cc01c1e5aea3b4aad"
+  },
+  "D:\\meter\\Meter-\\.specify\\integrations\\codex.manifest.json": {
+    "mtime": 1779718058.7033994,
+    "ast_hash": "93426b0521cc09de114abe1300c1ab20",
+    "semantic_hash": "93426b0521cc09de114abe1300c1ab20"
+  },
+  "D:\\meter\\Meter-\\.specify\\integrations\\speckit.manifest.json": {
+    "mtime": 1779718058.7033994,
+    "ast_hash": "75f11adb255bbd88bc53cbc6464cfbaf",
+    "semantic_hash": "75f11adb255bbd88bc53cbc6464cfbaf"
+  },
+  "D:\\meter\\Meter-\\.specify\\memory\\constitution.md": {
+    "mtime": 1779718058.7043989,
+    "ast_hash": "8667511ac346dad1c731438a3081aaa1",
+    "semantic_hash": "8667511ac346dad1c731438a3081aaa1"
+  },
+  "D:\\meter\\Meter-\\.specify\\scripts\\bash\\check-prerequisites.sh": {
+    "mtime": 1779718058.7053983,
+    "ast_hash": "c6623c1a91dbad4d990d64a7399f157b",
+    "semantic_hash": "c6623c1a91dbad4d990d64a7399f157b"
+  },
+  "D:\\meter\\Meter-\\.specify\\scripts\\bash\\common.sh": {
+    "mtime": 1779718058.7063978,
+    "ast_hash": "60d8e37b2fdf0f4a9b2d0b5aad73d660",
+    "semantic_hash": "60d8e37b2fdf0f4a9b2d0b5aad73d660"
+  },
+  "D:\\meter\\Meter-\\.specify\\scripts\\bash\\create-new-feature.sh": {
+    "mtime": 1779718058.7063978,
+    "ast_hash": "55bd618a3c764b6fd7773d9c15d0d78d",
+    "semantic_hash": "55bd618a3c764b6fd7773d9c15d0d78d"
+  },
+  "D:\\meter\\Meter-\\.specify\\scripts\\bash\\setup-plan.sh": {
+    "mtime": 1779718058.7073987,
+    "ast_hash": "1677671fe1fa9fefdb6434e706a80992",
+    "semantic_hash": "1677671fe1fa9fefdb6434e706a80992"
+  },
+  "D:\\meter\\Meter-\\.specify\\scripts\\bash\\setup-tasks.sh": {
+    "mtime": 1779718058.7073987,
+    "ast_hash": "cbff1be520fc8f1a78925d657b4e3e3a",
+    "semantic_hash": "cbff1be520fc8f1a78925d657b4e3e3a"
+  },
+  "D:\\meter\\Meter-\\.specify\\templates\\checklist-template.md": {
+    "mtime": 1779718058.7083993,
+    "ast_hash": "8532a1ca482a9f356b9cedec08a01b3b",
+    "semantic_hash": "8532a1ca482a9f356b9cedec08a01b3b"
+  },
+  "D:\\meter\\Meter-\\.specify\\templates\\constitution-template.md": {
+    "mtime": 1779718058.709399,
+    "ast_hash": "8667511ac346dad1c731438a3081aaa1",
+    "semantic_hash": "8667511ac346dad1c731438a3081aaa1"
+  },
+  "D:\\meter\\Meter-\\.specify\\templates\\plan-template.md": {
+    "mtime": 1779718058.709399,
+    "ast_hash": "d27f8f859c4d4cf2a3dd52d308b67f0d",
+    "semantic_hash": "d27f8f859c4d4cf2a3dd52d308b67f0d"
+  },
+  "D:\\meter\\Meter-\\.specify\\templates\\spec-template.md": {
+    "mtime": 1779718058.7104,
+    "ast_hash": "593b5f4630b0a5bf7714c04861b45d8f",
+    "semantic_hash": "593b5f4630b0a5bf7714c04861b45d8f"
+  },
+  "D:\\meter\\Meter-\\.specify\\templates\\tasks-template.md": {
+    "mtime": 1779718058.711401,
+    "ast_hash": "0a5a0d55a634eb7178cd7c6d2aa0b0a7",
+    "semantic_hash": "0a5a0d55a634eb7178cd7c6d2aa0b0a7"
+  },
+  "D:\\meter\\Meter-\\.specify\\workflows\\workflow-registry.json": {
+    "mtime": 1779718058.7123992,
+    "ast_hash": "0802cf1a8298ac8ac58176f935e4c54b",
+    "semantic_hash": "0802cf1a8298ac8ac58176f935e4c54b"
+  },
+  "D:\\meter\\Meter-\\.opencode\\commands\\speckit.constitution.md": {
+    "mtime": 1779718058.7013988,
+    "ast_hash": "53ad21fae1041c0e3d7e17842ab8c638",
+    "semantic_hash": "53ad21fae1041c0e3d7e17842ab8c638"
+  },
+  "D:\\meter\\Meter-\\.opencode\\opencode.json": {
+    "mtime": 1779946763.7578018,
+    "ast_hash": "e95cb37647cfad0741b5a3ae2e1d895d",
+    "semantic_hash": "e95cb37647cfad0741b5a3ae2e1d895d"
+  }
+}

@@ -1,0 +1,28 @@
+---
+description: MeterVerse Toolchain — mandatory tools, quality gates, and failure reporting
+globs: 
+---
+# MeterVerse Toolchain Rules
+
+## Tools
+- **Playwright** — browser automation and testing (auto-run on UI changes)
+- **SpecKit** — specification generation
+- **Graphify** — knowledge graph generation
+- **Dependency Cruiser** — dependency analysis (run on every change)
+- **Madge** — circular dependency check (run on every change)
+- **Lighthouse** — performance audit (run before deployment)
+- **axe** — accessibility audit (run before deployment)
+- **Semgrep** — SAST security scan (run on code changes)
+- **Trivy** — container/filesystem vulnerability scan (run weekly)
+- **Snyk** — dependency vulnerability scan (run on dependency changes)
+- **Spectral** — API specification linting (run on API changes)
+
+## Quality Gates
+Every task must pass these gates:
+1. `tsc --noEmit` — zero errors
+2. `eslint . --ext .ts,.tsx` — zero errors
+3. `depcruise src --output-type err` — no violations
+4. `madge --circular src/index.ts` — no circular deps
+
+## Failure Reporting
+Failures are written to `D:\meter\reports\{tool}-{timestamp}.{format}` and summarized in the task output.

@@ -1,0 +1,70 @@
+{
+  "$schema": "meterverse://enterprise/runtime/ai-runtime-profile.schema.json",
+  "version": "1.0.0",
+  "generated": "2026-07-12T06:57:00Z",
+  "project": {
+    "name": "MeterVerse",
+    "type": "Enterprise Utility OS",
+    "root": "D:\\meter",
+    "description": "Multi-tenant metering, billing, and energy management platform"
+  },
+  "stack": {
+    "backend": { "framework": "NestJS", "version": "10", "path": "Meter/backend" },
+    "frontend": [
+      { "framework": "Next.js", "version": "16", "path": "Meter/Frontend", "active": true },
+      { "framework": "Next.js", "version": "16", "path": "Frontend/meterverse-ui", "active": false }
+    ],
+    "orm": { "name": "Prisma", "version": "6", "activeSchema": "Meter/backend/prisma/schema.prisma" },
+    "database": { "name": "PostgreSQL", "version": "16" },
+    "cache": { "name": "Redis", "version": "8.0.5", "location": "WSL Ubuntu" },
+    "auth": { "method": "Passport + JWT" },
+    "api": { "style": ["REST", "WebSocket"] },
+    "ui": { "library": "shadcn/ui", "css": "Tailwind CSS 4", "components": "Radix UI" },
+    "state": ["Zustand", "TanStack Query"],
+    "testing": { "e2e": "Playwright", "unit": "Jest", "api": "Vitest" },
+    "design": { "figma": true, "storybook": true },
+    "infrastructure": {
+      "ci": "GitHub Actions",
+      "container": "Docker 29.5.2",
+      "orchestration": "Docker Compose"
+    }
+  },
+  "aiRoles": {
+    "chiefArchitect": { "promptTrigger": "architecture|adr|quality:gate" },
+    "seniorDev": { "promptTrigger": "implement|refactor|pr:" },
+    "qa": { "promptTrigger": "test:|quality:" },
+    "securityEngineer": { "promptTrigger": "security:|audit:" },
+    "devops": { "promptTrigger": "ci:|deploy:|docker:|infra:" },
+    "techWriter": { "promptTrigger": "doc:|api:docs|adr:write" },
+    "releaseManager": { "promptTrigger": "release:|publish:" }
+  },
+  "qualityGates": [
+    { "name": "TypeScript Compilation", "command": "npx tsc --noEmit", "severity": "blocker" },
+    { "name": "ESLint", "command": "eslint . --ext .ts,.tsx", "severity": "blocker" },
+    { "name": "Dependency Cruise", "command": "depcruise src --output-type err", "severity": "blocker" },
+    { "name": "Madge Circular", "command": "madge --circular src/index.ts", "severity": "blocker" },
+    { "name": "Playwright Tests", "command": "npx playwright test", "severity": "blocker" },
+    { "name": "npm audit", "command": "npm audit", "severity": "high" },
+    { "name": "Semgrep", "command": "semgrep --config=auto .", "severity": "high" },
+    { "name": "Snyk", "command": "snyk test", "severity": "high" },
+    { "name": "Trivy", "command": "trivy fs --severity CRITICAL,HIGH .", "severity": "high" },
+    { "name": "Spectral API Lint", "command": "npx spectral lint **/*.ts", "severity": "medium" },
+    { "name": "TruffleHog", "command": "trufflehog filesystem . --only-verified", "severity": "blocker" },
+    { "name": "Lighthouse", "command": "npx lighthouse http://localhost:3030 --output=html", "severity": "medium" },
+    { "name": "Axe", "command": "axe http://localhost:3030", "severity": "medium" }
+  ],
+  "mcpServers": [
+    { "name": "notion", "type": "cloud", "configKey": "notionApiKey" },
+    { "name": "odoo", "type": "cloud", "configKey": "odooApiKey" },
+    { "name": "playwright", "type": "local", "configKey": null },
+    { "name": "chrome-devtools", "type": "local", "configKey": null },
+    { "name": "context7", "type": "cloud", "configKey": "context7ApiKey" },
+    { "name": "serena", "type": "cloud", "configKey": "serenaApiKey" },
+    { "name": "codebase-memory", "type": "local", "configKey": null },
+    { "name": "figma", "type": "cloud", "configKey": "figmaApiKey" },
+    { "name": "storybook", "type": "local", "configKey": null },
+    { "name": "filesystem", "type": "local", "configKey": null },
+    { "name": "gitlab", "type": "cloud", "configKey": "gitlabToken" },
+    { "name": "postgres", "type": "local", "configKey": null }
+  ]
+}

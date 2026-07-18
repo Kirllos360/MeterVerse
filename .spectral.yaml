@@ -1,0 +1,18 @@
+extends: ["spectral:oas", "spectral:asyncapi"]
+rules:
+  oas3-operation-singular-tag: off
+  oas3-valid-schema-example: warn
+  operation-description: error
+  operation-tag-defined: error
+  info-description: error
+  info-contact: warn
+  oas3-parameter-description: error
+  path-params: error
+  custom-rules:
+    meterverse-api-version-header:
+      description: All API responses must include X-API-Version header
+      given: $.paths.*.*.responses.*
+      then:
+        field: headers.X-API-Version
+        function: truthy
+      severity: error

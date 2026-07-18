@@ -1,0 +1,6 @@
+export { Sidebar } from "./Sidebar"
+export { SidebarDock } from "./SidebarDock"
+export { SidebarSection } from "./SidebarSection"
+export { SidebarItem } from "./SidebarItem"
+export { SidebarWorkspaceSelector } from "./SidebarWorkspaceSelector"
+export { SidebarSearch } from "./SidebarSearch"

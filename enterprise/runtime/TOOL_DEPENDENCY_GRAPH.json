@@ -1,0 +1,138 @@
+{
+  "version": "4.0.0",
+  "generated": "2026-07-14T05:05:00Z",
+  "generatedBy": "Phase 04 — Enterprise AI Integration & Autonomous Orchestration",
+  "description": "Complete dependency graph linking tools, MCPs, runtimes, execution paths, AI roles, knowledge, decisions, validation, and certification",
+  "graphs": {
+    "toolGraph": {
+      "nodes": ["TypeScript","ESLint","Prettier","DependencyCruiser","Madge","Knip","ts-prune","BundleWizard","Semgrep","Snyk","Trivy","Checkov","Gitleaks","TruffleHog","npm audit","Spectral","Redocly","SwaggerCLI","OpenAPIGenerator","TypeDoc","Playwright","k6","Artillery","Lighthouse","Pa11y","Axe CLI","ast-grep","ripgrep","jscodeshift","StyleDictionary","Log4brains","adr","SMCat","Graphviz","MermaidCLI","PlantUML","Graphly","MkDocs","Prisma","Docker"],
+      "edges": [
+        ["TypeScript","ESLint","compilation depends on type checking"],
+        ["DependencyCruiser","Madge","both detect architecture issues"],
+        ["Madge","Graphviz","diagram output from circular dep analysis"],
+        ["Semgrep","Snyk","SAST + SCA security pipeline"],
+        ["Snyk","npm audit","dependency vulnerability scanning"],
+        ["Gitleaks","TruffleHog","secret detection pipeline"],
+        ["Playwright","Pa11y","E2E + accessibility test pipeline"],
+        ["Lighthouse","Pa11y","performance + accessibility audit"],
+        ["TypeDoc","MkDocs","API docs feed into project docs"],
+        ["MermaidCLI","PlantUML","diagram generation alternatives"],
+        ["Prisma","Graphviz","ERD generation pipeline"],
+        ["Spectral","Redocly","API contract validation pipeline"],
+        ["ast-grep","ripgrep","code search pipeline"],
+        ["StyleDictionary","Figma MCP","design token pipeline"],
+        ["Log4brains","adr","ADR management pipeline"],
+        ["OpenAPIGenerator","SwaggerCLI","API generation pipeline"],
+        ["k6","Artillery","load test alternatives"]
+      ]
+    },
+    "mcpGraph": {
+      "nodes": ["Notion","Odoo","Playwright","ChromeDevTools","Context7","Serena","CodebaseMemory","Figma","Storybook","Filesystem","GitLab","PostgreSQL","Memory","SequentialThinking","SQLite","Git","OpenAPI","Docker"],
+      "edges": [
+        ["Figma","StyleDictionary","design token sync"],
+        ["Storybook","Playwright","component + E2E testing"],
+        ["Memory","CodebaseMemory","memory storage"],
+        ["PostgreSQL","Prisma","database access"],
+        ["Git","GitLab","version control"],
+        ["SequentialThinking","Context7","reasoning + search"],
+        ["Notion","MkDocs","documentation sync"],
+        ["Odoo","Serena","enterprise AI assistance"],
+        ["Docker","ChromeDevTools","container + debug"]
+      ]
+    },
+    "runtimeGraph": {
+      "nodes": ["Node.js","Python","Go","Java","Rust","Bun","Docker"],
+      "edges": [
+        ["Node.js","TypeScript","compilation requires Node"],
+        ["Node.js","ESLint","linting requires Node"],
+        ["Node.js","npm","package management"],
+        ["Python","Semgrep","SAST runs on Python"],
+        ["Python","TruffleHog","secret scan runs on Python"],
+        ["Python","Checkov","IaC scan runs on Python"],
+        ["Python","MkDocs","docs run on Python"],
+        ["Java","PlantUML","UML requires Java"],
+        ["Java","OWASP DC","dependency check requires Java"],
+        ["Go","Gitleaks","secret scan built with Go"],
+        ["Docker","Trivy","container scan requires Docker access"]
+      ]
+    },
+    "executionGraph": {
+      "chains": {
+        "full_certification": ["TypeScript","ESLint","Prettier","DependencyCruiser","Madge","Knip","ts-prune","BundleWizard","Semgrep","Snyk","Trivy","Gitleaks","TruffleHog","npm audit","Spectral","Playwright","Pa11y","Lighthouse","TypeDoc","MkDocs","MermaidCLI","PlantUML","Graphviz"],
+        "security_audit": ["Semgrep","Snyk","Trivy","Checkov","Gitleaks","TruffleHog","npm audit","Spectral"],
+        "backend_change": ["Prisma","TypeScript","ESLint","DependencyCruiser","Madge","Spectral","Snyk","Playwright"],
+        "frontend_change": ["TypeScript","ESLint","Prettier","Playwright","Pa11y","Lighthouse","BundleWizard","Knip"],
+        "architecture_review": ["DependencyCruiser","Madge","Knip","ts-prune","Graphviz","PlantUML","Graphly"],
+        "documentation": ["TypeDoc","MkDocs","MermaidCLI","PlantUML","Log4brains","adr"]
+      }
+    },
+    "aiGraph": {
+      "nodes": ["Chief Architect","Backend Engineer","Frontend Engineer","UI Designer","Security Engineer","Performance Engineer","QA Engineer","DevOps","Database Engineer","Business Analyst","UX Engineer","Documentation Engineer","Release Manager"],
+      "edges": [
+        ["Chief Architect","Backend Engineer","supervises"],
+        ["Chief Architect","Frontend Engineer","supervises"],
+        ["Chief Architect","Security Engineer","approves"],
+        ["Chief Architect","Database Engineer","approves"],
+        ["QA Engineer","Frontend Engineer","tests output"],
+        ["QA Engineer","Backend Engineer","tests output"],
+        ["Security Engineer","Backend Engineer","audits output"],
+        ["DevOps","Release Manager","deploys releases"],
+        ["Documentation Engineer","Chief Architect","documents decisions"],
+        ["Business Analyst","Chief Architect","provides requirements"]
+      ]
+    },
+    "knowledgeGraph": {
+      "maps": {
+        "project": "KNOWLEDGE_GRAPH_v3.md > Project Map",
+        "dependencies": "KNOWLEDGE_GRAPH_v3.md > Dependency Map",
+        "api": "KNOWLEDGE_GRAPH_v3.md > API Endpoints Map",
+        "database": "KNOWLEDGE_GRAPH_v3.md > Database Map",
+        "ui": "KNOWLEDGE_GRAPH_v3.md > UI Component Map",
+        "workflows": "KNOWLEDGE_GRAPH_v3.md > Workflow Map",
+        "state_machines": "KNOWLEDGE_GRAPH_v3.md > State Machine Map",
+        "events": "KNOWLEDGE_GRAPH_v3.md > Event Flow",
+        "domain_model": "KNOWLEDGE_GRAPH_v3.md > Domain Model",
+        "entities": "KNOWLEDGE_GRAPH_v3.md > Entity Relationships"
+      }
+    },
+    "decisionGraph": {
+      "nodes": ["ADR-001","ADR-002","ADR-003","ADR-004","ADR-005","ADR-006","ADR-007","ADR-008","ADR-009","ADR-010","ADR-011"],
+      "edges": [
+        ["ADR-001","ADR-002","toolchain -> directory structure"],
+        ["ADR-002","ADR-003","directory -> roles & routing"],
+        ["ADR-003","ADR-005","routing -> decision trees"],
+        ["ADR-004","ADR-003","master registry -> unified routing"],
+        ["ADR-005","ADR-006","trees -> expanded roles"],
+        ["ADR-006","ADR-007","roles -> certification engine"],
+        ["ADR-007","ADR-008","cert -> knowledge graph"],
+        ["ADR-008","ADR-009","KG -> enterprise memory"],
+        ["ADR-009","ADR-010","memory -> MCP installations"],
+        ["ADR-010","ADR-011","MCPs -> missing tool remediation"]
+      ]
+    },
+    "validationGraph": {
+      "gates": {
+        "architecture": ["DependencyCruiser","Madge","Knip","ts-prune"],
+        "security": ["Semgrep","Snyk","Trivy","Checkov","Gitleaks","TruffleHog","npm audit"],
+        "testing": ["Playwright","k6","Artillery"],
+        "accessibility": ["Pa11y","Lighthouse","Axe CLI"],
+        "performance": ["Lighthouse","BundleWizard","k6"],
+        "api": ["Spectral","Redocly","SwaggerCLI"],
+        "documentation": ["TypeDoc","MkDocs","Log4brains"],
+        "code_quality": ["TypeScript","ESLint","Prettier"]
+      }
+    },
+    "certificationGraph": {
+      "dimensions": {
+        "architecture": { "weight": 15, "sources": ["DependencyCruiser","Madge","Knip","ts-prune"] },
+        "security": { "weight": 15, "sources": ["Semgrep","Snyk","Trivy","Checkov","Gitleaks","TruffleHog","npm audit"] },
+        "performance": { "weight": 15, "sources": ["Lighthouse","BundleWizard","k6"] },
+        "testing": { "weight": 15, "sources": ["Playwright","k6","Artillery","Pa11y"] },
+        "accessibility": { "weight": 10, "sources": ["Pa11y","Lighthouse","Axe CLI"] },
+        "maintainability": { "weight": 10, "sources": ["TypeScript","ESLint","Prettier","Playwright"] },
+        "documentation": { "weight": 10, "sources": ["TypeDoc","MkDocs","Log4brains","MermaidCLI","PlantUML"] },
+        "enterprise": { "weight": 10, "sources": ["all"] }
+      }
+    }
+  }
+}
