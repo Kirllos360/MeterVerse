@@ -1,24 +1,26 @@
 ﻿# Dependencies
 node_modules/
-.next/
-dist/
-**/.next/**
-**/node_modules/**
-**/dist/**
+Frontend/node_modules/
+backend/node_modules/
+**/node_modules/
+
+# Build output
+Frontend/.next/
+Frontend/out/
+backend/dist/
+**/dist/
+**/.next/
 
 # Environment
 .env
 .env.local
 .env.*.local
+.env.example
+backend/.env
 
 # Logs
 *.log
 logs/
-
-# Build
-.next
-dist
-*.tsbuildinfo
 
 # IDE
 .vscode/
@@ -30,10 +32,33 @@ dist
 .DS_Store
 Thumbs.db
 
-# Project specific
+# MCP tools (third-party)
+mcp/
+.playwright-mcp/
+
+# Tools & downloads
+tools/
+tmp/
+
+# Reports & testing
 test-reports/
+reports/
 session-snapshot/
+
+# Design files
+design-figma/
+design-figma.zip
+
+# Documentation (third-party)
+stitch_meterverse_enterprise_os/
+MVEOS_Master_Execution_Framework/
+AI/
 memory files/
 text files/
 yaml files/
-graphify-out/cache/
+
+# Reporting engine (Java)
+reporting-engine/
+
+# Backup
+backup files/

@@ -1,7 +1,0 @@
-[    9959ms] [LOG] Application started @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
-[    9995ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/account:0
-[   10009ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://10.50.30.2:9999/api/account:0
-[   10357ms] [VERBOSE] [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq) %o @ http://10.50.30.2:9999/#/login:0
-[  148042ms] [LOG] Opening Web Socket... @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1
-[  148860ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://10.50.30.2:9999/websocket/tracker/info?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzgyMDE3NTU4fQ.3E6KQL28ma80_GxFzazTm-7tQQMnFxb9TcmBzXy0tLqxaNiXd1RO96uePZzNqPZKGKy80oYE3oM2JxYNr6h7sw&t=1781931159757:0
-[  148927ms] [LOG] Whoops! Lost connection to http://10.50.30.2:9999/websocket/tracker?access_token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJCSUxMSU5HX0FETUlOLENTX1RFQU0sQ1VTVE9NRVIsU1lTVEVNX0FETUlOLFRFQ0hfVEVBTSIsInByb2plY3RJZCI6MSwiZXhwIjoxNzgyMDE3NTU4fQ.3E6KQL28ma80_GxFzazTm-7tQQMnFxb9TcmBzXy0tLqxaNiXd1RO96uePZzNqPZKGKy80oYE3oM2JxYNr6h7sw: {event: a} @ http://10.50.30.2:9999/app/main.533322af03ce50570c4f.bundle.js:1

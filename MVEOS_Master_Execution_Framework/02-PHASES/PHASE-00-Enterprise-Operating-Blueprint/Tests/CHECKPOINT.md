@@ -1,1 +1,0 @@
-Verify architecture, evidence, audit, regression and certification before unlocking next phase.
