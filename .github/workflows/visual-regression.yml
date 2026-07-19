@@ -1,0 +1,64 @@
+name: Visual Regression
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'Frontend/src/**'
+      - 'Frontend/tests/**'
+  workflow_dispatch:
+
+jobs:
+  visual-regression:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Frontend
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install
+
+      - name: Install Playwright
+        run: bunx playwright install chromium 2>&1
+
+      - name: Start Server
+        run: |
+          bun run dev -p 3030 &
+          sleep 20
+          curl -s -o /dev/null -w "%{http_code}" http://localhost:3030
+
+      - name: Capture Screenshots
+        run: node tests/screenshots.mjs 2>&1
+
+      - name: Visual Regression Check
+        id: regression
+        continue-on-error: true
+        run: |
+          node tests/visual-regression.mjs compare 2>&1
+
+      - name: Generate Report
+        if: always()
+        run: |
+          cat docs/VISUAL_REGRESSION_REPORT.md
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-regression-diffs
+          path: |
+            docs/screenshots/diff/
+            docs/VISUAL_REGRESSION_REPORT.md
+          retention-days: 14
+
+      - name: Fail on Regression
+        if: steps.regression.outcome == 'failure'
+        run: |
+          echo "❌ Visual regressions detected. Check the report."
+          exit 1
