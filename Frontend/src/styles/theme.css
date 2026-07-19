@@ -114,7 +114,7 @@ body {
   --sidebar-hover: rgba(255, 255, 255, 0.06);
   --sidebar-active: rgba(var(--brand-rgb), 0.15);
   --sidebar-selected: var(--brand);
-  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-category-text: rgba(255, 255, 255, 0.65);
   --sidebar-count-text: rgba(255, 255, 255, 0.35);
 
