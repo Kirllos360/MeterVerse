@@ -41,7 +41,7 @@ export const apiCallStep: StepHandler = async (step, _context) => {
 
 export const createEntityStep: StepHandler = async (step, _context) => {
   const entityType = step.input?.entityType as string
-  const data = step.input?.data as unknown as Record<string, unknown>
+  const data = (step.input?.data || {}) as Record<string, unknown>
   if (!entityType) return { success: false, error: "No entityType specified" }
 
   const engine = getDataEngine()
@@ -63,13 +63,13 @@ export const createEntityStep: StepHandler = async (step, _context) => {
 
 export const sendNotificationStep: StepHandler = async (step, _context) => {
   const title = (step.input?.title as string) || "Notification"
-  const message = (step.input?.message as string) || ""
-  console.log(`[Workflow] Notification: ${title} - ${message}`)
+  const _message = (step.input?.message as string) || ""
+  console.log(`[Workflow] Notification: ${title}`)
   return { success: true, output: { notified: true } }
 }
 
 export const waitStep: StepHandler = async (step) => {
-  const ms = (step.input?.duration as unknown as number) || 1000
+  const ms = Number(step.input?.duration) || 1000
   await new Promise((r) => setTimeout(r, ms))
   return { success: true, output: { waited: ms } }
 }
