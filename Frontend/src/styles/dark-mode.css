@@ -63,6 +63,21 @@ html.dark {
   --border-subtle: oklch(1 0 0 / 5%);
   --surface-pop: oklch(0.2 0.02 160);
   --text-disabled: oklch(0.35 0.01 160);
+
+  /* Dark mode: neutral sidebar (no brand tint) */
+  --sidebar-background: oklch(0.1 0 0);
+  --sidebar-border: rgba(255, 255, 255, 0.04);
+  --sidebar-active: rgba(255, 255, 255, 0.08);
+  --sidebar-selected: var(--brand);
+
+  /* Dark mode: neutral inspector (no brand tint) */
+  --inspector-background: oklch(0.08 0 0);
+  --inspector-border: rgba(255, 255, 255, 0.04);
+  --inspector-tab-active: rgba(255, 255, 255, 0.08);
+  --inspector-button-bg: rgba(255, 255, 255, 0.1);
+
+  /* Dark mode: neutral login panel */
+  --panel-accent: oklch(0.1 0 0);
 }
 
 /* Chart & data display in dark mode */
