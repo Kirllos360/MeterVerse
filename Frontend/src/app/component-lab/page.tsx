@@ -20,7 +20,7 @@ const demoData: DemoItem[] = [
 const demoColumns: Column<DemoItem>[] = [
   { id: "name", header: "Name", accessor: (r) => r.name, sortable: true, width: 160 },
   { id: "email", header: "Email", accessor: (r) => r.email, sortable: true, width: 200 },
-  { id: "role", header: "Role", accessor: (r) => <span className="px-2 py-0.5 text-[11px] rounded-full" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>{r.role}</span>, sortable: true, width: 120 },
+  { id: "role", header: "Role", accessor: (r) => <span className="px-2 py-0.5 text-[11px] rounded-full" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>{r.role}</span>, width: 140 },
   { id: "status", header: "Status", accessor: (r) => <span style={{ color: r.status === "Active" ? "var(--status-success)" : "#9CA3AF" }}>{r.status}</span>, width: 100 },
 ]
 
@@ -31,8 +31,8 @@ const formFields: FieldDef[] = [
 ]
 
 export default function ComponentLabPage() {
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [formVals, setFormVals] = useState<Record<string, unknown>>({})
+  const [_dialogOpen, setDialogOpen] = useState(false)
+  const [_formVals, setFormVals] = useState<Record<string, unknown>>({})
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--surface-base)" }}>
@@ -42,12 +42,100 @@ export default function ComponentLabPage() {
 
         {/* DataTable */}
         <Section title="DataTable Runtime">
-                  </Section>
+          <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+            <p className="text-xs mb-4" style={{ color: "var(--text-tertiary)" }}>Interactive data table with sorting and filtering</p>
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid var(--border-default)" }}>
+                    {demoColumns.map(col => (
+                      <th key={col.id} style={{ padding: "8px 12px", textAlign: "left", fontWeight: 600, color: "var(--text-secondary)", width: col.width }}>
+                        {col.header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {demoData.map(row => (
+                    <tr key={row.id} style={{ borderBottom: "1px solid var(--border-default)" }}>
+                      {demoColumns.map(col => (
+                        <td key={`${row.id}-${col.id}`} style={{ padding: "8px 12px", color: "var(--text-primary)" }}>
+                          {col.accessor(row)}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Section>
 
         {/* Forms */}
         <Section title="Forms Runtime">
           <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
-                      </div>
+            <form style={{ display: "grid", gap: "16px" }}>
+              {formFields.map(field => (
+                <div key={field.id}>
+                  <label htmlFor={field.id} style={{ display: "block", marginBottom: "6px", fontSize: "14px", fontWeight: 500, color: "var(--text-primary)" }}>
+                    {field.label}
+                    {field.required && <span style={{ color: "var(--status-error)" }}>*</span>}
+                  </label>
+                  {field.type === "select" ? (
+                    <select
+                      id={field.id}
+                      style={{
+                        width: "100%",
+                        padding: "8px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid var(--border-default)",
+                        backgroundColor: "var(--surface-base)",
+                        color: "var(--text-primary)",
+                        fontSize: "14px"
+                      }}
+                      onChange={(e) => setFormVals({ ...formFields, [field.id]: e.target.value })}
+                    >
+                      <option value="">Select {field.label}</option>
+                      {field.options?.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  ) : (
+                    <input
+                      id={field.id}
+                      type={field.type}
+                      placeholder={`Enter ${field.label.toLowerCase()}`}
+                      style={{
+                        width: "100%",
+                        padding: "8px 12px",
+                        borderRadius: "6px",
+                        border: "1px solid var(--border-default)",
+                        backgroundColor: "var(--surface-base)",
+                        color: "var(--text-primary)",
+                        fontSize: "14px"
+                      }}
+                      onChange={(e) => setFormVals({ ...formFields, [field.id]: e.target.value })}
+                    />
+                  )}
+                </div>
+              ))}
+              <button
+                type="submit"
+                style={{
+                  padding: "10px 16px",
+                  borderRadius: "6px",
+                  border: "none",
+                  backgroundColor: "var(--brand-primary)",
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  cursor: "pointer"
+                }}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </Section>
 
         {/* Charts */}
@@ -55,10 +143,16 @@ export default function ComponentLabPage() {
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
               <p className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>Line Chart</p>
-                          </div>
+              <div style={{ height: "200px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-tertiary)" }}>
+                Chart placeholder
+              </div>
+            </div>
             <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
               <p className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>Pie Chart</p>
-                          </div>
+              <div style={{ height: "200px", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-tertiary)" }}>
+                Chart placeholder
+              </div>
+            </div>
           </div>
         </Section>
 
@@ -92,5 +186,3 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </div>
   )
 }
-
-
