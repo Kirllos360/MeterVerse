@@ -23,7 +23,7 @@ const activityColors: Record<string, string> = {
   invoice: "#3B82F6",
   customer: "#F59E0B",
   system: "#8B5CF6",
-  report: "#064E3B",
+  report: "var(--surface-base)",
 }
 
 export function WorkspaceHome() {
@@ -129,7 +129,7 @@ export function WorkspaceHome() {
             <button key={action} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all hover:shadow-md"
               style={{ ...glassCard, color: "var(--text-primary, #0A0A0A)" }}
             >
-              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(0,191,165,0.1)", color: "var(--brand-primary)" }}>+</span>
+              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>+</span>
               {action}
             </button>
           ))}
@@ -150,7 +150,7 @@ export function WorkspaceHome() {
                   transition={{ duration: 0.8, delay: i * 0.03, ease: "easeOut" }}
                   className="w-full rounded-t-sm"
                   style={{
-                    backgroundColor: i === 11 ? "var(--brand-primary)" : "rgba(0,191,165,0.25)",
+                    backgroundColor: i === 11 ? "var(--brand-primary)" : "rgba(var(--brand-primary-rgb), 0.25)",
                     minHeight: 4,
                   }}
                 />

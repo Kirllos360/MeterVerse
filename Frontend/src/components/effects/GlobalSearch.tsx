@@ -37,8 +37,8 @@ export function GlobalSearch() {
       <div className={`flex items-center rounded-xl border transition-all duration-200 overflow-hidden`}
         style={{
           backgroundColor: isFocused ? "var(--surface-raised, #FFFFFF)" : "var(--surface-sunken, #F0F0F0)",
-          borderColor: isFocused ? "#00BFA5" : "var(--border-default, #E5E5E5)",
-          boxShadow: isFocused ? "0 0 0 2px rgba(0,191,165,0.15)" : "none",
+          borderColor: isFocused ? "var(--brand-primary)" : "var(--border-default, #E5E5E5)",
+          boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-primary-rgb), 0.15)" : "none",
         }}
       >
         <div className="relative">
@@ -57,7 +57,7 @@ export function GlobalSearch() {
                 {SEARCH_CATEGORIES.map((cat) => (
                   <button key={cat} onClick={() => { setCategory(cat); setShowCatDropdown(false) }}
                     className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 flex items-center gap-2"
-                    style={{ color: category === cat ? "#00BFA5" : "var(--text-primary, #0A0A0A)", backgroundColor: category === cat ? "rgba(0,191,165,0.05)" : "transparent" }}>
+                    style={{ color: category === cat ? "var(--brand-primary)" : "var(--text-primary, #0A0A0A)", backgroundColor: category === cat ? "rgba(var(--brand-primary-rgb), 0.05)" : "transparent" }}>
                     {cat === "all" ? (language === "ar" ? "الكل" : "All") : `${t(`nav.${cat}`, cat)}`}
                   </button>
                 ))}

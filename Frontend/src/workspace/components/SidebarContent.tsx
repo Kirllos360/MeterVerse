@@ -35,7 +35,7 @@ export function SidebarContent() {
   const setIsExpanded = (v: boolean) => setSidebarMode(v ? "expanded" : "collapsed")
   const isDock = sidebarMode === "dock"
   const brand = "var(--brand-primary)"
-  const bg = "#064E3B"
+  const bg = "var(--surface-base)"
   const [expandedCategories, setExpandedCategories] = useState<Record<string, boolean>>({})
 
   const toggleCategory = (catId: string) => {
@@ -61,13 +61,13 @@ export function SidebarContent() {
   // Dock mode
   if (isDock) {
     return (
-      <div className="flex flex-col items-center gap-2 py-3 px-1 rounded-2xl shadow-2xl" style={{ backgroundColor: bg, border: "1px solid rgba(0,191,165,0.15)", margin: "12px 0 0 12px" }}>
+      <div className="flex flex-col items-center gap-2 py-3 px-1 rounded-2xl shadow-2xl" style={{ backgroundColor: bg, border: "1px solid rgba(var(--brand-primary-rgb), 0.15)", margin: "12px 0 0 12px" }}>
         {allApps.slice(0, 8).map((app) => (
           <motion.button key={app.id} {...futuristic.waveButton} whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}
             onClick={() => handleNav(app.id, app.title)}
             aria-label={app.title}
             className="w-9 h-9 flex items-center justify-center rounded-xl"
-            style={{ color: activeTabId === app.id ? brand : "rgba(255,255,255,0.4)" }}
+            style={{ color: activeTabId === app.id ? brand : "rgba(var(--white-rgb), 0.4)" }}
           >
             <span className="text-[10px] font-bold">{app.title[0]}</span>
           </motion.button>
@@ -82,25 +82,25 @@ export function SidebarContent() {
         animate={{ width: isExpanded ? 260 : 64 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col h-full rounded-2xl shadow-xl overflow-hidden"
-        style={{ backgroundColor: bg, border: "1px solid rgba(0,191,165,0.12)" }}
+        style={{ backgroundColor: bg, border: "1px solid rgba(var(--brand-primary-rgb), 0.12)" }}
       >
         {/* Premium collapse button — adaptive spring animation */}
         <motion.div
           className="shrink-0 overflow-hidden"
           animate={{ height: isExpanded ? 40 : 36 }}
           transition={{ type: "spring", stiffness: 200, damping: 25 }}
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+          style={{ borderBottom: "1px solid rgba(var(--white-rgb), 0.04)" }}
         >
           <motion.button
             onClick={() => setIsExpanded(!isExpanded)}
             aria-label={isExpanded ? t("sidebar.collapse", "Collapse sidebar") : t("sidebar.expand", "Expand sidebar")}
             className="flex items-center justify-center gap-2 w-full h-full outline-none px-3 transition-colors hover:bg-white/5 relative overflow-hidden"
-            style={{ color: "rgba(255,255,255,0.3)" }}
-            whileHover={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: "rgba(var(--white-rgb), 0.3)" }}
+            whileHover={{ color: "rgba(var(--white-rgb), 0.6)" }}
             whileTap={{ scale: 0.97 }}
           >
             {/* Hover glow effect */}
-            <motion.div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(0,191,165,0.08) 0%, transparent 70%)" }}
+            <motion.div className="absolute inset-0" style={{ background: "radial-gradient(ellipse at center, rgba(var(--brand-primary-rgb), 0.08) 0%, transparent 70%)" }}
               initial={{ opacity: 0 }} whileHover={{ opacity: 1 }} transition={{ duration: 0.3 }} />
             <motion.div
               animate={{ rotate: isExpanded ? 0 : 180, scale: [1, 1.2, 1] }}
@@ -135,17 +135,17 @@ export function SidebarContent() {
                   {isExpanded ? (
                     <button onClick={() => toggleCategory(group.id)}
                       className="flex items-center gap-2 w-full px-2 py-1.5 rounded-lg text-[10px] font-semibold uppercase tracking-wider outline-none hover:bg-white/5 transition-colors"
-                      style={{ color: "rgba(255,255,255,0.3)" }}
+                      style={{ color: "rgba(var(--white-rgb), 0.3)" }}
                     >
                       <motion.svg animate={{ rotate: isCatExpanded ? 90 : 0 }} width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                         <path d="M9 18l6-6-6-6" />
                       </motion.svg>
                       {t(`nav.${group.id}`, group.label)}
-                      <span className="text-[9px] ml-auto" style={{ color: "rgba(255,255,255,0.15)" }}>{group.apps.length}</span>
+                      <span className="text-[9px] ml-auto" style={{ color: "rgba(var(--white-rgb), 0.15)" }}>{group.apps.length}</span>
                     </button>
                   ) : (
                     <div className="flex justify-center py-1">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="rgba(var(--white-rgb), 0.2)" strokeWidth="1.5" strokeLinecap="round">
                         <path d={categoryIcons[group.id] || "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"} />
                       </svg>
                     </div>
@@ -167,13 +167,13 @@ export function SidebarContent() {
                                 className={`flex items-center gap-3 w-full outline-none transition-colors duration-150 ${
                                   isExpanded ? "px-3 py-1.5 rounded-lg justify-start" : "w-10 h-9 mx-auto rounded-xl justify-center"
                                 }`}
-                                style={{ backgroundColor: isActive ? "rgba(0,191,165,0.15)" : "transparent" }}
+                                style={{ backgroundColor: isActive ? "rgba(var(--brand-primary-rgb), 0.15)" : "transparent" }}
                               >
-                                <span className="text-xs shrink-0" style={{ color: isActive ? brand : "rgba(255,255,255,0.4)" }}>
+                                <span className="text-xs shrink-0" style={{ color: isActive ? brand : "rgba(var(--white-rgb), 0.4)" }}>
                                   {(t(`nav.${app.id}`, app.title) || app.title)[0]}
                                 </span>
                                 {isExpanded && (
-                                  <span className="text-xs flex-1 text-left truncate flex items-center gap-1.5" style={{ color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.6)" }}>
+                                  <span className="text-xs flex-1 text-left truncate flex items-center gap-1.5" style={{ color: isActive ? "var(--text-primary)" : "rgba(var(--white-rgb), 0.6)" }}>
                                     {t(`nav.${app.id}`, app.title)}
                                     {app.badge && (
                                       <span className="px-1 py-0.5 rounded-full text-[8px] font-medium" style={{ backgroundColor: "rgba(239,68,68,0.2)", color: "#EF4444" }}>
@@ -190,8 +190,8 @@ export function SidebarContent() {
                             )}
                             {!isExpanded && !isActive && (
                               <div className="absolute left-full ml-2.5 px-2 py-1 rounded-lg opacity-0 group-hover/item:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 shadow-lg"
-                                style={{ backgroundColor: "#043526" }}>
-                                <span className="text-[10px] font-medium text-white">{t(`nav.${app.id}`, app.title)}</span>
+                                style={{ backgroundColor: "oklch(0.08 0.02 160)" }}>
+                                <span className="text-[10px] font-medium" style={{ color: "var(--text-primary)" }}>{t(`nav.${app.id}`, app.title)}</span>
                               </div>
                             )}
                           </div>
@@ -206,10 +206,10 @@ export function SidebarContent() {
         </nav>
 
         {/* Sidebar bottom — collapse toggle only */}
-        <div className="shrink-0 p-2" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        <div className="shrink-0 p-2" style={{ borderTop: "1px solid rgba(var(--white-rgb), 0.06)" }}>
           <button onClick={() => setIsExpanded(!isExpanded)} aria-label={isExpanded ? "Collapse sidebar" : "Expand sidebar"}
             className="flex items-center justify-center w-full p-2 rounded-lg text-[10px] transition-colors hover:bg-white/5 outline-none"
-            style={{ color: "rgba(255,255,255,0.3)" }}>
+            style={{ color: "rgba(var(--white-rgb), 0.3)" }}>
             <motion.svg animate={{ rotate: isExpanded ? 180 : 0 }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></motion.svg>
             {isExpanded && <span className="ml-2">{t("sidebar.collapse", "Collapse")}</span>}
           </button>

@@ -16,7 +16,7 @@ interface WorkspaceLayoutProps {
 function GradientDivider({ className = "" }: { className?: string }) {
   return (
     <div className={`w-px shrink-0 relative ${className}`}
-      style={{ background: "linear-gradient(180deg, transparent 0%, rgba(0,191,165,0.12) 50%, transparent 100%)" }}
+      style={{ background: "linear-gradient(180deg, transparent 0%, rgba(var(--brand-primary-rgb), 0.12) 50%, transparent 100%)" }}
     />
   )
 }
@@ -36,7 +36,7 @@ export function WorkspaceLayout({
       {/* HEADER — Full width, bottom edge is the start line for panels */}
       {toolbarContent && (
         <motion.div className="shrink-0 border-b z-40 relative" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-topbar, #FFFFFF)" }}
-          animate={{ boxShadow: ["0 1px 0 rgba(0,191,165,0)", "0 1px 0 rgba(0,191,165,0.08)", "0 1px 0 rgba(0,191,165,0)"] }}
+          animate={{ boxShadow: ["0 1px 0 rgba(var(--brand-primary-rgb), 0)", "0 1px 0 rgba(var(--brand-primary-rgb), 0.08)", "0 1px 0 rgba(var(--brand-primary-rgb), 0)"] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
           {toolbarContent}
         </motion.div>
@@ -55,7 +55,7 @@ export function WorkspaceLayout({
         >
           <motion.div
             className="pointer-events-auto h-full overflow-hidden"
-            style={{ borderRadius: 16, backgroundColor: "#064E3B", border: "1px solid rgba(0,191,165,0.12)" }}
+            style={{ borderRadius: 16, backgroundColor: "var(--surface-base)", border: "1px solid rgba(var(--brand-primary-rgb), 0.12)" }}
             animate={{
               width: sidebarMode === "expanded" ? 260 : sidebarMode === "collapsed" ? 64 : 48,
               borderRadius: sidebarMode === "expanded" ? 16 : sidebarMode === "collapsed" ? 14 : 24,
@@ -92,15 +92,15 @@ export function WorkspaceLayout({
               <motion.button
                 key={item.label}
                 className="w-8 h-8 flex items-center justify-center rounded-xl relative"
-                style={{ color: "rgba(0,191,165,0.4)" }}
-                whileHover={{ scale: 1.15, color: "#00BFA5" }}
+                style={{ color: "rgba(var(--brand-primary-rgb), 0.4)" }}
+                whileHover={{ scale: 1.15, color: "var(--brand-primary)" }}
                 whileTap={{ scale: 0.9 }}
                 onClick={(e) => { e.stopPropagation(); setInspectorOpen(true) }}
                 title={item.label}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={item.icon} /></svg>
                 {i === 0 && (
-                  <motion.span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full" style={{ backgroundColor: "#00BFA5" }}
+                  <motion.span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full" style={{ backgroundColor: "var(--brand-primary)" }}
                     animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2, repeat: Infinity }} />
                 )}
               </motion.button>
@@ -108,8 +108,8 @@ export function WorkspaceLayout({
             {/* Bottom collapse arrow */}
             <motion.button
               className="w-8 h-8 flex items-center justify-center rounded-xl mt-auto"
-              style={{ color: "rgba(255,255,255,0.2)" }}
-              whileHover={{ scale: 1.1, color: "#00BFA5" }}
+              style={{ color: "rgba(var(--white-rgb), 0.2)" }}
+              whileHover={{ scale: 1.1, color: "var(--brand-primary)" }}
               whileTap={{ scale: 0.9 }}
               onClick={(e) => { e.stopPropagation(); setInspectorOpen(true) }}
               title="Expand inspector"
@@ -139,7 +139,7 @@ export function WorkspaceLayout({
             >
               <div className="absolute pointer-events-none" style={{ left: -4, top: 0, bottom: 0 }}>
                 <div onMouseDown={(e) => { e.preventDefault(); const startX = e.clientX; const startW = inspectorWidth + 12; const hm = (ev: MouseEvent) => setInspectorWidth(Math.max(200, Math.min(400, startW - 12 + startX - ev.clientX))); const hu = () => { document.removeEventListener("mousemove", hm); document.removeEventListener("mouseup", hu) }; document.addEventListener("mousemove", hm); document.addEventListener("mouseup", hu) }}
-                  className="w-3 cursor-col-resize group z-20 absolute inset-y-0 -left-1 flex items-center"><div className="w-0.5 h-8 rounded-full bg-transparent group-hover:bg-[rgba(0,191,165,0.3)] transition-colors mx-auto" /></div>
+                  className="w-3 cursor-col-resize group z-20 absolute inset-y-0 -left-1 flex items-center"><div className="w-0.5 h-8 rounded-full bg-transparent group-hover:bg-[rgba(var(--brand-primary-rgb), 0.3)] transition-colors mx-auto" /></div>
               </div>
               <motion.div
                 className="h-full pointer-events-auto overflow-hidden"
@@ -157,7 +157,7 @@ export function WorkspaceLayout({
       {/* FOOTER — Full width, top edge is the end line for panels */}
       {statusBar && (
         <motion.div className="shrink-0 border-t z-40 relative overflow-hidden" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-topbar, #FFFFFF)" }}
-          animate={{ boxShadow: ["0 -1px 0 rgba(0,191,165,0)", "0 -1px 0 rgba(0,191,165,0.06)", "0 -1px 0 rgba(0,191,165,0)"] }}
+          animate={{ boxShadow: ["0 -1px 0 rgba(var(--brand-primary-rgb), 0)", "0 -1px 0 rgba(var(--brand-primary-rgb), 0.06)", "0 -1px 0 rgba(var(--brand-primary-rgb), 0)"] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
           {statusBar}
         </motion.div>

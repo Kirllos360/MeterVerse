@@ -6,7 +6,7 @@ interface Metric { label: string; value: string; color: string; change?: string 
 
 export function MetricsDashboard() {
   const [metrics, setMetrics] = useState<Metric[]>([
-    { label: "CPU", value: "23%", color: "#00BFA5" },
+    { label: "CPU", value: "23%", color: "var(--brand-primary)" },
     { label: "Memory", value: "6.2 GB", color: "#3B82F6" },
     { label: "Requests/min", value: "1,247", color: "#22C55E" },
     { label: "Error Rate", value: "0.02%", color: "#22C55E" },

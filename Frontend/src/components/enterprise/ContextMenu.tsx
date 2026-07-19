@@ -51,7 +51,7 @@ export function ContextMenu({ items, children }: ContextMenuProps) {
               <button key={item.id} disabled={item.disabled}
                 onClick={() => { item.onClick(); setOpen(false) }}
                 className="flex items-center gap-2.5 w-full px-3 py-2 text-xs text-left transition-colors"
-                style={{ color: item.danger ? "#DC2626" : "var(--text-primary, #0A0A0A)", opacity: item.disabled ? 0.4 : 1 }}
+                style={{ color: item.danger ? "var(--status-error)" : "var(--text-primary, #0A0A0A)", opacity: item.disabled ? 0.4 : 1 }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(0,0,0,0.03)" }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent" }}
               >

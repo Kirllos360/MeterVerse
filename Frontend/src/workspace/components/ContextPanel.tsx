@@ -80,32 +80,32 @@ export function ContextPanel() {
   return (
     <motion.div
       className="flex flex-col h-full overflow-hidden rounded-2xl shadow-xl"
-      style={{ backgroundColor: "#064E3B", border: "1px solid rgba(0,191,165,0.12)" }}
+      style={{ backgroundColor: "var(--surface-base)", border: "1px solid rgba(var(--brand-primary-rgb), 0.12)" }}
       initial={false}
       animate={{ width: inspectorOpen ? "100%" : 0 }}
       transition={transitions.smooth}
     >
       {/* Header */}
-      <div className="flex items-center justify-between h-14 px-4 shrink-0" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="flex items-center justify-between h-14 px-4 shrink-0" style={{ borderBottom: "1px solid rgba(var(--white-rgb), 0.06)" }}>
         <div className="flex items-center gap-2.5">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00BFA5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d={config.icon} />
           </svg>
-          <span className="text-sm font-medium text-white">{config.label}</span>
+          <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{config.label}</span>
         </div>
         <div className="flex items-center gap-1">
-          <button onClick={() => setInspectorOpen(false)} aria-label={t("context.closeInspector", "Collapse inspector")} className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors hover:bg-white/10" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <button onClick={() => setInspectorOpen(false)} aria-label={t("context.closeInspector", "Collapse inspector")} className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors hover:bg-white/10" style={{ color: "rgba(var(--white-rgb), 0.4)" }}>
             <motion.svg animate={{ rotate: 180 }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M15 18l-6-6 6-6" /></motion.svg>
           </button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 px-3 pt-3 pb-2 shrink-0 overflow-x-auto" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="flex gap-1 px-3 pt-3 pb-2 shrink-0 overflow-x-auto" style={{ borderBottom: "1px solid rgba(var(--white-rgb), 0.06)" }}>
         {sections.map((section) => (
           <button key={section.id} onClick={() => setActiveTab(section.id)}
             className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap"
-            style={{ backgroundColor: activeTab === section.id ? "rgba(0,191,165,0.15)" : "transparent", color: activeTab === section.id ? "#FFFFFF" : "rgba(255,255,255,0.45)" }}
+            style={{ backgroundColor: activeTab === section.id ? "rgba(var(--brand-primary-rgb), 0.15)" : "transparent", color: activeTab === section.id ? "var(--text-primary)" : "rgba(var(--white-rgb), 0.45)" }}
           >
             {section.label}
           </button>
@@ -123,8 +123,8 @@ export function ContextPanel() {
           >
             {/* Section header */}
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(0,191,165,0.5)" }} />
-              <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.35)" }}>{section.label}</span>
+              <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.5)" }} />
+              <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "rgba(var(--white-rgb), 0.35)" }}>{section.label}</span>
             </div>
             {section.content}
           </motion.div>
@@ -132,12 +132,12 @@ export function ContextPanel() {
       </div>
 
       {/* Entity type selector (dev tool) */}
-      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap" style={{ borderTop: "1px solid rgba(var(--white-rgb), 0.06)" }}>
         {(["meter", "customer", "invoice", "payment", "reading", "none"] as EntityType[]).map((type) => (
           <button key={type} onClick={() => setEntityType(type)}
             aria-label={`Show ${type} context`}
             className="px-2 py-1 rounded text-[10px] font-medium transition-colors"
-            style={{ backgroundColor: entityType === type ? "rgba(0,191,165,0.2)" : "rgba(255,255,255,0.05)", color: entityType === type ? "#FFFFFF" : "rgba(255,255,255,0.4)" }}
+            style={{ backgroundColor: entityType === type ? "rgba(var(--brand-primary-rgb), 0.2)" : "rgba(var(--white-rgb), 0.05)", color: entityType === type ? "var(--text-primary)" : "rgba(var(--white-rgb), 0.4)" }}
           >
             {type}
           </button>
@@ -152,8 +152,8 @@ function PropertyRows({ rows }: { rows: [string, string][] }) {
     <div className="space-y-1">
       {rows.map(([label, value]) => (
         <div key={label} className="flex items-center justify-between py-1">
-          <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>{label}</span>
-          <span className="text-[11px] font-medium" style={{ color: value !== "—" ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.25)" }}>{value}</span>
+          <span className="text-[11px]" style={{ color: "rgba(var(--white-rgb), 0.4)" }}>{label}</span>
+          <span className="text-[11px] font-medium" style={{ color: value !== "—" ? "rgba(var(--white-rgb), 0.8)" : "rgba(var(--white-rgb), 0.25)" }}>{value}</span>
         </div>
       ))}
     </div>
@@ -162,8 +162,8 @@ function PropertyRows({ rows }: { rows: [string, string][] }) {
 
 function Placeholder({ text }: { text: string }) {
   return (
-    <div className="p-3 rounded-lg text-center" style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
-      <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.3)" }}>{text}</p>
+    <div className="p-3 rounded-lg text-center" style={{ backgroundColor: "rgba(var(--white-rgb), 0.03)" }}>
+      <p className="text-[11px]" style={{ color: "rgba(var(--white-rgb), 0.3)" }}>{text}</p>
     </div>
   )
 }

@@ -28,10 +28,10 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
   const [reminderMode, setReminderMode] = useState<"list" | "add">("list")
   const [newReminder, setNewReminder] = useState("")
   const [reminders, setReminders] = useState([
-    { icon: "📋", title: "12 invoices pending review", time: "2h", color: "#D97706" },
-    { icon: "🔔", title: "3 meters require maintenance", time: "1d", color: "#DC2626" },
+    { icon: "📋", title: "12 invoices pending review", time: "2h", color: "var(--status-warning)" },
+    { icon: "🔔", title: "3 meters require maintenance", time: "1d", color: "var(--status-error)" },
     { icon: "📈", title: "Monthly report ready", time: "3h", color: "var(--brand-primary)" },
-    { icon: "✅", title: "All systems operational", time: "5m", color: "#059669" },
+    { icon: "✅", title: "All systems operational", time: "5m", color: "var(--status-success)" },
     { icon: "⚡", title: "Peak consumption today", time: "1h", color: "#3B82F6" },
   ])
 
@@ -123,7 +123,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                   <motion.button
                     whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
                     onClick={() => { if (newReminder.trim()) { setReminders([{ icon: "📌", title: newReminder, time: "Now", color: "var(--brand-primary)" }, ...reminders]); setNewReminder(""); setReminderMode("list") } }}
-                    className="w-full py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: newReminder.trim() ? "#00BFA5" : "rgba(0,191,165,0.3)" }}
+                    className="w-full py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: newReminder.trim() ? "var(--brand-primary)" : "rgba(var(--brand-primary-rgb), 0.3)" }}
                     disabled={!newReminder.trim()}
                   >
                     {language === "ar" ? "إضافة" : "Add Reminder"}
@@ -206,7 +206,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                   <button
                     onClick={logout}
                     className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-red-50 dark:hover:bg-red-900/20"
-                    style={{ color: "#DC2626" }}
+                    style={{ color: "var(--status-error)" }}
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" /></svg>
                     <span>{language === "ar" ? "تسجيل الخروج" : "Sign Out"}</span>

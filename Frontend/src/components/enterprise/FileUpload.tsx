@@ -37,7 +37,7 @@ export function FileUpload({ accept, maxSize = 10485760, onUpload }: FileUploadP
 
   return (
     <div className="space-y-3">
-      <div {...getRootProps()} className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${isDragActive ? "border-[var(--brand-primary)]" : "border-[var(--border-default)]"}`} style={{ backgroundColor: isDragActive ? "rgba(0,191,165,0.03)" : "var(--surface-raised)" }}>
+      <div {...getRootProps()} className={`border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors ${isDragActive ? "border-[var(--brand-primary)]" : "border-[var(--border-default)]"}`} style={{ backgroundColor: isDragActive ? "rgba(var(--brand-primary-rgb), 0.03)" : "var(--surface-raised)" }}>
         <input {...getInputProps()} aria-label="File upload" />
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="1.5" className="mx-auto mb-2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
         <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{isDragActive ? "Drop files here" : "Drag & drop or click to browse"}</p>
@@ -53,8 +53,8 @@ export function FileUpload({ accept, maxSize = 10485760, onUpload }: FileUploadP
               <p className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{(f.file.size / 1024).toFixed(1)} KB</p>
             </div>
             {f.status === "uploading" && <div className="w-20 h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--surface-sunken)" }}><motion.div className="h-full rounded-full" style={{ backgroundColor: "var(--brand-primary)" }} animate={{ width: ["0%", "100%"] }} transition={{ duration: 2 }} /></div>}
-            {f.status === "done" && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>}
-            {f.status === "error" && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DC2626" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>}
+            {f.status === "done" && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--status-success)" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>}
+            {f.status === "error" && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>}
             {f.status === "pending" && (
               <button onClick={() => setFiles((prev) => prev.filter((_, idx) => idx !== i))} className="text-xs" style={{ color: "var(--text-tertiary)" }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -67,7 +67,7 @@ export function FileUpload({ accept, maxSize = 10485760, onUpload }: FileUploadP
       {files.some((f) => f.status === "pending") && (
         <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
           onClick={uploadAll} disabled={isUploading}
-          className="w-full py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: isUploading ? "rgba(0,191,165,0.5)" : "var(--brand-primary)" }}>
+          className="w-full py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: isUploading ? "rgba(var(--brand-primary-rgb), 0.5)" : "var(--brand-primary)" }}>
           {isUploading ? "Uploading..." : `Upload ${files.filter((f) => f.status === "pending").length} files`}
         </motion.button>
       )}

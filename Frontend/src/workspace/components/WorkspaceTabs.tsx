@@ -41,7 +41,7 @@ export function WorkspaceTabs() {
                 {/* Main line with brightness fade in/out */}
                 <motion.div
                   className="absolute inset-0 rounded-full"
-                  style={{ background: "linear-gradient(90deg, #00BFA5, #00E6C3, #00BFA5)", backgroundSize: "200% 100%" }}
+                  style={{ background: "linear-gradient(90deg, var(--brand-primary), var(--brand-primary), var(--brand-primary))", backgroundSize: "200% 100%" }}
                   animate={{
                     backgroundPosition: ["0% 0%", "100% 0%"],
                     opacity: [0.7, 1, 0.7],
@@ -52,7 +52,7 @@ export function WorkspaceTabs() {
                 {/* Glow beneath with pulse */}
                 <motion.div
                   className="absolute -bottom-1 left-1 right-1 h-4 rounded-full"
-                  style={{ background: "radial-gradient(ellipse at center, rgba(0,191,165,0.4) 0%, transparent 70%)", filter: "blur(6px)" }}
+                  style={{ background: "radial-gradient(ellipse at center, rgba(var(--brand-primary-rgb), 0.4) 0%, transparent 70%)", filter: "blur(6px)" }}
                   animate={{ opacity: [0.3, 0.7, 0.3], scale: [0.95, 1.05, 0.95] }}
                   transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                 />

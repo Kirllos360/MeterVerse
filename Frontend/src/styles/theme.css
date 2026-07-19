@@ -16,6 +16,32 @@ body {
 
 :root {
   --header-height: calc(var(--spacing, 0.25rem) * 12 + 1px);
+
+  /* MeterVerse workspace surface tokens (light mode) */
+  --surface-base: oklch(0.96 0.005 160);
+  --surface-raised: oklch(1 0 0);
+  --surface-sunken: oklch(0.92 0.005 160);
+  --surface-topbar: oklch(0.98 0.005 160);
+  --surface-tableHeader: oklch(0.95 0.005 160);
+  --text-primary: oklch(0.15 0.005 160);
+  --text-secondary: oklch(0.45 0.005 160);
+  --text-tertiary: oklch(0.65 0.005 160);
+  --border-default: oklch(0 0 0 / 8%);
+  --brand-primary: #00BFA5;
+  --brand-primary-rgb: 0, 191, 165;
+  --white-rgb: 255, 255, 255;
+  --black-rgb: 0, 0, 0;
+  --status-success: #059669;
+  --status-success-rgb: 5, 150, 105;
+  --status-warning: #D97706;
+  --status-warning-rgb: 217, 119, 6;
+  --status-error: #DC2626;
+  --status-error-rgb: 220, 38, 38;
+  --status-pending: #F59E0B;
+  --status-pending-rgb: 245, 158, 11;
+
+  /* Login page & brand panels */
+  --panel-accent: #064E3B;
 }
 
 /* Apply theme fonts to body for all themes */
