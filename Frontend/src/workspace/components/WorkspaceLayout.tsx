@@ -67,13 +67,16 @@ export function WorkspaceLayout({
           {inspectorOpen && (
             <motion.div
               initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 320, opacity: 1 }}
+              animate={{ width: 336, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="shrink-0 overflow-hidden relative z-30"
-              style={{ borderLeft: "1px solid var(--border-subtle)" }}
+              className="shrink-0 relative z-30"
+              style={{ padding: "8px 8px 8px 0", alignSelf: "stretch" }}
             >
-              <div className="h-full overflow-hidden">
+              <div
+                className="h-full overflow-hidden rounded-2xl"
+                style={{ backgroundColor: "var(--sidebar-background)" }}
+              >
                 {inspectorContent}
               </div>
             </motion.div>

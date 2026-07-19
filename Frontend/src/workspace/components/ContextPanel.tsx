@@ -77,15 +77,15 @@ export function ContextPanel() {
   const sections = config.sections
 
   return (
-    <div className="flex flex-col h-full" style={{ backgroundColor: "var(--surface-raised)" }}>
+    <div className="flex flex-col h-full">
       {/* Sticky header */}
-      <div className="shrink-0 sticky top-0 z-10" style={{ backgroundColor: "var(--surface-raised)", borderBottom: "1px solid var(--border-subtle)" }}>
+      <div className="shrink-0 sticky top-0 z-10" style={{ borderBottom: "1px solid var(--sidebar-border)" }}>
         <div className="flex items-center justify-between h-12 px-4">
           <div className="flex items-center gap-3">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round">
               <path d={config.icon} />
             </svg>
-            <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{config.label}</span>
+            <span className="text-sm font-medium" style={{ color: "var(--sidebar-text)" }}>{config.label}</span>
           </div>
           <button onClick={() => setInspectorOpen(false)} aria-label="Close inspector" className="w-6 h-6 flex items-center justify-center transition-colors hover:opacity-70" style={{ color: "var(--text-tertiary)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
@@ -100,8 +100,8 @@ export function ContextPanel() {
               onClick={() => setActiveTab(section.id)}
               className="px-3 py-1 text-xs font-medium transition-colors whitespace-nowrap rounded"
               style={{
-                color: activeTab === section.id ? "var(--text-primary)" : "var(--text-tertiary)",
-                backgroundColor: activeTab === section.id ? "var(--brand)" : "transparent",
+                    color: activeTab === section.id ? "var(--sidebar-text)" : "var(--sidebar-text-muted)",
+                    backgroundColor: activeTab === section.id ? "var(--sidebar-active)" : "transparent",
                 opacity: activeTab === section.id ? 1 : 0.7,
               }}
             >
@@ -121,16 +121,15 @@ export function ContextPanel() {
       </div>
 
       {/* Dev tool — entity type selector */}
-      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap">
+      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap" style={{ borderTop: "1px solid var(--sidebar-border)" }}>
         {(["meter", "customer", "invoice", "payment", "reading", "none"] as EntityType[]).map((type) => (
           <button
             key={type}
             onClick={() => setEntityType(type)}
-            className="px-2 py-1 text-[10px] font-medium transition-colors rounded"
+            className="px-1.5 py-0.5 text-[9px] font-medium transition-colors rounded"
             style={{
-              color: entityType === type ? "var(--text-primary)" : "var(--text-tertiary)",
-              backgroundColor: entityType === type ? "var(--brand)" : "transparent",
-              opacity: entityType === type ? 1 : 0.5,
+              color: entityType === type ? "var(--sidebar-text)" : "var(--sidebar-text-muted)",
+              backgroundColor: entityType === type ? "var(--sidebar-active)" : "transparent",
             }}
           >
             {type}
@@ -146,8 +145,8 @@ function PropertyRows({ rows }: { rows: [string, string][] }) {
     <div className="space-y-2">
       {rows.map(([label, value]) => (
         <div key={label} className="flex flex-col gap-1">
-          <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{label}</span>
-          <span className="text-sm" style={{ color: "var(--text-primary)" }}>{value}</span>
+          <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: "var(--sidebar-text-muted)" }}>{label}</span>
+          <span className="text-sm" style={{ color: "var(--sidebar-text)" }}>{value}</span>
         </div>
       ))}
     </div>
@@ -159,11 +158,11 @@ function TimelineItems({ items }: { items: [string, string][] }) {
     <div className="space-y-0">
       {items.map(([title, time], i) => (
         <div key={i} className="flex items-start gap-3 py-2" style={{ borderBottom: i < items.length - 1 ? "1px solid var(--border-subtle)" : "none" }}>
-          <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: "var(--border-default)" }} />
+          <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: "var(--sidebar-text-muted)" }} />
           <div className="flex-1 min-w-0">
-            <div className="text-xs" style={{ color: "var(--text-primary)" }}>{title}</div>
+            <div className="text-xs" style={{ color: "var(--sidebar-text)" }}>{title}</div>
           </div>
-          <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary)" }}>{time}</span>
+          <span className="text-[10px] shrink-0" style={{ color: "var(--sidebar-text-muted)" }}>{time}</span>
         </div>
       ))}
     </div>
@@ -175,11 +174,11 @@ function ActivityItems({ items }: { items: [string, string][] }) {
     <div className="space-y-2">
       {items.map(([title, time]) => (
         <div key={title} className="flex items-center gap-3 py-2">
-          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "var(--brand)" }} />
+          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "var(--sidebar-selected)" }} />
           <div className="flex-1 min-w-0">
-            <span className="text-xs" style={{ color: "var(--text-primary)" }}>{title}</span>
+            <span className="text-xs" style={{ color: "var(--sidebar-text)" }}>{title}</span>
           </div>
-          <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary)" }}>{time}</span>
+          <span className="text-[10px] shrink-0" style={{ color: "var(--sidebar-text-muted)" }}>{time}</span>
         </div>
       ))}
     </div>
@@ -189,7 +188,7 @@ function ActivityItems({ items }: { items: [string, string][] }) {
 function Placeholder({ text }: { text: string }) {
   return (
     <div className="py-8 text-center">
-      <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>{text}</p>
+      <p className="text-sm" style={{ color: "var(--sidebar-text-muted)" }}>{text}</p>
     </div>
   )
 }

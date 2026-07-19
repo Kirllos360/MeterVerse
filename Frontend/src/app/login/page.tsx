@@ -112,7 +112,7 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-screen">
       {/* LEFT: Brand (45% desktop, hidden mobile) */}
-      <div className="hidden md:flex w-[45%] flex-col relative overflow-hidden" style={{ backgroundColor: "var(--panel-accent)" }}>
+      <div className="hidden md:flex w-1/2 flex-col relative overflow-hidden" style={{ backgroundColor: "var(--panel-accent)" }}>
         <AnimatedGrid />
 
         {/* Ambient glow */}
@@ -134,7 +134,7 @@ export default function LoginPage() {
           </motion.div>
 
           {/* Center: Floating preview cards */}
-          <div className="space-y-4">
+          <div className="space-y-5">
             <FloatingCard index={0}>
               <div className="rounded-xl p-5 backdrop-blur-sm" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.06)" }}>
                 <div className="grid grid-cols-2 gap-3">
@@ -168,12 +168,12 @@ export default function LoginPage() {
       </div>
 
       {/* RIGHT: Auth (55% desktop, 100% mobile/tablet) */}
-      <div className="flex-1 flex items-center justify-center p-6 md:p-8 lg:p-12 relative overflow-hidden" style={{ backgroundColor: "var(--surface-base)" }}>
+      <div className="w-1/2-8 md:p-12 lg:p-16 relative overflow-hidden" style={{ backgroundColor: "var(--surface-base)" }}>
         {/* Ambient */}
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(var(--brand-rgb), 0.04) 0%, transparent 70%)", transform: "translate(30%, -30%)" }} />
         <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full pointer-events-none" style={{ background: "radial-gradient(circle, rgba(var(--brand-rgb), 0.03) 0%, transparent 70%)", transform: "translate(-20%, 20%)" }} />
 
-        <div className="w-full max-w-lg relative z-10">
+        <div className="w-full max-w-xl relative z-10">
           {/* Mobile logo */}
           <div className="md:hidden flex items-center gap-3 mb-10">
             <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
@@ -186,10 +186,10 @@ export default function LoginPage() {
           </div>
 
           <motion.div key={mode} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.4 }}>
-            <h2 className="text-2xl font-bold mb-1" style={{ color: "var(--text-primary)" }}>
+            <h2 className="text-3xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
               {mode === "login" ? "Welcome back" : "Create account"}
             </h2>
-            <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>
+            <p className="text-base mb-10" style={{ color: "var(--text-secondary)" }}>
               {mode === "login" ? "Sign in to your workspace" : "Register for a new workspace"}
             </p>
 
@@ -198,7 +198,7 @@ export default function LoginPage() {
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>Full name</label>
                   <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                    className="w-full h-12 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
+                    className="w-full h-14 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
                     style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
                     placeholder="Enter your name" required autoFocus />
                 </div>
@@ -207,7 +207,7 @@ export default function LoginPage() {
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>Email</label>
                 <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-                    className="w-full h-12 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
+                    className="w-full h-14 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
                     style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
                     placeholder={mode === "login" ? "admin@meterverse.com" : "Enter your email"} required autoFocus={mode === "login"} />
               </div>
@@ -215,7 +215,7 @@ export default function LoginPage() {
               <div>
                 <label htmlFor="password" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>Password</label>
                 <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                    className="w-full h-12 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
+                    className="w-full h-14 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
                     style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
                   placeholder={mode === "login" ? "Enter your password" : "Min 6 characters"} required />
               </div>
@@ -224,7 +224,7 @@ export default function LoginPage() {
                 <div>
                   <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>Confirm password</label>
                   <input id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full h-12 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
+                    className="w-full h-14 px-4 rounded-lg border text-base outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
                     style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
                     placeholder="Confirm your password" required />
                 </div>
@@ -233,7 +233,7 @@ export default function LoginPage() {
               {mode === "login" && (
                 <div className="flex items-center justify-between">
                   <label className="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="rounded w-4 h-4" style={{ accentColor: "var(--brand)" }} />
+                    <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="rounded w-5 h-5" style={{ accentColor: "var(--brand)" }} />
                     <span className="text-sm" style={{ color: "var(--text-secondary)" }}>Remember this device</span>
                   </label>
                   <button type="button" className="text-sm font-medium hover:underline" style={{ color: "var(--brand)" }}>Forgot password?</button>
@@ -250,7 +250,7 @@ export default function LoginPage() {
 
               <motion.button type="submit" disabled={isLoading || signingUp}
                 whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
-                className="w-full h-12 rounded-lg text-base font-semibold text-white transition-all"
+                className="w-full h-14 rounded-lg text-base font-semibold text-white transition-all"
                 style={{ backgroundColor: (isLoading || signingUp) ? "rgba(var(--brand-rgb), 0.5)" : "var(--brand)" }}>
                 {(isLoading || signingUp) ? (
                   <span className="flex items-center justify-center gap-2">
