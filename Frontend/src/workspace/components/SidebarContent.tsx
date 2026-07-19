@@ -54,10 +54,15 @@ export function SidebarContent() {
 
   return (
     <aside className="h-full flex flex-col" style={{ backgroundColor: "var(--sidebar-background)" }}>
-      {/* Logo */}
-      <div className="shrink-0 flex items-center px-4 h-14" style={{ borderBottom: "1px solid var(--sidebar-border)" }}>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sidebar-text)" strokeWidth="2" strokeLinecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
-        {isExpanded && <span className="ml-3 text-sm font-semibold" style={{ color: "var(--sidebar-text)" }}>MeterVerse</span>}
+      {/* Signal wave icon */}
+      <div className="shrink-0 flex items-center justify-center px-4 h-14" style={{ borderBottom: "1px solid var(--sidebar-border)" }}>
+        <motion.svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sidebar-text)" strokeWidth="1.5" strokeLinecap="round" className="shrink-0"
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2.5, repeat: Infinity }}
+        >
+          <path d="M3 12h2M7 8h2M11 4h2M15 8h2M19 12h2" />
+          <path d="M5 10h2M9 6h2M13 6h2M17 10h2" opacity="0.6" />
+        </motion.svg>
       </div>
 
       {/* Navigation */}
