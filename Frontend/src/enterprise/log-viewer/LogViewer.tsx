@@ -44,7 +44,7 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
   }, [logs])
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
+    <div className="rounded-xl overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
       <div className="flex items-center gap-1.5 px-3 py-2 border-b overflow-x-auto" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         {Object.entries(counts).map(([key, count]) => (
           <button key={key} onClick={() => setFilter(key)}

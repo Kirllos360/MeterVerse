@@ -120,8 +120,8 @@ export function ContextPanel() {
         ))}
       </div>
 
-      {/* Dev tool — entity type selector (hidden by default, shown when clicking bottom area) */}
-      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+      {/* Dev tool — entity type selector */}
+      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap">
         {(["meter", "customer", "invoice", "payment", "reading", "none"] as EntityType[]).map((type) => (
           <button
             key={type}

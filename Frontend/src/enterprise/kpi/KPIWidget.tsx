@@ -51,10 +51,10 @@ export function KPIWidget({ title, value, unit, trend, trendValue, color = "var(
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="relative rounded-xl border p-4 overflow-hidden"
+      className="relative rounded-xl p-4 overflow-hidden"
       style={{
         backgroundColor: "var(--surface-raised)",
-        borderColor: "var(--border-default)",
+        boxShadow: "var(--shadow-sm)",
       }}
     >
       <div className="flex items-center justify-between mb-2">
