@@ -68,6 +68,27 @@ SELECT ISNULL((SELECT ResultValue FROM Result r5
 | Filter | `DeviceSumConfig` (SODIC only) | None (all LP2 meters) |
 | Status | 0 | 1 |
 
+## AI-Managed Workflow
+
+This project follows an AI-managed (not AI-assisted) workflow:
+
+1. **Every Push/PR** triggers: Build → Tests → Screenshots → Visual Regression → DeepSeek Review → Reports
+2. **All reports** commit to `docs/reviews/` and `docs/screenshots/`
+3. **`.ai/memory/`** tracks project state, sprints, known issues, design rules
+4. **PROJECT_STATE.md** must be updated before any AI agent begins work
+5. **DeepSeek** generates 8 reports per PR (architecture, UI, UX, a11y, perf, security, quality, debt)
+6. **ChatGPT** conversations start by reading the latest repository state from GitHub
+
+### First Message in a New ChatGPT Chat
+```
+Review the latest state of MeterVerse from the GitHub repository.
+Read PROJECT_STATE.md, CURRENT_SPRINT.md, DESIGN_REVIEW.md, 
+ARCHITECTURE_REVIEW.md, ROADMAP.md, recent screenshot galleries, 
+and recent review reports. Identify regressions, inconsistencies, 
+architectural risks, UI issues, backend issues, and propose the 
+next enterprise sprint.
+```
+
 ## Process for New Area
 
 1. Run `reverse_engineer_system.sql` Sets 1-4 to map databases, schema, ResultTypes
