@@ -22,6 +22,7 @@ export const BUILTIN_TEMPLATES: LayoutTemplate[] = [
     description: "Two programs side by side",
     icon: "columns",
     category: "productivity",
+    isDefault: false,
     isBuiltin: true,
     layout: {
       id: "split-comparison", name: "Split Comparison", type: "split",
@@ -38,6 +39,7 @@ export const BUILTIN_TEMPLATES: LayoutTemplate[] = [
     description: "4-up grid for live monitoring",
     icon: "grid",
     category: "monitoring",
+    isDefault: false,
     isBuiltin: true,
     layout: {
       id: "monitoring-grid", name: "Monitoring Grid", type: "grid",
@@ -52,6 +54,7 @@ export const BUILTIN_TEMPLATES: LayoutTemplate[] = [
     description: "Invoices + Payments + Reports",
     icon: "receipt",
     category: "billing",
+    isDefault: false,
     isBuiltin: true,
     layout: {
       id: "billing-workflow", name: "Billing Workflow", type: "grid",
