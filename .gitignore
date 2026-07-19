@@ -76,3 +76,11 @@ docs/site/
 *.png
 *.jpg
 *.pdf
+
+*.db
+
+*.db-journal
+
+restore-point-*/
+
+*.jar

@@ -8,7 +8,7 @@
     "db:generate": "npx prisma generate",
     "db:push": "npx prisma db push",
     "db:seed": "node scripts/seed.js",
-    "db:setup": "npm run db:generate && npm run db:push && npm run db:seed"
+    "db:setup": "npm run db:generate && npx prisma db push && npm run db:seed"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
