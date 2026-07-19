@@ -1,10 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
 import { useWorkspaceStore } from "../stores"
 import { useTranslation } from "@/hooks/use-translation"
-import { transitions } from "@/design-system/motion"
 
 type EntityType = "meter" | "customer" | "invoice" | "payment" | "reading" | "none"
 
@@ -16,7 +14,7 @@ interface EntityConfig {
 
 export function ContextPanel() {
   const { inspectorOpen, setInspectorOpen } = useWorkspaceStore()
-  const [activeTab, setActiveTab] = useState("details")
+  const [activeTab, setActiveTab] = useState("properties")
   const [entityType, setEntityType] = useState<EntityType>("none")
   const { t } = useTranslation()
 
@@ -24,51 +22,53 @@ export function ContextPanel() {
     meter: {
       label: t("context.meter", "Meter"), icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10",
       sections: [
-        { id: "properties", label: t("context.properties", "Properties"), content: <PropertyRows rows={[[t("content.serial", "Serial"), "—"], [t("content.type", "Type"), "—"], [t("content.status", "Status"), "—"], [t("content.location", "Location"), "—"]]} /> },
-        { id: "readings", label: t("context.readings", "Readings"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "history", label: t("context.history", "History"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "invoices", label: t("context.invoices", "Invoices"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
+        { id: "properties", label: "Properties", content: <PropertyRows rows={[["Serial", "MV-10001"], ["Type", "Electric"], ["Status", "Active"], ["Location", "Building A"]]} /> },
+        { id: "timeline", label: "Timeline", content: <TimelineItems items={[["Reading taken", "2h ago"], ["Maintenance", "3d ago"], ["Installed", "6mo ago"]]} /> },
+        { id: "activity", label: "Activity", content: <ActivityItems items={[["Reading uploaded", "2h ago"], ["Status changed", "3d ago"], ["Invoice generated", "5d ago"]]} /> },
+        { id: "attachments", label: "Attachments", content: <Placeholder text="No attachments yet" /> },
       ],
     },
     customer: {
       label: t("context.customer", "Customer"), icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8",
       sections: [
-        { id: "details", label: t("context.details", "Details"), content: <PropertyRows rows={[[t("content.name", "Name"), "—"], [t("content.phone", "Phone"), "—"], [t("content.email", "Email"), "—"], ["Balance", "—"]]} /> },
-        { id: "meters", label: t("context.meter", "Meters"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "invoices", label: t("context.invoices", "Invoices"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "timeline", label: t("context.timeline", "Timeline"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
+        { id: "properties", label: "Properties", content: <PropertyRows rows={[["Name", "Palm Hills"], ["Phone", "+20 100 000 000"], ["Email", "billing@palmhills.com"], ["Balance", "$2,450"]]} /> },
+        { id: "timeline", label: "Timeline", content: <TimelineItems items={[["Contract signed", "1mo ago"], ["Account created", "3mo ago"]]} /> },
+        { id: "activity", label: "Activity", content: <ActivityItems items={[["Invoice paid", "1d ago"], ["Meter assigned", "1w ago"]]} /> },
+        { id: "attachments", label: "Attachments", content: <Placeholder text="No attachments yet" /> },
       ],
     },
     invoice: {
       label: t("context.invoice", "Invoice"), icon: "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6",
       sections: [
-        { id: "details", label: t("context.details", "Details"), content: <PropertyRows rows={[[t("content.number", "Number"), "—"], [t("content.amount", "Amount"), "—"], [t("content.status", "Status"), "—"], ["Due Date", "—"]]} /> },
-        { id: "payments", label: t("context.payments", "Payments"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "pdf", label: t("context.pdf", "PDF"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "audit", label: t("context.audit", "Audit"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
+        { id: "properties", label: "Properties", content: <PropertyRows rows={[["Number", "INV-2024-0892"], ["Amount", "$1,250.00"], ["Status", "Pending"], ["Due Date", "Aug 15, 2026"]]} /> },
+        { id: "timeline", label: "Timeline", content: <TimelineItems items={[["Invoice sent", "1w ago"], ["Payment due", "2w from now"]]} /> },
+        { id: "activity", label: "Activity", content: <ActivityItems items={[["Email sent", "1w ago"], ["Reminder sent", "3d ago"]]} /> },
+        { id: "attachments", label: "Attachments", content: <Placeholder text="Generated PDF available" /> },
       ],
     },
     payment: {
       label: t("context.payment", "Payment"), icon: "M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6",
       sections: [
-        { id: "details", label: t("context.details", "Details"), content: <PropertyRows rows={[[t("content.method", "Method"), "—"], [t("content.amount", "Amount"), "—"], [t("content.date", "Date"), "—"], [t("content.status", "Status"), "—"]]} /> },
-        { id: "receipt", label: t("context.receipt", "Receipt"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "allocation", label: t("context.allocation", "Allocation"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
+        { id: "properties", label: "Properties", content: <PropertyRows rows={[["Method", "Bank Transfer"], ["Amount", "$1,250.00"], ["Date", "Jul 15, 2026"], ["Status", "Completed"]]} /> },
+        { id: "timeline", label: "Timeline", content: <TimelineItems items={[["Payment received", "1h ago"]]} /> },
+        { id: "activity", label: "Activity", content: <ActivityItems items={[["Invoice updated", "1h ago"], ["Receipt sent", "1h ago"]]} /> },
+        { id: "attachments", label: "Attachments", content: <Placeholder text="Receipt PDF available" /> },
       ],
     },
     reading: {
       label: t("context.reading", "Reading"), icon: "M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2",
       sections: [
-        { id: "details", label: t("context.details", "Details"), content: <PropertyRows rows={[[t("content.value", "Value"), "—"], [t("content.date", "Date"), "—"], ["Source", "—"], [t("content.status", "Status"), "—"]]} /> },
-        { id: "history", label: t("context.history", "History"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "validation", label: t("context.validation", "Validation"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
+        { id: "properties", label: "Properties", content: <PropertyRows rows={[["Value", "1,234 kWh"], ["Date", "Jul 18, 2026"], ["Source", "Manual"], ["Status", "Valid"]]} /> },
+        { id: "timeline", label: "Timeline", content: <TimelineItems items={[["Reading recorded", "2h ago"], ["Last reading", "30d ago"]]} /> },
+        { id: "activity", label: "Activity", content: <ActivityItems items={[["Validation passed", "2h ago"], ["Billing cycle", "3d ago"]]} /> },
+        { id: "attachments", label: "Attachments", content: <Placeholder text="No attachments yet" /> },
       ],
     },
     none: {
-      label: t("context.context", "Context"), icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z",
+      label: "Inspector", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z",
       sections: [
-        { id: "details", label: t("context.details", "Details"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
-        { id: "activity", label: t("context.activity", "Activity"), content: <Placeholder text={t("context.selectItem", "Select an item to inspect")} /> },
+        { id: "properties", label: "Properties", content: <Placeholder text="Select an item to inspect" /> },
+        { id: "activity", label: "Activity", content: <Placeholder text="Select an item to inspect" /> },
       ],
     },
   }
@@ -77,81 +77,109 @@ export function ContextPanel() {
   const sections = config.sections
 
   return (
-    <motion.div
-      className="flex flex-col h-full overflow-hidden rounded-2xl shadow-xl"
-      style={{ backgroundColor: "var(--inspector-background)", border: "1px solid var(--inspector-border)" }}
-      initial={false}
-      animate={{ width: inspectorOpen ? "100%" : 0 }}
-      transition={transitions.smooth}
-    >
-      {/* Header */}
-      <div className="flex items-center justify-between h-14 px-4 shrink-0" style={{ borderBottom: "1px solid var(--inspector-border)" }}>
-        <div className="flex items-center gap-2.5">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d={config.icon} />
-          </svg>
-          <span className="text-sm font-medium" style={{ color: "var(--inspector-text)" }}>{config.label}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <button onClick={() => setInspectorOpen(false)} aria-label={t("context.closeInspector", "Collapse inspector")} className="w-7 h-7 flex items-center justify-center rounded-lg transition-colors hover:bg-white/10" style={{ color: "var(--inspector-text-muted)" }}>
-            <motion.svg animate={{ rotate: 180 }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M15 18l-6-6 6-6" /></motion.svg>
+    <div className="flex flex-col h-full" style={{ backgroundColor: "var(--surface-raised)" }}>
+      {/* Sticky header */}
+      <div className="shrink-0 sticky top-0 z-10" style={{ backgroundColor: "var(--surface-raised)", borderBottom: "1px solid var(--border-subtle)" }}>
+        <div className="flex items-center justify-between h-12 px-4">
+          <div className="flex items-center gap-2.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round">
+              <path d={config.icon} />
+            </svg>
+            <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{config.label}</span>
+          </div>
+          <button onClick={() => setInspectorOpen(false)} aria-label="Close inspector" className="w-6 h-6 flex items-center justify-center transition-colors hover:opacity-70" style={{ color: "var(--text-tertiary)" }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
           </button>
         </div>
-      </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 px-3 pt-3 pb-2 shrink-0 overflow-x-auto" style={{ borderBottom: "1px solid var(--inspector-border)" }}>
-        {sections.map((section) => (
-          <button key={section.id} onClick={() => setActiveTab(section.id)}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors whitespace-nowrap"
-            style={{ backgroundColor: activeTab === section.id ? "var(--inspector-tab-active)" : "transparent", color: activeTab === section.id ? "var(--inspector-text)" : "var(--inspector-tab-text)" }}
-          >
-            {section.label}
-          </button>
-        ))}
+        {/* Section tabs */}
+        <div className="flex gap-1 px-3 pb-2 overflow-x-auto">
+          {sections.map((section) => (
+            <button
+              key={section.id}
+              onClick={() => setActiveTab(section.id)}
+              className="px-2.5 py-1 text-xs font-medium transition-colors whitespace-nowrap rounded"
+              style={{
+                color: activeTab === section.id ? "var(--text-primary)" : "var(--text-tertiary)",
+                backgroundColor: activeTab === section.id ? "var(--brand)" : "transparent",
+                opacity: activeTab === section.id ? 1 : 0.7,
+              }}
+            >
+              {section.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 space-y-3">
+      <div className="flex-1 overflow-y-auto p-4">
         {sections.map((section) => (
-          <motion.div key={section.id}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: activeTab === section.id ? 1 : 0, y: activeTab === section.id ? 0 : 8, position: activeTab === section.id ? "relative" : "absolute", pointerEvents: activeTab === section.id ? "auto" : "none" as any }}
-            transition={transitions.fast}
-            className={activeTab === section.id ? "" : "hidden"}
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-1 h-1 rounded-full" style={{ backgroundColor: "var(--brand-primary)" }} />
-              <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--inspector-label)" }}>{section.label}</span>
-            </div>
+          <div key={section.id} className={activeTab === section.id ? "" : "hidden"}>
             {section.content}
-          </motion.div>
+          </div>
         ))}
       </div>
 
-      {/* Entity type selector (dev tool) */}
-      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap" style={{ borderTop: "1px solid var(--inspector-border)" }}>
+      {/* Dev tool — entity type selector (hidden by default, shown when clicking bottom area) */}
+      <div className="shrink-0 px-3 py-2 flex gap-1 flex-wrap" style={{ borderTop: "1px solid var(--border-subtle)" }}>
         {(["meter", "customer", "invoice", "payment", "reading", "none"] as EntityType[]).map((type) => (
-          <button key={type} onClick={() => setEntityType(type)}
-            aria-label={`Show ${type} context`}
-            className="px-2 py-1 rounded text-[10px] font-medium transition-colors"
-            style={{ backgroundColor: entityType === type ? "var(--inspector-button-bg)" : "var(--inspector-surface)", color: entityType === type ? "var(--inspector-button-text)" : "var(--inspector-text-muted)" }}
+          <button
+            key={type}
+            onClick={() => setEntityType(type)}
+            className="px-1.5 py-0.5 text-[9px] font-medium transition-colors rounded"
+            style={{
+              color: entityType === type ? "var(--text-primary)" : "var(--text-tertiary)",
+              backgroundColor: entityType === type ? "var(--brand)" : "transparent",
+              opacity: entityType === type ? 1 : 0.5,
+            }}
           >
             {type}
           </button>
         ))}
       </div>
-    </motion.div>
+    </div>
   )
 }
 
 function PropertyRows({ rows }: { rows: [string, string][] }) {
   return (
-    <div className="space-y-1">
+    <div className="space-y-2">
       {rows.map(([label, value]) => (
-        <div key={label} className="flex items-center justify-between py-1">
-          <span className="text-[11px]" style={{ color: "var(--inspector-label)" }}>{label}</span>
-          <span className="text-[11px] font-medium" style={{ color: value !== "—" ? "var(--inspector-value)" : "var(--inspector-text-disabled)" }}>{value}</span>
+        <div key={label} className="flex flex-col gap-0.5">
+          <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{label}</span>
+          <span className="text-sm" style={{ color: "var(--text-primary)" }}>{value}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function TimelineItems({ items }: { items: [string, string][] }) {
+  return (
+    <div className="space-y-0">
+      {items.map(([title, time], i) => (
+        <div key={i} className="flex items-start gap-3 py-2" style={{ borderBottom: i < items.length - 1 ? "1px solid var(--border-subtle)" : "none" }}>
+          <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ backgroundColor: "var(--border-default)" }} />
+          <div className="flex-1 min-w-0">
+            <div className="text-xs" style={{ color: "var(--text-primary)" }}>{title}</div>
+          </div>
+          <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary)" }}>{time}</span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ActivityItems({ items }: { items: [string, string][] }) {
+  return (
+    <div className="space-y-2">
+      {items.map(([title, time]) => (
+        <div key={title} className="flex items-center gap-3 py-1.5">
+          <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "var(--brand)" }} />
+          <div className="flex-1 min-w-0">
+            <span className="text-xs" style={{ color: "var(--text-primary)" }}>{title}</span>
+          </div>
+          <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary)" }}>{time}</span>
         </div>
       ))}
     </div>
@@ -160,8 +188,8 @@ function PropertyRows({ rows }: { rows: [string, string][] }) {
 
 function Placeholder({ text }: { text: string }) {
   return (
-    <div className="p-3 rounded-lg text-center" style={{ backgroundColor: "var(--inspector-surface)" }}>
-      <p className="text-[11px]" style={{ color: "var(--inspector-text-disabled)" }}>{text}</p>
+    <div className="py-8 text-center">
+      <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>{text}</p>
     </div>
   )
 }

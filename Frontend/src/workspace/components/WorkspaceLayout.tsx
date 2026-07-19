@@ -75,15 +75,6 @@ export function WorkspaceLayout({
               <div className="h-full overflow-hidden">
                 {inspectorContent}
               </div>
-              {/* Close button */}
-              <button
-                onClick={() => setInspectorOpen(false)}
-                className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center text-xs transition-colors hover:opacity-80 z-10"
-                style={{ color: "var(--inspector-text-muted)" }}
-                aria-label="Close inspector"
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
-              </button>
             </motion.div>
           )}
         </AnimatePresence>
