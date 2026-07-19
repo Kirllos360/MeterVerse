@@ -198,8 +198,8 @@ export default function LoginPage() {
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>Full name</label>
                   <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)}
-                    className="w-full h-11 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
-                    style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)", "--tw-ring-color": "var(--brand)" } as React.CSSProperties}
+                    className="w-full h-10 px-3 rounded-md border text-sm outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
+                    style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
                     placeholder="Enter your name" required autoFocus />
                 </div>
               )}
@@ -224,8 +224,8 @@ export default function LoginPage() {
                 <div>
                   <label htmlFor="confirmPassword" className="block text-sm font-medium mb-1.5" style={{ color: "var(--text-secondary)" }}>Confirm password</label>
                   <input id="confirmPassword" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full h-11 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
-                    style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)", "--tw-ring-color": "var(--brand)" } as React.CSSProperties}
+                    className="w-full h-10 px-3 rounded-md border text-sm outline-none transition-all focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50"
+                    style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
                     placeholder="Confirm your password" required />
                 </div>
               )}
