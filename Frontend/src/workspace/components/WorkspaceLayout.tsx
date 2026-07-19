@@ -55,7 +55,7 @@ export function WorkspaceLayout({
         >
           <motion.div
             className="pointer-events-auto h-full overflow-hidden"
-            style={{ borderRadius: 16, backgroundColor: "var(--surface-base)", border: "1px solid rgba(var(--brand-primary-rgb), 0.12)" }}
+            style={{ borderRadius: 16, backgroundColor: "var(--sidebar-background)", border: "1px solid rgba(var(--brand-primary-rgb), 0.12)" }}
             animate={{
               width: sidebarMode === "expanded" ? 260 : sidebarMode === "collapsed" ? 64 : 48,
               borderRadius: sidebarMode === "expanded" ? 16 : sidebarMode === "collapsed" ? 14 : 24,
@@ -143,7 +143,7 @@ export function WorkspaceLayout({
               </div>
               <motion.div
                 className="h-full pointer-events-auto overflow-hidden"
-                style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", border: "1px solid var(--border-default, #E5E5E5)" }}
+                style={{ backgroundColor: "var(--inspector-background)", border: "1px solid var(--inspector-border)" }}
                 animate={{ borderRadius: 16 }}
                 transition={{ type: "spring", stiffness: 200, damping: 25 }}
               >

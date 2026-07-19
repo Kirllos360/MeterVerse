@@ -42,6 +42,35 @@ body {
 
   /* Login page & brand panels */
   --panel-accent: #064E3B;
+
+  /* ─── Sidebar Tokens ─────────────────────────────────── */
+  --sidebar-background: #064E3B;
+  --sidebar-surface: rgba(255, 255, 255, 0.05);
+  --sidebar-text: #FFFFFF;
+  --sidebar-text-muted: rgba(255, 255, 255, 0.45);
+  --sidebar-text-disabled: rgba(255, 255, 255, 0.2);
+  --sidebar-icon: rgba(255, 255, 255, 0.4);
+  --sidebar-hover: rgba(255, 255, 255, 0.06);
+  --sidebar-active: rgba(var(--brand-primary-rgb), 0.15);
+  --sidebar-selected: var(--brand-primary);
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-category-text: rgba(255, 255, 255, 0.3);
+  --sidebar-count-text: rgba(255, 255, 255, 0.15);
+
+  /* ─── Inspector Tokens ───────────────────────────────── */
+  --inspector-background: #043526;
+  --inspector-surface: rgba(255, 255, 255, 0.03);
+  --inspector-text: #FFFFFF;
+  --inspector-text-muted: rgba(255, 255, 255, 0.4);
+  --inspector-text-disabled: rgba(255, 255, 255, 0.25);
+  --inspector-border: rgba(255, 255, 255, 0.06);
+  --inspector-tab-active: rgba(var(--brand-primary-rgb), 0.15);
+  --inspector-tab-text: rgba(255, 255, 255, 0.45);
+  --inspector-label: rgba(255, 255, 255, 0.35);
+  --inspector-value: rgba(255, 255, 255, 0.8);
+  --inspector-button-bg: rgba(var(--brand-primary-rgb), 0.2);
+  --inspector-button-text: #FFFFFF;
+  --inspector-button-hover: rgba(255, 255, 255, 0.05);
 }
 
 /* Apply theme fonts to body for all themes */
