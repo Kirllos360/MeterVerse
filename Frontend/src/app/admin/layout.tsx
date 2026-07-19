@@ -41,7 +41,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               style={{
                 padding: collapsed ? "10px" : "8px 12px",
                 justifyContent: collapsed ? "center" : "flex-start",
-                backgroundColor: active === item.id ? "rgba(var(--status-error-rgb), 0.15)" : "transparent",
+                backgroundColor: active === item.id ? "rgba(var(--brand-rgb), 0.15)" : "transparent",
                 color: active === item.id ? "var(--status-error)" : "rgba(255,255,255,0.5)",
               }}
             >
@@ -67,4 +67,5 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     </div>
   )
 }
+
 

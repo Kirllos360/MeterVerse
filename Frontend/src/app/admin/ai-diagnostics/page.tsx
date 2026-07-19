@@ -33,7 +33,7 @@ export default function AIDiagnosticsPage() {
         <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
           onClick={runDiagnostic}
           className="px-4 py-2 rounded-lg text-xs font-medium text-white"
-          style={{ backgroundColor: scanning ? "var(--admin-accent-muted)" : "var(--admin-accent)" }}
+          style={{ backgroundColor: scanning ? "rgba(var(--brand-rgb), 0.5)" : "var(--brand)" }}
           disabled={scanning}
         >
           {scanning ? "Scanning..." : "Run Diagnostic"}
@@ -45,7 +45,7 @@ export default function AIDiagnosticsPage() {
         {["anomalies", "forecast", "recommendations", "summaries", "logs"].map((tab) => (
           <button key={tab} onClick={() => setActiveTab(tab)}
             className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors capitalize"
-            style={{ backgroundColor: activeTab === tab ? "var(--admin-accent-subtle)" : "transparent", color: activeTab === tab ? "var(--admin-accent)" : "var(--admin-text-muted)" }}>
+            style={{ backgroundColor: activeTab === tab ? "rgba(var(--brand-rgb), 0.2)" : "transparent", color: activeTab === tab ? "var(--brand)" : "var(--admin-text-muted)" }}>
             {tab}
           </button>
         ))}
@@ -101,3 +101,4 @@ export default function AIDiagnosticsPage() {
     </div>
   )
 }
+

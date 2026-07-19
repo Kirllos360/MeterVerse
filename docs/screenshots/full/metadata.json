@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "group": "pages",
+    "name": "login",
+    "viewport": "desktop",
+    "file": "pages/desktop-001-login.png",
+    "date": "2026-07-19T14:25:56.541Z"
+  },
+  {
+    "id": 2,
+    "group": "pages",
+    "name": "login",
+    "viewport": "tablet",
+    "file": "pages/tablet-002-login.png",
+    "date": "2026-07-19T14:25:58.874Z"
+  },
+  {
+    "id": 3,
+    "group": "pages",
+    "name": "login",
+    "viewport": "mobile",
+    "file": "pages/mobile-003-login.png",
+    "date": "2026-07-19T14:26:01.144Z"
+  },
+  {
+    "id": 4,
+    "group": "pages",
+    "name": "workspace",
+    "viewport": "desktop",
+    "file": "pages/desktop-004-workspace.png",
+    "date": "2026-07-19T14:26:03.446Z"
+  },
+  {
+    "id": 5,
+    "group": "pages",
+    "name": "workspace",
+    "viewport": "tablet",
+    "file": "pages/tablet-005-workspace.png",
+    "date": "2026-07-19T14:26:05.750Z"
+  },
+  {
+    "id": 6,
+    "group": "pages",
+    "name": "workspace",
+    "viewport": "mobile",
+    "file": "pages/mobile-006-workspace.png",
+    "date": "2026-07-19T14:26:07.911Z"
+  },
+  {
+    "id": 7,
+    "group": "pages",
+    "name": "dashboard",
+    "viewport": "desktop",
+    "file": "pages/desktop-007-dashboard.png",
+    "date": "2026-07-19T14:26:10.236Z"
+  },
+  {
+    "id": 8,
+    "group": "pages",
+    "name": "dashboard",
+    "viewport": "tablet",
+    "file": "pages/tablet-008-dashboard.png",
+    "date": "2026-07-19T14:26:12.596Z"
+  },
+  {
+    "id": 9,
+    "group": "pages",
+    "name": "dashboard",
+    "viewport": "mobile",
+    "file": "pages/mobile-009-dashboard.png",
+    "date": "2026-07-19T14:26:14.842Z"
+  },
+  {
+    "id": 10,
+    "group": "pages",
+    "name": "admin-login",
+    "viewport": "desktop",
+    "file": "pages/desktop-010-admin-login.png",
+    "date": "2026-07-19T14:26:17.904Z"
+  },
+  {
+    "id": 11,
+    "group": "pages",
+    "name": "admin-login",
+    "viewport": "tablet",
+    "file": "pages/tablet-011-admin-login.png",
+    "date": "2026-07-19T14:26:20.739Z"
+  },
+  {
+    "id": 12,
+    "group": "pages",
+    "name": "admin-login",
+    "viewport": "mobile",
+    "file": "pages/mobile-012-admin-login.png",
+    "date": "2026-07-19T14:26:23.356Z"
+  },
+  {
+    "id": 13,
+    "group": "pages",
+    "name": "admin-dashboard",
+    "viewport": "desktop",
+    "file": "pages/desktop-013-admin-dashboard.png",
+    "date": "2026-07-19T14:26:26.178Z"
+  },
+  {
+    "id": 14,
+    "group": "pages",
+    "name": "admin-dashboard",
+    "viewport": "tablet",
+    "file": "pages/tablet-014-admin-dashboard.png",
+    "date": "2026-07-19T14:26:29.221Z"
+  },
+  {
+    "id": 15,
+    "group": "pages",
+    "name": "admin-dashboard",
+    "viewport": "mobile",
+    "file": "pages/mobile-015-admin-dashboard.png",
+    "date": "2026-07-19T14:26:31.822Z"
+  },
+  {
+    "id": 16,
+    "group": "pages",
+    "name": "admin-users",
+    "viewport": "desktop",
+    "file": "pages/desktop-016-admin-users.png",
+    "date": "2026-07-19T14:26:34.428Z"
+  },
+  {
+    "id": 17,
+    "group": "pages",
+    "name": "admin-users",
+    "viewport": "tablet",
+    "file": "pages/tablet-017-admin-users.png",
+    "date": "2026-07-19T14:26:37.406Z"
+  },
+  {
+    "id": 18,
+    "group": "pages",
+    "name": "admin-users",
+    "viewport": "mobile",
+    "file": "pages/mobile-018-admin-users.png",
+    "date": "2026-07-19T14:26:39.700Z"
+  },
+  {
+    "id": 19,
+    "group": "pages",
+    "name": "admin-ai",
+    "viewport": "desktop",
+    "file": "pages/desktop-019-admin-ai.png",
+    "date": "2026-07-19T14:26:42.626Z"
+  },
+  {
+    "id": 20,
+    "group": "pages",
+    "name": "admin-ai",
+    "viewport": "tablet",
+    "file": "pages/tablet-020-admin-ai.png",
+    "date": "2026-07-19T14:26:45.152Z"
+  },
+  {
+    "id": 21,
+    "group": "pages",
+    "name": "admin-ai",
+    "viewport": "mobile",
+    "file": "pages/mobile-021-admin-ai.png",
+    "date": "2026-07-19T14:26:47.467Z"
+  },
+  {
+    "id": 22,
+    "group": "pages",
+    "name": "not-found",
+    "viewport": "desktop",
+    "file": "pages/desktop-022-not-found.png",
+    "date": "2026-07-19T14:26:49.879Z"
+  },
+  {
+    "id": 23,
+    "group": "pages",
+    "name": "not-found",
+    "viewport": "tablet",
+    "file": "pages/tablet-023-not-found.png",
+    "date": "2026-07-19T14:26:52.152Z"
+  },
+  {
+    "id": 24,
+    "group": "pages",
+    "name": "not-found",
+    "viewport": "mobile",
+    "file": "pages/mobile-024-not-found.png",
+    "date": "2026-07-19T14:26:54.324Z"
+  },
+  {
+    "id": 25,
+    "group": "dialogs",
+    "name": "dialog-default",
+    "viewport": "desktop",
+    "file": "dialogs/desktop-025-dialog-default.png",
+    "date": "2026-07-19T14:26:57.797Z"
+  },
+  {
+    "id": 26,
+    "group": "dialogs",
+    "name": "dialog-default",
+    "viewport": "tablet",
+    "file": "dialogs/tablet-026-dialog-default.png",
+    "date": "2026-07-19T14:27:01.117Z"
+  },
+  {
+    "id": 27,
+    "group": "dialogs",
+    "name": "dialog-default",
+    "viewport": "mobile",
+    "file": "dialogs/mobile-027-dialog-default.png",
+    "date": "2026-07-19T14:27:04.321Z"
+  },
+  {
+    "id": 28,
+    "group": "drawers",
+    "name": "drawer-right",
+    "viewport": "desktop",
+    "file": "drawers/desktop-028-drawer-right.png",
+    "date": "2026-07-19T14:27:07.546Z"
+  },
+  {
+    "id": 29,
+    "group": "drawers",
+    "name": "drawer-right",
+    "viewport": "tablet",
+    "file": "drawers/tablet-029-drawer-right.png",
+    "date": "2026-07-19T14:27:10.767Z"
+  },
+  {
+    "id": 30,
+    "group": "drawers",
+    "name": "drawer-right",
+    "viewport": "mobile",
+    "file": "drawers/mobile-030-drawer-right.png",
+    "date": "2026-07-19T14:27:13.944Z"
+  },
+  {
+    "id": 31,
+    "group": "sidebar",
+    "name": "sidebar-expanded",
+    "viewport": "desktop",
+    "file": "sidebar/desktop-031-sidebar-expanded.png",
+    "date": "2026-07-19T14:27:16.253Z"
+  },
+  {
+    "id": 32,
+    "group": "sidebar",
+    "name": "sidebar-expanded",
+    "viewport": "tablet",
+    "file": "sidebar/tablet-032-sidebar-expanded.png",
+    "date": "2026-07-19T14:27:18.522Z"
+  },
+  {
+    "id": 33,
+    "group": "sidebar",
+    "name": "sidebar-expanded",
+    "viewport": "mobile",
+    "file": "sidebar/mobile-033-sidebar-expanded.png",
+    "date": "2026-07-19T14:27:20.769Z"
+  },
+  {
+    "id": 34,
+    "group": "sidebar",
+    "name": "sidebar-collapsed",
+    "viewport": "desktop",
+    "file": "sidebar/desktop-034-sidebar-collapsed.png",
+    "date": "2026-07-19T14:27:23.157Z"
+  },
+  {
+    "id": 35,
+    "group": "sidebar",
+    "name": "sidebar-collapsed",
+    "viewport": "tablet",
+    "file": "sidebar/tablet-035-sidebar-collapsed.png",
+    "date": "2026-07-19T14:27:25.616Z"
+  },
+  {
+    "id": 36,
+    "group": "sidebar",
+    "name": "sidebar-collapsed",
+    "viewport": "mobile",
+    "file": "sidebar/mobile-036-sidebar-collapsed.png",
+    "date": "2026-07-19T14:27:27.839Z"
+  },
+  {
+    "id": 37,
+    "group": "inspector",
+    "name": "inspector-closed",
+    "viewport": "desktop",
+    "file": "inspector/desktop-037-inspector-closed.png",
+    "date": "2026-07-19T14:27:30.133Z"
+  },
+  {
+    "id": 38,
+    "group": "inspector",
+    "name": "inspector-closed",
+    "viewport": "tablet",
+    "file": "inspector/tablet-038-inspector-closed.png",
+    "date": "2026-07-19T14:27:32.412Z"
+  },
+  {
+    "id": 39,
+    "group": "inspector",
+    "name": "inspector-closed",
+    "viewport": "mobile",
+    "file": "inspector/mobile-039-inspector-closed.png",
+    "date": "2026-07-19T14:27:34.609Z"
+  },
+  {
+    "id": 40,
+    "group": "inspector",
+    "name": "inspector-open",
+    "viewport": "desktop",
+    "file": "inspector/desktop-040-inspector-open.png",
+    "date": "2026-07-19T14:27:36.906Z"
+  },
+  {
+    "id": 41,
+    "group": "inspector",
+    "name": "inspector-open",
+    "viewport": "tablet",
+    "file": "inspector/tablet-041-inspector-open.png",
+    "date": "2026-07-19T14:27:39.171Z"
+  },
+  {
+    "id": 42,
+    "group": "inspector",
+    "name": "inspector-open",
+    "viewport": "mobile",
+    "file": "inspector/mobile-042-inspector-open.png",
+    "date": "2026-07-19T14:27:41.382Z"
+  },
+  {
+    "id": 43,
+    "group": "toolbar",
+    "name": "toolbar-default",
+    "viewport": "desktop",
+    "file": "toolbar/desktop-043-toolbar-default.png",
+    "date": "2026-07-19T14:27:43.650Z"
+  },
+  {
+    "id": 44,
+    "group": "toolbar",
+    "name": "toolbar-default",
+    "viewport": "tablet",
+    "file": "toolbar/tablet-044-toolbar-default.png",
+    "date": "2026-07-19T14:27:45.912Z"
+  },
+  {
+    "id": 45,
+    "group": "toolbar",
+    "name": "toolbar-default",
+    "viewport": "mobile",
+    "file": "toolbar/mobile-045-toolbar-default.png",
+    "date": "2026-07-19T14:27:48.189Z"
+  },
+  {
+    "id": 46,
+    "group": "toolbar",
+    "name": "toolbar-user-menu",
+    "viewport": "desktop",
+    "file": "toolbar/desktop-046-toolbar-user-menu.png",
+    "date": "2026-07-19T14:27:51.023Z"
+  },
+  {
+    "id": 47,
+    "group": "toolbar",
+    "name": "toolbar-user-menu",
+    "viewport": "tablet",
+    "file": "toolbar/tablet-047-toolbar-user-menu.png",
+    "date": "2026-07-19T14:27:53.529Z"
+  },
+  {
+    "id": 48,
+    "group": "toolbar",
+    "name": "toolbar-user-menu",
+    "viewport": "mobile",
+    "file": "toolbar/mobile-048-toolbar-user-menu.png",
+    "date": "2026-07-19T14:27:55.881Z"
+  },
+  {
+    "id": 49,
+    "group": "tables",
+    "name": "table-list",
+    "viewport": "desktop",
+    "file": "tables/desktop-049-table-list.png",
+    "date": "2026-07-19T14:27:58.451Z"
+  },
+  {
+    "id": 50,
+    "group": "tables",
+    "name": "table-list",
+    "viewport": "tablet",
+    "file": "tables/tablet-050-table-list.png",
+    "date": "2026-07-19T14:28:00.906Z"
+  },
+  {
+    "id": 51,
+    "group": "tables",
+    "name": "table-list",
+    "viewport": "mobile",
+    "file": "tables/mobile-051-table-list.png",
+    "date": "2026-07-19T14:28:03.278Z"
+  },
+  {
+    "id": 52,
+    "group": "tables",
+    "name": "table-grid",
+    "viewport": "desktop",
+    "file": "tables/desktop-052-table-grid.png",
+    "date": "2026-07-19T14:28:05.572Z"
+  },
+  {
+    "id": 53,
+    "group": "tables",
+    "name": "table-grid",
+    "viewport": "tablet",
+    "file": "tables/tablet-053-table-grid.png",
+    "date": "2026-07-19T14:28:07.850Z"
+  },
+  {
+    "id": 54,
+    "group": "tables",
+    "name": "table-grid",
+    "viewport": "mobile",
+    "file": "tables/mobile-054-table-grid.png",
+    "date": "2026-07-19T14:28:10.059Z"
+  },
+  {
+    "id": 55,
+    "group": "empty",
+    "name": "empty-state",
+    "viewport": "desktop",
+    "file": "empty/desktop-055-empty-state.png",
+    "date": "2026-07-19T14:28:12.451Z"
+  },
+  {
+    "id": 56,
+    "group": "empty",
+    "name": "empty-state",
+    "viewport": "tablet",
+    "file": "empty/tablet-056-empty-state.png",
+    "date": "2026-07-19T14:28:14.882Z"
+  },
+  {
+    "id": 57,
+    "group": "empty",
+    "name": "empty-state",
+    "viewport": "mobile",
+    "file": "empty/mobile-057-empty-state.png",
+    "date": "2026-07-19T14:28:17.206Z"
+  },
+  {
+    "id": 58,
+    "group": "loading",
+    "name": "loading-state",
+    "viewport": "desktop",
+    "file": "loading/desktop-058-loading-state.png",
+    "date": "2026-07-19T14:28:19.567Z"
+  },
+  {
+    "id": 59,
+    "group": "loading",
+    "name": "loading-state",
+    "viewport": "tablet",
+    "file": "loading/tablet-059-loading-state.png",
+    "date": "2026-07-19T14:28:21.854Z"
+  },
+  {
+    "id": 60,
+    "group": "loading",
+    "name": "loading-state",
+    "viewport": "mobile",
+    "file": "loading/mobile-060-loading-state.png",
+    "date": "2026-07-19T14:28:24.089Z"
+  }
+]
