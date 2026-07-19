@@ -38,7 +38,7 @@ function TrendIcon({ trend }: { trend: "up" | "down" | "flat" }) {
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={colors[trend]} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       {trend === "up" && <polyline points="18 15 12 9 6 15" />}
       {trend === "down" && <polyline points="6 9 12 15 18 9" />}
-      {trend === "flat"" && <line x1="6" y1="12" x2="18" y2="12" />}
+      {trend === "flat" && <line x1="6" y1="12" x2="18" y2="12" />}
     </svg>
   )
 }
