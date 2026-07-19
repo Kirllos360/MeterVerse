@@ -57,7 +57,20 @@
 - [x] Knowledge graph (Graphiti)
 - [x] Specification validation (SpecKit)
 
-### Phase 3 — Release 🟡
+### Phase 3 — Enterprise Polish (Complete ✅)
+- [x] Design token rewrite (elevation, typography, spacing, radii)
+- [x] Brand restoration (all colors from single `--brand` token)
+- [x] Sidebar rebuild (no pills, 3px indicator, 72/260px)
+- [x] Inspector redesign (320px, 4 sections, contextual)
+- [x] Border audit (80% of decorative borders removed)
+- [x] Login redesign (45/55 split, live preview)
+- [x] Component consistency (radius, height, focus aligned)
+- [x] Screenshot automation (95 screenshots, 5 viewports)
+- [x] Visual regression testing (57 comparison points)
+- [x] UX certification (72/100 overall)
+- [x] Full documentation suite
+
+### Phase 4 — Release 🟡
 - [ ] Backend API integration (connect all service.ts)
 - [ ] Real JWT verification with token refresh
 - [ ] Complete RTL support

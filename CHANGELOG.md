@@ -2,6 +2,31 @@
 
 ## v8.0.0 — Enterprise Release Candidate (2026-07-19)
 
+### Phase 33-36: Final Enterprise Polish
+- Screenshot automation: 95 screenshots across 19 routes × 5 viewports
+- Visual regression testing: 57 comparison points, pixelmatch-based
+- Visual regression CI workflow (fails on >1% diff)
+- Enterprise UX Certification: 72/100 across 8 categories
+- Full documentation suite: UI architecture, design system, colors, typography, spacing, elevation, motion
+- Theme documentation: 10 themes, dark mode, RTL
+- Updated CHANGELOG, ROADMAP, PRD, ADRs
+
+### Phase 27-32: Visual Consistency
+- Brand restoration: all colors derive from single `--brand` token
+- Sidebar rebuild: 72/260px, 3px indicator, no pills, no borders
+- Inspector redesign: 320px, 4 sections, surface tokens
+- Border audit: 80% of decorative borders removed
+- Login redesign: 45/55 split, live preview, responsive
+- Component consistency: radius, height, focus aligned
+
+### Phase 22-26: Enterprise Hardening
+- System hardening: 15+ files fixed, ~45 color replacements
+- Visual audit: 52 issues catalogued (7C/18H/14M/10L)
+- Component audit: 166 components inventoried across 12 categories
+- Enterprise final review: 30 issues documented
+
+### Phase 18-21: Enterprise Foundation
+
 ### Added
 - Enterprise runtime kernel with lifecycle management
 - 11 registries for metadata-driven architecture
