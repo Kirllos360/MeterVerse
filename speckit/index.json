@@ -1,0 +1,21 @@
+{
+  "name": "SpecKit — MeterVerse Specification Kit",
+  "version": "1.0.0",
+  "description": "Specification validation framework for MeterVerse enterprise development",
+  "validators": [
+    "architecture",
+    "design-tokens",
+    "security",
+    "testing",
+    "performance",
+    "accessibility",
+    "documentation"
+  ],
+  "requiredChecks": [
+    "no-hardcoded-secrets",
+    "no-hardcoded-colors",
+    "no-any-types",
+    "has-error-handling",
+    "has-playwright-test"
+  ]
+}

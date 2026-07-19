@@ -12,8 +12,6 @@ import { ContextPanel } from "@/workspace/components/ContextPanel"
 import { WorkspaceContent } from "@/workspace/components/WorkspaceContent"
 import AdminLoginPage from "@/app/login/page"
 import { AmbientBackground } from "@/components/effects/AmbientBackground"
-import { ToastContainer } from "@/components/effects/Toast"
-
 export default function HomePage() {
   const { isAuthenticated } = useAuthRuntime()
   const { inspectorOpen, setInspectorOpen } = useWorkspaceStore()
@@ -27,8 +25,7 @@ export default function HomePage() {
   return (
     <>
       <AmbientBackground />
-      <ToastContainer />
-      <WorkspaceLayout
+            <WorkspaceLayout
       sidebarContent={<SidebarContent />}
       toolbarContent={<ToolbarContent onToggleInspector={() => setInspectorOpen(!inspectorOpen)} />}
       tabBar={<WorkspaceTabs />}
@@ -40,3 +37,4 @@ export default function HomePage() {
     </>
   )
 }
+

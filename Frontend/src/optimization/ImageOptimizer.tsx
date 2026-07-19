@@ -34,9 +34,9 @@ export function OptimizedImage({ src, alt, width, height, className = "", priori
   }, [priority, loaded])
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ width, height, backgroundColor: "var(--surface-sunken, #F0F0F0)" }}>
+    <div className={`relative overflow-hidden ${className}`} style={{ width, height, backgroundColor: "var(--surface-sunken)" }}>
       {placeholder && !loaded && !error && (
-        <div className="absolute inset-0 flex items-center justify-center text-xs" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{placeholder}</div>
+        <div className="absolute inset-0 flex items-center justify-center text-xs" style={{ color: "var(--text-tertiary)" }}>{placeholder}</div>
       )}
       {(loaded || priority) && !error && (
         <img ref={imgRef} src={src} alt={alt} width={width} height={height} onError={() => setError(true)}
@@ -45,7 +45,7 @@ export function OptimizedImage({ src, alt, width, height, className = "", priori
         />
       )}
       {error && (
-        <div className="absolute inset-0 flex items-center justify-center text-xs" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+        <div className="absolute inset-0 flex items-center justify-center text-xs" style={{ color: "var(--text-tertiary)" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M2 15l5-5 4 4 4-4 5 5"/></svg>
         </div>
       )}

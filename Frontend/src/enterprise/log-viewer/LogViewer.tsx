@@ -18,7 +18,7 @@ interface LogViewerProps {
 }
 
 const levelColors: Record<string, string> = {
-  error: "#DC2626", warn: "#D97706", info: "#3B82F6", debug: "#6B7280",
+  error: "var(--status-error)", warn: "var(--status-warning)", info: "#3B82F6", debug: "#6B7280",
 }
 
 const levelDots: Record<string, string> = {
@@ -44,14 +44,14 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
   }, [logs])
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
-      <div className="flex items-center gap-1.5 px-3 py-2 border-b overflow-x-auto" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-raised, #FFFFFF)" }}>
+    <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
+      <div className="flex items-center gap-1.5 px-3 py-2 border-b overflow-x-auto" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         {Object.entries(counts).map(([key, count]) => (
           <button key={key} onClick={() => setFilter(key)}
             className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-colors whitespace-nowrap"
             style={{
-              backgroundColor: filter === key ? "rgba(0,191,165,0.1)" : "transparent",
-              color: filter === key ? "var(--brand-primary, #00BFA5)" : "var(--text-secondary, #737373)",
+              backgroundColor: filter === key ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent",
+              color: filter === key ? "var(--brand-primary)" : "var(--text-secondary)",
             }}
           >
             {key !== "all" && <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: levelColors[key] }} />}
@@ -61,23 +61,23 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
       </div>
       <div className="overflow-y-auto font-mono" style={{ maxHeight }}>
         {filtered.length === 0 ? (
-          <div className="p-4 text-center text-xs" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>No logs match filter</div>
+          <div className="p-4 text-center text-xs" style={{ color: "var(--text-tertiary)" }}>No logs match filter</div>
         ) : filtered.map((log) => (
           <div key={log.id}>
             <button onClick={() => setExpandedId(expandedId === log.id ? null : log.id)}
               className="flex items-start gap-2 w-full px-3 py-1.5 text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors border-b"
-              style={{ borderColor: "var(--border-default, #E5E5E5)" }}
+              style={{ borderColor: "var(--border-default)" }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={levelColors[log.level]} strokeWidth="2" className="mt-0.5 shrink-0"><path d={levelDots[log.level]} /></svg>
-              <span className="text-[10px] w-28 shrink-0" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{log.timestamp}</span>
+              <span className="text-[10px] w-28 shrink-0" style={{ color: "var(--text-tertiary)" }}>{log.timestamp}</span>
               <span className="text-[10px] w-16 shrink-0 font-medium uppercase" style={{ color: levelColors[log.level] }}>{log.level}</span>
-              <span className="text-[10px] w-20 shrink-0 truncate" style={{ color: "var(--text-secondary, #737373)" }}>{log.source}</span>
-              <span className="text-[11px] flex-1 truncate" style={{ color: "var(--text-primary, #0A0A0A)" }}>{log.message}</span>
+              <span className="text-[10px] w-20 shrink-0 truncate" style={{ color: "var(--text-secondary)" }}>{log.source}</span>
+              <span className="text-[11px] flex-1 truncate" style={{ color: "var(--text-primary)" }}>{log.message}</span>
             </button>
             <AnimatePresence>
               {expandedId === log.id && log.details && (
                 <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
-                  <pre className="px-3 py-2 text-[10px] leading-relaxed" style={{ backgroundColor: "var(--surface-sunken, #F0F0F0)", color: "var(--text-secondary, #737373)" }}>{log.details}</pre>
+                  <pre className="px-3 py-2 text-[10px] leading-relaxed" style={{ backgroundColor: "var(--surface-sunken)", color: "var(--text-secondary)" }}>{log.details}</pre>
                 </motion.div>
               )}
             </AnimatePresence>

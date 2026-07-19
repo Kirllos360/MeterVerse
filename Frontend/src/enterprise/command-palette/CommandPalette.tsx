@@ -62,27 +62,27 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[1100] flex items-start justify-center pt-[15vh]">
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0" style={{ backgroundColor: "rgba(0,0,0,0.4)" }} onClick={() => setIsOpen(false)} />
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0" style={{ backgroundColor: "rgba(var(--black-rgb), 0.4)" }} onClick={() => setIsOpen(false)} />
           <motion.div initial={{ opacity: 0, y: -20, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             className="relative w-full max-w-lg rounded-xl border shadow-2xl overflow-hidden"
-            style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+            style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
           >
-            <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+            <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               <input ref={inputRef} value={query} onChange={(e) => { setQuery(e.target.value); setSelectedIndex(0) }} onKeyDown={handleKeyDown}
                 placeholder="Search commands..."
-                className="flex-1 text-sm outline-none bg-transparent" style={{ color: "var(--text-primary, #0A0A0A)" }}
-                aria-label="Search commands" role="combobox" aria-expanded="true" aria-controls="command-list"
+                className="flex-1 text-sm outline-none bg-transparent" style={{ color: "var(--text-primary)" }}
+                aria-label="Search commands" aria-expanded="true" aria-controls="command-list"
               />
-              <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--surface-sunken, #F0F0F0)", color: "var(--text-tertiary, #A3A3A3)" }}>ESC</span>
+              <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--surface-sunken)", color: "var(--text-tertiary)" }}>ESC</span>
             </div>
             <div id="command-list" className="max-h-72 overflow-y-auto p-2" role="listbox">
               {Object.entries(grouped).length === 0 ? (
-                <div className="p-4 text-center text-xs" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>No results found</div>
+                <div className="p-4 text-center text-xs" style={{ color: "var(--text-tertiary)" }}>No results found</div>
               ) : Object.entries(grouped).map(([group, items]) => (
                 <div key={group}>
-                  <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{group}</div>
+                  <div className="px-2 py-1 text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{group}</div>
                   {items.map((cmd, idx) => {
                     const globalIdx = flatFiltered.indexOf(cmd)
                     return (
@@ -91,13 +91,13 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
                         onMouseEnter={() => setSelectedIndex(globalIdx)}
                         className={`flex items-center gap-3 w-full px-2 py-2 rounded-lg text-xs text-left transition-colors`}
                         style={{
-                          backgroundColor: selectedIndex === globalIdx ? "rgba(0,191,165,0.1)" : "transparent",
-                          color: "var(--text-primary, #0A0A0A)",
+                          backgroundColor: selectedIndex === globalIdx ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent",
+                          color: "var(--text-primary)",
                         }}
                       >
                         {cmd.icon && <span className="text-sm">{cmd.icon}</span>}
                         <span className="flex-1">{cmd.label}</span>
-                        {cmd.shortcut && <span className="text-[10px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{cmd.shortcut}</span>}
+                        {cmd.shortcut && <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{cmd.shortcut}</span>}
                       </button>
                     )
                   })}

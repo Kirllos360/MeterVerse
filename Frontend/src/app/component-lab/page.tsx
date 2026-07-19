@@ -1,12 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { DataTableRuntime, type Column } from "@/components/enterprise/data-table/DataTableRuntime"
-import { FormRuntime, type FieldDef } from "@/components/enterprise/forms/FormRuntime"
-import { ChartsRuntime } from "@/components/enterprise/charts/ChartsRuntime"
-import { Widget } from "@/components/enterprise/widgets/WidgetsRuntime"
-import { Dialog } from "@/components/enterprise/dialogs/DialogsRuntime"
-import { SkeletonLines, LoadingScreen, EmptyState, ErrorState, OfflineState } from "@/components/enterprise/loading/LoadingStates"
 
 interface DemoItem {
   id: number; name: string; email: string; role: string; status: string
@@ -23,8 +17,8 @@ const demoData: DemoItem[] = [
 const demoColumns: Column<DemoItem>[] = [
   { id: "name", header: "Name", accessor: (r) => r.name, sortable: true, width: 160 },
   { id: "email", header: "Email", accessor: (r) => r.email, sortable: true, width: 200 },
-  { id: "role", header: "Role", accessor: (r) => <span className="px-2 py-0.5 text-[11px] rounded-full bg-[rgba(0,191,165,0.1)] text-[#00BFA5]">{r.role}</span>, sortable: true, width: 120 },
-  { id: "status", header: "Status", accessor: (r) => <span style={{ color: r.status === "Active" ? "#059669" : "#9CA3AF" }}>{r.status}</span>, width: 100 },
+  { id: "role", header: "Role", accessor: (r) => <span className="px-2 py-0.5 text-[11px] rounded-full" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>{r.role}</span>, sortable: true, width: 120 },
+  { id: "status", header: "Status", accessor: (r) => <span style={{ color: r.status === "Active" ? "var(--status-success)" : "#9CA3AF" }}>{r.status}</span>, width: 100 },
 ]
 
 const formFields: FieldDef[] = [
@@ -38,34 +32,30 @@ export default function ComponentLabPage() {
   const [formVals, setFormVals] = useState<Record<string, unknown>>({})
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--surface-base, #FAFAFA)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--surface-base)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px" }}>
-        <h1 className="text-xl font-semibold mb-6" style={{ color: "var(--text-primary, #0A0A0A)" }}>Component Lab</h1>
-        <p className="text-sm mb-8" style={{ color: "var(--text-secondary, #737373)" }}>Enterprise Component Library — Interactive Showcase</p>
+        <h1 className="text-xl font-semibold mb-6" style={{ color: "var(--text-primary)" }}>Component Lab</h1>
+        <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>Enterprise Component Library — Interactive Showcase</p>
 
         {/* DataTable */}
         <Section title="DataTable Runtime">
-          <DataTableRuntime columns={demoColumns} data={demoData} selectable pageSize={5} />
-        </Section>
+                  </Section>
 
         {/* Forms */}
         <Section title="Forms Runtime">
-          <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
-            <FormRuntime fields={formFields} values={formVals} onChange={(id, val) => setFormVals((p) => ({ ...p, [id]: val }))} layout="two-column" />
-          </div>
+          <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+                      </div>
         </Section>
 
         {/* Charts */}
         <Section title="Charts Runtime">
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
-              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Line Chart</p>
-              <ChartsRuntime type="line" series={[{ name: "Revenue", data: [{ x: "Jan", y: 400 }, { x: "Feb", y: 300 }, { x: "Mar", y: 600 }, { x: "Apr", y: 500 }] }]} height={200} />
-            </div>
-            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
-              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Pie Chart</p>
-              <ChartsRuntime type="donut" series={[{ name: "Distribution", data: [{ x: "A", y: 35 }, { x: "B", y: 25 }, { x: "C", y: 20 }, { x: "D", y: 20 }] }]} height={200} />
-            </div>
+            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>Line Chart</p>
+                          </div>
+            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>Pie Chart</p>
+                          </div>
           </div>
         </Section>
 
@@ -82,13 +72,13 @@ export default function ComponentLabPage() {
         {/* Dialogs */}
         <Section title="Dialogs">
           <button onClick={() => setDialogOpen(true)}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "#00BFA5" }}>
+            className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "var(--brand-primary)" }}>
             Open Dialog
           </button>
           <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} title="Sample Dialog"
             footer={<><button onClick={() => setDialogOpen(false)} className="px-4 py-1.5 rounded-lg text-sm">Cancel</button></>}
           >
-            <p className="text-sm" style={{ color: "var(--text-secondary, #737373)" }}>Dialog content with Framer Motion spring animation.</p>
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Dialog content with Framer Motion spring animation.</p>
           </Dialog>
         </Section>
 
@@ -109,8 +99,9 @@ export default function ComponentLabPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-8">
-      <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-secondary, #737373)" }}>{title}</h2>
+      <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-secondary)" }}>{title}</h2>
       {children}
     </div>
   )
 }
+

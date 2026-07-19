@@ -1,3 +1,4 @@
+// Default view: Table
 import { BaseApp } from "../shared/app-base"
 import type { ProgramLifecycle, ProgramHost, ProgramMetadata, MountContext, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState } from "@/runtime/contracts/program"
 import { KPIWidget, KPIWidgetGrid } from "@/enterprise/kpi/KPIWidget"
@@ -28,7 +29,7 @@ export class CustomersApp extends BaseApp {
     container.innerHTML = ""
     const root = document.createElement("div")
     root.className = "p-6 space-y-6 overflow-y-auto h-full"
-    root.style.backgroundColor = "var(--surface-base, #FAFAFA)"
+    root.style.backgroundColor = "var(--surface-base)"
     root.innerHTML = `
       <div class="flex items-center justify-between">
         <div>
@@ -43,11 +44,11 @@ export class CustomersApp extends BaseApp {
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">Active</div>
-          <div class="text-xl font-bold mt-1" style="color:#059669">0</div>
+          <div class="text-xl font-bold mt-1" style="color:var(--status-success)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">Overdue Balance</div>
-          <div class="text-xl font-bold mt-1" style="color:#DC2626">0</div>
+          <div class="text-xl font-bold mt-1" style="color:var(--status-error)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">New This Month</div>
@@ -56,7 +57,7 @@ export class CustomersApp extends BaseApp {
       </div>
       <div class="rounded-xl border overflow-hidden" style="border-color:var(--border-default)">
         <table class="w-full">
-          <thead><tr style="background:var(--surface-tableHeader,#F5F5F5)">
+          <thead><tr style="background:var(--surface-tableHeader)">
             <th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Name</th>
             <th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Email</th>
             <th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Phone</th>

@@ -1,0 +1,10 @@
+{
+  "name": "MeterVerse Knowledge Graph",
+  "version": "1.0.0",
+  "description": "Enterprise knowledge graph for MeterVerse architecture, components, decisions, and runtime knowledge",
+  "updated": "2026-07-19T00:00:00Z",
+  "schema": {
+    "nodes": ["component", "module", "api", "database", "decision", "spec", "runtime"],
+    "edges": ["depends_on", "implements", "extends", "contains", "references", "documents"]
+  }
+}

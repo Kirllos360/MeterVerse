@@ -10,20 +10,19 @@ import { GradientText, TypewriterText } from "@/components/effects/AnimatedText"
 import { futuristic } from "@/design-system/motion"
 
 const glassCard = {
-  backgroundColor: "var(--surface-raised, #FFFFFF)",
-  border: "1px solid var(--border-default, #E5E5E5)",
-  boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02)",
+  backgroundColor: "var(--surface-raised)",
+  boxShadow: "var(--shadow-sm)",
 }
 
 const monthlyData = [3200, 2800, 3500, 4100, 3800, 4200, 4600, 4300, 4900, 5100, 4800, 5300]
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 const activityColors: Record<string, string> = {
-  reading: "#00BFA5",
+  reading: "var(--brand-primary)",
   invoice: "#3B82F6",
-  customer: "#F59E0B",
+  customer: "var(--status-pending)",
   system: "#8B5CF6",
-  report: "#064E3B",
+  report: "var(--surface-base)",
 }
 
 export function WorkspaceHome() {
@@ -64,9 +63,9 @@ export function WorkspaceHome() {
   const quickApps = getActive().slice(0, 8)
   const maxMonthly = Math.max(...liveMonthlyData)
   const meterDistribution = [
-    { label: t("home.active", "Active"), value: 2847, color: "#00BFA5" },
-    { label: t("home.maintenance", "Maintenance"), value: 156, color: "#F59E0B" },
-    { label: t("home.offline", "Offline"), value: 47, color: "#EF4444" },
+    { label: t("home.active", "Active"), value: 2847, color: "var(--brand-primary)" },
+    { label: t("home.maintenance", "Maintenance"), value: 156, color: "var(--status-pending)" },
+    { label: t("home.offline", "Offline"), value: 47, color: "var(--status-error)" },
   ]
   const totalMeters = meterDistribution.reduce((a, b) => a + b.value, 0)
   let donutAngle = 0
@@ -80,17 +79,17 @@ export function WorkspaceHome() {
   return (
     <div className="h-full overflow-y-auto p-6" style={{ maxWidth: 960, margin: "0 auto" }}>
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <GradientText className="text-xl font-semibold">{t("nav.dashboard", "Workspace Home")}</GradientText>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary, #737373)" }}>
+        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
           <TypewriterText text={`${t("common.area", "Area")}: ${area} — All systems operational`} speed={20} />
         </p>
       </div>
 
       {/* Executive Summary — Glass Cards */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.executiveSummary", "Executive Summary")} />
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2">
           {statData.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -100,11 +99,11 @@ export function WorkspaceHome() {
               }}
               initial="initial"
               animate="animate"
-              className="p-4 rounded-xl"
+              className="p-3 rounded-xl"
               style={glassCard}
             >
-              <div className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{stat.label}</div>
-              <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary, #0A0A0A)" }}>
+              <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
+              <div className="text-lg font-bold mt-0" style={{ color: "var(--text-primary)" }}>
                 {stat.label === "Collection Rate" || stat.label === "System Health" ? (
                   <><AnimatedCounter value={stat.value} />%</>
                 ) : (
@@ -117,9 +116,9 @@ export function WorkspaceHome() {
       </div>
 
       {/* Quick Actions */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.quickActions", "Quick Actions")} />
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2">
           {[
             t("home.newInvoice", "New Invoice"),
             t("home.addMeter", "Add Meter"),
@@ -127,9 +126,9 @@ export function WorkspaceHome() {
             t("home.generateReport", "Generate Report")
           ].map((action) => (
             <button key={action} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all hover:shadow-md"
-              style={{ ...glassCard, color: "var(--text-primary, #0A0A0A)" }}
+              style={{ ...glassCard, color: "var(--text-primary)" }}
             >
-              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(0,191,165,0.1)", color: "#00BFA5" }}>+</span>
+              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>+</span>
               {action}
             </button>
           ))}
@@ -137,11 +136,11 @@ export function WorkspaceHome() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-2 gap-4 mb-6">
         {/* Monthly Consumption Bar Chart */}
-        <div className="p-4 rounded-xl" style={glassCard}>
+        <div className="p-3 rounded-xl" style={glassCard}>
           <SectionTitle label={t("home.monthlyConsumption", "Monthly Consumption (kWh)")} />
-          <div className="flex items-end gap-1.5 h-28 pt-2">
+          <div className="flex items-end gap-1.5 h-24 pt-2">
             {liveMonthlyData.map((v, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <motion.div
@@ -150,18 +149,18 @@ export function WorkspaceHome() {
                   transition={{ duration: 0.8, delay: i * 0.03, ease: "easeOut" }}
                   className="w-full rounded-t-sm"
                   style={{
-                    backgroundColor: i === 11 ? "#00BFA5" : "rgba(0,191,165,0.25)",
+                    backgroundColor: i === 11 ? "var(--brand-primary)" : "rgba(var(--brand-primary-rgb), 0.25)",
                     minHeight: 4,
                   }}
                 />
-                <span className="text-[8px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{months[i]}</span>
+                <span className="text-[8px]" style={{ color: "var(--text-tertiary)" }}>{months[i]}</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Donut Chart — Meter Status Distribution */}
-        <div className="p-4 rounded-xl" style={glassCard}>
+        <div className="p-3 rounded-xl" style={glassCard}>
           <SectionTitle label={t("home.meterStatusDistribution", "Meter Status Distribution")} />
           <div className="flex items-center gap-4">
             <svg width="100" height="100" viewBox="0 0 36 36">
@@ -184,14 +183,14 @@ export function WorkspaceHome() {
                   />
                 )
               })}
-              <circle cx="18" cy="18" r="11" fill="var(--surface-raised, #FAFAFA)" />
+              <circle cx="18" cy="18" r="11" fill="var(--surface-raised)" />
             </svg>
             <div className="flex flex-col gap-1.5">
               {meterDistribution.map((m) => (
                 <div key={m.label} className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full" style={{ backgroundColor: m.color }} />
-                  <span className="text-[11px]" style={{ color: "var(--text-secondary, #737373)" }}>{m.label}</span>
-                  <span className="text-[11px] font-medium ml-auto" style={{ color: "var(--text-primary, #0A0A0A)" }}>{m.value.toLocaleString()}</span>
+                  <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>{m.label}</span>
+                  <span className="text-[11px] font-medium ml-auto" style={{ color: "var(--text-primary)" }}>{m.value.toLocaleString()}</span>
                 </div>
               ))}
             </div>
@@ -200,7 +199,7 @@ export function WorkspaceHome() {
       </div>
 
       {/* Applications */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.applications", "Applications")} />
         <div className="grid grid-cols-4 gap-2">
           {quickApps.map((app) => (
@@ -212,19 +211,19 @@ export function WorkspaceHome() {
               className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left text-sm transition-all"
               style={glassCard}
             >
-              <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "#00BFA5" }}>
+              <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand-primary)" }}>
                 {app.title[0]}
               </span>
-              <span className="truncate" style={{ color: "var(--text-primary, #0A0A0A)" }}>{app.title}</span>
+              <span className="truncate" style={{ color: "var(--text-primary)" }}>{app.title}</span>
             </motion.button>
           ))}
         </div>
       </div>
 
       {/* Recent Activity */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.recentActivity", "Recent Activity")} />
-        <div className="p-4 rounded-xl" style={glassCard}>
+        <div className="p-3 rounded-xl" style={glassCard}>
           <div className="space-y-0">
             {activityItems.map((item, i) => (
               <motion.div
@@ -233,7 +232,7 @@ export function WorkspaceHome() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
                 className="flex items-start gap-3 py-2.5 border-b last:border-b-0"
-                style={{ borderColor: "var(--border-default, rgba(0,0,0,0.06))" }}
+                style={{ borderColor: "var(--border-default)" }}
               >
                 <div className="relative flex items-center justify-center mt-0.5">
                   <motion.div
@@ -244,9 +243,9 @@ export function WorkspaceHome() {
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs" style={{ color: "var(--text-primary, #0A0A0A)" }}>{item.text}</p>
+                  <p className="text-xs" style={{ color: "var(--text-primary)" }}>{item.text}</p>
                 </div>
-                <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{item.time}</span>
+                <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary)" }}>{item.time}</span>
               </motion.div>
             ))}
           </div>
@@ -259,8 +258,9 @@ export function WorkspaceHome() {
 function SectionTitle({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{label}</span>
-      <div className="flex-1 h-px" style={{ backgroundColor: "var(--border-default, #E5E5E5)" }} />
+      <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{label}</span>
+      <div className="flex-1 h-px" style={{ backgroundColor: "var(--border-default)" }} />
     </div>
   )
 }
+

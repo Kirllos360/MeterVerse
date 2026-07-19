@@ -47,13 +47,13 @@ export function StatusBarContent() {
   }, [])
 
   return (
-    <footer className="flex items-center h-10 px-4 text-sm font-semibold select-none" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+    <footer className="flex items-center h-10 px-4 text-sm font-semibold select-none" style={{ color: "var(--text-tertiary)" }}>
       {/* Left — Running motivation + reminder */}
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <span className="flex items-center gap-1.5 shrink-0">
           <motion.span
             className="w-1.5 h-1.5 rounded-full"
-            style={{ backgroundColor: connectionStatus === "connected" ? "#059669" : connectionStatus === "degraded" ? "#D97706" : "#DC2626" }}
+            style={{ backgroundColor: connectionStatus === "connected" ? "var(--status-success)" : connectionStatus === "degraded" ? "var(--status-warning)" : "var(--status-error)" }}
             animate={{ scale: [1, 1.3, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
@@ -61,15 +61,15 @@ export function StatusBarContent() {
           <span className="hidden md:inline tabular-nums">{backendLatency}ms</span>
         </span>
 
-        <div className="h-3 w-px" style={{ backgroundColor: "var(--border-default, #E5E5E5)" }} />
+        <div className="h-3 w-px" style={{ backgroundColor: "var(--border-default)" }} />
 
         <AnimatePresence mode="wait">
           {showQuote ? (
-            <motion.span key={`quote-${quoteIndex}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.3 }} className="truncate text-[10px]" style={{ color: "rgba(0,191,165,0.6)" }}>
+            <motion.span key={`quote-${quoteIndex}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.3 }} className="truncate text-[10px]" style={{ color: "rgba(var(--brand-primary-rgb), 0.6)" }}>
               {MOTIVATIONAL_QUOTES[quoteIndex]}
             </motion.span>
           ) : (
-            <motion.span key={`reminder-${reminderIndex}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.3 }} className="truncate text-[10px]" style={{ color: "rgba(239,68,68,0.5)" }}>
+            <motion.span key={`reminder-${reminderIndex}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.3 }} className="truncate text-[10px]" style={{ color: "rgba(var(--status-error-rgb), 0.5)" }}>
               {REMINDERS[reminderIndex]}
             </motion.span>
           )}
@@ -78,9 +78,9 @@ export function StatusBarContent() {
 
       {/* Right — System info */}
       <div className="flex items-center gap-3 shrink-0">
-        <span className="hidden sm:inline text-[10px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{area}</span>
+        <span className="hidden sm:inline text-[10px]" style={{ color: "var(--text-tertiary)" }}>{area}</span>
         <span className="hidden lg:inline text-[10px]">{language.toUpperCase()}</span>
-        <motion.span className="text-[10px] tabular-nums" style={{ color: "rgba(0,191,165,0.5)" }}
+        <motion.span className="text-[10px] tabular-nums" style={{ color: "rgba(var(--brand-primary-rgb), 0.5)" }}
           animate={{ opacity: [0.4, 0.7, 0.4] }}
           transition={{ duration: 3, repeat: Infinity }}
         >

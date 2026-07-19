@@ -15,8 +15,8 @@ export function AnimatedBorder({
   className?: string
 }) {
   const statusColors: Record<string, string> = {
-    success: "#059669", warning: "#D97706", error: "#DC2626",
-    info: "#3B82F6", default: "#00BFA5",
+    success: "var(--status-success)", warning: "var(--status-warning)", error: "var(--status-error)",
+    info: "#3B82F6", default: "var(--brand-primary)",
   }
   const color = statusColors[status] || statusColors.default
 

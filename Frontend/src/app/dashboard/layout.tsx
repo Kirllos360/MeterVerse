@@ -20,7 +20,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   return (
     <SidebarProvider defaultOpen={sidebarState === "true"}>
       <KBar>
-        <div className="flex h-screen overflow-hidden" style={{ backgroundColor: "var(--surface-base, #FAFAFA)" }}>
+        <div className="flex h-screen overflow-hidden" style={{ backgroundColor: "var(--surface-base)" }}>
           <AppSidebar />
           <div className="flex-1 flex flex-col min-w-0">
             <TopHeader

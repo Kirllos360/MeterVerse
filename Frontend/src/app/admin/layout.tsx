@@ -3,8 +3,6 @@
 import { useState, type ReactNode } from "react"
 import { motion } from "framer-motion"
 import { AmbientBackground } from "@/components/effects/AmbientBackground"
-import { ToastContainer } from "@/components/effects/Toast"
-
 const adminNav = [
   { id: "dashboard", label: "Dashboard", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
   { id: "users", label: "Users", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
@@ -22,18 +20,17 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="flex h-screen relative" style={{ backgroundColor: "#050505" }}>
+    <div className="flex h-screen relative" style={{ backgroundColor: "var(--admin-background)" }}>
       <AmbientBackground />
-      <ToastContainer />
-      {/* Admin Sidebar */}
+            {/* Admin Sidebar */}
       <aside className="flex flex-col shrink-0 border-r transition-all duration-200" style={{
         width: collapsed ? 64 : 220,
-        backgroundColor: "#0A0A0A",
-        borderColor: "#1A1A1A",
+        backgroundColor: "var(--admin-surface)",
+        borderColor: "var(--admin-border)",
       }}>
-        <div className="flex items-center h-14 px-4 border-b shrink-0" style={{ borderColor: "#1A1A1A" }}>
+        <div className="flex items-center h-14 px-4 border-b shrink-0" style={{ borderColor: "var(--admin-border)" }}>
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "#EF4444", color: "white" }}>A</div>
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--status-error)", color: "white" }}>A</div>
             {!collapsed && <span className="text-sm font-bold text-white">Admin Center</span>}
           </div>
         </div>
@@ -44,8 +41,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               style={{
                 padding: collapsed ? "10px" : "8px 12px",
                 justifyContent: collapsed ? "center" : "flex-start",
-                backgroundColor: active === item.id ? "rgba(239,68,68,0.15)" : "transparent",
-                color: active === item.id ? "#EF4444" : "rgba(255,255,255,0.5)",
+                backgroundColor: active === item.id ? "rgba(var(--status-error-rgb), 0.15)" : "transparent",
+                color: active === item.id ? "var(--status-error)" : "rgba(255,255,255,0.5)",
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
@@ -55,7 +52,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </button>
           ))}
         </nav>
-        <div className="p-2 border-t shrink-0" style={{ borderColor: "#1A1A1A" }}>
+        <div className="p-2 border-t shrink-0" style={{ borderColor: "var(--admin-border)" }}>
           <button onClick={() => setCollapsed(!collapsed)}
             className="flex items-center justify-center w-full p-2 rounded-lg text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
             {collapsed ? "→" : "Collapse"}
@@ -70,3 +67,4 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     </div>
   )
 }
+
