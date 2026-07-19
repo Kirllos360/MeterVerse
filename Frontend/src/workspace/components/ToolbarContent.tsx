@@ -223,7 +223,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
 
 function ToolbarButton({ children, label, onClick, isActive }: { children: React.ReactNode; label: string; onClick: () => void; isActive?: boolean }) {
   return (
-    <button onClick={onClick} className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: isActive ? "var(--brand-primary, #00BFA5)" : "var(--text-secondary, #737373)" }} title={label} aria-label={label}>
+    <button onClick={onClick} className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: isActive ? "var(--brand-primary)" : "var(--text-secondary, #737373)" }} title={label} aria-label={label}>
       {children}
     </button>
   )

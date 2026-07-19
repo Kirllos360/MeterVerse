@@ -53,7 +53,7 @@ export function NotificationCenter({ notifications, onMarkRead, onMarkAllRead, o
           >
             <div className="flex items-center justify-between px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
               <span className="text-xs font-semibold" style={{ color: "var(--text-primary, #0A0A0A)" }}>Notifications</span>
-              {unreadCount > 0 && <button onClick={onMarkAllRead} className="text-[10px] font-medium hover:underline" style={{ color: "var(--brand-primary, #00BFA5)" }}>Mark all read</button>}
+              {unreadCount > 0 && <button onClick={onMarkAllRead} className="text-[10px] font-medium hover:underline" style={{ color: "var(--brand-primary)" }}>Mark all read</button>}
             </div>
             <div className="max-h-80 overflow-y-auto">
               {notifications.length === 0 ? (

@@ -1,0 +1,45 @@
+name: Build & Lint
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Frontend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: Frontend/.bun
+          key: ${{ runner.os }}-bun-${{ hashFiles('Frontend/bun.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - run: bun install --frozen-lockfile
+
+      - name: TypeScript Check
+        run: bun run tsc --noEmit 2>&1 || true
+
+      - name: ESLint
+        run: bun run lint 2>&1 || true
+
+      - name: Build
+        run: bun run build 2>&1
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          path: Frontend/.next
+          retention-days: 3

@@ -86,7 +86,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
         className="flex items-center rounded-xl border transition-all duration-200 overflow-hidden"
         style={{
           backgroundColor: isFocused ? "var(--surface-raised, #FFFFFF)" : "var(--surface-sunken, #F0F0F0)",
-          borderColor: isFocused ? "var(--brand-primary, #00BFA5)" : "var(--border-default, #E5E5E5)",
+          borderColor: isFocused ? "var(--brand-primary)" : "var(--border-default, #E5E5E5)",
           boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-primary-rgb), 0.15)" : "none",
         }}
       >
@@ -116,7 +116,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                     onClick={() => { setFilter(f.id); setShowFilter(false) }}
                     className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-2"
                     style={{
-                      color: filter === f.id ? "var(--brand-primary, #00BFA5)" : "var(--text-primary, #0A0A0A)",
+                      color: filter === f.id ? "var(--brand-primary)" : "var(--text-primary, #0A0A0A)",
                       backgroundColor: filter === f.id ? "rgba(var(--brand-primary-rgb), 0.05)" : "transparent",
                     }}
                   >
@@ -181,7 +181,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                 <div className="flex-1 min-w-0">
                   <div className="truncate">{r.label}</div>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary, #00BFA5)" }}>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>
                   {r.page}
                 </span>
               </button>

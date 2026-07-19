@@ -20,7 +20,7 @@ export function AppShell({ title, description, icon, actions, children }: AppShe
         <div className="flex items-center gap-3">
           {icon && (
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "rgba(0,191,165,0.1)" }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00BFA5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d={icon === "LayoutDashboard" ? "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" :
                   icon === "Users" ? "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" :
                   icon === "FileText" ? "M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6" :

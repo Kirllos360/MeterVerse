@@ -1,0 +1,58 @@
+name: DeepSeek Code Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'graphiti/**'
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'skip-review') }}
+
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: DeepSeek PR Review
+        uses: hustcer/deepseek-review@v1
+        with:
+          chat-token: ${{ secrets.DEEPSEEK_TOKEN }}
+          model: deepseek-chat
+          temperature: 0.1
+          max-comments: 10
+          review-files: |
+            **/*.ts
+            **/*.tsx
+            **/*.js
+            **/*.jsx
+            **/*.css
+            **/*.sql
+          system-prompt: |
+            You are reviewing MeterVerse Enterprise code. Follow these rules:
+
+            1. **Security**: Flag hardcoded secrets, SQL injection, XSS, unsafe deserialization
+            2. **TypeScript**: Check strict mode compliance, no `any`, proper generics
+            3. **Architecture**: Enforce BFF pattern (types.ts → service.ts → queries.ts)
+            4. **Design Tokens**: Hardcoded colors (except #00BFA5 → var(--brand-primary)) are violations
+            5. **Performance**: No inline `rgba()` in render, use CSS variables
+            6. **Error Handling**: Every API call must have try/catch
+            7. **Testing**: New features must include Playwright tests
+            8. **Duplication**: Flag repeated patterns that should be extracted
+            9. **Naming**: Components use function declarations, files match exports
+            Block merge on: security issues, type safety violations, hardcoded secrets
+          review-comment-title: "🔍 DeepSeek Review"
+          fail-on-severity: critical
+          fail-on-comments: false

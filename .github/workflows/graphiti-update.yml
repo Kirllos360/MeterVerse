@@ -1,0 +1,76 @@
+name: Graphiti Knowledge Update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Frontend/src/**'
+      - 'backend/**'
+      - 'graphiti/**'
+      - 'speckit/**'
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true || github.event_name == 'push'
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract Architecture Changes
+        id: arch
+        run: |
+          echo "### Architecture Changes" > graphiti/nodes/latest.md
+          echo "" >> graphiti/nodes/latest.md
+          echo "- Commit: ${{ github.sha }}" >> graphiti/nodes/latest.md
+          echo "- Branch: ${{ github.ref_name }}" >> graphiti/nodes/latest.md
+          echo "- Files changed:" >> graphiti/nodes/latest.md
+          git diff --name-only HEAD~1..HEAD | sed 's/^/  - /' >> graphiti/nodes/latest.md
+
+      - name: Extract Decisions
+        id: decisions
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          echo "## Decision Record: $(date -u +%Y-%m-%d)" > graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          echo "" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          echo "### PR: $PR_TITLE" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          echo "### Date: $(date -u)" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          echo "### Author: ${{ github.actor }}" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          echo "" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          echo "### Description" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          if [ -n "$PR_BODY" ]; then
+            echo "$PR_BODY" >> graphiti/decisions/$(date -u +%Y%m%d%H%M%S).md
+          fi
+
+      - name: Build Runtime Knowledge
+        id: runtime
+        run: |
+          echo "# Runtime Knowledge Snapshot" > graphiti/runtime/current.md
+          echo "" >> graphiti/runtime/current.md
+          echo "- Updated: $(date -u)" >> graphiti/runtime/current.md
+          echo "- Commit: ${{ github.sha }}" >> graphiti/runtime/current.md
+          echo "" >> graphiti/runtime/current.md
+
+          echo "### Components" >> graphiti/runtime/current.md
+          find Frontend/src/components -name "*.tsx" -o -name "*.ts" | head -50 | sed 's/^/- /' >> graphiti/runtime/current.md
+          echo "" >> graphiti/runtime/current.md
+
+          echo "### Features" >> graphiti/runtime/current.md
+          find Frontend/src/features -name "*.tsx" -o -name "*.ts" | head -50 | sed 's/^/- /' >> graphiti/runtime/current.md
+
+      - name: Commit Graphiti Update
+        run: |
+          git config user.name "MeterVerse Graphiti"
+          git config user.email "graphiti@meterverse.com"
+          git add graphiti/
+          git diff --cached --quiet || git commit -m "graphiti: auto-update knowledge graph [skip ci]"
+          git push

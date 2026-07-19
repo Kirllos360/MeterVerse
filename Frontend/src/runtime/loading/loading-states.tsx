@@ -35,7 +35,7 @@ export function LoadingRuntime({ message = "Loading workspace..." }: LoadingStat
   return (
     <div className="flex items-center justify-center py-16">
       <div className="flex flex-col items-center gap-3">
-        <svg className="w-8 h-8 animate-spin" viewBox="0 0 24 24" fill="none" style={{ color: "var(--brand-primary, #00BFA5)" }}>
+        <svg className="w-8 h-8 animate-spin" viewBox="0 0 24 24" fill="none" style={{ color: "var(--brand-primary)" }}>
           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" opacity="0.25" />
           <path d="M12 2a10 10 0 019.95 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
@@ -54,7 +54,7 @@ export function OfflineRuntime({ message = "You are offline", onRetry }: { messa
       <p className="text-base font-medium" style={{ color: "var(--text-primary, #0A0A0A)" }}>{message}</p>
       <p className="text-sm mt-1 mb-4" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Check your internet connection and try again.</p>
       {onRetry && (
-        <button onClick={onRetry} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "var(--brand-primary, #00BFA5)" }}>
+        <button onClick={onRetry} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "var(--brand-primary)" }}>
           Retry
         </button>
       )}
@@ -73,7 +73,7 @@ export function ErrorRuntime({ message = "Something went wrong", error, onRetry 
       <p className="text-base font-medium" style={{ color: "var(--text-primary, #0A0A0A)" }}>{message}</p>
       {error && <p className="text-sm mt-1 mb-4" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{error}</p>}
       {onRetry && (
-        <button onClick={onRetry} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "var(--brand-primary, #00BFA5)" }}>
+        <button onClick={onRetry} className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "var(--brand-primary)" }}>
           Try again
         </button>
       )}

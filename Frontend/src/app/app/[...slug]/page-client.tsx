@@ -104,7 +104,7 @@ export default function AppPageClient({ slug }: { slug?: string[] }) {
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 2v20M16 2v20M2 8h20M2 16h20"/></svg>
                   <span>No {app.title.toLowerCase()} yet</span>
                   {showAdd && (
-                    <button onClick={handleAdd} className="px-3 py-1.5 rounded-lg text-xs font-medium text-white mt-2" style={{ backgroundColor: "#00BFA5" }}>
+                    <button onClick={handleAdd} className="px-3 py-1.5 rounded-lg text-xs font-medium text-white mt-2" style={{ backgroundColor: "var(--brand-primary)" }}>
                       + Add your first {app.title.toLowerCase()}
                     </button>
                   )}

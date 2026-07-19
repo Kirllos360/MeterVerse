@@ -43,7 +43,7 @@ function TrendIcon({ trend }: { trend: "up" | "down" | "flat" }) {
   )
 }
 
-export function KPIWidget({ title, value, unit, trend, trendValue, color = "var(--brand-primary, #00BFA5)", formatter, delay = 0 }: KPIWidgetProps) {
+export function KPIWidget({ title, value, unit, trend, trendValue, color = "var(--brand-primary)", formatter, delay = 0 }: KPIWidgetProps) {
   const animatedValue = useAnimatedValue(value)
 
   return (

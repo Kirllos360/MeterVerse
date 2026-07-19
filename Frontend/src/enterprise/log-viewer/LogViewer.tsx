@@ -51,7 +51,7 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
             className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-colors whitespace-nowrap"
             style={{
               backgroundColor: filter === key ? "rgba(0,191,165,0.1)" : "transparent",
-              color: filter === key ? "var(--brand-primary, #00BFA5)" : "var(--text-secondary, #737373)",
+              color: filter === key ? "var(--brand-primary)" : "var(--text-secondary, #737373)",
             }}
           >
             {key !== "all" && <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: levelColors[key] }} />}
