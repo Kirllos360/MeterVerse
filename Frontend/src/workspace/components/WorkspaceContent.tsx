@@ -507,6 +507,27 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
         )}
       </div>
 
+      {/* Page navigation — back/forward */}
+      <div className="shrink-0 px-6 py-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--border-subtle)", backgroundColor: "var(--surface-raised)" }}>
+        <div className="flex items-center gap-2">
+          <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors hover:bg-black/5" style={{ color: "var(--text-secondary)" }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            {t("content.previous", "Previous")}
+          </button>
+          <button className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors hover:bg-black/5" style={{ color: "var(--text-secondary)" }}>
+            {t("content.next", "Next")}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{t("content.page", "Page")}</span>
+          <select className="px-1.5 py-0.5 rounded text-[10px] border outline-none bg-transparent" style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
+            {[1,2,3,4,5].map(p => <option key={p} value={p}>{p}</option>)}
+          </select>
+          <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{t("content.of", "of")} 5</span>
+        </div>
+      </div>
+
       {notif && (
         <div className="fixed bottom-6 right-6 px-4 py-3 rounded-lg shadow-lg text-xs text-white z-50 animate-in slide-in-from-right"
           style={{ backgroundColor: "var(--surface-base)" }}>

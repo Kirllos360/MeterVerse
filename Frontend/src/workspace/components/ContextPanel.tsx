@@ -5,6 +5,13 @@ import { motion } from "framer-motion"
 import { useWorkspaceStore } from "../stores"
 import { useTranslation } from "@/hooks/use-translation"
 
+const INSPECTOR_SECTIONS = [
+  { id: "properties", label: "Properties", labelAr: "الخصائص", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10" },
+  { id: "timeline", label: "Timeline", labelAr: "الجدول الزمني", icon: "M12 6v6l4 2" },
+  { id: "activity", label: "Activity", labelAr: "النشاط", icon: "M13 16h-1v-4h-1m1-4h.01" },
+  { id: "attachments", label: "Attachments", labelAr: "المرفقات", icon: "M15.536 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V8.464M15.536 3l5.464 5.464M15.536 3v5.464h5.464" },
+]
+
 type EntityType = "meter" | "customer" | "invoice" | "payment" | "reading" | "none"
 
 interface EntityConfig {
@@ -77,6 +84,29 @@ export function ContextPanel() {
   const config = entityConfigs[entityType]
   const sections = config.sections
 
+  // Collapsed mode — icon bar like sidebar
+  if (!inspectorOpen) {
+    return (
+      <div className="flex flex-col h-full items-center py-3 gap-3" style={{ backgroundColor: "var(--sidebar-background)" }}>
+        {INSPECTOR_SECTIONS.map((s) => (
+          <button key={s.id} onClick={() => { setActiveTab(s.id); setInspectorOpen(true) }}
+            className="w-8 h-8 flex items-center justify-center transition-colors hover:opacity-80"
+            style={{ color: activeTab === s.id ? "var(--sidebar-text)" : "var(--sidebar-text-muted)" }}
+            title={t(`inspector.${s.id}`, s.label)}
+            aria-label={t(`inspector.${s.id}`, s.label)}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d={s.icon} /></svg>
+          </button>
+        ))}
+        <div className="mt-auto" />
+        <button onClick={() => setInspectorOpen(true)} className="w-8 h-8 flex items-center justify-center transition-colors hover:opacity-80" style={{ color: "var(--sidebar-text-muted)" }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
+        </button>
+      </div>
+    )
+  }
+
+  // Expanded mode — full content
   return (
     <div className="flex flex-col h-full">
       {/* Sticky header */}
@@ -86,9 +116,9 @@ export function ContextPanel() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round">
               <path d={config.icon} />
             </svg>
-            <span className="text-sm font-medium" style={{ color: "var(--sidebar-text)" }}>{config.label}</span>
+            <span className="text-sm font-medium" style={{ color: "var(--sidebar-text)", textShadow: "0 1px 3px rgba(0,0,0,0.4)" }}>{config.label}</span>
           </div>
-          <button onClick={() => setInspectorOpen(false)} aria-label="Close inspector" className="w-6 h-6 flex items-center justify-center transition-colors hover:opacity-70" style={{ color: "var(--text-tertiary)" }}>
+          <button onClick={() => setInspectorOpen(false)} aria-label="Close inspector" className="w-6 h-6 flex items-center justify-center transition-colors hover:opacity-70" style={{ color: "var(--sidebar-text-muted)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
           </button>
         </div>
@@ -96,14 +126,12 @@ export function ContextPanel() {
         {/* Section tabs */}
         <div className="flex gap-1 px-3 pb-2 overflow-x-auto">
           {sections.map((section) => (
-            <button
-              key={section.id}
-              onClick={() => setActiveTab(section.id)}
+            <button key={section.id} onClick={() => setActiveTab(section.id)}
               className="px-3 py-1 text-xs font-medium transition-colors whitespace-nowrap rounded"
               style={{
-                    color: activeTab === section.id ? "var(--sidebar-text)" : "var(--sidebar-text-muted)",
-                    backgroundColor: activeTab === section.id ? "var(--sidebar-active)" : "transparent",
-                opacity: activeTab === section.id ? 1 : 0.7,
+                color: activeTab === section.id ? "var(--sidebar-text)" : "var(--sidebar-text-muted)",
+                backgroundColor: activeTab === section.id ? "var(--sidebar-active)" : "transparent",
+                textShadow: "0 1px 3px rgba(0,0,0,0.3)",
               }}
             >
               {section.label}
@@ -130,9 +158,13 @@ export function ContextPanel() {
           >{type}</button>
         ))}
       </div>
+
       {/* Collapse button */}
       <div className="shrink-0 px-4 py-3" style={{ borderTop: "1px solid var(--sidebar-border)", position: "relative", zIndex: 1 }}>
-        <button onClick={() => setInspectorOpen(false)} className="flex items-center gap-2 w-full text-xs transition-colors hover:opacity-80" style={{ color: "var(--sidebar-category-text)" }}>
+        <button onClick={() => setInspectorOpen(false)}
+          className="flex items-center gap-2 w-full text-xs transition-colors hover:opacity-80"
+          style={{ color: "var(--sidebar-category-text)", textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}
+        >
           <motion.svg animate={{ rotate: 180 }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></motion.svg>
           <span>Collapse</span>
         </button>

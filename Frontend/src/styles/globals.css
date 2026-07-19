@@ -18,7 +18,7 @@
   /* Sidebar text shadow for readability */
   [style*="--sidebar-background"] *,
   [style*="--inspector-background"] * {
-    text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
   }
   /* Remove text shadow from inputs and SVGs */
   [style*="--sidebar-background"] input,

@@ -158,7 +158,9 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
             className="flex items-center gap-2 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/10 px-2 py-1"
             aria-label="User menu"
           >
-            <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-secondary))" }}>AU</div>
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-white shadow-md" style={{ backgroundColor: "var(--brand)" }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            </div>
             <div className="hidden lg:block text-left leading-tight">
               <div className="text-sm font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Admin User</div>
               <div className="text-[10px] font-medium" style={{ color: "var(--text-tertiary)" }}>Administrator</div>
@@ -179,7 +181,9 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
               >
                 <div className="p-3 border-b" style={{ borderColor: "var(--border-default)" }}>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-secondary))" }}>AU</div>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md" style={{ backgroundColor: "var(--brand)" }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </div>
                     <div>
                       <div className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Admin User</div>
                       <div className="text-xs" style={{ color: "var(--text-tertiary)" }}>admin@meterverse.com</div>

@@ -62,26 +62,20 @@ export function WorkspaceLayout({
           <div className="flex-1 overflow-y-auto overflow-x-hidden">{children}</div>
         </div>
 
-        {/* INSPECTOR — contextual, collapsed by default */}
-        <AnimatePresence>
-          {inspectorOpen && (
-            <motion.div
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 336, opacity: 1 }}
-              exit={{ width: 0, opacity: 0 }}
-              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="shrink-0 relative z-30"
-              style={{ padding: "8px 8px 8px 0", alignSelf: "stretch" }}
-            >
-              <div
-                className="h-full overflow-hidden rounded-2xl"
-                style={{ backgroundColor: "var(--sidebar-background)" }}
-              >
-                {inspectorContent}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* INSPECTOR — collapsible like sidebar (48px collapsed, 336px expanded) */}
+        <motion.div
+          animate={{ width: inspectorOpen ? 336 : 48 }}
+          transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="shrink-0 relative z-30"
+          style={{ padding: "8px 8px 8px 0", alignSelf: "stretch" }}
+        >
+          <div
+            className="h-full overflow-hidden rounded-2xl"
+            style={{ backgroundColor: "var(--sidebar-background)" }}
+          >
+            {inspectorContent}
+          </div>
+        </motion.div>
       </div>
 
       {/* FOOTER */}
