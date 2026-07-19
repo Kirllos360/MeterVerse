@@ -116,7 +116,7 @@ export function ContextPanel() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2" strokeLinecap="round">
               <path d={config.icon} />
             </svg>
-            <span className="text-sm font-medium" style={{ color: "var(--sidebar-text)", textShadow: "0 1px 3px rgba(0,0,0,0.4)" }}>{config.label}</span>
+            <span className="text-sm font-medium" style={{ color: "var(--sidebar-text)", }}>{config.label}</span>
           </div>
           <button onClick={() => setInspectorOpen(false)} aria-label="Close inspector" className="w-6 h-6 flex items-center justify-center transition-colors hover:opacity-70" style={{ color: "var(--sidebar-text-muted)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
@@ -131,8 +131,7 @@ export function ContextPanel() {
               style={{
                 color: activeTab === section.id ? "var(--sidebar-text)" : "var(--sidebar-text-muted)",
                 backgroundColor: activeTab === section.id ? "var(--sidebar-active)" : "transparent",
-                textShadow: "0 1px 3px rgba(0,0,0,0.3)",
-              }}
+                }}
             >
               {section.label}
             </button>
@@ -163,7 +162,7 @@ export function ContextPanel() {
       <div className="shrink-0 px-4 py-3" style={{ borderTop: "1px solid var(--sidebar-border)", position: "relative", zIndex: 1 }}>
         <button onClick={() => setInspectorOpen(false)}
           className="flex items-center gap-2 w-full text-xs transition-colors hover:opacity-80"
-          style={{ color: "var(--sidebar-category-text)", textShadow: "0 1px 3px rgba(0,0,0,0.3)" }}
+          style={{ color: "var(--sidebar-category-text)", }}
         >
           <motion.svg animate={{ rotate: 180 }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></motion.svg>
           <span>Collapse</span>
