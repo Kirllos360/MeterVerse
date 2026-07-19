@@ -77,3 +77,6 @@ backup files/
 
 # Old backend (inside Frontend)
 Frontend/backend/
+
+# TypeScript build info
+tsconfig.tsbuildinfo
