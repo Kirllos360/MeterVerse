@@ -27,7 +27,7 @@ function AccessDenied() {
   return (
     <div className="flex items-center justify-center h-64">
       <div className="text-center">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="1.5" className="mx-auto mb-3">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--status-warning)" strokeWidth="1.5" className="mx-auto mb-3">
           <rect x="3" y="11" width="18" height="11" rx="2" />
           <path d="M7 11V7a5 5 0 0110 0v4" />
         </svg>

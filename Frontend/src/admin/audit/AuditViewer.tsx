@@ -35,7 +35,7 @@ export function AuditViewer() {
             <span className="w-36 shrink-0 truncate" style={{ color: "var(--text-secondary)" }}>{e.actor}</span>
             <span className="w-32 shrink-0 truncate font-medium" style={{ color: "var(--text-primary)" }}>{e.action}</span>
             <span className="flex-1 truncate" style={{ color: "var(--text-secondary)" }}>{e.resource}</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(5,150,105,0.1)" : "rgba(220,38,38,0.1)", color: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }}>{e.status}</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(var(--status-success-rgb), 0.1)" : "rgba(var(--status-error-rgb), 0.1)", color: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }}>{e.status}</span>
           </div>
         ))}
       </div>

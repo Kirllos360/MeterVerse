@@ -176,11 +176,11 @@ export function SidebarContent() {
                                   <span className="text-xs flex-1 text-left truncate flex items-center gap-1.5" style={{ color: isActive ? "var(--sidebar-text)" : "var(--sidebar-text-muted)" }}>
                                     {t(`nav.${app.id}`, app.title)}
                                     {app.badge && (
-                                      <span className="px-1 py-0.5 rounded-full text-[8px] font-medium" style={{ backgroundColor: "rgba(239,68,68,0.2)", color: "#EF4444" }}>
+                                      <span className="px-1 py-0.5 rounded-full text-[8px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.2)", color: "var(--status-error)" }}>
                                         {app.badge}
                                       </span>
                                     )}
-                                    {app.beta && <span className="text-[8px]" style={{ color: "#F59E0B" }}>BETA</span>}
+                                    {app.beta && <span className="text-[8px]" style={{ color: "var(--status-pending)" }}>BETA</span>}
                                   </span>
                                 )}
                               </motion.button>

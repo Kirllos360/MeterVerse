@@ -43,11 +43,11 @@ export class CustomersApp extends BaseApp {
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">Active</div>
-          <div class="text-xl font-bold mt-1" style="color:#059669">0</div>
+          <div class="text-xl font-bold mt-1" style="color:var(--status-success)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">Overdue Balance</div>
-          <div class="text-xl font-bold mt-1" style="color:#DC2626">0</div>
+          <div class="text-xl font-bold mt-1" style="color:var(--status-error)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">New This Month</div>

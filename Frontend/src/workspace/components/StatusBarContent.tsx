@@ -69,7 +69,7 @@ export function StatusBarContent() {
               {MOTIVATIONAL_QUOTES[quoteIndex]}
             </motion.span>
           ) : (
-            <motion.span key={`reminder-${reminderIndex}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.3 }} className="truncate text-[10px]" style={{ color: "rgba(239,68,68,0.5)" }}>
+            <motion.span key={`reminder-${reminderIndex}`} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }} transition={{ duration: 0.3 }} className="truncate text-[10px]" style={{ color: "rgba(var(--status-error-rgb), 0.5)" }}>
               {REMINDERS[reminderIndex]}
             </motion.span>
           )}

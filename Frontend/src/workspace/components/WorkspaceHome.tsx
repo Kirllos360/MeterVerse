@@ -21,7 +21,7 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 const activityColors: Record<string, string> = {
   reading: "var(--brand-primary)",
   invoice: "#3B82F6",
-  customer: "#F59E0B",
+  customer: "var(--status-pending)",
   system: "#8B5CF6",
   report: "var(--surface-base)",
 }
@@ -65,8 +65,8 @@ export function WorkspaceHome() {
   const maxMonthly = Math.max(...liveMonthlyData)
   const meterDistribution = [
     { label: t("home.active", "Active"), value: 2847, color: "var(--brand-primary)" },
-    { label: t("home.maintenance", "Maintenance"), value: 156, color: "#F59E0B" },
-    { label: t("home.offline", "Offline"), value: 47, color: "#EF4444" },
+    { label: t("home.maintenance", "Maintenance"), value: 156, color: "var(--status-pending)" },
+    { label: t("home.offline", "Offline"), value: 47, color: "var(--status-error)" },
   ]
   const totalMeters = meterDistribution.reduce((a, b) => a + b.value, 0)
   let donutAngle = 0

@@ -57,6 +57,17 @@ body {
   --sidebar-category-text: rgba(255, 255, 255, 0.3);
   --sidebar-count-text: rgba(255, 255, 255, 0.15);
 
+  /* ─── Admin Panel Tokens ─────────────────────────────── */
+  --admin-background: #050505;
+  --admin-surface: #0A0A0A;
+  --admin-border: #1A1A1A;
+  --admin-text: #FFFFFF;
+  --admin-text-muted: rgba(255, 255, 255, 0.4);
+  --admin-text-dim: rgba(255, 255, 255, 0.25);
+  --admin-accent: var(--status-error);
+  --admin-accent-muted: rgba(var(--status-error-rgb), 0.5);
+  --admin-accent-subtle: rgba(var(--status-error-rgb), 0.2);
+
   /* ─── Inspector Tokens ───────────────────────────────── */
   --inspector-background: #043526;
   --inspector-surface: rgba(255, 255, 255, 0.03);

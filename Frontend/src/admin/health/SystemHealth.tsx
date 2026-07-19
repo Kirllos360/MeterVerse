@@ -6,7 +6,7 @@ interface ServiceStatus {
   name: string; status: "operational" | "degraded" | "down"; latency: string
 }
 
-const COLORS = { operational: "#059669", degraded: "#D97706", down: "#DC2626" }
+const COLORS = { operational: "var(--status-success)", degraded: "var(--status-warning)", down: "var(--status-error)" }
 
 export function SystemHealth() {
   const [services, setServices] = useState<ServiceStatus[]>([

@@ -16,7 +16,7 @@ export function AppShell({ header, sidebar, inspector, footer, children }: AppSh
   const isCollapsed = sidebarMode === "collapsed" || sidebarMode === "dock"
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[var(--color-surface-base,#FAFAFA)] dark:bg-[#0A0A0A]">
+    <div className="flex h-screen overflow-hidden bg-[var(--color-surface-base,#FAFAFA)] dark:bg-[var(--surface-sunken)]">
       {sidebar && (
         <div
           className="shrink-0 h-full"

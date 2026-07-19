@@ -27,13 +27,13 @@ export default function AIDiagnosticsPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-semibold text-white">AI Diagnostics</h1>
-          <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>System health analysis and issue detection</p>
+          <h1 className="text-lg font-semibold" style={{ color: "var(--admin-text)" }}>AI Diagnostics</h1>
+          <p className="text-xs mt-1" style={{ color: "var(--admin-text-muted)" }}>System health analysis and issue detection</p>
         </div>
         <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
           onClick={runDiagnostic}
           className="px-4 py-2 rounded-lg text-xs font-medium text-white"
-          style={{ backgroundColor: scanning ? "rgba(239,68,68,0.5)" : "#EF4444" }}
+          style={{ backgroundColor: scanning ? "var(--admin-accent-muted)" : "var(--admin-accent)" }}
           disabled={scanning}
         >
           {scanning ? "Scanning..." : "Run Diagnostic"}
@@ -41,11 +41,11 @@ export default function AIDiagnosticsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b pb-2" style={{ borderColor: "#1A1A1A" }}>
+      <div className="flex gap-2 border-b pb-2" style={{ borderColor: "var(--admin-border)" }}>
         {["anomalies", "forecast", "recommendations", "summaries", "logs"].map((tab) => (
           <button key={tab} onClick={() => setActiveTab(tab)}
             className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors capitalize"
-            style={{ backgroundColor: activeTab === tab ? "rgba(239,68,68,0.2)" : "transparent", color: activeTab === tab ? "#EF4444" : "rgba(255,255,255,0.5)" }}>
+            style={{ backgroundColor: activeTab === tab ? "var(--admin-accent-subtle)" : "transparent", color: activeTab === tab ? "var(--admin-accent)" : "var(--admin-text-muted)" }}>
             {tab}
           </button>
         ))}
@@ -55,19 +55,19 @@ export default function AIDiagnosticsPage() {
       {activeTab === "anomalies" && (
         <div className="space-y-2">
           {anomalies.length === 0 ? (
-            <div className="p-8 text-center text-sm rounded-xl border" style={{ backgroundColor: "#0A0A0A", borderColor: "#1A1A1A", color: "rgba(255,255,255,0.3)" }}>
+            <div className="p-8 text-center text-sm rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)", color: "var(--admin-text-dim)" }}>
               Run a diagnostic to detect anomalies
             </div>
           ) : (anomalies as Array<{ id: string; meterSerial: string; type: string; severity: string; value: number; explanation: string }>).map((a) => (
-            <div key={a.id} className="p-4 rounded-xl border" style={{ backgroundColor: "#0A0A0A", borderColor: "#1A1A1A" }}>
+            <div key={a.id} className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-white">{a.meterSerial} — {a.type}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: a.severity === "high" ? "rgba(220,38,38,0.2)" : "rgba(217,119,6,0.2)", color: a.severity === "high" ? "#DC2626" : "#D97706" }}>
+                <span className="text-sm font-medium" style={{ color: "var(--admin-text)" }}>{a.meterSerial} — {a.type}</span>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: a.severity === "high" ? "rgba(var(--status-error-rgb), 0.2)" : "rgba(var(--status-warning-rgb), 0.2)", color: a.severity === "high" ? "var(--status-error)" : "var(--status-warning)" }}>
                   {a.severity}
                 </span>
               </div>
-              <p className="text-xs" style={{ color: "rgba(255,255,255,0.5)" }}>{a.explanation}</p>
-              <p className="text-[10px] mt-1" style={{ color: "rgba(255,255,255,0.2)" }}>Value: {a.value}</p>
+              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{a.explanation}</p>
+              <p className="text-[10px] mt-1" style={{ color: "var(--admin-text-dim)" }}>Value: {a.value}</p>
             </div>
           ))}
         </div>
@@ -75,22 +75,22 @@ export default function AIDiagnosticsPage() {
 
       {/* Forecast */}
       {activeTab === "forecast" && (
-        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "#0A0A0A", borderColor: "#1A1A1A" }}>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Forecast engine ready — connect to backend data</p>
+        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
+          <p className="text-sm" style={{ color: "var(--admin-text-dim)" }}>Forecast engine ready — connect to backend data</p>
         </div>
       )}
 
       {/* Recommendations */}
       {activeTab === "recommendations" && (
-        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "#0A0A0A", borderColor: "#1A1A1A" }}>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Recommendation engine ready — connect to backend data</p>
+        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
+          <p className="text-sm" style={{ color: "var(--admin-text-dim)" }}>Recommendation engine ready — connect to backend data</p>
         </div>
       )}
 
       {/* Summaries */}
       {activeTab === "summaries" && (
-        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "#0A0A0A", borderColor: "#1A1A1A" }}>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.3)" }}>Report summarizer ready — connect to backend data</p>
+        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
+          <p className="text-sm" style={{ color: "var(--admin-text-dim)" }}>Report summarizer ready — connect to backend data</p>
         </div>
       )}
 

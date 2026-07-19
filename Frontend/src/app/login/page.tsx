@@ -31,7 +31,7 @@ function KpiCard({ label, value, trend }: { label: string; value: string; trend?
       <div className="flex items-baseline gap-2 mt-1">
         <span className="text-xl font-semibold text-white">{value}</span>
         {trend && (
-          <span className="text-[11px]" style={{ color: trend === "up" ? "#059669" : "#DC2626" }}>
+          <span className="text-[11px]" style={{ color: trend === "up" ? "var(--status-success)" : "var(--status-error)" }}>
             {trend === "up" ? "↑" : "↓"} 3.2%
           </span>
         )}
@@ -148,7 +148,7 @@ export default function LoginPage() {
               <motion.div key={i} initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 + i * 0.1 }}
                 className="flex items-start gap-3"
               >
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "rgba(0,191,165,0.12)" }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.12)" }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="1.8" strokeLinecap="round">
                     <path d={f.icon} />
                   </svg>
@@ -290,9 +290,9 @@ export default function LoginPage() {
               <div className="px-5 py-3 flex items-center justify-between" style={{ borderBottom: "1px solid var(--border-default)" }}>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "#DC2626" }} />
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "#D97706" }} />
-                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "#059669" }} />
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "var(--status-error)" }} />
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "var(--status-warning)" }} />
+                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: "var(--status-success)" }} />
                   </div>
                   <span className="text-[11px] font-medium ml-2" style={{ color: "var(--text-tertiary)" }}>dashboard.meterverse.com</span>
                 </div>
@@ -329,9 +329,9 @@ export default function LoginPage() {
                   <motion.span
                     animate={{ opacity: [1, 0.5, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="flex items-center gap-1.5 font-medium" style={{ color: "#059669" }}
+                    className="flex items-center gap-1.5 font-medium" style={{ color: "var(--status-success)" }}
                   >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#059669" }} />
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--status-success)" }} />
                     All Systems Operational
                   </motion.span>
                 </div>

@@ -11,7 +11,7 @@ export function MetricsDashboard() {
     { label: "Requests/min", value: "1,247", color: "#22C55E" },
     { label: "Error Rate", value: "0.02%", color: "#22C55E" },
     { label: "Active Users", value: "43", color: "#3B82F6" },
-    { label: "Queue Depth", value: "156", color: "#F59E0B" },
+    { label: "Queue Depth", value: "156", color: "var(--status-pending)" },
     { label: "Cache Hit", value: "94%", color: "#22C55E" },
     { label: "Uptime", value: "99.97%", color: "#22C55E" },
   ])

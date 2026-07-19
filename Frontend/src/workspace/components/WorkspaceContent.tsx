@@ -165,9 +165,9 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
           aria-label={viewMode === "list" ? "Grid view" : "List view"}
           className="w-8 h-8 flex items-center justify-center rounded-lg shrink-0 relative"
           style={{
-            color: "var(--brand-primary, var(--brand-primary))",
+            color: "var(--brand-primary)",
             background: "var(--surface-raised)",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 0 0 1px rgba(var(--brand-primary-rgb), 0.1)",
+            boxShadow: "0 2px 8px rgba(var(--black-rgb), 0.06), 0 0 0 1px rgba(var(--brand-primary-rgb), 0.1)",
           }}
         >
           <motion.div
@@ -201,7 +201,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
               <motion.button
                 onClick={() => setSortOpen(!sortOpen)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs outline-none transition-all bg-transparent cursor-pointer min-w-[80px]"
-                style={{ borderColor: sortField ? "var(--brand-primary, var(--brand-primary))" : "var(--border-default)", color: "var(--text-primary)" }}
+                style={{ borderColor: sortField ? "var(--brand-primary)" : "var(--border-default)", color: "var(--text-primary)" }}
                 whileTap={{ scale: 0.97 }}
               >
                 <span className="flex-1 text-left">{sortField ? columns.find((c) => c.id === sortField)?.label : t("content.none", "None")}</span>
@@ -219,13 +219,13 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     onClick={() => setSortOpen(false)}
                   >
                     <button onClick={() => { setSortField(""); toggleSort("") }} className="w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 flex items-center gap-2"
-                      style={{ color: !sortField ? "var(--brand-primary, var(--brand-primary))" : "var(--text-primary)", backgroundColor: !sortField ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
+                      style={{ color: !sortField ? "var(--brand-primary)" : "var(--text-primary)", backgroundColor: !sortField ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
                       <span>{t("content.none", "None")}</span>
                     </button>
                     {columns.filter(c => c.sortable).map((c) => (
                       <button key={c.id} onClick={() => { setSortField(c.id); toggleSort(c.id) }}
                         className="w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 flex items-center gap-2"
-                        style={{ color: sortField === c.id ? "var(--brand-primary, var(--brand-primary))" : "var(--text-primary)", backgroundColor: sortField === c.id ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
+                        style={{ color: sortField === c.id ? "var(--brand-primary)" : "var(--text-primary)", backgroundColor: sortField === c.id ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
                         <span>{c.label}</span>
                         {sortField === c.id && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>}
                       </button>
