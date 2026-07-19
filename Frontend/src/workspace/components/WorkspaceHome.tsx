@@ -18,7 +18,7 @@ const monthlyData = [3200, 2800, 3500, 4100, 3800, 4200, 4600, 4300, 4900, 5100,
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 const activityColors: Record<string, string> = {
-  reading: "var(--brand-primary)",
+  reading: "var(--brand)",
   invoice: "#3B82F6",
   customer: "var(--status-pending)",
   system: "#8B5CF6",
@@ -63,7 +63,7 @@ export function WorkspaceHome() {
   const quickApps = getActive().slice(0, 8)
   const maxMonthly = Math.max(...liveMonthlyData)
   const meterDistribution = [
-    { label: t("home.active", "Active"), value: 2847, color: "var(--brand-primary)" },
+    { label: t("home.active", "Active"), value: 2847, color: "var(--brand)" },
     { label: t("home.maintenance", "Maintenance"), value: 156, color: "var(--status-pending)" },
     { label: t("home.offline", "Offline"), value: 47, color: "var(--status-error)" },
   ]
@@ -128,7 +128,7 @@ export function WorkspaceHome() {
             <button key={action} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all hover:shadow-md"
               style={{ ...glassCard, color: "var(--text-primary)" }}
             >
-              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>+</span>
+              <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb), 0.1)", color: "var(--brand)" }}>+</span>
               {action}
             </button>
           ))}
@@ -149,7 +149,7 @@ export function WorkspaceHome() {
                   transition={{ duration: 0.8, delay: i * 0.03, ease: "easeOut" }}
                   className="w-full rounded-t-sm"
                   style={{
-                    backgroundColor: i === 11 ? "var(--brand-primary)" : "rgba(var(--brand-primary-rgb), 0.25)",
+                    backgroundColor: i === 11 ? "var(--brand)" : "rgba(var(--brand-rgb), 0.25)",
                     minHeight: 4,
                   }}
                 />
@@ -211,7 +211,7 @@ export function WorkspaceHome() {
               className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left text-sm transition-all"
               style={glassCard}
             >
-              <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand-primary)" }}>
+              <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand)" }}>
                 {app.title[0]}
               </span>
               <span className="truncate" style={{ color: "var(--text-primary)" }}>{app.title}</span>
@@ -263,4 +263,5 @@ function SectionTitle({ label }: { label: string }) {
     </div>
   )
 }
+
 

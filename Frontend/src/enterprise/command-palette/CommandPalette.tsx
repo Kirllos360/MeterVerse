@@ -91,7 +91,7 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
                         onMouseEnter={() => setSelectedIndex(globalIdx)}
                         className={`flex items-center gap-3 w-full px-2 py-2 rounded-lg text-xs text-left transition-colors`}
                         style={{
-                          backgroundColor: selectedIndex === globalIdx ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent",
+                          backgroundColor: selectedIndex === globalIdx ? "rgba(var(--brand-rgb), 0.1)" : "transparent",
                           color: "var(--text-primary)",
                         }}
                       >
@@ -110,3 +110,4 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
     </AnimatePresence>
   )
 }
+

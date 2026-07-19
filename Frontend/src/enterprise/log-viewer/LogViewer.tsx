@@ -50,8 +50,8 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
           <button key={key} onClick={() => setFilter(key)}
             className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-colors whitespace-nowrap"
             style={{
-              backgroundColor: filter === key ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent",
-              color: filter === key ? "var(--brand-primary)" : "var(--text-secondary)",
+              backgroundColor: filter === key ? "rgba(var(--brand-rgb), 0.1)" : "transparent",
+              color: filter === key ? "var(--brand)" : "var(--text-secondary)",
             }}
           >
             {key !== "all" && <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: levelColors[key] }} />}
@@ -87,4 +87,5 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
     </div>
   )
 }
+
 

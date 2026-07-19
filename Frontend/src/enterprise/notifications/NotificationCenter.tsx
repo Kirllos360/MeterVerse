@@ -53,7 +53,7 @@ export function NotificationCenter({ notifications, onMarkRead, onMarkAllRead, o
           >
             <div className="flex items-center justify-between px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default)" }}>
               <span className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Notifications</span>
-              {unreadCount > 0 && <button onClick={onMarkAllRead} className="text-[10px] font-medium hover:underline" style={{ color: "var(--brand-primary)" }}>Mark all read</button>}
+              {unreadCount > 0 && <button onClick={onMarkAllRead} className="text-[10px] font-medium hover:underline" style={{ color: "var(--brand)" }}>Mark all read</button>}
             </div>
             <div className="max-h-80 overflow-y-auto">
               {notifications.length === 0 ? (
@@ -62,7 +62,7 @@ export function NotificationCenter({ notifications, onMarkRead, onMarkAllRead, o
                 notifications.map((n) => (
                   <motion.div key={n.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                     className={`flex items-start gap-3 px-4 py-2.5 border-b transition-colors cursor-pointer ${n.read ? "" : "hover:bg-black/[0.02]"}`}
-                    style={{ borderColor: "var(--border-default)", backgroundColor: n.read ? "transparent" : "rgba(var(--brand-primary-rgb), 0.03)" }}
+                    style={{ borderColor: "var(--border-default)", backgroundColor: n.read ? "transparent" : "rgba(var(--brand-rgb), 0.03)" }}
                     onClick={() => onMarkRead(n.id)}
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={typeColors[n.type]} strokeWidth="2" className="mt-0.5 shrink-0"><path d={typeIcons[n.type]} /></svg>
@@ -83,3 +83,4 @@ export function NotificationCenter({ notifications, onMarkRead, onMarkAllRead, o
     </div>
   )
 }
+
