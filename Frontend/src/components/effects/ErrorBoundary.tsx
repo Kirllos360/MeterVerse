@@ -40,7 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Something went wrong</p>
             <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>{this.state.error?.message || "An unexpected error occurred"}</p>
             <button onClick={() => this.setState({ hasError: false, error: undefined })}
-              className="mt-3 px-3 py-1.5 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--brand-primary)" }}>
+              className="mt-3 px-3 py-1.5 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--brand)" }}>
               Try again
             </button>
           </div>
@@ -50,3 +50,4 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children
   }
 }
+

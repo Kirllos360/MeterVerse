@@ -19,7 +19,8 @@ export class AIAssistantApp extends BaseApp {
       <div class="flex-1 rounded-xl border mb-4 p-6 flex items-center justify-center" style="background:var(--surface-raised);border-color:var(--border-default)">
         <div class="text-center"><span class="text-3xl">🤖</span><p class="text-sm mt-2" style="color:var(--text-secondary)">How can I help you today?</p><p class="text-xs mt-1" style="color:var(--text-tertiary)">Ask about consumption, billing, meters, or anomalies</p></div>
       </div>
-      <div class="flex items-center gap-2"><input placeholder="Ask anything..." class="flex-1 px-3 py-2 rounded-xl border text-sm outline-none focus:border-[var(--brand-primary)] transition-colors" style="background:var(--surface-sunken);border-color:var(--border-default);color:var(--text-primary)"><button class="px-3 py-2 rounded-xl text-sm font-medium text-white" style="background:var(--brand-primary)">Send</button></div>
+      <div class="flex items-center gap-2"><input placeholder="Ask anything..." class="flex-1 px-3 py-2 rounded-xl border text-sm outline-none focus:border-[var(--brand)] transition-colors" style="background:var(--surface-sunken);border-color:var(--border-default);color:var(--text-primary)"><button class="px-3 py-2 rounded-xl text-sm font-medium text-white" style="background:var(--brand)">Send</button></div>
     </div>`
   }
 }
+

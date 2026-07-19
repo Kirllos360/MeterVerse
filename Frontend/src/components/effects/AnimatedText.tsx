@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 
 export function GradientText({ children, className = "" }: { children: string; className?: string }) {
   const colors = useMemo(() => [
-    "var(--brand-primary)", "var(--brand-primary)", "var(--surface-base)", "var(--brand-primary)",
+    "var(--brand)", "var(--brand)", "var(--surface-base)", "var(--brand)",
   ], [])
 
   return (
@@ -53,9 +53,10 @@ export function TypewriterText({ text, speed = 50, className = "" }: { text: str
           animate={{ opacity: [1, 0] }}
           transition={{ duration: 0.5, repeat: Infinity }}
           className="inline-block w-[2px] h-[1em] ml-0.5 align-middle"
-          style={{ backgroundColor: "var(--brand-primary)" }}
+          style={{ backgroundColor: "var(--brand)" }}
         />
       )}
     </span>
   )
 }
+

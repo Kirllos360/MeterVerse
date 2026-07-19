@@ -52,7 +52,7 @@ export class CustomersApp extends BaseApp {
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
           <div class="text-[11px]" style="color:var(--text-tertiary)">New This Month</div>
-          <div class="text-xl font-bold mt-1" style="color:var(--brand-primary)">0</div>
+          <div class="text-xl font-bold mt-1" style="color:var(--brand)">0</div>
         </div>
       </div>
       <div class="rounded-xl border overflow-hidden" style="border-color:var(--border-default)">
@@ -83,3 +83,4 @@ export const customersRegistration = {
   metadata: new CustomersApp(null!).metadata,
   create: (host: ProgramHost) => new CustomersApp(host),
 }
+

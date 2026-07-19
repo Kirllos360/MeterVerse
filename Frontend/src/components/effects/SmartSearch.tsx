@@ -87,7 +87,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
         style={{
           backgroundColor: isFocused ? "var(--surface-raised)" : "var(--surface-sunken)",
           borderColor: "var(--border-default)",
-          boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-primary-rgb), 0.15)" : "none",
+          boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-rgb), 0.15)" : "none",
         }}
       >
         {/* Filter Selector */}
@@ -116,13 +116,13 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                     onClick={() => { setFilter(f.id); setShowFilter(false) }}
                     className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-2"
                     style={{
-                      color: filter === f.id ? "var(--brand-primary)" : "var(--text-primary)",
-                      backgroundColor: filter === f.id ? "rgba(var(--brand-primary-rgb), 0.05)" : "transparent",
+                      color: filter === f.id ? "var(--brand)" : "var(--text-primary)",
+                      backgroundColor: filter === f.id ? "rgba(var(--brand-rgb), 0.05)" : "transparent",
                     }}
                   >
                     <span>{language === "ar" ? f.labelAr : f.label}</span>
                     {filter === f.id && (
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                     )}
                   </button>
                 ))}
@@ -181,7 +181,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                 <div className="flex-1 min-w-0">
                   <div className="truncate">{r.label}</div>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>
+                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0" style={{ backgroundColor: "rgba(var(--brand-rgb), 0.1)", color: "var(--brand)" }}>
                   {r.page}
                 </span>
               </button>
@@ -206,4 +206,5 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
     </div>
   )
 }
+
 

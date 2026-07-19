@@ -57,7 +57,7 @@ export function GlobalSearch() {
                 {SEARCH_CATEGORIES.map((cat) => (
                   <button key={cat} onClick={() => { setCategory(cat); setShowCatDropdown(false) }}
                     className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 flex items-center gap-2"
-                    style={{ color: category === cat ? "var(--brand-primary)" : "var(--text-primary)", backgroundColor: category === cat ? "rgba(var(--brand-primary-rgb), 0.05)" : "transparent" }}>
+                    style={{ color: category === cat ? "var(--brand)" : "var(--text-primary)", backgroundColor: category === cat ? "rgba(var(--brand-rgb), 0.05)" : "transparent" }}>
                     {cat === "all" ? (language === "ar" ? "الكل" : "All") : `${t(`nav.${cat}`, cat)}`}
                   </button>
                 ))}
@@ -106,3 +106,4 @@ export function GlobalSearch() {
     </div>
   )
 }
+

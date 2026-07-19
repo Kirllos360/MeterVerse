@@ -25,7 +25,7 @@ export function AuditViewer() {
   return (
     <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
       <div className="px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
-        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search audit log..." className="w-full px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[var(--brand-primary)] transition-colors" style={{ backgroundColor: "var(--surface-sunken)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
+        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search audit log..." className="w-full px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[var(--brand)] transition-colors" style={{ backgroundColor: "var(--surface-sunken)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
       </div>
       <div style={{ backgroundColor: "var(--surface-base)" }}>
         {filtered.map((e) => (
@@ -42,3 +42,4 @@ export function AuditViewer() {
     </div>
   )
 }
+
