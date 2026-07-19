@@ -74,3 +74,6 @@ yaml files/
 
 # Backups
 backup files/
+
+# Old backend (inside Frontend)
+Frontend/backend/

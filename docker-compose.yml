@@ -12,10 +12,11 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      test: ["CMD-SHELL", "pg_isready -U meter_pulse -d meter_pulse 2>/dev/null || pg_isready 2>/dev/null"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
 
   backend:
     build: ./backend
