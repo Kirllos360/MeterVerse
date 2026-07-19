@@ -1,3 +1,4 @@
+// Default view: Table
 import { BaseApp } from "../shared/app-base"
 import type { ProgramLifecycle, ProgramHost, ProgramMetadata, MountContext, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState } from "@/runtime/contracts/program"
 import { KPIWidget, KPIWidgetGrid } from "@/enterprise/kpi/KPIWidget"

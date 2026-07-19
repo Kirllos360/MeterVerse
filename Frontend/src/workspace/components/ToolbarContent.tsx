@@ -36,7 +36,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
   ])
 
   return (
-    <div className="flex items-center h-14 px-5 gap-4 border-b font-semibold tracking-wide" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+    <div className="flex items-center h-14 px-4 gap-3 font-semibold tracking-wide" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
       {/* Left: System Name + Breadcrumb */}
       <div className="flex items-center gap-3 text-sm min-w-0 shrink-0">
         <div className="flex items-center gap-2">
@@ -45,7 +45,6 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
           </div>
           <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--text-primary)" }}>MeterVerse</span>
         </div>
-        <div className="h-5 w-px" style={{ backgroundColor: "var(--border-default)" }} />
         <span style={{ color: "var(--text-tertiary)" }} className="hidden sm:inline font-medium">{language === "ar" ? "مساحة العمل" : "Workspace"}</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden sm:block" style={{ color: "var(--text-tertiary)" }}>
           <path d="M9 18l6-6-6-6" />
@@ -88,7 +87,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
               style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
+              <div className="flex items-center justify-between px-3 py-2 border-b" style={{ borderColor: "var(--border-default)" }}>
                 <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
                   {reminderMode === "add" ? (language === "ar" ? "إضافة تذكير" : "Add Reminder") : (language === "ar" ? "التذكيرات" : "Reminders")}
                 </span>
@@ -99,7 +98,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
 
               {reminderMode === "add" ? (
                 /* Add Reminder Form */
-                <div className="p-4 space-y-3">
+                <div className="p-3 space-y-2">
                   <div>
                     <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary)" }}>{language === "ar" ? "التذكير" : "Reminder"}</label>
                     <input value={newReminder} onChange={(e) => setNewReminder(e.target.value)} placeholder={language === "ar" ? "أدخل التذكير..." : "Enter reminder..."}
@@ -133,7 +132,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 /* Reminders List */
                 <div className="max-h-60 overflow-y-auto">
                   {reminders.map((r, i) => (
-                    <div key={i} className="flex items-start gap-3 px-4 py-3 border-b last:border-b-0 group" style={{ borderColor: "var(--border-default)" }}>
+                    <div key={i} className="flex items-start gap-2 px-3 py-2.5 border-b last:border-b-0 group" style={{ borderColor: "var(--border-default)" }}>
                       <span className="text-lg mt-0.5">{r.icon}</span>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm" style={{ color: "var(--text-primary)" }}>{r.title}</div>
@@ -150,7 +149,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
           )}
         </AnimatePresence>
 
-        <div className="h-6 w-px" style={{ backgroundColor: "var(--border-default)" }} />
+
 
         {/* User Avatar + Dropdown */}
         <div className="relative">

@@ -1,3 +1,4 @@
+// Default view: Table
 import { BaseApp } from "../shared/app-base"
 import type { ProgramHost, ProgramMetadata, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
 export class MonitoringApp extends BaseApp {

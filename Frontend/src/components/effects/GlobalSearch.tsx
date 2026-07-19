@@ -34,11 +34,11 @@ export function GlobalSearch() {
 
   return (
     <div ref={ref} className="relative w-full" style={{ direction: language === "ar" ? "rtl" : "ltr" }}>
-      <div className={`flex items-center rounded-xl border transition-all duration-200 overflow-hidden`}
+      <div className={`flex items-center rounded-lg transition-all duration-200 overflow-hidden`}
         style={{
           backgroundColor: isFocused ? "var(--surface-raised)" : "var(--surface-sunken)",
-          borderColor: "var(--border-default)",
-          boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-primary-rgb), 0.15)" : "none",
+          borderColor: isFocused ? "var(--border-default)" : "transparent",
+          boxShadow: "none",
         }}
       >
         <div className="relative">

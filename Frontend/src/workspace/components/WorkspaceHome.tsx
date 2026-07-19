@@ -79,7 +79,7 @@ export function WorkspaceHome() {
   return (
     <div className="h-full overflow-y-auto p-6" style={{ maxWidth: 960, margin: "0 auto" }}>
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <GradientText className="text-xl font-semibold">{t("nav.dashboard", "Workspace Home")}</GradientText>
         <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
           <TypewriterText text={`${t("common.area", "Area")}: ${area} — All systems operational`} speed={20} />
@@ -87,9 +87,9 @@ export function WorkspaceHome() {
       </div>
 
       {/* Executive Summary — Glass Cards */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.executiveSummary", "Executive Summary")} />
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2">
           {statData.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -99,11 +99,11 @@ export function WorkspaceHome() {
               }}
               initial="initial"
               animate="animate"
-              className="p-4 rounded-xl"
+              className="p-3 rounded-xl"
               style={glassCard}
             >
               <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
-              <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>
+              <div className="text-lg font-bold mt-0" style={{ color: "var(--text-primary)" }}>
                 {stat.label === "Collection Rate" || stat.label === "System Health" ? (
                   <><AnimatedCounter value={stat.value} />%</>
                 ) : (
@@ -116,9 +116,9 @@ export function WorkspaceHome() {
       </div>
 
       {/* Quick Actions */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.quickActions", "Quick Actions")} />
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-4 gap-2">
           {[
             t("home.newInvoice", "New Invoice"),
             t("home.addMeter", "Add Meter"),
@@ -136,11 +136,11 @@ export function WorkspaceHome() {
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-2 gap-4 mb-8">
+      <div className="grid grid-cols-2 gap-4 mb-6">
         {/* Monthly Consumption Bar Chart */}
-        <div className="p-4 rounded-xl" style={glassCard}>
+        <div className="p-3 rounded-xl" style={glassCard}>
           <SectionTitle label={t("home.monthlyConsumption", "Monthly Consumption (kWh)")} />
-          <div className="flex items-end gap-1.5 h-28 pt-2">
+          <div className="flex items-end gap-1.5 h-24 pt-2">
             {liveMonthlyData.map((v, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <motion.div
@@ -160,7 +160,7 @@ export function WorkspaceHome() {
         </div>
 
         {/* Donut Chart — Meter Status Distribution */}
-        <div className="p-4 rounded-xl" style={glassCard}>
+        <div className="p-3 rounded-xl" style={glassCard}>
           <SectionTitle label={t("home.meterStatusDistribution", "Meter Status Distribution")} />
           <div className="flex items-center gap-4">
             <svg width="100" height="100" viewBox="0 0 36 36">
@@ -199,7 +199,7 @@ export function WorkspaceHome() {
       </div>
 
       {/* Applications */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.applications", "Applications")} />
         <div className="grid grid-cols-4 gap-2">
           {quickApps.map((app) => (
@@ -221,9 +221,9 @@ export function WorkspaceHome() {
       </div>
 
       {/* Recent Activity */}
-      <div className="mb-8">
+      <div className="mb-6">
         <SectionTitle label={t("home.recentActivity", "Recent Activity")} />
-        <div className="p-4 rounded-xl" style={glassCard}>
+        <div className="p-3 rounded-xl" style={glassCard}>
           <div className="space-y-0">
             {activityItems.map((item, i) => (
               <motion.div

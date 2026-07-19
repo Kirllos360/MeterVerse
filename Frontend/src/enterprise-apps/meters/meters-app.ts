@@ -1,3 +1,4 @@
+// Default view: Table
 import { BaseApp } from "../shared/app-base"
 import type { ProgramHost, ProgramMetadata, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramLifecycle } from "@/runtime/contracts/program"
 
