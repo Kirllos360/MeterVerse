@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useWorkspaceStore } from "../stores"
 import { useAppRegistry, categories } from "@/app-framework/registry/application-registry"
@@ -54,18 +54,12 @@ export function SidebarContent() {
 
   return (
     <aside className="h-full flex flex-col" style={{ backgroundColor: "var(--sidebar-background)" }}>
-      {/* Electric spark + signal wave header */}
-      <div className="shrink-0 relative" style={{ borderBottom: "1px solid var(--sidebar-border)" }}>
-        <ElectricSpark />
-        <div className="flex items-center justify-center h-10">
-          <motion.svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sidebar-text)" strokeWidth="1.5" strokeLinecap="round"
-            animate={{ opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-          >
-            <path d="M3 12h2M7 8h2M11 4h2M15 8h2M19 12h2" />
-            <path d="M5 10h2M9 6h2M13 6h2M17 10h2" opacity="0.6" />
-          </motion.svg>
-        </div>
+      {/* Logo header */}
+      <div className="shrink-0 flex items-center justify-center h-12" style={{ borderBottom: "1px solid var(--sidebar-border)" }}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sidebar-text)" strokeWidth="1.5" strokeLinecap="round">
+          <path d="M3 12h2M7 8h2M11 4h2M15 8h2M19 12h2" />
+          <path d="M5 10h2M9 6h2M13 6h2M17 10h2" opacity="0.6" />
+        </svg>
       </div>
 
       {/* Navigation */}
@@ -158,23 +152,4 @@ export function SidebarContent() {
   )
 }
 
-function ElectricSpark() {
-  return (
-    <div className="absolute inset-x-0 top-0 h-6 pointer-events-none overflow-hidden" style={{ opacity: 0.5 }}>
-      <svg width="100%" height="24" viewBox="0 0 200 24" preserveAspectRatio="none">
-        {[0,1,2].map((i) => (
-          <motion.polyline
-            key={i}
-            points="0,12 10,4 20,17 30,7 40,20 50,10 60,18 70,5 80,16 90,8 100,21 110,11 120,19 130,6 140,14 150,9 160,20 170,10 180,17 190,5 200,12"
-            fill="none"
-            stroke="var(--brand)"
-            strokeWidth={1.5 - i * 0.4}
-            opacity={0.3 - i * 0.08}
-            animate={{ opacity: [0.05, 0.4, 0.05] }}
-            transition={{ duration: 0.8 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
-      </svg>
-    </div>
-  )
-}
+

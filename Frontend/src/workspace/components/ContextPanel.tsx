@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useWorkspaceStore } from "../stores"
 import { useTranslation } from "@/hooks/use-translation"
@@ -78,8 +78,7 @@ export function ContextPanel() {
   const sections = config.sections
 
   return (
-    <div className="flex flex-col h-full relative">
-      <WaterRain />
+    <div className="flex flex-col h-full">
       {/* Sticky header */}
       <div className="shrink-0 sticky top-0 z-10" style={{ borderBottom: "1px solid var(--sidebar-border)" }}>
         <div className="flex items-center justify-between h-12 px-4">
@@ -195,21 +194,4 @@ function Placeholder({ text }: { text: string }) {
   )
 }
 
-function WaterRain() {
-  const drops = useMemo(() => Array.from({ length: 20 }, (_, i) => ({
-    id: i, x: Math.random() * 100, delay: Math.random() * 6, size: 1 + Math.random() * 2
-  })), [])
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
-      {drops.map((d) => (
-        <motion.div
-          key={d.id}
-          className="absolute rounded-full"
-          style={{ left: `${d.x}%`, top: "-5%", width: d.size, height: d.size * 2, backgroundColor: "rgba(255,255,255,0.06)" }}
-          animate={{ y: ["0%", "105%"] }}
-          transition={{ duration: 2 + d.id * 0.3, delay: d.delay, repeat: Infinity, ease: "linear" }}
-        />
-      ))}
-    </div>
-  )
-}
+
