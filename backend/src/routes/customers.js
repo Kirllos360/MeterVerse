@@ -1,19 +1,30 @@
 import { Router } from "express"
+import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 
 const router = Router()
 router.use(authenticate)
 
+const createSchema = z.object({
+  name: z.string().min(1).max(200),
+  email: z.string().email().optional().or(z.literal("")),
+  phone: z.string().max(50).optional().or(z.literal("")),
+  address: z.string().max(500).optional().or(z.literal("")),
+  area: z.string().max(100).optional().or(z.literal("")),
+})
+
 router.get("/", async (req, res, next) => {
   try {
-    const { page = 1, limit = 10, search } = req.query
+    const page = Math.max(1, Number(req.query.page) || 1)
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 10))
+    const search = req.query.search
     const where = search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}
     const [customers, total] = await Promise.all([
-      prisma.customer.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { createdAt: "desc" } }),
+      prisma.customer.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" } }),
       prisma.customer.count({ where }),
     ])
-    res.json({ customers, total, page: Number(page), limit: Number(limit) })
+    res.json({ customers, total, page, limit })
   } catch (err) { next(err) }
 })
 
@@ -27,16 +38,24 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const customer = await prisma.customer.create({ data: req.body })
+    const data = createSchema.parse(req.body)
+    const customer = await prisma.customer.create({ data })
     res.status(201).json({ customer })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.put("/:id", async (req, res, next) => {
   try {
-    const customer = await prisma.customer.update({ where: { id: req.params.id }, data: req.body })
+    const data = createSchema.partial().parse(req.body)
+    const customer = await prisma.customer.update({ where: { id: req.params.id }, data })
     res.json({ customer })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.delete("/:id", async (req, res, next) => {

@@ -1,17 +1,21 @@
 import { Router } from "express"
+import { z } from "zod"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 
 const router = Router()
-const JWT_SECRET = process.env.JWT_SECRET || "mv-jwt-secret-change-in-production-2026"
+const JWT_SECRET = process.env.JWT_SECRET
+if (!JWT_SECRET) { console.error("FATAL: JWT_SECRET required"); process.exit(1) }
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "24h"
+
+const loginSchema = z.object({ email: z.string().email(), password: z.string().min(1) })
+const registerSchema = z.object({ email: z.string().email(), password: z.string().min(6), name: z.string().min(1).max(100) })
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { email, password } = req.body
-    if (!email || !password) return res.status(400).json({ error: "Email and password required" })
+    const { email, password } = loginSchema.parse(req.body)
 
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) return res.status(401).json({ error: "Invalid credentials" })
@@ -32,9 +36,7 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/register", async (req, res, next) => {
   try {
-    const { email, password, name } = req.body
-    if (!email || !password || !name) return res.status(400).json({ error: "Email, password, and name required" })
-    if (password.length < 6) return res.status(400).json({ error: "Password must be at least 6 characters" })
+    const { email, password, name } = registerSchema.parse(req.body)
 
     const exists = await prisma.user.findUnique({ where: { email } })
     if (exists) return res.status(409).json({ error: "Email already registered" })

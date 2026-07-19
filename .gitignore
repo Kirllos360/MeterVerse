@@ -1,4 +1,4 @@
-﻿# Dependencies
+# Dependencies
 node_modules/
 Frontend/node_modules/
 backend/node_modules/
@@ -74,28 +74,3 @@ yaml files/
 
 # Backups
 backup files/
-<<<<<<< HEAD
-=======
-
-# Embedded repositories
-Meter/
-
-# Large third-party files
-mcp/
-tools/downloads/
-make files/
-docs/site/
-*.zip
-*.exe
-*.png
-*.jpg
-*.pdf
-
-*.db
-
-*.db-journal
-
-restore-point-*/
-
-*.jar
->>>>>>> main

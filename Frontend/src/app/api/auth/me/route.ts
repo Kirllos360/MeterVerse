@@ -11,9 +11,9 @@ export async function GET() {
 
   // Decode the mock token to get user info
   try {
-    const token = session.value
-    if (token.startsWith("mv_access_")) {
-      const payload = JSON.parse(atob(token.slice(10)))
+      const token = session.value
+      if (token.startsWith("mv_access_")) {
+        const payload = JSON.parse(Buffer.from(token.slice(10), "base64").toString())
       const user = {
         id: payload.sub,
         email: payload.email,
