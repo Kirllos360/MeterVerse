@@ -60,6 +60,9 @@ html.dark {
   --status-error-rgb: 220, 38, 38;
   --status-pending: #F59E0B;
   --status-pending-rgb: 245, 158, 11;
+  --border-subtle: oklch(1 0 0 / 5%);
+  --surface-pop: oklch(0.2 0.02 160);
+  --text-disabled: oklch(0.35 0.01 160);
 }
 
 /* Chart & data display in dark mode */

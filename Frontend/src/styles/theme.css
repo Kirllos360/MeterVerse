@@ -15,35 +15,95 @@ body {
 }
 
 :root {
-  --header-height: calc(var(--spacing, 0.25rem) * 12 + 1px);
+  /* ─── Elevation System ───────────────────────────── */
+  --elevation-0: transparent;
+  --elevation-1: var(--surface-base);
+  --elevation-2: var(--surface-raised);
+  --elevation-3: var(--surface-pop, oklch(1 0 0));
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.08);
 
-  /* MeterVerse workspace surface tokens (light mode) */
+  /* ─── Typography Scale (Strict) ──────────────────── */
+  --text-display: 32px;
+  --text-heading: 24px;
+  --text-title: 20px;
+  --text-body: 16px;
+  --text-caption: 14px;
+  --text-label: 12px;
+  --weight-bold: 700;
+  --weight-semibold: 600;
+  --weight-medium: 500;
+  --weight-normal: 400;
+
+  /* ─── Spacing Scale (Strict) ─────────────────────── */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-48: 48px;
+
+  /* ─── Radii (Minimal) ────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* ─── Icon Sizes ─────────────────────────────────── */
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+
+  /* ─── Brand (Minimal Palette) ────────────────────── */
+  --brand: #00BFA5;
+  --brand-hover: #00A88F;
+  --brand-rgb: 0, 191, 165;
+
+  /* ─── Neutral Surface Tokens ─────────────────────── */
   --surface-base: oklch(0.96 0.005 160);
   --surface-raised: oklch(1 0 0);
   --surface-sunken: oklch(0.92 0.005 160);
   --surface-topbar: oklch(0.98 0.005 160);
   --surface-tableHeader: oklch(0.95 0.005 160);
+  --surface-pop: oklch(1 0 0);
+
+  /* ─── Text Tokens ────────────────────────────────── */
   --text-primary: oklch(0.15 0.005 160);
   --text-secondary: oklch(0.45 0.005 160);
   --text-tertiary: oklch(0.65 0.005 160);
+  --text-disabled: oklch(0.8 0.005 160);
+
+  /* ─── Border Tokens ──────────────────────────────── */
   --border-default: oklch(0 0 0 / 8%);
-  --brand-primary: #00BFA5;
-  --brand-primary-rgb: 0, 191, 165;
+  --border-subtle: oklch(0 0 0 / 5%);
+
+  /* ─── Semantic Colors ────────────────────────────── */
+  --semantic-success: #059669;
+  --semantic-success-rgb: 5, 150, 105;
+  --semantic-warning: #D97706;
+  --semantic-warning-rgb: 217, 119, 6;
+  --semantic-error: #DC2626;
+  --semantic-error-rgb: 220, 38, 38;
+  --semantic-info: #3B82F6;
+  --semantic-info-rgb: 59, 130, 246;
+
+  /* ─── Legacy Aliases (backward compat) ───────────── */
+  --brand-primary: var(--brand);
+  --brand-primary-rgb: var(--brand-rgb);
+  --status-success: var(--semantic-success);
+  --status-success-rgb: var(--semantic-success-rgb);
+  --status-warning: var(--semantic-warning);
+  --status-warning-rgb: var(--semantic-warning-rgb);
+  --status-error: var(--semantic-error);
+  --status-error-rgb: var(--semantic-error-rgb);
+  --status-pending: var(--semantic-warning);
+  --status-pending-rgb: var(--semantic-warning-rgb);
   --white-rgb: 255, 255, 255;
   --black-rgb: 0, 0, 0;
-  --status-success: #059669;
-  --status-success-rgb: 5, 150, 105;
-  --status-warning: #D97706;
-  --status-warning-rgb: 217, 119, 6;
-  --status-error: #DC2626;
-  --status-error-rgb: 220, 38, 38;
-  --status-pending: #F59E0B;
-  --status-pending-rgb: 245, 158, 11;
-
-  /* Login page & brand panels */
   --panel-accent: #064E3B;
 
-  /* ─── Sidebar Tokens ─────────────────────────────────── */
+  /* ─── Sidebar Tokens ─────────────────────────────── */
   --sidebar-background: #064E3B;
   --sidebar-surface: rgba(255, 255, 255, 0.05);
   --sidebar-text: #FFFFFF;
@@ -51,49 +111,42 @@ body {
   --sidebar-text-disabled: rgba(255, 255, 255, 0.2);
   --sidebar-icon: rgba(255, 255, 255, 0.4);
   --sidebar-hover: rgba(255, 255, 255, 0.06);
-  --sidebar-active: rgba(var(--brand-primary-rgb), 0.15);
-  --sidebar-selected: var(--brand-primary);
+  --sidebar-active: rgba(var(--brand-rgb), 0.15);
+  --sidebar-selected: var(--brand);
   --sidebar-border: rgba(255, 255, 255, 0.06);
   --sidebar-category-text: rgba(255, 255, 255, 0.3);
   --sidebar-count-text: rgba(255, 255, 255, 0.15);
 
-  /* ─── Admin Panel Tokens ─────────────────────────────── */
+  /* ─── Admin Panel Tokens ─────────────────────────── */
   --admin-background: #050505;
   --admin-surface: #0A0A0A;
   --admin-border: #1A1A1A;
   --admin-text: #FFFFFF;
   --admin-text-muted: rgba(255, 255, 255, 0.4);
   --admin-text-dim: rgba(255, 255, 255, 0.25);
-  --admin-accent: var(--status-error);
-  --admin-accent-muted: rgba(var(--status-error-rgb), 0.5);
-  --admin-accent-subtle: rgba(var(--status-error-rgb), 0.2);
+  --admin-accent: var(--semantic-error);
+  --admin-accent-muted: rgba(var(--semantic-error-rgb), 0.5);
+  --admin-accent-subtle: rgba(var(--semantic-error-rgb), 0.2);
 
-  /* ─── Inspector Tokens ───────────────────────────────── */
+  /* ─── Inspector Tokens ───────────────────────────── */
   --inspector-background: #043526;
   --inspector-surface: rgba(255, 255, 255, 0.03);
   --inspector-text: #FFFFFF;
   --inspector-text-muted: rgba(255, 255, 255, 0.4);
   --inspector-text-disabled: rgba(255, 255, 255, 0.25);
   --inspector-border: rgba(255, 255, 255, 0.06);
-  --inspector-tab-active: rgba(var(--brand-primary-rgb), 0.15);
+  --inspector-tab-active: rgba(var(--brand-rgb), 0.15);
   --inspector-tab-text: rgba(255, 255, 255, 0.45);
   --inspector-label: rgba(255, 255, 255, 0.35);
   --inspector-value: rgba(255, 255, 255, 0.8);
-  --inspector-button-bg: rgba(var(--brand-primary-rgb), 0.2);
+  --inspector-button-bg: rgba(var(--brand-rgb), 0.2);
   --inspector-button-text: #FFFFFF;
   --inspector-button-hover: rgba(255, 255, 255, 0.05);
 }
 
-/* Apply theme fonts to body for all themes */
-/* This ensures theme-specific fonts override Next.js font variables */
-/* Font variables are defined on [data-theme] (html element) */
-/* We need to override Next.js font variables on body to use html's values */
-/* Using initial removes the property, allowing parent (html) values to cascade */
 [data-theme] body {
-  /* Remove Next.js font variables to allow theme variables from html to cascade */
   --font-sans: initial;
   --font-mono: initial;
   --font-serif: initial;
-  /* Apply font-family - will now resolve from html's [data-theme] variables */
   font-family: var(--font-sans);
 }
