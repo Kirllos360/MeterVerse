@@ -1,15 +1,56 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
 
-function Particles() {
-  const items = Array.from({ length: 8 }, (_, i) => ({
-    id: i, y: 20 + Math.random() * 60, delay: Math.random() * 10, size: 3 + Math.random() * 3
-  }))
+function HeavyRain() {
+  const drops = useMemo(() => Array.from({ length: 80 }, (_, i) => ({
+    id: i, x: Math.random() * 100, delay: Math.random() * 5, speed: 0.3 + Math.random() * 0.4, length: 15 + Math.random() * 25
+  })), [])
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
+      {drops.map((d) => (
+        <motion.div key={d.id}
+          className="absolute"
+          style={{ left: `${d.x}%`, top: "-5%", width: 1.5, height: d.length, backgroundColor: "rgba(174,194,224,0.15)" }}
+          animate={{ y: ["0vh", "105vh"] }}
+          transition={{ duration: d.speed, delay: d.delay, repeat: Infinity, ease: "linear" }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function Windmill() {
+  return (
+    <div className="absolute pointer-events-none" style={{ bottom: "15%", right: "12%", zIndex: 2 }}>
+      {/* Tower */}
+      <div style={{ width: 4, height: 80, margin: "0 auto", backgroundColor: "rgba(174,194,224,0.12)" }} />
+      {/* Blades */}
+      <div style={{ position: "relative", width: 60, height: 60, margin: "0 auto" }}>
+        <motion.svg width="60" height="60" viewBox="0 0 60 60"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          style={{ position: "absolute", top: -30, left: 0 }}
+        >
+          <ellipse cx="30" cy="30" rx="2" ry="2" fill="rgba(174,194,224,0.2)" />
+          <path d="M30,30 L30,2" stroke="rgba(174,194,224,0.12)" strokeWidth="2" strokeLinecap="round" />
+          <path d="M30,30 L30,58" stroke="rgba(174,194,224,0.12)" strokeWidth="2" strokeLinecap="round" />
+          <path d="M30,30 L2,30" stroke="rgba(174,194,224,0.12)" strokeWidth="2" strokeLinecap="round" />
+          <path d="M30,30 L58,30" stroke="rgba(174,194,224,0.12)" strokeWidth="2" strokeLinecap="round" />
+        </motion.svg>
+      </div>
+    </div>
+  )
+}
+
+function Particles() {
+  const items = useMemo(() => Array.from({ length: 8 }, (_, i) => ({
+    id: i, y: 20 + Math.random() * 60, delay: Math.random() * 10, size: 3 + Math.random() * 3
+  })), [])
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 3 }}>
       {items.map((p) => (
         <motion.div key={p.id} className="absolute rounded-full"
           style={{ top: `${p.y}%`, width: p.size, height: p.size, backgroundColor: "rgba(var(--brand-rgb), 0.12)" }}
@@ -63,6 +104,8 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen w-full" style={{ backgroundColor: "var(--panel-accent)" }}>
+      <HeavyRain />
+      <Windmill />
       <Particles />
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--brand-rgb), 0.08) 0%, transparent 70%)" }} />
       <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
