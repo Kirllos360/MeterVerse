@@ -118,7 +118,7 @@ export default function AppPageClient({ slug }: { slug?: string[] }) {
       {/* Toast notification */}
       {notif && (
         <div className="fixed bottom-6 right-6 px-4 py-3 rounded-lg shadow-lg text-xs text-white z-50 animate-in slide-in-from-right"
-          style={{ backgroundColor: "#064E3B" }}>
+          style={{ backgroundColor: "var(--sidebar-background)" }}>
           {notif}
         </div>
       )}

@@ -54,7 +54,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </nav>
         <div className="p-2 border-t shrink-0" style={{ borderColor: "var(--admin-border)" }}>
           <button onClick={() => setCollapsed(!collapsed)}
-            className="flex items-center justify-center w-full p-2 rounded-lg text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>
+            className="flex items-center justify-center w-full p-2 rounded-lg text-xs" style={{ color: "var(--admin-text-dim)" }}>
             {collapsed ? "→" : "Collapse"}
           </button>
         </div>
@@ -67,5 +67,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     </div>
   )
 }
+
 
 
