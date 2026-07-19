@@ -11,8 +11,7 @@ import { futuristic } from "@/design-system/motion"
 
 const glassCard = {
   backgroundColor: "var(--surface-raised)",
-  border: "1px solid var(--border-default)",
-  boxShadow: "0 1px 3px rgba(var(--black-rgb), 0.04), 0 0 0 1px rgba(var(--black-rgb), 0.02)",
+  boxShadow: "var(--shadow-sm)",
 }
 
 const monthlyData = [3200, 2800, 3500, 4100, 3800, 4200, 4600, 4300, 4900, 5100, 4800, 5300]

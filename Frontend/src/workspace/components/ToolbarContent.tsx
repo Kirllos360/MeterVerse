@@ -84,8 +84,8 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -4, scale: 0.95 }}
               transition={{ duration: 0.12 }}
-              className="absolute right-44 top-full mt-2 w-80 rounded-xl border shadow-xl z-50 overflow-hidden"
-              style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+              className="absolute right-44 top-full mt-2 w-80 rounded-xl z-50 overflow-hidden"
+              style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
@@ -174,8 +174,8 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -4, scale: 0.95 }}
                 transition={{ duration: 0.12 }}
-                className="absolute right-0 top-full mt-2 w-56 rounded-xl border shadow-xl z-50 overflow-hidden"
-                style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+                className="absolute right-0 top-full mt-2 w-56 rounded-xl z-50 overflow-hidden"
+                style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}
                 onClick={() => setShowUserMenu(false)}
               >
                 <div className="p-3 border-b" style={{ borderColor: "var(--border-default)" }}>

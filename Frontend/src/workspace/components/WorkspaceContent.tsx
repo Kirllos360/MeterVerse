@@ -214,8 +214,8 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -4, scale: 0.95 }}
                     transition={{ duration: 0.12, ease: "easeOut" }}
-                    className="absolute top-full left-0 mt-1 min-w-[120px] rounded-xl border shadow-xl z-50 overflow-hidden"
-                    style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+                    className="absolute top-full left-0 mt-1 min-w-[120px] rounded-xl z-50 overflow-hidden"
+                    style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}
                     onClick={() => setSortOpen(false)}
                   >
                     <button onClick={() => { setSortField(""); toggleSort("") }} className="w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 flex items-center gap-2"
@@ -313,15 +313,14 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 key={i}
                 variants={{ initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 } }}
                 whileHover={{ y: -3, boxShadow: `0 12px 40px ${sc}20, 0 0 0 1px ${sc}30` }}
-                className="rounded-xl border p-5 relative overflow-hidden cursor-pointer"
-                style={{
-                  backgroundColor: "var(--surface-raised)",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                  borderColor: `${sc}25`,
-                  boxShadow: `0 2px 8px ${sc}08, 0 0 0 1px ${sc}10`,
-                  minHeight: 200,
-                }}
+                className="rounded-xl p-5 relative overflow-hidden cursor-pointer"
+                  style={{
+                    backgroundColor: "var(--surface-raised)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                    boxShadow: "var(--shadow-sm)",
+                    minHeight: 200,
+                  }}
               >
                 {/* Premium 3D shine overlay */}
                 <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(var(--white-rgb), 0.15) 0%, transparent 50%, rgba(var(--white-rgb), 0.05) 100%)" }} />
@@ -372,7 +371,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`menu-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary)" }}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                     </button>
-                    <div id={`menu-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl border shadow-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }} onClick={(e) => e.stopPropagation()}>
+                    <div id={`menu-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }} onClick={(e) => e.stopPropagation()}>
                       {[{ icon: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 100-6 3 3 0 000 6z", label: "View" }, { icon: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7", label: "Edit" }, { icon: "M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2", label: "Delete" }].map((opt) => (
                         <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: opt.label === "Delete" ? "var(--status-error)" : "var(--text-primary)" }}>
                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={opt.icon} /></svg>
@@ -386,7 +385,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             )})}
           </motion.div>
         ) : (
-          <motion.div layout transition={transitions.smooth} className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
+          <motion.div layout transition={transitions.smooth} className="rounded-xl overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
             <table className="w-full">
               <thead>
                 <tr style={{ backgroundColor: "var(--surface-tableHeader)" }}>
@@ -447,7 +446,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                         <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`rm-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary)" }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                         </button>
-                        <div id={`rm-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl border shadow-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+                        <div id={`rm-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}>
                           {[{ icon: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 100-6 3 3 0 000 6z", label: "View" }, { icon: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7", label: "Edit" }, { icon: "M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2", label: "Delete", danger: true }].map((opt) => (
                             <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5" style={{ color: opt.danger ? "var(--status-error)" : "var(--text-primary)" }}>
                               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={opt.icon} /></svg>
@@ -507,8 +506,8 @@ function DashboardPage() {
               initial: { opacity: 0, y: 16 },
               animate: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 22, delay: i * 0.04 } },
             }}
-            className="p-4 rounded-xl border"
-            style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+            className="p-4 rounded-xl"
+            style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-sm)" }}
           >
             <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
             <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>{stat.value}</div>

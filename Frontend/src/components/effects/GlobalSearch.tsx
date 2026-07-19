@@ -37,7 +37,7 @@ export function GlobalSearch() {
       <div className={`flex items-center rounded-xl border transition-all duration-200 overflow-hidden`}
         style={{
           backgroundColor: isFocused ? "var(--surface-raised)" : "var(--surface-sunken)",
-          borderColor: isFocused ? "var(--brand-primary)" : "var(--border-default)",
+          borderColor: "var(--border-default)",
           boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-primary-rgb), 0.15)" : "none",
         }}
       >

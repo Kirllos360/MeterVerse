@@ -37,8 +37,8 @@ export function Dialog({ open, onClose, title, children, footer, size = "md" }: 
           <motion.div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title}
             initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className={`relative w-full ${sizeMap[size]} rounded-xl border shadow-2xl overflow-hidden`}
-            style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+            className={`relative w-full ${sizeMap[size]} rounded-xl overflow-hidden`}
+            style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-lg)" }}
           >
             <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
               <h2 className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{title}</h2>

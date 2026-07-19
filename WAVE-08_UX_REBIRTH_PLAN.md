@@ -248,11 +248,11 @@ NoResults    — no results message + clear filter
 | 1. Design token rewrite | ✅ Complete | New elevation, typography, spacing, radii tokens |
 | 2. Sidebar redesign | ✅ Complete | No borders, no pills, left accent bar, 72/260px widths |
 | 3. App shell rebuild | ✅ Complete | Sidebar no border, inspector contextual, cleaner layout |
-| 4. Remove 80% borders | 🔲 Pending | Elevation over borders |
-| 5. Component library | 🔲 Pending | Type scale, icon sizes, spacing |
-| 6. Tables default | 🔲 Pending | Data pages default to tables |
+| 4. Remove 80% borders | ✅ Complete | 13 files: cards/panels use elevation, dialogs/drawers use shadow-lg |
+| 5. Component library | ✅ Complete | New EmptyState, LoadingState components |
+| 6. Tables default | 🔲 Pending | UX choice — requires app page refactoring |
 | 7. Contextual inspector | ✅ Complete | Collapsed default, 320px max |
-| 8. Empty states | 🔲 Pending | Reusable empty state components |
+| 8. Empty states | ✅ Complete | EmptyState (5 variants) + LoadingState (skeleton) |
 
 ## Implementation Order
 

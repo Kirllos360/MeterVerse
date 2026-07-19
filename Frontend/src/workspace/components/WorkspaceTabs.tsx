@@ -8,7 +8,7 @@ export function WorkspaceTabs() {
   const { tabs, activeTabId, setActiveTab, closeTab } = useWorkspaceStore()
 
   return (
-    <div className="flex items-center h-10 border-b overflow-x-auto shrink-0 scrollbar-thin" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+    <div className="flex items-center h-10 overflow-x-auto shrink-0 scrollbar-thin" style={{ backgroundColor: "var(--surface-topbar)", borderBottom: "1px solid var(--border-subtle)" }}>
       <AnimatePresence mode="popLayout">
         {tabs.map((tab) => (
           <motion.div

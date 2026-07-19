@@ -29,7 +29,7 @@ export function Drawer({ open, onClose, title, children, side = "right", width =
             initial={{ x: side === "right" ? width : -width }}
             animate={{ x: 0 }} exit={{ x: side === "right" ? width : -width }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="absolute top-0 bottom-0 flex flex-col border-l shadow-xl" style={{ [side]: 0, width, backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+            className="absolute top-0 bottom-0 flex flex-col" style={{ [side]: 0, width, backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-lg)" }}
           >
             <div className="flex items-center justify-between px-4 py-3 border-b shrink-0" style={{ borderColor: "var(--border-default)" }}>
               <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>{title}</span>

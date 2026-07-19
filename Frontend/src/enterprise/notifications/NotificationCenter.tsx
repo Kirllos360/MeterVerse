@@ -48,8 +48,8 @@ export function NotificationCenter({ notifications, onMarkRead, onMarkAllRead, o
       <AnimatePresence>
         {isOpen && (
           <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
-            className="absolute right-0 top-full mt-2 w-80 rounded-xl border shadow-xl z-50 overflow-hidden"
-            style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+            className="absolute right-0 top-full mt-2 w-80 rounded-xl z-50 overflow-hidden"
+            style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}
           >
             <div className="flex items-center justify-between px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default)" }}>
               <span className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Notifications</span>
