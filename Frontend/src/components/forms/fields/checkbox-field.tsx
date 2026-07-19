@@ -33,7 +33,7 @@ export function CheckboxField({ label, description }: CheckboxFieldProps) {
           }}
           aria-invalid={isTouched && !isValid}
         />
-        <div className='flex flex-1 flex-col gap-1.5 leading-snug'>
+        <div className='flex flex-1 flex-col gap-2 leading-snug'>
           <FieldLabel className='leading-none'>{label}</FieldLabel>
           {description && <FieldDescription>{description}</FieldDescription>}
           <FormFieldError />

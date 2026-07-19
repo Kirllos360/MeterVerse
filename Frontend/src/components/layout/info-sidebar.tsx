@@ -65,12 +65,12 @@ export function InfoSidebar({ ...props }: React.ComponentProps<typeof Infobar>) 
                         <h4 className='text-muted-foreground text-xs font-medium tracking-wide uppercase'>
                           Learn more
                         </h4>
-                        <ul className='flex flex-col gap-1.5'>
+                        <ul className='flex flex-col gap-2'>
                           {section.links.map((link) => (
                             <li key={link.title}>
                               <Link
                                 href={link.url}
-                                className='text-primary flex items-center gap-1.5 text-sm underline'
+                                className='text-primary flex items-center gap-2 text-sm underline'
                                 target='_blank'
                                 rel='noopener noreferrer'
                               >

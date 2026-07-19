@@ -8,7 +8,7 @@ export default function AdminUsersPage() {
           <h1 className="text-lg font-semibold text-white">User Management</h1>
           <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>Manage administrators and system users</p>
         </div>
-        <button className="px-3 py-1.5 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--status-error)" }}>Add User</button>
+        <button className="px-3 py-2 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--status-error)" }}>Add User</button>
       </div>
       <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-surface)" }}>
         <table className="w-full">

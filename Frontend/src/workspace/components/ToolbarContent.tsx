@@ -72,7 +72,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
           <span className="text-sm">{MODE_ICONS[mode] || MODE_ICONS.system}</span>
         </ToolbarButton>
         <ToolbarButton label={language === "ar" ? "اللغة" : `Language: ${language.toUpperCase()}`} onClick={toggleLanguage}>
-          <span className="text-[11px] font-bold">{language.toUpperCase()}</span>
+          <span className="text-xs font-bold">{language.toUpperCase()}</span>
         </ToolbarButton>
 
         {/* Reminders Popup */}
@@ -132,7 +132,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 /* Reminders List */
                 <div className="max-h-60 overflow-y-auto">
                   {reminders.map((r, i) => (
-                    <div key={i} className="flex items-start gap-2 px-3 py-2.5 border-b last:border-b-0 group" style={{ borderColor: "var(--border-default)" }}>
+                    <div key={i} className="flex items-start gap-2 px-3 py-3 border-b last:border-b-0 group" style={{ borderColor: "var(--border-default)" }}>
                       <span className="text-lg mt-0.5">{r.icon}</span>
                       <div className="flex-1 min-w-0">
                         <div className="text-sm" style={{ color: "var(--text-primary)" }}>{r.title}</div>
@@ -182,7 +182,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                     <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-secondary))" }}>AU</div>
                     <div>
                       <div className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Admin User</div>
-                      <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>admin@meterverse.com</div>
+                      <div className="text-xs" style={{ color: "var(--text-tertiary)" }}>admin@meterverse.com</div>
                     </div>
                   </div>
                 </div>

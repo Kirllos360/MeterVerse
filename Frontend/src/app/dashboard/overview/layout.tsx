@@ -29,7 +29,7 @@ export default function OverViewLayout({
           <h2 className='text-2xl font-bold tracking-tight'>Hi, Welcome back 👋</h2>
         </div>
 
-        <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs md:grid-cols-2 lg:grid-cols-4'>
+        <div className='*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-sm md:grid-cols-2 lg:grid-cols-4'>
           <Card className='@container/card'>
             <CardHeader>
               <CardDescription>Total Revenue</CardDescription>
@@ -43,7 +43,7 @@ export default function OverViewLayout({
                 </Badge>
               </CardAction>
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+            <CardFooter className='flex-col items-start gap-2 text-sm'>
               <div className='line-clamp-1 flex gap-2 font-medium'>
                 Trending up this month <Icons.trendingUp className='size-4' />
               </div>
@@ -63,7 +63,7 @@ export default function OverViewLayout({
                 </Badge>
               </CardAction>
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+            <CardFooter className='flex-col items-start gap-2 text-sm'>
               <div className='line-clamp-1 flex gap-2 font-medium'>
                 Down 20% this period <Icons.trendingDown className='size-4' />
               </div>
@@ -83,7 +83,7 @@ export default function OverViewLayout({
                 </Badge>
               </CardAction>
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+            <CardFooter className='flex-col items-start gap-2 text-sm'>
               <div className='line-clamp-1 flex gap-2 font-medium'>
                 Strong user retention <Icons.trendingUp className='size-4' />
               </div>
@@ -103,7 +103,7 @@ export default function OverViewLayout({
                 </Badge>
               </CardAction>
             </CardHeader>
-            <CardFooter className='flex-col items-start gap-1.5 text-sm'>
+            <CardFooter className='flex-col items-start gap-2 text-sm'>
               <div className='line-clamp-1 flex gap-2 font-medium'>
                 Steady performance increase <Icons.trendingUp className='size-4' />
               </div>

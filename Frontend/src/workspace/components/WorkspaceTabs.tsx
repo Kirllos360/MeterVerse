@@ -23,7 +23,7 @@ export function WorkspaceTabs() {
             onClick={() => setActiveTab(tab.id)}
             onKeyDown={(e) => { if (e.key === "Enter") setActiveTab(tab.id) }}
             tabIndex={0}
-            className="relative flex items-center gap-1.5 px-3 h-full text-xs whitespace-nowrap shrink-0 cursor-pointer outline-none group select-none"
+            className="relative flex items-center gap-2 px-3 h-full text-xs whitespace-nowrap shrink-0 cursor-pointer outline-none group select-none"
             style={{
               color: tab.id === activeTabId ? "var(--text-primary)" : "var(--text-tertiary)",
               fontWeight: tab.id === activeTabId ? 600 : 400,

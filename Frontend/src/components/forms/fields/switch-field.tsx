@@ -22,7 +22,7 @@ export function SwitchField({ label, description }: SwitchFieldProps) {
   return (
     <FormFieldSet>
       <FormField orientation='horizontal'>
-        <div className='flex flex-1 flex-col gap-1.5 leading-snug'>
+        <div className='flex flex-1 flex-col gap-2 leading-snug'>
           <FieldLabel className='text-base'>{label}</FieldLabel>
           {description && <FieldDescription>{description}</FieldDescription>}
         </div>

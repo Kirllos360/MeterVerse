@@ -94,7 +94,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
         <div className="relative">
           <button
             onClick={() => setShowFilter(!showFilter)}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-r whitespace-nowrap transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium border-r whitespace-nowrap transition-colors hover:bg-black/5 dark:hover:bg-white/10"
             style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)" }}
           >
             {language === "ar" ? (currentFilterLabel?.labelAr || "الكل") : (currentFilterLabel?.label || "All")}
@@ -114,7 +114,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                   <button
                     key={f.id}
                     onClick={() => { setFilter(f.id); setShowFilter(false) }}
-                    className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-2"
+                    className="w-full px-3 py-3 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-2"
                     style={{
                       color: filter === f.id ? "var(--brand)" : "var(--text-primary)",
                       backgroundColor: filter === f.id ? "rgba(var(--brand-rgb), 0.05)" : "transparent",
@@ -150,7 +150,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
         )}
 
         {/* Search icon */}
-        <div className="px-2.5 flex items-center" style={{ color: "var(--text-tertiary)" }}>
+        <div className="px-3 flex items-center" style={{ color: "var(--text-tertiary)" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
         </div>
       </div>
@@ -174,19 +174,19 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
               <button
                 key={i}
                 onClick={() => { setQuery(r.label); inputRef.current?.blur() }}
-                className="w-full px-3 py-2.5 text-sm text-left flex items-center gap-3 transition-all hover:bg-black/5 dark:hover:bg-white/10"
+                className="w-full px-3 py-3 text-sm text-left flex items-center gap-3 transition-all hover:bg-black/5 dark:hover:bg-white/10"
                 style={{ borderBottom: i < results.length - 1 ? "1px solid var(--border-default)" : "none", color: "var(--text-primary)" }}
               >
                 <span>{r.icon}</span>
                 <div className="flex-1 min-w-0">
                   <div className="truncate">{r.label}</div>
                 </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0" style={{ backgroundColor: "rgba(var(--brand-rgb), 0.1)", color: "var(--brand)" }}>
+                <span className="text-[10px] px-2 py-1 rounded-full font-medium shrink-0" style={{ backgroundColor: "rgba(var(--brand-rgb), 0.1)", color: "var(--brand)" }}>
                   {r.page}
                 </span>
               </button>
             ))}
-            <div className="px-3 py-2.5 text-xs font-medium" style={{ color: "var(--text-tertiary)", borderTop: "1px solid var(--border-default)" }}>
+            <div className="px-3 py-3 text-xs font-medium" style={{ color: "var(--text-tertiary)", borderTop: "1px solid var(--border-default)" }}>
               {language === "ar" ? `ابحث في كل الصفحات عن "${query}"` : `Search in all pages for "${query}"`}
             </div>
           </motion.div>

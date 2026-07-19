@@ -34,7 +34,7 @@ export function MetricsDashboard() {
     <div className="grid grid-cols-4 gap-3">
       {metrics.map((m) => (
         <div key={m.label} className="rounded-xl border p-4" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
-          <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{m.label}</div>
+          <div className="text-xs" style={{ color: "var(--text-tertiary)" }}>{m.label}</div>
           <div className="text-xl font-bold mt-1 tabular-nums" style={{ color: m.color }}>{m.value}</div>
           <div className="mt-2 h-1 rounded-full overflow-hidden" style={{ backgroundColor: "var(--surface-sunken)" }}>
             <div className="h-full rounded-full transition-all duration-1000" style={{ width: m.label === "CPU" ? "23%" : m.label === "Memory" ? "62%" : m.label === "Cache Hit" ? "94%" : "50%", backgroundColor: m.color }} />

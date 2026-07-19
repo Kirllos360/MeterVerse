@@ -86,7 +86,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
         className
       )}
     >
-      <div className='px-4 py-3.5'>
+      <div className='px-4 py-4'>
         <div className='flex items-start justify-between gap-3'>
           {/* Main content */}
           <div className='min-w-0 flex-1 space-y-1'>
@@ -94,7 +94,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
             <div className='flex items-center gap-2'>
               <h3
                 className={cn(
-                  'text-[15px] leading-tight font-semibold',
+                  'text-base leading-tight font-semibold',
                   isUnread ? 'text-foreground' : 'text-muted-foreground'
                 )}
               >
@@ -106,7 +106,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
             {/* Description */}
             <p
               className={cn(
-                'mb-0 text-[13px]',
+                'mb-0 text-sm',
                 isUnread ? 'text-muted-foreground' : 'text-muted-foreground/60'
               )}
             >
@@ -120,7 +120,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
               type='button'
               onClick={() => onMarkAsRead(id)}
               className={cn(
-                'rounded-lg p-1.5 transition-colors',
+                'rounded-lg p-2 transition-colors',
                 'text-muted-foreground hover:bg-accent hover:text-foreground'
               )}
               aria-label='Mark as read'
@@ -146,7 +146,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
                     disabled={isLoading || isExecuted}
                     onClick={() => onAction?.(id, action.id, action.type)}
                     className={cn(
-                      'flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-xs font-normal transition',
+                      'flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-normal transition',
                       action.style === 'primary'
                         ? 'bg-primary/10 text-primary hover:bg-primary/20'
                         : action.style === 'danger'
@@ -176,7 +176,7 @@ export const NotificationCard: FC<NotificationCardProps> = ({
 
           {/* Timestamp */}
           {createdAt && (
-            <span className='text-muted-foreground/60 inline-block text-[11px]'>
+            <span className='text-muted-foreground/60 inline-block text-xs'>
               {formatDate(createdAt)}
             </span>
           )}

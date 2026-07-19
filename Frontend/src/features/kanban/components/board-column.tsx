@@ -32,7 +32,7 @@ export function TaskColumn({ value, tasks, ...props }: TaskColumnProps) {
           <Icons.gripVertical className='h-4 w-4' />
         </KanbanColumnHandle>
       </div>
-      <div className='flex flex-col gap-2 p-0.5'>
+      <div className='flex flex-col gap-2 p-1'>
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} asHandle />
         ))}

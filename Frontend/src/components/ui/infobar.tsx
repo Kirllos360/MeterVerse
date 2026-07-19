@@ -606,12 +606,12 @@ function InfobarMenuAction({
         'data-slot': 'infobar-menu-action',
         'data-infobar': 'menu-action',
         className: cn(
-          'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
+          'text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-2 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0',
           // Increases the hit area of the button on mobile.
           'after:absolute after:-inset-2 md:after:hidden',
           'peer-data-[size=sm]/menu-button:top-1',
-          'peer-data-[size=default]/menu-button:top-1.5',
-          'peer-data-[size=lg]/menu-button:top-2.5',
+          'peer-data-[size=default]/menu-button:top-2',
+          'peer-data-[size=lg]/menu-button:top-3',
           'group-data-[collapsible=icon]:hidden',
           showOnHover &&
             'peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-popup-open:opacity-100 aria-expanded:opacity-100 md:opacity-0',
@@ -632,8 +632,8 @@ function InfobarMenuBadge({ className, ...props }: React.ComponentProps<'div'>) 
         'text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none',
         'peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground',
         'peer-data-[size=sm]/menu-button:top-1',
-        'peer-data-[size=default]/menu-button:top-1.5',
-        'peer-data-[size=lg]/menu-button:top-2.5',
+        'peer-data-[size=default]/menu-button:top-2',
+        'peer-data-[size=lg]/menu-button:top-3',
         'group-data-[collapsible=icon]:hidden',
         className
       )}
@@ -681,7 +681,7 @@ function InfobarMenuSub({ className, ...props }: React.ComponentProps<'ul'>) {
       data-slot='infobar-menu-sub'
       data-infobar='menu-sub'
       className={cn(
-        'border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5',
+        'border-sidebar-border mx-4 flex min-w-0 translate-x-px flex-col gap-1 border-l px-3 py-1',
         'group-data-[collapsible=icon]:hidden',
         className
       )}

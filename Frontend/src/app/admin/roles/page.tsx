@@ -10,7 +10,7 @@ export default function AdminRolesPage() {
           <div key={role} className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
             <div className="flex items-center justify-between mb-3">
               <span className="text-sm font-medium text-white">{role}</span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.15)", color: "var(--status-error)" }}>{role === "Super Admin" ? "Full Access" : "Limited"}</span>
+              <span className="px-2 py-1 rounded text-[10px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.15)", color: "var(--status-error)" }}>{role === "Super Admin" ? "Full Access" : "Limited"}</span>
             </div>
             <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
               {role === "Super Admin" ? "All resources, all actions" :

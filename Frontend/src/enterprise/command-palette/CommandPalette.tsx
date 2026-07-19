@@ -65,7 +65,7 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0" style={{ backgroundColor: "rgba(var(--black-rgb), 0.4)" }} onClick={() => setIsOpen(false)} />
           <motion.div initial={{ opacity: 0, y: -20, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -20, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="relative w-full max-w-lg rounded-xl border shadow-2xl overflow-hidden"
+            className="relative w-full max-w-lg rounded-xl border shadow-lg overflow-hidden"
             style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
           >
             <div className="flex items-center gap-3 px-4 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
@@ -75,7 +75,7 @@ export function CommandPalette({ commands }: CommandPaletteProps) {
                 className="flex-1 text-sm outline-none bg-transparent" style={{ color: "var(--text-primary)" }}
                 aria-label="Search commands" aria-expanded="true" aria-controls="command-list"
               />
-              <span className="text-[10px] px-1.5 py-0.5 rounded" style={{ backgroundColor: "var(--surface-sunken)", color: "var(--text-tertiary)" }}>ESC</span>
+              <span className="text-[10px] px-2 py-1 rounded" style={{ backgroundColor: "var(--surface-sunken)", color: "var(--text-tertiary)" }}>ESC</span>
             </div>
             <div id="command-list" className="max-h-72 overflow-y-auto p-2" role="listbox">
               {Object.entries(grouped).length === 0 ? (

@@ -75,21 +75,21 @@ const githubStarsButtonVariants = cva(
     variants: {
       variant: {
         default:
-          'rounded-md border border-border bg-muted/50 text-muted-foreground shadow-xs hover:bg-accent hover:text-accent-foreground',
-        primary: 'rounded-md bg-primary text-primary-foreground shadow-xs hover:bg-primary/90',
+          'rounded-md border border-border bg-muted/50 text-muted-foreground shadow-sm hover:bg-accent hover:text-accent-foreground',
+        primary: 'rounded-md bg-primary text-primary-foreground shadow-sm hover:bg-primary/90',
         secondary:
-          'rounded-md border border-transparent bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
+          'rounded-md border border-transparent bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         outline:
-          'rounded-md border border-border bg-background text-foreground shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
+          'rounded-md border border-border bg-background text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
         ghost:
           'rounded-md text-muted-foreground hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
         subtle:
           'rounded-full border border-border/60 bg-muted/40 text-muted-foreground hover:bg-muted hover:text-foreground'
       },
       size: {
-        sm: 'h-7 gap-1.5 px-2.5 text-xs [&_svg]:size-3.5',
+        sm: 'h-7 gap-2 px-3 text-xs [&_svg]:size-3.5',
         default: 'h-8 gap-2 px-3 text-sm [&_svg]:size-4',
-        lg: 'h-9 gap-2.5 px-4 text-sm [&_svg]:size-4'
+        lg: 'h-9 gap-3 px-4 text-sm [&_svg]:size-4'
       }
     },
     defaultVariants: {

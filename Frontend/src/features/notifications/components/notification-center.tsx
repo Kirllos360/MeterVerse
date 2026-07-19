@@ -31,7 +31,7 @@ export function NotificationCenter() {
       <PopoverTrigger render={<Button variant='ghost' size='icon' className='relative h-8 w-8' />}>
         <Icons.notification className='h-4 w-4' />
         {count > 0 && (
-          <span className='bg-destructive text-destructive-foreground absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-medium'>
+          <span className='bg-destructive text-destructive-foreground absolute -top-1 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-medium'>
             {count > 9 ? '9+' : count}
           </span>
         )}
@@ -45,7 +45,7 @@ export function NotificationCenter() {
           </Link>
           <div className='flex items-center gap-2'>
             {count > 0 && (
-              <span className='bg-muted text-muted-foreground rounded-full px-2 py-0.5 text-xs'>
+              <span className='bg-muted text-muted-foreground rounded-full px-2 py-1 text-xs'>
                 {count} new
               </span>
             )}

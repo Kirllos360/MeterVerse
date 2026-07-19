@@ -39,19 +39,19 @@ export class CustomersApp extends BaseApp {
       </div>
       <div class="grid grid-cols-4 gap-3">
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
-          <div class="text-[11px]" style="color:var(--text-tertiary)">Total Customers</div>
+          <div class="text-xs" style="color:var(--text-tertiary)">Total Customers</div>
           <div class="text-xl font-bold mt-1" style="color:var(--text-primary)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
-          <div class="text-[11px]" style="color:var(--text-tertiary)">Active</div>
+          <div class="text-xs" style="color:var(--text-tertiary)">Active</div>
           <div class="text-xl font-bold mt-1" style="color:var(--status-success)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
-          <div class="text-[11px]" style="color:var(--text-tertiary)">Overdue Balance</div>
+          <div class="text-xs" style="color:var(--text-tertiary)">Overdue Balance</div>
           <div class="text-xl font-bold mt-1" style="color:var(--status-error)">0</div>
         </div>
         <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)">
-          <div class="text-[11px]" style="color:var(--text-tertiary)">New This Month</div>
+          <div class="text-xs" style="color:var(--text-tertiary)">New This Month</div>
           <div class="text-xl font-bold mt-1" style="color:var(--brand)">0</div>
         </div>
       </div>

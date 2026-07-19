@@ -39,9 +39,9 @@ function StatCard({ label, value, sub }: { label: string; value: string; sub?: s
       className="rounded-xl p-4"
       style={{ backgroundColor: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.08)" }}
     >
-      <p className="text-[11px] font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>{label}</p>
+      <p className="text-xs font-medium" style={{ color: "rgba(255,255,255,0.5)" }}>{label}</p>
       <p className="text-2xl font-bold mt-1 text-white">{value}</p>
-      {sub && <p className="text-[11px] mt-1" style={{ color: isUp ? "var(--status-success)" : "var(--status-error)" }}>{sub}</p>}
+      {sub && <p className="text-xs mt-1" style={{ color: isUp ? "var(--status-success)" : "var(--status-error)" }}>{sub}</p>}
     </motion.div>
   )
 }
@@ -128,7 +128,7 @@ export default function LoginPage() {
               </div>
               <div>
                 <h1 className="text-lg font-bold text-white">MeterVerse</h1>
-                <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.4)" }}>Enterprise Utility OS</p>
+                <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Enterprise Utility OS</p>
               </div>
             </div>
           </motion.div>
@@ -146,7 +146,7 @@ export default function LoginPage() {
 
             <FloatingCard index={1}>
               <div className="rounded-xl p-5 backdrop-blur-sm" style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.06)" }}>
-                <p className="text-[11px] font-medium mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>Consumption (30d)</p>
+                <p className="text-xs font-medium mb-2" style={{ color: "rgba(255,255,255,0.5)" }}>Consumption (30d)</p>
                 <MiniChart />
               </div>
             </FloatingCard>
@@ -162,7 +162,7 @@ export default function LoginPage() {
 
           {/* Bottom */}
           <div>
-            <p className="text-[11px]" style={{ color: "rgba(255,255,255,0.2)" }}>Version 8.0.0-RC1 — &copy; 2026 MeterVerse</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>Version 8.0.0-RC1 — &copy; 2026 MeterVerse</p>
           </div>
         </div>
       </div>
@@ -272,7 +272,7 @@ export default function LoginPage() {
             </div>
 
             <div className="mt-8 pt-6 text-center" style={{ borderTop: "1px solid var(--border-default)" }}>
-              <p className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>
+              <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>
                 Unauthorized access is prohibited. All activities are monitored and logged.
               </p>
             </div>

@@ -151,7 +151,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
       </div>
 
       {/* Search + Sort — Glass-morphism */}
-      <div className="flex items-center gap-2 px-6 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
+      <div className="flex items-center gap-2 px-6 py-3 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         <SmartSearch
           placeholder={t("content.search", "Search") + " " + title.toLowerCase() + "..."}
           onSearch={(q) => setSearchQuery(q)}
@@ -196,11 +196,11 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
         </motion.button>
         {columns.filter(c => c.sortable).length > 0 && (
           <div className="flex items-center gap-1">
-            <span className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{t("content.sort", "Sort:")}</span>
+            <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>{t("content.sort", "Sort:")}</span>
             <div className="relative dropdown-modern">
               <motion.button
                 onClick={() => setSortOpen(!sortOpen)}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs outline-none transition-all bg-transparent cursor-pointer min-w-[80px]"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg border text-xs outline-none transition-all bg-transparent cursor-pointer min-w-[80px]"
                 style={{ borderColor: sortField ? "var(--brand)" : "var(--border-default)", color: "var(--text-primary)" }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -260,7 +260,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={transitions.fast}
-            className="flex items-center gap-1.5 px-6 py-1.5 border-b overflow-hidden"
+            className="flex items-center gap-2 px-6 py-2 border-b overflow-hidden"
             style={{ borderColor: "var(--border-default)", backgroundColor: "rgba(var(--brand-rgb), 0.1)" }}
           >
             {allFilters.map((f) => (
@@ -269,7 +269,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 8 }}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium"
                 style={{ backgroundColor: "rgba(var(--brand-rgb), 0.1)", color: "var(--brand)" }}
               >
                 {f.label}
@@ -284,7 +284,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             {allFilters.length > 1 && (
               <button
                 onClick={() => { setSearchQuery(""); setActiveFilters([]) }}
-                className="text-[11px] ml-1 hover:underline"
+                className="text-xs ml-1 hover:underline"
                 style={{ color: "var(--text-tertiary)" }}
               >
                 {t("content.clearAll", "Clear all")}
@@ -335,7 +335,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 </div>
                 {/* Card header */}
                 <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2.5">
+                  <div className="flex items-center gap-3">
                     <span className="w-9 h-9 rounded-xl flex items-center justify-center text-sm font-bold text-white shrink-0 shadow-lg" style={{ backgroundColor: sc, boxShadow: `0 4px 12px ${sc}30` }}>
                       {title[0]}
                     </span>
@@ -358,7 +358,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 {/* Card body — 2-column detail grid with more info */}
                 <div className="grid grid-cols-2 gap-y-2 gap-x-4 mb-3">
                   {columns.slice(0, 4).map((col) => (
-                    <div key={col.id} className="flex flex-col gap-0.5">
+                    <div key={col.id} className="flex flex-col gap-1">
                       <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{col.label}</span>
                       <span className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>—</span>
                     </div>
@@ -419,7 +419,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     style={{ borderBottom: "1px solid var(--border-default)" }}
                   >
                     {columns.map((col) => (
-                      <td key={col.id} className="px-4 py-2.5 text-sm" style={{ color: "var(--text-primary)" }}>
+                      <td key={col.id} className="px-4 py-3 text-sm" style={{ color: "var(--text-primary)" }}>
                         <span className="flex items-center gap-2">
                           {col.id === columns[0].id && (
                             <motion.span
@@ -433,15 +433,15 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                         </span>
                       </td>
                     ))}
-                    <td className="px-4 py-2.5 text-xs">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full font-medium"
+                    <td className="px-4 py-3 text-xs">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full font-medium"
                         style={{ backgroundColor: `${statusColor}15`, color: statusColor }}>
                         <motion.span className="w-1 h-1 rounded-full" style={{ backgroundColor: statusColor }}
                           animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 1.5, repeat: Infinity }} />
                         {status}
                       </span>
                     </td>
-                    <td className="px-2 py-2.5 text-xs relative">
+                    <td className="px-2 py-3 text-xs relative">
                       <div className="relative">
                         <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`rm-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary)" }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
@@ -465,7 +465,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
       </div>
 
       {notif && (
-        <div className="fixed bottom-6 right-6 px-4 py-2.5 rounded-lg shadow-lg text-xs text-white z-50 animate-in slide-in-from-right"
+        <div className="fixed bottom-6 right-6 px-4 py-3 rounded-lg shadow-lg text-xs text-white z-50 animate-in slide-in-from-right"
           style={{ backgroundColor: "var(--surface-base)" }}>
           {notif}
         </div>
@@ -509,7 +509,7 @@ function DashboardPage() {
             className="p-4 rounded-xl"
             style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-sm)" }}
           >
-            <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
+            <div className="text-xs" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
             <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>{stat.value}</div>
           </motion.div>
         ))}

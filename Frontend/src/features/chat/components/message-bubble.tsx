@@ -61,7 +61,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
             className='mt-1 p-0'
           />
         )}
-        <div className='mt-2 flex items-center justify-end gap-1.5 text-[0.65rem] sm:mt-3 sm:gap-2 sm:text-[0.7rem]'>
+        <div className='mt-2 flex items-center justify-end gap-2 text-[0.65rem] sm:mt-3 sm:gap-2 sm:text-[0.7rem]'>
           <span className={cn('text-muted-foreground', isUser && 'text-primary-foreground/80')}>
             {message.timestamp}
           </span>

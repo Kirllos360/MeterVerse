@@ -56,7 +56,7 @@ export function GlobalSearch() {
                 style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
                 {SEARCH_CATEGORIES.map((cat) => (
                   <button key={cat} onClick={() => { setCategory(cat); setShowCatDropdown(false) }}
-                    className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 flex items-center gap-2"
+                    className="w-full px-3 py-3 text-sm text-left transition-colors hover:bg-black/5 flex items-center gap-2"
                     style={{ color: category === cat ? "var(--brand)" : "var(--text-primary)", backgroundColor: category === cat ? "rgba(var(--brand-rgb), 0.05)" : "transparent" }}>
                     {cat === "all" ? (language === "ar" ? "الكل" : "All") : `${t(`nav.${cat}`, cat)}`}
                   </button>
@@ -80,7 +80,7 @@ export function GlobalSearch() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         )}
-        <div className="px-2.5 flex items-center" style={{ color: "var(--text-tertiary)" }}>
+        <div className="px-3 flex items-center" style={{ color: "var(--text-tertiary)" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
       </div>
@@ -92,12 +92,12 @@ export function GlobalSearch() {
             style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)" }}>
             {suggestions.map((s, i) => (
               <button key={i} onClick={() => { setQuery(""); inputRef.current?.blur() }}
-                className="w-full px-3 py-2.5 text-sm text-left flex items-center gap-2 transition-all hover:bg-black/5"
+                className="w-full px-3 py-3 text-sm text-left flex items-center gap-2 transition-all hover:bg-black/5"
                 style={{ color: "var(--text-primary)", borderBottom: i < suggestions.length - 1 ? "1px solid var(--border-default)" : "none" }}>
                 <span>{s.icon}</span><span>{s.label}</span>
               </button>
             ))}
-            <div className="px-3 py-2.5 text-xs font-medium" style={{ color: "var(--text-tertiary)", borderTop: "1px solid var(--border-default)" }}>
+            <div className="px-3 py-3 text-xs font-medium" style={{ color: "var(--text-tertiary)", borderTop: "1px solid var(--border-default)" }}>
               {language === "ar" ? `ابحث في كل الصفحات عن "${query}"` : `Search in all pages for "${query}"`}
             </div>
           </motion.div>

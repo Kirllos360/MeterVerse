@@ -20,7 +20,7 @@ const demoData: DemoItem[] = [
 const demoColumns: Column<DemoItem>[] = [
   { id: "name", header: "Name", accessor: (r) => r.name, sortable: true, width: 160 },
   { id: "email", header: "Email", accessor: (r) => r.email, sortable: true, width: 200 },
-  { id: "role", header: "Role", accessor: (r) => <span className="px-2 py-0.5 text-[11px] rounded-full" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>{r.role}</span>, width: 120 },
+  { id: "role", header: "Role", accessor: (r) => <span className="px-2 py-1 text-xs rounded-full" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>{r.role}</span>, width: 120 },
   { id: "status", header: "Status", accessor: (r) => <span style={{ color: r.status === "Active" ? "var(--status-success)" : "#9CA3AF" }}>{r.status}</span>, width: 100 },
 ]
 

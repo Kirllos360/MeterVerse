@@ -14,7 +14,7 @@ export function TaskCard({ task, ...props }: TaskCardProps) {
       key={task.id}
       value={task.id}
       {...props}
-      render={<div className='bg-card rounded-md border p-3 shadow-xs' />}
+      render={<div className='bg-card rounded-md border p-3 shadow-sm' />}
     >
       <div className='flex flex-col gap-2'>
         <div className='flex items-center justify-between gap-2'>
@@ -27,7 +27,7 @@ export function TaskCard({ task, ...props }: TaskCardProps) {
                   ? 'default'
                   : 'secondary'
             }
-            className='pointer-events-none h-5 rounded-sm px-1.5 text-[11px] capitalize'
+            className='pointer-events-none h-5 rounded-sm px-2 text-xs capitalize'
           >
             {task.priority}
           </Badge>

@@ -76,7 +76,7 @@ export function PageShell({
         {onAdd && (
           <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
             onClick={onAdd}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium text-white transition-all shadow-lg"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-white transition-all shadow-lg"
             style={{ backgroundColor: "var(--brand)" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -87,7 +87,7 @@ export function PageShell({
 
       {/* Search + Sort toolbar */}
       {(onSearch || columns) && (
-        <div className="flex items-center gap-2 px-6 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
+        <div className="flex items-center gap-2 px-6 py-3 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
           {onSearch && (
             <div className="relative flex-1 max-w-sm">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
@@ -96,14 +96,14 @@ export function PageShell({
               </svg>
               <input value={searchVal} onChange={(e) => handleSearch(e.target.value)}
                 placeholder={searchPlaceholder}
-                className="w-full pl-9 pr-3 py-1.5 rounded-lg border text-sm outline-none transition-all focus:border-[var(--brand)] focus:ring-1 focus:ring-[rgba(var(--brand-rgb),0.2)]"
+                className="w-full pl-9 pr-3 py-2 rounded-lg border text-sm outline-none transition-all focus:border-[var(--brand)] focus:ring-1 focus:ring-[rgba(var(--brand-rgb),0.2)]"
                 style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
               />
             </div>
           )}
           {columns && columns.filter(c => c.sortable).length > 0 && (
             <div className="flex items-center gap-1 ml-auto">
-              <span className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>Sort:</span>
+              <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>Sort:</span>
               <select onChange={(e) => handleSort(e.target.value)} value={sortField}
                 className="px-2 py-1 rounded border text-xs outline-none bg-transparent"
                 style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}

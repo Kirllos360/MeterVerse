@@ -77,7 +77,7 @@ export function SidebarContent() {
                   <>
                     <motion.svg animate={{ rotate: isCatExpanded ? 90 : 0 }} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></motion.svg>
                     <span className="ml-2 text-[10px] font-semibold uppercase tracking-wider flex-1">{t(`nav.${group.id}`, group.label)}</span>
-                    <span className="text-[9px]" style={{ color: "var(--sidebar-count-text)" }}>{group.apps.length}</span>
+                    <span className="text-[10px]" style={{ color: "var(--sidebar-count-text)" }}>{group.apps.length}</span>
                   </>
                 ) : (
                   <div className="flex justify-center w-full">
@@ -117,11 +117,11 @@ export function SidebarContent() {
                           <span className="ml-3 text-xs flex-1 truncate flex items-center gap-2">
                             {t(`nav.${app.id}`, app.title)}
                             {app.badge && (
-                              <span className="px-1 py-[1px] rounded text-[9px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.15)", color: "var(--status-error)" }}>
+                              <span className="px-1 py-[1px] rounded text-[10px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.15)", color: "var(--status-error)" }}>
                                 {app.badge}
                               </span>
                             )}
-                            {app.beta && <span className="text-[8px]" style={{ color: "var(--status-pending)" }}>BETA</span>}
+                            {app.beta && <span className="text-[10px]" style={{ color: "var(--status-pending)" }}>BETA</span>}
                           </span>
                         )}
                       </button>

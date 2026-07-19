@@ -50,7 +50,7 @@ export function StatusBarContent() {
     <footer className="flex items-center h-10 px-4 text-sm font-semibold select-none" style={{ color: "var(--text-tertiary)" }}>
       {/* Left — Running motivation + reminder */}
       <div className="flex items-center gap-3 flex-1 min-w-0">
-        <span className="flex items-center gap-1.5 shrink-0">
+        <span className="flex items-center gap-2 shrink-0">
           <motion.span
             className="w-1.5 h-1.5 rounded-full"
             style={{ backgroundColor: connectionStatus === "connected" ? "var(--status-success)" : connectionStatus === "degraded" ? "var(--status-warning)" : "var(--status-error)" }}

@@ -58,7 +58,7 @@ export function KPIWidget({ title, value, unit, trend, trendValue, color = "var(
       }}
     >
       <div className="flex items-center justify-between mb-2">
-        <span className="text-[11px] font-medium" style={{ color: "var(--text-tertiary)" }}>{title}</span>
+        <span className="text-xs font-medium" style={{ color: "var(--text-tertiary)" }}>{title}</span>
         {trend && (
           <div className="flex items-center gap-1">
             <TrendIcon trend={trend} />

@@ -24,8 +24,8 @@ export function AuditViewer() {
 
   return (
     <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
-      <div className="px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
-        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search audit log..." className="w-full px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[var(--brand)] transition-colors" style={{ backgroundColor: "var(--surface-sunken)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
+      <div className="px-4 py-3 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
+        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search audit log..." className="w-full px-3 py-2 rounded-lg border text-xs outline-none focus:border-[var(--brand)] transition-colors" style={{ backgroundColor: "var(--surface-sunken)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
       </div>
       <div style={{ backgroundColor: "var(--surface-base)" }}>
         {filtered.map((e) => (
@@ -35,7 +35,7 @@ export function AuditViewer() {
             <span className="w-36 shrink-0 truncate" style={{ color: "var(--text-secondary)" }}>{e.actor}</span>
             <span className="w-32 shrink-0 truncate font-medium" style={{ color: "var(--text-primary)" }}>{e.action}</span>
             <span className="flex-1 truncate" style={{ color: "var(--text-secondary)" }}>{e.resource}</span>
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(var(--status-success-rgb), 0.1)" : "rgba(var(--status-error-rgb), 0.1)", color: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }}>{e.status}</span>
+            <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(var(--status-success-rgb), 0.1)" : "rgba(var(--status-error-rgb), 0.1)", color: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }}>{e.status}</span>
           </div>
         ))}
       </div>

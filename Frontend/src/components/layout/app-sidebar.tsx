@@ -135,7 +135,7 @@ export default function AppSidebar() {
               >
                 <DropdownMenuGroup>
                   <DropdownMenuLabel className='p-0 font-normal'>
-                    <div className='px-1 py-1.5'>
+                    <div className='px-1 py-2'>
                       {user && (
                         <UserAvatarProfile className='h-8 w-8 rounded-lg' showInfo user={{ ...user, fullName: user.name, emailAddresses: [{ emailAddress: user.email }] }} />
                       )}

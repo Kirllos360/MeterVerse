@@ -44,7 +44,7 @@ export default function AIDiagnosticsPage() {
       <div className="flex gap-2 border-b pb-2" style={{ borderColor: "var(--admin-border)" }}>
         {["anomalies", "forecast", "recommendations", "summaries", "logs"].map((tab) => (
           <button key={tab} onClick={() => setActiveTab(tab)}
-            className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors capitalize"
+            className="px-3 py-2 rounded-lg text-xs font-medium transition-colors capitalize"
             style={{ backgroundColor: activeTab === tab ? "rgba(var(--brand-rgb), 0.2)" : "transparent", color: activeTab === tab ? "var(--brand)" : "var(--admin-text-muted)" }}>
             {tab}
           </button>
@@ -62,7 +62,7 @@ export default function AIDiagnosticsPage() {
             <div key={a.id} className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium" style={{ color: "var(--admin-text)" }}>{a.meterSerial} — {a.type}</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: a.severity === "high" ? "rgba(var(--status-error-rgb), 0.2)" : "rgba(var(--status-warning-rgb), 0.2)", color: a.severity === "high" ? "var(--status-error)" : "var(--status-warning)" }}>
+                <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: a.severity === "high" ? "rgba(var(--status-error-rgb), 0.2)" : "rgba(var(--status-warning-rgb), 0.2)", color: a.severity === "high" ? "var(--status-error)" : "var(--status-warning)" }}>
                   {a.severity}
                 </span>
               </div>

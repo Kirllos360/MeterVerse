@@ -44,13 +44,13 @@ export function ContextMenu({ items, children }: ContextMenuProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -4 }}
             transition={{ duration: 0.1 }}
-            className="fixed z-[1200] w-48 rounded-xl border shadow-xl overflow-hidden py-1"
+            className="fixed z-[1200] w-48 rounded-xl border shadow-lg overflow-hidden py-1"
             style={{ left: pos.x, top: pos.y, backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
           >
             {items.map((item) => (
               <button key={item.id} disabled={item.disabled}
                 onClick={() => { item.onClick(); setOpen(false) }}
-                className="flex items-center gap-2.5 w-full px-3 py-2 text-xs text-left transition-colors"
+                className="flex items-center gap-3 w-full px-3 py-2 text-xs text-left transition-colors"
                 style={{ color: item.danger ? "var(--status-error)" : "var(--text-primary)", opacity: item.disabled ? 0.4 : 1 }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(var(--black-rgb), 0.03)" }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent" }}

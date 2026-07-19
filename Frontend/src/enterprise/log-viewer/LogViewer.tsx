@@ -45,7 +45,7 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
 
   return (
     <div className="rounded-xl overflow-hidden" style={{ boxShadow: "var(--shadow-sm)" }}>
-      <div className="flex items-center gap-1.5 px-3 py-2 border-b overflow-x-auto" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
+      <div className="flex items-center gap-2 px-3 py-2 border-b overflow-x-auto" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         {Object.entries(counts).map(([key, count]) => (
           <button key={key} onClick={() => setFilter(key)}
             className="flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-medium transition-colors whitespace-nowrap"
@@ -65,14 +65,14 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
         ) : filtered.map((log) => (
           <div key={log.id}>
             <button onClick={() => setExpandedId(expandedId === log.id ? null : log.id)}
-              className="flex items-start gap-2 w-full px-3 py-1.5 text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors border-b"
+              className="flex items-start gap-2 w-full px-3 py-2 text-left hover:bg-black/[0.02] dark:hover:bg-white/[0.02] transition-colors border-b"
               style={{ borderColor: "var(--border-default)" }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={levelColors[log.level]} strokeWidth="2" className="mt-0.5 shrink-0"><path d={levelDots[log.level]} /></svg>
               <span className="text-[10px] w-28 shrink-0" style={{ color: "var(--text-tertiary)" }}>{log.timestamp}</span>
               <span className="text-[10px] w-16 shrink-0 font-medium uppercase" style={{ color: levelColors[log.level] }}>{log.level}</span>
               <span className="text-[10px] w-20 shrink-0 truncate" style={{ color: "var(--text-secondary)" }}>{log.source}</span>
-              <span className="text-[11px] flex-1 truncate" style={{ color: "var(--text-primary)" }}>{log.message}</span>
+              <span className="text-xs flex-1 truncate" style={{ color: "var(--text-primary)" }}>{log.message}</span>
             </button>
             <AnimatePresence>
               {expandedId === log.id && log.details && (

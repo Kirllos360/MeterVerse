@@ -102,7 +102,7 @@ export function WorkspaceHome() {
               className="p-3 rounded-xl"
               style={glassCard}
             >
-              <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
+              <div className="text-xs" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
               <div className="text-lg font-bold mt-0" style={{ color: "var(--text-primary)" }}>
                 {stat.label === "Collection Rate" || stat.label === "System Health" ? (
                   <><AnimatedCounter value={stat.value} />%</>
@@ -125,7 +125,7 @@ export function WorkspaceHome() {
             t("home.recordReading", "Record Reading"),
             t("home.generateReport", "Generate Report")
           ].map((action) => (
-            <button key={action} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all hover:shadow-md"
+            <button key={action} className="flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all hover:shadow-md"
               style={{ ...glassCard, color: "var(--text-primary)" }}
             >
               <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb), 0.1)", color: "var(--brand)" }}>+</span>
@@ -140,7 +140,7 @@ export function WorkspaceHome() {
         {/* Monthly Consumption Bar Chart */}
         <div className="p-3 rounded-xl" style={glassCard}>
           <SectionTitle label={t("home.monthlyConsumption", "Monthly Consumption (kWh)")} />
-          <div className="flex items-end gap-1.5 h-24 pt-2">
+          <div className="flex items-end gap-2 h-24 pt-2">
             {liveMonthlyData.map((v, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-1">
                 <motion.div
@@ -153,7 +153,7 @@ export function WorkspaceHome() {
                     minHeight: 4,
                   }}
                 />
-                <span className="text-[8px]" style={{ color: "var(--text-tertiary)" }}>{months[i]}</span>
+                <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{months[i]}</span>
               </div>
             ))}
           </div>
@@ -185,12 +185,12 @@ export function WorkspaceHome() {
               })}
               <circle cx="18" cy="18" r="11" fill="var(--surface-raised)" />
             </svg>
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2">
               {meterDistribution.map((m) => (
                 <div key={m.label} className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full" style={{ backgroundColor: m.color }} />
-                  <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>{m.label}</span>
-                  <span className="text-[11px] font-medium ml-auto" style={{ color: "var(--text-primary)" }}>{m.value.toLocaleString()}</span>
+                  <span className="text-xs" style={{ color: "var(--text-secondary)" }}>{m.label}</span>
+                  <span className="text-xs font-medium ml-auto" style={{ color: "var(--text-primary)" }}>{m.value.toLocaleString()}</span>
                 </div>
               ))}
             </div>
@@ -208,7 +208,7 @@ export function WorkspaceHome() {
               whileHover={{ y: -2, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => openTab({ id: app.id, label: app.title, icon: app.icon })}
-              className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-left text-sm transition-all"
+              className="flex items-center gap-3 px-3 py-3 rounded-xl text-left text-sm transition-all"
               style={glassCard}
             >
               <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand)" }}>
@@ -231,7 +231,7 @@ export function WorkspaceHome() {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
-                className="flex items-start gap-3 py-2.5 border-b last:border-b-0"
+                className="flex items-start gap-3 py-3 border-b last:border-b-0"
                 style={{ borderColor: "var(--border-default)" }}
               >
                 <div className="relative flex items-center justify-center mt-0.5">

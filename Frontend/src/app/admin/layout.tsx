@@ -29,7 +29,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         borderColor: "var(--admin-border)",
       }}>
         <div className="flex items-center h-14 px-4 border-b shrink-0" style={{ borderColor: "var(--admin-border)" }}>
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-3">
             <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--status-error)", color: "white" }}>A</div>
             {!collapsed && <span className="text-sm font-bold text-white">Admin Center</span>}
           </div>

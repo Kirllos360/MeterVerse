@@ -38,7 +38,7 @@ export function SystemHealth() {
       </div>
       <div style={{ backgroundColor: "var(--surface-base)" }}>
         {services.map((s) => (
-          <div key={s.name} className="flex items-center justify-between px-4 py-2.5 border-b text-xs" style={{ borderColor: "var(--border-default)" }}>
+          <div key={s.name} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{ borderColor: "var(--border-default)" }}>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full" style={{ backgroundColor: COLORS[s.status] }} />
               <span style={{ color: "var(--text-primary)" }}>{s.name}</span>
