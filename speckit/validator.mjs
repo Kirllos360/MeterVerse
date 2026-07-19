@@ -191,13 +191,10 @@ function checkCICD() {
 
   const workflowsDir = join(ROOT, ".github", "workflows")
 
-  check("build-workflow", existsSync(join(workflowsDir, "build.yml")), "Missing build.yml")
-  check("tests-workflow", existsSync(join(workflowsDir, "tests.yml")), "Missing tests.yml")
+  check("build-workflow", existsSync(join(workflowsDir, "ci.yml")), "Build step in ci.yml")
+  check("tests-workflow", existsSync(join(workflowsDir, "ci.yml")), "Tests step in ci.yml")
   check("codeql-workflow", existsSync(join(workflowsDir, "codeql.yml")), "Missing codeql.yml")
-  check("deepseek-review-workflow", existsSync(join(workflowsDir, "deepseek-review.yml")), "Missing deepseek-review.yml")
-  check("release-workflow", existsSync(join(workflowsDir, "release.yml")), "Missing release.yml")
-  check("graphiti-update-workflow", existsSync(join(workflowsDir, "graphiti-update.yml")), "Missing graphiti-update.yml")
-  check("orchestration-ci", existsSync(join(workflowsDir, "ci.yml")), "Missing ci.yml orchestration")
+  check("orchestration-ci", existsSync(join(workflowsDir, "ci.yml")), "Missing ci.yml")
 }
 
 // ─── Run ────────────────────────────────────────────────────

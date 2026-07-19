@@ -1,6 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
+
+interface Column<T> { id: string; header: string; accessor: (r: T) => ReactNode; sortable?: boolean; width?: number }
+interface FieldDef { id: string; label: string; type: string; required?: boolean; width?: string; options?: { label: string; value: string }[] }
 
 interface DemoItem {
   id: number; name: string; email: string; role: string; status: string
@@ -59,36 +62,21 @@ export default function ComponentLabPage() {
           </div>
         </Section>
 
-        {/* Widgets */}
-        <Section title="Widgets Runtime">
-          <div className="grid grid-cols-4 gap-3">
-            <Widget label="Total Revenue" value="$284K" variant="kpi" trend="up" trendValue="12%" />
-            <Widget label="Active Meters" value="1,234" variant="counter" />
-            <Widget label="Collection Rate" value={92} variant="progress" progress={92} />
-            <Widget label="System Health" status="active" variant="health" value="Healthy" />
-          </div>
-        </Section>
-
-        {/* Dialogs */}
-        <Section title="Dialogs">
-          <button onClick={() => setDialogOpen(true)}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-white" style={{ backgroundColor: "var(--brand-primary)" }}>
-            Open Dialog
-          </button>
-          <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} title="Sample Dialog"
-            footer={<><button onClick={() => setDialogOpen(false)} className="px-4 py-1.5 rounded-lg text-sm">Cancel</button></>}
-          >
-            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Dialog content with Framer Motion spring animation.</p>
-          </Dialog>
-        </Section>
-
         {/* Loading States */}
         <Section title="Loading States">
           <div className="grid grid-cols-4 gap-3">
-            <SkeletonLines />
-            <LoadingScreen message="Loading data..." />
-            <EmptyState message="No records found" />
-            <ErrorState message="Failed to load" onRetry={() => {}} />
+            <div className="p-4 rounded-xl" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-sm)" }}>
+              <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Skeleton loading placeholder</p>
+            </div>
+            <div className="p-4 rounded-xl" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-sm)" }}>
+              <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Loading state placeholder</p>
+            </div>
+            <div className="p-4 rounded-xl" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-sm)" }}>
+              <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Empty state placeholder</p>
+            </div>
+            <div className="p-4 rounded-xl" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-sm)" }}>
+              <p className="text-xs" style={{ color: "var(--text-tertiary)" }}>Error state placeholder</p>
+            </div>
           </div>
         </Section>
       </div>
@@ -104,4 +92,5 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </div>
   )
 }
+
 

@@ -35,7 +35,7 @@ interface SessionState {
 }
 
 function generateId(): string {
-  return `${Date.now()}-${crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296.toString(36).slice(2, 9)}`
+  return `${Date.now()}-${(crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296).toString(36).slice(2, 9)}`
 }
 
 function getBrowserId(): string {
@@ -117,3 +117,4 @@ export const useSessionManager = create<SessionState>((set, get) => ({
     return sessions.some((s) => s.current && s.expiresAt < Date.now())
   },
 }))
+

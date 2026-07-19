@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-interface LogEntry {
+export interface LogEntry {
   id: string
   timestamp: string
   level: "error" | "warn" | "info" | "debug"
@@ -87,3 +87,4 @@ export function LogViewer({ logs, maxHeight = 400 }: LogViewerProps) {
     </div>
   )
 }
+

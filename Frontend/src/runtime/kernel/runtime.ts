@@ -23,7 +23,7 @@ export class RuntimeKernel implements RuntimeContext {
   private initialized = false
 
   constructor(options: RuntimeOptions = {}) {
-    this.sessionId = `ses_${Date.now()}_${crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296.toString(36).slice(2, 8)}`
+    this.sessionId = `ses_${Date.now()}_${(crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296).toString(36).slice(2, 8)}`
     this.options = {
       storageKey: "mv:runtime",
       maxHistorySize: 100,
@@ -110,3 +110,4 @@ export class RuntimeKernel implements RuntimeContext {
     this.programs.activeProgramId = snapshot.focus.focusedProgramId
   }
 }
+

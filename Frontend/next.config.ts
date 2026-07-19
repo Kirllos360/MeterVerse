@@ -31,8 +31,7 @@ const baseConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   // Bundle analysis (run: ANALYZE=true next build)
-  // @ts-expect-error - bundle analyzer is optional
-  ...(process.env.ANALYZE === 'true' ? { withBundleAnalyzer: true } : {}),
+    ...(process.env.ANALYZE === 'true' ? { withBundleAnalyzer: true } : {}),
   async headers() {
     return [
       {
@@ -86,3 +85,6 @@ if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
 
 const nextConfig = configWithPlugins;
 export default nextConfig;
+
+
+
