@@ -74,29 +74,28 @@ export function WorkspaceHome() {
         </div>
       </div>
 
-      {/* 12 Charts Grid */}
+      {/* 12 Charts Grid — Visual Bars & Lines */}
       <div className="mb-6">
         <SectionTitle label="System Analysis (12 Views)" />
         <div className="grid grid-cols-3 gap-3">
-          {CHART_DATA.map((chart, i) => (
+          {CHART_DATA.map((chart, i) => {
+            const bars = Array.from({ length: 7 }, (_, j) => 20 + Math.sin(i * 1.5 + j * 0.8) * 30 + Math.random() * 15)
+            return (
             <motion.div key={chart.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.03 }}
               className="p-4 rounded-xl" style={glassCard}>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[11px] font-semibold" style={{ color: "var(--text-primary)" }}>{chart.label}</span>
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: chart.color }} />
               </div>
-              <div className="h-16 flex items-center">
-                {/* Mini bar visualization */}
-                <div className="w-full space-y-1.5">
-                  <div className="w-full h-1.5 rounded-full" style={{ backgroundColor: "var(--border-default)" }}>
-                    <motion.div className="h-full rounded-full" style={{ backgroundColor: chart.color, width: `${40 + Math.random() * 50}%` }}
-                      initial={{ width: 0 }} animate={{ width: `${40 + Math.random() * 50}%` }} transition={{ duration: 0.8, delay: i * 0.05 }} />
-                  </div>
-                  <p className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{chart.value}</p>
-                </div>
+              <div className="h-16 flex items-end gap-1 mb-1">
+                {bars.map((b, j) => (
+                  <motion.div key={j} className="flex-1 rounded-t-sm" style={{ backgroundColor: chart.color, opacity: 0.4 + (b / 100) * 0.6 }}
+                    initial={{ height: 0 }} animate={{ height: `${Math.max(8, b)}%` }} transition={{ duration: 0.6, delay: i * 0.03 + j * 0.04 }} />
+                ))}
               </div>
+              <p className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{chart.value}</p>
             </motion.div>
-          ))}
+          )})}
         </div>
       </div>
 

@@ -61,10 +61,10 @@ body {
   --brand-hover: color-mix(in srgb, var(--brand) 85%, black);
 
   /* ─── Neutral Surface Tokens ─────────────────────── */
-  --surface-base: oklch(0.96 0.005 160);
-  --surface-raised: oklch(1 0 0);
+  --surface-base: oklch(0.94 0.006 160);
+  --surface-raised: oklch(0.99 0.003 160);
   --surface-sunken: oklch(0.92 0.005 160);
-  --surface-topbar: oklch(0.98 0.005 160);
+  --surface-topbar: oklch(0.96 0.005 160);
   --surface-tableHeader: oklch(0.95 0.005 160);
   --surface-pop: oklch(1 0 0);
 

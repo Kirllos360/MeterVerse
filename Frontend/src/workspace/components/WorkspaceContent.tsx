@@ -135,7 +135,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             onClick={handleAdd}
             aria-label={t("content.addNew", "Add new") + " " + title}
             className="relative flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-white shadow-lg overflow-hidden"
-            style={{ background: "linear-gradient(135deg, var(--brand), var(--brand-secondary))", boxShadow: "0 4px 15px rgba(var(--brand-rgb), 0.1)" }}
+            style={{ backgroundColor: "var(--sidebar-background)", color: "var(--sidebar-text)", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}
           >
             {/* Pulsing ring */}
             <motion.span className="absolute inset-0 rounded-xl" style={{ boxShadow: "0 0 0 0 rgba(var(--brand-rgb), 0.1)" }}
@@ -293,6 +293,49 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Analysis Charts — 3 selectable metrics */}
+      <div className="shrink-0 px-6 py-3 border-b" style={{ borderColor: "var(--border-subtle)", backgroundColor: "var(--surface-sunken)" }}>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>Analysis</span>
+          <div className="flex gap-2">
+            <select className="px-2 py-1 rounded text-[10px] border outline-none bg-transparent" style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}
+              value={sortField || "revenue"} onChange={(e) => setSortField(e.target.value)}>
+              <option value="revenue">Revenue</option>
+              <option value="meters">Meters</option>
+              <option value="customers">Customers</option>
+              <option value="readings">Readings</option>
+              <option value="payments">Payments</option>
+            </select>
+            <select className="px-2 py-1 rounded text-[10px] border outline-none bg-transparent" style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}
+              value={sortDir} onChange={(e) => setSortDir(e.target.value as "asc" | "desc")}>
+              <option value="asc">vs Last Month</option>
+              <option value="desc">vs Last Year</option>
+            </select>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { label: "Revenue Trend", value: "+12.4%", sub: "vs last month", color: "var(--status-success)", bars: [40,55,45,70,60,75,85] },
+            { label: "Meter Growth", value: "+5.2%", sub: "new installations", color: "var(--brand)", bars: [30,45,55,50,65,70,80] },
+            { label: "Collection Rate", value: "94.2%", sub: "vs target 95%", color: "var(--status-warning)", bars: [80,82,88,85,90,92,94] },
+          ].map((chart) => (
+            <div key={chart.label} className="p-3 rounded-lg" style={{ backgroundColor: "var(--surface-raised)" }}>
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-medium" style={{ color: "var(--text-tertiary)" }}>{chart.label}</span>
+                <span className="text-xs font-semibold" style={{ color: chart.color }}>{chart.value}</span>
+              </div>
+              <div className="flex items-end gap-1 h-10 mb-1">
+                {chart.bars.map((b, i) => (
+                  <motion.div key={i} className="flex-1 rounded-t-sm" style={{ backgroundColor: chart.color, opacity: 0.3 + (b/100) * 0.7 }}
+                    initial={{ height: 0 }} animate={{ height: `${b}%` }} transition={{ duration: 0.5, delay: i * 0.05 }} />
+                ))}
+              </div>
+              <span className="text-[9px]" style={{ color: "var(--text-tertiary)" }}>{chart.sub}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* Content — Grid or List View */}
       <div className="flex-1 overflow-y-auto p-6">
