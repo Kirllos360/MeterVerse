@@ -101,10 +101,10 @@ body {
   --status-pending-rgb: var(--semantic-warning-rgb);
   --white-rgb: 255, 255, 255;
   --black-rgb: 0, 0, 0;
-  --panel-accent: color-mix(in srgb, var(--brand) 22%, black);
+  --panel-accent: #064E3B;
 
   /* ─── Sidebar Tokens ─────────────────────────────── */
-  --sidebar-background: color-mix(in srgb, var(--brand) 20%, black);
+  --sidebar-background: #064E3B;
   --sidebar-surface: rgba(255, 255, 255, 0.05);
   --sidebar-text: #FFFFFF;
   --sidebar-text-muted: rgba(255, 255, 255, 0.45);
@@ -129,7 +129,7 @@ body {
   --admin-accent-subtle: rgba(var(--semantic-error-rgb), 0.2);
 
   /* ─── Inspector Tokens ───────────────────────────── */
-  --inspector-background: color-mix(in srgb, var(--brand) 15%, black);
+  --inspector-background: #043526;
   --inspector-surface: rgba(255, 255, 255, 0.03);
   --inspector-text: #FFFFFF;
   --inspector-text-muted: rgba(255, 255, 255, 0.4);
