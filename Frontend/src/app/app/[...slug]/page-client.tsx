@@ -67,7 +67,7 @@ export default function AppPageClient({ slug }: { slug?: string[] }) {
   if (!app) {
     return (
       <PageShell title="Not Found" description="Application not found" icon="dashboard">
-        <p className="text-sm" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>The application was not found.</p>
+        <p className="text-sm" style={{ color: "var(--text-tertiary)" }}>The application was not found.</p>
       </PageShell>
     )
   }
@@ -83,12 +83,12 @@ export default function AppPageClient({ slug }: { slug?: string[] }) {
       searchPlaceholder={`Search ${app.title.toLowerCase()}...`}
     >
       {/* Empty state table */}
-      <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+      <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
         <table className="w-full">
           <thead>
-            <tr style={{ backgroundColor: "var(--surface-tableHeader, #F5F5F5)" }}>
+            <tr style={{ backgroundColor: "var(--surface-tableHeader)" }}>
               {columns.map((col) => (
-                <th key={col.id} className="px-4 py-3 text-left text-xs font-medium" style={{ color: "var(--text-secondary, #737373)", borderBottom: "1px solid var(--border-default, #E5E5E5)" }}>
+                <th key={col.id} className="px-4 py-3 text-left text-xs font-medium" style={{ color: "var(--text-secondary)", borderBottom: "1px solid var(--border-default)" }}>
                   <div className="flex items-center gap-1">
                     {col.label}
                     {col.sortable && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 6l4-4 4 4M8 18l4 4 4-4"/></svg>}
@@ -99,7 +99,7 @@ export default function AppPageClient({ slug }: { slug?: string[] }) {
           </thead>
           <tbody>
             <tr>
-              <td colSpan={columns.length} className="px-4 py-12 text-center text-sm" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+              <td colSpan={columns.length} className="px-4 py-12 text-center text-sm" style={{ color: "var(--text-tertiary)" }}>
                 <div className="flex flex-col items-center gap-2">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="2" width="20" height="20" rx="2"/><path d="M8 2v20M16 2v20M2 8h20M2 16h20"/></svg>
                   <span>No {app.title.toLowerCase()} yet</span>

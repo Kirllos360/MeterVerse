@@ -107,7 +107,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
       style={{ backgroundColor: "var(--surface-base)" }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b shrink-0" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-raised, #FFFFFF)" }}>
+      <div className="flex items-center justify-between px-6 py-4 border-b shrink-0" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         <div className="flex items-center gap-3">
           {icon && (
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)" }}>
@@ -122,8 +122,8 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             </div>
           )}
           <div>
-            <h1 className="text-base font-semibold" style={{ color: "var(--text-primary, #0A0A0A)" }}>{title}</h1>
-            {description && <p className="text-xs mt-0.5" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{description}</p>}
+            <h1 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>{title}</h1>
+            {description && <p className="text-xs mt-0.5" style={{ color: "var(--text-tertiary)" }}>{description}</p>}
           </div>
         </div>
         {showAdd && (
@@ -151,7 +151,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
       </div>
 
       {/* Search + Sort — Glass-morphism */}
-      <div className="flex items-center gap-2 px-6 py-2.5 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-raised, #FFFFFF)" }}>
+      <div className="flex items-center gap-2 px-6 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         <SmartSearch
           placeholder={t("content.search", "Search") + " " + title.toLowerCase() + "..."}
           onSearch={(q) => setSearchQuery(q)}
@@ -166,7 +166,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
           className="w-8 h-8 flex items-center justify-center rounded-lg shrink-0 relative"
           style={{
             color: "var(--brand-primary, var(--brand-primary))",
-            background: "var(--surface-raised, #FFFFFF)",
+            background: "var(--surface-raised)",
             boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 0 0 1px rgba(var(--brand-primary-rgb), 0.1)",
           }}
         >
@@ -196,12 +196,12 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
         </motion.button>
         {columns.filter(c => c.sortable).length > 0 && (
           <div className="flex items-center gap-1">
-            <span className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{t("content.sort", "Sort:")}</span>
+            <span className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{t("content.sort", "Sort:")}</span>
             <div className="relative dropdown-modern">
               <motion.button
                 onClick={() => setSortOpen(!sortOpen)}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs outline-none transition-all bg-transparent cursor-pointer min-w-[80px]"
-                style={{ borderColor: sortField ? "var(--brand-primary, var(--brand-primary))" : "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }}
+                style={{ borderColor: sortField ? "var(--brand-primary, var(--brand-primary))" : "var(--border-default)", color: "var(--text-primary)" }}
                 whileTap={{ scale: 0.97 }}
               >
                 <span className="flex-1 text-left">{sortField ? columns.find((c) => c.id === sortField)?.label : t("content.none", "None")}</span>
@@ -215,17 +215,17 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     exit={{ opacity: 0, y: -4, scale: 0.95 }}
                     transition={{ duration: 0.12, ease: "easeOut" }}
                     className="absolute top-full left-0 mt-1 min-w-[120px] rounded-xl border shadow-xl z-50 overflow-hidden"
-                    style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+                    style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
                     onClick={() => setSortOpen(false)}
                   >
                     <button onClick={() => { setSortField(""); toggleSort("") }} className="w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 flex items-center gap-2"
-                      style={{ color: !sortField ? "var(--brand-primary, var(--brand-primary))" : "var(--text-primary, #0A0A0A)", backgroundColor: !sortField ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
+                      style={{ color: !sortField ? "var(--brand-primary, var(--brand-primary))" : "var(--text-primary)", backgroundColor: !sortField ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
                       <span>{t("content.none", "None")}</span>
                     </button>
                     {columns.filter(c => c.sortable).map((c) => (
                       <button key={c.id} onClick={() => { setSortField(c.id); toggleSort(c.id) }}
                         className="w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 flex items-center gap-2"
-                        style={{ color: sortField === c.id ? "var(--brand-primary, var(--brand-primary))" : "var(--text-primary, #0A0A0A)", backgroundColor: sortField === c.id ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
+                        style={{ color: sortField === c.id ? "var(--brand-primary, var(--brand-primary))" : "var(--text-primary)", backgroundColor: sortField === c.id ? "rgba(var(--brand-primary-rgb), 0.1)" : "transparent" }}>
                         <span>{c.label}</span>
                         {sortField === c.id && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>}
                       </button>
@@ -261,7 +261,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             exit={{ height: 0, opacity: 0 }}
             transition={transitions.fast}
             className="flex items-center gap-1.5 px-6 py-1.5 border-b overflow-hidden"
-            style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)" }}
+            style={{ borderColor: "var(--border-default)", backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)" }}
           >
             {allFilters.map((f) => (
               <motion.span
@@ -285,7 +285,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
               <button
                 onClick={() => { setSearchQuery(""); setActiveFilters([]) }}
                 className="text-[11px] ml-1 hover:underline"
-                style={{ color: "var(--text-tertiary, #A3A3A3)" }}
+                style={{ color: "var(--text-tertiary)" }}
               >
                 {t("content.clearAll", "Clear all")}
               </button>
@@ -315,7 +315,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 whileHover={{ y: -3, boxShadow: `0 12px 40px ${sc}20, 0 0 0 1px ${sc}30` }}
                 className="rounded-xl border p-5 relative overflow-hidden cursor-pointer"
                 style={{
-                  backgroundColor: "var(--surface-raised, rgba(255,255,255,0.7))",
+                  backgroundColor: "var(--surface-raised)",
                   backdropFilter: "blur(12px)",
                   WebkitBackdropFilter: "blur(12px)",
                   borderColor: `${sc}25`,
@@ -324,7 +324,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 }}
               >
                 {/* Premium 3D shine overlay */}
-                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(255,255,255,0.05) 100%)" }} />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(135deg, rgba(var(--white-rgb), 0.15) 0%, transparent 50%, rgba(var(--white-rgb), 0.05) 100%)" }} />
                 {/* Heart-rate pulse line */}
                 <div className="absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden">
                   <motion.div
@@ -341,10 +341,10 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                       {title[0]}
                     </span>
                     <div>
-                      <span className="text-sm font-semibold truncate block" style={{ color: "var(--text-primary, #0A0A0A)" }}>
+                      <span className="text-sm font-semibold truncate block" style={{ color: "var(--text-primary)" }}>
                         {title} #{i}
                       </span>
-                      <span className="text-[10px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>ID: {title?.toLowerCase()}-{1000 + i}</span>
+                      <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>ID: {title?.toLowerCase()}-{1000 + i}</span>
                     </div>
                   </div>
                   <motion.span
@@ -360,21 +360,21 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 <div className="grid grid-cols-2 gap-y-2 gap-x-4 mb-3">
                   {columns.slice(0, 4).map((col) => (
                     <div key={col.id} className="flex flex-col gap-0.5">
-                      <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{col.label}</span>
-                      <span className="text-xs font-medium" style={{ color: "var(--text-primary, #0A0A0A)" }}>—</span>
+                      <span className="text-[10px] uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{col.label}</span>
+                      <span className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>—</span>
                     </div>
                   ))}
                 </div>
                 {/* Card footer — meta info */}
-                <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
-                  <span className="text-[10px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Updated {i} min ago</span>
+                <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: "var(--border-default)" }}>
+                  <span className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>Updated {i} min ago</span>
                   <div className="relative">
-                    <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`menu-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+                    <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`menu-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary)" }}>
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                     </button>
-                    <div id={`menu-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl border shadow-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }} onClick={(e) => e.stopPropagation()}>
+                    <div id={`menu-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl border shadow-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }} onClick={(e) => e.stopPropagation()}>
                       {[{ icon: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 100-6 3 3 0 000 6z", label: "View" }, { icon: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7", label: "Edit" }, { icon: "M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2", label: "Delete" }].map((opt) => (
-                        <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: opt.label === "Delete" ? "var(--status-error)" : "var(--text-primary, #0A0A0A)" }}>
+                        <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: opt.label === "Delete" ? "var(--status-error)" : "var(--text-primary)" }}>
                           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={opt.icon} /></svg>
                           {opt.label}
                         </button>
@@ -386,12 +386,12 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             )})}
           </motion.div>
         ) : (
-          <motion.div layout transition={transitions.smooth} className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+          <motion.div layout transition={transitions.smooth} className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
             <table className="w-full">
               <thead>
-                <tr style={{ backgroundColor: "var(--surface-tableHeader, #F5F5F5)" }}>
+                <tr style={{ backgroundColor: "var(--surface-tableHeader)" }}>
                   {columns.map((col) => (
-                    <th key={col.id} className="px-4 py-3 text-left text-xs font-medium" style={{ color: "var(--text-secondary, #737373)", borderBottom: "1px solid var(--border-default, #E5E5E5)" }}>
+                    <th key={col.id} className="px-4 py-3 text-left text-xs font-medium" style={{ color: "var(--text-secondary)", borderBottom: "1px solid var(--border-default)" }}>
                       <div className="flex items-center gap-1">
                         {col.label}
                         {col.sortable && (
@@ -402,7 +402,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                       </div>
                     </th>
                   ))}
-                  <th className="px-4 py-3 text-left text-xs font-medium" style={{ color: "var(--text-secondary, #737373)" }}>{t("content.status", "Status")}</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium" style={{ color: "var(--text-secondary)" }}>{t("content.status", "Status")}</th>
                   <th className="px-2 py-3 w-10" />
                 </tr>
               </thead>
@@ -417,10 +417,10 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.03 }}
                     className="relative"
-                    style={{ borderBottom: "1px solid var(--border-default, #E5E5E5)" }}
+                    style={{ borderBottom: "1px solid var(--border-default)" }}
                   >
                     {columns.map((col) => (
-                      <td key={col.id} className="px-4 py-2.5 text-sm" style={{ color: "var(--text-primary, #0A0A0A)" }}>
+                      <td key={col.id} className="px-4 py-2.5 text-sm" style={{ color: "var(--text-primary)" }}>
                         <span className="flex items-center gap-2">
                           {col.id === columns[0].id && (
                             <motion.span
@@ -444,12 +444,12 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                     </td>
                     <td className="px-2 py-2.5 text-xs relative">
                       <div className="relative">
-                        <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`rm-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+                        <button onClick={(e) => { e.stopPropagation(); const el = document.getElementById(`rm-${i}`); if (el) el.classList.toggle("hidden") }} aria-label="Options" className="w-6 h-6 flex items-center justify-center rounded-md hover:bg-black/5 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary)" }}>
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                         </button>
-                        <div id={`rm-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl border shadow-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
+                        <div id={`rm-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl border shadow-xl z-50 overflow-hidden" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
                           {[{ icon: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 100-6 3 3 0 000 6z", label: "View" }, { icon: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7", label: "Edit" }, { icon: "M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2", label: "Delete", danger: true }].map((opt) => (
-                            <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5" style={{ color: opt.danger ? "var(--status-error)" : "var(--text-primary, #0A0A0A)" }}>
+                            <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5" style={{ color: opt.danger ? "var(--status-error)" : "var(--text-primary)" }}>
                               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={opt.icon} /></svg>
                               {opt.label}
                             </button>
@@ -486,8 +486,8 @@ function DashboardPage() {
       style={{ maxWidth: 960, margin: "0 auto" }}
     >
       <div className="mb-8">
-        <h1 className="text-xl font-semibold" style={{ color: "var(--text-primary, #0A0A0A)" }}>{t("home.dashboard", "Dashboard")}</h1>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary, #737373)" }}>{t("home.executiveOverview", "Executive overview")}</p>
+        <h1 className="text-xl font-semibold" style={{ color: "var(--text-primary)" }}>{t("home.dashboard", "Dashboard")}</h1>
+        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>{t("home.executiveOverview", "Executive overview")}</p>
       </div>
       <motion.div
         initial="initial"
@@ -508,10 +508,10 @@ function DashboardPage() {
               animate: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 200, damping: 22, delay: i * 0.04 } },
             }}
             className="p-4 rounded-xl border"
-            style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+            style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
           >
-            <div className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{stat.label}</div>
-            <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary, #0A0A0A)" }}>{stat.value}</div>
+            <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
+            <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>{stat.value}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -548,10 +548,10 @@ export function WorkspaceContent() {
   return (
     <div className="h-full flex items-center justify-center">
       <div className="text-center">
-        <p className="text-sm font-medium" style={{ color: "var(--text-primary, #0A0A0A)" }}>
+        <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
           {activeTab?.label || "Unknown Page"}
         </p>
-        <p className="text-xs mt-1" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+        <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>
           {t("content.contentNotAvailable", "Content not yet available")}
         </p>
       </div>

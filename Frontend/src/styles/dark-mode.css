@@ -132,14 +132,14 @@ html.dark {
 /* Status indicators in dark mode */
 html.dark .status-dot-active {
   background-color: #00BFA5;
-  box-shadow: 0 0 6px rgba(0,191,165,0.4);
+  box-shadow: 0 0 6px rgba(var(--brand-primary-rgb), 0.4);
 }
 html.dark .status-dot-inactive {
   background-color: oklch(0.4 0 0);
 }
 html.dark .status-dot-error {
   background-color: #DC2626;
-  box-shadow: 0 0 6px rgba(220,38,38,0.4);
+  box-shadow: 0 0 6px rgba(var(--status-error-rgb), 0.4);
 }
 
 /* Chart overrides */

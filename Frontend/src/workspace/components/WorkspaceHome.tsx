@@ -10,9 +10,9 @@ import { GradientText, TypewriterText } from "@/components/effects/AnimatedText"
 import { futuristic } from "@/design-system/motion"
 
 const glassCard = {
-  backgroundColor: "var(--surface-raised, #FFFFFF)",
-  border: "1px solid var(--border-default, #E5E5E5)",
-  boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02)",
+  backgroundColor: "var(--surface-raised)",
+  border: "1px solid var(--border-default)",
+  boxShadow: "0 1px 3px rgba(var(--black-rgb), 0.04), 0 0 0 1px rgba(var(--black-rgb), 0.02)",
 }
 
 const monthlyData = [3200, 2800, 3500, 4100, 3800, 4200, 4600, 4300, 4900, 5100, 4800, 5300]
@@ -82,7 +82,7 @@ export function WorkspaceHome() {
       {/* Header */}
       <div className="mb-8">
         <GradientText className="text-xl font-semibold">{t("nav.dashboard", "Workspace Home")}</GradientText>
-        <p className="text-sm mt-1" style={{ color: "var(--text-secondary, #737373)" }}>
+        <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>
           <TypewriterText text={`${t("common.area", "Area")}: ${area} — All systems operational`} speed={20} />
         </p>
       </div>
@@ -103,8 +103,8 @@ export function WorkspaceHome() {
               className="p-4 rounded-xl"
               style={glassCard}
             >
-              <div className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{stat.label}</div>
-              <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary, #0A0A0A)" }}>
+              <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>{stat.label}</div>
+              <div className="text-xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>
                 {stat.label === "Collection Rate" || stat.label === "System Health" ? (
                   <><AnimatedCounter value={stat.value} />%</>
                 ) : (
@@ -127,7 +127,7 @@ export function WorkspaceHome() {
             t("home.generateReport", "Generate Report")
           ].map((action) => (
             <button key={action} className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium transition-all hover:shadow-md"
-              style={{ ...glassCard, color: "var(--text-primary, #0A0A0A)" }}
+              style={{ ...glassCard, color: "var(--text-primary)" }}
             >
               <span className="w-6 h-6 rounded-lg flex items-center justify-center text-xs" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)", color: "var(--brand-primary)" }}>+</span>
               {action}
@@ -154,7 +154,7 @@ export function WorkspaceHome() {
                     minHeight: 4,
                   }}
                 />
-                <span className="text-[8px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{months[i]}</span>
+                <span className="text-[8px]" style={{ color: "var(--text-tertiary)" }}>{months[i]}</span>
               </div>
             ))}
           </div>
@@ -184,14 +184,14 @@ export function WorkspaceHome() {
                   />
                 )
               })}
-              <circle cx="18" cy="18" r="11" fill="var(--surface-raised, #FAFAFA)" />
+              <circle cx="18" cy="18" r="11" fill="var(--surface-raised)" />
             </svg>
             <div className="flex flex-col gap-1.5">
               {meterDistribution.map((m) => (
                 <div key={m.label} className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full" style={{ backgroundColor: m.color }} />
-                  <span className="text-[11px]" style={{ color: "var(--text-secondary, #737373)" }}>{m.label}</span>
-                  <span className="text-[11px] font-medium ml-auto" style={{ color: "var(--text-primary, #0A0A0A)" }}>{m.value.toLocaleString()}</span>
+                  <span className="text-[11px]" style={{ color: "var(--text-secondary)" }}>{m.label}</span>
+                  <span className="text-[11px] font-medium ml-auto" style={{ color: "var(--text-primary)" }}>{m.value.toLocaleString()}</span>
                 </div>
               ))}
             </div>
@@ -215,7 +215,7 @@ export function WorkspaceHome() {
               <span className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand-primary)" }}>
                 {app.title[0]}
               </span>
-              <span className="truncate" style={{ color: "var(--text-primary, #0A0A0A)" }}>{app.title}</span>
+              <span className="truncate" style={{ color: "var(--text-primary)" }}>{app.title}</span>
             </motion.button>
           ))}
         </div>
@@ -233,7 +233,7 @@ export function WorkspaceHome() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.08 }}
                 className="flex items-start gap-3 py-2.5 border-b last:border-b-0"
-                style={{ borderColor: "var(--border-default, rgba(0,0,0,0.06))" }}
+                style={{ borderColor: "var(--border-default)" }}
               >
                 <div className="relative flex items-center justify-center mt-0.5">
                   <motion.div
@@ -244,9 +244,9 @@ export function WorkspaceHome() {
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs" style={{ color: "var(--text-primary, #0A0A0A)" }}>{item.text}</p>
+                  <p className="text-xs" style={{ color: "var(--text-primary)" }}>{item.text}</p>
                 </div>
-                <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{item.time}</span>
+                <span className="text-[10px] shrink-0" style={{ color: "var(--text-tertiary)" }}>{item.time}</span>
               </motion.div>
             ))}
           </div>
@@ -259,8 +259,8 @@ export function WorkspaceHome() {
 function SectionTitle({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2 mb-3">
-      <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{label}</span>
-      <div className="flex-1 h-px" style={{ backgroundColor: "var(--border-default, #E5E5E5)" }} />
+      <span className="text-[10px] font-semibold uppercase tracking-wider" style={{ color: "var(--text-tertiary)" }}>{label}</span>
+      <div className="flex-1 h-px" style={{ backgroundColor: "var(--border-default)" }} />
     </div>
   )
 }

@@ -36,21 +36,21 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
   ])
 
   return (
-    <div className="flex items-center h-14 px-5 gap-4 border-b font-semibold tracking-wide" style={{ backgroundColor: "var(--surface-topbar, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
+    <div className="flex items-center h-14 px-5 gap-4 border-b font-semibold tracking-wide" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
       {/* Left: System Name + Breadcrumb */}
       <div className="flex items-center gap-3 text-sm min-w-0 shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand-primary)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--text-primary, #0A0A0A)" }}>MeterVerse</span>
+          <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--text-primary)" }}>MeterVerse</span>
         </div>
-        <div className="h-5 w-px" style={{ backgroundColor: "var(--border-default, #E5E5E5)" }} />
-        <span style={{ color: "var(--text-tertiary, #A3A3A3)" }} className="hidden sm:inline font-medium">{language === "ar" ? "مساحة العمل" : "Workspace"}</span>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden sm:block" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+        <div className="h-5 w-px" style={{ backgroundColor: "var(--border-default)" }} />
+        <span style={{ color: "var(--text-tertiary)" }} className="hidden sm:inline font-medium">{language === "ar" ? "مساحة العمل" : "Workspace"}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden sm:block" style={{ color: "var(--text-tertiary)" }}>
           <path d="M9 18l6-6-6-6" />
         </svg>
-        <span className="hidden sm:inline font-semibold" style={{ color: "var(--text-primary, #0A0A0A)" }}>{area}</span>
+        <span className="hidden sm:inline font-semibold" style={{ color: "var(--text-primary)" }}>{area}</span>
       </div>
 
       {/* Center: Search */}
@@ -85,11 +85,11 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
               exit={{ opacity: 0, y: -4, scale: 0.95 }}
               transition={{ duration: 0.12 }}
               className="absolute right-44 top-full mt-2 w-80 rounded-xl border shadow-xl z-50 overflow-hidden"
-              style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+              style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
-                <span className="text-sm font-bold" style={{ color: "var(--text-primary, #0A0A0A)" }}>
+              <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
+                <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
                   {reminderMode === "add" ? (language === "ar" ? "إضافة تذكير" : "Add Reminder") : (language === "ar" ? "التذكيرات" : "Reminders")}
                 </span>
                 <button onClick={() => setReminderMode(reminderMode === "add" ? "list" : "add")} className="text-xs font-medium" style={{ color: "var(--brand-primary)" }}>
@@ -101,20 +101,20 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 /* Add Reminder Form */
                 <div className="p-4 space-y-3">
                   <div>
-                    <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary, #737373)" }}>{language === "ar" ? "التذكير" : "Reminder"}</label>
+                    <label className="block text-xs font-medium mb-1" style={{ color: "var(--text-secondary)" }}>{language === "ar" ? "التذكير" : "Reminder"}</label>
                     <input value={newReminder} onChange={(e) => setNewReminder(e.target.value)} placeholder={language === "ar" ? "أدخل التذكير..." : "Enter reminder..."}
                       className="w-full px-3 py-2 rounded-lg border text-sm outline-none focus:border-[var(--brand-primary)] transition-colors"
-                      style={{ backgroundColor: "var(--surface-sunken, #F0F0F0)", borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }} />
+                      style={{ backgroundColor: "var(--surface-sunken)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
                   </div>
                   <div className="flex gap-2">
                     <select className="flex-1 px-3 py-2 rounded-lg border text-sm outline-none bg-transparent"
-                      style={{ borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }}>
+                      style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
                       <option value="today">{language === "ar" ? "اليوم" : "Today"}</option>
                       <option value="tomorrow">{language === "ar" ? "غداً" : "Tomorrow"}</option>
                       <option value="week">{language === "ar" ? "هذا الأسبوع" : "This week"}</option>
                     </select>
                     <select className="flex-1 px-3 py-2 rounded-lg border text-sm outline-none bg-transparent"
-                      style={{ borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }}>
+                      style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
                       <option value="high">{language === "ar" ? "عالية" : "High"}</option>
                       <option value="medium">{language === "ar" ? "متوسطة" : "Medium"}</option>
                       <option value="low">{language === "ar" ? "منخفضة" : "Low"}</option>
@@ -133,13 +133,13 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 /* Reminders List */
                 <div className="max-h-60 overflow-y-auto">
                   {reminders.map((r, i) => (
-                    <div key={i} className="flex items-start gap-3 px-4 py-3 border-b last:border-b-0 group" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+                    <div key={i} className="flex items-start gap-3 px-4 py-3 border-b last:border-b-0 group" style={{ borderColor: "var(--border-default)" }}>
                       <span className="text-lg mt-0.5">{r.icon}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="text-sm" style={{ color: "var(--text-primary, #0A0A0A)" }}>{r.title}</div>
+                        <div className="text-sm" style={{ color: "var(--text-primary)" }}>{r.title}</div>
                         <div className="text-[10px] mt-0.5 font-medium" style={{ color: r.color }}>{r.time} {language === "ar" ? "مضت" : "ago"}</div>
                       </div>
-                      <button onClick={() => setReminders(reminders.filter((_, idx) => idx !== i))} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+                      <button onClick={() => setReminders(reminders.filter((_, idx) => idx !== i))} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--text-tertiary)" }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                       </button>
                     </div>
@@ -150,7 +150,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
           )}
         </AnimatePresence>
 
-        <div className="h-6 w-px" style={{ backgroundColor: "var(--border-default, #E5E5E5)" }} />
+        <div className="h-6 w-px" style={{ backgroundColor: "var(--border-default)" }} />
 
         {/* User Avatar + Dropdown */}
         <div className="relative">
@@ -161,8 +161,8 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
           >
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand-primary), var(--brand-secondary))" }}>AU</div>
             <div className="hidden lg:block text-left leading-tight">
-              <div className="text-sm font-bold tracking-tight" style={{ color: "var(--text-primary, #0A0A0A)" }}>Admin User</div>
-              <div className="text-[10px] font-medium" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Administrator</div>
+              <div className="text-sm font-bold tracking-tight" style={{ color: "var(--text-primary)" }}>Admin User</div>
+              <div className="text-[10px] font-medium" style={{ color: "var(--text-tertiary)" }}>Administrator</div>
             </div>
             <motion.svg animate={{ rotate: showUserMenu ? 180 : 0 }} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6" /></motion.svg>
           </button>
@@ -175,15 +175,15 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                 exit={{ opacity: 0, y: -4, scale: 0.95 }}
                 transition={{ duration: 0.12 }}
                 className="absolute right-0 top-full mt-2 w-56 rounded-xl border shadow-xl z-50 overflow-hidden"
-                style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+                style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
                 onClick={() => setShowUserMenu(false)}
               >
-                <div className="p-3 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+                <div className="p-3 border-b" style={{ borderColor: "var(--border-default)" }}>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white shadow-md" style={{ background: "linear-gradient(135deg, var(--brand-primary), var(--brand-secondary))" }}>AU</div>
                     <div>
-                      <div className="text-sm font-bold" style={{ color: "var(--text-primary, #0A0A0A)" }}>Admin User</div>
-                      <div className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>admin@meterverse.com</div>
+                      <div className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Admin User</div>
+                      <div className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>admin@meterverse.com</div>
                     </div>
                   </div>
                 </div>
@@ -195,14 +195,14 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                   ].map((item, i) => (
                     <button key={i}
                       className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/10"
-                      style={{ color: "var(--text-primary, #0A0A0A)" }}
+                      style={{ color: "var(--text-primary)" }}
                     >
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={item.icon} /></svg>
                       <span>{language === "ar" ? item.labelAr : item.label}</span>
                     </button>
                   ))}
                 </div>
-                <div className="border-t p-1" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+                <div className="border-t p-1" style={{ borderColor: "var(--border-default)" }}>
                   <button
                     onClick={logout}
                     className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-red-50 dark:hover:bg-red-900/20"
@@ -223,7 +223,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
 
 function ToolbarButton({ children, label, onClick, isActive }: { children: React.ReactNode; label: string; onClick: () => void; isActive?: boolean }) {
   return (
-    <button onClick={onClick} className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: isActive ? "var(--brand-primary)" : "var(--text-secondary, #737373)" }} title={label} aria-label={label}>
+    <button onClick={onClick} className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: isActive ? "var(--brand-primary)" : "var(--text-secondary)" }} title={label} aria-label={label}>
       {children}
     </button>
   )

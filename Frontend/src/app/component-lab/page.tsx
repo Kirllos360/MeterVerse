@@ -32,10 +32,10 @@ export default function ComponentLabPage() {
   const [formVals, setFormVals] = useState<Record<string, unknown>>({})
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--surface-base, #FAFAFA)" }}>
+    <div className="min-h-screen" style={{ backgroundColor: "var(--surface-base)" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 24px" }}>
-        <h1 className="text-xl font-semibold mb-6" style={{ color: "var(--text-primary, #0A0A0A)" }}>Component Lab</h1>
-        <p className="text-sm mb-8" style={{ color: "var(--text-secondary, #737373)" }}>Enterprise Component Library — Interactive Showcase</p>
+        <h1 className="text-xl font-semibold mb-6" style={{ color: "var(--text-primary)" }}>Component Lab</h1>
+        <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>Enterprise Component Library — Interactive Showcase</p>
 
         {/* DataTable */}
         <Section title="DataTable Runtime">
@@ -43,18 +43,18 @@ export default function ComponentLabPage() {
 
         {/* Forms */}
         <Section title="Forms Runtime">
-          <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
+          <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
                       </div>
         </Section>
 
         {/* Charts */}
         <Section title="Charts Runtime">
           <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
-              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Line Chart</p>
+            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>Line Chart</p>
                           </div>
-            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
-              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Pie Chart</p>
+            <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
+              <p className="text-xs mb-2" style={{ color: "var(--text-tertiary)" }}>Pie Chart</p>
                           </div>
           </div>
         </Section>
@@ -78,7 +78,7 @@ export default function ComponentLabPage() {
           <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} title="Sample Dialog"
             footer={<><button onClick={() => setDialogOpen(false)} className="px-4 py-1.5 rounded-lg text-sm">Cancel</button></>}
           >
-            <p className="text-sm" style={{ color: "var(--text-secondary, #737373)" }}>Dialog content with Framer Motion spring animation.</p>
+            <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Dialog content with Framer Motion spring animation.</p>
           </Dialog>
         </Section>
 
@@ -99,7 +99,7 @@ export default function ComponentLabPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-8">
-      <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-secondary, #737373)" }}>{title}</h2>
+      <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-secondary)" }}>{title}</h2>
       {children}
     </div>
   )

@@ -45,14 +45,14 @@ export function ContextMenu({ items, children }: ContextMenuProps) {
             exit={{ opacity: 0, scale: 0.95, y: -4 }}
             transition={{ duration: 0.1 }}
             className="fixed z-[1200] w-48 rounded-xl border shadow-xl overflow-hidden py-1"
-            style={{ left: pos.x, top: pos.y, backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+            style={{ left: pos.x, top: pos.y, backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
           >
             {items.map((item) => (
               <button key={item.id} disabled={item.disabled}
                 onClick={() => { item.onClick(); setOpen(false) }}
                 className="flex items-center gap-2.5 w-full px-3 py-2 text-xs text-left transition-colors"
-                style={{ color: item.danger ? "var(--status-error)" : "var(--text-primary, #0A0A0A)", opacity: item.disabled ? 0.4 : 1 }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(0,0,0,0.03)" }}
+                style={{ color: item.danger ? "var(--status-error)" : "var(--text-primary)", opacity: item.disabled ? 0.4 : 1 }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(var(--black-rgb), 0.03)" }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent" }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={item.icon || ""} /></svg>

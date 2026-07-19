@@ -14,10 +14,10 @@ export function AmbientBackground() {
           className="absolute inset-0 opacity-[0.05] dark:opacity-[0.08]"
           animate={{
             background: [
-              "radial-gradient(ellipse at 20% 50%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, #00D68F 0%, transparent 50%)",
-              "radial-gradient(ellipse at 80% 50%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 50% 20%, #00D68F 0%, transparent 50%)",
-              "radial-gradient(ellipse at 50% 30%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 20% 50%, #00D68F 0%, transparent 50%)",
-              "radial-gradient(ellipse at 20% 50%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, #00D68F 0%, transparent 50%)",
+              "radial-gradient(ellipse at 20% 50%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, var(--brand-primary) 0%, transparent 50%)",
+              "radial-gradient(ellipse at 80% 50%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 50% 20%, var(--brand-primary) 0%, transparent 50%)",
+              "radial-gradient(ellipse at 50% 30%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 80% 70%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 20% 50%, var(--brand-primary) 0%, transparent 50%)",
+              "radial-gradient(ellipse at 20% 50%, var(--brand-primary) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, var(--surface-base) 0%, transparent 50%), radial-gradient(ellipse at 50% 80%, var(--brand-primary) 0%, transparent 50%)",
             ],
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}

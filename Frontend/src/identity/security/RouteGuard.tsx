@@ -31,8 +31,8 @@ function AccessDenied() {
           <rect x="3" y="11" width="18" height="11" rx="2" />
           <path d="M7 11V7a5 5 0 0110 0v4" />
         </svg>
-        <p className="text-sm font-medium" style={{ color: "var(--text-secondary, #737373)" }}>Access Denied</p>
-        <p className="text-xs mt-1" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>You don't have permission to view this page.</p>
+        <p className="text-sm font-medium" style={{ color: "var(--text-secondary)" }}>Access Denied</p>
+        <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>You don't have permission to view this page.</p>
       </div>
     </div>
   )

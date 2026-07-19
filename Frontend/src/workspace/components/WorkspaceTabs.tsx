@@ -8,7 +8,7 @@ export function WorkspaceTabs() {
   const { tabs, activeTabId, setActiveTab, closeTab } = useWorkspaceStore()
 
   return (
-    <div className="flex items-center h-10 border-b overflow-x-auto shrink-0 scrollbar-thin" style={{ backgroundColor: "var(--surface-topbar, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}>
+    <div className="flex items-center h-10 border-b overflow-x-auto shrink-0 scrollbar-thin" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
       <AnimatePresence mode="popLayout">
         {tabs.map((tab) => (
           <motion.div
@@ -25,9 +25,9 @@ export function WorkspaceTabs() {
             tabIndex={0}
             className="relative flex items-center gap-1.5 px-4 h-full text-xs whitespace-nowrap border-r shrink-0 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-inset group select-none"
             style={{
-              backgroundColor: tab.id === activeTabId ? "var(--surface-base, #FAFAFA)" : "transparent",
-              color: tab.id === activeTabId ? "var(--text-primary, #0A0A0A)" : "var(--text-tertiary, #A3A3A3)",
-              borderColor: "var(--border-default, #E5E5E5)",
+              backgroundColor: tab.id === activeTabId ? "var(--surface-base)" : "transparent",
+              color: tab.id === activeTabId ? "var(--text-primary)" : "var(--text-tertiary)",
+              borderColor: "var(--border-default)",
             }}
           >
             {/* Premium active tab indicator with brightness pulse */}
@@ -59,7 +59,7 @@ export function WorkspaceTabs() {
               </motion.div>
             )}
             {tab.dirty && (
-              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "var(--status-pending, #D97706)" }} />
+              <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: "var(--status-pending)" }} />
             )}
             <span className="truncate max-w-[120px]">{tab.label}</span>
             {tab.pinned && (
@@ -75,7 +75,7 @@ export function WorkspaceTabs() {
                 onClick={(e) => { e.stopPropagation(); closeTab(tab.id) }}
                 onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); closeTab(tab.id) } }}
                 className="w-3.5 h-3.5 flex items-center justify-center rounded-sm opacity-0 group-hover:opacity-100 hover:bg-black/10 dark:hover:bg-white/10 cursor-pointer transition-opacity"
-                style={{ color: "var(--text-tertiary, #A3A3A3)" }}
+                style={{ color: "var(--text-tertiary)" }}
               >
                 <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />

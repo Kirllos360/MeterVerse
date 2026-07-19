@@ -28,7 +28,7 @@ export class CustomersApp extends BaseApp {
     container.innerHTML = ""
     const root = document.createElement("div")
     root.className = "p-6 space-y-6 overflow-y-auto h-full"
-    root.style.backgroundColor = "var(--surface-base, #FAFAFA)"
+    root.style.backgroundColor = "var(--surface-base)"
     root.innerHTML = `
       <div class="flex items-center justify-between">
         <div>
@@ -56,7 +56,7 @@ export class CustomersApp extends BaseApp {
       </div>
       <div class="rounded-xl border overflow-hidden" style="border-color:var(--border-default)">
         <table class="w-full">
-          <thead><tr style="background:var(--surface-tableHeader,#F5F5F5)">
+          <thead><tr style="background:var(--surface-tableHeader)">
             <th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Name</th>
             <th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Email</th>
             <th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Phone</th>

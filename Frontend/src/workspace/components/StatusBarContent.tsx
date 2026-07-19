@@ -47,7 +47,7 @@ export function StatusBarContent() {
   }, [])
 
   return (
-    <footer className="flex items-center h-10 px-4 text-sm font-semibold select-none" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+    <footer className="flex items-center h-10 px-4 text-sm font-semibold select-none" style={{ color: "var(--text-tertiary)" }}>
       {/* Left — Running motivation + reminder */}
       <div className="flex items-center gap-3 flex-1 min-w-0">
         <span className="flex items-center gap-1.5 shrink-0">
@@ -61,7 +61,7 @@ export function StatusBarContent() {
           <span className="hidden md:inline tabular-nums">{backendLatency}ms</span>
         </span>
 
-        <div className="h-3 w-px" style={{ backgroundColor: "var(--border-default, #E5E5E5)" }} />
+        <div className="h-3 w-px" style={{ backgroundColor: "var(--border-default)" }} />
 
         <AnimatePresence mode="wait">
           {showQuote ? (
@@ -78,7 +78,7 @@ export function StatusBarContent() {
 
       {/* Right — System info */}
       <div className="flex items-center gap-3 shrink-0">
-        <span className="hidden sm:inline text-[10px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{area}</span>
+        <span className="hidden sm:inline text-[10px]" style={{ color: "var(--text-tertiary)" }}>{area}</span>
         <span className="hidden lg:inline text-[10px]">{language.toUpperCase()}</span>
         <motion.span className="text-[10px] tabular-nums" style={{ color: "rgba(var(--brand-primary-rgb), 0.5)" }}
           animate={{ opacity: [0.4, 0.7, 0.4] }}

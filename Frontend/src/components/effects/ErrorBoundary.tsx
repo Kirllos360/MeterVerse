@@ -34,11 +34,11 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="flex items-center justify-center h-full p-6">
           <div className="text-center max-w-sm">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--status-error, #DC2626)" strokeWidth="1.5" className="mx-auto mb-3">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--status-error)" strokeWidth="1.5" className="mx-auto mb-3">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
-            <p className="text-sm font-medium" style={{ color: "var(--text-primary, #0A0A0A)" }}>Something went wrong</p>
-            <p className="text-xs mt-1" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{this.state.error?.message || "An unexpected error occurred"}</p>
+            <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Something went wrong</p>
+            <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>{this.state.error?.message || "An unexpected error occurred"}</p>
             <button onClick={() => this.setState({ hasError: false, error: undefined })}
               className="mt-3 px-3 py-1.5 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--brand-primary)" }}>
               Try again

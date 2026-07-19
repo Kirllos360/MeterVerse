@@ -23,18 +23,18 @@ export function AuditViewer() {
   ) : entries
 
   return (
-    <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
-      <div className="px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-raised, #FFFFFF)" }}>
-        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search audit log..." className="w-full px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[var(--brand-primary)] transition-colors" style={{ backgroundColor: "var(--surface-sunken, #F0F0F0)", borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }} />
+    <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
+      <div className="px-4 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
+        <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search audit log..." className="w-full px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[var(--brand-primary)] transition-colors" style={{ backgroundColor: "var(--surface-sunken)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
       </div>
-      <div style={{ backgroundColor: "var(--surface-base, #FAFAFA)" }}>
+      <div style={{ backgroundColor: "var(--surface-base)" }}>
         {filtered.map((e) => (
-          <div key={e.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{ borderColor: "var(--border-default, #E5E5E5)" }}>
+          <div key={e.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{ borderColor: "var(--border-default)" }}>
             <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }} />
-            <span className="w-32 shrink-0 font-mono text-[10px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{new Date(e.timestamp).toLocaleTimeString()}</span>
-            <span className="w-36 shrink-0 truncate" style={{ color: "var(--text-secondary, #737373)" }}>{e.actor}</span>
-            <span className="w-32 shrink-0 truncate font-medium" style={{ color: "var(--text-primary, #0A0A0A)" }}>{e.action}</span>
-            <span className="flex-1 truncate" style={{ color: "var(--text-secondary, #737373)" }}>{e.resource}</span>
+            <span className="w-32 shrink-0 font-mono text-[10px]" style={{ color: "var(--text-tertiary)" }}>{new Date(e.timestamp).toLocaleTimeString()}</span>
+            <span className="w-36 shrink-0 truncate" style={{ color: "var(--text-secondary)" }}>{e.actor}</span>
+            <span className="w-32 shrink-0 truncate font-medium" style={{ color: "var(--text-primary)" }}>{e.action}</span>
+            <span className="flex-1 truncate" style={{ color: "var(--text-secondary)" }}>{e.resource}</span>
             <span className="text-[10px] px-1.5 py-0.5 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(5,150,105,0.1)" : "rgba(220,38,38,0.1)", color: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }}>{e.status}</span>
           </div>
         ))}

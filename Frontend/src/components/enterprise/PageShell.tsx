@@ -54,7 +54,7 @@ export function PageShell({
   return (
     <div className="h-full flex flex-col overflow-hidden">
       {/* Header with title + add button */}
-      <div className="flex items-center justify-between px-6 py-4 border-b shrink-0" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-raised, #FFFFFF)" }}>
+      <div className="flex items-center justify-between px-6 py-4 border-b shrink-0" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
         <div className="flex items-center gap-3">
           {icon && (
             <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "rgba(var(--brand-primary-rgb), 0.1)" }}>
@@ -69,8 +69,8 @@ export function PageShell({
             </div>
           )}
           <div>
-            <h1 className="text-base font-semibold" style={{ color: "var(--text-primary, #0A0A0A)" }}>{title}</h1>
-            {description && <p className="text-xs mt-0.5" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>{description}</p>}
+            <h1 className="text-base font-semibold" style={{ color: "var(--text-primary)" }}>{title}</h1>
+            {description && <p className="text-xs mt-0.5" style={{ color: "var(--text-tertiary)" }}>{description}</p>}
           </div>
         </div>
         {onAdd && (
@@ -87,26 +87,26 @@ export function PageShell({
 
       {/* Search + Sort toolbar */}
       {(onSearch || columns) && (
-        <div className="flex items-center gap-2 px-6 py-2.5 border-b" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-raised, #FFFFFF)" }}>
+        <div className="flex items-center gap-2 px-6 py-2.5 border-b" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }}>
           {onSearch && (
             <div className="relative flex-1 max-w-sm">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-                className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+                className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "var(--text-tertiary)" }}>
                 <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
               <input value={searchVal} onChange={(e) => handleSearch(e.target.value)}
                 placeholder={searchPlaceholder}
                 className="w-full pl-9 pr-3 py-1.5 rounded-lg border text-sm outline-none transition-all focus:border-[var(--brand-primary)] focus:ring-1 focus:ring-[rgba(var(--brand-primary-rgb),0.2)]"
-                style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-sunken, #F0F0F0)", color: "var(--text-primary, #0A0A0A)" }}
+                style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)", color: "var(--text-primary)" }}
               />
             </div>
           )}
           {columns && columns.filter(c => c.sortable).length > 0 && (
             <div className="flex items-center gap-1 ml-auto">
-              <span className="text-[11px]" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>Sort:</span>
+              <span className="text-[11px]" style={{ color: "var(--text-tertiary)" }}>Sort:</span>
               <select onChange={(e) => handleSort(e.target.value)} value={sortField}
                 className="px-2 py-1 rounded border text-xs outline-none bg-transparent"
-                style={{ borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-primary, #0A0A0A)" }}
+                style={{ borderColor: "var(--border-default)", color: "var(--text-primary)" }}
               >
                 <option value="">None</option>
                 {columns.filter(c => c.sortable).map((c) => (
@@ -126,7 +126,7 @@ export function PageShell({
       )}
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-6" style={{ backgroundColor: "var(--surface-base, #FAFAFA)" }}>
+      <div className="flex-1 overflow-y-auto p-6" style={{ backgroundColor: "var(--surface-base)" }}>
         {children}
       </div>
     </div>

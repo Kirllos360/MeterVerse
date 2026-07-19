@@ -32,10 +32,10 @@ export function WorkspaceLayout({
   const { sidebarMode, inspectorOpen, inspectorWidth, setInspectorWidth, setInspectorOpen } = useWorkspaceStore()
 
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden" style={{ backgroundColor: "var(--surface-base, #FAFAFA)" }}>
+    <div className="flex flex-col h-screen w-screen overflow-hidden" style={{ backgroundColor: "var(--surface-base)" }}>
       {/* HEADER — Full width, bottom edge is the start line for panels */}
       {toolbarContent && (
-        <motion.div className="shrink-0 border-b z-40 relative" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-topbar, #FFFFFF)" }}
+        <motion.div className="shrink-0 border-b z-40 relative" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-topbar)" }}
           animate={{ boxShadow: ["0 1px 0 rgba(var(--brand-primary-rgb), 0)", "0 1px 0 rgba(var(--brand-primary-rgb), 0.08)", "0 1px 0 rgba(var(--brand-primary-rgb), 0)"] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
           {toolbarContent}
@@ -81,7 +81,7 @@ export function WorkspaceLayout({
             animate={{ width: 48, opacity: 1 }}
             exit={{ width: 0, opacity: 0 }}
             className="shrink-0 flex flex-col items-center gap-3 py-3 border-l cursor-pointer z-30 group transition-colors hover:bg-black/[0.02] dark:hover:bg-white/[0.02]"
-            style={{ backgroundColor: "var(--surface-topbar, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)", width: 48 }}
+            style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", width: 48 }}
             onClick={() => setInspectorOpen(!inspectorOpen)}
             title="Open inspector"
           >
@@ -156,7 +156,7 @@ export function WorkspaceLayout({
 
       {/* FOOTER — Full width, top edge is the end line for panels */}
       {statusBar && (
-        <motion.div className="shrink-0 border-t z-40 relative overflow-hidden" style={{ borderColor: "var(--border-default, #E5E5E5)", backgroundColor: "var(--surface-topbar, #FFFFFF)" }}
+        <motion.div className="shrink-0 border-t z-40 relative overflow-hidden" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-topbar)" }}
           animate={{ boxShadow: ["0 -1px 0 rgba(var(--brand-primary-rgb), 0)", "0 -1px 0 rgba(var(--brand-primary-rgb), 0.06)", "0 -1px 0 rgba(var(--brand-primary-rgb), 0)"] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
           {statusBar}

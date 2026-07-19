@@ -85,8 +85,8 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
       <div
         className="flex items-center rounded-xl border transition-all duration-200 overflow-hidden"
         style={{
-          backgroundColor: isFocused ? "var(--surface-raised, #FFFFFF)" : "var(--surface-sunken, #F0F0F0)",
-          borderColor: isFocused ? "var(--brand-primary)" : "var(--border-default, #E5E5E5)",
+          backgroundColor: isFocused ? "var(--surface-raised)" : "var(--surface-sunken)",
+          borderColor: isFocused ? "var(--brand-primary)" : "var(--border-default)",
           boxShadow: isFocused ? "0 0 0 2px rgba(var(--brand-primary-rgb), 0.15)" : "none",
         }}
       >
@@ -95,7 +95,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
           <button
             onClick={() => setShowFilter(!showFilter)}
             className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium border-r whitespace-nowrap transition-colors hover:bg-black/5 dark:hover:bg-white/10"
-            style={{ borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-secondary, #737373)" }}
+            style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)" }}
           >
             {language === "ar" ? (currentFilterLabel?.labelAr || "الكل") : (currentFilterLabel?.label || "All")}
             <motion.svg animate={{ rotate: showFilter ? 180 : 0 }} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6" /></motion.svg>
@@ -108,7 +108,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                 exit={{ opacity: 0, y: -4, scale: 0.95 }}
                 transition={{ duration: 0.12 }}
                 className="absolute top-full left-0 mt-1 w-44 rounded-xl border shadow-lg z-50 overflow-hidden"
-                style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)" }}
+                style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
               >
                 {SEARCH_FILTERS.map((f) => (
                   <button
@@ -116,7 +116,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                     onClick={() => { setFilter(f.id); setShowFilter(false) }}
                     className="w-full px-3 py-2.5 text-sm text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10 flex items-center gap-2"
                     style={{
-                      color: filter === f.id ? "var(--brand-primary)" : "var(--text-primary, #0A0A0A)",
+                      color: filter === f.id ? "var(--brand-primary)" : "var(--text-primary)",
                       backgroundColor: filter === f.id ? "rgba(var(--brand-primary-rgb), 0.05)" : "transparent",
                     }}
                   >
@@ -139,18 +139,18 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
           onFocus={() => setIsFocused(true)}
           placeholder={placeholder || (language === "ar" ? "ابحث في أي شيء..." : "Search anything...")}
           className="flex-1 px-3 py-2 text-sm outline-none bg-transparent min-w-0"
-          style={{ color: "var(--text-primary, #0A0A0A)" }}
+          style={{ color: "var(--text-primary)" }}
         />
 
         {/* Clear */}
         {query && (
-          <button onClick={() => { setQuery(""); inputRef.current?.focus() }} className="px-2 flex items-center" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+          <button onClick={() => { setQuery(""); inputRef.current?.focus() }} className="px-2 flex items-center" style={{ color: "var(--text-tertiary)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
           </button>
         )}
 
         {/* Search icon */}
-        <div className="px-2.5 flex items-center" style={{ color: "var(--text-tertiary, #A3A3A3)" }}>
+        <div className="px-2.5 flex items-center" style={{ color: "var(--text-tertiary)" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg>
         </div>
       </div>
@@ -164,8 +164,8 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
             exit={{ opacity: 0, y: -4 }}
             className="absolute top-full left-0 right-0 mt-1 rounded-xl border shadow-lg z-50 overflow-hidden"
             style={{
-              backgroundColor: "var(--surface-raised, #FFFFFF)",
-              borderColor: "var(--border-default, #E5E5E5)",
+              backgroundColor: "var(--surface-raised)",
+              borderColor: "var(--border-default)",
               backdropFilter: "blur(16px)",
               WebkitBackdropFilter: "blur(16px)",
             }}
@@ -175,7 +175,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                 key={i}
                 onClick={() => { setQuery(r.label); inputRef.current?.blur() }}
                 className="w-full px-3 py-2.5 text-sm text-left flex items-center gap-3 transition-all hover:bg-black/5 dark:hover:bg-white/10"
-                style={{ borderBottom: i < results.length - 1 ? "1px solid var(--border-default, #E5E5E5)" : "none", color: "var(--text-primary, #0A0A0A)" }}
+                style={{ borderBottom: i < results.length - 1 ? "1px solid var(--border-default)" : "none", color: "var(--text-primary)" }}
               >
                 <span>{r.icon}</span>
                 <div className="flex-1 min-w-0">
@@ -186,7 +186,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
                 </span>
               </button>
             ))}
-            <div className="px-3 py-2.5 text-xs font-medium" style={{ color: "var(--text-tertiary, #A3A3A3)", borderTop: "1px solid var(--border-default, #E5E5E5)" }}>
+            <div className="px-3 py-2.5 text-xs font-medium" style={{ color: "var(--text-tertiary)", borderTop: "1px solid var(--border-default)" }}>
               {language === "ar" ? `ابحث في كل الصفحات عن "${query}"` : `Search in all pages for "${query}"`}
             </div>
           </motion.div>
@@ -197,7 +197,7 @@ export function SmartSearch({ placeholder, onSearch, suggestions: _suggestions }
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             className="absolute top-full left-0 right-0 mt-1 rounded-xl border shadow-lg z-50 overflow-hidden p-4 text-center text-sm"
-            style={{ backgroundColor: "var(--surface-raised, #FFFFFF)", borderColor: "var(--border-default, #E5E5E5)", color: "var(--text-tertiary, #A3A3A3)" }}
+            style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)", color: "var(--text-tertiary)" }}
           >
             {language === "ar" ? `لا توجد نتائج لـ "${query}"` : `No results for "${query}"`}
           </motion.div>

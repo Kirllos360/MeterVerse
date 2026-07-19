@@ -31,9 +31,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const activeThemeValue = cookieStore.get("active_theme")?.value
   const isValidTheme = THEMES.some((t) => t.value === activeThemeValue)
   const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME
+  const lang = cookieStore.get("mv_language")?.value || "en"
+  const dir = lang === "ar" ? "rtl" : "ltr"
 
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang={lang} dir={dir} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

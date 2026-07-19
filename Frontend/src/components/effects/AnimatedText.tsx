@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 
 export function GradientText({ children, className = "" }: { children: string; className?: string }) {
   const colors = useMemo(() => [
-    "var(--brand-primary)", "#00D68F", "var(--surface-base)", "var(--brand-primary)",
+    "var(--brand-primary)", "var(--brand-primary)", "var(--surface-base)", "var(--brand-primary)",
   ], [])
 
   return (
