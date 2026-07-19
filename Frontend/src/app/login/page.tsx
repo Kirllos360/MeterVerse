@@ -51,27 +51,27 @@ export default function LoginPage() {
       <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "var(--panel-accent)" }}>
         <Particles />
         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center p-8 z-10">
-          <motion.div animate={{ rotate: [0, 10, -10, 0] }} className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
+          <motion.div animate={{ rotate: [0, 10, -10, 0] }} className="w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
           </motion.div>
           <h2 className="text-xl font-semibold text-white mb-2">Access Granted</h2>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>Redirecting to workspace...</p>
+          <p className="text-base" style={{ color: "rgba(255,255,255,0.6)" }}>Redirecting to workspace...</p>
         </motion.div>
       </div>
     )
   }
 
   return (
-    <div className="flex min-h-screen" style={{ backgroundColor: "var(--panel-accent)" }}>
+    <div className="relative min-h-screen w-full" style={{ backgroundColor: "var(--panel-accent)" }}>
       <Particles />
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--brand-rgb), 0.08) 0%, transparent 70%)" }} />
-      <div className="flex-1 flex items-center justify-center p-8 relative z-10">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-lg">
+      <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full" style={{ maxWidth: 520 }}>
           <div className="flex flex-col items-center mb-10">
-            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4" style={{ backgroundColor: "var(--brand)" }}>
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+            <div className="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style={{ backgroundColor: "var(--brand)" }}>
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
             </div>
-            <h1 className="text-3xl font-bold text-white mb-1">MeterVerse</h1>
+            <h1 className="text-4xl font-bold text-white mb-1">MeterVerse</h1>
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)" }}>Enterprise Utility OS</p>
           </div>
           <motion.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
