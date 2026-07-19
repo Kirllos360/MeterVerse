@@ -15,6 +15,19 @@
     @apply bg-background text-foreground;
   }
 
+  /* Sidebar text shadow for readability */
+  [style*="--sidebar-background"] *,
+  [style*="--inspector-background"] * {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+  }
+  /* Remove text shadow from inputs and SVGs */
+  [style*="--sidebar-background"] input,
+  [style*="--inspector-background"] input,
+  [style*="--sidebar-background"] svg,
+  [style*="--inspector-background"] svg {
+    text-shadow: none;
+  }
+
   /* Global scrollbar styling to match ScrollArea */
   * {
     scrollbar-width: thin;

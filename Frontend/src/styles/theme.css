@@ -101,20 +101,21 @@ body {
   --status-pending-rgb: var(--semantic-warning-rgb);
   --white-rgb: 255, 255, 255;
   --black-rgb: 0, 0, 0;
-  --panel-accent: #008F7A;
+  --panel-accent: #007560;
 
   /* ─── Sidebar Tokens ─────────────────────────────── */
-  --sidebar-background: #008F7A;
+  --sidebar-background: #007560;
   --sidebar-surface: rgba(255, 255, 255, 0.05);
   --sidebar-text: #FFFFFF;
-  --sidebar-text-muted: rgba(255, 255, 255, 0.45);
+  --sidebar-text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --sidebar-text-muted: rgba(255, 255, 255, 0.55);
   --sidebar-text-disabled: rgba(255, 255, 255, 0.2);
   --sidebar-icon: rgba(255, 255, 255, 0.4);
   --sidebar-hover: rgba(255, 255, 255, 0.06);
   --sidebar-active: rgba(var(--brand-rgb), 0.15);
   --sidebar-selected: var(--brand);
   --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-category-text: rgba(255, 255, 255, 0.3);
+  --sidebar-category-text: rgba(255, 255, 255, 0.5);
   --sidebar-count-text: rgba(255, 255, 255, 0.15);
 
   /* ─── Admin Panel Tokens ─────────────────────────── */
@@ -129,10 +130,11 @@ body {
   --admin-accent-subtle: rgba(var(--semantic-error-rgb), 0.2);
 
   /* ─── Inspector Tokens ───────────────────────────── */
-  --inspector-background: #007A68;
+  --inspector-background: #006855;
   --inspector-surface: rgba(255, 255, 255, 0.03);
   --inspector-text: #FFFFFF;
-  --inspector-text-muted: rgba(255, 255, 255, 0.4);
+  --inspector-text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --inspector-text-muted: rgba(255, 255, 255, 0.55);
   --inspector-text-disabled: rgba(255, 255, 255, 0.25);
   --inspector-border: rgba(255, 255, 255, 0.06);
   --inspector-tab-active: rgba(var(--brand-rgb), 0.15);
