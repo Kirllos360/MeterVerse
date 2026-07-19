@@ -36,47 +36,6 @@ function HeavyRain() {
   )
 }
 
-function Windmill() {
-  const [windSpeed] = useState(() => 3 + Math.random() * 2)
-  return (
-    <div className="absolute pointer-events-none" style={{ bottom: "20%", right: "15%", zIndex: 2 }}>
-      {/* Wind lines */}
-      <motion.div className="absolute"
-        style={{ top: -40, left: -80, width: 60, height: 1, backgroundColor: "rgba(174,194,224,0.08)" }}
-        animate={{ x: [-20, 40], opacity: [0, 0.3, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-      />
-      <motion.div className="absolute"
-        style={{ top: -30, left: -60, width: 40, height: 1, backgroundColor: "rgba(174,194,224,0.06)" }}
-        animate={{ x: [-15, 35], opacity: [0, 0.2, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "linear", delay: 0.5 }}
-      />
-      {/* Tower */}
-      <div style={{ width: 6, height: 120, margin: "0 auto", background: "linear-gradient(to top, rgba(174,194,224,0.08), rgba(174,194,224,0.03))" }} />
-      {/* Hub */}
-      <div style={{ position: "relative", width: 100, height: 100, margin: "0 auto" }}>
-        <motion.svg width="100" height="100" viewBox="0 0 100 100"
-          animate={{ rotate: 360 }}
-          transition={{ duration: windSpeed, repeat: Infinity, ease: "linear" }}
-          style={{ position: "absolute", top: -50, left: 0 }}
-        >
-          {/* Blade 1 - Up */}
-          <path d="M50,50 L50,5 Q55,25 50,50" fill="rgba(174,194,224,0.06)" stroke="rgba(174,194,224,0.1)" strokeWidth="0.5" />
-          {/* Blade 2 - Down */}
-          <path d="M50,50 L50,95 Q45,75 50,50" fill="rgba(174,194,224,0.06)" stroke="rgba(174,194,224,0.1)" strokeWidth="0.5" />
-          {/* Blade 3 - Left */}
-          <path d="M50,50 L5,50 Q25,45 50,50" fill="rgba(174,194,224,0.06)" stroke="rgba(174,194,224,0.1)" strokeWidth="0.5" />
-          {/* Blade 4 - Right */}
-          <path d="M50,50 L95,50 Q75,55 50,50" fill="rgba(174,194,224,0.06)" stroke="rgba(174,194,224,0.1)" strokeWidth="0.5" />
-          {/* Hub center */}
-          <circle cx="50" cy="50" r="3" fill="rgba(174,194,224,0.15)" />
-          <circle cx="50" cy="50" r="1.5" fill="rgba(174,194,224,0.25)" />
-        </motion.svg>
-      </div>
-    </div>
-  )
-}
-
 function Particles() {
   const items = useMemo(() => Array.from({ length: 8 }, (_, i) => ({
     id: i, y: 20 + Math.random() * 60, delay: Math.random() * 10, size: 3 + Math.random() * 3
@@ -122,7 +81,7 @@ export default function LoginPage() {
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "var(--panel-accent)" }}>
-        <HeavyRain /><Windmill /><Particles />
+        <HeavyRain /><Particles />
         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center p-8 z-10">
           <motion.div animate={{ rotate: [0, 10, -10, 0] }} className="w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
@@ -136,7 +95,7 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden" style={{ backgroundColor: "var(--panel-accent)" }}>
-      <HeavyRain /><Windmill /><Particles />
+      <HeavyRain /><Particles />
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--brand-rgb), 0.08) 0%, transparent 70%)" }} />
       <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full" style={{ maxWidth: 520 }}>
