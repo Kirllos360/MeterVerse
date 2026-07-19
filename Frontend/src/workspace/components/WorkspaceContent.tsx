@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback, useMemo } from "react"
+import { useState, useCallback, useMemo, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useWorkspaceStore } from "../stores"
 import { useAppRegistry } from "@/app-framework/registry/application-registry"
@@ -78,6 +78,22 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
     "developer", "api-explorer", "runtime-inspector", "logs",
   ].includes(appId)
   const icon = entityIcons[appId] || "dashboard"
+  const [data, setData] = useState<any[] | null>(null)
+  const [loading, setLoading] = useState(false)
+  const [dataError, setDataError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const resourceMap: Record<string, string> = { customers: "customers", meters: "meters", readings: "readings", invoices: "invoices", payments: "payments" }
+    const resource = resourceMap[appId]
+    if (!resource) return
+    setLoading(true)
+    fetch(`/api/meterverse/${resource}`)
+      .then(r => r.ok ? r.json() : Promise.reject("API unavailable"))
+      .then(json => { setData(json[resource] || []); setLoading(false) })
+      .catch(() => { setData(null); setLoading(false); setDataError(null) })
+  }, [appId])
+
+  const rows = data || Array.from({ length: 15 }, (_, i) => i + 1)
 
   const handleAdd = useCallback(() => {
     setNotif(`New ${title} dialog would open here`)
@@ -346,7 +362,8 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
             variants={{ animate: { transition: { staggerChildren: 0.04 } } }}
             className="grid grid-cols-3 gap-3"
           >
-            {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((i) => {
+            {rows.map((item: any, i: number) => {
+              const id = typeof item === "number" ? item : item.id || (i + 1)
               const statuses = ["success","warning","error","info","default"] as const
               const status = statuses[i % statuses.length]
               const statusColors = {success:"var(--status-success)",warning:"var(--status-warning)",error:"var(--status-error)",info:"#3B82F6",default:"var(--brand)"}
@@ -449,9 +466,9 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                 </tr>
               </thead>
               <tbody>
-                {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((i) => {
+                {rows.map((item: any, i: number) => {
                   const statuses = ["Active","Active","Warning","Active","Error","Active","Active","Warning","Active","Active","Error","Active","Warning","Active","Active"]
-                  const status = statuses[i-1]
+                  const status = statuses[i % statuses.length]
                   const statusColor = status === "Error" ? "var(--status-error)" : status === "Warning" ? "var(--status-warning)" : "var(--brand)"
                   return (
                   <motion.tr key={i}
