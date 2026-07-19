@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: meter_pulse
+      POSTGRES_USER: meter_pulse
+      POSTGRES_PASSWORD: meter_pulse_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE_URL: postgresql://meter_pulse:meter_pulse_dev@postgres:5432/meter_pulse?schema=public
+      JWT_SECRET: mv-jwt-secret-change-in-production-2026
+      CORS_ORIGIN: http://localhost:7400
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build: ./Frontend
+    ports:
+      - "7400:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:3001/api
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

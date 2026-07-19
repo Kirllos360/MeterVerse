@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("viewer")
+  area      String   @default("")
+  project   String   @default("")
+  tenant    String   @default("")
+  language  String   @default("en")
+  theme     String   @default("adaptive")
+  mfaEnabled Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  status    String   @default("active")
+  area      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  meters    Meter[]
+  invoices  Invoice[]
+}
+
+model Meter {
+  id        String   @id @default(uuid())
+  serial    String   @unique
+  type      String
+  location  String?
+  status    String   @default("active")
+  area      String?
+  customerId String?
+  customer  Customer? @relation(fields: [customerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  readings  Reading[]
+}
+
+model Reading {
+  id        String   @id @default(uuid())
+  meterId   String
+  meter     Meter    @relation(fields: [meterId], references: [id])
+  value     Float
+  unit      String   @default("kWh")
+  timestamp DateTime @default(now())
+  source    String   @default("manual")
+  status    String   @default("valid")
+  createdAt DateTime @default(now())
+}
+
+model Invoice {
+  id         String   @id @default(uuid())
+  number     String   @unique
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
+  amount     Float
+  status     String   @default("pending")
+  dueDate    DateTime?
+  issuedAt   DateTime @default(now())
+  paidAt     DateTime?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  payments   Payment[]
+}
+
+model Payment {
+  id        String   @id @default(uuid())
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  amount    Float
+  method    String   @default("cash")
+  status    String   @default("completed")
+  paidAt    DateTime @default(now())
+  createdAt DateTime @default(now())
+}
