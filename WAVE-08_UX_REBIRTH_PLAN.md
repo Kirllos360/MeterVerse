@@ -268,4 +268,4 @@ NoResults    — no results message + clear filter
 | 8 | Empty states + density modes | New components | 4h |
 | 9 | Full audit + SpecKit | verification | 1h |
 
-**Total: ~25h**
+**Total: ~20h (7/8 phases complete)**
