@@ -7,7 +7,6 @@ import { WorkspaceTabs } from "@/workspace/components/WorkspaceTabs"
 import { InspectorPanel } from "@/admin/layout/InspectorPanel"
 import { AdminToolbar, AdminStatusBar } from "@/admin/layout/AdminToolbar"
 
-// Lazy page imports
 import AdminHomePage from "./home/page"
 import AdminUsersPage from "./users/page"
 import AdminRolesPage from "./roles/page"
@@ -42,6 +41,9 @@ const pageComponents: Record<string, any> = {
 
 export default function AdminLayout() {
   const [active, setActive] = useState("home")
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [inspectorOpen, setInspectorOpen] = useState(false)
+  const [viewMode, setViewMode] = useState<"list" | "grid">("list")
   const [openTabs, setOpenTabs] = useState<string[]>(["home"])
 
   useEffect(() => {
@@ -54,39 +56,52 @@ export default function AdminLayout() {
   return (
     <div style={{ "--brand": "var(--admin-accent)", "--brand-rgb": "var(--semantic-error-rgb)" } as React.CSSProperties}>
       <WorkspaceLayout
-      sidebarContent={
-        <div className="flex flex-col h-full">
-          <div className="flex items-center gap-2 px-3 h-12 shrink-0 border-b" style={{ borderColor: "var(--border-default)" }}>
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: "var(--admin-accent)", color: "white" }}>MV</div>
-            <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Admin</span>
+        sidebarContent={
+          <div className="flex flex-col h-full relative">
+            {/* Logo */}
+            <div className="flex items-center gap-2 px-3 h-12 shrink-0 border-b" style={{ borderColor: "var(--border-default)" }}>
+              <motion.div animate={{ scale: sidebarCollapsed ? 0.8 : 1 }} className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0" style={{ backgroundColor: "var(--admin-accent)", color: "white" }}>MV</motion.div>
+              <motion.span animate={{ opacity: sidebarCollapsed ? 0 : 1, width: sidebarCollapsed ? 0 : "auto" }} className="text-sm font-semibold overflow-hidden whitespace-nowrap" style={{ color: "var(--text-primary)" }}>Admin</motion.span>
+            </div>
+
+            {/* Nav items */}
+            <div className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
+              {adminNav.map((item) => {
+                const isActive = active === item.id
+                return (
+                  <motion.button key={item.id} onClick={() => setActive(item.id)}
+                    whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-2.5 w-full rounded-lg text-xs outline-none"
+                    style={{ padding: "6px 10px", backgroundColor: isActive ? "var(--admin-accent)" : "transparent", color: isActive ? "white" : "var(--text-tertiary)", fontWeight: isActive ? 600 : 400, border: "none", cursor: "pointer" }}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                      <path d={item.icon} />
+                    </svg>
+                    <motion.span animate={{ opacity: sidebarCollapsed ? 0 : 1, width: sidebarCollapsed ? 0 : "auto" }} className="truncate overflow-hidden whitespace-nowrap text-left">{item.label}</motion.span>
+                  </motion.button>
+                )
+              })}
+            </div>
+
+            {/* Collapse button */}
+            <motion.button onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.9 }}
+              className="flex items-center justify-center w-full py-2 outline-none"
+              style={{ borderTop: "1px solid var(--border-default)", color: "rgba(255,255,255,0.25)", cursor: "pointer", background: "transparent", borderLeft: "none", borderRight: "none", borderBottom: "none" }}>
+              <motion.div animate={{ rotate: sidebarCollapsed ? 180 : 0 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><polyline points="15 18 9 12 15 6" /></svg>
+              </motion.div>
+            </motion.button>
           </div>
-          <div className="flex-1 overflow-y-auto py-2 px-2 space-y-0.5">
-            {adminNav.map((item) => {
-              const isActive = active === item.id
-              return (
-                <motion.button key={item.id} onClick={() => setActive(item.id)}
-                  whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-                  className="flex items-center gap-2.5 w-full rounded-lg text-xs outline-none"
-                  style={{ padding: "6px 10px", backgroundColor: isActive ? "var(--admin-accent)" : "transparent", color: isActive ? "white" : "var(--text-tertiary)", fontWeight: isActive ? 600 : 400, border: "none", cursor: "pointer" }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                    <path d={item.icon} />
-                  </svg>
-                  <span className="truncate">{item.label}</span>
-                </motion.button>
-              )
-            })}
-          </div>
+        }
+        toolbarContent={<AdminToolbar activePage={active} viewMode={viewMode} onViewModeChange={setViewMode} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} />}
+        tabBar={<WorkspaceTabs />}
+        statusBar={<AdminStatusBar inspectorOpen={inspectorOpen} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} />}
+        inspectorContent={inspectorOpen ? <InspectorPanel /> : undefined}
+      >
+        <div className="h-full">
+          {PageComponent && <PageComponent viewMode={viewMode} />}
         </div>
-      }
-      toolbarContent={<AdminToolbar activePage={active} />}
-      tabBar={<WorkspaceTabs />}
-      statusBar={<AdminStatusBar />}
-      inspectorContent={<InspectorPanel />}
-    >
-      <div className="h-full">
-        {PageComponent && <PageComponent />}
-      </div>
-    </WorkspaceLayout>
+      </WorkspaceLayout>
     </div>
   )
 }

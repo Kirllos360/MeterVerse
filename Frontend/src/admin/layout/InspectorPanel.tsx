@@ -45,7 +45,7 @@ export function InspectorPanel() {
 
       {!collapsed && <>
         {/* Output */}
-        <div className="flex-1 overflow-y-auto p-2 font-mono text-[11px] space-y-1" style={{ backgroundColor: "#050505" }}>
+        <div className="flex-1 overflow-y-auto p-3 font-mono text-[12px] space-y-2" style={{ backgroundColor: "#080808" }}>
           {history.length === 0 && (
             <div className="flex items-center gap-2 p-3 rounded-xl text-xs" style={{ backgroundColor: "rgba(var(--semantic-error-rgb), 0.05)", border: "1px solid rgba(var(--semantic-error-rgb), 0.08)" }}>
               <span className="w-6 h-6 rounded-lg flex items-center justify-center text-[10px]" style={{ backgroundColor: "var(--admin-accent)", color: "white" }}>❯</span>
@@ -69,14 +69,14 @@ export function InspectorPanel() {
         </div>
 
         {/* Input */}
-        <div className="flex gap-1.5 p-2 border-t shrink-0" style={{ borderColor: "var(--border-default)" }}>
-          <div className="flex-1 flex items-center gap-1.5 px-3 py-1.5 rounded-xl" style={{ backgroundColor: "#050505", border: "1px solid var(--border-default)" }}>
-            <span style={{ color: "var(--admin-accent)", fontSize: 11 }}>$</span>
+        <div className="flex gap-1.5 p-3 border-t shrink-0" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
+          <div className="flex-1 flex items-center gap-1.5 px-3 py-2 rounded-xl" style={{ backgroundColor: "#0A0A0A", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "inset 0 1px 3px rgba(0,0,0,0.3)" }}>
+            <span style={{ color: "var(--admin-accent)", fontSize: 12, fontWeight: 600 }}>$</span>
             <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && execute()}
-              placeholder="/api/health" className="flex-1 bg-transparent outline-none text-xs font-mono" style={{ color: "var(--text-primary)" }} />
+              placeholder="/api/health" className="flex-1 bg-transparent outline-none text-xs font-mono" style={{ color: "#E0E0E0" }} />
           </div>
-          <motion.button onClick={execute} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className="px-4 py-1.5 rounded-xl text-xs font-medium text-white" style={{ backgroundColor: "var(--admin-accent)" }}>
+          <motion.button onClick={execute} whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(220,38,38,0.3)" }} whileTap={{ scale: 0.95 }}
+            className="px-4 py-2 rounded-xl text-xs font-medium text-white" style={{ backgroundColor: "var(--admin-accent)" }}>
             Run
           </motion.button>
         </div>
