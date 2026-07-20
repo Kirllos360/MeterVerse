@@ -129,6 +129,14 @@ body {
   --admin-accent-muted: rgba(var(--semantic-error-rgb), 0.5);
   --admin-accent-subtle: rgba(var(--semantic-error-rgb), 0.2);
 
+  /* ─── Admin Panel — Light Mode ──────────────────── */
+  --admin-background-light: #F8F8F8;
+  --admin-surface-light: #F0F0F0;
+  --admin-border-light: rgba(0, 0, 0, 0.08);
+  --admin-text-light: #1A1A1A;
+  --admin-text-muted-light: rgba(0, 0, 0, 0.5);
+  --admin-text-dim-light: rgba(0, 0, 0, 0.25);
+
   /* ─── Inspector Tokens ───────────────────────────── */
   --inspector-background: #005241;
   --inspector-surface: rgba(255, 255, 255, 0.03);

@@ -34,24 +34,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }, [active])
 
   return (
-    <div style={{
-      "--surface-base": "#0A0A0A",
-      "--surface-topbar": "#0D0D0D",
-      "--surface-raised": "#0F0F0F",
-      "--sidebar-background": "#080808",
-      "--border-default": "rgba(255,255,255,0.06)",
-      "--border-subtle": "rgba(255,255,255,0.04)",
-      "--text-primary": "#F0F0F0",
-      "--text-secondary": "rgba(255,255,255,0.7)",
-      "--text-tertiary": "rgba(255,255,255,0.45)",
-      "--text-quaternary": "rgba(255,255,255,0.2)",
-      "--status-success": "#22C55E",
-      "--brand": "#EF4444",
-      "--admin-background": "#0A0A0A",
-      "--admin-surface": "#0D0D0D",
-      "--admin-border": "rgba(255,255,255,0.06)",
-      "--admin-text": "#F0F0F0",
-    } as React.CSSProperties}>
+    <>
     <WorkspaceLayout
       sidebarContent={
         <div className="flex flex-col h-full">
@@ -109,6 +92,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     >
       {children}
     </WorkspaceLayout>
-    </div>
+    </>
   )
 }
