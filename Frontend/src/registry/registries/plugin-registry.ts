@@ -1,6 +1,6 @@
 import { BaseRegistry } from "./base-registry"
 import type { Registrable } from "../contracts/base"
-import type { ProgramRegistration } from "./program-registry"
+import type { ProgramRegistration } from "@/runtime/contracts/program"
 import type { CommandRegistration } from "./command-registry"
 import type { ActionRegistration } from "./action-registry"
 import type { PanelRegistration } from "./panel-registry"

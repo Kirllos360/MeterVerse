@@ -52,7 +52,7 @@ export class BaseRegistry<T extends Registrable> {
       if (filter.enabled !== undefined) result = result.filter((i) => (i.enabled ?? true) === filter.enabled)
       if (filter.search) {
         const q = filter.search.toLowerCase()
-        result = result.filter((i) => i.name.toLowerCase().includes(q) || i.id.toLowerCase().includes(q))
+        result = result.filter((i) => (i.name || i.id).toLowerCase().includes(q) || i.id.toLowerCase().includes(q))
       }
     }
     return result
@@ -67,7 +67,7 @@ export class BaseRegistry<T extends Registrable> {
 
   search(query: string): T[] {
     const q = query.toLowerCase()
-    return this.getAll().filter((i) => i.name.toLowerCase().includes(q) || i.id.toLowerCase().includes(q) || i.tags?.some((t) => t.includes(q)))
+    return this.getAll().filter((i) => (i.name || i.id).toLowerCase().includes(q) || i.id.toLowerCase().includes(q) || i.tags?.some((t) => t.includes(q)))
   }
 
   findByPermission(permission: string): T[] {

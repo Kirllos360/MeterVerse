@@ -18,7 +18,7 @@ export function useProgram(programId?: string): ProgramContract | undefined {
   )
 
   useEffect(() => {
-    const unsub = runtime.events.subscribe("runtime:program:stateChanged", ({ programId: pid }) => {
+    const unsub = runtime.events.subscribe("runtime:program:stateChanged", ({ programId: pid }: { programId: string }) => {
       if (!programId || programId === pid) setProgram(runtime.programs.get(pid))
     })
     return unsub

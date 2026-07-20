@@ -1,8 +1,8 @@
 export interface Registrable {
-  readonly id: string
-  readonly name: string
-  readonly nameAr?: string
-  readonly description?: string
+  id: string
+  name?: string
+  nameAr?: string
+  description?: string
   readonly version?: string
   readonly category?: string
   readonly priority?: number
@@ -10,7 +10,7 @@ export interface Registrable {
   readonly permissions?: string[]
   readonly enabled?: boolean
   readonly tags?: string[]
-  readonly metadata?: Record<string, unknown>
+  readonly metadata?: unknown
 }
 
 export interface RegistrationOptions {

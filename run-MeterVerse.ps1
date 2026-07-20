@@ -3,8 +3,9 @@
     Run-MeterVerse — Start all MeterVerse Enterprise services
 .DESCRIPTION
     Automatically starts PostgreSQL (Docker), Backend (Node/Express), Frontend (Next.js/Bun)
+    Uses Start-Process with cmd.exe for processes that survive the script ending.
 .NOTES
-    Versio: 1.0.0
+    Version: 2.0.0
     Usage: .\run-MeterVerse.ps1
 #>
 
@@ -21,7 +22,9 @@ function Log($Text, $Color = "White") { Write-Host "[$(Get-Date -Format 'HH:mm:s
 # ─── STOP ────────────────────────────────────────────
 if ($Stop) {
     Log "Stopping all MeterVerse services..." Yellow
-    Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
+    taskkill /F /IM node.exe 2>$null
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse Backend*" 2>$null
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse Frontend*" 2>$null
     docker stop meter-postgres-1 2>$null
     Log "All services stopped." Green
     return
@@ -39,28 +42,19 @@ if ($Status) {
 
 # ════════════════════════════════════════════════════════
 Log "MeterVerse Enterprise - Starting all services..." Cyan
-Log ""
 
 # ─── STEP 1: CHECK TOOLS ────────────────────────────
 Log "[1/6] Checking prerequisites..." Yellow
-
 if (-not (Get-Command docker -ErrorAction SilentlyContinue)) { Log "Docker not found. Install Docker Desktop." Red; exit 1 }
 Log "  Docker: OK" Green
-
 if (-not (Get-Command node -ErrorAction SilentlyContinue)) { Log "Node not found. Install Node.js 20+." Red; exit 1 }
 Log "  Node: $(node --version)" Green
-
-$bunCmd = (Get-Command bun -ErrorAction SilentlyContinue).Source
-if (-not $bunCmd) { npm install -g bun 2>$null; $bunCmd = "bun.cmd" }
-Log "  Bun: OK" Green
 
 # ─── STEP 2: START POSTGRESQL ───────────────────────
 Log "[2/6] Starting PostgreSQL..." Yellow
 Set-Location $ProjectRoot
-
 docker ps -a --filter "name=meter" --format "{{.ID}}" | ForEach-Object { docker rm -f $_ 2>$null }
 docker compose up -d postgres 2>$null
-
 Start-Sleep -Seconds 3
 Log "  Waiting for PostgreSQL..." Yellow
 $connected = $false
@@ -78,11 +72,9 @@ Log "  PostgreSQL: Ready" Green
 # ─── STEP 3: SETUP DATABASE ─────────────────────────
 Log "[3/6] Setting up database..." Yellow
 Push-Location "$ProjectRoot\backend"
-
 Log "  Running migrations..." Yellow
 npx prisma db push 2>&1 | Out-Null
 if ($LASTEXITCODE -eq 0) { Log "  Migrations: OK" Green } else { Log "  Migrations: already up to date" Yellow }
-
 Log "  Seeding data..." Yellow
 node scripts/seed.js 2>&1 | Out-Null
 if ($LASTEXITCODE -eq 0) { Log "  Seed data: OK" Green } else { Log "  Seed data: already seeded" Yellow }
@@ -92,28 +84,42 @@ Pop-Location
 Log "[4/6] Starting Backend..." Yellow
 Push-Location "$ProjectRoot\backend"
 
-Get-Process -Name "node" -ErrorAction SilentlyContinue | Where-Object { $_.Id -ne $pid } | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 2
+# Kill any existing backend processes
+taskkill /F /FI "WINDOWTITLE eq MeterVerse Backend*" 2>$null
+Start-Sleep -Seconds 1
 
-$beJob = Start-Job -ScriptBlock { param($d) Set-Location $d; $env:NODE_ENV="development"; npm run dev } -ArgumentList "$ProjectRoot\backend"
-Start-Sleep -Seconds 5
+# Start backend in its own independent cmd window using Start-Process
+# This is CRITICAL: Start-Process creates a process that survives this script ending
+$beLog = "$ProjectRoot\backend\.server.log"
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c title MeterVerse Backend && node src/server.js > `"$beLog`" 2>&1" -WindowStyle Normal
+Start-Sleep -Seconds 4
 
 $beReady = $false
 for ($i = 0; $i -lt 10; $i++) {
     try { $r = Invoke-WebRequest -Uri "http://localhost:3001/api/health" -TimeoutSec 3 -UseBasicParsing; $beReady = $true; break } catch {}
     Start-Sleep -Seconds 2
 }
-if ($beReady) { Log "  Backend: http://localhost:3001" Green } else { Log "  Backend: Started (not yet responding)" Yellow }
+if ($beReady) { Log "  Backend: http://localhost:3001" Green } else { Log "  Backend: Started (check .server.log)" Yellow }
 Pop-Location
 
 # ─── STEP 5: START FRONTEND ─────────────────────────
 Log "[5/6] Starting Frontend..." Yellow
 Push-Location "$ProjectRoot\Frontend"
 
-Get-Process -Name "node" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like "*next*" } | Stop-Process -Force -ErrorAction SilentlyContinue
-Start-Sleep -Seconds 2
+# Kill any existing frontend processes
+taskkill /F /FI "WINDOWTITLE eq MeterVerse Frontend*" 2>$null
+Start-Sleep -Seconds 1
 
-$feJob = Start-Job -ScriptBlock { param($d) Set-Location $d; $env:PORT="7400"; npm run dev } -ArgumentList "$ProjectRoot\Frontend"
+# Start frontend in its own independent cmd window
+# Using next start (production mode) if build exists, otherwise next dev
+$feLog = "$ProjectRoot\Frontend\.next\server.log"
+if (Test-Path ".next\BUILD_ID") {
+    Log "  Production build found, starting in production mode..." Yellow
+    Start-Process -FilePath "cmd.exe" -ArgumentList "/c title MeterVerse Frontend && npx next start -p 7400 > `"$feLog`" 2>&1" -WindowStyle Normal
+} else {
+    Log "  No production build, starting in dev mode..." Yellow
+    Start-Process -FilePath "cmd.exe" -ArgumentList "/c title MeterVerse Frontend && npx next dev -p 7400 > `"$feLog`" 2>&1" -WindowStyle Normal
+}
 
 Log "  Waiting for frontend (30-60s first time)..." Yellow
 $feReady = $false
@@ -125,14 +131,26 @@ for ($i = 0; $i -lt 25; $i++) {
 if ($feReady) { Log "  Frontend: http://localhost:7400" Green } else { Log "  Frontend: Check http://localhost:7400 manually" Yellow }
 Pop-Location
 
-# ─── STEP 6: FINAL STATUS ───────────────────────────
+# ─── STEP 6: UPDATE DEV SCRIPT (remove --watch to prevent restart crashes) ──
+$pkgPath = "$ProjectRoot\backend\package.json"
+$pkg = Get-Content $pkgPath -Raw | ConvertFrom-Json
+if ($pkg.scripts.dev -eq "node --watch src/server.js") {
+    $pkg.scripts.dev = "node src/server.js"
+    $pkg | ConvertTo-Json -Depth 10 | Set-Content $pkgPath
+    Log "  Removed --watch flag from backend dev (prevents crash on file change)" Green
+}
+
+# ─── FINAL STATUS ───────────────────────────────────
 Log ""
 Log "MeterVerse Enterprise - RUNNING" Cyan
 Log "  Frontend:  http://localhost:7400" Cyan
 Log "  Backend:   http://localhost:3001" Cyan
 Log "  API:       http://localhost:3001/api/health" Cyan
 Log "  Database:  PostgreSQL on localhost:5432" Cyan
-Log "  Login:     admin@meterverse.com / admin" Cyan
+Log "  Login:     admin@meterverse.com / Admin@123" Cyan
 Log "  Stop:      .\run-MeterVerse.ps1 -Stop" Cyan
 Log "  Status:    .\run-MeterVerse.ps1 -Status" Cyan
+Log ""
+Log "Servers run in independent cmd windows - close them to stop." Yellow
+Log "Closing this window will NOT stop the servers." Yellow
 Log ""

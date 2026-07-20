@@ -4,6 +4,8 @@ import type { ProgramRegistration, ProgramMetadata } from "@/runtime/contracts/p
 export interface ProgramRegistryItem extends ProgramRegistration {
   id: string
   name: string
+  nameAr?: string
+  description?: string
   metadata: ProgramMetadata
   category: string
   enabled: boolean

@@ -3,7 +3,6 @@ export type SubscribeOptions = { once?: boolean; priority?: number }
 export type Unsubscribe = () => void
 
 export interface Event<T> {
-  (handler: EventHandler<T>): Unsubscribe
   subscribe(handler: EventHandler<T>, options?: SubscribeOptions): Unsubscribe
   dispatch(payload: T): Promise<void>
   clear(): void

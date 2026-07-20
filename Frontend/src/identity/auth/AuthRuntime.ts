@@ -17,6 +17,7 @@ export interface AuthUser {
 }
 
 interface TokenSet {
+  accessToken: string
   refreshToken: string
   expiresAt: number
 }
@@ -35,6 +36,7 @@ interface AuthState {
   logout: () => void
   refreshSession: () => Promise<boolean>
   restoreSession: () => Promise<boolean>
+  updateTokens: (tokens: TokenSet) => void
   setUser: (user: AuthUser) => void
   clearError: () => void
   isLocked: () => boolean
@@ -73,7 +75,7 @@ export const useAuthRuntime = create<AuthState>((set, get) => ({
       }
 
       const data = await res.json()
-      const tokens = { refreshToken: data.refreshToken, expiresAt: data.expiresAt }
+      const tokens = { accessToken: data.accessToken, refreshToken: data.refreshToken, expiresAt: data.expiresAt }
 
       set({
         user: data.user,
@@ -149,6 +151,7 @@ export const useAuthRuntime = create<AuthState>((set, get) => ({
     return false
   },
 
+  updateTokens: (tokens) => set({ tokens }),
   setUser: (user) => set({ user }),
   clearError: () => set({ error: null }),
   isLocked: () => {

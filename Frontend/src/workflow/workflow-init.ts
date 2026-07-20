@@ -62,7 +62,7 @@ export const BUILTIN_WORKFLOWS: WorkflowDefinition[] = [
     steps: [
       { id: "validate", name: "Validate Input", type: "condition", input: { field: "periodStart", operator: "exists" } },
       { id: "notify", name: "Notify Start", type: "sendNotification", input: { title: "Invoice Generation Started" } },
-      { id: "wait", name: "Process", type: "wait", input: { duration: 500 } },
+      { id: "wait", name: "Process", type: "wait", input: { duration: "500" } },
     ],
     requiresApproval: false,
     executionMode: "sequential",

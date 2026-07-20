@@ -1,7 +1,7 @@
 import { TypedEvent } from "@/runtime/kernel/events"
 import { EventStore } from "../store/event-store"
 import { EventVersionManager } from "../services/event-versioning"
-import { EventFilter } from "./event-filter"
+import { EventFilter, EventFilterEngine } from "./event-filter"
 
 export type EventHandler<T> = (payload: T) => void | Promise<void>
 export type Unsubscribe = () => void
@@ -103,7 +103,7 @@ export class RuntimeEventBus implements EventBus {
     for (const h of sorted) {
       try {
         // Apply filter if present
-        if (h.options?.filter && !h.options.filter.matches(envelope as unknown as Record<string, unknown>)) continue
+        if (h.options?.filter && !new EventFilterEngine().matches(envelope as unknown as Record<string, unknown>, h.options.filter)) continue
         await h.handler(envelope.payload)
       } catch (e) {
         console.error(`[EventBus] Handler error for ${type}:`, e)

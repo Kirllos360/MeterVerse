@@ -26,8 +26,8 @@ export function registerAllApplications(registry: RegistryManagerImpl): void {
   ]
 
   for (const app of apps) {
-    const registration: ProgramRegistration = {
-      id: app.id,
+    registry.programs.register({
+      id: app.id, name: app.title, category: app.category, enabled: true,
       metadata: {
         id: app.id, title: app.title, version: "1.0.0", description: `${app.title} management`,
         category: app.category, supportsSplitView: true, supportsPopout: false,
@@ -36,8 +36,7 @@ export function registerAllApplications(registry: RegistryManagerImpl): void {
         preserveScroll: true, preserveState: true,
       },
       create: app.create,
-    }
-    registry.programs.register(registration)
+    })
   }
 }
 

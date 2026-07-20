@@ -1,8 +1,8 @@
-import { useRef, useEffect, useCallback, type DependencyList } from "react"
+import { useRef, useState, useEffect, useCallback, type DependencyList } from "react"
 
 /** Debounce a value change — use for search inputs, filter changes */
 export function useDebounce<T>(value: T, delay: number): T {
-  const ref = useRef<ReturnType<typeof setTimeout>>()
+  const ref = useRef<ReturnType<typeof setTimeout>>(undefined)
   const [debounced, setDebounced] = useState(value)
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export function useThrottle<T extends (...args: unknown[]) => void>(fn: T, limit
 
 /** Memoize a value with deep equality comparison */
 export function useDeepMemo<T>(factory: () => T, deps: DependencyList): T {
-  const ref = useRef<{ deps: DependencyList; value: T }>()
+  const ref = useRef<{ deps: DependencyList; value: T }>(undefined)
   if (!ref.current || !depsAreEqual(ref.current.deps, deps)) {
     ref.current = { deps, value: factory() }
   }
@@ -56,6 +56,4 @@ export function useStableCallback<T extends (...args: unknown[]) => unknown>(fn:
   return useCallback((...args: unknown[]) => ref.current(...args), []) as unknown as T
 }
 
-import { useState } from "react"
 
-// useState needs to be imported

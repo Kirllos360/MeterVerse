@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-interface CommandItem {
+export interface CommandItem {
   id: string
   label: string
   labelAr?: string

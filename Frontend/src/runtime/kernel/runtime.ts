@@ -6,6 +6,7 @@ import { RuntimeSelectionManager } from "./selection"
 import { RuntimeNavigationManager } from "./navigation"
 import { RuntimeHistoryManager } from "./history"
 import { RuntimeEventDispatcher } from "./events"
+import { WindowState } from "../contracts/window"
 import { RuntimeServiceContainer } from "./services"
 
 export class RuntimeKernel implements RuntimeContext {
@@ -94,7 +95,7 @@ export class RuntimeKernel implements RuntimeContext {
         id: p.id,
         state: p.state,
         metadata: p.metadata,
-        window: { id: p.id, programId: p.id, state: "opened" as const, position: { x: 0, y: 0 }, size: { width: 800, height: 600 } },
+        window: { id: p.id, programId: p.id, state: WindowState.OPENED, position: { x: 0, y: 0 }, size: { width: 800, height: 600 } },
         customState: {},
       })),
       windows: this.windows.getAll().map((w) => w.getState()),

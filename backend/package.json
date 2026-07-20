@@ -3,7 +3,7 @@
   "version": "8.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --watch src/server.js",
+    "dev": "node src/server.js",
     "start": "node src/server.js",
     "db:generate": "npx prisma generate",
     "db:push": "npx prisma db push",

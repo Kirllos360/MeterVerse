@@ -48,7 +48,7 @@ export class CommandRegistry extends BaseRegistry<CommandRegistration> {
       .map((cmd) => {
         let score = 0
         const matched: string[] = []
-        if (cmd.name.toLowerCase().includes(q)) { score += 10; matched.push("name") }
+        if ((cmd.name || cmd.id).toLowerCase().includes(q)) { score += 10; matched.push("name") }
         if (cmd.id.toLowerCase().includes(q)) { score += 8; matched.push("id") }
         if (cmd.keywords?.some((k) => k.toLowerCase().includes(q))) { score += 5; matched.push("keywords") }
         if (cmd.group?.toLowerCase().includes(q)) { score += 3; matched.push("group") }

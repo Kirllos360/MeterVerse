@@ -378,7 +378,7 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                   style={{
                     backgroundColor: "var(--surface-raised)",
                     backdropFilter: "blur(8px)",
-                    WebkitbackdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
                     boxShadow: "var(--shadow-sm)",
                     minHeight: 200,
                   }}
@@ -617,7 +617,7 @@ export function WorkspaceContent() {
           {activeTab?.label || "Unknown Page"}
         </p>
         <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>
-          {t("content.contentNotAvailable", "Content not yet available")}
+          {"Content not yet available"}
         </p>
       </div>
     </div>

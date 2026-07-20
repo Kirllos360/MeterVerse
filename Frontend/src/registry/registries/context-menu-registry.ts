@@ -7,7 +7,7 @@ export interface ContextMenuItem {
   labelAr?: string
   icon?: string
   shortcut?: string
-  action?: string
+  action?: string | (() => Promise<void>)
   children?: ContextMenuItem[]
   separator?: boolean
   disabled?: boolean
