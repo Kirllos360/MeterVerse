@@ -51,7 +51,8 @@ export default function AdminLayout() {
   const PageComponent = navItem ? pageComponents[navItem.comp] : AdminHomePage
 
   return (
-    <WorkspaceLayout
+    <div style={{ "--brand": "var(--admin-accent)", "--brand-rgb": "var(--semantic-error-rgb)" } as React.CSSProperties}>
+      <WorkspaceLayout
       sidebarContent={
         <div className="flex flex-col h-full">
           <div className="flex items-center gap-2 px-3 h-12 shrink-0 border-b" style={{ borderColor: "var(--border-default)" }}>
@@ -97,5 +98,6 @@ export default function AdminLayout() {
         {PageComponent && <PageComponent />}
       </div>
     </WorkspaceLayout>
+    </div>
   )
 }
