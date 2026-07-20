@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { WorkspaceLayout } from "@/workspace/components/WorkspaceLayout"
 import { WorkspaceTabs } from "@/workspace/components/WorkspaceTabs"
 import { InspectorPanel } from "@/admin/layout/InspectorPanel"
+import { AdminToolbar, AdminStatusBar } from "@/admin/layout/AdminToolbar"
 
 // Lazy page imports
 import AdminHomePage from "./home/page"
@@ -77,21 +78,9 @@ export default function AdminLayout() {
           </div>
         </div>
       }
-      toolbarContent={
-        <div className="flex items-center h-10 px-3 gap-2">
-          <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>MeterVerse Administration</span>
-          <div className="flex-1" />
-          <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>{active}</span>
-        </div>
-      }
+      toolbarContent={<AdminToolbar activePage={active} />}
       tabBar={<WorkspaceTabs />}
-      statusBar={
-        <div className="flex items-center h-6 px-3 gap-2 text-[11px]" style={{ color: "var(--text-tertiary)" }}>
-          <span>Admin Panel</span>
-          <span style={{ color: "var(--text-quaternary)" }}>|</span>
-          <span style={{ color: "var(--status-success)" }}>● Connected</span>
-        </div>
-      }
+      statusBar={<AdminStatusBar />}
       inspectorContent={<InspectorPanel />}
     >
       <div className="h-full">
