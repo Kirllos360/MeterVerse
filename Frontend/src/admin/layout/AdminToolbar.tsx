@@ -3,155 +3,141 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-interface AdminToolbarProps {
-  activePage: string
-  viewMode?: "list" | "grid"
-  onViewModeChange?: (mode: "list" | "grid") => void
-  onToggleInspector?: () => void
-  darkMode?: boolean
-  onToggleDarkMode?: () => void
+function TbBtn({ children, label, onClick, isActive }: { children: React.ReactNode; label: string; onClick: () => void; isActive?: boolean }) {
+  return (
+    <button onClick={onClick} className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: isActive ? "var(--admin-accent)" : "var(--toolbar-muted)" }} title={label} aria-label={label}>
+      {children}
+    </button>
+  )
 }
 
-export function AdminToolbar({ activePage, viewMode = "list", onViewModeChange, onToggleInspector, darkMode = true, onToggleDarkMode }: AdminToolbarProps) {
-  const [showLang, setShowLang] = useState(false)
-  const [lang, setLang] = useState("en")
-  const [showNotifications, setShowNotifications] = useState(false)
-
-  const toggleLang = () => setLang(l => l === "en" ? "ar" : "en")
+export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleInspector, darkMode, onToggleDarkMode }: any) {
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const lang = "en"
 
   return (
-    <div className="flex items-center h-11 px-4 gap-2" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)", zIndex: 10 }}>
+    <div className="flex items-center h-14 px-4 gap-3 font-semibold tracking-wide" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)" }}>
       
-      {/* Logo */}
-      <div className="flex items-center gap-2.5">
-        <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "var(--admin-accent)", boxShadow: "0 0 10px rgba(220,38,38,0.3)" }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
+      {/* Left: Logo + Breadcrumb */}
+      <div className="flex items-center gap-3 text-sm min-w-0 shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "var(--admin-accent)", boxShadow: "0 0 10px rgba(220,38,38,0.3)" }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--toolbar-text)" }}>MeterVerse</span>
         </div>
-        <span className="text-sm font-semibold" style={{ color: "var(--toolbar-text)" }}>MeterVerse</span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: "rgba(220,38,38,0.15)", color: "var(--admin-accent)" }}>Admin</span>
+        <span style={{ color: "var(--toolbar-muted)" }} className="hidden sm:inline font-medium">Admin</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden sm:block" style={{ color: "var(--toolbar-muted)" }}>
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+        <span className="hidden sm:inline font-semibold" style={{ color: "var(--toolbar-text)" }}>{activePage}</span>
       </div>
 
-      {/* View toggle (list/grid) */}
-      {onViewModeChange && (
-        <div className="flex items-center ml-3 gap-0.5 p-0.5 rounded-lg" style={{ backgroundColor: "rgba(255,255,255,0.05)" }}>
-          <motion.button onClick={() => onViewModeChange("list")} whileTap={{ scale: 0.9 }}
-            className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] outline-none"
-            style={{ backgroundColor: viewMode === "list" ? "rgba(220,38,38,0.2)" : "transparent", color: viewMode === "list" ? "var(--admin-accent)" : "rgba(255,255,255,0.3)", cursor: "pointer", border: "none" }}>
-            ☰
-          </motion.button>
-          <motion.button onClick={() => onViewModeChange("grid")} whileTap={{ scale: 0.9 }}
-            className="w-6 h-6 rounded-md flex items-center justify-center text-[10px] outline-none"
-            style={{ backgroundColor: viewMode === "grid" ? "rgba(220,38,38,0.2)" : "transparent", color: viewMode === "grid" ? "var(--admin-accent)" : "rgba(255,255,255,0.3)", cursor: "pointer", border: "none" }}>
-            ⊞
-          </motion.button>
-        </div>
-      )}
-
-      {/* Search */}
-      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg flex-1 max-w-[200px]" style={{ backgroundColor: "var(--toolbar-surface)", border: "1px solid var(--toolbar-border)" }}>
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--toolbar-muted)" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input placeholder="Search admin..." className="w-full bg-transparent outline-none text-xs" style={{ color: "var(--toolbar-text)" }} />
+      {/* Center: Search */}
+      <div className="flex-[2] max-w-4xl mx-auto hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg" style={{ backgroundColor: "var(--toolbar-surface)", border: "1px solid var(--toolbar-border)" }}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--toolbar-muted)" strokeWidth="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Search admin..." className="w-full bg-transparent outline-none text-sm" style={{ color: "var(--toolbar-text)" }} />
       </div>
 
-      <div className="flex-1" />
-
-      {/* Right icons */}
-      <div className="flex items-center gap-1">
-        {/* Language */}
-        <div className="relative">
-          <motion.button onClick={() => setShowLang(!showLang)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-[11px] font-semibold outline-none" style={{ backgroundColor: "var(--toolbar-surface)", color: "var(--toolbar-text)", cursor: "pointer", border: "none" }}>
-            {lang === "en" ? "EN" : "AR"}
-          </motion.button>
-          <AnimatePresence>
-            {showLang && (
-              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
-                className="absolute right-0 top-full mt-1 rounded-xl p-1 z-50" style={{ backgroundColor: "#0D0D0D", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 8px 30px rgba(0,0,0,0.4)", minWidth: 90 }}>
-                {["en","ar"].map(l => (
-                  <button key={l} onClick={() => { setLang(l); setShowLang(false) }}
-                    className="w-full px-3 py-1.5 rounded-lg text-xs text-left outline-none" style={{ backgroundColor: lang === l ? "rgba(220,38,38,0.15)" : "transparent", color: lang === l ? "var(--admin-accent)" : "rgba(255,255,255,0.6)", cursor: "pointer", border: "none" }}>
-                    {l === "en" ? "English" : "العربية"}
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        {/* Theme */}
-        {onToggleDarkMode && (
-          <motion.button onClick={onToggleDarkMode} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs outline-none" style={{ backgroundColor: "var(--toolbar-surface)", color: "var(--toolbar-text)", cursor: "pointer", border: "none" }}>
-            {darkMode ? "🌙" : "☀️"}
-          </motion.button>
+      {/* Right: Controls + User */}
+      <div className="flex items-center gap-2 shrink-0">
+        {/* View toggle */}
+        {onViewModeChange && (
+          <div className="flex items-center gap-0.5 p-0.5 rounded-md" style={{ backgroundColor: "var(--toolbar-surface)" }}>
+            <button onClick={() => onViewModeChange("list")} className="w-7 h-7 flex items-center justify-center rounded text-xs" style={{ backgroundColor: viewMode === "list" ? "var(--admin-accent)" : "transparent", color: viewMode === "list" ? "white" : "var(--toolbar-muted)" }} title="List view">☰</button>
+            <button onClick={() => onViewModeChange("grid")} className="w-7 h-7 flex items-center justify-center rounded text-xs" style={{ backgroundColor: viewMode === "grid" ? "var(--admin-accent)" : "transparent", color: viewMode === "grid" ? "white" : "var(--toolbar-muted)" }} title="Grid view">⊞</button>
+          </div>
         )}
 
-        {/* Notifications */}
+        <TbBtn label="Toggle Inspector" onClick={() => onToggleInspector?.()}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="15" y1="3" x2="15" y2="21" /></svg>
+        </TbBtn>
+
+        <TbBtn label="Notifications" onClick={() => {}}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        </TbBtn>
+
+        <TbBtn label="Theme" onClick={() => onToggleDarkMode?.()}>
+          <span className="text-sm">{darkMode ? "🌙" : "☀️"}</span>
+        </TbBtn>
+
+        <TbBtn label="Language" onClick={() => {}}>
+          <span className="text-xs font-bold">{lang.toUpperCase()}</span>
+        </TbBtn>
+
+        {/* User Avatar + Dropdown */}
         <div className="relative">
-          <motion.button onClick={() => setShowNotifications(!showNotifications)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs outline-none relative" style={{ backgroundColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)", cursor: "pointer", border: "none" }}>
-            🔔
-            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full flex items-center justify-center text-[8px] font-bold text-white" style={{ backgroundColor: "var(--admin-accent)" }}>3</span>
-          </motion.button>
+          <button onClick={() => setShowUserMenu(!showUserMenu)}
+            className="flex items-center gap-2 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/10 px-2 py-1">
+            <div className="w-8 h-8 rounded-full flex items-center justify-center text-white shadow-md" style={{ backgroundColor: "var(--admin-accent)" }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            </div>
+            <div className="hidden lg:block text-left leading-tight">
+              <div className="text-sm font-bold tracking-tight" style={{ color: "var(--toolbar-text)" }}>Admin User</div>
+              <div className="text-[10px] font-medium" style={{ color: "var(--toolbar-muted)" }}>Administrator</div>
+            </div>
+            <motion.svg animate={{ rotate: showUserMenu ? 180 : 0 }} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6" /></motion.svg>
+          </button>
+
           <AnimatePresence>
-            {showNotifications && (
-              <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
-                className="absolute right-0 top-full mt-1 rounded-xl p-2 z-50" style={{ backgroundColor: "#0D0D0D", border: "1px solid rgba(255,255,255,0.08)", boxShadow: "0 8px 30px rgba(0,0,0,0.4)", minWidth: 220 }}>
-                {[{t:"System health check passed",ts:"2m"},{t:"Backup completed",ts:"15m"},{t:"New user registered",ts:"1h"}].map((n,i) => (
-                  <div key={i} className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--admin-accent)" }} />
-                    <span className="flex-1">{n.t}</span>
-                    <span style={{ color: "rgba(255,255,255,0.3)" }}>{n.ts}</span>
+            {showUserMenu && (
+              <motion.div initial={{ opacity: 0, y: -4, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, scale: 0.95 }}
+                transition={{ duration: 0.12 }} className="absolute right-0 top-full mt-2 w-56 rounded-xl z-50 overflow-hidden"
+                style={{ backgroundColor: "var(--admin-surface)", boxShadow: "0 8px 30px rgba(0,0,0,0.3)", border: "1px solid var(--admin-border)" }}
+                onClick={() => setShowUserMenu(false)}>
+                <div className="p-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md" style={{ backgroundColor: "var(--admin-accent)" }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Admin User</div>
+                      <div className="text-xs" style={{ color: "var(--text-tertiary)" }}>admin@meterverse.com</div>
+                    </div>
                   </div>
-                ))}
+                </div>
+                <div className="p-1">
+                  {[
+                    { icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z", label: "My Profile" },
+                    { icon: "M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17", label: "Account Settings" },
+                    { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", label: "Security" },
+                  ].map((item, i) => (
+                    <button key={i} className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: "var(--text-primary)" }}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={item.icon} /></svg>
+                      <span>{item.label}</span>
+                    </button>
+                  ))}
+                </div>
+                <div className="border-t p-1" style={{ borderColor: "var(--admin-border)" }}>
+                  <button className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-red-50 dark:hover:bg-red-900/20" style={{ color: "var(--admin-accent)" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" /></svg>
+                    <span>Sign Out</span>
+                  </button>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-
-        {/* Inspector toggle */}
-        {onToggleInspector && (
-          <motion.button onClick={onToggleInspector} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs outline-none" style={{ backgroundColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)", cursor: "pointer", border: "none" }} title="Toggle Inspector">
-            &lt;/&gt;
-          </motion.button>
-        )}
-
-        {/* Page indicator */}
-        <div className="ml-1 text-[11px] px-2.5 py-1 rounded-lg" style={{ backgroundColor: "rgba(255,255,255,0.04)", color: "rgba(255,255,255,0.35)" }}>{activePage}</div>
       </div>
     </div>
   )
 }
 
-interface AdminStatusBarProps {
-  inspectorOpen?: boolean
-  onToggleInspector?: () => void
-}
-
-export function AdminStatusBar({ inspectorOpen, onToggleInspector }: AdminStatusBarProps) {
-  const quotes = [
-    "Powering progress, one meter at a time",
-    "Precision in every reading",
-    "Data-driven decisions for tomorrow",
-    "All systems operational",
-  ]
-
+export function AdminStatusBar({ inspectorOpen, onToggleInspector }: any) {
   return (
-    <div className="flex items-center h-7 px-4 gap-2 text-[11px]" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderTop: "1px solid var(--toolbar-border)", color: "var(--toolbar-text)" }}>
+    <div className="flex items-center h-7 px-4 gap-2 text-[11px]" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderTop: "1px solid var(--toolbar-border)", color: "var(--toolbar-muted)" }}>
       <span style={{ color: "var(--admin-accent)" }}>●</span>
       <span>All Systems Operational</span>
-      <span style={{ color: "rgba(255,255,255,0.15)" }}>|</span>
+      <span style={{ color: "var(--toolbar-border)" }}>|</span>
       <span>78 Models · 165 APIs · 42 Pages</span>
       <div className="flex-1" />
-      <span style={{ color: "rgba(255,255,255,0.2)" }}>{quotes[Math.floor(Math.random() * quotes.length)]}</span>
+      <span style={{ color: "var(--toolbar-muted)" }}>Powering progress, one meter at a time</span>
       <div className="flex items-center gap-2 ml-2">
         {onToggleInspector && (
-          <motion.button onClick={onToggleInspector} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
-            className="text-[10px] outline-none flex items-center gap-1" style={{ color: inspectorOpen ? "var(--admin-accent)" : "rgba(255,255,255,0.25)", cursor: "pointer", background: "none", border: "none" }}>
+          <button onClick={onToggleInspector} className="flex items-center gap-1 text-[10px] outline-none" style={{ color: inspectorOpen ? "var(--admin-accent)" : "var(--toolbar-muted)", cursor: "pointer", background: "none", border: "none" }}>
             <motion.span animate={{ rotate: inspectorOpen ? 180 : 0 }} transition={{ type: "spring", stiffness: 200, damping: 15 }}>◀</motion.span>
             <span>Inspector</span>
-          </motion.button>
+          </button>
         )}
       </div>
     </div>
