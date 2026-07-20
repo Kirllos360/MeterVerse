@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation"
-
-export default function AdminRootPage() {
-  redirect("/admin/home")
-}
+// Admin SPA — all pages at localhost:7400/admin
+// Navigation is handled internally by layout.tsx
+export { default } from "./layout"
