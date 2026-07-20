@@ -60,7 +60,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }, [])
 
   return (
-    <div className="flex h-screen relative" style={{ backgroundColor: "var(--admin-background)" }}>
+    <div className="flex min-h-screen relative" style={{ backgroundColor: "var(--admin-background)" }}>
       <AmbientBackground />
 
       {/* Dynamic Island Navigation */}
@@ -215,8 +215,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       </div>
 
       {/* Main */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-y-auto">{children}</div>
+      <div className="flex-1 flex flex-col">
+        <div className="flex-1">{children}</div>
       </div>
     </div>
   )
