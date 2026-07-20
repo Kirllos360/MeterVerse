@@ -214,4 +214,82 @@ router.get("/audit/summary", requireRole("admin", "super_admin"), async (req, re
   } catch (err) { next(err) }
 })
 
+// ─── PUSH NOTIFICATIONS ───────────────────────────────────────────────────────
+
+router.get("/push", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const notifications = await prisma.pushNotification.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
+    const stats = { total: await prisma.pushNotification.count(), sent: await prisma.pushNotification.count({ where: { status: "sent" } }), failed: await prisma.pushNotification.count({ where: { status: "failed" } }) }
+    res.json({ notifications, stats })
+  } catch (err) { next(err) }
+})
+
+router.post("/push/send", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const data = z.object({ title: z.string().min(1), body: z.string().min(1), platform: z.string().optional() }).parse(req.body)
+    const notification = await prisma.pushNotification.create({ data: { ...data, status: "sent", sentAt: new Date() } })
+    res.status(201).json({ notification })
+  } catch (err) { next(err) }
+})
+
+// ─── OCR ──────────────────────────────────────────────────────────────────────
+
+router.get("/ocr", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const jobs = await prisma.ocrJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
+    res.json({ jobs })
+  } catch (err) { next(err) }
+})
+
+router.post("/ocr", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const data = z.object({ fileName: z.string().min(1) }).parse(req.body)
+    const job = await prisma.ocrJob.create({ data: { ...data, status: "processing" } })
+    setTimeout(async () => {
+      await prisma.ocrJob.update({ where: { id: job.id }, data: { status: "completed", result: "Sample OCR text extracted successfully", confidence: 0.95, processedAt: new Date() } })
+    }, 3000)
+    res.status(201).json({ job })
+  } catch (err) { next(err) }
+})
+
+// ─── PDF ──────────────────────────────────────────────────────────────────────
+
+router.get("/pdf", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const jobs = await prisma.pdfJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
+    res.json({ jobs })
+  } catch (err) { next(err) }
+})
+
+router.post("/pdf", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const data = z.object({ type: z.string().optional(), template: z.string().optional(), data: z.string().optional() }).parse(req.body)
+    const job = await prisma.pdfJob.create({ data })
+    setTimeout(async () => {
+      await prisma.pdfJob.update({ where: { id: job.id }, data: { status: "completed", filePath: `/exports/pdf/${job.id}.pdf`, completedAt: new Date() } })
+    }, 3000)
+    res.status(201).json({ job })
+  } catch (err) { next(err) }
+})
+
+// ─── EXCEL ─────────────────────────────────────────────────────────────────────
+
+router.get("/excel", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const jobs = await prisma.excelJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
+    res.json({ jobs })
+  } catch (err) { next(err) }
+})
+
+router.post("/excel", requireRole("admin", "super_admin"), async (req, res, next) => {
+  try {
+    const data = z.object({ type: z.string().optional(), format: z.string().optional(), data: z.string().optional() }).parse(req.body)
+    const job = await prisma.excelJob.create({ data })
+    setTimeout(async () => {
+      await prisma.excelJob.update({ where: { id: job.id }, data: { status: "completed", filePath: `/exports/excel/${job.id}.${data.format || "xlsx"}`, totalRows: Math.floor(Math.random() * 500 + 50), completedAt: new Date() } })
+    }, 3000)
+    res.status(201).json({ job })
+  } catch (err) { next(err) }
+})
+
 export { router as servicesRouter }

@@ -335,6 +335,51 @@ model ExportJob {
   createdAt   DateTime @default(now())
 }
 
+model PushNotification {
+  id        String   @id @default(uuid())
+  title     String
+  body      String
+  deviceToken String?
+  platform  String   @default("all")
+  status    String   @default("pending")
+  sentAt    DateTime?
+  error     String?
+  createdAt DateTime @default(now())
+}
+
+model OcrJob {
+  id        String   @id @default(uuid())
+  fileName  String
+  status    String   @default("pending")
+  result    String?
+  confidence Float?
+  processedAt DateTime?
+  createdAt DateTime @default(now())
+}
+
+model PdfJob {
+  id        String   @id @default(uuid())
+  type      String   @default("report")
+  template  String?
+  data      String   @default("{}")
+  status    String   @default("pending")
+  filePath  String?
+  createdAt DateTime @default(now())
+  completedAt DateTime?
+}
+
+model ExcelJob {
+  id        String   @id @default(uuid())
+  type      String   @default("export")
+  format    String   @default("xlsx")
+  data      String   @default("{}")
+  status    String   @default("pending")
+  filePath  String?
+  totalRows Int      @default(0)
+  createdAt DateTime @default(now())
+  completedAt DateTime?
+}
+
 model Customer {
   id        String   @id @default(uuid())
   name      String
