@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, type ReactNode } from "react"
+import { useState, useRef, useEffect, type ReactNode } from "react"
 import { usePathname, useRouter } from "next/navigation"
+import { motion, AnimatePresence } from "framer-motion"
 import { AmbientBackground } from "@/components/effects/AmbientBackground"
 
 const adminNav = [
@@ -18,52 +19,198 @@ const adminNav = [
   { id: "logs", label: "Logs", icon: "M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" },
 ]
 
+const ITEM_H = 36
+const ITEM_GAP = 4
+const PADDING_Y = 10
+const COLLAPSED_W = 56
+const EXPANDED_W = 200
+
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
   const active = pathname.split("/").pop() || "dashboard"
-  const [collapsed, setCollapsed] = useState(false)
+  const [expanded, setExpanded] = useState(false)
+  const [manualToggle, setManualToggle] = useState(false)
+  const navRef = useRef<HTMLDivElement>(null)
+  const hoverTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
+
+  const itemCount = adminNav.length
+  const islandH = itemCount * ITEM_H + (itemCount - 1) * ITEM_GAP + PADDING_Y * 2
+  const islandW = expanded ? EXPANDED_W : COLLAPSED_W
+
+  const navigate = (id: string) => {
+    router.push(`/admin/${id}`)
+    setExpanded(false)
+    setManualToggle(false)
+  }
+
+  const handleMouseEnter = () => {
+    if (manualToggle) return
+    clearTimeout(hoverTimer.current)
+    hoverTimer.current = setTimeout(() => setExpanded(true), 150)
+  }
+
+  const handleMouseLeave = () => {
+    if (manualToggle) return
+    clearTimeout(hoverTimer.current)
+    hoverTimer.current = setTimeout(() => setExpanded(false), 300)
+  }
+
+  useEffect(() => {
+    return () => clearTimeout(hoverTimer.current)
+  }, [])
 
   return (
     <div className="flex h-screen relative" style={{ backgroundColor: "var(--admin-background)" }}>
       <AmbientBackground />
-            {/* Admin Sidebar */}
-      <aside className="flex flex-col shrink-0 border-r transition-all duration-200" style={{
-        width: collapsed ? 64 : 220,
-        backgroundColor: "var(--admin-surface)",
-        borderColor: "var(--admin-border)",
-      }}>
-        <div className="flex items-center h-14 px-4 border-b shrink-0" style={{ borderColor: "var(--admin-border)" }}>
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold" style={{ backgroundColor: "var(--status-error)", color: "white" }}>A</div>
-            {!collapsed && <span className="text-sm font-bold text-white">Admin Center</span>}
-          </div>
-        </div>
-        <nav className="flex-1 overflow-y-auto p-2 space-y-0.5">
-          {adminNav.map((item) => (
-            <button key={item.id} onClick={() => router.push(`/admin/${item.id}`)}
-              className="flex items-center gap-3 w-full rounded-lg text-sm transition-colors outline-none"
-              style={{
-                padding: collapsed ? "10px" : "8px 12px",
-                justifyContent: collapsed ? "center" : "flex-start",
-                backgroundColor: active === item.id ? "rgba(239,68,68,0.15)" : "transparent",
-                color: active === item.id ? "#EF4444" : "rgba(255,255,255,0.5)",
-              }}
+
+      {/* Dynamic Island Navigation */}
+      <div
+        className="fixed z-50"
+        style={{ left: 16, top: "50%", transform: "translateY(-50%)" }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <motion.div
+          ref={navRef}
+          animate={{ width: islandW, height: islandH }}
+          transition={{ type: "spring", stiffness: 300, damping: 28, mass: 0.8 }}
+          style={{
+            borderRadius: 28,
+            backgroundColor: "rgba(15,15,25,0.75)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            boxShadow: expanded
+              ? "0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px rgba(239,68,68,0.1), inset 0 1px 0 rgba(255,255,255,0.06)"
+              : "0 4px 20px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.05)",
+            overflow: "hidden",
+            cursor: "pointer",
+          }}
+        >
+          {/* Logo pill — always visible */}
+          <div
+            className="flex items-center justify-center"
+            style={{ height: ITEM_H, margin: `${PADDING_Y}px 0 0` }}
+          >
+            <motion.div
+              animate={{ width: expanded ? EXPANDED_W - 16 : COLLAPSED_W - 16 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              className="flex items-center gap-2.5"
+              style={{ justifyContent: expanded ? "flex-start" : "center", paddingLeft: expanded ? 12 : 0 }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                <path d={item.icon} />
-              </svg>
-              {!collapsed && <span className="truncate">{item.label}</span>}
-            </button>
-          ))}
-        </nav>
-        <div className="p-2 border-t shrink-0" style={{ borderColor: "var(--admin-border)" }}>
-          <button onClick={() => setCollapsed(!collapsed)}
-            className="flex items-center justify-center w-full p-2 rounded-lg text-xs" style={{ color: "var(--admin-text-dim)" }}>
-            {collapsed ? "→" : "Collapse"}
-          </button>
-        </div>
-      </aside>
+              <div
+                className="flex items-center justify-center shrink-0"
+                style={{
+                  width: 26, height: 26, borderRadius: 8,
+                  background: "linear-gradient(135deg, #EF4444, #DC2626)",
+                  color: "white", fontSize: 11, fontWeight: 700,
+                }}
+              >
+                A
+              </div>
+              <AnimatePresence>
+                {expanded && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.15 }}
+                    className="text-sm font-semibold truncate whitespace-nowrap overflow-hidden"
+                    style={{ color: "rgba(255,255,255,0.9)" }}
+                  >
+                    Admin Center
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          </div>
+
+          {/* Divider */}
+          <div style={{ height: 1, margin: "6px 12px", backgroundColor: "rgba(255,255,255,0.06)", borderRadius: 1 }} />
+
+          {/* Nav items */}
+          <nav className="flex flex-col" style={{ padding: "0 6px" }}>
+            {adminNav.map((item, i) => {
+              const isActive = active === item.id
+              return (
+                <motion.button
+                  key={item.id}
+                  onClick={() => navigate(item.id)}
+                  className="flex items-center gap-3 outline-none"
+                  animate={{
+                    width: expanded ? EXPANDED_W - 12 : COLLAPSED_W - 12,
+                    paddingLeft: expanded ? 10 : 0,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 28 }}
+                  style={{
+                    height: ITEM_H,
+                    justifyContent: expanded ? "flex-start" : "center",
+                    borderRadius: 10,
+                    backgroundColor: isActive ? "rgba(239,68,68,0.15)" : "transparent",
+                    border: isActive ? "1px solid rgba(239,68,68,0.2)" : "1px solid transparent",
+                    position: "relative",
+                  }}
+                  whileHover={{ backgroundColor: isActive ? "rgba(239,68,68,0.2)" : "rgba(255,255,255,0.04)" }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activePill"
+                      className="absolute inset-0"
+                      style={{ borderRadius: 10, backgroundColor: "rgba(239,68,68,0.08)" }}
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  <svg
+                    width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke={isActive ? "#EF4444" : "rgba(255,255,255,0.4)"}
+                    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    className="shrink-0 relative z-10"
+                    style={{ filter: isActive ? "drop-shadow(0 0 6px rgba(239,68,68,0.4))" : "none" }}
+                  >
+                    <path d={item.icon} />
+                  </svg>
+                  <AnimatePresence>
+                    {expanded && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -8 }}
+                        transition={{ duration: 0.12, delay: i * 0.008 }}
+                        className="text-xs truncate relative z-10"
+                        style={{
+                          color: isActive ? "#EF4444" : "rgba(255,255,255,0.55)",
+                          fontWeight: isActive ? 600 : 400,
+                        }}
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              )
+            })}
+          </nav>
+
+          {/* Footer toggle */}
+          <div style={{ padding: "4px 6px 8px" }}>
+            <motion.button
+              onClick={() => { setManualToggle(!manualToggle); setExpanded(!expanded) }}
+              className="flex items-center justify-center outline-none w-full"
+              whileHover={{ backgroundColor: "rgba(255,255,255,0.04)" }}
+              style={{ height: 24, borderRadius: 8, fontSize: 10, color: "rgba(255,255,255,0.25)" }}
+            >
+              <motion.span
+                animate={{ rotate: expanded ? 180 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                ◀
+              </motion.span>
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Main */}
       <div className="flex-1 flex flex-col overflow-hidden">
