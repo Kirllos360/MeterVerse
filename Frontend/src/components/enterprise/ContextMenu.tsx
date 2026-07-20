@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, type ReactNode } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-interface ContextMenuItem {
+export interface ContextMenuItem {
   id: string
   label: string
   icon?: string

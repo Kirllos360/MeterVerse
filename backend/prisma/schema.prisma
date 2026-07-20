@@ -8,19 +8,122 @@ datasource db {
 }
 
 model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  password     String
+  name         String
+  role         String        @default("viewer")
+  avatar       String?
+  phone        String?
+  status       String        @default("active")
+  emailVerified Boolean      @default(false)
+  area         String        @default("")
+  project      String        @default("")
+  tenant       String        @default("")
+  language     String        @default("en")
+  theme        String        @default("adaptive")
+  mfaEnabled   Boolean       @default(false)
+  lastActiveAt DateTime?
+  lastLoginAt  DateTime?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  sessions     Session[]
+  apiKeys      ApiKey[]
+  auditEntries AuditEntry[]
+  roleId       String?
+  roleRel      Role?         @relation(fields: [roleId], references: [id])
+}
+
+model Role {
+  id          String             @id @default(uuid())
+  name        String             @unique
+  description String?
+  isSystem    Boolean            @default(false)
+  permissions PermissionOnRole[]
+  users       User[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model Permission {
+  id          String             @id @default(uuid())
+  name        String             @unique
+  description String?
+  module      String
+  roles       PermissionOnRole[]
+  createdAt   DateTime           @default(now())
+}
+
+model PermissionOnRole {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  @@id([roleId, permissionId])
+}
+
+model AuditEntry {
   id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  role      String   @default("viewer")
-  area      String   @default("")
-  project   String   @default("")
-  tenant    String   @default("")
-  language  String   @default("en")
-  theme     String   @default("adaptive")
-  mfaEnabled Boolean @default(false)
+  timestamp DateTime @default(now())
+  actor     String?
+  actorId   String?
+  action    String
+  resource  String?
+  resourceId String?
+  details   String?
+  ip        String?
+  userAgent String?
+  status    String   @default("success")
+  user      User?    @relation(fields: [actorId], references: [id])
+}
+
+model SystemSetting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  category  String   @default("general")
+  type      String   @default("string")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model FeatureFlag {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  name      String
+  enabled   Boolean  @default(false)
+  scope     String   @default("global")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ApiKey {
+  id        String   @id @default(uuid())
+  name      String
+  key       String   @unique
+  prefix    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  permissions String  @default("read")
+  lastUsedAt DateTime?
+  expiresAt DateTime?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  ip        String?
+  userAgent String?
+  device    String?
+  location  String?
+  isActive  Boolean  @default(true)
+  lastUsedAt DateTime @default(now())
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Customer {

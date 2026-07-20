@@ -9,6 +9,7 @@ import { metersRouter } from "./routes/meters.js"
 import { readingsRouter } from "./routes/readings.js"
 import { invoicesRouter } from "./routes/invoices.js"
 import { paymentsRouter } from "./routes/payments.js"
+import { adminRouter } from "./routes/admin.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -37,6 +38,7 @@ app.use("/api/meters", metersRouter)
 app.use("/api/readings", readingsRouter)
 app.use("/api/invoices", invoicesRouter)
 app.use("/api/payments", paymentsRouter)
+app.use("/api/admin", adminRouter)
 
 app.use(errorHandler)
 

@@ -1,22 +1,27 @@
 "use client"
 
 import { useState, type ReactNode } from "react"
-import { motion } from "framer-motion"
+import { usePathname, useRouter } from "next/navigation"
 import { AmbientBackground } from "@/components/effects/AmbientBackground"
+
 const adminNav = [
   { id: "dashboard", label: "Dashboard", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
   { id: "users", label: "Users", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
-  { id: "roles", label: "Roles", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
-  { id: "monitoring", label: "Monitoring", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10" },
-  { id: "ai-diagnostics", label: "AI Diagnostics", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
-  { id: "logs", label: "Logs", icon: "M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" },
-  { id: "audit", label: "Audit", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" },
-  { id: "security", label: "Security", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
+  { id: "roles", label: "Roles & Permissions", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+  { id: "audit", label: "Audit Logs", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" },
   { id: "settings", label: "Settings", icon: "M12 15a3 3 0 100-6 3 3 0 000 6z" },
+  { id: "sessions", label: "Sessions", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" },
+  { id: "api-keys", label: "API Keys", icon: "M15 7a3 3 0 11-6 0 3 3 0 016 0zM9 12h6M12 9v6" },
+  { id: "feature-flags", label: "Feature Flags", icon: "M9 3v2M9 19v2M3 9h2M19 9h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5" },
+  { id: "monitoring", label: "Monitoring", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10" },
+  { id: "health", label: "System Health", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
+  { id: "logs", label: "Logs", icon: "M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" },
 ]
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
-  const [active, setActive] = useState("dashboard")
+  const pathname = usePathname()
+  const router = useRouter()
+  const active = pathname.split("/").pop() || "dashboard"
   const [collapsed, setCollapsed] = useState(false)
 
   return (
@@ -36,13 +41,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </div>
         <nav className="flex-1 overflow-y-auto p-2 space-y-0.5">
           {adminNav.map((item) => (
-            <button key={item.id} onClick={() => setActive(item.id)}
+            <button key={item.id} onClick={() => router.push(`/admin/${item.id}`)}
               className="flex items-center gap-3 w-full rounded-lg text-sm transition-colors outline-none"
               style={{
                 padding: collapsed ? "10px" : "8px 12px",
                 justifyContent: collapsed ? "center" : "flex-start",
-                backgroundColor: active === item.id ? "rgba(var(--brand-rgb), 0.15)" : "transparent",
-                color: active === item.id ? "var(--status-error)" : "rgba(255,255,255,0.5)",
+                backgroundColor: active === item.id ? "rgba(239,68,68,0.15)" : "transparent",
+                color: active === item.id ? "#EF4444" : "rgba(255,255,255,0.5)",
               }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">

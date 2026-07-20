@@ -26,7 +26,7 @@ interface PageShellProps {
 
 export function PageShell({
   title, description, icon, addLabel = "Add New",
-  onAdd, onSearch, columns,
+  onAdd, onSearch, onSort, columns,
   searchPlaceholder = "Search anything...",
   children,
 }: PageShellProps) {
