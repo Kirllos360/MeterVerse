@@ -446,7 +446,7 @@ model Customer {
   phone     String?
   address   String?
   status    String   @default("active")
-  area      String?
+  area      String?  archivedAt  DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   meters    Meter[]
@@ -461,7 +461,7 @@ model Meter {
   status    String   @default("active")
   area      String?
   customerId String?
-  customer  Customer? @relation(fields: [customerId], references: [id])
+  customer  Customer? @relation(fields: [customerId], references: [id])  archivedAt  DateTime?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   readings  Reading[]
@@ -475,7 +475,7 @@ model Reading {
   unit      String   @default("kWh")
   timestamp DateTime @default(now())
   source    String   @default("manual")
-  status    String   @default("valid")
+  status    String   @default("valid")  archivedAt  DateTime?
   createdAt DateTime @default(now())
 }
 
@@ -488,7 +488,7 @@ model Invoice {
   status     String   @default("pending")
   dueDate    DateTime?
   issuedAt   DateTime @default(now())
-  paidAt     DateTime?
+  paidAt     DateTime?  archivedAt  DateTime?
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   payments   Payment[]
@@ -521,7 +521,7 @@ model Contract {
   terms           String?
   autoRenew       Boolean        @default(false)
   signedBy        String?
-  signedAt        DateTime?
+  signedAt        DateTime?  archivedAt  DateTime?
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
   contractTerms   ContractTerm[]
@@ -558,7 +558,7 @@ model Tariff {
   unit        String       @default("kWh")
   effectiveFrom DateTime
   effectiveTo  DateTime?
-  status      String       @default("active")
+  status      String       @default("active")  archivedAt  DateTime?
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   rates       TariffRate[]
@@ -1015,3 +1015,4 @@ model EscalationStep {
   timeout            Int      @default(3600)
   createdAt          DateTime @default(now())
 }
+
