@@ -196,6 +196,16 @@ if !BE_ATT! GEQ %MAX_ATT% (
     goto :EOF
 )
 
+:: Check if port is in use by another process
+netstat -ano | findstr ":%BE_PORT% " >nul 2>nul
+if !errorlevel!==0 (
+    echo  ⚠ Port %BE_PORT% in use! Killing conflict...
+    for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":%BE_PORT% "') do (
+        taskkill /F /PID %%p 2>nul >nul
+    )
+    timeout /t 3 /nobreak >nul
+)
+
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
 timeout /t 3 /nobreak >nul
 start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
