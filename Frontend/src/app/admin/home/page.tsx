@@ -15,9 +15,9 @@ export default function AdminHomePage() {
 
   const cards = [
     { l:"Total Users", v:stats?.business?.stats?.totalReadings||"—", c:"var(--admin-accent)", icon:"M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
-    { l:"Active Sessions", v:stats?.health?.metrics?.users||"—", c:"#3B82F6", icon:"M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" },
-    { l:"System Health", v:stats?.health?.status||"—", c:"#22C55E", icon:"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
-    { l:"Services", v:"15 active", c:"#F59E0B", icon:"M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" },
+    { l:"Active Sessions", v:stats?.health?.metrics?.users||"—", c:"#DC2626", icon:"M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" },
+    { l:"System Health", v:stats?.health?.status||"—", c:"#DC2626", icon:"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
+    { l:"Services", v:"15 active", c:"#EF4444", icon:"M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" },
   ]
 
   const quickLinks = [
@@ -88,7 +88,7 @@ export default function AdminHomePage() {
             ].map((a, i) => (
               <motion.div key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 + i * 0.05 }}
                 className="flex items-center gap-3 px-3 py-2 rounded-xl text-xs" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--border-default)" }}>
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: a.s === "success" ? "#22C55E" : a.s === "warning" ? "#F59E0B" : "#3B82F6" }} />
+                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: a.s === "success" ? "#DC2626" : a.s === "warning" ? "#EF4444" : "#DC2626" }} />
                 <span className="flex-1" style={{ color: "var(--text-secondary)" }}>{a.t}</span>
                 <span style={{ color: "var(--text-tertiary)" }}>{a.ts}</span>
               </motion.div>
@@ -115,3 +115,4 @@ export default function AdminHomePage() {
     </div>
   )
 }
+

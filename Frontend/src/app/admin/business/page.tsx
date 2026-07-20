@@ -32,10 +32,10 @@ export default function AdminBusinessEnginePage() {
       {tab === "status" && <>
         <div className="grid grid-cols-5 gap-3">
           {[
-            {l:"Total Readings",v:stats?.totalReadings||0,c:"#3B82F6"},
-            {l:"Valid Readings",v:stats?.validReadings||0,c:"#22C55E"},
-            {l:"Validation Rate",v:`${stats?.validationRate||0}%`,c:"#22C55E"},
-            {l:"Total Invoices",v:stats?.totalInvoices||0,c:"#F59E0B"},
+            {l:"Total Readings",v:stats?.totalReadings||0,c:"#DC2626"},
+            {l:"Valid Readings",v:stats?.validReadings||0,c:"#DC2626"},
+            {l:"Validation Rate",v:`${stats?.validationRate||0}%`,c:"#DC2626"},
+            {l:"Total Invoices",v:stats?.totalInvoices||0,c:"#EF4444"},
             {l:"Total Charges",v:stats?.totalCharges||0,c:"#EF4444"},
           ].map(s => (
             <div key={s.l} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
@@ -53,7 +53,7 @@ export default function AdminBusinessEnginePage() {
             {recentRuns.map((r:any) => (
               <tr key={r.id}><td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.7)"}}>{r.billCycle?.name}</td>
               <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)"}}>{r.periodStart?.substring(0,10)} — {r.periodEnd?.substring(0,10)}</td>
-              <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{backgroundColor:r.status==="completed"?"rgba(34,197,94,0.1)":r.status==="processing"?"rgba(59,130,246,0.1)":"rgba(245,158,11,0.1)",color:r.status==="completed"?"#22C55E":r.status==="processing"?"#3B82F6":"#F59E0B"}}>{r.status}</span></td>
+              <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{backgroundColor:r.status==="completed"?"rgba(34,197,94,0.1)":r.status==="processing"?"rgba(59,130,246,0.1)":"rgba(245,158,11,0.1)",color:r.status==="completed"?"#DC2626":r.status==="processing"?"#DC2626":"#EF4444"}}>{r.status}</span></td>
               <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)"}}>{r.totalCount}</td>
               <td className="px-4 py-3 text-sm tabular-nums" style={{color:"rgba(255,255,255,0.7)"}}>EGP {r.totalAmount?.toFixed(2)}</td>
               <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)"}}>{r.createdAt?.substring(0,10)}</td></tr>
@@ -83,12 +83,13 @@ export default function AdminBusinessEnginePage() {
           API endpoints available:
         </p>
         <ul className="text-xs mt-1 space-y-1" style={{color:"rgba(255,255,255,0.5)"}}>
-          <li><code style={{color:"#22C55E"}}>POST /api/business/pipeline/execute</code> — Full pipeline run</li>
-          <li><code style={{color:"#22C55E"}}>POST /api/business/simulate/tariff</code> — Tariff calculation</li>
-          <li><code style={{color:"#22C55E"}}>POST /api/business/simulate/invoice</code> — Invoice simulation</li>
-          <li><code style={{color:"#22C55E"}}>GET /api/business/pipeline/status</code> — Pipeline statistics</li>
+          <li><code style={{color:"#DC2626"}}>POST /api/business/pipeline/execute</code> — Full pipeline run</li>
+          <li><code style={{color:"#DC2626"}}>POST /api/business/simulate/tariff</code> — Tariff calculation</li>
+          <li><code style={{color:"#DC2626"}}>POST /api/business/simulate/invoice</code> — Invoice simulation</li>
+          <li><code style={{color:"#DC2626"}}>GET /api/business/pipeline/status</code> — Pipeline statistics</li>
         </ul>
       </div>}
     </div>
   )
 }
+

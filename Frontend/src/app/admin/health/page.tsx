@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 interface HealthService { name: string; status: string; latency: string }
 interface HealthMetrics { users: number; meters: number; readings: number; uptime: number }
 
-const STATUS_COLORS: Record<string, string> = { operational: "#22C55E", degraded: "#F59E0B", down: "#EF4444" }
+const STATUS_COLORS: Record<string, string> = { operational: "#DC2626", degraded: "#EF4444", down: "#EF4444" }
 
 export default function AdminHealthPage() {
   const [services, setServices] = useState<HealthService[]>([])
@@ -33,9 +33,9 @@ export default function AdminHealthPage() {
       <div className="grid grid-cols-4 gap-3">
         {metrics && [
           { label: "Total Users", value: metrics.users.toLocaleString(), color: "#EF4444" },
-          { label: "Meters", value: metrics.meters.toLocaleString(), color: "#3B82F6" },
-          { label: "Readings", value: metrics.readings.toLocaleString(), color: "#22C55E" },
-          { label: "Uptime", value: `${Math.floor(metrics.uptime / 3600)}h ${Math.floor((metrics.uptime % 3600) / 60)}m`, color: "#22C55E" },
+          { label: "Meters", value: metrics.meters.toLocaleString(), color: "#DC2626" },
+          { label: "Readings", value: metrics.readings.toLocaleString(), color: "#DC2626" },
+          { label: "Uptime", value: `${Math.floor(metrics.uptime / 3600)}h ${Math.floor((metrics.uptime % 3600) / 60)}m`, color: "#DC2626" },
         ].map((m) => (
           <div key={m.label} className="rounded-xl border p-4" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
             <div className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>{m.label}</div>
@@ -51,11 +51,11 @@ export default function AdminHealthPage() {
         {services.map((s) => (
           <div key={s.name} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-surface)" }}>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[s.status] || "#22C55E" }} />
+              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[s.status] || "#DC2626" }} />
               <span style={{ color: "rgba(255,255,255,0.8)" }}>{s.name}</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="font-medium" style={{ color: STATUS_COLORS[s.status] || "#22C55E" }}>{s.status}</span>
+              <span className="font-medium" style={{ color: STATUS_COLORS[s.status] || "#DC2626" }}>{s.status}</span>
               <span style={{ color: "rgba(255,255,255,0.3)" }}>{s.latency}</span>
             </div>
           </div>
@@ -64,3 +64,4 @@ export default function AdminHealthPage() {
     </div>
   )
 }
+

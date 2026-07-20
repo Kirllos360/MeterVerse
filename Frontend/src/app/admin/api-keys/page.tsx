@@ -40,7 +40,7 @@ export default function AdminApiKeysPage() {
                 <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.7)", borderBottom: "1px solid var(--admin-border)" }}>{k.name}</td>
                 <td className="px-4 py-3 text-sm font-mono" style={{ color: "rgba(255,255,255,0.5)", borderBottom: "1px solid var(--admin-border)" }}>{k.prefix}...</td>
                 <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.7)", borderBottom: "1px solid var(--admin-border)" }}>{k.permissions}</td>
-                <td className="px-4 py-3 text-sm" style={{ color: k.active ? "#22C55E" : "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--admin-border)" }}>{k.active ? "Active" : "Inactive"}</td>
+                <td className="px-4 py-3 text-sm" style={{ color: k.active ? "#DC2626" : "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--admin-border)" }}>{k.active ? "Active" : "Inactive"}</td>
                 <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--admin-border)" }}>{k.lastUsedAt ? new Date(k.lastUsedAt).toLocaleDateString() : "Never"}</td>
                 <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--admin-border)" }}>{k.expiresAt ? new Date(k.expiresAt).toLocaleDateString() : "Never"}</td>
               </tr>
@@ -51,3 +51,4 @@ export default function AdminApiKeysPage() {
     </div>
   )
 }
+

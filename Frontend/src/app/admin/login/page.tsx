@@ -30,7 +30,7 @@ export default function AdminLoginPage() {
       <div className="flex min-h-screen items-center justify-center relative" style={{ backgroundColor: "var(--admin-background)" }}>
         <AmbientBackground />
         <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
+          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "var(--admin-accent)" }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
           </div>
           <h2 className="text-xl font-semibold text-white mb-2">Access Granted</h2>
@@ -45,7 +45,7 @@ export default function AdminLoginPage() {
       <AmbientBackground />
       <div className="hidden lg:flex w-1/2 flex-col justify-center px-16 relative">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-          <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: "var(--brand)" }}>
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style={{ backgroundColor: "var(--admin-accent)" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
           <h1 className="text-2xl font-bold text-white mb-2">MeterVerse Admin</h1>
@@ -62,7 +62,7 @@ export default function AdminLoginPage() {
       <div className="flex-1 flex items-center justify-center p-8">
         <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: "var(--admin-accent)" }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <span className="text-sm font-bold text-white">Admin Center</span>
@@ -72,21 +72,21 @@ export default function AdminLoginPage() {
           <form onSubmit={handleSubmit} className="space-y-3">
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
               placeholder="Administrator email" required autoFocus
-              className="w-full px-3 py-3 rounded-lg border text-sm outline-none transition-all focus:border-[var(--brand)] focus:ring-1 focus:ring-[rgba(var(--brand-rgb),0.2)]"
+              className="w-full px-3 py-3 rounded-lg border text-sm outline-none transition-all focus:border-[var(--admin-accent)] focus:ring-1 focus:ring-[rgba(var(--brand-rgb),0.2)]"
               style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-surface)", color: "var(--admin-text)" }} />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
               placeholder="Password" required
-              className="w-full px-3 py-3 rounded-lg border text-sm outline-none transition-all focus:border-[var(--brand)]"
+              className="w-full px-3 py-3 rounded-lg border text-sm outline-none transition-all focus:border-[var(--admin-accent)]"
               style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-surface)", color: "var(--admin-text)" }} />
             {error && (
               <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
-                className="p-3 rounded-lg text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "var(--brand)" }}>
+                className="p-3 rounded-lg text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "var(--admin-accent)" }}>
                 {error}
               </motion.div>
             )}
             <motion.button type="submit" disabled={isLoading} whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.99 }}
               className="w-full py-3 rounded-lg text-sm font-medium text-white transition-all"
-              style={{ backgroundColor: isLoading ? "rgba(var(--brand-rgb),0.5)" : "var(--brand)" }}>
+              style={{ backgroundColor: isLoading ? "rgba(var(--brand-rgb),0.5)" : "var(--admin-accent)" }}>
               {isLoading ? <span className="flex items-center justify-center gap-2">
                 <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="white" strokeWidth="2" opacity="0.25"/><path d="M12 2a10 10 0 019.95 9" stroke="white" strokeWidth="2" strokeLinecap="round"/></svg>
                 Authenticating...
@@ -103,4 +103,5 @@ export default function AdminLoginPage() {
     </div>
   )
 }
+
 

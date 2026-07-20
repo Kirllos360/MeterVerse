@@ -5,7 +5,7 @@ import { useState, useEffect } from "react"
 interface Service { name: string; status: string; latency: string }
 interface Metrics { users: number; meters: number; readings: number; uptime: number }
 
-const STATUS_COLORS: Record<string, string> = { operational: "#22C55E", degraded: "#F59E0B", down: "#EF4444" }
+const STATUS_COLORS: Record<string, string> = { operational: "#DC2626", degraded: "#EF4444", down: "#EF4444" }
 
 export default function AdminDashboardPage() {
   const [services, setServices] = useState<Service[]>([])
@@ -24,9 +24,9 @@ export default function AdminDashboardPage() {
 
   const metricCards = metrics ? [
     { label: "Users", value: metrics.users.toString(), color: "var(--status-error)" },
-    { label: "Meters", value: metrics.meters.toString(), color: "#3B82F6" },
-    { label: "Readings", value: metrics.readings.toLocaleString(), color: "#22C55E" },
-    { label: "Uptime", value: `${Math.floor(metrics.uptime / 3600)}h`, color: "#22C55E" },
+    { label: "Meters", value: metrics.meters.toString(), color: "#DC2626" },
+    { label: "Readings", value: metrics.readings.toLocaleString(), color: "#DC2626" },
+    { label: "Uptime", value: `${Math.floor(metrics.uptime / 3600)}h`, color: "#DC2626" },
   ] : []
 
   return (
@@ -57,11 +57,11 @@ export default function AdminDashboardPage() {
               {services.map((s) => (
                 <div key={s.name} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{ borderColor: "var(--admin-border)" }}>
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[s.status] || "#22C55E" }} />
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[s.status] || "#DC2626" }} />
                     <span style={{ color: "rgba(255,255,255,0.8)" }}>{s.name}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span style={{ color: STATUS_COLORS[s.status] || "#22C55E" }}>{s.status}</span>
+                    <span style={{ color: STATUS_COLORS[s.status] || "#DC2626" }}>{s.status}</span>
                     <span style={{ color: "rgba(255,255,255,0.3)" }}>{s.latency}</span>
                   </div>
                 </div>
@@ -73,3 +73,4 @@ export default function AdminDashboardPage() {
     </div>
   )
 }
+

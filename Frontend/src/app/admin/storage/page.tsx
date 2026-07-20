@@ -23,7 +23,7 @@ export default function AdminStoragePage() {
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}><div>{f.originalName}</div><div className="text-[10px] font-mono" style={{color:"rgba(255,255,255,0.3)"}}>{f.name}</div></td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{f.mimeType}</td>
                 <td className="px-4 py-3 text-sm tabular-nums" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{formatSize(f.size)}</td>
-                <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{backgroundColor:"rgba(59,130,246,0.1)",color:"#3B82F6"}}>{f.category}</span></td>
+                <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{backgroundColor:"rgba(59,130,246,0.1)",color:"#DC2626"}}>{f.category}</span></td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{new Date(f.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
@@ -33,3 +33,4 @@ export default function AdminStoragePage() {
     </div>
   )
 }
+

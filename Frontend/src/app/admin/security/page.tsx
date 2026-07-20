@@ -45,10 +45,10 @@ export default function AdminSecurityPage() {
           {audit.checks.map((c:any,i:number) => (
             <div key={i} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="pass"?"#22C55E":c.status==="warn"?"#F59E0B":"#EF4444"}}/>
+                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="pass"?"#DC2626":c.status==="warn"?"#EF4444":"#EF4444"}}/>
                 <span style={{color:"rgba(255,255,255,0.8)"}}>{c.check}</span>
               </div>
-              <span style={{color:c.status==="pass"?"#22C55E":"#F59E0B"}}>{c.detail}</span>
+              <span style={{color:c.status==="pass"?"#DC2626":"#EF4444"}}>{c.detail}</span>
             </div>
           ))}
           <div className="px-4 py-3 text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>
@@ -63,7 +63,7 @@ export default function AdminSecurityPage() {
           {secrets?.findings?.map((f:any,i:number) => (
             <div key={i} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full" style={{backgroundColor:f.severity==="high"?"#EF4444":f.severity==="medium"?"#F59E0B":"#3B82F6"}}/>
+                <span className="w-2 h-2 rounded-full" style={{backgroundColor:f.severity==="high"?"#EF4444":f.severity==="medium"?"#EF4444":"#DC2626"}}/>
                 <span style={{color:"rgba(255,255,255,0.8)"}}>{f.file}</span>
               </div>
               <span style={{color:f.severity==="high"?"#EF4444":"rgba(255,255,255,0.5)"}}>{f.issue}</span>
@@ -76,10 +76,10 @@ export default function AdminSecurityPage() {
           {deps?.checks?.map((c:any,i:number) => (
             <div key={i} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="ok"?"#22C55E":c.status==="review"?"#F59E0B":"#3B82F6"}}/>
+                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="ok"?"#DC2626":c.status==="review"?"#EF4444":"#DC2626"}}/>
                 <div><span style={{color:"rgba(255,255,255,0.8)"}}>{c.dependency}</span><span className="ml-2 font-mono" style={{color:"rgba(255,255,255,0.3)"}}>{c.version}</span></div>
               </div>
-              <span style={{color:c.status==="ok"?"#22C55E":"#F59E0B"}}>{c.action}</span>
+              <span style={{color:c.status==="ok"?"#DC2626":"#EF4444"}}>{c.action}</span>
             </div>
           )) || <div className="px-4 py-8 text-center text-xs" style={{color:"rgba(255,255,255,0.3)"}}>No dependency data</div>}
         </>}
@@ -88,3 +88,4 @@ export default function AdminSecurityPage() {
     </div>
   )
 }
+

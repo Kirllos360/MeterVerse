@@ -15,11 +15,11 @@ export default function AdminAIDiagnosticsPage() {
           {checks.map(c => (
             <div key={c.name} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="passed"?"#22C55E":c.status==="failed"?"#EF4444":"#F59E0B"}}/>
+                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="passed"?"#DC2626":c.status==="failed"?"#EF4444":"#EF4444"}}/>
                 <div><span style={{color:"rgba(255,255,255,0.8)"}}>{c.name}</span><span className="ml-2 text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{c.details}</span></div>
               </div>
               <div className="flex items-center gap-3">
-                <span style={{color:c.status==="passed"?"#22C55E":"#EF4444"}}>{c.status}</span>
+                <span style={{color:c.status==="passed"?"#DC2626":"#EF4444"}}>{c.status}</span>
                 <span style={{color:"rgba(255,255,255,0.3)"}}>{c.duration}</span>
               </div>
             </div>
@@ -28,3 +28,4 @@ export default function AdminAIDiagnosticsPage() {
     </div>
   )
 }
+

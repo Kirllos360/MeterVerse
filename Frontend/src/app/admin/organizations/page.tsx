@@ -27,7 +27,7 @@ export default function AdminOrganizationsPage() {
                 <td className="px-4 py-3 text-sm font-mono" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{o.slug}</td>
                 <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium capitalize" style={{backgroundColor:"rgba(var(--status-error-rgb),0.1)",color:"var(--status-error)"}}>{o.plan}</span></td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{o._count?.projects||0}</td>
-                <td className="px-4 py-3 text-sm" style={{color:o.status==="active"?"#22C55E":"rgba(255,255,255,0.3)",borderBottom:"1px solid var(--admin-border)"}}>{o.status}</td>
+                <td className="px-4 py-3 text-sm" style={{color:o.status==="active"?"#DC2626":"rgba(255,255,255,0.3)",borderBottom:"1px solid var(--admin-border)"}}>{o.status}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{new Date(o.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
@@ -37,3 +37,4 @@ export default function AdminOrganizationsPage() {
     </div>
   )
 }
+

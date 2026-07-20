@@ -26,7 +26,7 @@ export default function AdminCachePage() {
               <tr key={e.id}>
                 <td className="px-4 py-3 text-sm font-mono" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}>{e.key}</td>
                 <td className="px-4 py-3 text-sm font-mono max-w-[200px] truncate" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{e.value.substring(0,40)}</td>
-                <td className="px-4 py-3 text-sm tabular-nums" style={{color:"#3B82F6",borderBottom:"1px solid var(--admin-border)"}}>{e.hits}</td>
+                <td className="px-4 py-3 text-sm tabular-nums" style={{color:"#DC2626",borderBottom:"1px solid var(--admin-border)"}}>{e.hits}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{e.ttl ? `${e.ttl}s` : "∞"}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{e.expiresAt?new Date(e.expiresAt).toLocaleString():"Never"}</td>
                 <td className="px-4 py-3 text-sm"><button onClick={()=>remove(e.id)} className="text-[10px] px-2 py-1 rounded font-medium" style={{backgroundColor:"rgba(239,68,68,0.1)",color:"#EF4444"}}>Evict</button></td>
@@ -38,3 +38,4 @@ export default function AdminCachePage() {
     </div>
   )
 }
+

@@ -89,10 +89,10 @@ export default function AdminCRUDPage() {
 
             <div className="flex gap-2 flex-wrap">
               <button onClick={()=>execute("export")} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium text-white" style={{backgroundColor:"var(--status-error)"}}>Export</button>
-              <button onClick={()=>execute("import")} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(59,130,246,0.2)",color:"#3B82F6"}}>Import (test)</button>
-              <button onClick={()=>execute("delete",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(245,158,11,0.2)",color:"#F59E0B"}}>Test Soft Delete</button>
+              <button onClick={()=>execute("import")} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(59,130,246,0.2)",color:"#DC2626"}}>Import (test)</button>
+              <button onClick={()=>execute("delete",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(245,158,11,0.2)",color:"#EF4444"}}>Test Soft Delete</button>
               <button onClick={()=>execute("history",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(239,68,68,0.2)",color:"#EF4444"}}>Version History</button>
-              <button onClick={()=>execute("submit-approval",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(34,197,94,0.2)",color:"#22C55E"}}>Test Approval</button>
+              <button onClick={()=>execute("submit-approval",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(34,197,94,0.2)",color:"#DC2626"}}>Test Approval</button>
             </div>
 
             {loading && <div className="text-xs" style={{color:"rgba(255,255,255,0.3)"}}>Executing...</div>}
@@ -109,3 +109,4 @@ export default function AdminCRUDPage() {
     </div>
   )
 }
+

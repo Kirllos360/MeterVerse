@@ -55,7 +55,7 @@ export default function AdminUsersPage() {
                 <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.7)", borderBottom: "1px solid var(--admin-border)" }}>
                   <span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.1)", color: "var(--status-error)" }}>{u.role}</span>
                 </td>
-                <td className="px-4 py-3 text-sm" style={{ color: u.status === "active" ? "#22C55E" : "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--admin-border)" }}>{u.status}</td>
+                <td className="px-4 py-3 text-sm" style={{ color: u.status === "active" ? "#DC2626" : "rgba(255,255,255,0.3)", borderBottom: "1px solid var(--admin-border)" }}>{u.status}</td>
                 <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--admin-border)" }}>{u.lastActiveAt ? new Date(u.lastActiveAt).toLocaleDateString() : "Never"}</td>
               </tr>
             ))}
@@ -65,3 +65,4 @@ export default function AdminUsersPage() {
     </div>
   )
 }
+

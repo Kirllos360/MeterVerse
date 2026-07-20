@@ -24,7 +24,7 @@ export default function AdminNotificationTemplatesPage() {
               <tr key={t.id}>
                 <td className="px-4 py-3 text-sm font-medium" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}>{t.name}</td>
                 <td className="px-4 py-3 text-sm font-mono" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{t.key}</td>
-                <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium capitalize" style={{backgroundColor:"rgba(59,130,246,0.1)",color:"#3B82F6"}}>{t.type}</span></td>
+                <td className="px-4 py-3 text-sm"><span className="px-2 py-0.5 rounded text-[10px] font-medium capitalize" style={{backgroundColor:"rgba(59,130,246,0.1)",color:"#DC2626"}}>{t.type}</span></td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{t.subject||"—"}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{new Date(t.createdAt).toLocaleDateString()}</td>
               </tr>
@@ -35,3 +35,4 @@ export default function AdminNotificationTemplatesPage() {
     </div>
   )
 }
+

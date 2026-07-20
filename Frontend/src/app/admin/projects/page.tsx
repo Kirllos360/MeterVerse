@@ -22,7 +22,7 @@ export default function AdminProjectsPage() {
               <tr key={p.id}>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}><div>{p.name}</div>{p.description && <div className="text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{p.description}</div>}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{p.organization?.name||"—"}</td>
-                <td className="px-4 py-3 text-sm" style={{color:p.status==="active"?"#22C55E":"rgba(255,255,255,0.3)",borderBottom:"1px solid var(--admin-border)"}}>{p.status}</td>
+                <td className="px-4 py-3 text-sm" style={{color:p.status==="active"?"#DC2626":"rgba(255,255,255,0.3)",borderBottom:"1px solid var(--admin-border)"}}>{p.status}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{new Date(p.createdAt).toLocaleDateString()}</td>
               </tr>
             ))}
@@ -32,3 +32,4 @@ export default function AdminProjectsPage() {
     </div>
   )
 }
+

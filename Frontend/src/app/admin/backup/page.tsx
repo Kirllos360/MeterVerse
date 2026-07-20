@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 
 interface Backup { id: string; name: string; type: string; size: string|null; status: string; startedAt: string|null; completedAt: string|null; createdAt: string }
-const STATUS_COLORS: Record<string,string> = {completed:"#22C55E",in_progress:"#3B82F6",failed:"#EF4444",pending:"#F59E0B"}
+const STATUS_COLORS: Record<string,string> = {completed:"#DC2626",in_progress:"#DC2626",failed:"#EF4444",pending:"#EF4444"}
 
 export default function AdminBackupPage() {
   const [backups, setBackups] = useState<Backup[]>([]); const [loading, setLoading] = useState(true); const [creating, setCreating] = useState(false)
@@ -41,3 +41,4 @@ export default function AdminBackupPage() {
     </div>
   )
 }
+

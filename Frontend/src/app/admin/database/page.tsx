@@ -15,10 +15,11 @@ export default function AdminDatabasePage() {
         ].map(i => (
           <div key={i.l} className="rounded-xl border p-4" style={{backgroundColor:"var(--admin-surface)",borderColor:"var(--admin-border)"}}>
             <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{i.l}</div><div className="text-sm font-medium mt-1" style={{color:"rgba(255,255,255,0.8)"}}>{i.v}</div>
-            <div className="text-[10px] mt-1" style={{color:"#22C55E"}}>{i.s}</div>
+            <div className="text-[10px] mt-1" style={{color:"#DC2626"}}>{i.s}</div>
           </div>
         ))}
       </div>
     </div>
   )
 }
+

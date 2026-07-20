@@ -36,12 +36,12 @@ export default function AdminAuditPage() {
             <div className="px-4 py-8 text-center text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>No audit entries found</div>
           ) : filtered.map((e) => (
             <div key={e.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{ borderColor: "var(--admin-border)" }}>
-              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: e.status === "success" ? "#22C55E" : "#EF4444" }} />
+              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: e.status === "success" ? "#DC2626" : "#EF4444" }} />
               <span className="w-32 shrink-0 font-mono text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{new Date(e.timestamp).toLocaleTimeString()}</span>
               <span className="w-36 shrink-0 truncate" style={{ color: "rgba(255,255,255,0.5)" }}>{e.actor || "system"}</span>
               <span className="w-32 shrink-0 truncate font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>{e.action}</span>
               <span className="flex-1 truncate" style={{ color: "rgba(255,255,255,0.5)" }}>{e.resource || "—"}</span>
-              <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)", color: e.status === "success" ? "#22C55E" : "#EF4444" }}>{e.status}</span>
+              <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)", color: e.status === "success" ? "#DC2626" : "#EF4444" }}>{e.status}</span>
             </div>
           ))}
         </div>
@@ -49,3 +49,4 @@ export default function AdminAuditPage() {
     </div>
   )
 }
+

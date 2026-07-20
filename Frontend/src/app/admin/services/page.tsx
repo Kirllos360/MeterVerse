@@ -100,7 +100,7 @@ export default function AdminServicesPage() {
           <div className="px-4 py-3 border-b text-xs font-semibold" style={{borderColor:"var(--admin-border)",color:"rgba(255,255,255,0.7)"}}>Activity Stream (last 10)</div>
           {activity.slice(0,10).map(a => (
             <div key={a.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{backgroundColor:a.severity==="error"?"#EF4444":a.severity==="warn"?"#F59E0B":"#22C55E"}}/>
+              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{backgroundColor:a.severity==="error"?"#EF4444":a.severity==="warn"?"#EF4444":"#DC2626"}}/>
               <span className="w-20 shrink-0 font-mono text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{a.createdAt?.substring(11,19)||""}</span>
               <span className="w-20 shrink-0 truncate" style={{color:"rgba(255,255,255,0.5)"}}>{a.actor||"system"}</span>
               <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{a.action}</span>
@@ -110,13 +110,13 @@ export default function AdminServicesPage() {
 
         {(tab==="all"||tab==="email") && <>
           <div className="grid grid-cols-3 gap-3 p-4">
-            {[{l:"Sent",v:emailStats?.sent||0,c:"#22C55E"},{l:"Failed",v:emailStats?.failed||0,c:"#EF4444"},{l:"Total",v:emailStats?.total||0,c:"#3B82F6"}].map(s=>(
+            {[{l:"Sent",v:emailStats?.sent||0,c:"#DC2626"},{l:"Failed",v:emailStats?.failed||0,c:"#EF4444"},{l:"Total",v:emailStats?.total||0,c:"#DC2626"}].map(s=>(
               <div key={s.l} className="rounded-lg border p-3" style={{borderColor:"var(--admin-border)"}}><div className="text-[10px]" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div><div className="text-lg font-bold tabular-nums" style={{color:s.c}}>{s.v}</div></div>
             ))}
           </div>
           {emailLogs.slice(0,10).map(l => (
             <div key={l.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#22C55E":"#EF4444"}}/>
+              <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#DC2626":"#EF4444"}}/>
               <span className="w-28 truncate font-mono" style={{color:"rgba(255,255,255,0.5)"}}>{l.to}</span>
               <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{l.subject}</span>
             </div>
@@ -125,7 +125,7 @@ export default function AdminServicesPage() {
 
         {(tab==="all"||tab==="sms") && <>{smsLogs.slice(0,10).map(l => (
           <div key={l.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-            <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#22C55E":"#EF4444"}}/>
+            <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#DC2626":"#EF4444"}}/>
             <span className="w-28 truncate font-mono" style={{color:"rgba(255,255,255,0.5)"}}>{l.to}</span>
             <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{l.message}</span>
           </div>
@@ -133,13 +133,13 @@ export default function AdminServicesPage() {
 
         {(tab==="all"||tab==="push") && <>
           <div className="grid grid-cols-3 gap-3 p-4">
-            {[{l:"Sent",v:pushStats?.sent||0,c:"#22C55E"},{l:"Failed",v:pushStats?.failed||0,c:"#EF4444"},{l:"Total",v:pushStats?.total||0,c:"#3B82F6"}].map(s=>(
+            {[{l:"Sent",v:pushStats?.sent||0,c:"#DC2626"},{l:"Failed",v:pushStats?.failed||0,c:"#EF4444"},{l:"Total",v:pushStats?.total||0,c:"#DC2626"}].map(s=>(
               <div key={s.l} className="rounded-lg border p-3" style={{borderColor:"var(--admin-border)"}}><div className="text-[10px]" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div><div className="text-lg font-bold tabular-nums" style={{color:s.c}}>{s.v}</div></div>
             ))}
           </div>
           {pushLogs.slice(0,10).map(l => (
             <div key={l.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#22C55E":"#EF4444"}}/>
+              <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#DC2626":"#EF4444"}}/>
               <span style={{color:"rgba(255,255,255,0.7)"}}>{l.title}</span>
               <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.5)"}}>{l.body}</span>
             </div>
@@ -159,3 +159,4 @@ export default function AdminServicesPage() {
     </div>
   )
 }
+

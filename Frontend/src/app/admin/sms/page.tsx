@@ -6,8 +6,8 @@ export default function AdminSMSPage() {
       <div><h1 className="text-lg font-semibold text-white">SMS Configuration</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>SMS gateway settings</p></div>
       <div className="grid grid-cols-2 gap-3">
         {[
-          {n:"Twilio",s:"Not Configured",c:"#F59E0B",d:"Account SID, Auth Token, From Number"},
-          {n:"Vonage (Nexmo)",s:"Not Configured",c:"#F59E0B",d:"API Key, API Secret, From Number"},
+          {n:"Twilio",s:"Not Configured",c:"#EF4444",d:"Account SID, Auth Token, From Number"},
+          {n:"Vonage (Nexmo)",s:"Not Configured",c:"#EF4444",d:"API Key, API Secret, From Number"},
           {n:"AWS SNS",s:"Not Configured",c:"rgba(255,255,255,0.3)",d:"Access Key, Secret Key, Region"},
           {n:"MessageBird",s:"Not Configured",c:"rgba(255,255,255,0.3)",d:"API Key, Originator"},
         ].map(i => (
@@ -19,3 +19,4 @@ export default function AdminSMSPage() {
     </div>
   )
 }
+

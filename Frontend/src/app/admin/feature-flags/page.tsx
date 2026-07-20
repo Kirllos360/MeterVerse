@@ -35,7 +35,7 @@ export default function AdminFeatureFlagsPage() {
               <div className="text-sm font-medium" style={{ color: "rgba(255,255,255,0.8)" }}>{f.name}</div>
               <div className="text-[10px] font-mono mt-0.5" style={{ color: "rgba(255,255,255,0.3)" }}>{f.key} · {f.scope}</div>
             </div>
-            <button onClick={() => toggleFlag(f.id)} className="relative w-10 h-5 rounded-full transition-colors" style={{ backgroundColor: f.enabled ? "#22C55E" : "rgba(255,255,255,0.15)" }}>
+            <button onClick={() => toggleFlag(f.id)} className="relative w-10 h-5 rounded-full transition-colors" style={{ backgroundColor: f.enabled ? "#DC2626" : "rgba(255,255,255,0.15)" }}>
               <span className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform" style={{ left: f.enabled ? "22px" : "2px" }} />
             </button>
           </div>
@@ -44,3 +44,4 @@ export default function AdminFeatureFlagsPage() {
     </div>
   )
 }
+

@@ -27,7 +27,7 @@ export default function AdminSchedulerPage() {
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}><div>{t.name}</div>{t.description&&<div className="text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{t.description}</div>}</td>
                 <td className="px-4 py-3 text-sm font-mono" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{t.cron}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{t.taskType}</td>
-                <td className="px-4 py-3 text-sm"><button onClick={()=>toggle(t.id)} className="relative w-8 h-4 rounded-full transition-colors inline-block" style={{backgroundColor:t.active?"#22C55E":"rgba(255,255,255,0.15)"}}><span className="absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform" style={{left:t.active?"18px":"2px"}}/></button></td>
+                <td className="px-4 py-3 text-sm"><button onClick={()=>toggle(t.id)} className="relative w-8 h-4 rounded-full transition-colors inline-block" style={{backgroundColor:t.active?"#DC2626":"rgba(255,255,255,0.15)"}}><span className="absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform" style={{left:t.active?"18px":"2px"}}/></button></td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{t.lastRunAt?new Date(t.lastRunAt).toLocaleString():"Never"}</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{t.nextRunAt?new Date(t.nextRunAt).toLocaleString():"—"}</td>
                 <td className="px-4 py-3 text-sm"><button onClick={()=>remove(t.id)} className="text-[10px] px-2 py-1 rounded font-medium" style={{backgroundColor:"rgba(239,68,68,0.1)",color:"#EF4444"}}>Delete</button></td>
@@ -39,3 +39,4 @@ export default function AdminSchedulerPage() {
     </div>
   )
 }
+

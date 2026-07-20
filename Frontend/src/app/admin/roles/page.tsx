@@ -81,7 +81,7 @@ export default function AdminRolesPage() {
                       <td className="px-4 py-2 text-xs" style={{ color: "rgba(255,255,255,0.6)", borderBottom: "1px solid var(--admin-border)", backgroundColor: "var(--admin-surface)" }}>{perm.name}</td>
                       {roles.map((r) => (
                         <td key={r.id} className="text-center px-3 py-2" style={{ borderBottom: "1px solid var(--admin-border)" }}>
-                          {getRolePermission(r.id, perm.name) ? <span style={{ color: "#22C55E" }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.15)" }}>—</span>}
+                          {getRolePermission(r.id, perm.name) ? <span style={{ color: "#DC2626" }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.15)" }}>—</span>}
                         </td>
                       ))}
                     </tr>
@@ -95,3 +95,4 @@ export default function AdminRolesPage() {
     </div>
   )
 }
+

@@ -27,7 +27,7 @@ export default function AdminWebhooksPage() {
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}>{w.name}</td>
                 <td className="px-4 py-3 text-sm font-mono" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{w.url.substring(0,40)}...</td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{w.events === "[]" ? "All" : w.events}</td>
-                <td className="px-4 py-3 text-sm"><button onClick={()=>toggle(w.id)} className="relative w-8 h-4 rounded-full transition-colors inline-block" style={{backgroundColor:w.active?"#22C55E":"rgba(255,255,255,0.15)"}}><span className="absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform" style={{left:w.active?"18px":"2px"}}/></button></td>
+                <td className="px-4 py-3 text-sm"><button onClick={()=>toggle(w.id)} className="relative w-8 h-4 rounded-full transition-colors inline-block" style={{backgroundColor:w.active?"#DC2626":"rgba(255,255,255,0.15)"}}><span className="absolute top-0.5 w-3 h-3 rounded-full bg-white transition-transform" style={{left:w.active?"18px":"2px"}}/></button></td>
                 <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{w.lastTriggeredAt?new Date(w.lastTriggeredAt).toLocaleString():"Never"}</td>
                 <td className="px-4 py-3 text-sm"><button onClick={()=>remove(w.id)} className="text-[10px] px-2 py-1 rounded font-medium" style={{backgroundColor:"rgba(239,68,68,0.1)",color:"#EF4444"}}>Delete</button></td>
               </tr>
@@ -38,3 +38,4 @@ export default function AdminWebhooksPage() {
     </div>
   )
 }
+
