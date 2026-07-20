@@ -380,6 +380,65 @@ model ExcelJob {
   completedAt DateTime?
 }
 
+model ReportDefinition {
+  id          String   @id @default(uuid())
+  name        String
+  type        String   @default("operational")
+  description String?
+  config      String   @default("{}")
+  schedule    String?
+  recipients  String?
+  lastRunAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model KpiDefinition {
+  id          String   @id @default(uuid())
+  name        String
+  category    String   @default("operations")
+  target      Float?
+  unit        String   @default("count")
+  current     Float?
+  trend       String   @default("stable")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model KpiSnapshot {
+  id          String   @id @default(uuid())
+  kpiId       String
+  kpi         KpiDefinition @relation(fields: [kpiId], references: [id], onDelete: Cascade)
+  value       Float
+  recordedAt  DateTime @default(now())
+}
+
+model ScheduledReport {
+  id          String   @id @default(uuid())
+  name        String
+  reportType  String
+  schedule    String   @default("daily")
+  format      String   @default("pdf")
+  recipients  String?
+  active      Boolean  @default(true)
+  lastSentAt  DateTime?
+  nextRunAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ExportLog {
+  id          String   @id @default(uuid())
+  type        String
+  format      String   @default("csv")
+  filters     String   @default("{}")
+  totalRows   Int      @default(0)
+  filePath    String?
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+}
+
 model Customer {
   id        String   @id @default(uuid())
   name      String
