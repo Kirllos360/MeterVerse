@@ -292,4 +292,40 @@ router.post("/excel", requireRole("admin", "super_admin"), async (req, res, next
   } catch (err) { next(err) }
 })
 
+// ─── ERROR TRACKING (Sentry-like) ────────────────────────────────────────────
+
+router.post("/error-tracking", async (req, res, next) => {
+  try {
+    const data = z.object({ message: z.string(), level: z.string().optional(), stack: z.string().optional(), context: z.string().optional() }).parse(req.body)
+    const entry = await prisma.activityStream.create({ data: { actor: "error-tracker", action: data.message, details: data.stack || data.context, severity: data.level || "error" } })
+    res.status(201).json({ entry })
+  } catch (err) { next(err) }
+})
+
+router.get("/error-tracking", requireRole("admin","super_admin"), async (req, res, next) => {
+  try {
+    const errors = await prisma.activityStream.findMany({ where: { severity: { in: ["error","critical"] } }, orderBy: { createdAt: "desc" }, take: 100 })
+    const stats = { total: await prisma.activityStream.count({ where: { severity: { in: ["error","critical"] } } }), last24h: await prisma.activityStream.count({ where: { severity: { in: ["error","critical"] }, createdAt: { gte: new Date(Date.now() - 86400000) } } }) }
+    res.json({ errors, stats })
+  } catch (err) { next(err) }
+})
+
+// ─── CACHING ─────────────────────────────────────────────────────────────────
+
+router.get("/cache/stats", requireRole("admin","super_admin"), async (req, res, next) => {
+  try {
+    const entries = await prisma.cacheEntry.findMany({ orderBy: { hits: "desc" }, take: 100 })
+    const stats = { total: await prisma.cacheEntry.count(), totalHits: entries.reduce((s, e) => s + e.hits, 0) }
+    res.json({ entries, stats })
+  } catch (err) { next(err) }
+})
+
+router.post("/cache", requireRole("admin","super_admin"), async (req, res, next) => {
+  try {
+    const data = z.object({ key: z.string().min(1), value: z.string(), ttl: z.number().optional() }).parse(req.body)
+    const entry = await prisma.cacheEntry.upsert({ where: { key: data.key }, update: { value: data.value, hits: 0 }, create: { ...data, expiresAt: data.ttl ? new Date(Date.now() + data.ttl * 1000) : null } })
+    res.status(201).json({ entry })
+  } catch (err) { next(err) }
+})
+
 export { router as servicesRouter }
