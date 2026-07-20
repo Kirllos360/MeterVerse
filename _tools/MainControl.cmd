@@ -191,7 +191,6 @@ goto MONITOR
 set SVC=%1
 
 if /i "%SVC%"=="BE" (
-    set /a BE_ATTEMPT+=0  :: already incremented
     call :ERR "%SVC%" "Fixing (attempt !BE_ATTEMPT!/%MAX_ATTEMPT%)"
     echo  🔧 Fixing Backend (attempt !BE_ATTEMPT!/%MAX_ATTEMPT%)...
 
@@ -199,41 +198,46 @@ if /i "%SVC%"=="BE" (
         echo  ⚠ Max attempts reached. Putting Backend to SLEEP.
         call :ERR "%SVC%" "MAX ATTEMPTS REACHED — moved to SLEEP"
         set BE_SLEEP=1
+        echo [%DATE% %TIME%] [BE] SLEEP MODE — user intervention needed >> "%LE%"
         goto :EOF
     )
 
     :: Strategy rotates: 0=restart, 1=kill+restart, 2=force+wait
     set /a STRAT=!BE_ATTEMPT! %% 3
 
+    :: Kill any existing before starting
+    taskkill /F /IM node.exe 2>nul >nul
+    timeout /t 2 /nobreak >nul
+
     if !STRAT!==0 (
         call :LOG "%SVC%" "Strategy 0: Soft restart"
-        start /b "" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
-        timeout /t 5 /nobreak >nul
     )
     if !STRAT!==1 (
         call :LOG "%SVC%" "Strategy 1: Kill + restart"
-        taskkill /F /IM node.exe 2>nul >nul
         timeout /t 3 /nobreak >nul
-        start /b "" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
-        timeout /t 8 /nobreak >nul
     )
     if !STRAT! GEQ 2 (
         call :LOG "%SVC%" "Strategy 2: Full reset"
         taskkill /F /FI "WINDOWTITLE eq MeterVerse*" 2>nul >nul
-        taskkill /F /IM node.exe 2>nul >nul
         timeout /t 5 /nobreak >nul
-        start /b "" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
-        timeout /t 10 /nobreak >nul
-        :: Check node/npm
         where node >nul 2>nul
-        if !errorlevel!==1 ( call :ERR "%SVC%" "node.js not found!" & set BE_SLEEP=1 & goto :EOF )
+        if !errorlevel!==1 ( call :ERR "%SVC%" "node.js not found in PATH!" & set BE_SLEEP=1 & goto :EOF )
     )
-    call :ERR "%SVC%" "Restart issued (strategy !STRAT!)"
+
+    :: Launch
+    start /b "" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
+    call :LOG "%SVC%" "Launched (strategy !STRAT!)"
+
+    :: Verify process started
+    timeout /t 5 /nobreak >nul
+    tasklist /FI "IMAGENAME eq node.exe" 2>nul | findstr /I "node.exe" >nul 2>nul
+    if !errorlevel!==0 ( call :LOG "%SVC%" "Process confirmed running" ) else ( call :ERR "%SVC%" "Process NOT found after launch" )
+
+    call :ERR "%SVC%" "Fix attempt !BE_ATTEMPT! complete (strategy !STRAT!)"
     goto :EOF
 )
 
 if /i "%SVC%"=="FE" (
-    set /a FE_ATTEMPT+=0
     call :ERR "%SVC%" "Fixing (attempt !FE_ATTEMPT!/%MAX_ATTEMPT%)"
     echo  🔧 Fixing Frontend (attempt !FE_ATTEMPT!/%MAX_ATTEMPT%)...
 
@@ -241,43 +245,44 @@ if /i "%SVC%"=="FE" (
         echo  ⚠ Max attempts reached. Putting Frontend to SLEEP.
         call :ERR "%SVC%" "MAX ATTEMPTS REACHED — moved to SLEEP"
         set FE_SLEEP=1
+        echo [%DATE% %TIME%] [FE] SLEEP MODE — user intervention needed >> "%LE%"
         goto :EOF
     )
 
     set /a STRAT=!FE_ATTEMPT! %% 3
 
+    :: Clear any stuck processes
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend*" 2>nul >nul
+    taskkill /F /IM node.exe 2>nul >nul
+    timeout /t 2 /nobreak >nul
+
     if !STRAT!==0 (
         call :LOG "%SVC%" "Strategy 0: Soft restart"
-        if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-            start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
-        ) else (
-            start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
-        )
-        timeout /t 8 /nobreak >nul
     )
     if !STRAT!==1 (
         call :LOG "%SVC%" "Strategy 1: Clear cache + restart"
         if exist "%~dp0..\Frontend\.next\cache" rmdir /s /q "%~dp0..\Frontend\.next\cache" 2>nul >nul
-        if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-            start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
-        ) else (
-            start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
-        )
-        timeout /t 10 /nobreak >nul
     )
     if !STRAT! GEQ 2 (
         call :LOG "%SVC%" "Strategy 2: Full reset"
         taskkill /F /FI "WINDOWTITLE eq MeterVerse*" 2>nul >nul
-        taskkill /F /IM node.exe 2>nul >nul
         timeout /t 5 /nobreak >nul
-        if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-            start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
-        ) else (
-            start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
-        )
-        timeout /t 10 /nobreak >nul
     )
-    call :ERR "%SVC%" "Restart issued (strategy !STRAT!)"
+
+    :: Launch
+    if exist "%~dp0..\Frontend\.next\BUILD_ID" (
+        start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+    ) else (
+        start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+    )
+    call :LOG "%SVC%" "Launched (strategy !STRAT!)"
+
+    :: Verify process started
+    timeout /t 5 /nobreak >nul
+    tasklist /FI "IMAGENAME eq node.exe" 2>nul | findstr /I "node.exe" >nul 2>nul
+    if !errorlevel!==0 ( call :LOG "%SVC%" "Process confirmed running" ) else ( call :ERR "%SVC%" "Process NOT found after launch" )
+
+    call :ERR "%SVC%" "Fix attempt !FE_ATTEMPT! complete (strategy !STRAT!)"
     goto :EOF
 )
 goto :EOF
