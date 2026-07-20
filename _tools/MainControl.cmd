@@ -27,7 +27,7 @@ set BE_ATTEMPT=0
 set FE_ATTEMPT=0
 set BE_SLEEP=0
 set FE_SLEEP=0
-set MAX_ATTEMPT=10
+set MAX_ATTEMPT=15
 
 echo [%DATE% %TIME%] [SYS] MeterVerse System STARTED >> "%LM%"
 echo [%DATE% %TIME%] [SYS] MeterVerse System STARTED >> "%LE%"
@@ -143,7 +143,15 @@ timeout /t 3 /nobreak >nul
 :: Restart
 start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
 echo [%DATE% %TIME%] [BE] Restarted >> "%LE%"
-timeout /t 5 /nobreak >nul
+
+:: Wait and verify backend is actually running (up to 20s)
+set VERIFIED=0
+for /l %%i in (1,1,7) do (
+    timeout /t 3 /nobreak >nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    if !errorlevel!==0 ( set VERIFIED=1 & goto :EOF )
+)
+if !VERIFIED!==0 echo [%DATE% %TIME%] [BE] Warning: window not found after restart >> "%LE%"
 goto :EOF
 
 :FIX_FE
@@ -164,14 +172,22 @@ timeout /t 3 /nobreak >nul
 :: Clear cache
 if exist "%~dp0..\Frontend\.next\cache" rmdir /s /q "%~dp0..\Frontend\.next\cache" 2>nul >nul
 
-:: Restart
+:: Restart (Frontend takes longer — 30-60s for Next.js compile)
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
     start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
 ) else (
     start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
 )
 echo [%DATE% %TIME%] [FE] Restarted >> "%LE%"
-timeout /t 8 /nobreak >nul
+
+:: Wait longer for frontend (20s) — it needs compilation time
+set VERIFIED=0
+for /l %%i in (1,1,7) do (
+    timeout /t 3 /nobreak >nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    if !errorlevel!==0 ( set VERIFIED=1 & goto :EOF )
+)
+if !VERIFIED!==0 echo [%DATE% %TIME%] [FE] Warning: window not found after restart >> "%LE%"
 goto :EOF
 
 :: ─── MENU ACTIONS ────────────────────────────────────────────────────────────
