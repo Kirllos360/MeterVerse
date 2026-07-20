@@ -85,12 +85,23 @@ while ($true) {
     Write-Host "  Backend:  $(if($status.Backend){'✅ RUNNING'}else{'❌ DOWN'}) (retry $($retries.Backend)/$MaxRetries)" -ForegroundColor $(if($status.Backend){'Green'}else{'Red'})
     Write-Host "  Frontend: $(if($status.Frontend){'✅ RUNNING'}else{'❌ DOWN'}) (retry $($retries.Frontend)/$MaxRetries)" -ForegroundColor $(if($status.Frontend){'Green'}else{'Red'})
     
+    # ─── GIT PUSH FUNCTION ──────────────────────────────────────────────────────
+    function Git-Push {
+        Log "Git: Adding all changes..." Cyan
+        git -C $Root add -A 2>&1 | Out-Null
+        $msg = "Auto-update $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+        git -C $Root commit -m $msg 2>&1 | Out-Null
+        Log "Git: Committed '$msg'" Cyan
+        $result = git -C $Root push origin clean-main:main 2>&1
+        if ($LASTEXITCODE -eq 0) { Log "✅ Git: Push successful!" Green } else { Log "❌ Git: Push failed — $result" Red }
+    }
+    
     # ─── HEALTHY ─────────────────────────────────────────────────────────────────
     if ($status.Backend -and $status.Frontend) {
         $retries.Backend = 0; $retries.Frontend = 0
         $lastError.Backend = $null; $lastError.Frontend = $null
         Write-Host "  ✅ ALL SERVICES OPERATIONAL" -ForegroundColor Green
-        Write-Host "  ⏱  Next check in ${HealthInterval}s. Press Q to quit." -ForegroundColor DarkGray
+        Write-Host "  ⏱  Next check in ${HealthInterval}s. [Q]uit [G]it push" -ForegroundColor DarkGray
         
         $timer = 0
         while ($timer -lt $HealthInterval) {
@@ -98,6 +109,7 @@ while ($true) {
             if ([Console]::KeyAvailable) {
                 $key = [Console]::ReadKey($true)
                 if ($key.Key -eq "Q") { Log "User requested stop." Yellow; Get-Process -Name "node" -ErrorAction SilentlyContinue | Stop-Process -Force; Log "Stopped." Green; return }
+                if ($key.Key -eq "G") { Git-Push }
             }
         }
         continue
