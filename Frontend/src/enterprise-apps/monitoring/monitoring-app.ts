@@ -1,6 +1,6 @@
 // Default view: Table
 import { BaseApp } from "../shared/app-base"
-import type { ProgramHost, ProgramMetadata, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
+import type { ProgramHost, ProgramMetadata, ProgramState, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
 export class MonitoringApp extends BaseApp {
   readonly id = "monitoring"
   readonly metadata: ProgramMetadata = this.getDefaultMetadata({ title: "Monitoring", category: "monitoring", description: "System and meter monitoring" })
@@ -21,3 +21,4 @@ export class MonitoringApp extends BaseApp {
       <div class="rounded-xl border p-4" style="background:var(--surface-raised);border-color:var(--border-default)"><h2 class="text-sm font-semibold mb-3" style="color:var(--text-primary)">System Health</h2><div class="space-y-2">${[["CPU","23%"],["Memory","6.2 GB"],["Requests/min","1,247"],["Error Rate","0.02%"]].map(([k,v])=>`<div class="flex items-center justify-between py-2 border-b text-xs" style="border-color:var(--border-default)"><span style="color:var(--text-secondary)">${k}</span><span class="font-medium" style="color:var(--text-primary)">${v}</span></div>`).join("")}</div></div></div>`
   }
 }
+

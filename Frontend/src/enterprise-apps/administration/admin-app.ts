@@ -1,5 +1,5 @@
 import { BaseApp } from "../shared/app-base"
-import type { ProgramHost, ProgramMetadata, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramLifecycle } from "@/runtime/contracts/program"
+import type { ProgramHost, ProgramMetadata, ProgramConfig, ProgramState, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramLifecycle } from "@/runtime/contracts/program"
 
 export class AdminApp extends BaseApp {
   readonly id = "admin"

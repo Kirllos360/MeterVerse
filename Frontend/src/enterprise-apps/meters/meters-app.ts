@@ -1,6 +1,6 @@
 // Default view: Table
 import { BaseApp } from "../shared/app-base"
-import type { ProgramHost, ProgramMetadata, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramLifecycle } from "@/runtime/contracts/program"
+import type { ProgramHost, ProgramMetadata, ProgramState, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramLifecycle } from "@/runtime/contracts/program"
 
 export class MetersApp extends BaseApp {
   readonly id = "meters"
@@ -21,3 +21,4 @@ export class MetersApp extends BaseApp {
       </tr></thead><tbody><tr><td colspan="4" class="px-4 py-12 text-center text-sm" style="color:var(--text-tertiary)"><span>No meters yet</span></td></tr></tbody></table></div></div>`
   }
 }
+

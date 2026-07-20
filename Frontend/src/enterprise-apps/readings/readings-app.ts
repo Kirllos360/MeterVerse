@@ -1,6 +1,6 @@
 // Default view: Table
 import { BaseApp } from "../shared/app-base"
-import type { ProgramHost, ProgramMetadata, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
+import type { ProgramHost, ProgramMetadata, ProgramState, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
 export class ReadingsApp extends BaseApp {
   readonly id = "readings"
   readonly metadata: ProgramMetadata = this.getDefaultMetadata({ title: "Readings", category: "readings", description: "Meter readings", requiredPermissions: ["readings:create"] })
@@ -19,4 +19,5 @@ export class ReadingsApp extends BaseApp {
       <div class="rounded-xl border overflow-hidden" style="border-color:var(--border-default)"><table class="w-full"><thead><tr style="background:var(--surface-tableHeader)"><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Meter</th><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Value</th><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Date</th><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Status</th></tr></thead><tbody><tr><td colspan="4" class="px-4 py-12 text-center text-sm" style="color:var(--text-tertiary)"><span>No readings recorded</span></td></tr></tbody></table></div></div>`
   }
 }
+
 

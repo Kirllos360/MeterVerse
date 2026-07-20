@@ -1,6 +1,6 @@
 // Default view: Table
 import { BaseApp } from "../shared/app-base"
-import type { ProgramHost, ProgramMetadata, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
+import type { ProgramHost, ProgramMetadata, ProgramState, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
 export class PaymentsApp extends BaseApp {
   readonly id = "payments"
   readonly metadata: ProgramMetadata = this.getDefaultMetadata({ title: "Payments", category: "billing", description: "Payment processing", requiredPermissions: ["payments:process"] })
@@ -19,3 +19,4 @@ export class PaymentsApp extends BaseApp {
       <div class="rounded-xl border overflow-hidden" style="border-color:var(--border-default)"><table class="w-full"><thead><tr style="background:var(--surface-tableHeader)"><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Payment</th><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Amount</th><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Method</th><th class="px-4 py-3 text-left text-xs font-medium" style="color:var(--text-secondary)">Date</th></tr></thead><tbody><tr><td colspan="4" class="px-4 py-12 text-center text-sm" style="color:var(--text-tertiary)"><span>No payments recorded</span></td></tr></tbody></table></div></div>`
   }
 }
+

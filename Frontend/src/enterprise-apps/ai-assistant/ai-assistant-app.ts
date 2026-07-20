@@ -1,5 +1,5 @@
 import { BaseApp } from "../shared/app-base"
-import type { ProgramHost, ProgramMetadata, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
+import type { ProgramHost, ProgramMetadata, ProgramState, ActivateOptions, DeactivateOptions, SuspendedState, MountContext, ProgramConfig, ProgramLifecycle } from "@/runtime/contracts/program"
 export class AIAssistantApp extends BaseApp {
   readonly id = "ai-assistant"
   readonly metadata: ProgramMetadata = this.getDefaultMetadata({ title: "AI Assistant", category: "ai", description: "AI-powered insights and assistance" })
@@ -23,4 +23,5 @@ export class AIAssistantApp extends BaseApp {
     </div>`
   }
 }
+
 

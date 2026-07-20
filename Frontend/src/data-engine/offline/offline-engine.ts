@@ -47,7 +47,7 @@ export class OfflineEngine {
     this.sync()
   }
 
-  async queueMutation(mutation: Mutation): Promise<MutationResult> {
+  async queueMutation(mutation: Mutation): Promise<MutationResult<unknown>> {
     if (this._isOnline) {
       return this.provider.executeMutation(mutation)
     }

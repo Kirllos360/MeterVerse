@@ -1,6 +1,6 @@
 // Default view: Table
 import { BaseApp } from "../shared/app-base"
-import type { ProgramLifecycle, ProgramHost, ProgramMetadata, MountContext, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState } from "@/runtime/contracts/program"
+import type { ProgramLifecycle, ProgramHost, ProgramMetadata, ProgramState, MountContext, ProgramConfig, ActivateOptions, DeactivateOptions, SuspendedState } from "@/runtime/contracts/program"
 import { KPIWidget, KPIWidgetGrid } from "@/enterprise/kpi/KPIWidget"
 
 export class CustomersApp extends BaseApp {
@@ -83,4 +83,5 @@ export const customersRegistration = {
   metadata: new CustomersApp(null!).metadata,
   create: (host: ProgramHost) => new CustomersApp(host),
 }
+
 
