@@ -1,45 +1,32 @@
 "use client"
 
+import { useState, useEffect } from "react"
+
 export default function AdminMonitoringPage() {
+  const [metrics, setMetrics] = useState<any>(null); const [loading, setLoading] = useState(true)
+  useEffect(() => { fetch("/api/admin/monitoring").then(r=>r.json()).then(d=>{setMetrics(d.metrics);setLoading(false)}).catch(()=>setLoading(false)) }, [])
   return (
     <div className="p-6 space-y-4">
-      <h1 className="text-lg font-semibold text-white">Monitoring</h1>
-      <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>System performance and metrics</p>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-          <h3 className="text-sm font-medium text-white mb-3">API Performance</h3>
-          <div className="space-y-2">
-            {[
-              { route: "GET /api/v1/customers", p50: "12ms", p95: "45ms", p99: "120ms", rate: "1,247/min" },
-              { route: "GET /api/v1/meters", p50: "8ms", p95: "32ms", p99: "98ms", rate: "892/min" },
-              { route: "POST /api/v1/invoices", p50: "45ms", p95: "180ms", p99: "450ms", rate: "156/min" },
-            ].map((api) => (
-              <div key={api.route} className="py-2 text-xs" style={{ borderBottom: "1px solid var(--admin-border)" }}>
-                <div className="text-white mb-1">{api.route}</div>
-                <div className="flex gap-4" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  <span>p50: {api.p50}</span><span>p95: {api.p95}</span><span>p99: {api.p99}</span><span>{api.rate}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-          <h3 className="text-sm font-medium text-white mb-3">Background Jobs</h3>
-          <div className="space-y-2">
-            {[
-              { job: "Invoice Generation", queue: "high", running: 2, pending: 15, failed: 0 },
-              { job: "Report Export", queue: "default", running: 1, pending: 8, failed: 1 },
-              { job: "Data Sync", queue: "low", running: 0, pending: 3, failed: 0 },
-            ].map((j) => (
-              <div key={j.job} className="py-2 text-xs" style={{ borderBottom: "1px solid var(--admin-border)" }}>
-                <div className="text-white mb-1">{j.job}</div>
-                <div className="flex gap-3" style={{ color: "rgba(255,255,255,0.4)" }}>
-                  <span>Running: {j.running}</span><span>Pending: {j.pending}</span>
-                  <span style={{ color: j.failed > 0 ? "var(--status-error)" : "inherit" }}>Failed: {j.failed}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div><h1 className="text-lg font-semibold text-white">Monitoring</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>System metrics and performance</p></div>
+      {loading ? <div className="text-xs" style={{color:"rgba(255,255,255,0.3)"}}>Loading...</div>
+      : <div className="grid grid-cols-5 gap-3">
+          {metrics && [
+            {l:"Users",v:metrics.users,c:"#EF4444"},{l:"Meters",v:metrics.meters,c:"#3B82F6"},{l:"Readings",v:metrics.readings.toLocaleString(),c:"#22C55E"},{l:"Active Sessions",v:metrics.activeSessions,c:"#F59E0B"},{l:"Pending Jobs",v:metrics.pendingJobs,c:"#F59E0B"}
+          ].map(s=>(
+            <div key={s.l} className="rounded-xl border p-4" style={{backgroundColor:"var(--admin-surface)",borderColor:"var(--admin-border)"}}>
+              <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div><div className="text-xl font-bold mt-1 tabular-nums" style={{color:s.c}}>{s.v}</div>
+            </div>
+          ))}
+        </div>}
+      <div className="rounded-xl border p-6" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
+        <h2 className="text-sm font-semibold mb-3 text-white">System Overview</h2>
+        <div className="grid grid-cols-2 gap-4 text-xs">
+          {[{l:"Database",v:"PostgreSQL 16",s:"operational"},{l:"Cache",v:"In-Memory",s:"operational"},{l:"Queue",v:"Database-backed",s:"operational"},{l:"Storage",v:"Local filesystem",s:"operational"}].map(s=>(
+            <div key={s.l} className="flex items-center justify-between p-3 rounded-lg" style={{backgroundColor:"var(--admin-surface)",border:"1px solid var(--admin-border)"}}>
+              <span style={{color:"rgba(255,255,255,0.5)"}}>{s.l}: <span style={{color:"rgba(255,255,255,0.7)"}}>{s.v}</span></span>
+              <span style={{color:"#22C55E"}}>{s.s}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

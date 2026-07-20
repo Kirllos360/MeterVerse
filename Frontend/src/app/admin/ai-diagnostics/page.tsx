@@ -1,104 +1,30 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { AnomalyDetector } from "@/admin/ai-engine/anomaly/AnomalyDetector"
-import { ForecastEngine } from "@/admin/ai-engine/forecast/ForecastEngine"
-import { RecommendationEngine } from "@/admin/ai-engine/recommendations/RecommendationEngine"
-import { ReportSummarizer } from "@/admin/ai-engine/summaries/ReportSummarizer"
-import { LogViewer } from "@/enterprise/log-viewer/LogViewer"
-import type { LogEntry } from "@/enterprise/log-viewer/LogViewer"
+import { useState, useEffect } from "react"
 
-export default function AIDiagnosticsPage() {
-  const [activeTab, setActiveTab] = useState("anomalies")
-  const [anomalies, setAnomalies] = useState<unknown[]>([])
-  const [logs] = useState<LogEntry[]>([])
-  const [scanning, setScanning] = useState(false)
+interface DiagnosticCheck { name: string; status: string; duration: string; details: string }
 
-  const runDiagnostic = async () => {
-    setScanning(true)
-    const detector = new AnomalyDetector()
-    const results = await detector.detectAnomalies()
-    setAnomalies(results)
-    setScanning(false)
-  }
-
+export default function AdminAIDiagnosticsPage() {
+  const [checks, setChecks] = useState<DiagnosticCheck[]>([]); const [summary, setSummary] = useState({passed:0,total:0}); const [loading, setLoading] = useState(true)
+  useEffect(() => { fetch("/api/admin/ai-diagnostics").then(r=>r.json()).then(d=>{setChecks(d.checks||[]);setSummary(d.summary||{});setLoading(false)}).catch(()=>setLoading(false)) }, [])
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-lg font-semibold" style={{ color: "var(--admin-text)" }}>AI Diagnostics</h1>
-          <p className="text-xs mt-1" style={{ color: "var(--admin-text-muted)" }}>System health analysis and issue detection</p>
-        </div>
-        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-          onClick={runDiagnostic}
-          className="px-4 py-2 rounded-lg text-xs font-medium text-white"
-          style={{ backgroundColor: scanning ? "rgba(var(--brand-rgb), 0.5)" : "var(--brand)" }}
-          disabled={scanning}
-        >
-          {scanning ? "Scanning..." : "Run Diagnostic"}
-        </motion.button>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex gap-2 border-b pb-2" style={{ borderColor: "var(--admin-border)" }}>
-        {["anomalies", "forecast", "recommendations", "summaries", "logs"].map((tab) => (
-          <button key={tab} onClick={() => setActiveTab(tab)}
-            className="px-3 py-2 rounded-lg text-xs font-medium transition-colors capitalize"
-            style={{ backgroundColor: activeTab === tab ? "rgba(var(--brand-rgb), 0.2)" : "transparent", color: activeTab === tab ? "var(--brand)" : "var(--admin-text-muted)" }}>
-            {tab}
-          </button>
-        ))}
-      </div>
-
-      {/* Anomalies */}
-      {activeTab === "anomalies" && (
-        <div className="space-y-2">
-          {anomalies.length === 0 ? (
-            <div className="p-8 text-center text-sm rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)", color: "var(--admin-text-dim)" }}>
-              Run a diagnostic to detect anomalies
-            </div>
-          ) : (anomalies as Array<{ id: string; meterSerial: string; type: string; severity: string; value: number; explanation: string }>).map((a) => (
-            <div key={a.id} className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium" style={{ color: "var(--admin-text)" }}>{a.meterSerial} — {a.type}</span>
-                <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: a.severity === "high" ? "rgba(var(--status-error-rgb), 0.2)" : "rgba(var(--status-warning-rgb), 0.2)", color: a.severity === "high" ? "var(--status-error)" : "var(--status-warning)" }}>
-                  {a.severity}
-                </span>
+    <div className="p-6 space-y-4">
+      <div><h1 className="text-lg font-semibold text-white">AI Diagnostics</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>System diagnostic checks · {summary.passed}/{summary.total} passed</p></div>
+      {loading ? <div className="text-xs" style={{color:"rgba(255,255,255,0.3)"}}>Loading...</div>
+      : <div className="rounded-xl border overflow-hidden" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
+          {checks.map(c => (
+            <div key={c.name} className="flex items-center justify-between px-4 py-3 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="passed"?"#22C55E":c.status==="failed"?"#EF4444":"#F59E0B"}}/>
+                <div><span style={{color:"rgba(255,255,255,0.8)"}}>{c.name}</span><span className="ml-2 text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{c.details}</span></div>
               </div>
-              <p className="text-xs" style={{ color: "var(--admin-text-muted)" }}>{a.explanation}</p>
-              <p className="text-[10px] mt-1" style={{ color: "var(--admin-text-dim)" }}>Value: {a.value}</p>
+              <div className="flex items-center gap-3">
+                <span style={{color:c.status==="passed"?"#22C55E":"#EF4444"}}>{c.status}</span>
+                <span style={{color:"rgba(255,255,255,0.3)"}}>{c.duration}</span>
+              </div>
             </div>
           ))}
-        </div>
-      )}
-
-      {/* Forecast */}
-      {activeTab === "forecast" && (
-        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-          <p className="text-sm" style={{ color: "var(--admin-text-dim)" }}>Forecast engine ready — connect to backend data</p>
-        </div>
-      )}
-
-      {/* Recommendations */}
-      {activeTab === "recommendations" && (
-        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-          <p className="text-sm" style={{ color: "var(--admin-text-dim)" }}>Recommendation engine ready — connect to backend data</p>
-        </div>
-      )}
-
-      {/* Summaries */}
-      {activeTab === "summaries" && (
-        <div className="p-4 rounded-xl border text-center" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-          <p className="text-sm" style={{ color: "var(--admin-text-dim)" }}>Report summarizer ready — connect to backend data</p>
-        </div>
-      )}
-
-      {/* Logs */}
-      {activeTab === "logs" && (
-        <LogViewer logs={logs} />
-      )}
+        </div>}
     </div>
   )
 }
-

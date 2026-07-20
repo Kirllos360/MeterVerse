@@ -126,6 +126,139 @@ model Session {
   createdAt DateTime @default(now())
 }
 
+model Organization {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  slug      String    @unique
+  domain    String?
+  logo      String?
+  plan      String    @default("free")
+  status    String    @default("active")
+  settings  String    @default("{}")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id             String       @id @default(uuid())
+  name           String
+  description    String?
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  status         String       @default("active")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Webhook {
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  events    String   @default("[]")
+  secret    String?
+  active    Boolean  @default(true)
+  lastTriggeredAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NotificationTemplate {
+  id      String @id @default(uuid())
+  key     String @unique
+  name    String
+  type    String @default("email")
+  subject String?
+  body    String
+  variables String @default("[]")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Backup {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   @default("full")
+  size      String?
+  status    String   @default("pending")
+  path      String?
+  startedAt DateTime?
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+}
+
+model CacheEntry {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  ttl       Int?
+  hits      Int      @default(0)
+  createdAt DateTime @default(now())
+  expiresAt DateTime?
+}
+
+model QueueJob {
+  id        String   @id @default(uuid())
+  type      String
+  payload   String   @default("{}")
+  status    String   @default("pending")
+  priority  Int      @default(0)
+  attempts  Int      @default(0)
+  maxAttempts Int    @default(3)
+  error     String?
+  scheduledAt DateTime?
+  startedAt DateTime?
+  completedAt DateTime?
+  createdAt DateTime @default(now())
+}
+
+model ScheduledTask {
+  id           String   @id @default(uuid())
+  name         String
+  description  String?
+  cron         String
+  taskType     String
+  config       String   @default("{}")
+  active       Boolean  @default(true)
+  lastRunAt    DateTime?
+  nextRunAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model StoredFile {
+  id          String   @id @default(uuid())
+  name        String
+  originalName String
+  mimeType    String
+  size        Int
+  path        String
+  category    String   @default("general")
+  uploadedBy  String?
+  createdAt   DateTime @default(now())
+}
+
+model License {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  type        String   @default("enterprise")
+  status      String   @default("active")
+  seats       Int      @default(1)
+  expiresAt   DateTime?
+  activatedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model BrandingConfig {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  category  String   @default("general")
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
 model Customer {
   id        String   @id @default(uuid())
   name      String
