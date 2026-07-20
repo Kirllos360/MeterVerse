@@ -12,6 +12,7 @@ import { paymentsRouter } from "./routes/payments.js"
 import { adminRouter } from "./routes/admin.js"
 import { servicesRouter } from "./routes/services.js"
 import { reportsRouter } from "./routes/reports.js"
+import { securityRouter } from "./routes/security.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -19,18 +20,58 @@ const PORT = process.env.PORT || 3001
 
 export const prisma = new PrismaClient()
 
-app.use(helmet())
-app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:7400", credentials: true }))
-app.use(express.json({ limit: "1mb" }))
+// ═══════════════════════════════════════════════════════════════════════════════
+//  SECURITY LAYER
+// ═══════════════════════════════════════════════════════════════════════════════
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: "Too many requests, please try again later." },
+// CSP — Content Security Policy (XSS protection, inline script blocking)
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],  // 'unsafe-inline' for Next.js HMR in dev
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "http://localhost:3001", "http://localhost:7400"],
+      fontSrc: ["'self'", "data:"],
+      objectSrc: ["'none'"],
+      frameAncestors: ["'none'"],
+      upgradeInsecureRequests: [],
+    },
+  },
+  crossOriginEmbedderPolicy: false,  // Needed for Next.js
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+}))
+
+// CORS — Strict origin
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || "http://localhost:7400",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
+  exposedHeaders: ["X-Request-ID"],
+}))
+
+// Body parsing with size limit (prevents DOS)
+app.use(express.json({ limit: "1mb" }))
+app.use(express.urlencoded({ extended: false, limit: "1mb" }))
+
+// Rate limiting — stricter on auth routes
+const globalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, max: 200,
+  standardHeaders: true, legacyHeaders: false,
+  message: { error: "Too many requests" },
 })
-app.use("/api/", limiter)
+app.use("/api/", globalLimiter)
+
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, max: 20,
+  standardHeaders: true, legacyHeaders: false,
+  message: { error: "Too many login attempts" },
+})
+app.use("/api/auth/login", authLimiter)
+
+// ─── ROUTES ─────────────────────────────────────────────────────────────────
 
 app.get("/api/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }))
 
@@ -43,6 +84,9 @@ app.use("/api/payments", paymentsRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/services", servicesRouter)
 app.use("/api/reports", reportsRouter)
+app.use("/api/security", securityRouter)
+
+// ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 
 app.use(errorHandler)
 
