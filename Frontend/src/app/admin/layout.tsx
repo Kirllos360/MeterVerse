@@ -40,7 +40,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center gap-2 px-3 h-12 shrink-0 border-b" style={{ borderColor: "var(--border-default)" }}>
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: "var(--brand)", color: "white" }}>MV</div>
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold" style={{ backgroundColor: "var(--admin-accent)", color: "white" }}>MV</div>
             <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Admin</span>
           </div>
           {/* Nav items */}
@@ -56,7 +56,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                   className="flex items-center gap-2.5 w-full rounded-lg text-xs outline-none"
                   style={{
                     padding: "6px 10px",
-                    backgroundColor: isActive ? "var(--brand)" : "transparent",
+                    backgroundColor: isActive ? "var(--admin-accent)" : "transparent",
                     color: isActive ? "white" : "var(--text-tertiary)",
                     fontWeight: isActive ? 600 : 400,
                     border: "none",
