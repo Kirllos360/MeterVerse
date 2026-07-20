@@ -17,6 +17,7 @@ const adminNav = [
   { id: "monitoring", label: "Monitoring", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10" },
   { id: "health", label: "System Health", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
   { id: "logs", label: "Logs", icon: "M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2" },
+  { id: "services", label: "Services", icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" },
 ]
 
 const ITEM_H = 36

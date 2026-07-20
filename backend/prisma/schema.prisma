@@ -259,6 +259,82 @@ model BrandingConfig {
   createdAt DateTime @default(now())
 }
 
+model Notification {
+  id        String   @id @default(uuid())
+  type      String   @default("in_app")
+  title     String
+  body      String
+  recipientId String?
+  recipientEmail String?
+  status    String   @default("pending")
+  channel   String   @default("in_app")
+  sentAt    DateTime?
+  readAt    DateTime?
+  error     String?
+  createdAt DateTime @default(now())
+}
+
+model ActivityStream {
+  id        String   @id @default(uuid())
+  actor     String?
+  actorId   String?
+  action    String
+  resource  String?
+  resourceId String?
+  details   String?
+  ip        String?
+  severity  String   @default("info")
+  createdAt DateTime @default(now())
+}
+
+model EmailLog {
+  id        String   @id @default(uuid())
+  to        String
+  from      String
+  subject   String
+  body      String?
+  status    String   @default("pending")
+  error     String?
+  sentAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model SmsLog {
+  id        String   @id @default(uuid())
+  to        String
+  from      String?
+  message   String
+  status    String   @default("pending")
+  error     String?
+  sentAt    DateTime?
+  createdAt DateTime @default(now())
+}
+
+model ImportJob {
+  id          String   @id @default(uuid())
+  type        String
+  fileName    String?
+  status      String   @default("pending")
+  totalRows   Int      @default(0)
+  processed   Int      @default(0)
+  failed      Int      @default(0)
+  errors      String?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model ExportJob {
+  id          String   @id @default(uuid())
+  type        String
+  format      String   @default("csv")
+  filters     String   @default("{}")
+  status      String   @default("pending")
+  totalRows   Int      @default(0)
+  filePath    String?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
 model Customer {
   id        String   @id @default(uuid())
   name      String
