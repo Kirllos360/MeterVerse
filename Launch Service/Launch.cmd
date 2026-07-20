@@ -1,100 +1,63 @@
 @echo off
-title MeterVerse Launcher
+title MeterVerse Launch
 cd /d "%~dp0.."
 setlocal enabledelayedexpansion
 
 :: ─── CONFIG ───────────────────────────────────────────────────────────────────
-set BACKEND_DIR=backend
-set FRONTEND_DIR=Frontend
 set BE_PORT=3001
 set FE_PORT=7400
 set LOG_DIR=%~dp0logs
-set MAX_RESTART=10
 :: ───────────────────────────────────────────────────────────────────────────────
 
 if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
-set LOG_FILE=%LOG_DIR%\launcher.log
+set LOG_FILE=%LOG_DIR%\launch.log
 
-echo [%DATE% %TIME%] === MeterVerse Launcher Started === >> %LOG_FILE%
+echo [%DATE% %TIME%] === Launch === >> %LOG_FILE%
+
+cls
 echo.
-echo ========================================
-echo    MeterVerse Service Launcher
-echo ========================================
-echo.
-echo  Starting all services...
-echo  Log: %LOG_FILE%
+echo ════════════════════════════════════════
+echo   MeterVerse Launcher (same window)
+echo ════════════════════════════════════════
 echo.
 
-:: Start Backend
-echo  [1] Starting Backend...
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js"
-timeout /t 4 /nobreak >nul
-echo  [2] Starting Frontend...
-if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%"
-) else (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%"
-)
+:: Kill old
+taskkill /F /FI "WINDOWTITLE eq MeterVerse*" 2>nul >nul
+taskkill /F /IM node.exe 2>nul >nul
+timeout /t 2 /nobreak >nul
+
+:: Start Backend (same window, background)
+echo [1] Starting Backend...
+start /b "" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LOG_DIR%\backend.log" 2>&1
+echo   PID: %!pid! (see task manager)
+echo   Log: %LOG_DIR%\backend.log
+
+:: Wait for backend ready
+echo   Waiting for backend (up to 30s)...
+set WAIT=0
+:WAIT_BE
 timeout /t 3 /nobreak >nul
+set /a WAIT+=3
+PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:%BE_PORT%/api/health' -TimeoutSec 2 -UseBasicParsing -ErrorAction Stop; exit 0}catch{exit 1}" 2>nul
+if %errorlevel%==0 ( echo   ✅ Backend ready! ) else ( if %WAIT% LSS 30 goto WAIT_BE )
 
+:: Start Frontend (same window, background)
+echo [2] Starting Frontend...
+if exist "%~dp0..\Frontend\.next\BUILD_ID" (
+    start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LOG_DIR%\frontend.log" 2>&1
+) else (
+    start /b "" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LOG_DIR%\frontend.log" 2>&1
+)
+echo   Log: %LOG_DIR%\frontend.log
+echo   (frontend takes 30-60s to compile first time)
 echo.
-echo  Services launched. Monitor starting...
-echo  Press Ctrl+C to stop.
+echo   Admin: http://localhost:%FE_PORT%/admin
+echo   Login: admin@meterverse.com / Admin@123
 echo.
-
-:: ═══════════════════════════════════════════════════════════════════════════════
-::  MAIN MONITOR LOOP — never exits
-:: ═══════════════════════════════════════════════════════════════════════════════
-:LOOP
-set BE_RUNNING=0
-set FE_RUNNING=0
-set NEED_FIX=0
-
-:: Check Backend
-tasklist /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul | findstr /I "node.exe" >nul 2>nul
-if %errorlevel%==0 ( set BE_RUNNING=1 )
-
-:: Check Frontend
-tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
-if %errorlevel%==0 ( set FE_RUNNING=1 )
-
-:: If all running, just wait
-if !BE_RUNNING!==1 if !FE_RUNNING!==1 (
-    timeout /t 15 /nobreak >nul
-    goto LOOP
-)
-
-:: ─── Service recovery ────────────────────────────────────────────────────────
-if !BE_RUNNING!==0 (
-    echo [%DATE% %TIME%] Backend DOWN - restarting... >> %LOG_FILE%
-    echo  [RESTART] Backend was down. Restarting...
-    taskkill /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
-    start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js"
-    set /a NEED_FIX=!NEED_FIX!+1
-    timeout /t 3 /nobreak >nul
-)
-
-if !FE_RUNNING!==0 (
-    echo [%DATE% %TIME%] Frontend DOWN - restarting... >> %LOG_FILE%
-    echo  [RESTART] Frontend was down. Restarting...
-    taskkill /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
-    if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-        start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%"
-    ) else (
-        start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%"
-    )
-    set /a NEED_FIX=!NEED_FIX!+1
-    timeout /t 3 /nobreak >nul
-)
-
-:: ─── Error logging ───────────────────────────────────────────────────────────
-call "%~dp0ErrorLog.cmd" "Service restarted" "Backend=!BE_RUNNING! Frontend=!FE_RUNNING!"
-
-:: ─── Auto-fix attempt ────────────────────────────────────────────────────────
-if !NEED_FIX! GEQ 1 (
-    call "%~dp0AutoFix.cmd" "!BE_RUNNING!" "!FE_RUNNING!"
-)
-
-:: ─── Wait before next check ──────────────────────────────────────────────────
-timeout /t 15 /nobreak >nul
-goto LOOP
+echo   Backend log:  type "%LOG_DIR%\backend.log"
+echo   Frontend log: type "%LOG_DIR%\frontend.log"
+echo.
+echo [%DATE% %TIME%] Launched >> %LOG_FILE%
+echo.
+echo  Press any key to close this window (services keep running in background)
+pause >nul
