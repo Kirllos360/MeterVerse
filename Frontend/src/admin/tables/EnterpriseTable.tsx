@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback, useEffect } from "react"
+import { PageSelector } from "./PageSelector"
 
 export interface Column<T = any> {
   id: string
@@ -236,9 +237,7 @@ export function EnterpriseTable<T>({ data, columns: initialColumns, pageSize = 2
         {selected.size > 0 && onBulkAction && (
           <button onClick={() => onBulkAction("delete", Array.from(selected))} className="px-2 py-1 rounded" style={{ backgroundColor: "rgba(239,68,68,0.2)", color: "#EF4444" }}>🗑 Delete</button>
         )}
-        <div className="flex-1" />
-        <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>{sortedData.length} rows</span>
-      </div>
+        </div>
 
       {/* ─── Filters ─────────────────────────────────────────────────────── */}
       {showFilters && (
@@ -322,16 +321,10 @@ export function EnterpriseTable<T>({ data, columns: initialColumns, pageSize = 2
         </table>
       </div>
 
-      {/* ─── Pagination ──────────────────────────────────────────────────── */}
+      {/* ─── Pagination — Dynamic Island ──────────────────────────────────── */}
       <div className="flex items-center justify-between text-xs">
-        <span style={{ color: "rgba(255,255,255,0.3)" }}>Page {page + 1} of {totalPages || 1}</span>
-        <div className="flex gap-1">
-          <button onClick={() => setPage(0)} disabled={page === 0} className="px-2 py-1 rounded" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--admin-border)", color: page === 0 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.5)" }}>«</button>
-          <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} className="px-2 py-1 rounded" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--admin-border)", color: page === 0 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.5)" }}>‹</button>
-          <span className="px-2 py-1" style={{ color: "rgba(255,255,255,0.3)" }}>{page + 1} / {totalPages || 1}</span>
-          <button onClick={() => setPage(p => Math.min(totalPages - 1, p + 1))} disabled={page >= totalPages - 1} className="px-2 py-1 rounded" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--admin-border)", color: page >= totalPages - 1 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.5)" }}>›</button>
-          <button onClick={() => setPage(totalPages - 1)} disabled={page >= totalPages - 1} className="px-2 py-1 rounded" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--admin-border)", color: page >= totalPages - 1 ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.5)" }}>»</button>
-        </div>
+        <span style={{ color: "rgba(255,255,255,0.3)" }}>{sortedData.length} rows</span>
+        <PageSelector currentPage={page} totalPages={totalPages || 1} onPageChange={setPage} />
         <span style={{ color: "rgba(255,255,255,0.3)" }}>Ctrl+A select all | ↩ edit | Esc cancel</span>
       </div>
     </div>
