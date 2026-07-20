@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { motion } from "framer-motion"
 import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
 
@@ -54,6 +54,8 @@ function Particles() {
 
 export default function LoginPage() {
   const { login, isLoading, error, isLocked, remainingLockout } = useAuthRuntime()
+  const [hydrated, setHydrated] = useState(false)
+  useEffect(() => { setHydrated(true) }, [])
   const [mode, setMode] = useState<"login" | "signup">("login")
   const [email, setEmail] = useState("admin@meterverse.com")
   const [password, setPassword] = useState("")
@@ -81,7 +83,7 @@ export default function LoginPage() {
   if (success) {
     return (
       <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "var(--panel-accent)" }}>
-        <HeavyRain /><Particles />
+        {hydrated && <HeavyRain />}{hydrated && <Particles />}
         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center p-8 z-10">
           <motion.div animate={{ rotate: [0, 10, -10, 0] }} className="w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
@@ -95,7 +97,7 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden" style={{ backgroundColor: "var(--panel-accent)" }}>
-      <HeavyRain /><Particles />
+      {hydrated && <HeavyRain />}{hydrated && <Particles />}
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse at 50% 50%, rgba(var(--brand-rgb), 0.08) 0%, transparent 70%)" }} />
       <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full" style={{ maxWidth: 520 }}>
