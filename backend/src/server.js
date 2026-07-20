@@ -15,6 +15,7 @@ import { reportsRouter } from "./routes/reports.js"
 import { securityRouter } from "./routes/security.js"
 import { domainRouter } from "./routes/domain.js"
 import { businessRouter } from "./routes/business.js"
+import { crudRouter } from "./routes/crud.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -88,6 +89,7 @@ app.use("/api/services", servicesRouter)
 app.use("/api/reports", reportsRouter)
 app.use("/api/domain", domainRouter)
 app.use("/api/business", businessRouter)
+app.use("/api/crud", crudRouter)
 app.use("/api/security", securityRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
