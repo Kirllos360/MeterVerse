@@ -54,6 +54,25 @@ taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
 timeout /t 2 /nobreak >nul
 
+:: Pre-flight checks
+echo [PRE] Running pre-flight checks...
+if not exist "%~dp0..\backend\node_modules" (
+    echo  ⚠ Backend dependencies missing. Running npm install...
+    echo [%DATE% %TIME%] [SYS] Backend deps missing — installing >> "%LM%"
+    cd /d "%~dp0..\backend"
+    call npm install --silent > "%LD%\npm_install.log" 2>&1
+    cd /d "%~dp0.."
+    echo  ✅ Dependencies installed
+)
+if not exist "%~dp0..\Frontend\node_modules" (
+    echo  ⚠ Frontend dependencies missing. Running npm install...
+    echo [%DATE% %TIME%] [SYS] Frontend deps missing — installing >> "%LM%"
+    cd /d "%~dp0..\Frontend"
+    call npm install --silent > "%LD%\npm_install.log" 2>&1
+    cd /d "%~dp0.."
+    echo  ✅ Dependencies installed
+)
+
 :: Launch Backend
 echo [1] Starting Backend...
 echo [%DATE% %TIME%] [BE] Starting >> "%LM%"
@@ -127,8 +146,15 @@ if !FE_SLP!==0 (
 )
 
 :: ─── FIX ENGINE — Backend first (dependency), then frontend ──────────────────
-if !BE_SLP!==0 if !BK!==0 call :FIX_BE
-if !FE_SLP!==0 if !FK!==0 call :FIX_FE
+:: If both down, fix backend first (frontend needs backend)
+if !BE_SLP!==0 if !BK!==0 (
+    call :FIX_BE
+    :: After fixing BE, check FE too in same cycle
+    tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    if !errorlevel!==1 if !FE_SLP!==0 call :FIX_FE
+) else (
+    if !FE_SLP!==0 if !FK!==0 call :FIX_FE
+)
 
 :: ─── FIX ENGINE — Degraded mode (running but unhealthy) ──────────────────────
 if !BD!==1 (
