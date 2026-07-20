@@ -2,6 +2,9 @@
 title MeterVerse
 cd /d "%~dp0.."
 
+:: Safety check — prevents dangerous commands
+call "%~dp0SafetyCheck.cmd" >nul 2>nul
+
 :: SAFE — only kills MeterVerse windows, NOT system-wide node.exe
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
