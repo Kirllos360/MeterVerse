@@ -3,11 +3,10 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
-export function InspectorPanel() {
+export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boolean; onToggleCollapse: () => void }) {
   const [input, setInput] = useState("")
   const [output, setOutput] = useState("")
   const [history, setHistory] = useState<{cmd: string; result: string; error?: boolean}[]>([])
-  const [collapsed, setCollapsed] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }) }, [history])
@@ -38,7 +37,7 @@ export function InspectorPanel() {
           </div>
           {!collapsed && <span className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Inspector</span>}
         </div>
-        <button onClick={() => setCollapsed(!collapsed)} className="text-xs" style={{ color: "var(--text-tertiary)", background: "none", border: "none", cursor: "pointer" }}>
+        <button onClick={onToggleCollapse} className="text-xs" style={{ color: "var(--text-tertiary)", background: "none", border: "none", cursor: "pointer" }}>
           {collapsed ? "◀" : "▶"}
         </button>
       </div>
@@ -75,7 +74,7 @@ export function InspectorPanel() {
             <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && execute()}
               placeholder="/api/health" className="flex-1 bg-transparent outline-none text-xs font-mono" style={{ color: "#E0E0E0" }} />
           </div>
-          <motion.button onClick={execute} whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(220,38,38,0.3)" }} whileTap={{ scale: 0.95 }}
+          <motion.button onClick={execute} initial={{ boxShadow: "0 0 0px rgba(220,38,38,0)" }} whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(220,38,38,0.3)" }} whileTap={{ scale: 0.95 }}
             className="px-4 py-2 rounded-xl text-xs font-medium text-white" style={{ backgroundColor: "var(--admin-accent)" }}>
             Run
           </motion.button>

@@ -46,6 +46,7 @@ export default function AdminLayout() {
   const [active, setActive] = useState("home")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [inspectorOpen, setInspectorOpen] = useState(false)
+  const [inspectorCollapsed, setInspectorCollapsed] = useState(false)
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
   const [themeMode, setThemeMode] = useState<"light" | "dark" | "auto">("auto")
   const [lang, setLang] = useState("en")
@@ -127,7 +128,7 @@ export default function AdminLayout() {
         toolbarContent={<AdminToolbar activePage={active} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} themeMode={themeMode} onCycleTheme={cycleTheme} effectiveDark={effectiveDark} lang={lang} onToggleLang={() => setLang(l => l === "en" ? "ar" : "en")} />}
         tabBar={<WorkspaceTabs />}
         statusBar={<AdminStatusBar inspectorOpen={inspectorOpen} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} lang={lang} />}
-        inspectorContent={inspectorOpen ? <InspectorPanel /> : undefined}
+        inspectorContent={inspectorOpen ? <InspectorPanel collapsed={inspectorCollapsed} onToggleCollapse={() => setInspectorCollapsed(!inspectorCollapsed)} /> : undefined}
       >
         <div className="h-full">
           <div className="flex items-center gap-2 p-3 border-b" style={{ borderColor: "var(--border-default)" }}>

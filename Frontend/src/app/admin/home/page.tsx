@@ -42,7 +42,7 @@ export default function AdminHomePage() {
       {/* Stats Cards */}
       <div className="grid grid-cols-4 gap-4">
         {cards.map((c, i) => (
-          <motion.div key={c.l} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08, type: "spring", stiffness: 200, damping: 20 }}
+          <motion.div key={c.l} initial={{ opacity: 0, y: 20, boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08, type: "spring", stiffness: 200, damping: 20 }}
             whileHover={{ y: -4, boxShadow: "0 12px 40px rgba(0,0,0,0.3)" }}
             className="rounded-2xl border p-5" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--admin-surface)", boxShadow: "0 4px 20px rgba(0,0,0,0.15)" }}>
             <div className="flex items-center justify-between mb-3">
