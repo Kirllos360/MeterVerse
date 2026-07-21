@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef, useMemo, useCallback } from "react"
 import type React from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -21,39 +21,72 @@ interface GenericAdminPageProps {
   renderCustom?: (data: any[], filtered: any[], setData: (d: any[]) => void) => React.ReactNode
 }
 
+const ROWS_PER_PAGE = 25
+
+function useDebounce<T>(value: T, delay: number): T {
+  const [debounced, setDebounced] = useState(value)
+  useEffect(() => { const t = setTimeout(() => setDebounced(value), delay); return () => clearTimeout(t) }, [value, delay])
+  return debounced
+}
+
 export function GenericAdminPage({ config, initialData, renderCustom }: GenericAdminPageProps) {
   const [data, setData] = useState<any[]>(initialData || [])
   const [loading, setLoading] = useState(!initialData)
+  const [error, setError] = useState<string | null>(null)
   const [search, setSearch] = useState("")
   const [tab, setTab] = useState("all")
+  const [page, setPage] = useState(1)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [editTarget, setEditTarget] = useState<any | null>(null)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null)
+  const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({})
+  const [kpi, setKpi] = useState({ totalFetches: 0, lastFetch: 0, avgLatency: 0, errorRate: 0 })
+  const abortRef = useRef<AbortController | null>(null)
+  const debouncedSearch = useDebounce(search, 300)
 
-  useEffect(() => {
-    if (initialData || !config.apiEndpoint) { setLoading(false); return }
+  const fetchData = useCallback(async () => {
+    if (!config.apiEndpoint || initialData) { setLoading(false); return }
+    abortRef.current?.abort()
+    const controller = new AbortController()
+    abortRef.current = controller
     setLoading(true)
-    fetch(config.apiEndpoint)
-      .then(r => r.json())
-      .then(d => {
-        const items = config.transform ? config.transform(d) : Array.isArray(d) ? d : d[Object.keys(d).find(k => Array.isArray(d[k])) || "items"] || []
-        setData(items)
-        setLoading(false)
-      }).catch(() => setLoading(false))
-  }, [config.apiEndpoint])
+    setError(null)
+    const start = Date.now()
+    try {
+      const res = await fetch(config.apiEndpoint, { signal: controller.signal })
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+      const d = await res.json()
+      const items = config.transform ? config.transform(d) : Array.isArray(d) ? d : d[Object.keys(d).find(k => Array.isArray(d[k])) || "items"] || []
+      const latency = Date.now() - start
+      setData(items)
+      setKpi(p => ({ totalFetches: p.totalFetches + 1, lastFetch: Date.now(), avgLatency: p.totalFetches === 0 ? latency : (p.avgLatency * p.totalFetches + latency) / (p.totalFetches + 1), errorRate: 0 }))
+    } catch (e: any) {
+      if (e.name === "AbortError") return
+      setError(e.message)
+      setKpi(p => ({ ...p, errorRate: 100 }))
+    }
+    setLoading(false)
+  }, [config.apiEndpoint, config.transform, initialData])
 
-  const filtered = data.filter(r => {
+  useEffect(() => { fetchData(); return () => abortRef.current?.abort() }, [fetchData])
+
+  const filtered = useMemo(() => {
+    let result = data
     if (tab !== "all") {
       const tabDef = config.tabs?.find(t => t.value === tab) || defaultTabsWithStatus.find(t => t.value === tab)
-      if (tabDef?.filter && !tabDef.filter(r)) return false
+      if (tabDef?.filter) result = result.filter(tabDef.filter)
     }
-    if (search) {
-      const match = Object.values(r).some(v => String(v).toLowerCase().includes(search.toLowerCase()))
-      if (!match) return false
+    if (debouncedSearch) {
+      const q = debouncedSearch.toLowerCase()
+      result = result.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)))
     }
-    return true
-  })
+    return result
+  }, [data, tab, debouncedSearch, config.tabs])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ROWS_PER_PAGE))
+  const paged = useMemo(() => filtered.slice((page - 1) * ROWS_PER_PAGE, page * ROWS_PER_PAGE), [filtered, page])
+  useEffect(() => { setPage(1) }, [tab, debouncedSearch])
 
   const handleAction = (action: EntityAction, row?: any) => {
     switch (action) {
@@ -69,14 +102,26 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
   }
 
   const updateStatus = async (row: any, status: string) => {
-    setData(p => p.map(r => r.id === row.id ? { ...r, status } : r))
+    const id = row.id || row[config.rowKey || "id"]
+    setStatusUpdating(p => ({ ...p, [id]: true }))
+    setData(p => p.map(r => (r.id === row.id || r[config.rowKey || "id"] === row.id) ? { ...r, status } : r))
     try {
-      const key = row.id ? "id" : Object.keys(row).find(k => row[k] === row.id) || "id"
-      await fetch(`${config.apiEndpoint}/${row.id || row[key]}`, {
-        method: "PUT", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
+      await fetch(`${config.apiEndpoint || ""}/${id}`, {
+        method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }),
       })
+    } catch { /* optimistic update already applied */ }
+    setStatusUpdating(p => ({ ...p, [id]: false }))
+  }
+
+  const deleteRecord = async () => {
+    if (!deleteTarget) return
+    const id = deleteTarget.id || deleteTarget[config.rowKey || "id"]
+    try {
+      await fetch(`${config.apiEndpoint || ""}/${id}`, { method: "DELETE" })
     } catch {}
+    setData(p => p.filter(r => (r.id || r[config.rowKey || "id"]) !== id))
+    setDeleteOpen(false)
+    setDeleteTarget(null)
   }
 
   const renderCell = (row: any, col: ColumnConfig) => {
@@ -97,47 +142,80 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold bg-primary/10 text-primary shrink-0">
               {String(val).charAt(0).toUpperCase()}
             </div>
-            <span className="font-medium">{val}</span>
+            <span className="font-medium truncate max-w-[160px]">{val}</span>
           </div>
         )
       case "email":
-        return <span className="text-muted-foreground">{val}</span>
+        return <span className="text-muted-foreground text-sm truncate max-w-[200px] block">{val}</span>
       case "date":
         return <span className="text-xs text-muted-foreground">{val?.substring?.(0,10) || val || "—"}</span>
       case "number":
-        return <span className="tabular-nums font-medium">{val?.toLocaleString?.() || val}</span>
+        return <span className="tabular-nums font-medium">{typeof val === "number" ? val.toLocaleString() : val}</span>
       default:
-        return <span>{val || "—"}</span>
+        return <span className="truncate max-w-[200px] block">{val ?? "—"}</span>
     }
   }
 
-  if (loading) {
+  // ─── Error State ───
+  if (error && !loading) {
     return (
-      <div className="space-y-4 animate-pulse">
-        <div className="bg-muted h-8 w-48 rounded" />
+      <div className="space-y-6">
+        <div className="flex items-center justify-between"><div><h1 className="text-2xl font-bold tracking-tight">{config.title}</h1><p className="text-sm text-muted-foreground mt-1">{config.description}</p></div></div>
+        <Card><CardContent className="py-12 text-center space-y-4">
+          <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center mx-auto"><Icons.circleX className="h-6 w-6 text-destructive" /></div>
+          <p className="text-sm text-muted-foreground">Failed to load data: {error}</p>
+          <Button onClick={fetchData}><Icons.arrowRight className="mr-2 h-4 w-4" />Retry</Button>
+        </CardContent></Card>
+      </div>
+    )
+  }
+
+  // ─── Loading State ───
+  if (loading) {
+    const sk = (w: string) => <div className={`bg-muted rounded ${w}`} />
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div className="flex items-center justify-between"><div>{sk("h-8 w-48")}<div className="mt-1">{sk("h-4 w-64")}</div></div></div>
         {config.statsCards && <div className="grid grid-cols-4 gap-4">{config.statsCards.map((_,i) => <div key={i} className="bg-muted h-24 rounded-xl" />)}</div>}
-        <div className="bg-muted h-10 w-full rounded" />
-        <div className="bg-muted h-80 rounded-xl" />
+        <div className="flex items-center justify-between">{sk("h-10 w-96")}{sk("h-10 w-64")}</div>
+        <Card>{sk("h-80 w-full")}</Card>
       </div>
     )
   }
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
+      {/* ═══ HEADER ═══ */}
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight">{config.title}</h1>
-          <p className="text-sm text-muted-foreground mt-1">{config.description}</p>
+          <p className="text-sm text-muted-foreground mt-1">{config.description} — {data.length} records</p>
         </div>
-        <Button onClick={() => handleAction("add")}><Icons.add className="mr-2 h-4 w-4" />Add {config.title.split(" ").pop() || "Item"}</Button>
-      </div>
+        <div className="flex items-center gap-3">
+          {config.fields.length > 0 && (
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+              <Button onClick={() => handleAction("add")}><Icons.add className="mr-2 h-4 w-4" />Add {config.title.split(" ").pop() || "Item"}</Button>
+            </motion.div>
+          )}
+        </div>
+      </motion.div>
 
-      {/* Stats Cards */}
+      {/* ═══ KPI BAR ═══ */}
+      {kpi.totalFetches > 0 && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 text-xs text-muted-foreground px-1">
+          <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> {kpi.totalFetches} fetches</span>
+          <span>avg {kpi.avgLatency.toFixed(0)}ms</span>
+          <span>last {Math.floor((Date.now() - kpi.lastFetch) / 1000)}s ago</span>
+          {kpi.errorRate > 0 && <span className="text-destructive font-medium">{kpi.errorRate}% errors</span>}
+          <button onClick={fetchData} className="text-primary hover:underline"><Icons.arrowRight className="h-3 w-3 inline mr-0.5" />refresh</button>
+        </motion.div>
+      )}
+
+      {/* ═══ STATS CARDS ═══ */}
       {config.statsCards && (
-        <div className="grid grid-cols-4 gap-4">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid grid-cols-4 gap-4">
           {config.statsCards.map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
+            <motion.div key={s.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, type: "spring", stiffness: 200, damping: 20 }}>
               <Card className="bg-gradient-to-t from-primary/5 to-card">
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-muted-foreground">{s.label}</CardTitle>
@@ -146,20 +224,23 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{s.value(data)}</div>
+                  <motion.div key={s.value(data)} initial={{ scale: 1.2, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-2xl font-bold">{s.value(data)}</motion.div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       )}
 
-      {/* Tabs + Search */}
+      {/* ═══ TABS + SEARCH ═══ */}
       <div className="flex items-center justify-between">
         <Tabs value={tab} onValueChange={setTab}>
           <TabsList>
             {(config.tabs || defaultTabsWithStatus).map(t => (
-              <TabsTrigger key={t.value} value={t.value}>{t.label}</TabsTrigger>
+              <TabsTrigger key={t.value} value={t.value}>
+                {t.label}
+                {t.value !== "all" && <span className="ml-1.5 text-[10px] opacity-60">({data.filter(t.filter || (()=>true)).length})</span>}
+              </TabsTrigger>
             ))}
           </TabsList>
         </Tabs>
@@ -169,16 +250,16 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
         </div>
       </div>
 
-      {/* Add/Edit Sheet */}
+      {/* ═══ ADD/EDIT SHEET ═══ */}
       <Sheet open={sheetOpen} onOpenChange={o => { setSheetOpen(o); if (!o) setEditTarget(null) }}>
         <SheetContent className="flex flex-col">
           <SheetHeader>
             <SheetTitle>{editTarget ? `Edit ${config.title.split(" ").pop()}` : `New ${config.title.split(" ").pop()}`}</SheetTitle>
-            <SheetDescription>{editTarget ? "Update the details below." : "Fill in the details to create a new entry."}</SheetDescription>
+            <SheetDescription>{editTarget ? "Update the details below. All fields marked with * are required." : "Fill in the details to create a new entry. All fields marked with * are required."}</SheetDescription>
           </SheetHeader>
           <div className="flex-1 overflow-auto space-y-4 py-4">
             {config.fields.map(f => (
-              <div key={f.name} className="space-y-2">
+              <motion.div key={f.name} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="space-y-2">
                 <label className="text-sm font-medium">{f.label}{f.required && <span className="text-destructive ml-1">*</span>}</label>
                 {f.type === "select" ? (
                   <select className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm" defaultValue={editTarget?.[f.name] || ""}>
@@ -190,7 +271,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
                 ) : (
                   <Input type={f.type} placeholder={f.placeholder} defaultValue={editTarget?.[f.name] || ""} />
                 )}
-              </div>
+              </motion.div>
             ))}
           </div>
           <SheetFooter>
@@ -200,70 +281,106 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
         </SheetContent>
       </Sheet>
 
-      {/* Delete Modal */}
-      <AlertModal isOpen={deleteOpen} onClose={() => { setDeleteOpen(false); setDeleteTarget(null) }}
-        onConfirm={() => { setData(p => p.filter(r => r.id !== deleteTarget?.id)); setDeleteOpen(false); setDeleteTarget(null) }}
-        loading={false} />
+      {/* ═══ DELETE MODAL ═══ */}
+      <AlertModal
+        isOpen={deleteOpen}
+        onClose={() => { setDeleteOpen(false); setDeleteTarget(null) }}
+        onConfirm={deleteRecord}
+        loading={false}
+      />
 
-      {/* Content: custom render or table */}
+      {/* ═══ CONTENT ═══ */}
       {renderCustom ? renderCustom(data, filtered, setData) : (
-        <Card>
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  {config.columns.map(col => (
-                    <TableHead key={col.id} style={col.width ? { width: col.width } : undefined}>{col.header}</TableHead>
-                  ))}
-                  <TableHead className="w-[50px]" />
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filtered.length === 0 ? (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <Card>
+            <div className="rounded-md border">
+              <Table>
+                <TableHeader>
                   <TableRow>
-                    <TableCell colSpan={config.columns.length + 1} className="h-24 text-center text-muted-foreground">No records found.</TableCell>
-                  </TableRow>
-                ) : filtered.map((row) => (
-                  <TableRow key={row.id || row[config.rowKey || "id"]} className="hover:bg-muted/50 transition-colors">
                     {config.columns.map(col => (
-                      <TableCell key={col.id}>{renderCell(row, col as ColumnConfig)}</TableCell>
+                      <TableHead key={col.id} style={col.width ? { width: col.width } : undefined}>{col.header}</TableHead>
                     ))}
-                    <TableCell>
-                      <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger render={<Button variant="ghost" className="h-8 w-8 p-0" />}>
-                          <span className="sr-only">Open menu</span>
-                          <Icons.ellipsis className="h-4 w-4" />
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuGroup>
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          </DropdownMenuGroup>
-                          <DropdownMenuItem onClick={() => handleAction("view", row)}><Icons.eyeOff className="mr-2 h-4 w-4" /> View</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleAction("edit", row)}><Icons.edit className="mr-2 h-4 w-4" /> Edit</DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleAction("activate", row)} disabled={row.status === "active"}>
-                            <Icons.circleCheck className="mr-2 h-4 w-4" /> Activate
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleAction("deactivate", row)} disabled={row.status === "inactive"}>
-                            <Icons.circleX className="mr-2 h-4 w-4" /> Deactivate
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleAction("maintain", row)} disabled={row.status === "maintenance"}>
-                            <Icons.settings className="mr-2 h-4 w-4" /> Maintenance
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleAction("terminate", row)} disabled={row.status === "terminated"}>
-                            <Icons.trash className="mr-2 h-4 w-4" /> Terminate
-                          </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleAction("delete", row)} className="text-destructive">
-                            <Icons.trash className="mr-2 h-4 w-4" /> Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
+                    <TableHead className="w-[50px]" />
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </Card>
+                </TableHeader>
+                <TableBody>
+                  <AnimatePresence mode="popLayout">
+                  {paged.length === 0 ? (
+                    <TableRow key="empty">
+                      <TableCell colSpan={config.columns.length + 1} className="h-24 text-center text-muted-foreground">
+                        {search ? "No records match your search." : "No records found."}
+                      </TableCell>
+                    </TableRow>
+                  ) : paged.map((row) => {
+                    const rid = row.id || row[config.rowKey || "id"] || Math.random()
+                    return (
+                      <motion.tr key={rid}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 8 }}
+                        transition={{ duration: 0.15 }}
+                        className="hover:bg-muted/50 transition-colors border-b"
+                      >
+                        {config.columns.map(col => (
+                          <TableCell key={col.id}>{renderCell(row, col as ColumnConfig)}</TableCell>
+                        ))}
+                        <TableCell>
+                          <DropdownMenu modal={false}>
+                            <DropdownMenuTrigger render={<Button variant="ghost" className="h-8 w-8 p-0" />}>
+                              <span className="sr-only">Open menu</span>
+                              <Icons.ellipsis className="h-4 w-4" />
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuGroup>
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                              </DropdownMenuGroup>
+                              <DropdownMenuItem onClick={() => handleAction("view", row)}><Icons.eyeOff className="mr-2 h-4 w-4" /> View</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleAction("edit", row)}><Icons.edit className="mr-2 h-4 w-4" /> Edit</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleAction("activate", row)} disabled={row.status === "active"}>
+                                <Icons.circleCheck className="mr-2 h-4 w-4" /> Activate
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleAction("deactivate", row)} disabled={row.status === "inactive"}>
+                                <Icons.circleX className="mr-2 h-4 w-4" /> Deactivate
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleAction("maintain", row)} disabled={row.status === "maintenance"}>
+                                <Icons.settings className="mr-2 h-4 w-4" /> Maintenance
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleAction("terminate", row)} disabled={row.status === "terminated"}>
+                                <Icons.trash className="mr-2 h-4 w-4" /> Terminate
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => handleAction("delete", row)} className="text-destructive">
+                                <Icons.trash className="mr-2 h-4 w-4" /> Delete
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </motion.tr>
+                    )
+                  })}
+                  </AnimatePresence>
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* ═══ PAGINATION ═══ */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-between px-4 py-3 border-t text-xs text-muted-foreground">
+                <span>{filtered.length} records · page {page} of {totalPages}</span>
+                <div className="flex items-center gap-1">
+                  <Button variant="ghost" size="sm" disabled={page <= 1} onClick={() => setPage(p => Math.max(1, p - 1))}><Icons.chevronLeft className="h-4 w-4" /></Button>
+                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                    const start = Math.max(1, Math.min(page - 2, totalPages - 4))
+                    const p = start + i
+                    return p <= totalPages ? (
+                      <Button key={p} variant={p === page ? "default" : "ghost"} size="sm" className="w-8 h-8 p-0 text-xs" onClick={() => setPage(p)}>{p}</Button>
+                    ) : null
+                  })}
+                  <Button variant="ghost" size="sm" disabled={page >= totalPages} onClick={() => setPage(p => Math.min(totalPages, p + 1))}><Icons.chevronRight className="h-4 w-4" /></Button>
+                </div>
+              </div>
+            )}
+          </Card>
+        </motion.div>
       )}
     </div>
   )
