@@ -405,4 +405,227 @@ export const pageConfigs: Record<string, PageConfig> = {
     fields: defFields([]),
     statsCards: [sc("Total Files", Icons.fileTypeDoc, r=>r.length)],
   },
+
+  // ─── Pages with custom render (use GenericAdminPage shell) ───
+  dashboard: {
+    id: "dashboard", title: "System Dashboard", description: "Live system metrics and service status",
+    apiEndpoint: "/api/admin/health",
+    statusField,
+    transform: (d: any) => (d.services || d.checks || []).map((s: any) => ({
+      id: s.name || s.id, name: s.name || s.check,
+      status: s.status === "healthy" || s.status === "ok" ? "active" : "terminated",
+      latency: s.latency || s.duration || "—",
+    })),
+    columns: [{ id: "name", header: "Service", accessor: r => r.name, width: 220 }, { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 }],
+    fields: defFields([]),
+    statsCards: [],
+  },
+  "ai-diagnostics": {
+    id: "ai-diagnostics", title: "AI Diagnostics", description: "AI agent health checks and diagnostics",
+    apiEndpoint: "/api/admin/ai-diagnostics",
+    statusField,
+    transform: (d: any) => (d.checks || []).map((c: any) => ({
+      id: c.name || c.id, name: c.name || c.check,
+      duration: c.duration || c.latency || "—", details: c.details || c.message || "—",
+      status: c.status === "pass" || c.status === "healthy" ? "active" : "terminated",
+    })),
+    columns: [
+      { id: "name", header: "Check", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "duration", header: "Duration", accessor: r => r.duration, width: 100 },
+      { id: "details", header: "Details", accessor: r => r.details },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Total Checks", Icons.circleCheck, r=>r.length), sc("Passed", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
+  logs: {
+    id: "logs", title: "System Logs", description: "Application and service logs",
+    apiEndpoint: "/api/services/email",
+    statusField,
+    transform: (d: any) => (d.logs || d.entries || []).map((l: any) => ({
+      id: l.id, level: l.level || l.status || "info", message: l.message || l.subject || l.body || "—",
+      source: l.source || l.service || "—", status: l.level === "error" ? "terminated" : l.level === "warn" ? "maintenance" : "active",
+      timestamp: l.createdAt || l.timestamp || "",
+    })),
+    columns: [
+      { id: "timestamp", header: "Time", accessor: r => r.timestamp, type: "date", width: 110 },
+      { id: "level", header: "Level", accessor: r => r.level, type: "badge", badgeVariant: (v:string) => v==="error"?"destructive":v==="warn"?"outline":"default", width: 100 },
+      { id: "message", header: "Message", accessor: r => r.message },
+      { id: "source", header: "Source", accessor: r => r.source, width: 140 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Total", Icons.clock, r=>r.length), sc("Errors", Icons.circleX, r=>r.filter(x=>x.status==="terminated").length)],
+  },
+  areas: {
+    id: "areas", title: "Service Areas", description: "Geographic service areas and regions",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "Area", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([{ name: "name", label: "Area Name", type: "text", required: true }]),
+    statsCards: [sc("Total", Icons.teams, r=>r.length)],
+  },
+  database: {
+    id: "database", title: "Database Management", description: "Database configuration and connection status",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "property", header: "Property", accessor: r => r.property, type: "avatar", width: 220 },
+      { id: "value", header: "Value", accessor: r => r.value },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
+  integrations: {
+    id: "integrations", title: "Integrations", description: "Third-party service integrations",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "Integration", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([{ name: "name", label: "Integration Name", type: "text", required: true }]),
+    statsCards: [sc("Total", Icons.code, r=>r.length)],
+  },
+  localization: {
+    id: "localization", title: "Localization", description: "Language and locale settings",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "key", header: "Setting", accessor: r => r.key, type: "avatar", width: 220 },
+      { id: "value", header: "Value", accessor: r => r.value },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
+  notifications: {
+    id: "notifications", title: "Notifications", description: "Notification channel configuration",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "Channel", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [sc("Total", Icons.notification, r=>r.length)],
+  },
+  plugins: {
+    id: "plugins", title: "Plugin Marketplace", description: "Extend MeterVerse with plugins",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "Plugin", accessor: r => r.name, width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
+  sms: {
+    id: "sms", title: "SMS Configuration", description: "SMS gateway settings",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "provider", header: "Provider", accessor: r => r.provider, type: "avatar", width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [sc("Total", Icons.phone, r=>r.length)],
+  },
+  smtp: {
+    id: "smtp", title: "SMTP Configuration", description: "Email server settings",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "setting", header: "Setting", accessor: r => r.setting, type: "avatar", width: 220 },
+      { id: "value", header: "Value", accessor: r => r.value },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
+  themes: {
+    id: "themes", title: "Theme Manager", description: "Manage system appearance themes",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "Theme", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [sc("Total", Icons.palette, r=>r.length)],
+  },
+  translations: {
+    id: "translations", title: "Translation Manager", description: "Manage multilingual translations",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "locale", header: "Locale", accessor: r => r.locale, type: "avatar", width: 120 },
+      { id: "name", header: "Language", accessor: r => r.name, width: 160 },
+      { id: "progress", header: "Progress", accessor: r => r.progress },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+    ],
+    fields: defFields([]), statsCards: [sc("Total", Icons.text, r=>r.length)],
+  },
+  api: {
+    id: "api", title: "API Overview", description: "API endpoint documentation and status",
+    apiEndpoint: "", statusField, columns: [], fields: defFields([]), statsCards: [],
+  },
+  branding: {
+    id: "branding", title: "Branding", description: "System branding and visual identity",
+    apiEndpoint: "/api/admin/branding",
+    statusField,
+    transform: (d: any) => (d.configs || d.branding || []).map((b: any) => ({
+      id: b.key || b.id, name: b.key || b.name, value: b.value || "—",
+      category: b.category || "general", status: "active",
+    })),
+    columns: [
+      { id: "name", header: "Setting", accessor: r => r.name, width: 200 },
+      { id: "value", header: "Value", accessor: r => r.value },
+      { id: "category", header: "Category", accessor: r => r.category, type: "badge", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
+  business: {
+    id: "business", title: "Business Pipeline", description: "Meter reading and billing pipeline status",
+    apiEndpoint: "/api/business/pipeline-status",
+    statusField,
+    transform: (d: any) => (d.recentRuns || []).map((r: any) => ({
+      id: r.id || r.cycle, name: r.cycle || r.name || "Run",
+      period: r.period || "—", status: r.status || "active",
+      count: r.count || r.readings || 0, amount: r.amount || 0,
+      date: r.createdAt || r.date || "",
+    })),
+    columns: [
+      { id: "name", header: "Cycle", accessor: r => r.name, width: 140 },
+      { id: "period", header: "Period", accessor: r => r.period, width: 120 },
+      { id: "count", header: "Count", accessor: r => r.count, type: "number", width: 80 },
+      { id: "amount", header: "Amount", accessor: r => `EGP ${(r.amount||0).toLocaleString()}`, width: 120 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+      { id: "date", header: "Date", accessor: r => r.date, type: "date", width: 110 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Total Runs", Icons.clock, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
+  "feature-flags": {
+    id: "feature-flags", title: "Feature Flags", description: "Toggle system features on/off",
+    apiEndpoint: "/api/admin/feature-flags",
+    statusField,
+    transform: (d: any) => (d.flags || []).map((f: any) => ({
+      id: f.id || f.key, name: f.name || f.key, key: f.key || f.name,
+      scope: f.scope || f.environment || "global",
+      status: f.enabled ? "active" : "inactive",
+    })),
+    columns: [
+      { id: "name", header: "Feature", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "key", header: "Key", accessor: r => r.key, type: "email" },
+      { id: "scope", header: "Scope", accessor: r => r.scope, type: "badge", width: 120 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+    ],
+    fields: defFields([
+      { name: "name", label: "Feature Name", type: "text", required: true },
+      { name: "key", label: "Flag Key", type: "text", required: true },
+      { name: "scope", label: "Scope", type: "select", options: [ { value: "global", label: "Global" }, { value: "beta", label: "Beta" }, { value: "internal", label: "Internal" } ] },
+    ]),
+    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Enabled", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length), sc("Disabled", Icons.circleX, r=>r.filter(x=>x.status==="inactive").length)],
+  },
+  domains: {
+    id: "domains", title: "Domain Data", description: "Browse all domain entities",
+    apiEndpoint: "/api/domain/contracts",
+    statusField,
+    transform: (d: any) => (d.items || d.results || d.data || []).map((item: any) => ({
+      id: item.id, name: item.name || item.id?.substring(0,8) || "—",
+      status: item.status || "active",
+    })),
+    columns: [
+      { id: "name", header: "Name", accessor: r => r.name, width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
 }
