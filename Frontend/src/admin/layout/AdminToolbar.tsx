@@ -18,7 +18,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
   const [showUserMenu, setShowUserMenu] = useState(false)
 
   return (
-    <div className="flex items-center h-14 px-4 gap-2" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)" }}>
+    <div className="flex items-center h-14 px-4 gap-2" style={{ backdropFilter: "blur(var(--toolbar-blur))", WebkitBackdropFilter: "blur(var(--toolbar-blur))", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)" }}>
       
       {/* Logo + Breadcrumb */}
       <div className="flex items-center gap-3 text-sm min-w-0 shrink-0">
@@ -116,7 +116,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
 export function AdminStatusBar({ inspectorOpen, onToggleInspector, lang = "en" }: any) {
   const t = (en: string, ar: string) => lang === "ar" ? ar : en
   return (
-    <div className="flex items-center h-14 px-4 gap-2 text-xs" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderTop: "1px solid var(--toolbar-border)", color: "var(--toolbar-muted)" }}>
+    <div className="flex items-center h-14 px-4 gap-2 text-xs" style={{ backdropFilter: "blur(var(--toolbar-blur))", WebkitBackdropFilter: "blur(var(--toolbar-blur))", backgroundColor: "var(--toolbar-bg)", borderTop: "1px solid var(--toolbar-border)", color: "var(--toolbar-muted)" }}>
       <span style={{ color: "var(--admin-accent)" }}>●</span>
       <span>{t("All Systems Operational", "جميع الأنظمة تعمل")}</span>
       <span style={{ color: "var(--toolbar-border)" }}>|</span>
