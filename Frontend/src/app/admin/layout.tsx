@@ -6,6 +6,7 @@ import { WorkspaceLayout } from "@/workspace/components/WorkspaceLayout"
 import { WorkspaceTabs } from "@/workspace/components/WorkspaceTabs"
 import { InspectorPanel } from "@/admin/layout/InspectorPanel"
 import { AdminToolbar, AdminStatusBar } from "@/admin/layout/AdminToolbar"
+import { useWorkspaceStore } from "@/workspace/stores"
 
 import AdminHomePage from "./home/page"
 import AdminUsersPage from "./users/page"
@@ -52,6 +53,11 @@ export default function AdminLayout() {
   const effectiveDark = themeMode === "auto" ? !(hour >= 6 && hour < 18) : themeMode === "dark"
   const cycleTheme = () => setThemeMode(t => t === "auto" ? "light" : t === "light" ? "dark" : "auto")
   const [openTabs, setOpenTabs] = useState<string[]>(["home"])
+
+  // Connect to workspace store for sidebar/inspector sizing
+  const wsStore = useWorkspaceStore()
+  useEffect(() => { wsStore.setSidebarMode(sidebarCollapsed ? "collapsed" : "expanded") }, [sidebarCollapsed])
+  useEffect(() => { wsStore.setInspectorOpen(inspectorOpen) }, [inspectorOpen])
 
   useEffect(() => {
     if (!openTabs.includes(active)) setOpenTabs(p => [...p, active])

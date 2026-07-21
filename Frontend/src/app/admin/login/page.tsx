@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 export default function AdminLoginPage() {
@@ -9,6 +9,8 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
+
   useEffect(() => { setHydrated(true) }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -22,10 +24,38 @@ export default function AdminLoginPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || "Login failed")
-      localStorage.setItem("mv-identity", JSON.stringify({ state: { user: data.user, tokens: { accessToken: data.accessToken, refreshToken: data.refreshToken, expiresAt: data.expiresAt }, isAuthenticated: true } }))
-      window.location.href = "/admin"
+      localStorage.setItem("mv-identity", JSON.stringify({
+        state: { user: data.user, tokens: { accessToken: data.accessToken, refreshToken: data.refreshToken, expiresAt: data.expiresAt }, isAuthenticated: true },
+      }))
+      setSuccess(true)
+      setTimeout(() => { window.location.href = "/admin" }, 500)
     } catch (e: any) { setError(e.message) }
     setLoading(false)
+  }
+
+  if (success) {
+    return (
+      <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: "#0A0A0A" }}>
+        {hydrated && (
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
+            {Array.from({ length: 80 }, (_, i) => (
+              <motion.div key={i} className="absolute"
+                style={{ left: `${Math.random() * 100}%`, top: "-5%", width: 1, height: 15 + Math.random() * 20,
+                  background: "linear-gradient(to bottom, rgba(220,38,38,0.15), rgba(220,38,38,0.03))", borderRadius: "0 0 2px 2px" }}
+                animate={{ y: ["0vh", "105vh"] }}
+                transition={{ duration: 0.3 + Math.random() * 0.4, delay: Math.random() * 4, repeat: Infinity, ease: "linear" }} />
+            ))}
+          </div>
+        )}
+        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center p-8 z-10">
+          <motion.div animate={{ rotate: [0, 10, -10, 0] }} className="w-20 h-20 mx-auto mb-4 rounded-2xl flex items-center justify-center" style={{ backgroundColor: "#DC2626", boxShadow: "0 0 20px rgba(220,38,38,0.3)" }}>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
+          </motion.div>
+          <h2 className="text-xl font-semibold text-white mb-2">Access Granted</h2>
+          <p className="text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>Redirecting to admin panel...</p>
+        </motion.div>
+      </div>
+    )
   }
 
   return (
@@ -36,11 +66,9 @@ export default function AdminLoginPage() {
           {Array.from({ length: 80 }, (_, i) => (
             <motion.div key={i} className="absolute"
               style={{ left: `${Math.random() * 100}%`, top: "-5%", width: 1, height: 15 + Math.random() * 20,
-                background: "linear-gradient(to bottom, rgba(220,38,38,0.15), rgba(220,38,38,0.03))",
-                borderRadius: "0 0 2px 2px" }}
+                background: "linear-gradient(to bottom, rgba(220,38,38,0.15), rgba(220,38,38,0.03))", borderRadius: "0 0 2px 2px" }}
               animate={{ y: ["0vh", "105vh"] }}
-              transition={{ duration: 0.3 + Math.random() * 0.4, delay: Math.random() * 4, repeat: Infinity, ease: "linear" }}
-            />
+              transition={{ duration: 0.3 + Math.random() * 0.4, delay: Math.random() * 4, repeat: Infinity, ease: "linear" }} />
           ))}
         </div>
       )}
@@ -51,9 +79,9 @@ export default function AdminLoginPage() {
           
           {/* Logo */}
           <div className="flex flex-col items-center mb-8">
-            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-3" style={{ backgroundColor: "#DC2626", boxShadow: "0 0 20px rgba(220,38,38,0.3)" }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
+            <motion.div whileHover={{ rotate: [0, -10, 10, 0] }} className="w-16 h-16 rounded-2xl flex items-center justify-center mb-3" style={{ backgroundColor: "#DC2626", boxShadow: "0 0 25px rgba(220,38,38,0.3)" }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </motion.div>
             <h1 className="text-xl font-bold text-white">Admin Login</h1>
             <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>MeterVerse Administration</p>
           </div>
@@ -61,7 +89,7 @@ export default function AdminLoginPage() {
           {/* Error */}
           {error && (
             <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }}
-              className="mb-4 px-4 py-2 rounded-lg text-xs text-white" style={{ backgroundColor: "rgba(220,38,38,0.2)", border: "1px solid rgba(220,38,38,0.3)" }}>
+              className="mb-4 px-4 py-2.5 rounded-lg text-xs text-white" style={{ backgroundColor: "rgba(220,38,38,0.15)", border: "1px solid rgba(220,38,38,0.25)" }}>
               {error}
             </motion.div>
           )}
@@ -71,14 +99,14 @@ export default function AdminLoginPage() {
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>Email</label>
               <input type="email" value={email} onChange={e => setEmail(e.target.value)} required
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all"
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all focus:border-[#DC2626]"
                 style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}
                 placeholder="admin@meterverse.com" />
             </div>
             <div>
               <label className="block text-xs font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.5)" }}>Password</label>
               <input type="password" value={password} onChange={e => setPassword(e.target.value)} required
-                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all"
+                className="w-full px-4 py-2.5 rounded-xl text-sm outline-none transition-all focus:border-[#DC2626]"
                 style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", color: "white" }}
                 placeholder="Enter password" />
             </div>
@@ -90,7 +118,9 @@ export default function AdminLoginPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>MeterVerse v8.0.0 · Administration Panel</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>
+              MeterVerse <span style={{ color: "#DC2626" }}>v8.0.0</span> · Administration Panel
+            </p>
           </div>
         </div>
       </motion.div>
