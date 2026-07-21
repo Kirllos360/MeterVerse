@@ -1,8 +1,9 @@
 "use client"
 
-import { useState, useEffect, useRef, useMemo, useCallback } from "react"
+import { useState, useMemo, useEffect } from "react"
 import type React from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -31,9 +32,7 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 
 export function GenericAdminPage({ config, initialData, renderCustom }: GenericAdminPageProps) {
-  const [data, setData] = useState<any[]>(initialData || [])
-  const [loading, setLoading] = useState(!initialData)
-  const [error, setError] = useState<string | null>(null)
+  const queryClient = useQueryClient()
   const [search, setSearch] = useState("")
   const [tab, setTab] = useState("all")
   const [page, setPage] = useState(1)
@@ -42,35 +41,23 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null)
   const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({})
-  const [kpi, setKpi] = useState({ totalFetches: 0, lastFetch: 0, avgLatency: 0, errorRate: 0 })
-  const abortRef = useRef<AbortController | null>(null)
   const debouncedSearch = useDebounce(search, 300)
 
-  const fetchData = useCallback(async () => {
-    if (!config.apiEndpoint || initialData) { setLoading(false); return }
-    abortRef.current?.abort()
-    const controller = new AbortController()
-    abortRef.current = controller
-    setLoading(true)
-    setError(null)
-    const start = Date.now()
-    try {
-      const res = await fetch(config.apiEndpoint, { signal: controller.signal })
+  const queryKey = config.apiEndpoint ? [config.id, "list"] : []
+  const { data: rawData, isLoading, error, refetch } = useQuery({
+    queryKey,
+    queryFn: async () => {
+      const res = await fetch(config.apiEndpoint)
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
       const d = await res.json()
-      const items = config.transform ? config.transform(d) : Array.isArray(d) ? d : d[Object.keys(d).find(k => Array.isArray(d[k])) || "items"] || []
-      const latency = Date.now() - start
-      setData(items)
-      setKpi(p => ({ totalFetches: p.totalFetches + 1, lastFetch: Date.now(), avgLatency: p.totalFetches === 0 ? latency : (p.avgLatency * p.totalFetches + latency) / (p.totalFetches + 1), errorRate: 0 }))
-    } catch (e: any) {
-      if (e.name === "AbortError") return
-      setError(e.message)
-      setKpi(p => ({ ...p, errorRate: 100 }))
-    }
-    setLoading(false)
-  }, [config.apiEndpoint, config.transform, initialData])
+      return config.transform ? config.transform(d) : Array.isArray(d) ? d : d[Object.keys(d).find(k => Array.isArray(d[k])) || "items"] || []
+    },
+    enabled: !!config.apiEndpoint && !initialData,
+    staleTime: 30000,
+    retry: 2,
+  })
 
-  useEffect(() => { fetchData(); return () => abortRef.current?.abort() }, [fetchData])
+  const data = initialData || rawData || []
 
   const filtered = useMemo(() => {
     let result = data
@@ -80,7 +67,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
     }
     if (debouncedSearch) {
       const q = debouncedSearch.toLowerCase()
-      result = result.filter(r => Object.values(r).some(v => String(v).toLowerCase().includes(q)))
+      result = result.filter((r: any) => Object.values(r).some(v => String(v).toLowerCase().includes(q)))
     }
     return result
   }, [data, tab, debouncedSearch, config.tabs])
@@ -102,6 +89,8 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
     }
   }
 
+  const invalidate = () => queryClient.invalidateQueries({ queryKey: [config.id] })
+
   const handleSubmit = async () => {
     const isEdit = !!editTarget
     const method = isEdit ? "PUT" : "POST"
@@ -113,19 +102,19 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) })
       if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
       toast.success(isEdit ? "Updated successfully" : "Created successfully")
-      setSheetOpen(false); setEditTarget(null); fetchData()
+      setSheetOpen(false); setEditTarget(null); invalidate()
     } catch (e: any) { toast.error(e.message) }
   }
 
   const updateStatus = async (row: any, status: string) => {
     const id = row.id || row[config.rowKey || "id"]
     setStatusUpdating(p => ({ ...p, [id]: true }))
-    setData(p => p.map(r => (r.id === row.id || r[config.rowKey || "id"] === row.id) ? { ...r, status } : r))
     try {
       await fetch(`${config.apiEndpoint || ""}/${id}`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }),
       })
       toast.success(`Status changed to ${status}`)
+      invalidate()
     } catch { toast.error("Failed to update status") }
     setStatusUpdating(p => ({ ...p, [id]: false }))
   }
@@ -137,8 +126,8 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       const res = await fetch(`${config.apiEndpoint || ""}/${id}`, { method: "DELETE" })
       if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
       toast.success("Deleted successfully")
+      invalidate()
     } catch (e: any) { toast.error(e.message) }
-    setData(p => p.filter(r => (r.id || r[config.rowKey || "id"]) !== id))
     setDeleteOpen(false)
     setDeleteTarget(null)
   }
@@ -176,21 +165,21 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
   }
 
   // ─── Error State ───
-  if (error && !loading) {
+  if (error && !isLoading) {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between"><div><h1 className="text-2xl font-bold tracking-tight">{config.title}</h1><p className="text-sm text-muted-foreground mt-1">{config.description}</p></div></div>
         <Card><CardContent className="py-12 text-center space-y-4">
           <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center mx-auto"><Icons.circleX className="h-6 w-6 text-destructive" /></div>
-          <p className="text-sm text-muted-foreground">Failed to load data: {error}</p>
-          <Button onClick={fetchData}><Icons.arrowRight className="mr-2 h-4 w-4" />Retry</Button>
+          <p className="text-sm text-muted-foreground">Failed to load data: {error instanceof Error ? error.message : "Unknown error"}</p>
+          <Button onClick={() => refetch()}><Icons.arrowRight className="mr-2 h-4 w-4" />Retry</Button>
         </CardContent></Card>
       </div>
     )
   }
 
   // ─── Loading State ───
-  if (loading) {
+  if (isLoading) {
     const sk = (w: string) => <div className={`bg-muted rounded ${w}`} />
     return (
       <div className="space-y-6 animate-pulse">
@@ -220,13 +209,11 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       </motion.div>
 
       {/* ═══ KPI BAR ═══ */}
-      {kpi.totalFetches > 0 && (
+      {data.length > 0 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-4 text-xs text-muted-foreground px-1">
-          <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> {kpi.totalFetches} fetches</span>
-          <span>avg {kpi.avgLatency.toFixed(0)}ms</span>
-          <span>last {Math.floor((Date.now() - kpi.lastFetch) / 1000)}s ago</span>
-          {kpi.errorRate > 0 && <span className="text-destructive font-medium">{kpi.errorRate}% errors</span>}
-          <button onClick={fetchData} className="text-primary hover:underline"><Icons.arrowRight className="h-3 w-3 inline mr-0.5" />refresh</button>
+          <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-primary" /> {data.length} records</span>
+          <span>cache: 30s</span>
+          <button onClick={() => refetch()} className="text-primary hover:underline"><Icons.arrowRight className="h-3 w-3 inline mr-0.5" />refresh</button>
         </motion.div>
       )}
 
@@ -309,7 +296,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       />
 
       {/* ═══ CONTENT ═══ */}
-      {renderCustom ? renderCustom(data, filtered, setData) : (
+      {renderCustom ? renderCustom(data, filtered, () => invalidate()) : (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <Card>
             <div className="rounded-md border">
@@ -330,7 +317,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
                         {search ? "No records match your search." : "No records found."}
                       </TableCell>
                     </TableRow>
-                  ) : paged.map((row) => {
+                  ) : paged.map((row: any) => {
                     const rid = row.id || row[config.rowKey || "id"] || Math.random()
                     return (
                       <motion.tr key={rid}
