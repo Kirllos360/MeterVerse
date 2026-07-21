@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { z } from "zod"
-import { authenticate, requireRole } from "../middleware/auth.js"
+import { authenticate } from "../middleware/auth.js"
 import { requireRole, auditLog } from "../middleware/security.js"
 import { aiOperator, aiBillingAssistant, aiReadingValidator, aiLeakDetection, aiForecasting, aiRootCauseAnalysis, aiReportBuilder, aiSqlAssistant, aiWorkflowGenerator } from "../services/ai-engine.js"
 
@@ -81,4 +81,5 @@ router.post("/workflow-generator", requireRole("admin","super_admin"), async (re
 })
 
 export { router as aiRouter }
+
 

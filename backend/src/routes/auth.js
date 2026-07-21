@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
+import { auditLog } from "../middleware/security.js"
 
 const router = Router()
 const JWT_SECRET = process.env.JWT_SECRET
@@ -18,14 +19,15 @@ router.post("/login", async (req, res, next) => {
     const { email, password } = loginSchema.parse(req.body)
 
     const user = await prisma.user.findUnique({ where: { email } })
-    if (!user) return res.status(401).json({ error: "Invalid credentials" })
+    if (!user) { auditLog(req, "auth.login_failed", { email }); return res.status(401).json({ error: "Invalid credentials" }) }
 
     const valid = await bcrypt.compare(password, user.password)
-    if (!valid) return res.status(401).json({ error: "Invalid credentials" })
+    if (!valid) { auditLog(req, "auth.login_failed", { email }); return res.status(401).json({ error: "Invalid credentials" }) }
 
     const payload = { sub: user.id, email: user.email, role: user.role }
     const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
 
+    auditLog(req, "auth.login_success", { email })
     res.json({
       user: { id: user.id, email: user.email, name: user.name, role: user.role, area: user.area, project: user.project, tenant: user.tenant, language: user.language, theme: user.theme, mfaEnabled: user.mfaEnabled, permissions: user.role === "admin" ? ["read","write","delete","admin","export","approve"] : user.role === "operator" ? ["read","write","export"] : ["read"] },
       accessToken,

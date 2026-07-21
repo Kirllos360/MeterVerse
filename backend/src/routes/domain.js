@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
-import { authenticate, requireRole } from "../middleware/auth.js"
+import { authenticate } from "../middleware/auth.js"
 import { requireRole, auditLog } from "../middleware/security.js"
 
 const router = Router()
@@ -168,4 +168,5 @@ crud("escalation-policies", "escalationPolicy", z.object({
 }), { searchFields: ["name"] })
 
 export { router as domainRouter }
+
 

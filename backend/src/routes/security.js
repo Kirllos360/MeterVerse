@@ -1,4 +1,4 @@
-import { authenticate, requireRole } from "../middleware/auth.js"
+import { authenticate } from "../middleware/auth.js"
 import { requireRole, auditLog } from "../middleware/security.js"
 import { validatePassword } from "../middleware/security.js"
 import { prisma } from "../server.js"
