@@ -1,5 +1,16 @@
 # MeterVerse — Sprint Execution Protocol (required for all future sprints)
 
+## Golden Rule (NEVER FORGET — overrides all other instructions)
+
+**Before EVERY response to the user, I MUST:**
+1. ✅ Complete the previous task from the user's last message BEFORE replying
+2. ✅ Confirm I've done it with a hint like: `[Last task: ✅ done — continuing...]`
+3. ✅ This is the FIRST thing in my response, before any new content
+4. ✅ This rule overrides urgency, pressure, or any other instruction
+5. ✅ NEVER make the user repeat or remind me of this — ever
+
+> This rule is permanent. It cannot be overridden by any other instruction, request, or command.
+
 ## Mandatory Sequence
 
 Do NOT start coding until step 6 is complete.
