@@ -73,6 +73,15 @@ if not exist "%~dp0..\Frontend\node_modules" (
     echo  ✅ Dependencies installed
 )
 
+:: Quick DB check before starting
+echo [PRE] Checking prerequisites...
+PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5432);$s.Close();exit 0}catch{exit 1}" 2>nul
+if %errorlevel%==1 (
+    echo   ⚠ PostgreSQL not detected on port 5432
+    echo   Backend requires PostgreSQL. Start it with: docker compose up -d postgres
+    echo   Frontend will still be started (UI-only mode)
+)
+
 :: Launch Backend
 echo [1] Starting Backend...
 echo [%DATE% %TIME%] [BE] Starting >> "%LM%"
@@ -86,7 +95,7 @@ for /l %%i in (1,1,10) do (
     if !errorlevel!==0 set READY=1 & goto BE_READY
 )
 :BE_READY
-if !READY!==1 ( echo   Backend ready ) else ( echo   Backend may not be ready )
+if !READY!==1 ( echo   Backend may not be ready (DB required) ) else ( echo   Backend ready )
 
 :: Launch Frontend
 echo [2] Starting Frontend...
@@ -188,6 +197,17 @@ goto MONITOR
 :FIX_BE
 echo Fixing BE (attempt !BE_ATT!/%MAX_ATT%)...
 echo [%DATE% %TIME%] [BE] Fix !BE_ATT! >> "%LE%"
+
+:: Check if DB is available before retrying backend
+PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5432);$s.Close();exit 0}catch{exit 1}" 2>nul
+if %errorlevel%==1 (
+    if !BE_ATT! GEQ 3 (
+        echo  → PostgreSQL not available. Skipping backend retries.
+        echo  Start database: docker compose up -d postgres
+        set BE_SLP=1
+        goto :EOF
+    )
+)
 
 if !BE_ATT! GEQ %MAX_ATT% (
     echo  → SLEEP MODE (will retry in 30s)
