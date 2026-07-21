@@ -13,6 +13,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuGroup,
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { AlertModal } from "@/components/modal/alert-modal"
 import { Icons } from "@/components/icons"
+import { toast } from "sonner"
 import type { PageConfig, EntityAction, ColumnConfig } from "./page-config"
 
 interface GenericAdminPageProps {
@@ -101,6 +102,21 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
     }
   }
 
+  const handleSubmit = async () => {
+    const isEdit = !!editTarget
+    const method = isEdit ? "PUT" : "POST"
+    const url = isEdit ? `${config.apiEndpoint}/${editTarget.id || editTarget[config.rowKey || "id"]}` : config.apiEndpoint
+    const formData: Record<string, string> = {}
+    const inputs = document.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("#entity-sheet-form input, #entity-sheet-form select, #entity-sheet-form textarea")
+    inputs.forEach(inp => { if (inp.name) formData[inp.name] = inp.value })
+    try {
+      const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) })
+      if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
+      toast.success(isEdit ? "Updated successfully" : "Created successfully")
+      setSheetOpen(false); setEditTarget(null); fetchData()
+    } catch (e: any) { toast.error(e.message) }
+  }
+
   const updateStatus = async (row: any, status: string) => {
     const id = row.id || row[config.rowKey || "id"]
     setStatusUpdating(p => ({ ...p, [id]: true }))
@@ -109,7 +125,8 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       await fetch(`${config.apiEndpoint || ""}/${id}`, {
         method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }),
       })
-    } catch { /* optimistic update already applied */ }
+      toast.success(`Status changed to ${status}`)
+    } catch { toast.error("Failed to update status") }
     setStatusUpdating(p => ({ ...p, [id]: false }))
   }
 
@@ -117,8 +134,10 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
     if (!deleteTarget) return
     const id = deleteTarget.id || deleteTarget[config.rowKey || "id"]
     try {
-      await fetch(`${config.apiEndpoint || ""}/${id}`, { method: "DELETE" })
-    } catch {}
+      const res = await fetch(`${config.apiEndpoint || ""}/${id}`, { method: "DELETE" })
+      if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
+      toast.success("Deleted successfully")
+    } catch (e: any) { toast.error(e.message) }
     setData(p => p.filter(r => (r.id || r[config.rowKey || "id"]) !== id))
     setDeleteOpen(false)
     setDeleteTarget(null)
@@ -257,26 +276,26 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
             <SheetTitle>{editTarget ? `Edit ${config.title.split(" ").pop()}` : `New ${config.title.split(" ").pop()}`}</SheetTitle>
             <SheetDescription>{editTarget ? "Update the details below. All fields marked with * are required." : "Fill in the details to create a new entry. All fields marked with * are required."}</SheetDescription>
           </SheetHeader>
-          <div className="flex-1 overflow-auto space-y-4 py-4">
+          <div id="entity-sheet-form" className="flex-1 overflow-auto space-y-4 py-4">
             {config.fields.map(f => (
               <motion.div key={f.name} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} className="space-y-2">
                 <label className="text-sm font-medium">{f.label}{f.required && <span className="text-destructive ml-1">*</span>}</label>
                 {f.type === "select" ? (
-                  <select className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm" defaultValue={editTarget?.[f.name] || ""}>
+                  <select name={f.name} className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm" defaultValue={editTarget?.[f.name] || ""}>
                     <option value="">{f.placeholder || `Select ${f.label}`}</option>
                     {f.options?.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
                   </select>
                 ) : f.type === "textarea" ? (
-                  <textarea className="w-full min-h-[80px] px-3 py-2 rounded-md border border-input bg-background text-sm" placeholder={f.placeholder} defaultValue={editTarget?.[f.name] || ""} />
+                  <textarea name={f.name} className="w-full min-h-[80px] px-3 py-2 rounded-md border border-input bg-background text-sm" placeholder={f.placeholder} defaultValue={editTarget?.[f.name] || ""} />
                 ) : (
-                  <Input type={f.type} placeholder={f.placeholder} defaultValue={editTarget?.[f.name] || ""} />
+                  <Input name={f.name} type={f.type} placeholder={f.placeholder} defaultValue={editTarget?.[f.name] || ""} />
                 )}
               </motion.div>
             ))}
           </div>
           <SheetFooter>
             <Button variant="outline" onClick={() => { setSheetOpen(false); setEditTarget(null) }}>Cancel</Button>
-            <Button><Icons.check className="mr-2 h-4 w-4" />{editTarget ? "Update" : "Save"}</Button>
+            <Button onClick={handleSubmit}><Icons.check className="mr-2 h-4 w-4" />{editTarget ? "Update" : "Save"}</Button>
           </SheetFooter>
         </SheetContent>
       </Sheet>

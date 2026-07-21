@@ -16,11 +16,11 @@ const sc = (label: string, icon: any, value: (r: any[]) => number | string) => (
 export const pageConfigs: Record<string, PageConfig> = {
   customers: {
     id: "customers", title: "Customers", description: "Manage your customer base",
-    apiEndpoint: "/api/admin/users",
+    apiEndpoint: "/api/meterverse/customers",
     statusField,
-    transform: (d: any) => (d.users || []).map((u: any) => ({
-      id: u.id, name: u.name, email: u.email, phone: u.phone || "",
-      status: u.status || "active", area: u.area || "", createdAt: u.createdAt || "",
+    transform: (d: any) => (d.customers || []).map((c: any) => ({
+      id: c.id, name: c.name, email: c.email || "", phone: c.phone || "",
+      status: c.status || "active", area: c.area || "", createdAt: c.createdAt || "",
     })),
     columns: [
       { id: "name", header: "Name", accessor: r => r.name, type: "avatar", width: 220 },
