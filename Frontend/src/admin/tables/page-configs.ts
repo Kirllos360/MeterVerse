@@ -614,6 +614,18 @@ export const pageConfigs: Record<string, PageConfig> = {
     ]),
     statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Enabled", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length), sc("Disabled", Icons.circleX, r=>r.filter(x=>x.status==="inactive").length)],
   },
+  crud: {
+    id: "crud", title: "Enterprise CRUD", description: "Soft Delete · Bulk · Import · Export · Undo · Archive · Approval · Version History",
+    apiEndpoint: "", statusField, columns: [], fields: defFields([]), statsCards: [],
+  },
+  runtime: {
+    id: "runtime", title: "Runtime Engine", description: "Metadata-driven app generation — define entities in JSON, get full CRUD automatically",
+    apiEndpoint: "", statusField, columns: [], fields: defFields([]), statsCards: [],
+  },
+  tables: {
+    id: "tables", title: "Enterprise Tables", description: "Column presets · Resize · Reorder · Pin · Inline Edit · Grouping · Aggregation · Filters · Saved Views · Bulk Actions · Export · Keyboard Shortcuts",
+    apiEndpoint: "", statusField, columns: [], fields: defFields([]), statsCards: [],
+  },
   domains: {
     id: "domains", title: "Domain Data", description: "Browse all domain entities",
     apiEndpoint: "/api/domain/contracts",

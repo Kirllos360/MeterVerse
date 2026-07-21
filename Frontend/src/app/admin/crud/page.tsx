@@ -1,6 +1,12 @@
 "use client"
 
 import { useState } from "react"
+import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
+import { pageConfigs } from "@/admin/tables/page-configs"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
 
 export default function AdminCRUDPage() {
   const [tab, setTab] = useState("overview")
@@ -38,75 +44,71 @@ export default function AdminCRUDPage() {
   ]
 
   return (
-    <div className="p-6 space-y-4">
-      <div><h1 className="text-lg font-semibold text-white">Enterprise CRUD</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>Soft Delete · Bulk · Import · Export · Undo · Archive · Approval · Version History</p></div>
+    <GenericAdminPage config={pageConfigs.crud} renderCustom={() => (
+      <div className="space-y-6">
+        <Tabs value={tab} onValueChange={setTab}>
+          <TabsList>
+            <TabsTrigger value="overview">Workflows</TabsTrigger>
+            <TabsTrigger value="console">Console</TabsTrigger>
+          </TabsList>
 
-      <div className="flex gap-1 pb-2">
-        {[{id:"overview",label:"Workflows"},{id:"console",label:"Console"}].map(t => (
-          <button key={t.id} onClick={()=>setTab(t.id)} className="px-3 py-1.5 rounded-lg text-xs font-medium"
-            style={{backgroundColor:tab===t.id?"var(--status-error)":"var(--admin-surface)",color:tab===t.id?"white":"rgba(255,255,255,0.5)",border:tab===t.id?"none":"1px solid var(--admin-border)"}}>{t.label}</button>
-        ))}
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-4 gap-4">
+              {actions.map(a => (
+                <Card key={a.id}>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-2 h-2 rounded-full bg-primary" />
+                      <span className="text-sm font-medium">{a.label}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{a.desc}</p>
+                    <div className="text-[10px] mt-2 font-mono text-muted-foreground/60">
+                      POST /api/crud/{`{model}`}/{a.id}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <Card>
+              <CardContent className="py-4">
+                <p className="text-sm font-medium mb-3 text-muted-foreground">Supported Models</p>
+                <div className="flex gap-1 flex-wrap">
+                  {models.map(m => <Badge key={m} variant="outline" className="font-mono text-[10px]">{m}</Badge>)}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="console" className="space-y-6">
+            <Card>
+              <div className="px-4 py-3 border-b text-sm font-medium text-muted-foreground">CRUD Console</div>
+              <CardContent className="space-y-4 pt-4">
+                <div>
+                  <label className="text-sm text-muted-foreground">Model</label>
+                  <select value={modelName} onChange={e=>setModelName(e.target.value)}
+                    className="w-full mt-1 h-10 px-3 rounded-md border border-input bg-background text-sm">
+                    {models.map(m => <option key={m} value={m}>{m}</option>)}
+                  </select>
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  <Button size="sm" onClick={()=>execute("export")} disabled={loading}>Export</Button>
+                  <Button size="sm" variant="secondary" onClick={()=>execute("import")} disabled={loading}>Import (test)</Button>
+                  <Button size="sm" variant="outline" onClick={()=>execute("delete",{id:crypto.randomUUID()})} disabled={loading}>Test Soft Delete</Button>
+                  <Button size="sm" variant="ghost" onClick={()=>execute("history",{id:crypto.randomUUID()})} disabled={loading}>Version History</Button>
+                  <Button size="sm" variant="secondary" onClick={()=>execute("submit-approval",{id:crypto.randomUUID()})} disabled={loading}>Test Approval</Button>
+                </div>
+                {loading && <div className="text-sm text-muted-foreground">Executing...</div>}
+                {result && (
+                  <div className="rounded-lg border p-3 bg-muted/30">
+                    <p className="text-xs font-semibold mb-2 text-muted-foreground">Result</p>
+                    <pre className="text-xs font-mono whitespace-pre-wrap max-h-60 overflow-y-auto text-muted-foreground">{JSON.stringify(result, null, 2)}</pre>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-
-      {tab === "overview" && <>
-        <div className="grid grid-cols-4 gap-3">
-          {actions.map(a => (
-            <div key={a.id} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2 h-2 rounded-full" style={{backgroundColor:"var(--status-error)"}}/>
-                <span className="text-sm font-medium text-white">{a.label}</span>
-              </div>
-              <p className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{a.desc}</p>
-              <div className="text-[10px] mt-2 font-mono" style={{color:"rgba(255,255,255,0.3)"}}>
-                POST /api/crud/{"{model}"}/{a.id === "export" ? "export" : a.id === "history" ? ":id/history" : ":id/"+a.id}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-          <div className="text-xs font-semibold mb-2" style={{color:"rgba(255,255,255,0.7)"}}>Supported Models</div>
-          <div className="flex gap-1 flex-wrap">
-            {models.map(m => (
-              <span key={m} className="px-2 py-1 rounded text-[10px] font-mono" style={{backgroundColor:"rgba(239,68,68,0.1)",color:"#EF4444"}}>{m}</span>
-            ))}
-          </div>
-        </div>
-      </>}
-
-      {tab === "console" && <>
-        <div className="rounded-xl border overflow-hidden" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-          <div className="px-4 py-3 border-b text-xs font-semibold" style={{borderColor:"var(--admin-border)",color:"rgba(255,255,255,0.7)"}}>CRUD Console</div>
-          
-          <div className="p-4 space-y-4">
-            <div>
-              <label className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>Model</label>
-              <select value={modelName} onChange={e=>setModelName(e.target.value)} className="w-full mt-1 px-3 py-2 rounded-lg border text-xs outline-none"
-                style={{backgroundColor:"var(--admin-surface)",borderColor:"var(--admin-border)",color:"white"}}>
-                {models.map(m => <option key={m} value={m}>{m}</option>)}
-              </select>
-            </div>
-
-            <div className="flex gap-2 flex-wrap">
-              <button onClick={()=>execute("export")} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium text-white" style={{backgroundColor:"var(--status-error)"}}>Export</button>
-              <button onClick={()=>execute("import")} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(59,130,246,0.2)",color:"#DC2626"}}>Import (test)</button>
-              <button onClick={()=>execute("delete",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(245,158,11,0.2)",color:"#EF4444"}}>Test Soft Delete</button>
-              <button onClick={()=>execute("history",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(239,68,68,0.2)",color:"#EF4444"}}>Version History</button>
-              <button onClick={()=>execute("submit-approval",{id:crypto.randomUUID()})} disabled={loading} className="px-3 py-2 rounded-lg text-xs font-medium" style={{backgroundColor:"rgba(34,197,94,0.2)",color:"#DC2626"}}>Test Approval</button>
-            </div>
-
-            {loading && <div className="text-xs" style={{color:"rgba(255,255,255,0.3)"}}>Executing...</div>}
-            
-            {result && (
-              <div className="rounded-lg border p-3" style={{borderColor:"var(--admin-border)"}}>
-                <div className="text-xs font-semibold mb-2" style={{color:"rgba(255,255,255,0.7)"}}>Result</div>
-                <pre className="text-xs font-mono whitespace-pre-wrap max-h-60 overflow-y-auto" style={{color:"rgba(255,255,255,0.5)"}}>{JSON.stringify(result, null, 2)}</pre>
-              </div>
-            )}
-          </div>
-        </div>
-      </>}
-    </div>
+    )} />
   )
 }
-

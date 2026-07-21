@@ -1,7 +1,11 @@
 "use client"
 
 import { useState } from "react"
+import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
+import { pageConfigs } from "@/admin/tables/page-configs"
 import { EnterpriseTable, Column } from "@/admin/tables/EnterpriseTable"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface DemoItem {
   id: string; name: string; email: string; status: string; area: string; readings: number; consumption: number; revenue: number; lastActive: string
@@ -35,55 +39,62 @@ export default function AdminTablesPage() {
   const [tab, setTab] = useState("demo")
 
   return (
-    <div className="p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-semibold text-white">Enterprise Tables</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>Column presets · Resize · Reorder · Pin · Inline Edit · Grouping · Aggregation · Filters · Saved Views · Bulk Actions · Export · Keyboard Shortcuts</p></div>
-      </div>
+    <GenericAdminPage config={pageConfigs.tables} renderCustom={() => (
+      <Tabs value={tab} onValueChange={setTab}>
+        <TabsList>
+          <TabsTrigger value="demo">Demo Table</TabsTrigger>
+          <TabsTrigger value="features">Feature Reference</TabsTrigger>
+        </TabsList>
 
-      <div className="flex gap-1 pb-2">
-        {[{id:"demo",label:"Demo Table"},{id:"features",label:"Feature Reference"}].map(t => (
-          <button key={t.id} onClick={()=>setTab(t.id)} className="px-3 py-1.5 rounded-lg text-xs font-medium"
-            style={{backgroundColor:tab===t.id?"var(--status-error)":"var(--admin-surface)",color:tab===t.id?"white":"rgba(255,255,255,0.5)",border:tab===t.id?"none":"1px solid var(--admin-border)"}}>{t.label}</button>
-        ))}
-      </div>
+        <TabsContent value="demo" className="space-y-0">
+          <EnterpriseTable
+            data={data}
+            columns={columns}
+            getId={r => r.id}
+            tableName="customers"
+            onCellEdit={(row, col, val) => console.log("Edit:", row.id, col, val)}
+            onBulkAction={(action, ids) => console.log("Bulk:", action, ids)}
+          />
+        </TabsContent>
 
-      {tab === "demo" && <EnterpriseTable
-        data={data}
-        columns={columns}
-        getId={r => r.id}
-        tableName="customers"
-        onCellEdit={(row, col, val) => console.log("Edit:", row.id, col, val)}
-        onBulkAction={(action, ids) => console.log("Bulk:", action, ids)}
-      />}
-
-      {tab === "features" && (
-        <div className="rounded-xl border overflow-hidden" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-          <table className="w-full"><thead><tr style={{backgroundColor:"var(--admin-surface)"}}>
-            {["Feature","How to Use","Implementation"].map(h => (
-              <th key={h} className="text-left px-4 py-3 text-xs font-medium" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{h}</th>
-            ))}
-          </tr></thead><tbody>
-            {[
-              ["Column Presets","Save/load via 💾 Save View button","savedViews state + localStorage-ready"],
-              ["Resize","Drag the vertical divider at right edge of column header","onMouseDown handler with document mousemove"],
-              ["Reorder","Drag column header and drop on another","HTML5 Drag and Drop API"],
-              ["Pin","Click 📌 icon on column header to pin left","pinned: 'left' column property"],
-              ["Inline Editing","Double-click a cell → edit → Enter to save","editing state + onCellEdit callback"],
-              ["Grouping","Select from Group: dropdown above table","Map-based group renderer"],
-              ["Aggregation","Set aggregate: 'sum|avg|min|max|count' on column","getAggregate() in tfoot"],
-              ["Advanced Filters","Click 🔍 Filters to show filter row","filters state with per-column input"],
-              ["Saved Views","Type name + 💾 Save View → click to load","savedViews state record"],
-              ["Bulk Actions","Check rows → 🗑 Delete button appears","selected Set + onBulkAction callback"],
-              ["Export CSV","Click 📤 CSV button","Blob + URL.createObjectURL"],
-              ["Keyboard Shortcuts","Ctrl+A select all, ↩ edit, Esc cancel","useEffect with keydown listener"],
-            ].map(([feat, use, impl]) => (
-              <tr key={feat}><td className="px-4 py-3 text-sm font-medium" style={{color:"rgba(255,255,255,0.8)",borderBottom:"1px solid var(--admin-border)"}}>{feat}</td>
-              <td className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.5)",borderBottom:"1px solid var(--admin-border)"}}>{use}</td>
-              <td className="px-4 py-3 text-sm font-mono text-[11px]" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{impl}</td></tr>
-            ))}
-          </tbody></table>
-        </div>
-      )}
-    </div>
+        <TabsContent value="features" className="space-y-0">
+          <Card>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-muted/50">
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Feature</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">How to Use</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground">Implementation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["Column Presets","Save/load via 💾 Save View button","savedViews state + localStorage-ready"],
+                    ["Resize","Drag the vertical divider at right edge of column header","onMouseDown handler with document mousemove"],
+                    ["Reorder","Drag column header and drop on another","HTML5 Drag and Drop API"],
+                    ["Pin","Click 📌 icon on column header to pin left","pinned: 'left' column property"],
+                    ["Inline Editing","Double-click a cell → edit → Enter to save","editing state + onCellEdit callback"],
+                    ["Grouping","Select from Group: dropdown above table","Map-based group renderer"],
+                    ["Aggregation","Set aggregate: 'sum|avg|min|max|count' on column","getAggregate() in tfoot"],
+                    ["Advanced Filters","Click 🔍 Filters to show filter row","filters state with per-column input"],
+                    ["Saved Views","Type name + 💾 Save View → click to load","savedViews state record"],
+                    ["Bulk Actions","Check rows → 🗑 Delete button appears","selected Set + onBulkAction callback"],
+                    ["Export CSV","Click 📤 CSV button","Blob + URL.createObjectURL"],
+                    ["Keyboard Shortcuts","Ctrl+A select all, ↩ edit, Esc cancel","useEffect with keydown listener"],
+                  ].map(([feat, use, impl]) => (
+                    <tr key={feat}>
+                      <td className="px-4 py-3 font-medium border-b">{feat}</td>
+                      <td className="px-4 py-3 text-muted-foreground border-b">{use}</td>
+                      <td className="px-4 py-3 font-mono text-xs text-muted-foreground border-b">{impl}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    )} />
   )
 }
