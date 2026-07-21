@@ -1,6 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
 export default function AdminServicesPage() {
   const [tab, setTab] = useState("all")
@@ -40,123 +44,124 @@ export default function AdminServicesPage() {
     }).catch(() => setLoading(false))
   }, [])
 
-  const tabs = [
-    { id:"all", label:"All Services" },
-    { id:"notifications", label:"Notifications", count: notifications.filter(n=>!n.readAt).length },
-    { id:"activity", label:"Activity" },
-    { id:"email", label:"Email", count: emailStats?.failed },
-    { id:"sms", label:"SMS" },
-    { id:"push", label:"Push" },
-    { id:"ocr", label:"OCR" },
-    { id:"pdf", label:"PDF" },
-    { id:"excel", label:"Excel" },
-    { id:"imports", label:"Imports" },
-    { id:"exports", label:"Exports" },
-  ]
+  if (loading) return <div className="space-y-4 animate-pulse p-6"><div className="bg-muted h-8 w-48 rounded" /><div className="bg-muted h-80 rounded-xl" /></div>
 
-  if (loading) return <div className="p-6 text-xs" style={{color:"rgba(255,255,255,0.3)"}}>Loading...</div>
-
-  const TabButton = ({id,label,count}:{id:string;label:string;count?:number}) => (
-    <button onClick={()=>setTab(id)} className="px-3 py-1.5 rounded-lg text-xs font-medium capitalize flex items-center gap-1.5"
-      style={{backgroundColor:tab===id?"var(--status-error)":"var(--admin-surface)",color:tab===id?"white":"rgba(255,255,255,0.5)",border:tab===id?"none":"1px solid var(--admin-border)"}}>
-      {label}{count?<span className="w-4 h-4 rounded-full flex items-center justify-center text-[9px]" style={{backgroundColor:"rgba(239,68,68,0.2)",color:"#EF4444"}}>{count}</span>:null}
-    </button>
-  )
-
-  const renderTable = (headers: string[], rows: any[], renderRow: (item:any) => string[]) => (
-    <table className="w-full"><thead><tr style={{backgroundColor:"var(--admin-surface)"}}>
-      {headers.map(h=>(<th key={h} className="text-left px-4 py-3 text-xs font-medium" style={{color:"rgba(255,255,255,0.4)",borderBottom:"1px solid var(--admin-border)"}}>{h}</th>))}
-    </tr></thead><tbody>
-      {rows.map((r,i)=>(
-        <tr key={i}>{renderRow(r).map((v,j)=>(
-          <td key={j} className="px-4 py-3 text-sm" style={{color:"rgba(255,255,255,0.7)",borderBottom:"1px solid var(--admin-border)"}}>{v}</td>
-        ))}</tr>
-      ))}
-      {rows.length===0&&<tr><td colSpan={headers.length} className="px-4 py-8 text-center text-xs" style={{color:"rgba(255,255,255,0.3)"}}>No data</td></tr>}
-    </tbody></table>
+  const DataTable = ({headers,rows,renderRow}:{headers:string[];rows:any[];renderRow:(r:any)=>any[]}) => (
+    <Card><div className="rounded-md border"><Table><TableHeader><TableRow>{headers.map(h=><TableHead key={h}>{h}</TableHead>)}</TableRow></TableHeader>
+    <TableBody>
+      {rows.length===0
+        ? <TableRow><TableCell colSpan={headers.length} className="h-24 text-center text-muted-foreground">No data</TableCell></TableRow>
+        : rows.map((r,i)=><TableRow key={i}>{renderRow(r).map((v,j)=><TableCell key={j}>{v}</TableCell>)}</TableRow>)}
+    </TableBody></Table></div></Card>
   )
 
   return (
-    <div className="p-6 space-y-4">
-      <div><h1 className="text-lg font-semibold text-white">Enterprise Services</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>15 platform services</p></div>
-      
-      <div className="flex gap-1 pb-2 flex-wrap">
-        {tabs.map(t => <TabButton key={t.id} {...t} />)}
-      </div>
+    <div className="space-y-6 p-6">
+      <div><h1 className="text-2xl font-bold tracking-tight">Enterprise Services</h1><p className="text-sm text-muted-foreground mt-1">15 platform services</p></div>
 
-      <div className="rounded-xl border overflow-hidden" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-        {(tab==="all"||tab==="notifications") && <>
-          <div className="px-4 py-3 border-b text-xs font-semibold" style={{borderColor:"var(--admin-border)",color:"rgba(255,255,255,0.7)"}}>In-App Notifications</div>
-          {notifications.slice(0,10).map(n => (
-            <div key={n.id} className="flex items-center gap-3 px-4 py-3 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-2 h-2 rounded-full shrink-0" style={{backgroundColor:n.readAt?"rgba(255,255,255,0.15)":"#EF4444"}}/>
-              <div className="flex-1"><div style={{color:"rgba(255,255,255,0.8)"}}>{n.title}</div><div className="text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{n.body}</div></div>
-              <span style={{color:"rgba(255,255,255,0.3)"}}>{n.createdAt?.substring(0,10)||""}</span>
-            </div>
-          ))}
-        </>}
+      <Tabs value={tab} onValueChange={setTab}>
+        <TabsList className="flex-wrap">
+          <TabsTrigger value="all">All Services</TabsTrigger>
+          <TabsTrigger value="notifications">Notifications{notifications.filter(n=>!n.readAt).length>0&&` (${notifications.filter(n=>!n.readAt).length})`}</TabsTrigger>
+          <TabsTrigger value="activity">Activity</TabsTrigger>
+          <TabsTrigger value="email">Email{emailStats?.failed?` (${emailStats.failed})`:""}</TabsTrigger>
+          <TabsTrigger value="sms">SMS</TabsTrigger>
+          <TabsTrigger value="push">Push</TabsTrigger>
+          <TabsTrigger value="ocr">OCR</TabsTrigger>
+          <TabsTrigger value="pdf">PDF</TabsTrigger>
+          <TabsTrigger value="excel">Excel</TabsTrigger>
+          <TabsTrigger value="imports">Imports</TabsTrigger>
+          <TabsTrigger value="exports">Exports</TabsTrigger>
+        </TabsList>
 
-        {(tab==="all"||tab==="activity") && <>
-          <div className="px-4 py-3 border-b text-xs font-semibold" style={{borderColor:"var(--admin-border)",color:"rgba(255,255,255,0.7)"}}>Activity Stream (last 10)</div>
-          {activity.slice(0,10).map(a => (
-            <div key={a.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{backgroundColor:a.severity==="error"?"#EF4444":a.severity==="warn"?"#EF4444":"#DC2626"}}/>
-              <span className="w-20 shrink-0 font-mono text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{a.createdAt?.substring(11,19)||""}</span>
-              <span className="w-20 shrink-0 truncate" style={{color:"rgba(255,255,255,0.5)"}}>{a.actor||"system"}</span>
-              <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{a.action}</span>
-            </div>
-          ))}
-        </>}
+        <TabsContent value="all" className="space-y-4">
+          <Card>
+            <CardHeader><CardTitle className="text-sm font-semibold">In-App Notifications</CardTitle></CardHeader>
+            <CardContent className="space-y-2">
+              {notifications.slice(0,10).map(n => (
+                <div key={n.id} className="flex items-center gap-3 px-4 py-3 rounded-lg bg-muted/30 text-sm">
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{backgroundColor:n.readAt?"var(--muted-foreground)":"var(--primary)"}}/>
+                  <div className="flex-1"><div className="font-medium">{n.title}</div><div className="text-xs text-muted-foreground">{n.body}</div></div>
+                  <span className="text-xs text-muted-foreground">{n.createdAt?.substring(0,10)||""}</span>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader><CardTitle className="text-sm font-semibold">Activity Stream (last 10)</CardTitle></CardHeader>
+            <CardContent className="space-y-2">
+              {activity.slice(0,10).map((a:any,i:number) => (
+                <div key={i} className="flex items-center gap-3 px-4 py-2 text-sm border-b last:border-0">
+                  <span className="text-muted-foreground">{a.timestamp?.substring(0,10)||""}</span>
+                  <span className="font-medium">{a.action}</span>
+                  <span className="text-muted-foreground">{a.entity}</span>
+                  <span className="text-muted-foreground text-xs">{a.actor}</span>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-        {(tab==="all"||tab==="email") && <>
-          <div className="grid grid-cols-3 gap-3 p-4">
-            {[{l:"Sent",v:emailStats?.sent||0,c:"#DC2626"},{l:"Failed",v:emailStats?.failed||0,c:"#EF4444"},{l:"Total",v:emailStats?.total||0,c:"#DC2626"}].map(s=>(
-              <div key={s.l} className="rounded-lg border p-3" style={{borderColor:"var(--admin-border)"}}><div className="text-[10px]" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div><div className="text-lg font-bold tabular-nums" style={{color:s.c}}>{s.v}</div></div>
+        <TabsContent value="notifications" className="space-y-4">
+          <DataTable headers={["Title","Body","Status","Date"]} rows={notifications}
+            renderRow={(n:any)=>[n.title,n.body||"",n.readAt?"read":"new",n.createdAt?.substring(0,10)]} />
+        </TabsContent>
+
+        <TabsContent value="activity" className="space-y-4">
+          <DataTable headers={["Date","Action","Entity","Actor"]} rows={activity}
+            renderRow={(a:any)=>[a.timestamp?.substring(0,10),a.action,a.entity,a.actor]} />
+        </TabsContent>
+
+        <TabsContent value="email" className="space-y-4">
+          <div className="grid grid-cols-3 gap-4">
+            {[{l:"Total Sent",v:emailStats?.sent||0},{l:"Failed",v:emailStats?.failed||0},{l:"Delivery Rate",v:`${emailStats?.rate||0}%`}].map(s=>(
+              <Card key={s.l} className="bg-gradient-to-t from-primary/5 to-card"><CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-muted-foreground">{s.l}</CardTitle></CardHeader><CardContent><div className="text-2xl font-bold">{s.v}</div></CardContent></Card>
             ))}
           </div>
-          {emailLogs.slice(0,10).map(l => (
-            <div key={l.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#DC2626":"#EF4444"}}/>
-              <span className="w-28 truncate font-mono" style={{color:"rgba(255,255,255,0.5)"}}>{l.to}</span>
-              <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{l.subject}</span>
-            </div>
-          ))}
-        </>}
+          <DataTable headers={["To","Subject","Status","Date"]} rows={emailLogs}
+            renderRow={(e:any)=>[e.to,e.subject,e.status,e.createdAt?.substring(0,10)]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="sms") && <>{smsLogs.slice(0,10).map(l => (
-          <div key={l.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-            <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#DC2626":"#EF4444"}}/>
-            <span className="w-28 truncate font-mono" style={{color:"rgba(255,255,255,0.5)"}}>{l.to}</span>
-            <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{l.message}</span>
-          </div>
-        ))}</>}
+        <TabsContent value="sms" className="space-y-4">
+          <DataTable headers={["To","Message","Status","Date"]} rows={smsLogs}
+            renderRow={(s:any)=>[s.to,s.message?.substring(0,40),s.status,s.createdAt?.substring(0,10)]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="push") && <>
-          <div className="grid grid-cols-3 gap-3 p-4">
-            {[{l:"Sent",v:pushStats?.sent||0,c:"#DC2626"},{l:"Failed",v:pushStats?.failed||0,c:"#EF4444"},{l:"Total",v:pushStats?.total||0,c:"#DC2626"}].map(s=>(
-              <div key={s.l} className="rounded-lg border p-3" style={{borderColor:"var(--admin-border)"}}><div className="text-[10px]" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div><div className="text-lg font-bold tabular-nums" style={{color:s.c}}>{s.v}</div></div>
+        <TabsContent value="push" className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            {[{l:"Total Sent",v:pushStats?.sent||0},{l:"Failed",v:pushStats?.failed||0}].map(s=>(
+              <Card key={s.l} className="bg-gradient-to-t from-primary/5 to-card"><CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-muted-foreground">{s.l}</CardTitle></CardHeader><CardContent><div className="text-2xl font-bold">{s.v}</div></CardContent></Card>
             ))}
           </div>
-          {pushLogs.slice(0,10).map(l => (
-            <div key={l.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full" style={{backgroundColor:l.status==="sent"?"#DC2626":"#EF4444"}}/>
-              <span style={{color:"rgba(255,255,255,0.7)"}}>{l.title}</span>
-              <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.5)"}}>{l.body}</span>
-            </div>
-          ))}
-        </>}
+          <DataTable headers={["Title","Body","Status","Date"]} rows={pushLogs}
+            renderRow={(p:any)=>[p.title,p.body?.substring(0,40),p.status,p.createdAt?.substring(0,10)]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="ocr") && renderTable(["File","Status","Confidence","Result","Date"], ocrJobs.slice(0,10), j=>[j.fileName,j.status,j.confidence?`${(j.confidence*100).toFixed(0)}%`:"—",j.result?.substring(0,30)||"—",j.createdAt?.substring(0,10)||""])}
+        <TabsContent value="ocr" className="space-y-4">
+          <DataTable headers={["ID","File","Status","Pages"]} rows={ocrJobs}
+            renderRow={(o:any)=>[o.id?.substring(0,8),o.filename,o.status,o.pages]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="pdf") && renderTable(["Type","Template","Status","File","Date"], pdfJobs.slice(0,10), j=>[j.type,j.template||"—",j.status,j.filePath||"—",j.createdAt?.substring(0,10)||""])}
+        <TabsContent value="pdf" className="space-y-4">
+          <DataTable headers={["ID","File","Status","Pages"]} rows={pdfJobs}
+            renderRow={(p:any)=>[p.id?.substring(0,8),p.filename,p.status,p.pages]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="excel") && renderTable(["Type","Format","Status","Rows","File","Date"], excelJobs.slice(0,10), j=>[j.type,j.format?.toUpperCase(),j.status,j.totalRows||0,j.filePath||"—",j.createdAt?.substring(0,10)||""])}
+        <TabsContent value="excel" className="space-y-4">
+          <DataTable headers={["ID","File","Status","Rows"]} rows={excelJobs}
+            renderRow={(e:any)=>[e.id?.substring(0,8),e.filename,e.status,e.rows]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="imports") && renderTable(["Type","File","Status","Progress","Errors","Date"], imports.slice(0,10), j=>[j.type,j.fileName||"—",j.status,`${j.processed||0}/${j.totalRows||0}`,j.failed||"0",j.createdAt?.substring(0,10)||""])}
+        <TabsContent value="imports" className="space-y-4">
+          <DataTable headers={["ID","File","Status","Progress"]} rows={imports}
+            renderRow={(i:any)=>[i.id?.substring(0,8),i.filename,i.status,i.progress?`${i.progress}%`:""]} />
+        </TabsContent>
 
-        {(tab==="all"||tab==="exports") && renderTable(["Type","Format","Status","Rows","File","Date"], exports.slice(0,10), j=>[j.type,j.format?.toUpperCase(),j.status,j.totalRows||0,j.filePath||"—",j.createdAt?.substring(0,10)||""])}
-      </div>
+        <TabsContent value="exports" className="space-y-4">
+          <DataTable headers={["ID","Format","Status","Date"]} rows={exports}
+            renderRow={(e:any)=>[e.id?.substring(0,8),e.format,e.status,e.createdAt?.substring(0,10)]} />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
-

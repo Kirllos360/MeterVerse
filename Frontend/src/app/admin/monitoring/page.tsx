@@ -1,6 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function AdminMonitorPage() {
   const [tab, setTab] = useState("dashboard")
@@ -19,141 +22,148 @@ export default function AdminMonitorPage() {
     ]).then(([h,p,a,an]) => { setDeep(h); setPerf(p); setAudit(a); setAnalytics(an); setLoading(false) }).catch(()=>setLoading(false))
   }, [])
 
-  if (loading) return <div className="p-6" style={{color:"rgba(255,255,255,0.3)"}}>Loading monitoring...</div>
-
-  const tabs = [
-    { id:"dashboard", label:"Health Dashboard" },
-    { id:"performance", label:"Performance" },
-    { id:"audit", label:"Audit Explorer" },
-    { id:"analytics", label:"Business Analytics" },
-  ]
+  if (loading) return <div className="space-y-4 animate-pulse p-6"><div className="bg-muted h-8 w-48 rounded" /><div className="bg-muted h-80 rounded-xl" /></div>
 
   return (
-    <div className="p-6 space-y-4">
-      <div className="flex items-center justify-between">
-        <div><h1 className="text-lg font-semibold text-white">Monitoring &amp; Observability</h1><p className="text-xs mt-1" style={{color:"rgba(255,255,255,0.4)"}}>Prometheus · Health · Performance · Audit · Analytics</p></div>
+    <div className="space-y-6 p-6">
+      <div>
+        <h1 className="text-2xl font-bold tracking-tight">Monitoring &amp; Observability</h1>
+        <p className="text-sm text-muted-foreground mt-1">Prometheus · Health · Performance · Audit · Analytics</p>
       </div>
 
-      <div className="flex gap-1 pb-2">
-        {tabs.map(t => (
-          <button key={t.id} onClick={()=>setTab(t.id)} className="px-3 py-1.5 rounded-lg text-xs font-medium"
-            style={{backgroundColor:tab===t.id?"var(--status-error)":"var(--admin-surface)",color:tab===t.id?"white":"rgba(255,255,255,0.5)",border:tab===t.id?"none":"1px solid var(--admin-border)"}}>{t.label}</button>
-        ))}
-      </div>
+      <Tabs value={tab} onValueChange={setTab}>
+        <TabsList>
+          <TabsTrigger value="dashboard">Health Dashboard</TabsTrigger>
+          <TabsTrigger value="performance">Performance</TabsTrigger>
+          <TabsTrigger value="audit">Audit Explorer</TabsTrigger>
+          <TabsTrigger value="analytics">Business Analytics</TabsTrigger>
+        </TabsList>
 
-      {tab === "dashboard" && <>
-        <div className="grid grid-cols-3 gap-3">
-          {deep?.checks?.map((c: any,i: number) => (
-            <div key={i} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium" style={{color:"rgba(255,255,255,0.7)"}}>{c.name}</span>
-                <span className="px-2 py-0.5 rounded text-[10px] font-medium" style={{backgroundColor:c.status==="healthy"?"rgba(34,197,94,0.1)":"rgba(245,158,11,0.1)",color:c.status==="healthy"?"#DC2626":"#EF4444"}}>{c.status}</span>
-              </div>
-              {c.latency && <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>Latency: {c.latency}</div>}
-              {c.stuckJobs !== undefined && <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>Stuck jobs: {c.stuckJobs}</div>}
-              {c.expiredSessions !== undefined && <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>Expired sessions: {c.expiredSessions}</div>}
-              {c.files !== undefined && <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>Files: {c.files}</div>}
-              {c.errors !== undefined && <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>Errors (24h): {c.errors}</div>}
-            </div>
-          ))}
-        </div>
-        <div className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-          <div className="text-xs mb-2" style={{color:"rgba(255,255,255,0.4)"}}>Overall Status: <span style={{color:deep?.status==="healthy"?"#DC2626":"#EF4444",fontWeight:600}}>{deep?.status?.toUpperCase()}</span></div>
-          <div className="text-[10px] font-mono" style={{color:"rgba(255,255,255,0.3)"}}>GET /api/monitor/health/deep · GET /api/monitor/metrics/prometheus</div>
-        </div>
-      </>}
-
-      {tab === "performance" && <>
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            {l:"Total Readings",v:perf?.summary?.totalReadings||0,c:"#DC2626"},
-            {l:"Validation Rate",v:`${perf?.summary?.validationRate||0}%`,c:"#DC2626"},
-            {l:"Total Invoices",v:perf?.summary?.totalInvoices||0,c:"#EF4444"},
-            {l:"Revenue",v:`EGP ${(perf?.summary?.totalRevenue||0).toLocaleString()}`,c:"#DC2626"},
-          ].map(s => (
-            <div key={s.l} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-              <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div>
-              <div className="text-lg font-bold mt-1 tabular-nums" style={{color:s.c}}>{s.v}</div>
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-3 gap-3">
-          {[
-            {l:"Today's Readings",v:perf?.today?.readings||0,c:"#DC2626"},
-            {l:"Today's Invoices",v:perf?.today?.invoices||0,c:"#DC2626"},
-            {l:"Throughput (30d avg)",v:`${perf?.throughput?.readingsPerDay||0}/day`,c:"#EF4444"},
-          ].map(s => (
-            <div key={s.l} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-              <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div>
-              <div className="text-lg font-bold mt-1 tabular-nums" style={{color:s.c}}>{s.v}</div>
-            </div>
-          ))}
-        </div>
-      </>}
-
-      {tab === "audit" && <>
-        <div className="grid grid-cols-3 gap-3">
-          {[
-            {l:"Total Entries",v:audit?.stats?.total||0,c:"#DC2626"},
-            {l:"Failures",v:audit?.stats?.failures||0,c:audit?.stats?.failures>0?"#EF4444":"#DC2626"},
-            {l:"Today",v:audit?.stats?.today||0,c:"#EF4444"},
-          ].map(s => (
-            <div key={s.l} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-              <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div>
-              <div className="text-lg font-bold mt-1 tabular-nums" style={{color:s.c}}>{s.v}</div>
-            </div>
-          ))}
-        </div>
-        <div className="rounded-xl border overflow-hidden" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-          <div className="px-4 py-3 border-b text-xs font-semibold" style={{borderColor:"var(--admin-border)",color:"rgba(255,255,255,0.7)"}}>Recent Audit Entries</div>
-          {audit?.entries?.slice(0,15).map((e:any) => (
-            <div key={e.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{borderColor:"var(--admin-border)"}}>
-              <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{backgroundColor:e.status==="success"?"#DC2626":"#EF4444"}}/>
-              <span className="w-20 shrink-0 font-mono text-[10px]" style={{color:"rgba(255,255,255,0.3)"}}>{e.timestamp?.substring(11,19)}</span>
-              <span className="w-24 shrink-0 truncate" style={{color:"rgba(255,255,255,0.5)"}}>{e.actor||"system"}</span>
-              <span className="flex-1 truncate" style={{color:"rgba(255,255,255,0.7)"}}>{e.action}</span>
-              <span className="w-20 truncate text-[10px] font-mono" style={{color:"rgba(255,255,255,0.3)"}}>{e.resource}</span>
-            </div>
-          ))}
-        </div>
-      </>}
-
-      {tab === "analytics" && <>
-        <div className="grid grid-cols-4 gap-3">
-          {[
-            {l:"New Customers (30d)",v:analytics?.growth?.customers||0,c:"#DC2626"},
-            {l:"New Meters (30d)",v:analytics?.growth?.meters||0,c:"#DC2626"},
-            {l:"Readings (30d)",v:analytics?.growth?.readings||0,c:"#EF4444"},
-            {l:"Invoices (30d)",v:analytics?.growth?.invoices||0,c:"#EF4444"},
-          ].map(s => (
-            <div key={s.l} className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-              <div className="text-xs" style={{color:"rgba(255,255,255,0.4)"}}>{s.l}</div>
-              <div className="text-lg font-bold mt-1 tabular-nums" style={{color:s.c}}>{s.v}</div>
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          <div className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-            <div className="text-xs font-semibold mb-2" style={{color:"rgba(255,255,255,0.7)"}}>Revenue by Status</div>
-            {analytics?.revenue?.map((r:any,i:number) => (
-              <div key={i} className="flex items-center justify-between py-1 text-xs">
-                <span style={{color:"rgba(255,255,255,0.5)"}}>{r.status}</span>
-                <span className="tabular-nums" style={{color:"rgba(255,255,255,0.8)"}}>EGP {r.amount.toLocaleString()}</span>
-              </div>
+        <TabsContent value="dashboard" className="space-y-4">
+          <div className="grid grid-cols-3 gap-4">
+            {deep?.checks?.map((c: any,i: number) => (
+              <Card key={i} className="bg-gradient-to-t from-primary/5 to-card">
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium">{c.name}</CardTitle>
+                  <Badge variant={c.status==="healthy"?"default":"secondary"}>{c.status}</Badge>
+                </CardHeader>
+                <CardContent className="text-xs text-muted-foreground space-y-1">
+                  {c.latency && <div>Latency: {c.latency}</div>}
+                  {c.stuckJobs !== undefined && <div>Stuck jobs: {c.stuckJobs}</div>}
+                  {c.expiredSessions !== undefined && <div>Expired sessions: {c.expiredSessions}</div>}
+                  {c.files !== undefined && <div>Files: {c.files}</div>}
+                  {c.errors !== undefined && <div>Errors (24h): {c.errors}</div>}
+                </CardContent>
+              </Card>
             ))}
           </div>
-          <div className="rounded-xl border p-4" style={{borderColor:"var(--admin-border)",backgroundColor:"var(--admin-surface)"}}>
-            <div className="text-xs font-semibold mb-2" style={{color:"rgba(255,255,255,0.7)"}}>Top Areas by Meters</div>
-            {analytics?.topAreas?.map((a:any,i:number) => (
-              <div key={i} className="flex items-center justify-between py-1 text-xs">
-                <span style={{color:"rgba(255,255,255,0.5)"}}>{a.area}</span>
-                <span className="tabular-nums" style={{color:"rgba(255,255,255,0.8)"}}>{a.count} meters</span>
-              </div>
+          <Card>
+            <CardContent className="flex items-center justify-between py-4 text-sm">
+              <span className="text-muted-foreground">Overall Status: <span className="font-semibold" style={{color:deep?.status==="healthy"?"var(--status-success, #059669)":"var(--status-error, #DC2626)"}}>{deep?.status?.toUpperCase()}</span></span>
+              <span className="text-xs font-mono text-muted-foreground">GET /api/monitor/health/deep · GET /api/monitor/metrics/prometheus</span>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="performance" className="space-y-4">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              {l:"Total Readings",v:perf?.summary?.totalReadings||0},
+              {l:"Validation Rate",v:`${perf?.summary?.validationRate||0}%`},
+              {l:"Total Invoices",v:perf?.summary?.totalInvoices||0},
+              {l:"Revenue",v:`EGP ${(perf?.summary?.totalRevenue||0).toLocaleString()}`},
+            ].map(s => (
+              <Card key={s.l} className="bg-gradient-to-t from-primary/5 to-card">
+                <CardHeader className="flex flex-row items-center justify-between pb-2">
+                  <CardTitle className="text-sm font-medium text-muted-foreground">{s.l}</CardTitle>
+                </CardHeader>
+                <CardContent><div className="text-2xl font-bold">{s.v}</div></CardContent>
+              </Card>
             ))}
           </div>
-        </div>
-      </>}
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              {l:"Today's Readings",v:perf?.today?.readings||0},
+              {l:"Today's Invoices",v:perf?.today?.invoices||0},
+              {l:"Throughput (30d avg)",v:`${perf?.throughput?.readingsPerDay||0}/day`},
+            ].map(s => (
+              <Card key={s.l}>
+                <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-muted-foreground">{s.l}</CardTitle></CardHeader>
+                <CardContent><div className="text-xl font-bold">{s.v}</div></CardContent>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="audit" className="space-y-4">
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              {l:"Total Entries",v:audit?.stats?.total||0},
+              {l:"Failures",v:audit?.stats?.failures||0},
+              {l:"Today",v:audit?.stats?.today||0},
+            ].map(s => (
+              <Card key={s.l} className="bg-gradient-to-t from-primary/5 to-card">
+                <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-muted-foreground">{s.l}</CardTitle></CardHeader>
+                <CardContent><div className="text-2xl font-bold">{s.v}</div></CardContent>
+              </Card>
+            ))}
+          </div>
+          <Card>
+            <div className="px-4 py-3 border-b text-sm font-medium text-muted-foreground">Recent Audit Entries</div>
+            <div className="divide-y">
+              {audit?.entries?.slice(0,15).map((e:any) => (
+                <div key={e.id} className="flex items-center gap-3 px-4 py-2 text-sm">
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{backgroundColor:e.status==="success"?"var(--status-success, #059669)":"var(--status-error, #DC2626)"}}/>
+                  <span className="w-20 shrink-0 font-mono text-xs text-muted-foreground">{e.timestamp?.substring(11,19)}</span>
+                  <span className="w-24 shrink-0 truncate text-muted-foreground">{e.actor||"system"}</span>
+                  <span className="flex-1 truncate">{e.action}</span>
+                  <span className="w-20 truncate text-xs font-mono text-muted-foreground">{e.resource}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="analytics" className="space-y-4">
+          <div className="grid grid-cols-4 gap-4">
+            {[
+              {l:"New Customers (30d)",v:analytics?.growth?.customers||0},
+              {l:"New Meters (30d)",v:analytics?.growth?.meters||0},
+              {l:"Readings (30d)",v:analytics?.growth?.readings||0},
+              {l:"Invoices (30d)",v:analytics?.growth?.invoices||0},
+            ].map(s => (
+              <Card key={s.l} className="bg-gradient-to-t from-primary/5 to-card">
+                <CardHeader className="pb-2"><CardTitle className="text-sm font-medium text-muted-foreground">{s.l}</CardTitle></CardHeader>
+                <CardContent><div className="text-2xl font-bold">{s.v}</div></CardContent>
+              </Card>
+            ))}
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Card>
+              <CardHeader><CardTitle className="text-sm font-semibold">Revenue by Status</CardTitle></CardHeader>
+              <CardContent className="space-y-2">
+                {analytics?.revenue?.map((r:any,i:number) => (
+                  <div key={i} className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{r.status}</span>
+                    <span className="tabular-nums font-medium">EGP {r.amount.toLocaleString()}</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader><CardTitle className="text-sm font-semibold">Top Areas by Meters</CardTitle></CardHeader>
+              <CardContent className="space-y-2">
+                {analytics?.topAreas?.map((a:any,i:number) => (
+                  <div key={i} className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{a.area}</span>
+                    <span className="tabular-nums font-medium">{a.count} meters</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
-

@@ -1,6 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Icons } from "@/components/icons"
 
 interface Permission { id: string; name: string; description: string; module: string }
 interface Role { id: string; name: string; description: string; isSystem: boolean; permissions: { permission: Permission }[]; _count: { users: number } }
@@ -29,70 +33,77 @@ export default function AdminRolesPage() {
     return role.permissions.some((p) => p.permission.name === permName)
   }
 
-  if (loading) return <div className="p-6 text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>Loading...</div>
+  if (loading) return <div className="space-y-4 animate-pulse p-6"><div className="bg-muted h-8 w-48 rounded" /><div className="bg-muted h-80 rounded-xl" /></div>
 
   return (
-    <div className="p-6 space-y-4">
+    <div className="space-y-6 p-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-lg font-semibold text-white">Role & Permission Matrix</h1>
-          <p className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.4)" }}>{roles.length} roles · {permissions.length} permissions — RBAC management</p>
+          <h1 className="text-2xl font-bold tracking-tight">Role &amp; Permission Matrix</h1>
+          <p className="text-sm text-muted-foreground mt-1">{roles.length} roles · {permissions.length} permissions — RBAC management</p>
         </div>
-        <button className="px-3 py-2 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--status-error)" }}>Create Role</button>
+        <Button><Icons.add className="mr-2 h-4 w-4" />Create Role</Button>
       </div>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-4">
         {roles.map((role) => (
-          <div key={role.id} className="p-4 rounded-xl border" style={{ backgroundColor: "var(--admin-surface)", borderColor: "var(--admin-border)" }}>
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <span className="text-sm font-medium text-white">{role.name}</span>
-                {role.isSystem && <span className="ml-2 text-[10px]" style={{ color: "rgba(255,255,255,0.3)" }}>system</span>}
-                <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.4)" }}>{role.description}</p>
+          <Card key={role.id}>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-sm font-semibold">{role.name}</CardTitle>
+                  {role.isSystem && <Badge variant="outline" className="ml-2">system</Badge>}
+                  <p className="text-xs text-muted-foreground mt-1">{role.description}</p>
+                </div>
+                <Badge>{role._count.users} users</Badge>
               </div>
-              <span className="px-2 py-1 rounded text-[10px] font-medium" style={{ backgroundColor: "rgba(var(--status-error-rgb), 0.15)", color: "var(--status-error)" }}>
-                {role._count.users} users
-              </span>
-            </div>
-          </div>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm"><Icons.edit className="h-3 w-3 mr-1" />Edit</Button>
+                <Button variant="ghost" size="sm" className="text-destructive"><Icons.trash className="h-3 w-3 mr-1" />Delete</Button>
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
 
-      <div className="rounded-xl border overflow-hidden" style={{ borderColor: "var(--admin-border)", backgroundColor: "var(--admin-surface)" }}>
-        <div className="px-4 py-3 border-b" style={{ borderColor: "var(--admin-border)" }}>
-          <h2 className="text-sm font-semibold text-white">Permission Matrix</h2>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-xs">
-            <thead>
-              <tr style={{ backgroundColor: "var(--admin-surface)" }}>
-                <th className="text-left px-4 py-2 font-medium sticky left-0 z-10" style={{ color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--admin-border)", backgroundColor: "var(--admin-surface)" }}>Permission</th>
-                {roles.map((r) => <th key={r.id} className="text-center px-3 py-2 font-medium" style={{ color: "rgba(255,255,255,0.4)", borderBottom: "1px solid var(--admin-border)" }}>{r.name}</th>)}
-              </tr>
-            </thead>
-            <tbody>
-              {MODULES.map((mod) => (
-                <>
-                  <tr key={mod}>
-                    <td className="px-4 py-2 text-xs font-semibold" style={{ color: "rgba(255,255,255,0.5)", borderBottom: "1px solid var(--admin-border)", backgroundColor: "rgba(255,255,255,0.03)" }} colSpan={roles.length + 1}>{mod}</td>
-                  </tr>
-                  {permissions.filter((p) => p.module === mod).map((perm) => (
-                    <tr key={perm.id}>
-                      <td className="px-4 py-2 text-xs" style={{ color: "rgba(255,255,255,0.6)", borderBottom: "1px solid var(--admin-border)", backgroundColor: "var(--admin-surface)" }}>{perm.name}</td>
-                      {roles.map((r) => (
-                        <td key={r.id} className="text-center px-3 py-2" style={{ borderBottom: "1px solid var(--admin-border)" }}>
-                          {getRolePermission(r.id, perm.name) ? <span style={{ color: "#DC2626" }}>✓</span> : <span style={{ color: "rgba(255,255,255,0.15)" }}>—</span>}
-                        </td>
-                      ))}
+      <Card>
+        <CardHeader><CardTitle className="text-sm font-semibold">Permission Matrix</CardTitle></CardHeader>
+        <CardContent className="p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-muted/50">
+                  <th className="text-left px-4 py-2 font-medium text-muted-foreground sticky left-0 z-10 bg-muted/50">Permission</th>
+                  {roles.map((r) => <th key={r.id} className="text-center px-3 py-2 font-medium text-muted-foreground">{r.name}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {MODULES.map((mod) => (
+                  <>
+                    <tr key={mod}>
+                      <td className="px-4 py-2 text-xs font-semibold text-muted-foreground bg-muted/20" colSpan={roles.length + 1}>{mod}</td>
                     </tr>
-                  ))}
-                </>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                    {permissions.filter((p) => p.module === mod).map((perm) => (
+                      <tr key={perm.id}>
+                        <td className="px-4 py-2 text-sm border-b text-muted-foreground bg-card">{perm.name}</td>
+                        {roles.map((r) => (
+                          <td key={r.id} className="text-center px-3 py-2 border-b">
+                            {getRolePermission(r.id, perm.name)
+                              ? <span className="text-primary font-bold">✓</span>
+                              : <span className="text-muted-foreground/30">—</span>}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
-
