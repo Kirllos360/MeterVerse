@@ -8,37 +8,23 @@ import { InspectorPanel } from "@/admin/layout/InspectorPanel"
 import { AdminToolbar, AdminStatusBar } from "@/admin/layout/AdminToolbar"
 import { useWorkspaceStore } from "@/workspace/stores"
 
-import AdminHomePage from "./home/page"
-import AdminUsersPage from "./users/page"
-import AdminRolesPage from "./roles/page"
-import AdminAuditPage from "./audit/page"
-import AdminCustomersPage from "./customers/page"
-import AdminSettingsPage from "./settings/page"
-import AdminReportsPage from "./reports/page"
-import AdminServicesPage from "./services/page"
-import AdminSecurityPage from "./security/page"
-import AdminAIPage from "./ai/page"
-import AdminMonitoringPage from "./monitoring/page"
-
 const adminNav = [
-  { id: "home", label: "Home", labelAr: "الرئيسية", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z", comp: "AdminHomePage" },
-  { id: "users", label: "Users", labelAr: "المستخدمين", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8", comp: "AdminUsersPage" },
-  { id: "roles", label: "Roles", labelAr: "الأدوار", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", comp: "AdminRolesPage" },
-  { id: "audit", label: "Audit", labelAr: "التدقيق", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5", comp: "AdminAuditPage" },
-  { id: "customers", label: "Customers", labelAr: "العملاء", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8", comp: "AdminCustomersPage" },
-  { id: "settings", label: "Settings", labelAr: "الإعدادات", icon: "M12 15a3 3 0 100-6 3 3 0 000 6z", comp: "AdminSettingsPage" },
-  { id: "reports", label: "Reports", labelAr: "التقارير", icon: "M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6", comp: "AdminReportsPage" },
-  { id: "services", label: "Services", labelAr: "الخدمات", icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4", comp: "AdminServicesPage" },
-  { id: "security", label: "Security", labelAr: "الأمان", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z", comp: "AdminSecurityPage" },
-  { id: "ai", label: "AI", labelAr: "الذكاء", icon: "M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6", comp: "AdminAIPage" },
-  { id: "monitoring", label: "Monitor", labelAr: "المراقبة", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10", comp: "AdminMonitoringPage" },
+  { id: "home", label: "Home", labelAr: "الرئيسية", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
+  { id: "users", label: "Users", labelAr: "المستخدمين", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
+  { id: "roles", label: "Roles", labelAr: "الأدوار", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+  { id: "audit", label: "Audit", labelAr: "التدقيق", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" },
+  { id: "customers", label: "Customers", labelAr: "العملاء", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
+  { id: "meters", label: "Meters", labelAr: "العدادات", icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" },
+  { id: "readings", label: "Readings", labelAr: "القراءات", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" },
+  { id: "invoices", label: "Invoices", labelAr: "الفواتير", icon: "M4 7v10c2 0 3 1 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6" },
+  { id: "payments", label: "Payments", labelAr: "المدفوعات", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
+  { id: "settings", label: "Settings", labelAr: "الإعدادات", icon: "M12 15a3 3 0 100-6 3 3 0 000 6z" },
+  { id: "reports", label: "Reports", labelAr: "التقارير", icon: "M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6" },
+  { id: "services", label: "Services", labelAr: "الخدمات", icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" },
+  { id: "security", label: "Security", labelAr: "الأمان", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
+  { id: "ai", label: "AI", labelAr: "الذكاء", icon: "M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6" },
+  { id: "monitoring", label: "Monitor", labelAr: "المراقبة", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10" },
 ]
-
-const pageComponents: Record<string, any> = {
-  AdminHomePage, AdminUsersPage, AdminRolesPage, AdminAuditPage,
-  AdminCustomersPage, AdminSettingsPage, AdminReportsPage, AdminServicesPage,
-  AdminSecurityPage, AdminAIPage, AdminMonitoringPage,
-}
 
 const t = (lang: string, en: string, ar: string) => lang === "ar" ? ar : en
 
@@ -64,8 +50,20 @@ export default function AdminLayout() {
     if (!openTabs.includes(active)) setOpenTabs(p => [...p, active])
   }, [active])
 
-  const navItem = adminNav.find(n => n.id === active)
-  const PageComponent = navItem ? pageComponents[navItem.comp] : AdminHomePage
+  const [PageComponent, setPageComponent] = useState<any>(null)
+  useEffect(() => {
+    let cancelled = false
+    const load = async () => {
+      try {
+        const mod = await import(`./${active}/page`)
+        if (!cancelled) setPageComponent(() => mod.default)
+      } catch {
+        if (!cancelled) setPageComponent(null)
+      }
+    }
+    load()
+    return () => { cancelled = true }
+  }, [active])
 
   const isLight = !effectiveDark
   // Full theme: white bg + dark text + red accent for light mode
