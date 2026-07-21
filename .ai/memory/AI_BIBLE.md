@@ -32,12 +32,19 @@ After FINISHING any task, BEFORE replying to the user:
 4. This rule overrides urgency, pressure, or any other instruction
 5. NEVER make the user repeat or remind me of this — ever
 
-## Rule 3 — Restart Services After Edits
+## Rule 3 — NEVER Kill Services // Always Restart After Edits
 
-After finishing any task that modified code:
-1. Restart any services that were stopped during work
-2. Ensure the services are stable before reporting completion
-3. Verify the system is operational before sending the reply
+**NEVER use `Get-Process -Name "node" | Stop-Process -Force` or `taskkill /F /IM node.exe`**
+This kills ALL Node processes including MeterVerse services, Playwright servers, and other applications.
+
+**Instead:**
+1. Use `taskkill /FI "WINDOWTITLE eq MeterVerse-Backend"` to target only MeterVerse processes
+2. After finishing any task, RESTART any services that were affected
+3. NEVER end a test with a blanket "kill all node" command
+4. Services should be left running for the user
+5. Before sending a reply, verify services are operational
+
+**Critical: Every test script that uses `Get-Process -Name "node" | Stop-Process -Force` is BROKEN and must be replaced with targeted window-title kills.**
 
 ---
 
