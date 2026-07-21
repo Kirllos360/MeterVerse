@@ -90,10 +90,18 @@ Every implementation must update ALL layers it touches:
 - Update PROJECT_STATE.md, CURRENT_SPRINT.md, CHAT_HISTORY.md with sprint results
 
 ### 5.4 — Screenshot Pipeline (regenerate ALL)
-Capture every: Desktop/Tablet/Mobile, Dark/Light, RTL/LTR, Empty/Loading/Error states, Dialogs/Drawers/Context menus/Forms/Tables/Charts/Dashboards, Admin/User pages, Every page/sub-page/tab/modal/wizard. Store under `docs/screenshots/`.
+Capture and store under `docs/screenshots/`:
+- **Viewports:** Desktop (1920x1080), Tablet (768x1024), Mobile (375x812)
+- **Themes:** Dark mode, Light mode
+- **Directions:** RTL, LTR
+- **States:** Empty states, Loading states, Error states
+- **Components:** Dialogs, Drawers, Context menus, Forms, Tables, Charts, Dashboards
+- **Pages:** Admin pages (48), User dashboard pages (15)
+- **Coverage:** Every page, every sub-page, every tab, every modal, every wizard
 
 ### 5.5 — Visual Review
-Review every screenshot for: Wrong spacing, typography, alignment, elevation, borders, shadows, paddings, hover, focus, animations, transitions, colors, hierarchy, responsiveness, RTL, overflow, truncation, loading, empty states, accessibility, dark/light mode, icon/button sizes, table/card/modal/layout, sidebar, inspector, workspace, toolbar, navigation. Generate `docs/reviews/VISUAL_REVIEW.md`.
+Review every screenshot for each of these 27 checks. Generate `docs/reviews/VISUAL_REVIEW.md`:
+Wrong: spacing, typography, alignment, elevation, borders, shadows, paddings, hover, focus, animations, transitions, colors, hierarchy, responsiveness, RTL, overflow, truncation, loading, empty states, accessibility, dark mode, light mode, icon size, button sizes, table spacing, card spacing, modal layout, sidebar, inspector, workspace, toolbar, navigation.
 
 ### 5.6 — Enterprise Architecture Review
 Review: Layering, dependency direction, service separation, repository pattern, API consistency, runtime, BFF, caching, queue, events, background jobs, scheduler, offline, realtime, logging, monitoring, tracing, backup, restore, deployment, scaling.
