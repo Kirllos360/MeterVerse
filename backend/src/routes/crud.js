@@ -2,6 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate, requireRole } from "../middleware/auth.js"
+import { requireRole, auditLog } from "../middleware/security.js"
 import { softDelete, bulkUpdate, bulkDelete, importData, exportData, undoAction, toggleArchive, submitForApproval, approve, reject, getVersionHistory } from "../services/crud-service.js"
 
 const router = Router()
@@ -79,3 +80,4 @@ router.post("/:modelName/:id/reject", requireRole("super_admin"), async (req, re
 })
 
 export { router as crudRouter }
+

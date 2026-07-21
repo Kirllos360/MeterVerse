@@ -1,4 +1,5 @@
 import { authenticate, requireRole } from "../middleware/auth.js"
+import { requireRole, auditLog } from "../middleware/security.js"
 import { validatePassword } from "../middleware/security.js"
 import { prisma } from "../server.js"
 import { Router } from "express"
@@ -151,3 +152,4 @@ router.post("/validate-password", async (req, res, next) => {
 })
 
 export { router as securityRouter }
+

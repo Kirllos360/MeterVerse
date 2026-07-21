@@ -3,6 +3,7 @@ import { z } from "zod"
 import bcrypt from "bcryptjs"
 import { prisma } from "../server.js"
 import { authenticate, requireRole } from "../middleware/auth.js"
+import { requireRole, auditLog } from "../middleware/security.js"
 
 const router = Router()
 
@@ -714,3 +715,4 @@ router.get("/ai-diagnostics", requireRole("admin", "super_admin"), async (req, r
 })
 
 export { router as adminRouter }
+

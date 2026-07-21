@@ -2,6 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate, requireRole } from "../middleware/auth.js"
+import { requireRole, auditLog } from "../middleware/security.js"
 import { executePipeline, validateReading, calculateConsumption, applyTariff } from "../services/business-engine.js"
 
 const router = Router()
@@ -80,3 +81,4 @@ router.post("/simulate/invoice", requireRole("admin", "super_admin"), async (req
 })
 
 export { router as businessRouter }
+

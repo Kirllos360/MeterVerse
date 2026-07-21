@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate, requireRole } from "../middleware/auth.js"
+import { requireRole, auditLog } from "../middleware/security.js"
 
 const router = Router()
 
@@ -145,3 +146,4 @@ router.get("/analytics", requireRole("admin","super_admin"), async (req, res, ne
 })
 
 export { router as monitorRouter }
+
