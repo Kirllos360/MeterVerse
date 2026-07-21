@@ -1,26 +1,61 @@
 import { Router } from "express"
+import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
+import { requireRole, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
 
-router.get("/", async (req, res, next) => {
+const createSchema = z.object({
+  invoiceId: z.string().min(1),
+  amount: z.number().positive(),
+  method: z.string().default("cash"),
+  status: z.string().default("completed"),
+})
+
+router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10 } = req.query
+    const where = {}
     const [payments, total] = await Promise.all([
-      prisma.payment.findMany({ skip: (page - 1) * limit, take: Number(limit), orderBy: { paidAt: "desc" }, include: { invoice: { select: { id: true, number: true, amount: true } } } }),
-      prisma.payment.count(),
+      prisma.payment.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { paidAt: "desc" }, include: { invoice: { select: { id: true, number: true } } } }),
+      prisma.payment.count({ where }),
     ])
     res.json({ payments, total, page: Number(page), limit: Number(limit) })
   } catch (err) { next(err) }
 })
 
-router.post("/", async (req, res, next) => {
+router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
   try {
-    const payment = await prisma.payment.create({ data: req.body })
-    await prisma.invoice.update({ where: { id: req.body.invoiceId }, data: { status: "paid", paidAt: new Date() } })
+    const payment = await prisma.payment.findUnique({ where: { id: req.params.id }, include: { invoice: true } })
+    if (!payment) return res.status(404).json({ error: "Payment not found" })
+    auditLog(req, "payment.viewed", { paymentId: req.params.id })
+    res.json({ payment })
+  } catch (err) { next(err) }
+})
+
+router.post("/", requireRole("admin", "billing"), async (req, res, next) => {
+  try {
+    const data = createSchema.parse(req.body)
+    const payment = await prisma.$transaction(async (tx) => {
+      const p = await tx.payment.create({ data })
+      await tx.invoice.update({ where: { id: data.invoiceId }, data: { status: "paid" } })
+      return p
+    })
+    auditLog(req, "payment.created", { paymentId: payment.id, invoiceId: data.invoiceId })
     res.status(201).json({ payment })
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
+})
+
+router.delete("/:id", requireRole("admin"), async (req, res, next) => {
+  try {
+    await prisma.payment.delete({ where: { id: req.params.id } })
+    auditLog(req, "payment.deleted", { paymentId: req.params.id })
+    res.json({ success: true })
   } catch (err) { next(err) }
 })
 
