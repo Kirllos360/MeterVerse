@@ -75,9 +75,88 @@ Every action MUST follow:
 
 Every task must trigger a complete enterprise review of the affected domain.
 
+## Rule 5 — Enterprise QA Pipeline (Mandatory After EVERY Implementation)
+
+After EVERY implementation, the following MUST be completed before replying to the user.
+
+### 5.1 — Multi-Layer Update
+Every implementation must update ALL layers it touches:
+- Frontend, Backend, BFF, Prisma, Database, Services, Types, Validation, RBAC, Audit, Notifications, Reports, Documentation, AI Memory, Screenshots, Tests
+
+### 5.2 — Repository Scans (automatic)
+- Dead code scan, Duplicate code scan, Architecture scan, Frontend scan, Backend scan, Database scan, Security scan, Accessibility scan, Performance scan, Bundle scan, Dependency scan
+
+### 5.3 — Memory & Doc Update
+- Update PROJECT_STATE.md, CURRENT_SPRINT.md, CHAT_HISTORY.md with sprint results
+
+### 5.4 — Screenshot Pipeline (regenerate ALL)
+Capture every: Desktop/Tablet/Mobile, Dark/Light, RTL/LTR, Empty/Loading/Error states, Dialogs/Drawers/Context menus/Forms/Tables/Charts/Dashboards, Admin/User pages, Every page/sub-page/tab/modal/wizard. Store under `docs/screenshots/`.
+
+### 5.5 — Visual Review
+Review every screenshot for: Wrong spacing, typography, alignment, elevation, borders, shadows, paddings, hover, focus, animations, transitions, colors, hierarchy, responsiveness, RTL, overflow, truncation, loading, empty states, accessibility, dark/light mode, icon/button sizes, table/card/modal/layout, sidebar, inspector, workspace, toolbar, navigation. Generate `docs/reviews/VISUAL_REVIEW.md`.
+
+### 5.6 — Enterprise Architecture Review
+Review: Layering, dependency direction, service separation, repository pattern, API consistency, runtime, BFF, caching, queue, events, background jobs, scheduler, offline, realtime, logging, monitoring, tracing, backup, restore, deployment, scaling.
+
+### 5.7 — Database Review
+Review: Entities, indexes, relations, normalization, history, soft delete, audit, versioning, performance, constraints, naming, scalability.
+
+### 5.8 — Frontend Review
+Review: Pages, components, tables, forms, dialogs, charts, navigation, workspace, inspector, sidebar, toolbar, search, command palette, notifications, empty states, loading, skeletons, error handling, animations, theme, accessibility.
+
+### 5.9 — Backend Review
+Review: Routes, controllers, validation, permissions, audit, logging, errors, transactions, pagination, filtering, sorting, exports, imports, bulk actions, rate limiting, security.
+
+### 5.10 — Business Review (Always Ask)
+- What business capability is still missing?
+- What workflow is incomplete?
+- What enterprise module/report/dashboard/automation/integration is missing?
+- What user roles/permissions/notifications/KPIs/AI capabilities are missing?
+
+### 5.11 — End-of-Task Deliverables
+Before replying, produce:
+1. Repository Summary
+2. Files Changed
+3. Architecture Impact
+4. Business Impact
+5. Technical Debt
+6. Remaining Gaps
+7. Risks
+8. Recommendations
+9. Next Sprint
+10. AI Memory Updates
+11. Screenshots Updated
+12. Reports Updated
+13. Tests
+14. Build
+15. Git Commit
+16. Git Push
+17. Questions for ChatGPT
+
+### 5.12 — ChatGPT Handoff (end of every sprint)
+Generate `docs/reviews/CHATGPT_NEXT_REVIEW.md` containing:
+Repository state, Architecture/Database/Frontend/Backend/API/Business logic changes, Screenshots, Known issues, Regression risks, Missing capabilities, Questions for ChatGPT, Recommended next sprint, Recommended architecture/UX/business improvements.
+
+### 5.13 — DeepSeek Prompt Template
+After every sprint, generate this prompt for DeepSeek:
+```
+ChatGPT Review Request
+Phase Completed:
+Repository: https://github.com/Kirllos360/MeterVerse
+Branch: clean-main
+Commit: [HASH]
+
+Please review the latest MeterVerse repository.
+Read .ai/memory/*, docs/reviews/*, docs/screenshots/*, CHANGELOG.md, ROADMAP.md, PRD.md, latest commits.
+Perform full enterprise review: business domain completeness, architecture quality, database design, API consistency, frontend UX, backend quality, design system, enterprise workflows, security, performance, accessibility, missing pages/modules/entities/relationships/reports/dashboards/automations/integrations, technical debt, regression risks.
+Design next enterprise sprint with priorities, implementation strategy, acceptance criteria, and risks.
+Do not focus only on the requested feature. Review the entire repository as an Enterprise Architect.
+```
+
 ## Amendment Log
 
 | Date | Rule | Change |
 |------|------|--------|
 | 2026-07-20 | 1-3 | Initial — Permanent Operating DNA established |
 | 2026-07-21 | 4 | Enterprise Engineering Protocol — Lead Engineer role |
+| 2026-07-21 | 5 | Enterprise QA Pipeline — 13-section mandatory post-implementation process |
