@@ -91,7 +91,7 @@ export default function AdminLayout() {
     "--toolbar-text": isLight ? "rgba(0,0,0,0.85)" : "rgba(255,255,255,0.85)",
     "--toolbar-muted": isLight ? "rgba(0,0,0,0.4)" : "rgba(255,255,255,0.35)",
     "--toolbar-surface": isLight ? "rgba(0,0,0,0.04)" : "rgba(255,255,255,0.05)",
-    "--toolbar-blur": isLight ? "1px" : "12px",
+    "--toolbar-blur": isLight ? "0.6px" : "12px",
   } as React.CSSProperties
 
   return (
