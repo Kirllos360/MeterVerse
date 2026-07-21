@@ -15,7 +15,8 @@ const MODE_ICONS: Record<string, string> = { light: "☀️", dark: "🌙", auto
 
 export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark }: any) {
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const lang = "en"
+  const [lang, setLang] = useState("en")
+  const toggleLang = () => setLang(l => l === "en" ? "ar" : "en")
 
   return (
     <div className="flex items-center h-14 px-4 gap-3 font-semibold tracking-wide" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)" }}>
@@ -63,7 +64,7 @@ export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleI
           <span className="text-sm">{MODE_ICONS[themeMode]}</span>
         </TbBtn>
 
-        <TbBtn label="Language" onClick={() => {}}>
+        <TbBtn label={`Language: ${lang.toUpperCase()}`} onClick={toggleLang}>
           <span className="text-xs font-bold">{lang.toUpperCase()}</span>
         </TbBtn>
 
@@ -127,7 +128,7 @@ export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleI
 
 export function AdminStatusBar({ inspectorOpen, onToggleInspector }: any) {
   return (
-    <div className="flex items-center h-7 px-4 gap-2 text-[11px]" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderTop: "1px solid var(--toolbar-border)", color: "var(--toolbar-muted)" }}>
+    <div className="flex items-center h-14 px-4 gap-2 text-xs" style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", backgroundColor: "var(--toolbar-bg)", borderTop: "1px solid var(--toolbar-border)", color: "var(--toolbar-muted)" }}>
       <span style={{ color: "var(--admin-accent)" }}>●</span>
       <span>All Systems Operational</span>
       <span style={{ color: "var(--toolbar-border)" }}>|</span>
