@@ -11,7 +11,9 @@ function TbBtn({ children, label, onClick, isActive }: { children: React.ReactNo
   )
 }
 
-export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleInspector, darkMode, onToggleDarkMode }: any) {
+const MODE_ICONS: Record<string, string> = { light: "☀️", dark: "🌙", auto: "⚙️" }
+
+export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark }: any) {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const lang = "en"
 
@@ -57,8 +59,8 @@ export function AdminToolbar({ activePage, viewMode, onViewModeChange, onToggleI
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
         </TbBtn>
 
-        <TbBtn label="Theme" onClick={() => onToggleDarkMode?.()}>
-          <span className="text-sm">{darkMode ? "🌙" : "☀️"}</span>
+        <TbBtn label={`Theme: ${themeMode}${themeMode === "auto" ? ` (${effectiveDark ? "dark" : "light"})` : ""}`} onClick={() => onCycleTheme?.()}>
+          <span className="text-sm">{MODE_ICONS[themeMode]}</span>
         </TbBtn>
 
         <TbBtn label="Language" onClick={() => {}}>

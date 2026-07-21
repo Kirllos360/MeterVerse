@@ -44,7 +44,10 @@ export default function AdminLayout() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [viewMode, setViewMode] = useState<"list" | "grid">("list")
-  const [darkMode, setDarkMode] = useState(true)
+  const [themeMode, setThemeMode] = useState<"light" | "dark" | "auto">("auto")
+  const hour = new Date().getHours()
+  const effectiveDark = themeMode === "auto" ? !(hour >= 6 && hour < 18) : themeMode === "dark"
+  const cycleTheme = () => setThemeMode(t => t === "auto" ? "light" : t === "light" ? "dark" : "auto")
   const [openTabs, setOpenTabs] = useState<string[]>(["home"])
 
   useEffect(() => {
@@ -58,11 +61,11 @@ export default function AdminLayout() {
     <div style={{
       "--brand": "var(--admin-accent)",
       "--brand-rgb": "var(--semantic-error-rgb)",
-      "--toolbar-bg": darkMode ? "rgba(10,10,10,0.7)" : "rgba(255,255,255,0.85)",
-      "--toolbar-border": darkMode ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.08)",
-      "--toolbar-text": darkMode ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.85)",
-      "--toolbar-muted": darkMode ? "rgba(255,255,255,0.35)" : "rgba(0,0,0,0.4)",
-      "--toolbar-surface": darkMode ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)",
+      "--toolbar-bg": effectiveDark ? "rgba(10,10,10,0.7)" : "rgba(255,255,255,0.85)",
+      "--toolbar-border": effectiveDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.08)",
+      "--toolbar-text": effectiveDark ? "rgba(255,255,255,0.85)" : "rgba(0,0,0,0.85)",
+      "--toolbar-muted": effectiveDark ? "rgba(255,255,255,0.35)" : "rgba(0,0,0,0.4)",
+      "--toolbar-surface": effectiveDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)",
     } as React.CSSProperties}>
       <WorkspaceLayout
         sidebarContent={
@@ -97,7 +100,7 @@ export default function AdminLayout() {
             </motion.button>
           </div>
         }
-        toolbarContent={<AdminToolbar activePage={active} viewMode={viewMode} onViewModeChange={setViewMode} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} darkMode={darkMode} onToggleDarkMode={() => setDarkMode(!darkMode)} />}
+        toolbarContent={<AdminToolbar activePage={active} viewMode={viewMode} onViewModeChange={setViewMode} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} themeMode={themeMode} onCycleTheme={cycleTheme} effectiveDark={effectiveDark} />}
         tabBar={<WorkspaceTabs />}
         statusBar={<AdminStatusBar inspectorOpen={inspectorOpen} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} />}
         inspectorContent={inspectorOpen ? <InspectorPanel /> : undefined}
