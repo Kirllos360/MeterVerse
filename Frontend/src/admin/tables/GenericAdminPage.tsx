@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import type React from "react"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -16,11 +17,13 @@ import type { PageConfig, EntityAction, ColumnConfig } from "./page-config"
 
 interface GenericAdminPageProps {
   config: PageConfig
+  initialData?: any[]
+  renderCustom?: (data: any[], filtered: any[], setData: (d: any[]) => void) => React.ReactNode
 }
 
-export function GenericAdminPage({ config }: GenericAdminPageProps) {
-  const [data, setData] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+export function GenericAdminPage({ config, initialData, renderCustom }: GenericAdminPageProps) {
+  const [data, setData] = useState<any[]>(initialData || [])
+  const [loading, setLoading] = useState(!initialData)
   const [search, setSearch] = useState("")
   const [tab, setTab] = useState("all")
   const [sheetOpen, setSheetOpen] = useState(false)
@@ -29,6 +32,7 @@ export function GenericAdminPage({ config }: GenericAdminPageProps) {
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null)
 
   useEffect(() => {
+    if (initialData || !config.apiEndpoint) { setLoading(false); return }
     setLoading(true)
     fetch(config.apiEndpoint)
       .then(r => r.json())
@@ -201,64 +205,66 @@ export function GenericAdminPage({ config }: GenericAdminPageProps) {
         onConfirm={() => { setData(p => p.filter(r => r.id !== deleteTarget?.id)); setDeleteOpen(false); setDeleteTarget(null) }}
         loading={false} />
 
-      {/* Table */}
-      <Card>
-        <div className="rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                {config.columns.map(col => (
-                  <TableHead key={col.id} style={col.width ? { width: col.width } : undefined}>{col.header}</TableHead>
-                ))}
-                <TableHead className="w-[50px]" />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filtered.length === 0 ? (
+      {/* Content: custom render or table */}
+      {renderCustom ? renderCustom(data, filtered, setData) : (
+        <Card>
+          <div className="rounded-md border">
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={config.columns.length + 1} className="h-24 text-center text-muted-foreground">No records found.</TableCell>
-                </TableRow>
-              ) : filtered.map((row) => (
-                <TableRow key={row.id || row[config.rowKey || "id"]} className="hover:bg-muted/50 transition-colors">
                   {config.columns.map(col => (
-                    <TableCell key={col.id}>{renderCell(row, col as ColumnConfig)}</TableCell>
+                    <TableHead key={col.id} style={col.width ? { width: col.width } : undefined}>{col.header}</TableHead>
                   ))}
-                  <TableCell>
-                    <DropdownMenu modal={false}>
-                      <DropdownMenuTrigger render={<Button variant="ghost" className="h-8 w-8 p-0" />}>
-                        <span className="sr-only">Open menu</span>
-                        <Icons.ellipsis className="h-4 w-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuGroup>
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        </DropdownMenuGroup>
-                        <DropdownMenuItem onClick={() => handleAction("view", row)}><Icons.eyeOff className="mr-2 h-4 w-4" /> View</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("edit", row)}><Icons.edit className="mr-2 h-4 w-4" /> Edit</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("activate", row)} disabled={row.status === "active"}>
-                          <Icons.circleCheck className="mr-2 h-4 w-4" /> Activate
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("deactivate", row)} disabled={row.status === "inactive"}>
-                          <Icons.circleX className="mr-2 h-4 w-4" /> Deactivate
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("maintain", row)} disabled={row.status === "maintenance"}>
-                          <Icons.settings className="mr-2 h-4 w-4" /> Maintenance
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("terminate", row)} disabled={row.status === "terminated"}>
-                          <Icons.trash className="mr-2 h-4 w-4" /> Terminate
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction("delete", row)} className="text-destructive">
-                          <Icons.trash className="mr-2 h-4 w-4" /> Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
+                  <TableHead className="w-[50px]" />
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      </Card>
+              </TableHeader>
+              <TableBody>
+                {filtered.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={config.columns.length + 1} className="h-24 text-center text-muted-foreground">No records found.</TableCell>
+                  </TableRow>
+                ) : filtered.map((row) => (
+                  <TableRow key={row.id || row[config.rowKey || "id"]} className="hover:bg-muted/50 transition-colors">
+                    {config.columns.map(col => (
+                      <TableCell key={col.id}>{renderCell(row, col as ColumnConfig)}</TableCell>
+                    ))}
+                    <TableCell>
+                      <DropdownMenu modal={false}>
+                        <DropdownMenuTrigger render={<Button variant="ghost" className="h-8 w-8 p-0" />}>
+                          <span className="sr-only">Open menu</span>
+                          <Icons.ellipsis className="h-4 w-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuGroup>
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                          </DropdownMenuGroup>
+                          <DropdownMenuItem onClick={() => handleAction("view", row)}><Icons.eyeOff className="mr-2 h-4 w-4" /> View</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleAction("edit", row)}><Icons.edit className="mr-2 h-4 w-4" /> Edit</DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleAction("activate", row)} disabled={row.status === "active"}>
+                            <Icons.circleCheck className="mr-2 h-4 w-4" /> Activate
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleAction("deactivate", row)} disabled={row.status === "inactive"}>
+                            <Icons.circleX className="mr-2 h-4 w-4" /> Deactivate
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleAction("maintain", row)} disabled={row.status === "maintenance"}>
+                            <Icons.settings className="mr-2 h-4 w-4" /> Maintenance
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleAction("terminate", row)} disabled={row.status === "terminated"}>
+                            <Icons.trash className="mr-2 h-4 w-4" /> Terminate
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleAction("delete", row)} className="text-destructive">
+                            <Icons.trash className="mr-2 h-4 w-4" /> Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </Card>
+      )}
     </div>
   )
 }
