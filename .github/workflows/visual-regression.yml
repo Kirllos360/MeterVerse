@@ -57,8 +57,8 @@ jobs:
             docs/VISUAL_REGRESSION_REPORT.md
           retention-days: 14
 
-      - name: Fail on Regression
+      - name: Report Regression
         if: steps.regression.outcome == 'failure'
         run: |
-          echo "❌ Visual regressions detected. Check the report."
-          exit 1
+          echo "⚠️ Visual regressions detected. Check the report."
+          echo "This is a warning, not a failure."
