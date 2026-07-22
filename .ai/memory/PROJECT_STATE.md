@@ -30,16 +30,18 @@
 
 | Metric | Value |
 |--------|-------|
-| Backend route files | 10 |
-| API endpoints | 128 |
-| Prisma models | 32 |
-| Seed entities | 62 |
-| Admin pages | 41 directories |
+| Backend route files | 16 |
+| API endpoints | ~178 |
+| Prisma models | 78 |
+| Admin pages | 53 directories |
+| Dashboard pages | 17 |
+| BFF route files | 119 |
 | Middleware files | 3 (auth, security, errorHandler) |
 | Dockerfiles | 2 (backend + frontend multi-stage) |
 | CI/CD jobs | 4 (build, frontend, security, docker) |
 | Deployment scripts | 3 (Deploy, DisasterRecovery, MainControl) |
-| Documentation reports | 9 in docs/reviews/ |
+| Documentation reports | 55 in docs/reviews/ |
+| Screenshots | 267+ |
 | Security capabilities | 12 |
 | Self-healing tools | 4 in _tools/ |
 
@@ -51,7 +53,7 @@
 | Issue | Location | Status |
 |-------|----------|--------|
 | No unit tests for backend routes | `backend/` | Vitest available, no tests written |
-| No Playwright e2e tests | `e2e/` | Not yet adopted |
+| page-configs.ts too large (44KB) | `page-configs.ts` | Causes dev server 1.79GB memory, needs splitting |
 | Database requires Docker | `docker-compose.yml` | PostgreSQL not auto-started |
 | Admin portal visual language | `admin/layout.tsx` | Dynamic Island deployed, --admin-* tokens exist |
 
@@ -61,6 +63,7 @@
 | No keyboard shortcuts documented | Various | Unresolved |
 | Some animation durations inconsistent | Various | Low priority |
 | Placeholder content in some enterprise apps | `enterprise-apps/*` | Unresolved |
+| Documentation counts outdated in older reports | `docs/reviews/*` | Phase 38 reports claim 32 models (actual: 78) |
 
 ---
 
