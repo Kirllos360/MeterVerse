@@ -727,9 +727,9 @@ export const pageConfigs: Record<string, PageConfig> = {
     id: "service-connections", title: "Service Connections", description: "Meter-to-customer assignments and service points",
     apiEndpoint: "/api/meterverse/meter-assignments",
     statusField,
-    transform: (d) => (d.assignments || []).map((a) => ({
-      id: a.id, meter: a.meter?.serial || a.meterId?.substring(0,8) || "—",
-      customer: a.customer?.name || a.customerId?.substring(0,8) || "—",
+    transform: (d) => (d.assignments || []).map((a: any) => ({
+      id: a.id, meter: a.meter?.serial || a.meterId?.substring(0,8) || "ï¿½",
+      customer: a.customer?.name || a.customerId?.substring(0,8) || "ï¿½",
       status: a.status || "active", startDate: a.startDate || "", endDate: a.endDate || "",
       createdAt: a.createdAt || "",
     })),
@@ -738,7 +738,7 @@ export const pageConfigs: Record<string, PageConfig> = {
       { id: "customer", header: "Customer", accessor: r => r.customer, width: 200 },
       { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
       { id: "startDate", header: "Started", accessor: r => r.startDate, type: "date", width: 120 },
-      { id: "endDate", header: "Ended", accessor: r => r.endDate || "—", type: "date", width: 120 },
+      { id: "endDate", header: "Ended", accessor: r => r.endDate || "ï¿½", type: "date", width: 120 },
     ],
     fields: [
       { name: "meterId", label: "Meter ID", type: "text", required: true },
