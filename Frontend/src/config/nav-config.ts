@@ -61,7 +61,15 @@ export const navGroups: NavGroup[] = [
         access: { requireOrg: true }
       },
       {
-        title: 'Customers',
+        title: 'Customers'
+    {
+        title: 'Meters',
+        url: '/dashboard/meters',
+        icon: 'box',
+        shortcut: ['m', 'm'],
+        isActive: false,
+        items: []
+      },,
         url: '/dashboard/customers',
         icon: 'teams',
         shortcut: ['c', 'c'],
@@ -203,4 +211,5 @@ export const navGroups: NavGroup[] = [
     ]
   }
 ];
+
 
