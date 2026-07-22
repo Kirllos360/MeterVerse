@@ -69,4 +69,45 @@ router.delete("/:id", requireRole("admin"), async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
+router.post("/generate", requireRole("admin", "billing"), async (req, res, next) => {
+  try {
+    const { customerId, periodStart, periodEnd } = req.body
+    if (!customerId || !periodStart || !periodEnd) return res.status(400).json({ error: "customerId, periodStart, periodEnd required" })
+
+    // Find customer's meters
+    const assignments = await prisma.meterAssignment.findMany({ where: { customerId, status: "active" }, include: { meter: { include: { readings: { orderBy: { timestamp: "desc" }, take: 2 } } } } })
+    if (assignments.length === 0) return res.status(400).json({ error: "Customer has no active meters" })
+
+    // Find tariff for customer (use first active tariff)
+    const tariff = await prisma.tariff.findFirst({ where: { status: "active" }, include: { rates: true } })
+    if (!tariff) return res.status(400).json({ error: "No active tariff found" })
+
+    // Generate invoice
+    const invoiceNumber = `INV-${Date.now()}`
+    let totalAmount = 0
+    const items: any[] = []
+
+    for (const a of assignments) {
+      const readings = a.meter.readings
+      if (readings.length >= 2) {
+        const consumption = readings[0].value - readings[1].value
+        const rate = tariff.rates?.[0]?.rate || 1
+        const amount = Math.abs(consumption) * rate
+        totalAmount += amount
+        items.push({ type: "charge", description: `Consumption (${a.meter.serial}): ${Math.abs(consumption)} ${readings[0].unit}`, quantity: Math.abs(consumption), unitPrice: rate, amount, total: amount })
+      }
+    }
+
+    const invoice = await prisma.invoice.create({ data: { number: invoiceNumber, customerId, amount: totalAmount, status: "pending", dueDate: new Date(Date.now() + 30 * 86400000) } })
+
+    if (items.length > 0) {
+      await prisma.invoiceItem.createMany({ data: items.map(i => ({ ...i, invoiceId: invoice.id })) })
+    }
+
+    auditLog(req, "invoice.generated", { invoiceId: invoice.id, customerId, amount: totalAmount })
+    prisma.notification.create({ data: { type: "invoice_generated", title: "Invoice Generated", body: `Invoice ${invoiceNumber} for EGP ${totalAmount.toFixed(2)}`, recipientId: customerId } }).catch(() => {})
+    res.status(201).json({ invoice, items })
+  } catch (err) { next(err) }
+})
+
 export { router as invoicesRouter }
