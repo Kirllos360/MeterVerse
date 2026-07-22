@@ -43,6 +43,7 @@ router.post("/", requireRole("admin", "operator"), async (req, res, next) => {
     const data = createSchema.parse(req.body)
     const customer = await prisma.customer.create({ data })
     auditLog(req, 'customer.created', { customerId: customer.id })
+    prisma.notification.create({ data: { type: "customer_welcome", title: "New Customer", body: `Customer ${customer.name} was created`, recipientEmail: customer.email || undefined } }).catch(() => {})
     res.status(201).json({ customer })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -67,6 +68,31 @@ router.delete("/:id", requireRole("admin"), async (req, res, next) => {
     await prisma.customer.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, 'customer.archived', { customerId: req.params.id })
     res.json({ success: true })
+  } catch (err) { next(err) }
+})
+
+router.get("/export", requireRole("admin", "operator"), async (req, res, next) => {
+  try {
+    const customers = await prisma.customer.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const header = "id,name,email,phone,status,area,createdAt"
+    const rows = customers.map(c => `${c.id},${c.name || ""},${c.email || ""},${c.phone || ""},${c.status || ""},${c.area || ""},${c.createdAt?.toISOString() || ""}`)
+    res.setHeader("Content-Type", "text/csv")
+    res.setHeader("Content-Disposition", "attachment; filename=customers.csv")
+    res.send([header, ...rows].join("\n"))
+    auditLog(req, "customer.export", { count: customers.length })
+  } catch (err) { next(err) }
+})
+
+router.get("/stats", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+  try {
+    const [total, active, inactive, maintenance, terminated] = await Promise.all([
+      prisma.customer.count({ where: { archivedAt: null } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "active" } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "inactive" } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "maintenance" } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "terminated" } }),
+    ])
+    res.json({ stats: { total, active, inactive, maintenance, terminated } })
   } catch (err) { next(err) }
 })
 
