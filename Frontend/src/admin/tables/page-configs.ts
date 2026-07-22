@@ -723,7 +723,31 @@ export const pageConfigs: Record<string, PageConfig> = {
     ]),
     statsCards: [sc("Total", Icons.billing, r=>r.length), sc("Completed", Icons.circleCheck, r=>r.filter(x=>x.status==="completed"||x.status==="active").length), sc("Failed", Icons.circleX, r=>r.filter(x=>x.status==="failed"||x.status==="terminated").length)],
   },
-  domains: {
+  "service-connections": {
+    id: "service-connections", title: "Service Connections", description: "Meter-to-customer assignments and service points",
+    apiEndpoint: "/api/meterverse/meter-assignments",
+    statusField,
+    transform: (d) => (d.assignments || []).map((a) => ({
+      id: a.id, meter: a.meter?.serial || a.meterId?.substring(0,8) || "—",
+      customer: a.customer?.name || a.customerId?.substring(0,8) || "—",
+      status: a.status || "active", startDate: a.startDate || "", endDate: a.endDate || "",
+      createdAt: a.createdAt || "",
+    })),
+    columns: [
+      { id: "meter", header: "Meter", accessor: r => r.meter, width: 180 },
+      { id: "customer", header: "Customer", accessor: r => r.customer, width: 200 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+      { id: "startDate", header: "Started", accessor: r => r.startDate, type: "date", width: 120 },
+      { id: "endDate", header: "Ended", accessor: r => r.endDate || "—", type: "date", width: 120 },
+    ],
+    fields: [
+      { name: "meterId", label: "Meter ID", type: "text", required: true },
+      { name: "customerId", label: "Customer ID", type: "text", required: true },
+      { name: "startDate", label: "Start Date", type: "date" },
+      { name: "endDate", label: "End Date", type: "date" },
+    ],
+    statsCards: [sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length), sc("Ended", Icons.circleX, r=>r.filter(x=>x.status==="ended").length)],
+  },  domains: {
     id: "domains", title: "Domain Data", description: "Browse all domain entities",
     apiEndpoint: "/api/domain/contracts",
     statusField,
@@ -738,3 +762,4 @@ export const pageConfigs: Record<string, PageConfig> = {
     fields: defFields([]), statsCards: [],
   },
 }
+

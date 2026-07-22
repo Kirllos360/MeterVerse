@@ -18,6 +18,7 @@ import { businessRouter } from "./routes/business.js"
 import { crudRouter } from "./routes/crud.js"
 import { monitorRouter } from "./routes/monitor.js"
 import { aiRouter } from "./routes/ai.js"
+import { meterAssignmentRouter } from "./routes/meter-assignments.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -95,6 +96,7 @@ app.use("/api/crud", crudRouter)
 app.use("/api/monitor", monitorRouter)
 app.use("/api/ai", aiRouter)
 app.use("/api/security", securityRouter)
+app.use("/api/meter-assignments", meterAssignmentRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 

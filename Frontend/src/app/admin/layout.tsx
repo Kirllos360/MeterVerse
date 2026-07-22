@@ -15,7 +15,8 @@ const adminNav = [
   { id: "audit", label: "Audit", labelAr: "التدقيق", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" },
   { id: "customers", label: "Customers", labelAr: "العملاء", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
   { id: "meters", label: "Meters", labelAr: "العدادات", icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" },
-  { id: "readings", label: "Readings", labelAr: "القراءات", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" },
+  { id: "readings", label: "Readings", labelAr: "القراءات", icon: "M9 12l2 2 4-4M7.5 21h9M7.5 21a2.5 2.5 0 01-2.5-2.5V5A2.5 2.5 0 017.5 2.5h9A2.5 2.5 0 0119 5v13.5a2.5 2.5 0 01-2.5 2.5" }
+  { id: 'service-connections', label: 'Service Connections', labelAr: '??????? ??????', icon: 'M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z' },,
   { id: "invoices", label: "Invoices", labelAr: "الفواتير", icon: "M4 7v10c2 0 3 1 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6" },
   { id: "payments", label: "Payments", labelAr: "المدفوعات", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
   { id: "settings", label: "Settings", labelAr: "الإعدادات", icon: "M12 15a3 3 0 100-6 3 3 0 000 6z" },
@@ -141,3 +142,4 @@ export default function AdminLayout() {
     </div>
   )
 }
+
