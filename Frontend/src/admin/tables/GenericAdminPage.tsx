@@ -78,7 +78,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
 
   const handleAction = (action: EntityAction, row?: any) => {
     switch (action) {
-      case "view": break
+      case "view": window.open(`/${config.id}/${row.id}`, "_self"); break
       case "add": setEditTarget(null); setSheetOpen(true); break
       case "edit": setEditTarget(row); setSheetOpen(true); break
       case "delete": setDeleteTarget(row); setDeleteOpen(true); break
@@ -399,3 +399,4 @@ const defaultTabsWithStatus = [
   { value: "maintenance", label: "Maintenance", filter: (r: any) => r.status === "maintenance" },
   { value: "terminated", label: "Terminated", filter: (r: any) => r.status === "terminated" },
 ]
+
