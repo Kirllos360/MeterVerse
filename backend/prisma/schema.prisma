@@ -8,30 +8,30 @@ datasource db {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  email        String        @unique
-  password     String
-  name         String
-  role         String        @default("viewer")
-  avatar       String?
-  phone        String?
-  status       String        @default("active")
+  id            String       @id @default(uuid())
+  email         String       @unique
+  password      String
+  name          String
+  role          String       @default("viewer")
+  avatar        String?
+  phone         String?
+  status        String       @default("active")
   emailVerified Boolean      @default(false)
-  area         String        @default("")
-  project      String        @default("")
-  tenant       String        @default("")
-  language     String        @default("en")
-  theme        String        @default("adaptive")
-  mfaEnabled   Boolean       @default(false)
-  lastActiveAt DateTime?
-  lastLoginAt  DateTime?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  sessions     Session[]
-  apiKeys      ApiKey[]
-  auditEntries AuditEntry[]
-  roleId       String?
-  roleRel      Role?         @relation(fields: [roleId], references: [id])
+  area          String       @default("")
+  project       String       @default("")
+  tenant        String       @default("")
+  language      String       @default("en")
+  theme         String       @default("adaptive")
+  mfaEnabled    Boolean      @default(false)
+  lastActiveAt  DateTime?
+  lastLoginAt   DateTime?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  apiKeys       ApiKey[]
+  auditEntries  AuditEntry[]
+  roleId        String?
+  roleRel       Role?        @relation(fields: [roleId], references: [id])
 }
 
 model Role {
@@ -59,22 +59,23 @@ model PermissionOnRole {
   permissionId String
   role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
   @@id([roleId, permissionId])
 }
 
 model AuditEntry {
-  id        String   @id @default(uuid())
-  timestamp DateTime @default(now())
-  actor     String?
-  actorId   String?
-  action    String
-  resource  String?
+  id         String   @id @default(uuid())
+  timestamp  DateTime @default(now())
+  actor      String?
+  actorId    String?
+  action     String
+  resource   String?
   resourceId String?
-  details   String?
-  ip        String?
-  userAgent String?
-  status    String   @default("success")
-  user      User?    @relation(fields: [actorId], references: [id])
+  details    String?
+  ip         String?
+  userAgent  String?
+  status     String   @default("success")
+  user       User?    @relation(fields: [actorId], references: [id])
 }
 
 model SystemSetting {
@@ -98,32 +99,32 @@ model FeatureFlag {
 }
 
 model ApiKey {
-  id        String   @id @default(uuid())
-  name      String
-  key       String   @unique
-  prefix    String
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  permissions String  @default("read")
-  lastUsedAt DateTime?
-  expiresAt DateTime?
-  active    Boolean  @default(true)
-  createdAt DateTime @default(now())
+  id          String    @id @default(uuid())
+  name        String
+  key         String    @unique
+  prefix      String
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  permissions String    @default("read")
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
 }
 
 model Session {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  token     String   @unique
-  ip        String?
-  userAgent String?
-  device    String?
-  location  String?
-  isActive  Boolean  @default(true)
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String   @unique
+  ip         String?
+  userAgent  String?
+  device     String?
+  location   String?
+  isActive   Boolean  @default(true)
   lastUsedAt DateTime @default(now())
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
 }
 
 model Organization {
@@ -152,102 +153,102 @@ model Project {
 }
 
 model Webhook {
-  id        String   @id @default(uuid())
-  name      String
-  url       String
-  events    String   @default("[]")
-  secret    String?
-  active    Boolean  @default(true)
+  id              String    @id @default(uuid())
+  name            String
+  url             String
+  events          String    @default("[]")
+  secret          String?
+  active          Boolean   @default(true)
   lastTriggeredAt DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model NotificationTemplate {
-  id      String @id @default(uuid())
-  key     String @unique
-  name    String
-  type    String @default("email")
-  subject String?
-  body    String
-  variables String @default("[]")
+  id        String   @id @default(uuid())
+  key       String   @unique
+  name      String
+  type      String   @default("email")
+  subject   String?
+  body      String
+  variables String   @default("[]")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Backup {
-  id        String   @id @default(uuid())
-  name      String
-  type      String   @default("full")
-  size      String?
-  status    String   @default("pending")
-  path      String?
-  startedAt DateTime?
+  id          String    @id @default(uuid())
+  name        String
+  type        String    @default("full")
+  size        String?
+  status      String    @default("pending")
+  path        String?
+  startedAt   DateTime?
   completedAt DateTime?
-  createdAt DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
 
 model CacheEntry {
-  id        String   @id @default(uuid())
-  key       String   @unique
+  id        String    @id @default(uuid())
+  key       String    @unique
   value     String
   ttl       Int?
-  hits      Int      @default(0)
-  createdAt DateTime @default(now())
+  hits      Int       @default(0)
+  createdAt DateTime  @default(now())
   expiresAt DateTime?
 }
 
 model QueueJob {
-  id        String   @id @default(uuid())
-  type      String
-  payload   String   @default("{}")
-  status    String   @default("pending")
-  priority  Int      @default(0)
-  attempts  Int      @default(0)
-  maxAttempts Int    @default(3)
-  error     String?
+  id          String    @id @default(uuid())
+  type        String
+  payload     String    @default("{}")
+  status      String    @default("pending")
+  priority    Int       @default(0)
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(3)
+  error       String?
   scheduledAt DateTime?
-  startedAt DateTime?
+  startedAt   DateTime?
   completedAt DateTime?
-  createdAt DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
 
 model ScheduledTask {
-  id           String   @id @default(uuid())
-  name         String
-  description  String?
-  cron         String
-  taskType     String
-  config       String   @default("{}")
-  active       Boolean  @default(true)
-  lastRunAt    DateTime?
-  nextRunAt    DateTime?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  cron        String
+  taskType    String
+  config      String    @default("{}")
+  active      Boolean   @default(true)
+  lastRunAt   DateTime?
+  nextRunAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model StoredFile {
-  id          String   @id @default(uuid())
-  name        String
+  id           String   @id @default(uuid())
+  name         String
   originalName String
-  mimeType    String
-  size        Int
-  path        String
-  category    String   @default("general")
-  uploadedBy  String?
-  createdAt   DateTime @default(now())
+  mimeType     String
+  size         Int
+  path         String
+  category     String   @default("general")
+  uploadedBy   String?
+  createdAt    DateTime @default(now())
 }
 
 model License {
-  id          String   @id @default(uuid())
-  key         String   @unique
-  type        String   @default("enterprise")
-  status      String   @default("active")
-  seats       Int      @default(1)
+  id          String    @id @default(uuid())
+  key         String    @unique
+  type        String    @default("enterprise")
+  status      String    @default("active")
+  seats       Int       @default(1)
   expiresAt   DateTime?
   activatedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model BrandingConfig {
@@ -260,249 +261,263 @@ model BrandingConfig {
 }
 
 model Notification {
-  id        String   @id @default(uuid())
-  type      String   @default("in_app")
-  title     String
-  body      String
-  recipientId String?
+  id             String    @id @default(uuid())
+  type           String    @default("in_app")
+  title          String
+  body           String
+  recipientId    String?
   recipientEmail String?
-  status    String   @default("pending")
-  channel   String   @default("in_app")
-  sentAt    DateTime?
-  readAt    DateTime?
-  error     String?
-  createdAt DateTime @default(now())
+  status         String    @default("pending")
+  channel        String    @default("in_app")
+  sentAt         DateTime?
+  readAt         DateTime?
+  error          String?
+  createdAt      DateTime  @default(now())
 }
 
 model ActivityStream {
-  id        String   @id @default(uuid())
-  actor     String?
-  actorId   String?
-  action    String
-  resource  String?
+  id         String   @id @default(uuid())
+  actor      String?
+  actorId    String?
+  action     String
+  resource   String?
   resourceId String?
-  details   String?
-  ip        String?
-  severity  String   @default("info")
-  createdAt DateTime @default(now())
+  details    String?
+  ip         String?
+  severity   String   @default("info")
+  createdAt  DateTime @default(now())
 }
 
 model EmailLog {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   to        String
   from      String
   subject   String
   body      String?
-  status    String   @default("pending")
+  status    String    @default("pending")
   error     String?
   sentAt    DateTime?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 }
 
 model SmsLog {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   to        String
   from      String?
   message   String
-  status    String   @default("pending")
+  status    String    @default("pending")
   error     String?
   sentAt    DateTime?
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
 }
 
 model ImportJob {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   type        String
   fileName    String?
-  status      String   @default("pending")
-  totalRows   Int      @default(0)
-  processed   Int      @default(0)
-  failed      Int      @default(0)
+  status      String    @default("pending")
+  totalRows   Int       @default(0)
+  processed   Int       @default(0)
+  failed      Int       @default(0)
   errors      String?
   completedAt DateTime?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
 
 model ExportJob {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   type        String
-  format      String   @default("csv")
-  filters     String   @default("{}")
-  status      String   @default("pending")
-  totalRows   Int      @default(0)
+  format      String    @default("csv")
+  filters     String    @default("{}")
+  status      String    @default("pending")
+  totalRows   Int       @default(0)
   filePath    String?
   completedAt DateTime?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
 
 model PushNotification {
-  id        String   @id @default(uuid())
-  title     String
-  body      String
+  id          String    @id @default(uuid())
+  title       String
+  body        String
   deviceToken String?
-  platform  String   @default("all")
-  status    String   @default("pending")
-  sentAt    DateTime?
-  error     String?
-  createdAt DateTime @default(now())
+  platform    String    @default("all")
+  status      String    @default("pending")
+  sentAt      DateTime?
+  error       String?
+  createdAt   DateTime  @default(now())
 }
 
 model OcrJob {
-  id        String   @id @default(uuid())
-  fileName  String
-  status    String   @default("pending")
-  result    String?
-  confidence Float?
+  id          String    @id @default(uuid())
+  fileName    String
+  status      String    @default("pending")
+  result      String?
+  confidence  Float?
   processedAt DateTime?
-  createdAt DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
 
 model PdfJob {
-  id        String   @id @default(uuid())
-  type      String   @default("report")
-  template  String?
-  data      String   @default("{}")
-  status    String   @default("pending")
-  filePath  String?
-  createdAt DateTime @default(now())
+  id          String    @id @default(uuid())
+  type        String    @default("report")
+  template    String?
+  data        String    @default("{}")
+  status      String    @default("pending")
+  filePath    String?
+  createdAt   DateTime  @default(now())
   completedAt DateTime?
 }
 
 model ExcelJob {
-  id        String   @id @default(uuid())
-  type      String   @default("export")
-  format    String   @default("xlsx")
-  data      String   @default("{}")
-  status    String   @default("pending")
-  filePath  String?
-  totalRows Int      @default(0)
-  createdAt DateTime @default(now())
+  id          String    @id @default(uuid())
+  type        String    @default("export")
+  format      String    @default("xlsx")
+  data        String    @default("{}")
+  status      String    @default("pending")
+  filePath    String?
+  totalRows   Int       @default(0)
+  createdAt   DateTime  @default(now())
   completedAt DateTime?
 }
 
 model ReportDefinition {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
-  type        String   @default("operational")
+  type        String    @default("operational")
   description String?
-  config      String   @default("{}")
+  config      String    @default("{}")
   schedule    String?
   recipients  String?
   lastRunAt   DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model KpiDefinition {
-  id          String   @id @default(uuid())
-  name        String
-  category    String   @default("operations")
-  target      Float?
-  unit        String   @default("count")
-  current     Float?
-  trend       String   @default("stable")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String        @id @default(uuid())
+  name         String
+  category     String        @default("operations")
+  target       Float?
+  unit         String        @default("count")
+  current      Float?
+  trend        String        @default("stable")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  kpiSnapshots KpiSnapshot[]
 }
 
 model KpiSnapshot {
-  id          String   @id @default(uuid())
-  kpiId       String
-  kpi         KpiDefinition @relation(fields: [kpiId], references: [id], onDelete: Cascade)
-  value       Float
-  recordedAt  DateTime @default(now())
+  id         String        @id @default(uuid())
+  kpiId      String
+  kpi        KpiDefinition @relation(fields: [kpiId], references: [id], onDelete: Cascade)
+  value      Float
+  recordedAt DateTime      @default(now())
 }
 
 model ScheduledReport {
-  id          String   @id @default(uuid())
-  name        String
-  reportType  String
-  schedule    String   @default("daily")
-  format      String   @default("pdf")
-  recipients  String?
-  active      Boolean  @default(true)
-  lastSentAt  DateTime?
-  nextRunAt   DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id         String    @id @default(uuid())
+  name       String
+  reportType String
+  schedule   String    @default("daily")
+  format     String    @default("pdf")
+  recipients String?
+  active     Boolean   @default(true)
+  lastSentAt DateTime?
+  nextRunAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model ExportLog {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   type        String
-  format      String   @default("csv")
-  filters     String   @default("{}")
-  totalRows   Int      @default(0)
+  format      String    @default("csv")
+  filters     String    @default("{}")
+  totalRows   Int       @default(0)
   filePath    String?
-  status      String   @default("pending")
-  createdAt   DateTime @default(now())
+  status      String    @default("pending")
+  createdAt   DateTime  @default(now())
   completedAt DateTime?
 }
 
 model Customer {
-  id        String   @id @default(uuid())
-  name      String
-  email     String?
-  phone     String?
-  address   String?
-  status    String   @default("active")
-  area      String?  archivedAt  DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  meters    Meter[]
-  invoices  Invoice[]
+  id               String            @id @default(uuid())
+  name             String
+  email            String?
+  phone            String?
+  address          String?
+  status           String            @default("active")
+  area             String?
+  archivedAt       DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  meters           Meter[]
+  invoices         Invoice[]
+  contracts        Contract[]
+  meterAssignments MeterAssignment[]
+  collectionCases  CollectionCase[]
+  groupMembers     GroupMember[]
 }
 
 model Meter {
-  id        String   @id @default(uuid())
-  serial    String   @unique
-  type      String
-  location  String?
-  status    String   @default("active")
-  area      String?
-  customerId String?
-  customer  Customer? @relation(fields: [customerId], references: [id])  archivedAt  DateTime?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  readings  Reading[]
+  id               String            @id @default(uuid())
+  serial           String            @unique
+  type             String
+  location         String?
+  status           String            @default("active")
+  area             String?
+  customerId       String?
+  customer         Customer?         @relation(fields: [customerId], references: [id])
+  archivedAt       DateTime?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  readings         Reading[]
+  meterAssignments MeterAssignment[]
+  meterEvents      MeterEvent[]
 }
 
 model Reading {
-  id        String   @id @default(uuid())
-  meterId   String
-  meter     Meter    @relation(fields: [meterId], references: [id])
-  value     Float
-  unit      String   @default("kWh")
-  timestamp DateTime @default(now())
-  source    String   @default("manual")
-  status    String   @default("valid")  archivedAt  DateTime?
-  createdAt DateTime @default(now())
+  id         String    @id @default(uuid())
+  meterId    String
+  meter      Meter     @relation(fields: [meterId], references: [id])
+  value      Float
+  unit       String    @default("kWh")
+  timestamp  DateTime  @default(now())
+  source     String    @default("manual")
+  status     String    @default("valid")
+  archivedAt DateTime?
+  createdAt  DateTime  @default(now())
 }
 
 model Invoice {
-  id         String   @id @default(uuid())
-  number     String   @unique
-  customerId String
-  customer   Customer @relation(fields: [customerId], references: [id])
-  amount     Float
-  status     String   @default("pending")
-  dueDate    DateTime?
-  issuedAt   DateTime @default(now())
-  paidAt     DateTime?  archivedAt  DateTime?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  payments   Payment[]
+  id              String           @id @default(uuid())
+  number          String           @unique
+  customerId      String
+  customer        Customer         @relation(fields: [customerId], references: [id])
+  amount          Float
+  status          String           @default("pending")
+  dueDate         DateTime?
+  issuedAt        DateTime         @default(now())
+  paidAt          DateTime?
+  archivedAt      DateTime?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  payments        Payment[]
+  invoiceItems    InvoiceItem[]
+  collectionCases CollectionCase[]
 }
 
 model Payment {
-  id        String   @id @default(uuid())
-  invoiceId String
-  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
-  amount    Float
-  method    String   @default("cash")
-  status    String   @default("completed")
-  paidAt    DateTime @default(now())
-  createdAt DateTime @default(now())
+  id                  String               @id @default(uuid())
+  invoiceId           String
+  invoice             Invoice              @relation(fields: [invoiceId], references: [id])
+  amount              Float
+  method              String               @default("cash")
+  status              String               @default("completed")
+  paidAt              DateTime             @default(now())
+  createdAt           DateTime             @default(now())
+  paymentTransactions PaymentTransaction[]
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -510,22 +525,24 @@ model Payment {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 model Contract {
-  id              String         @id @default(uuid())
-  contractNumber  String         @unique
-  customerId      String
-  customer        Customer       @relation(fields: [customerId], references: [id])
-  type            String         @default("standard")
-  status          String         @default("active")
-  startDate       DateTime
-  endDate         DateTime?
-  terms           String?
-  autoRenew       Boolean        @default(false)
-  signedBy        String?
-  signedAt        DateTime?  archivedAt  DateTime?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  contractTerms   ContractTerm[]
-  amendments      ContractAmendment[]
+  id               String              @id @default(uuid())
+  contractNumber   String              @unique
+  customerId       String
+  customer         Customer            @relation(fields: [customerId], references: [id])
+  type             String              @default("standard")
+  status           String              @default("active")
+  startDate        DateTime
+  endDate          DateTime?
+  terms            String?
+  autoRenew        Boolean             @default(false)
+  signedBy         String?
+  signedAt         DateTime?
+  archivedAt       DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+  contractTerms    ContractTerm[]
+  amendments       ContractAmendment[]
+  meterAssignments MeterAssignment[]
 }
 
 model ContractTerm {
@@ -538,44 +555,46 @@ model ContractTerm {
 }
 
 model ContractAmendment {
-  id         String   @id @default(uuid())
-  contractId String
-  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  id              String   @id @default(uuid())
+  contractId      String
+  contract        Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
   amendmentNumber String
-  description String?
-  changeDate DateTime @default(now())
-  approvedBy String?
-  createdAt  DateTime @default(now())
+  description     String?
+  changeDate      DateTime @default(now())
+  approvedBy      String?
+  createdAt       DateTime @default(now())
 }
 
 model Tariff {
-  id          String       @id @default(uuid())
-  name        String       @unique
-  code        String       @unique
-  description String?
-  type        String       @default("flat")    // flat, tiered, tou, demand
-  currency    String       @default("EGP")
-  unit        String       @default("kWh")
+  id            String         @id @default(uuid())
+  name          String         @unique
+  code          String         @unique
+  description   String?
+  type          String         @default("flat") // flat, tiered, tou, demand
+  currency      String         @default("EGP")
+  unit          String         @default("kWh")
   effectiveFrom DateTime
-  effectiveTo  DateTime?
-  status      String       @default("active")  archivedAt  DateTime?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  rates       TariffRate[]
-  tiers       TariffTier[]
+  effectiveTo   DateTime?
+  status        String         @default("active")
+  archivedAt    DateTime?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  rates         TariffRate[]
+  tiers         TariffTier[]
+  groupPricings GroupPricing[]
 }
 
 model TariffRate {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   tariffId  String
-  tariff    Tariff   @relation(fields: [tariffId], references: [id], onDelete: Cascade)
+  tariff    Tariff    @relation(fields: [tariffId], references: [id], onDelete: Cascade)
   name      String
   rate      Float
-  unit      String   @default("kWh")
+  unit      String    @default("kWh")
   validFrom DateTime?
   validTo   DateTime?
-  priority  Int      @default(0)
-  createdAt DateTime @default(now())
+  priority  Int       @default(0)
+  createdAt DateTime  @default(now())
 }
 
 model TariffTier {
@@ -592,31 +611,31 @@ model TariffTier {
 }
 
 model BillCycle {
-  id          String        @id @default(uuid())
-  name        String
-  code        String        @unique
-  frequency   String        @default("monthly") // weekly, biweekly, monthly, bimonthly, quarterly, yearly
-  billingDay  Int           @default(1)
-  dueDay      Int           @default(15)
-  cutOffDay   Int           @default(5)
-  status      String        @default("active")
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  billRuns    BillRun[]
+  id         String    @id @default(uuid())
+  name       String
+  code       String    @unique
+  frequency  String    @default("monthly") // weekly, biweekly, monthly, bimonthly, quarterly, yearly
+  billingDay Int       @default(1)
+  dueDay     Int       @default(15)
+  cutOffDay  Int       @default(5)
+  status     String    @default("active")
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  billRuns   BillRun[]
 }
 
 model BillRun {
-  id          String      @id @default(uuid())
+  id          String           @id @default(uuid())
   billCycleId String
-  billCycle   BillCycle   @relation(fields: [billCycleId], references: [id])
+  billCycle   BillCycle        @relation(fields: [billCycleId], references: [id])
   periodStart DateTime
   periodEnd   DateTime
-  status      String      @default("pending")
-  totalCount  Int         @default(0)
-  totalAmount Float        @default(0)
+  status      String           @default("pending")
+  totalCount  Int              @default(0)
+  totalAmount Float            @default(0)
   processedAt DateTime?
   completedAt DateTime?
-  createdAt   DateTime    @default(now())
+  createdAt   DateTime         @default(now())
   history     BillRunHistory[]
 }
 
@@ -631,316 +650,316 @@ model BillRunHistory {
 }
 
 model ChargeRule {
-  id          String   @id @default(uuid())
-  name        String
-  code        String   @unique
-  description String?
-  type        String   @default("fixed")  // fixed, rate_based, formula_based, tiered
-  formula     String?
-  priority    Int      @default(0)
-  active      Boolean  @default(true)
+  id            String           @id @default(uuid())
+  name          String
+  code          String           @unique
+  description   String?
+  type          String           @default("fixed") // fixed, rate_based, formula_based, tiered
+  formula       String?
+  priority      Int              @default(0)
+  active        Boolean          @default(true)
   effectiveFrom DateTime
-  effectiveTo  DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  overrides   ChargeOverride[]
+  effectiveTo   DateTime?
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  overrides     ChargeOverride[]
 }
 
 model ChargeOverride {
-  id           String   @id @default(uuid())
-  chargeRuleId String
-  chargeRule   ChargeRule @relation(fields: [chargeRuleId], references: [id], onDelete: Cascade)
-  customerId   String?
-  contractId   String?
+  id            String     @id @default(uuid())
+  chargeRuleId  String
+  chargeRule    ChargeRule @relation(fields: [chargeRuleId], references: [id], onDelete: Cascade)
+  customerId    String?
+  contractId    String?
   overrideValue Float
-  validFrom    DateTime?
-  validTo      DateTime?
-  reason       String?
-  createdAt    DateTime @default(now())
+  validFrom     DateTime?
+  validTo       DateTime?
+  reason        String?
+  createdAt     DateTime   @default(now())
 }
 
 model InvoiceItem {
-  id        String   @id @default(uuid())
-  invoiceId String
-  invoice   Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  type      String   @default("charge")  // charge, discount, tax, adjustment
-  description String
-  quantity  Float    @default(1)
-  unitPrice Float    @default(0)
-  amount    Float    @default(0)
-  taxRate   Float    @default(0)
-  taxAmount Float    @default(0)
-  total     Float    @default(0)
+  id            String         @id @default(uuid())
+  invoiceId     String
+  invoice       Invoice        @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  type          String         @default("charge") // charge, discount, tax, adjustment
+  description   String
+  quantity      Float          @default(1)
+  unitPrice     Float          @default(0)
+  amount        Float          @default(0)
+  taxRate       Float          @default(0)
+  taxAmount     Float          @default(0)
+  total         Float          @default(0)
   referenceType String?
   referenceId   String?
-  createdAt DateTime @default(now())
-  taxes     InvoiceTax[]
-  discounts DiscountRule[]
+  createdAt     DateTime       @default(now())
+  taxes         InvoiceTax[]
+  discounts     DiscountRule[]
 }
 
 model InvoiceTax {
-  id            String   @id @default(uuid())
+  id            String      @id @default(uuid())
   invoiceItemId String
   invoiceItem   InvoiceItem @relation(fields: [invoiceItemId], references: [id], onDelete: Cascade)
   name          String
   rate          Float
   amount        Float
-  createdAt     DateTime @default(now())
+  createdAt     DateTime    @default(now())
 }
 
 model DiscountRule {
-  id            String   @id @default(uuid())
+  id            String       @id @default(uuid())
   invoiceItemId String?
   invoiceItem   InvoiceItem? @relation(fields: [invoiceItemId], references: [id], onDelete: Cascade)
   name          String
-  type          String   @default("percentage")  // percentage, fixed
+  type          String       @default("percentage") // percentage, fixed
   value         Float
   code          String?
   maxAmount     Float?
   validFrom     DateTime?
   validTo       DateTime?
-  createdAt     DateTime @default(now())
+  createdAt     DateTime     @default(now())
 }
 
 model MeterAssignment {
-  id        String   @id @default(uuid())
-  meterId   String
-  meter     Meter    @relation(fields: [meterId], references: [id])
+  id         String                   @id @default(uuid())
+  meterId    String
+  meter      Meter                    @relation(fields: [meterId], references: [id])
   customerId String
-  customer  Customer @relation(fields: [customerId], references: [id])
+  customer   Customer                 @relation(fields: [customerId], references: [id])
   contractId String?
-  contract  Contract? @relation(fields: [contractId], references: [id])
-  startDate DateTime
-  endDate   DateTime?
-  reason    String?
-  status    String   @default("active")
-  createdAt DateTime @default(now())
-  history   MeterAssignmentHistory[]
+  contract   Contract?                @relation(fields: [contractId], references: [id])
+  startDate  DateTime
+  endDate    DateTime?
+  reason     String?
+  status     String                   @default("active")
+  createdAt  DateTime                 @default(now())
+  history    MeterAssignmentHistory[]
 }
 
 model MeterAssignmentHistory {
-  id               String   @id @default(uuid())
+  id                String          @id @default(uuid())
   meterAssignmentId String
-  meterAssignment  MeterAssignment @relation(fields: [meterAssignmentId], references: [id], onDelete: Cascade)
-  field            String
-  oldValue         String?
-  newValue         String?
-  changedBy        String?
-  changedAt        DateTime @default(now())
+  meterAssignment   MeterAssignment @relation(fields: [meterAssignmentId], references: [id], onDelete: Cascade)
+  field             String
+  oldValue          String?
+  newValue          String?
+  changedBy         String?
+  changedAt         DateTime        @default(now())
 }
 
 model MeterEvent {
-  id        String   @id @default(uuid())
-  meterId   String
-  meter     Meter    @relation(fields: [meterId], references: [id])
-  type      String   // installation, removal, maintenance, failure, reading_anomaly
+  id          String    @id @default(uuid())
+  meterId     String
+  meter       Meter     @relation(fields: [meterId], references: [id])
+  type        String // installation, removal, maintenance, failure, reading_anomaly
   description String?
-  timestamp DateTime @default(now())
-  resolvedAt DateTime?
-  resolvedBy String?
-  status    String   @default("open")
-  createdAt DateTime @default(now())
+  timestamp   DateTime  @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?
+  status      String    @default("open")
+  createdAt   DateTime  @default(now())
 }
 
 model ValidationRule {
-  id          String   @id @default(uuid())
+  id          String             @id @default(uuid())
   name        String
-  code        String   @unique
+  code        String             @unique
   description String?
-  entityType  String   @default("reading")  // reading, customer, meter, invoice
-  condition   String   // JSON expression
-  action      String   @default("reject")   // reject, warn, flag, auto_fix
-  severity    String   @default("error")    // error, warning, info
-  active      Boolean  @default(true)
-  priority    Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  entityType  String             @default("reading") // reading, customer, meter, invoice
+  condition   String // JSON expression
+  action      String             @default("reject") // reject, warn, flag, auto_fix
+  severity    String             @default("error") // error, warning, info
+  active      Boolean            @default(true)
+  priority    Int                @default(0)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
   results     ValidationResult[]
 }
 
 model ValidationResult {
-  id               String   @id @default(uuid())
+  id               String         @id @default(uuid())
   validationRuleId String
   validationRule   ValidationRule @relation(fields: [validationRuleId], references: [id])
   entityType       String
   entityId         String
-  status           String   @default("pending")  // pending, passed, failed
+  status           String         @default("pending") // pending, passed, failed
   message          String?
   resolvedAt       DateTime?
   resolvedBy       String?
-  createdAt        DateTime @default(now())
+  createdAt        DateTime       @default(now())
 }
 
 model WorkflowState {
-  id          String   @id @default(uuid())
+  id          String               @id @default(uuid())
   name        String
-  entityType  String   // invoice, reading, customer, contract
-  state       String   // draft, pending, approved, rejected, active, suspended, closed
-  enteredAt   DateTime @default(now())
+  entityType  String // invoice, reading, customer, contract
+  state       String // draft, pending, approved, rejected, active, suspended, closed
+  enteredAt   DateTime             @default(now())
   enteredBy   String?
   notes       String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime             @default(now())
   transitions WorkflowTransition[]
 }
 
 model WorkflowTransition {
-  id              String   @id @default(uuid())
+  id              String        @id @default(uuid())
   workflowStateId String
   workflowState   WorkflowState @relation(fields: [workflowStateId], references: [id], onDelete: Cascade)
   fromState       String
   toState         String
   action          String
   triggeredBy     String?
-  triggeredAt     DateTime @default(now())
+  triggeredAt     DateTime      @default(now())
   notes           String?
 }
 
 model CollectionCase {
-  id              String            @id @default(uuid())
-  customerId      String
-  customer        Customer          @relation(fields: [customerId], references: [id])
-  invoiceId       String?
-  invoice         Invoice?          @relation(fields: [invoiceId], references: [id])
-  status          String            @default("open")
-  priority        String            @default("normal")
-  totalAmount     Float             @default(0)
-  paidAmount      Float             @default(0)
-  openedAt        DateTime          @default(now())
-  escalatedAt     DateTime?
-  closedAt        DateTime?
-  assignedTo      String?
-  notes           String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  actions         CollectionAction[]
-  promises        PromiseToPay[]
+  id          String             @id @default(uuid())
+  customerId  String
+  customer    Customer           @relation(fields: [customerId], references: [id])
+  invoiceId   String?
+  invoice     Invoice?           @relation(fields: [invoiceId], references: [id])
+  status      String             @default("open")
+  priority    String             @default("normal")
+  totalAmount Float              @default(0)
+  paidAmount  Float              @default(0)
+  openedAt    DateTime           @default(now())
+  escalatedAt DateTime?
+  closedAt    DateTime?
+  assignedTo  String?
+  notes       String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  actions     CollectionAction[]
+  promises    PromiseToPay[]
 }
 
 model CollectionAction {
-  id              String   @id @default(uuid())
+  id               String         @id @default(uuid())
   collectionCaseId String
-  collectionCase  CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
-  type            String   // call, email, sms, visit, notice, escalation
-  result          String?
-  notes           String?
-  actedBy         String?
-  actedAt         DateTime @default(now())
-  createdAt       DateTime @default(now())
+  collectionCase   CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
+  type             String // call, email, sms, visit, notice, escalation
+  result           String?
+  notes            String?
+  actedBy          String?
+  actedAt          DateTime       @default(now())
+  createdAt        DateTime       @default(now())
 }
 
 model PromiseToPay {
-  id              String   @id @default(uuid())
+  id               String         @id @default(uuid())
   collectionCaseId String
-  collectionCase  CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
-  promisedDate    DateTime
-  promisedAmount  Float
-  status          String   @default("pending")
-  keptAt          DateTime?
-  notes           String?
-  createdAt       DateTime @default(now())
+  collectionCase   CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
+  promisedDate     DateTime
+  promisedAmount   Float
+  status           String         @default("pending")
+  keptAt           DateTime?
+  notes            String?
+  createdAt        DateTime       @default(now())
 }
 
 model PaymentGateway {
-  id          String              @id @default(uuid())
-  name        String
-  provider    String              @default("stripe")  // stripe, paymob, fawry, vodafone_cash
-  config      String              @default("{}")
-  active      Boolean             @default(true)
-  testMode    Boolean             @default(true)
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
+  id           String               @id @default(uuid())
+  name         String
+  provider     String               @default("stripe") // stripe, paymob, fawry, vodafone_cash
+  config       String               @default("{}")
+  active       Boolean              @default(true)
+  testMode     Boolean              @default(true)
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
   transactions PaymentTransaction[]
 }
 
 model PaymentTransaction {
-  id              String   @id @default(uuid())
+  id              String         @id @default(uuid())
   gatewayId       String
   gateway         PaymentGateway @relation(fields: [gatewayId], references: [id])
   paymentId       String?
-  payment         Payment? @relation(fields: [paymentId], references: [id])
-  transactionId   String?  // gateway transaction ID
-  type            String   @default("charge")
+  payment         Payment?       @relation(fields: [paymentId], references: [id])
+  transactionId   String? // gateway transaction ID
+  type            String         @default("charge")
   amount          Float
-  currency        String   @default("EGP")
-  status          String   @default("pending")
+  currency        String         @default("EGP")
+  status          String         @default("pending")
   gatewayResponse String?
   errorMessage    String?
   processedAt     DateTime?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime       @default(now())
   logs            GatewayLog[]
 }
 
 model GatewayLog {
-  id                 String   @id @default(uuid())
+  id                   String             @id @default(uuid())
   paymentTransactionId String
-  paymentTransaction PaymentTransaction @relation(fields: [paymentTransactionId], references: [id], onDelete: Cascade)
-  level              String   @default("info")
-  message            String
-  details            String?
-  createdAt          DateTime @default(now())
+  paymentTransaction   PaymentTransaction @relation(fields: [paymentTransactionId], references: [id], onDelete: Cascade)
+  level                String             @default("info")
+  message              String
+  details              String?
+  createdAt            DateTime           @default(now())
 }
 
 model CustomerGroup {
-  id          String        @id @default(uuid())
-  name        String        @unique
+  id          String         @id @default(uuid())
+  name        String         @unique
   description String?
-  status      String        @default("active")
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  status      String         @default("active")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
   members     GroupMember[]
   pricings    GroupPricing[]
   slas        GroupSLA[]
 }
 
 model GroupMember {
-  id              String   @id @default(uuid())
+  id              String        @id @default(uuid())
   customerGroupId String
   customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
   customerId      String
-  customer        Customer @relation(fields: [customerId], references: [id])
-  joinedAt        DateTime @default(now())
-  createdAt       DateTime @default(now())
+  customer        Customer      @relation(fields: [customerId], references: [id])
+  joinedAt        DateTime      @default(now())
+  createdAt       DateTime      @default(now())
 }
 
 model GroupPricing {
-  id              String   @id @default(uuid())
+  id              String        @id @default(uuid())
   customerGroupId String
   customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
   tariffId        String?
-  tariff          Tariff?  @relation(fields: [tariffId], references: [id])
-  discountRate    Float    @default(0)
+  tariff          Tariff?       @relation(fields: [tariffId], references: [id])
+  discountRate    Float         @default(0)
   validFrom       DateTime?
   validTo         DateTime?
-  createdAt       DateTime @default(now())
+  createdAt       DateTime      @default(now())
 }
 
 model SLA {
-  id          String      @id @default(uuid())
-  name        String
-  description String?
-  responseTime Int        @default(4)    // hours
-  resolutionTime Int     @default(24)    // hours
-  availability Float      @default(99.9) // percentage
-  severity    String      @default("normal")
-  active      Boolean     @default(true)
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  breaches    SLABreach[]
-  escalations SLAEscalation[]
-  groups      GroupSLA[]
+  id             String          @id @default(uuid())
+  name           String
+  description    String?
+  responseTime   Int             @default(4) // hours
+  resolutionTime Int             @default(24) // hours
+  availability   Float           @default(99.9) // percentage
+  severity       String          @default("normal")
+  active         Boolean         @default(true)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  breaches       SLABreach[]
+  escalations    SLAEscalation[]
+  groups         GroupSLA[]
 }
 
 model SLABreach {
-  id        String   @id @default(uuid())
-  slaId     String
-  sla       SLA      @relation(fields: [slaId], references: [id], onDelete: Cascade)
-  metric    String
-  expected  Float
-  actual    Float
-  breachedAt DateTime @default(now())
+  id         String    @id @default(uuid())
+  slaId      String
+  sla        SLA       @relation(fields: [slaId], references: [id], onDelete: Cascade)
+  metric     String
+  expected   Float
+  actual     Float
+  breachedAt DateTime  @default(now())
   resolvedAt DateTime?
-  notes     String?
-  createdAt DateTime @default(now())
+  notes      String?
+  createdAt  DateTime  @default(now())
 }
 
 model SLAEscalation {
@@ -948,71 +967,70 @@ model SLAEscalation {
   slaId     String
   sla       SLA      @relation(fields: [slaId], references: [id], onDelete: Cascade)
   level     Int      @default(1)
-  threshold Int      @default(1)   // number of breaches before escalation
+  threshold Int      @default(1) // number of breaches before escalation
   notifyTo  String?
   action    String?
   createdAt DateTime @default(now())
 }
 
 model GroupSLA {
-  id              String   @id @default(uuid())
+  id              String        @id @default(uuid())
   customerGroupId String
   customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
   slaId           String
-  sla             SLA      @relation(fields: [slaId], references: [id], onDelete: Cascade)
-  priority        Int      @default(0)
-  createdAt       DateTime @default(now())
+  sla             SLA           @relation(fields: [slaId], references: [id], onDelete: Cascade)
+  priority        Int           @default(0)
+  createdAt       DateTime      @default(now())
 }
 
 model AlertRule {
-  id          String           @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   description String?
-  entityType  String           // meter, reading, invoice, payment, customer
-  condition   String           // JSON expression
-  severity    String           @default("warning")
-  enabled     Boolean          @default(true)
-  cooldown    Int              @default(3600) // seconds
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  entityType  String // meter, reading, invoice, payment, customer
+  condition   String // JSON expression
+  severity    String   @default("warning")
+  enabled     Boolean  @default(true)
+  cooldown    Int      @default(3600) // seconds
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
   alerts      Alert[]
 }
 
 model Alert {
-  id          String   @id @default(uuid())
-  alertRuleId String
-  alertRule   AlertRule @relation(fields: [alertRuleId], references: [id])
-  entityType  String
-  entityId    String
-  message     String
-  severity    String   @default("warning")
-  status      String   @default("open")  // open, acknowledged, resolved
+  id             String    @id @default(uuid())
+  alertRuleId    String
+  alertRule      AlertRule @relation(fields: [alertRuleId], references: [id])
+  entityType     String
+  entityId       String
+  message        String
+  severity       String    @default("warning")
+  status         String    @default("open") // open, acknowledged, resolved
   acknowledgedAt DateTime?
-  resolvedAt  DateTime?
-  resolvedBy  String?
-  createdAt   DateTime @default(now())
+  resolvedAt     DateTime?
+  resolvedBy     String?
+  createdAt      DateTime  @default(now())
 }
 
 model EscalationPolicy {
-  id          String             @id @default(uuid())
+  id          String           @id @default(uuid())
   name        String
   description String?
-  triggerType String             @default("breach_count")
-  threshold   Int                @default(3)
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
+  triggerType String           @default("breach_count")
+  threshold   Int              @default(3)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
   steps       EscalationStep[]
 }
 
 model EscalationStep {
-  id                 String   @id @default(uuid())
+  id                 String           @id @default(uuid())
   escalationPolicyId String
   escalationPolicy   EscalationPolicy @relation(fields: [escalationPolicyId], references: [id], onDelete: Cascade)
-  level              Int      @default(1)
+  level              Int              @default(1)
   notifyRole         String?
   notifyEmail        String?
   action             String?
-  timeout            Int      @default(3600)
-  createdAt          DateTime @default(now())
+  timeout            Int              @default(3600)
+  createdAt          DateTime         @default(now())
 }
-

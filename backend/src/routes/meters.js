@@ -15,7 +15,7 @@ const createSchema = z.object({
 const router = Router()
 router.use(authenticate)
 
-router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, search } = req.query
     const where = { archivedAt: null, ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}) }
@@ -27,7 +27,7 @@ router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const meter = await prisma.meter.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { readings: { orderBy: { timestamp: "desc" }, take: 10 }, customer: true } })
     if (!meter) return res.status(404).json({ error: "Meter not found" })
@@ -36,7 +36,7 @@ router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "operator"), async (req, res, next) => {
+router.post("/", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const meter = await prisma.meter.create({ data })
@@ -48,7 +48,7 @@ router.post("/", requireRole("admin", "operator"), async (req, res, next) => {
   }
 })
 
-router.put("/:id", requireRole("admin", "operator"), async (req, res, next) => {
+router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const meter = await prisma.meter.update({ where: { id: req.params.id }, data })
@@ -60,7 +60,7 @@ router.put("/:id", requireRole("admin", "operator"), async (req, res, next) => {
   }
 })
 
-router.delete("/:id", requireRole("admin"), async (req, res, next) => {
+router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     await prisma.meter.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "meter.archived", { meterId: req.params.id })
@@ -69,3 +69,6 @@ router.delete("/:id", requireRole("admin"), async (req, res, next) => {
 })
 
 export { router as metersRouter }
+
+
+

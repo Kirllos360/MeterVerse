@@ -3,7 +3,7 @@ import { z } from "zod"
 import bcrypt from "bcryptjs"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog }, auditMiddleware from "../middleware/security.js"
+import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
 
 const router = Router()
 
@@ -84,7 +84,7 @@ router.get("/users/:id", requireRole("admin", "super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.post("/users", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/users", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = createUserSchema.parse(req.body)
     const exists = await prisma.user.findUnique({ where: { email: data.email } })
@@ -101,7 +101,7 @@ router.post("/users", requireRole("super_admin"), auditMiddleware(req, "entity.a
   }
 })
 
-router.put("/users/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/users/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     const updateData = createUserSchema.partial().omit({ password: true }).parse(req.body)
     if (req.body.password) {
@@ -120,7 +120,7 @@ router.put("/users/:id", requireRole("super_admin"), auditMiddleware(req, "entit
   }
 })
 
-router.delete("/users/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/users/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.user.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -160,7 +160,7 @@ router.get("/roles/:id", requireRole("admin", "super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.post("/roles", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/roles", requireRole("super_admin"), async (req, res, next) => {
   try {
     const { permissionIds, ...data } = createRoleSchema.parse(req.body)
     const role = await prisma.role.create({
@@ -180,7 +180,7 @@ router.post("/roles", requireRole("super_admin"), auditMiddleware(req, "entity.a
   }
 })
 
-router.put("/roles/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/roles/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     const { permissionIds, ...data } = createRoleSchema.partial().parse(req.body)
     if (permissionIds) {
@@ -201,7 +201,7 @@ router.put("/roles/:id", requireRole("super_admin"), auditMiddleware(req, "entit
   }
 })
 
-router.delete("/roles/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/roles/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     const role = await prisma.role.findUnique({ where: { id: req.params.id } })
     if (role?.isSystem) return res.status(400).json({ error: "Cannot delete system role" })
@@ -225,7 +225,7 @@ router.get("/permissions", requireRole("admin", "super_admin"), async (req, res,
   } catch (err) { next(err) }
 })
 
-router.post("/permissions", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/permissions", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = createPermissionSchema.parse(req.body)
     const permission = await prisma.permission.create({ data })
@@ -236,7 +236,7 @@ router.post("/permissions", requireRole("super_admin"), auditMiddleware(req, "en
   }
 })
 
-router.delete("/permissions/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/permissions/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.permission.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -286,7 +286,7 @@ router.get("/settings", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.put("/settings", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/settings", requireRole("super_admin"), async (req, res, next) => {
   try {
     const { settings } = req.body
     if (!Array.isArray(settings)) return res.status(400).json({ error: "settings must be an array" })
@@ -313,7 +313,7 @@ router.get("/feature-flags", requireRole("admin", "super_admin"), async (req, re
   } catch (err) { next(err) }
 })
 
-router.post("/feature-flags", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/feature-flags", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = z.object({
       key: z.string().min(1).max(100),
@@ -326,7 +326,7 @@ router.post("/feature-flags", requireRole("super_admin"), auditMiddleware(req, "
   } catch (err) { next(err) }
 })
 
-router.put("/feature-flags/:id/toggle", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/feature-flags/:id/toggle", requireRole("super_admin"), async (req, res, next) => {
   try {
     const flag = await prisma.featureFlag.findUnique({ where: { id: req.params.id } })
     if (!flag) return res.status(404).json({ error: "Feature flag not found" })
@@ -338,7 +338,7 @@ router.put("/feature-flags/:id/toggle", requireRole("super_admin"), auditMiddlew
   } catch (err) { next(err) }
 })
 
-router.delete("/feature-flags/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/feature-flags/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.featureFlag.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -359,7 +359,7 @@ router.get("/api-keys", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.post("/api-keys", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/api-keys", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = z.object({
       name: z.string().min(1).max(100),
@@ -383,7 +383,7 @@ router.post("/api-keys", requireRole("super_admin"), auditMiddleware(req, "entit
   } catch (err) { next(err) }
 })
 
-router.delete("/api-keys/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/api-keys/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.apiKey.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -403,7 +403,7 @@ router.get("/sessions", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.delete("/sessions/:id", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/sessions/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     await prisma.session.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -419,7 +419,7 @@ router.get("/organizations", requireRole("admin", "super_admin"), async (req, re
   } catch (err) { next(err) }
 })
 
-router.post("/organizations", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/organizations", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), slug: z.string().min(1), domain: z.string().optional(), plan: z.string().optional() }).parse(req.body)
     const org = await prisma.organization.create({ data })
@@ -427,7 +427,7 @@ router.post("/organizations", requireRole("super_admin"), auditMiddleware(req, "
   } catch (err) { next(err) }
 })
 
-router.delete("/organizations/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/organizations/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.organization.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -443,7 +443,7 @@ router.get("/projects", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.post("/projects", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/projects", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), description: z.string().optional(), organizationId: z.string().uuid() }).parse(req.body)
     const project = await prisma.project.create({ data })
@@ -460,7 +460,7 @@ router.get("/webhooks", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.post("/webhooks", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/webhooks", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), url: z.string().url(), events: z.string().optional(), secret: z.string().optional() }).parse(req.body)
     const webhook = await prisma.webhook.create({ data })
@@ -468,7 +468,7 @@ router.post("/webhooks", requireRole("admin", "super_admin"), auditMiddleware(re
   } catch (err) { next(err) }
 })
 
-router.put("/webhooks/:id/toggle", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/webhooks/:id/toggle", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const wh = await prisma.webhook.findUnique({ where: { id: req.params.id } })
     if (!wh) return res.status(404).json({ error: "Webhook not found" })
@@ -477,7 +477,7 @@ router.put("/webhooks/:id/toggle", requireRole("admin", "super_admin"), auditMid
   } catch (err) { next(err) }
 })
 
-router.delete("/webhooks/:id", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/webhooks/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     await prisma.webhook.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -493,7 +493,7 @@ router.get("/notification-templates", requireRole("admin", "super_admin"), async
   } catch (err) { next(err) }
 })
 
-router.post("/notification-templates", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/notification-templates", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ key: z.string().min(1), name: z.string().min(1), type: z.string().optional(), subject: z.string().optional(), body: z.string(), variables: z.string().optional() }).parse(req.body)
     const template = await prisma.notificationTemplate.create({ data })
@@ -510,7 +510,7 @@ router.get("/backups", requireRole("admin", "super_admin"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.post("/backups", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/backups", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), type: z.string().optional() }).parse(req.body)
     const backup = await prisma.backup.create({ data: { ...data, status: "in_progress", startedAt: new Date() } })
@@ -521,7 +521,7 @@ router.post("/backups", requireRole("super_admin"), auditMiddleware(req, "entity
   } catch (err) { next(err) }
 })
 
-router.delete("/backups/:id", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/backups/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.backup.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -538,14 +538,14 @@ router.get("/cache", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.delete("/cache/:id", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/cache/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     await prisma.cacheEntry.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
 
-router.delete("/cache", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/cache", requireRole("super_admin"), async (req, res, next) => {
   try {
     await prisma.cacheEntry.deleteMany()
     res.json({ success: true })
@@ -569,7 +569,7 @@ router.get("/queue", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/queue", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/queue", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), payload: z.string().optional(), priority: z.number().optional(), scheduledAt: z.string().optional() }).parse(req.body)
     const job = await prisma.queueJob.create({ data: { ...data, payload: data.payload || "{}" } })
@@ -577,7 +577,7 @@ router.post("/queue", requireRole("admin", "super_admin"), auditMiddleware(req, 
   } catch (err) { next(err) }
 })
 
-router.post("/queue/:id/retry", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/queue/:id/retry", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const job = await prisma.queueJob.update({ where: { id: req.params.id }, data: { status: "pending", attempts: 0, error: null } })
     res.json({ job })
@@ -593,7 +593,7 @@ router.get("/scheduler", requireRole("admin", "super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.post("/scheduler", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/scheduler", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), description: z.string().optional(), cron: z.string(), taskType: z.string(), config: z.string().optional() }).parse(req.body)
     const task = await prisma.scheduledTask.create({ data })
@@ -601,7 +601,7 @@ router.post("/scheduler", requireRole("admin", "super_admin"), auditMiddleware(r
   } catch (err) { next(err) }
 })
 
-router.put("/scheduler/:id/toggle", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/scheduler/:id/toggle", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const task = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } })
     if (!task) return res.status(404).json({ error: "Task not found" })
@@ -610,7 +610,7 @@ router.put("/scheduler/:id/toggle", requireRole("admin", "super_admin"), auditMi
   } catch (err) { next(err) }
 })
 
-router.delete("/scheduler/:id", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.delete("/scheduler/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     await prisma.scheduledTask.delete({ where: { id: req.params.id } })
     res.json({ success: true })
@@ -638,7 +638,7 @@ router.get("/license", requireRole("admin", "super_admin"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.post("/license", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/license", requireRole("super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ key: z.string().min(1), type: z.string().optional(), seats: z.number().optional(), expiresAt: z.string().optional() }).parse(req.body)
     const license = await prisma.license.create({ data: { ...data, activatedAt: new Date(), expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined } })
@@ -655,7 +655,7 @@ router.get("/branding", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.put("/branding", requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.put("/branding", requireRole("super_admin"), async (req, res, next) => {
   try {
     const { configs } = req.body
     if (!Array.isArray(configs)) return res.status(400).json({ error: "configs must be an array" })
@@ -715,6 +715,10 @@ router.get("/ai-diagnostics", requireRole("admin", "super_admin"), async (req, r
 })
 
 export { router as adminRouter }
+
+
+
+
 
 
 

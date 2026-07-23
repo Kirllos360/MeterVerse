@@ -59,3 +59,5 @@ router.get("/me", authenticate, async (req, res, next) => {
 })
 
 export { router as authRouter }
+
+

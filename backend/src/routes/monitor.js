@@ -101,11 +101,11 @@ router.get("/audit/explorer", requireRole("admin","super_admin"), async (req, re
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 25))
-    const action = req.query.action as string
-    const status = req.query.status as string
-    const search = req.query.search as string
+    const action = req.query.action
+    const status = req.query.status
+    const search = req.query.search
 
-    const where: any = {}
+    const where = {}
     if (action) where.action = { contains: action }
     if (status) where.status = status
     if (search) where.OR = [{ actor: { contains: search } }, { resource: { contains: search } }, { action: { contains: search } }]
@@ -146,4 +146,8 @@ router.get("/analytics", requireRole("admin","super_admin"), async (req, res, ne
 })
 
 export { router as monitorRouter }
+
+
+
+
 

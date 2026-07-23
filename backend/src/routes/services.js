@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog }, auditMiddleware from "../middleware/security.js"
+import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -22,7 +22,7 @@ router.get("/notifications", async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.post("/notifications", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/notifications", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({
       type: z.string().optional(), title: z.string().min(1), body: z.string(),
@@ -57,7 +57,7 @@ router.get("/activity", async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.post("/activity", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/activity", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({
       actor: z.string().optional(), action: z.string().min(1),
@@ -83,7 +83,7 @@ router.get("/email", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/email/send", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/email/send", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ to: z.string().email(), subject: z.string().min(1), body: z.string() }).parse(req.body)
     const log = await prisma.emailLog.create({ data: { ...data, from: "noreply@meterverse.com", status: "sent", sentAt: new Date() } })
@@ -105,7 +105,7 @@ router.get("/sms", requireRole("admin", "super_admin"), async (req, res, next) =
   } catch (err) { next(err) }
 })
 
-router.post("/sms/send", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/sms/send", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ to: z.string().min(1), message: z.string().min(1) }).parse(req.body)
     const log = await prisma.smsLog.create({ data: { ...data, status: "sent", sentAt: new Date() } })
@@ -127,7 +127,7 @@ router.get("/imports", requireRole("admin", "super_admin"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.post("/imports", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/imports", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), fileName: z.string().optional() }).parse(req.body)
     const job = await prisma.importJob.create({ data })
@@ -153,7 +153,7 @@ router.get("/exports", requireRole("admin", "super_admin"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.post("/exports", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/exports", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), format: z.string().optional(), filters: z.string().optional() }).parse(req.body)
     const job = await prisma.exportJob.create({ data })
@@ -225,7 +225,7 @@ router.get("/push", requireRole("admin", "super_admin"), async (req, res, next) 
   } catch (err) { next(err) }
 })
 
-router.post("/push/send", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/push/send", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ title: z.string().min(1), body: z.string().min(1), platform: z.string().optional() }).parse(req.body)
     const notification = await prisma.pushNotification.create({ data: { ...data, status: "sent", sentAt: new Date() } })
@@ -242,7 +242,7 @@ router.get("/ocr", requireRole("admin", "super_admin"), async (req, res, next) =
   } catch (err) { next(err) }
 })
 
-router.post("/ocr", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/ocr", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ fileName: z.string().min(1) }).parse(req.body)
     const job = await prisma.ocrJob.create({ data: { ...data, status: "processing" } })
@@ -262,7 +262,7 @@ router.get("/pdf", requireRole("admin", "super_admin"), async (req, res, next) =
   } catch (err) { next(err) }
 })
 
-router.post("/pdf", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/pdf", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().optional(), template: z.string().optional(), data: z.string().optional() }).parse(req.body)
     const job = await prisma.pdfJob.create({ data })
@@ -282,7 +282,7 @@ router.get("/excel", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/excel", requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/excel", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().optional(), format: z.string().optional(), data: z.string().optional() }).parse(req.body)
     const job = await prisma.excelJob.create({ data })
@@ -321,7 +321,7 @@ router.get("/cache/stats", requireRole("admin","super_admin"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-router.post("/cache", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/cache", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const data = z.object({ key: z.string().min(1), value: z.string(), ttl: z.number().optional() }).parse(req.body)
     const entry = await prisma.cacheEntry.upsert({ where: { key: data.key }, update: { value: data.value, hits: 0 }, create: { ...data, expiresAt: data.ttl ? new Date(Date.now() + data.ttl * 1000) : null } })
@@ -330,6 +330,10 @@ router.post("/cache", requireRole("admin","super_admin"), auditMiddleware(req, "
 })
 
 export { router as servicesRouter }
+
+
+
+
 
 
 

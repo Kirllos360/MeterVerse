@@ -16,7 +16,7 @@ const createSchema = z.object({
   status: z.string().default("valid"),
 })
 
-router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const { page = 1, limit = 20, meterId, status } = req.query
     const where = { archivedAt: null }
@@ -30,7 +30,7 @@ router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const reading = await prisma.reading.findFirst({ where: { id: req.params.id, archivedAt: null } })
     if (!reading) return res.status(404).json({ error: "Reading not found" })
@@ -39,7 +39,7 @@ router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "operator"), async (req, res, next) => {
+router.post("/", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const reading = await prisma.reading.create({ data })
@@ -51,7 +51,7 @@ router.post("/", requireRole("admin", "operator"), async (req, res, next) => {
   }
 })
 
-router.post("/bulk", requireRole("admin", "operator"), async (req, res, next) => {
+router.post("/bulk", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
   try {
     const { readings: items } = req.body
     if (!Array.isArray(items)) return res.status(400).json({ error: "readings must be an array" })
@@ -61,7 +61,7 @@ router.post("/bulk", requireRole("admin", "operator"), async (req, res, next) =>
   } catch (err) { next(err) }
 })
 
-router.put("/:id", requireRole("admin", "operator"), async (req, res, next) => {
+router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const reading = await prisma.reading.update({ where: { id: req.params.id }, data })
@@ -73,7 +73,7 @@ router.put("/:id", requireRole("admin", "operator"), async (req, res, next) => {
   }
 })
 
-router.delete("/:id", requireRole("admin"), async (req, res, next) => {
+router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     await prisma.reading.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "reading.archived", { readingId: req.params.id })
@@ -82,3 +82,6 @@ router.delete("/:id", requireRole("admin"), async (req, res, next) => {
 })
 
 export { router as readingsRouter }
+
+
+

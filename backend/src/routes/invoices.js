@@ -15,7 +15,7 @@ const createSchema = z.object({
   dueDate: z.string().optional(),
 })
 
-router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, status } = req.query
     const where = { archivedAt: null }
@@ -28,7 +28,7 @@ router.get("/", requireRole("admin", "operator", "viewer"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const invoice = await prisma.invoice.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { customer: true, payments: true } })
     if (!invoice) return res.status(404).json({ error: "Invoice not found" })
@@ -37,7 +37,7 @@ router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "billing"), async (req, res, next) => {
+router.post("/", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const invoice = await prisma.invoice.create({ data })
@@ -49,7 +49,7 @@ router.post("/", requireRole("admin", "billing"), async (req, res, next) => {
   }
 })
 
-router.put("/:id", requireRole("admin", "billing"), async (req, res, next) => {
+router.put("/:id", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const invoice = await prisma.invoice.update({ where: { id: req.params.id }, data })
@@ -61,7 +61,7 @@ router.put("/:id", requireRole("admin", "billing"), async (req, res, next) => {
   }
 })
 
-router.delete("/:id", requireRole("admin"), async (req, res, next) => {
+router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
     const inv = await prisma.invoice.findUnique({ where: { id: req.params.id } })
     if (!inv) return res.status(404).json({ error: "Invoice not found" })
@@ -72,7 +72,7 @@ router.delete("/:id", requireRole("admin"), async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.post("/generate", requireRole("admin", "billing"), async (req, res, next) => {
+router.post("/generate", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
   try {
     const { customerId, periodStart, periodEnd } = req.body
     if (!customerId || !periodStart || !periodEnd) return res.status(400).json({ error: "customerId, periodStart, periodEnd required" })
@@ -91,7 +91,7 @@ router.post("/generate", requireRole("admin", "billing"), async (req, res, next)
     // Generate invoice
     const invoiceNumber = `INV-${Date.now()}`
     let totalAmount = 0
-    const items: any[] = []
+    const items = []
 
     for (const a of assignments) {
       const readings = a.meter.readings
@@ -117,3 +117,7 @@ router.post("/generate", requireRole("admin", "billing"), async (req, res, next)
 })
 
 export { router as invoicesRouter }
+
+
+
+

@@ -1,13 +1,13 @@
 import { Router } from "express"
 import { z } from "zod"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog }, auditMiddleware from "../middleware/security.js"
+import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
 import { aiOperator, aiBillingAssistant, aiReadingValidator, aiLeakDetection, aiForecasting, aiRootCauseAnalysis, aiReportBuilder, aiSqlAssistant, aiWorkflowGenerator } from "../services/ai-engine.js"
 
 const router = Router()
 router.use(authenticate)
 
-router.post("/operator", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/operator", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { query } = z.object({ query: z.string().min(1).max(500) }).parse(req.body)
     const result = await aiOperator(query)
@@ -15,7 +15,7 @@ router.post("/operator", requireRole("admin","super_admin"), auditMiddleware(req
   } catch (err) { next(err) }
 })
 
-router.post("/billing-assistant", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/billing-assistant", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { invoiceId } = z.object({ invoiceId: z.string().uuid() }).parse(req.body)
     const result = await aiBillingAssistant(invoiceId)
@@ -23,7 +23,7 @@ router.post("/billing-assistant", requireRole("admin","super_admin"), auditMiddl
   } catch (err) { next(err) }
 })
 
-router.post("/reading-validator", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/reading-validator", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { meterId } = z.object({ meterId: z.string().uuid() }).parse(req.body)
     const result = await aiReadingValidator(meterId)
@@ -31,7 +31,7 @@ router.post("/reading-validator", requireRole("admin","super_admin"), auditMiddl
   } catch (err) { next(err) }
 })
 
-router.post("/leak-detection", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/leak-detection", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { meterId } = z.object({ meterId: z.string().uuid() }).parse(req.body)
     const result = await aiLeakDetection(meterId)
@@ -41,14 +41,14 @@ router.post("/leak-detection", requireRole("admin","super_admin"), auditMiddlewa
 
 router.get("/forecasting", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
-    const entityType = (req.query.entityType as string) || "consumption"
+    const entityType = (req.query.entityType) || "consumption"
     const period = Math.min(90, Math.max(7, Number(req.query.period) || 30))
     const result = await aiForecasting(entityType, period)
     res.json(result)
   } catch (err) { next(err) }
 })
 
-router.post("/root-cause", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/root-cause", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { invoiceId } = z.object({ invoiceId: z.string().uuid() }).parse(req.body)
     const result = await aiRootCauseAnalysis(invoiceId)
@@ -56,7 +56,7 @@ router.post("/root-cause", requireRole("admin","super_admin"), auditMiddleware(r
   } catch (err) { next(err) }
 })
 
-router.post("/report-builder", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/report-builder", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const params = z.object({ reportType: z.string().optional(), period: z.string().optional(), metric: z.string().optional() }).parse(req.body)
     const result = await aiReportBuilder(params)
@@ -64,7 +64,7 @@ router.post("/report-builder", requireRole("admin","super_admin"), auditMiddlewa
   } catch (err) { next(err) }
 })
 
-router.post("/sql-assistant", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/sql-assistant", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { query } = z.object({ query: z.string().min(1).max(500) }).parse(req.body)
     const result = await aiSqlAssistant(query)
@@ -72,7 +72,7 @@ router.post("/sql-assistant", requireRole("admin","super_admin"), auditMiddlewar
   } catch (err) { next(err) }
 })
 
-router.post("/workflow-generator", requireRole("admin","super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
+router.post("/workflow-generator", requireRole("admin","super_admin"), async (req, res, next) => {
   try {
     const { description } = z.object({ description: z.string().min(1).max(500) }).parse(req.body)
     const result = await aiWorkflowGenerator(description)
@@ -81,6 +81,10 @@ router.post("/workflow-generator", requireRole("admin","super_admin"), auditMidd
 })
 
 export { router as aiRouter }
+
+
+
+
 
 
 

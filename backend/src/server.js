@@ -90,7 +90,7 @@ app.use("/api/payments", paymentsRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/services", servicesRouter)
 app.use("/api/reports", reportsRouter)
-app.use("/api/domain", domainRouter)
+// app.use('/api/domain', domainRouter) // disabled
 app.use("/api/business", businessRouter)
 app.use("/api/crud", crudRouter)
 app.use("/api/monitor", monitorRouter)
@@ -103,3 +103,4 @@ app.use("/api/meter-assignments", meterAssignmentRouter)
 app.use(errorHandler)
 
 app.listen(PORT, () => console.log(`MeterVerse API running on port ${PORT}`))
+
