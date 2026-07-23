@@ -1,7 +1,21 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requirePermission } from "../middleware/security.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
+import { z } from "zod"
+
+const preferencesSchema = z.object({
+  theme: z.string().optional(),
+  language: z.string().optional(),
+  area: z.string().nullable().optional(),
+  project: z.string().nullable().optional(),
+  notificationPrefs: z.object({
+    email: z.boolean().optional(),
+    sms: z.boolean().optional(),
+    inApp: z.boolean().optional(),
+    push: z.boolean().optional(),
+  }).optional(),
+})
 
 const router = Router()
 router.use(authenticate)
@@ -20,8 +34,9 @@ router.get("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
+    const data = preferencesSchema.parse(req.body)
     const userId = req.user.sub
-    const { theme, language, area, project, notificationPrefs } = req.body
+    const { theme, language, area, project, notificationPrefs } = data
     const updateData = {}
     if (theme) updateData.theme = theme
     if (language) updateData.language = language
@@ -33,8 +48,12 @@ router.put("/", async (req, res, next) => {
     if (notificationPrefs) {
       await prisma.systemSetting.upsert({ where: { key: "notification_prefs_" + userId }, update: { value: JSON.stringify(notificationPrefs) }, create: { key: "notification_prefs_" + userId, value: JSON.stringify(notificationPrefs), category: "user_preferences" } })
     }
+    auditLog(req, "preferences.updated", { userId })
     res.json({ success: true })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: err.errors })
+    next(err)
+  }
 })
 
 export { router as preferencesRouter }

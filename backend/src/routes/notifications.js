@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requirePermission } from "../middleware/security.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
 
 const templateSchema = z.object({
   key: z.string().min(1).max(100),
@@ -42,6 +42,7 @@ router.put("/read-all", requirePermission("notifications.*"), async (req, res, n
       where: { recipientId: req.user.sub, readAt: null },
       data: { status: "read", readAt: new Date() },
     })
+    auditLog(req, "notification.read_all", { count: "all" })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -52,6 +53,7 @@ router.put("/:id/read", requirePermission("notifications.*"), async (req, res, n
       where: { id: req.params.id },
       data: { status: "read", readAt: new Date() },
     })
+    auditLog(req, "notification.read", { notificationId: notif.id })
     res.json({ notification: notif })
   } catch (err) { next(err) }
 })
@@ -67,6 +69,7 @@ router.post("/templates", requirePermission("notifications.*"), async (req, res,
   try {
     const data = templateSchema.parse(req.body)
     const template = await prisma.notificationTemplate.create({ data })
+    auditLog(req, "notification_template.created", { templateId: template.id })
     res.status(201).json({ template })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -78,6 +81,7 @@ router.put("/templates/:id", requirePermission("notifications.*"), async (req, r
   try {
     const data = templateSchema.partial().parse(req.body)
     const template = await prisma.notificationTemplate.update({ where: { id: req.params.id }, data })
+    auditLog(req, "notification_template.updated", { templateId: template.id })
     res.json({ template })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -90,6 +94,7 @@ router.delete("/templates/:id", requirePermission("notifications.*"), async (req
     const existingnotificationTemplate = await prisma.notificationTemplate.findUnique({ where: { id: req.params.id } });
     if (!existingnotificationTemplate) return res.status(404).json({ error: "Not found" });
     await prisma.notificationTemplate.delete({ where: { id: req.params.id } })
+    auditLog(req, "notification_template.deleted", { templateId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })

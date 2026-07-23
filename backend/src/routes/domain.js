@@ -42,6 +42,7 @@ function crud(resource, modelName, createSchema, options = {}) {
     try {
       const data = createSchema.parse(req.body)
       const item = await model().create({ data })
+      auditLog(req, `domain.${resource}.created`, { entityId: item.id })
       res.status(201).json({ [modelName.slice(0, -1)]: item })
     } catch (err) { if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors }); next(err) }
   })
@@ -51,6 +52,7 @@ function crud(resource, modelName, createSchema, options = {}) {
     try {
       const data = createSchema.partial().parse(req.body)
       const item = await model().update({ where: { id: req.params.id }, data })
+      auditLog(req, `domain.${resource}.updated`, { entityId: req.params.id })
       res.json({ [modelName.slice(0, -1)]: item })
     } catch (err) { if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors }); next(err) }
   })
@@ -58,8 +60,11 @@ function crud(resource, modelName, createSchema, options = {}) {
   // Delete
   router.delete(`/${resource}/:id`, requirePermission("admin.*"), async (req, res, next) => {
     try {
-      await model.delete({ where: { id: req.params.id } })
-      res.json({ success: true })
+      const existing = await model().findUnique({ where: { id: req.params.id } })
+      if (!existing) return res.status(404).json({ error: "Not found" })
+      const item = await model().delete({ where: { id: req.params.id } })
+      auditLog(req, `domain.${resource}.deleted`, { entityId: req.params.id })
+      res.json({ message: "Deleted", [resource]: item })
     } catch (err) { next(err) }
   })
 }

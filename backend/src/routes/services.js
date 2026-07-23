@@ -34,6 +34,7 @@ router.post("/notifications", requirePermission("services.*"), async (req, res, 
     if (data.channel === "email" && data.recipientEmail) {
       await prisma.emailLog.create({ data: { to: data.recipientEmail, from: "noreply@meterverse.com", subject: data.title, body: data.body } })
     }
+    auditLog(req, "services.notification.created", { notificationId: notification.id })
     res.status(201).json({ notification })
   } catch (err) { next(err) }
 })
@@ -41,6 +42,7 @@ router.post("/notifications", requirePermission("services.*"), async (req, res, 
 router.put("/notifications/:id/read", async (req, res, next) => {
   try {
     const n = await prisma.notification.update({ where: { id: req.params.id }, data: { readAt: new Date(), status: "read" } })
+    auditLog(req, "services.notification.read", { notificationId: req.params.id })
     res.json({ notification: n })
   } catch (err) { next(err) }
 })
@@ -65,6 +67,7 @@ router.post("/activity", requirePermission("services.*"), async (req, res, next)
       details: z.string().optional(), severity: z.string().optional(),
     }).parse(req.body)
     const entry = await prisma.activityStream.create({ data })
+    auditLog(req, "services.activity.created", { entryId: entry.id })
     res.status(201).json({ entry })
   } catch (err) { next(err) }
 })
@@ -87,6 +90,7 @@ router.post("/email/send", requirePermission("services.*"), async (req, res, nex
   try {
     const data = z.object({ to: z.string().email(), subject: z.string().min(1), body: z.string() }).parse(req.body)
     const log = await prisma.emailLog.create({ data: { ...data, from: "noreply@meterverse.com", status: "sent", sentAt: new Date() } })
+    auditLog(req, "services.email.sent", { emailLogId: log.id })
     res.status(201).json({ log })
   } catch (err) { next(err) }
 })
@@ -109,6 +113,7 @@ router.post("/sms/send", requirePermission("services.*"), async (req, res, next)
   try {
     const data = z.object({ to: z.string().min(1), message: z.string().min(1) }).parse(req.body)
     const log = await prisma.smsLog.create({ data: { ...data, status: "sent", sentAt: new Date() } })
+    auditLog(req, "services.sms.sent", { smsLogId: log.id })
     res.status(201).json({ log })
   } catch (err) { next(err) }
 })
@@ -140,6 +145,7 @@ router.post("/imports", requirePermission("services.*"), async (req, res, next) 
         data: { status: "completed", totalRows: processed + failed, processed, failed, completedAt: new Date() },
       })
     }, 3000)
+    auditLog(req, "services.import.created", { jobId: job.id })
     res.status(201).json({ job })
   } catch (err) { next(err) }
 })
@@ -163,6 +169,7 @@ router.post("/exports", requirePermission("services.*"), async (req, res, next) 
         data: { status: "completed", totalRows: Math.floor(Math.random() * 1000 + 50), filePath: `/exports/${job.id}.${data.format || "csv"}`, completedAt: new Date() },
       })
     }, 3000)
+    auditLog(req, "services.export.created", { jobId: job.id })
     res.status(201).json({ job })
   } catch (err) { next(err) }
 })
@@ -229,6 +236,7 @@ router.post("/push/send", requirePermission("services.*"), async (req, res, next
   try {
     const data = z.object({ title: z.string().min(1), body: z.string().min(1), platform: z.string().optional() }).parse(req.body)
     const notification = await prisma.pushNotification.create({ data: { ...data, status: "sent", sentAt: new Date() } })
+    auditLog(req, "services.push.sent", { pushNotificationId: notification.id })
     res.status(201).json({ notification })
   } catch (err) { next(err) }
 })
@@ -249,6 +257,7 @@ router.post("/ocr", requirePermission("services.*"), async (req, res, next) => {
     setTimeout(async () => {
       await prisma.ocrJob.update({ where: { id: job.id }, data: { status: "completed", result: "Sample OCR text extracted successfully", confidence: 0.95, processedAt: new Date() } })
     }, 3000)
+    auditLog(req, "services.ocr.created", { jobId: job.id })
     res.status(201).json({ job })
   } catch (err) { next(err) }
 })
@@ -269,6 +278,7 @@ router.post("/pdf", requirePermission("services.*"), async (req, res, next) => {
     setTimeout(async () => {
       await prisma.pdfJob.update({ where: { id: job.id }, data: { status: "completed", filePath: `/exports/pdf/${job.id}.pdf`, completedAt: new Date() } })
     }, 3000)
+    auditLog(req, "services.pdf.created", { jobId: job.id })
     res.status(201).json({ job })
   } catch (err) { next(err) }
 })
@@ -289,6 +299,7 @@ router.post("/excel", requirePermission("services.*"), async (req, res, next) =>
     setTimeout(async () => {
       await prisma.excelJob.update({ where: { id: job.id }, data: { status: "completed", filePath: `/exports/excel/${job.id}.${data.format || "xlsx"}`, totalRows: Math.floor(Math.random() * 500 + 50), completedAt: new Date() } })
     }, 3000)
+    auditLog(req, "services.excel.created", { jobId: job.id })
     res.status(201).json({ job })
   } catch (err) { next(err) }
 })
@@ -299,6 +310,7 @@ router.post("/error-tracking", async (req, res, next) => {
   try {
     const data = z.object({ message: z.string(), level: z.string().optional(), stack: z.string().optional(), context: z.string().optional() }).parse(req.body)
     const entry = await prisma.activityStream.create({ data: { actor: "error-tracker", action: data.message, details: data.stack || data.context, severity: data.level || "error" } })
+    auditLog(req, "services.error_tracking.reported", { entryId: entry.id })
     res.status(201).json({ entry })
   } catch (err) { next(err) }
 })
@@ -325,6 +337,7 @@ router.post("/cache", requirePermission("services.*"), async (req, res, next) =>
   try {
     const data = z.object({ key: z.string().min(1), value: z.string(), ttl: z.number().optional() }).parse(req.body)
     const entry = await prisma.cacheEntry.upsert({ where: { key: data.key }, update: { value: data.value, hits: 0 }, create: { ...data, expiresAt: data.ttl ? new Date(Date.now() + data.ttl * 1000) : null } })
+    auditLog(req, "services.cache.upserted", { key: data.key })
     res.status(201).json({ entry })
   } catch (err) { next(err) }
 })

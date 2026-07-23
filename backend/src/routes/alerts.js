@@ -1,7 +1,8 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requirePermission } from "../middleware/security.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
+import { z } from "zod"
 
 const router = Router()
 router.use(authenticate)
@@ -17,6 +18,7 @@ router.get("/", requirePermission("admin.list"), async (req, res, next) => {
 router.put("/:id/resolve", requirePermission("admin.update"), async (req, res, next) => {
   try {
     const alert = await prisma.alert.update({ where: { id: req.params.id }, data: { status: "resolved", resolvedAt: new Date(), resolvedBy: req.user.email } })
+    auditLog(req, "alert.resolved", { alertId: alert.id })
     res.json({ alert })
   } catch (err) { next(err) }
 })

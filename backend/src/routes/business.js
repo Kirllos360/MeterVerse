@@ -17,6 +17,7 @@ router.post("/pipeline/execute", requirePermission("business.*"), async (req, re
       periodStart: z.string(), periodEnd: z.string(),
     }).parse(req.body)
     const result = await executePipeline(data.meterId, data.customerId, data.tariffId, data.periodStart, data.periodEnd)
+    auditLog(req, "pipeline.executed", { success: result.success })
     await prisma.auditEntry.create({ data: { action: "pipeline.executed", actor: req.user.email, resource: "pipeline", details: JSON.stringify({ success: result.success }), status: result.success ? "success" : "failure" } })
     res.json(result)
   } catch (err) { next(err) }
@@ -26,6 +27,7 @@ router.post("/pipeline/validate-reading", requirePermission("business.*"), async
   try {
     const { readingId } = z.object({ readingId: z.string().uuid() }).parse(req.body)
     const result = await validateReading(readingId)
+    auditLog(req, "pipeline.validate_reading", { readingId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -34,6 +36,7 @@ router.post("/pipeline/calculate-consumption", requirePermission("business.*"), 
   try {
     const data = z.object({ meterId: z.string().uuid(), startDate: z.string(), endDate: z.string() }).parse(req.body)
     const result = await calculateConsumption(data.meterId, data.startDate, data.endDate)
+    auditLog(req, "pipeline.calculate_consumption", { meterId: data.meterId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -42,6 +45,7 @@ router.post("/pipeline/apply-tariff", requirePermission("business.*"), async (re
   try {
     const data = z.object({ tariffId: z.string().uuid(), consumption: z.number(), periodStart: z.string(), periodEnd: z.string() }).parse(req.body)
     const result = await applyTariff(data.tariffId, data.consumption, data.periodStart, data.periodEnd)
+    auditLog(req, "pipeline.apply_tariff", { tariffId: data.tariffId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -65,6 +69,7 @@ router.post("/simulate/tariff", requirePermission("business.*"), async (req, res
   try {
     const data = z.object({ tariffId: z.string().uuid(), consumption: z.number() }).parse(req.body)
     const result = await applyTariff(data.tariffId, data.consumption, new Date().toISOString(), new Date().toISOString())
+    auditLog(req, "simulate.tariff", { tariffId: data.tariffId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -76,6 +81,7 @@ router.post("/simulate/invoice", requirePermission("business.*"), async (req, re
     const invoice = await prisma.invoice.create({
       data: { number: `SIM-${Date.now()}`, customerId: data.customerId, amount: tariff.totalCharge, status: "pending", dueDate: new Date(Date.now() + 30 * 86400000) },
     })
+    auditLog(req, "simulate.invoice", { customerId: data.customerId, invoiceId: invoice.id })
     res.json({ simulated: true, invoice, tariff })
   } catch (err) { next(err) }
 })

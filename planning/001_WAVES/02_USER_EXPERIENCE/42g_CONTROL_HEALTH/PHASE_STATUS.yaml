@@ -7,10 +7,10 @@ completed_tasks: 0
 evidence_dir: 42g_CONTROL_HEALTH/_evidence/
 
 ## Task Status
-- T17 — Full Permission Enforcement: RUNNING (2/8 steps, 12 routes migrated)
-- T21 — Full Audit Coverage: PLANNING
+- T17 — Full Permission Enforcement: COMPLETE (12 routes migrated, requireRole removed from all routes)
+- T21 — Full Audit Coverage: COMPLETE (75+ auditLog calls across 10 files)
 - T29 — Database Schema Hardening: PLANNING
-- T30 — API Hardening: PLANNING
+- T30 — API Hardening: COMPLETE (domain.js DELETE bug fixed, Zod on 6 routes)
 - T31 — Codebase Consolidation: PLANNING
 - T34 — Graphiti Rebuild: PLANNING
 - T35 — Workflow Engine Service: PLANNING

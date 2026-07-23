@@ -94,6 +94,7 @@ router.post("/users", requirePermission("admin.*"), async (req, res, next) => {
       data: { ...data, password: hashed },
       select: { id: true, email: true, name: true, role: true, status: true, createdAt: true },
     })
+    auditLog(req, "admin.user.created", { userId: user.id })
     res.status(201).json({ user })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -112,6 +113,7 @@ router.put("/users/:id", requirePermission("admin.*"), async (req, res, next) =>
       data: updateData,
       select: { id: true, email: true, name: true, role: true, status: true, roleId: true },
     })
+    auditLog(req, "admin.user.updated", { userId: user.id })
     res.json({ user })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -125,6 +127,7 @@ router.delete("/users/:id", requirePermission("admin.*"), async (req, res, next)
     const existinguser = await prisma.user.findUnique({ where: { id: req.params.id } });
     if (!existinguser) return res.status(404).json({ error: "Not found" });
     await prisma.user.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.user.deleted", { userId: req.params.id })
     res.json({ success: true })
   } catch (err) {
     if (err.code === "P2025") return res.status(404).json({ error: "User not found" })
@@ -174,6 +177,7 @@ router.post("/roles", requirePermission("admin.*"), async (req, res, next) => {
       },
       include: { permissions: { include: { permission: true } } },
     })
+    auditLog(req, "admin.role.created", { roleId: role.id })
     res.status(201).json({ role })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -196,6 +200,7 @@ router.put("/roles/:id", requirePermission("admin.*"), async (req, res, next) =>
       data,
       include: { permissions: { include: { permission: true } } },
     })
+    auditLog(req, "admin.role.updated", { roleId: role.id })
     res.json({ role })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -210,6 +215,7 @@ router.delete("/roles/:id", requirePermission("admin.*"), async (req, res, next)
     const existingrole = await prisma.role.findUnique({ where: { id: req.params.id } });
     if (!existingrole) return res.status(404).json({ error: "Not found" });
     await prisma.role.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.role.deleted", { roleId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -233,6 +239,7 @@ router.post("/permissions", requirePermission("admin.*"), async (req, res, next)
   try {
     const data = createPermissionSchema.parse(req.body)
     const permission = await prisma.permission.create({ data })
+    auditLog(req, "admin.permission.created", { permissionId: permission.id })
     res.status(201).json({ permission })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -245,6 +252,7 @@ router.delete("/permissions/:id", requirePermission("admin.*"), async (req, res,
     const existingpermission = await prisma.permission.findUnique({ where: { id: req.params.id } });
     if (!existingpermission) return res.status(404).json({ error: "Not found" });
     await prisma.permission.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.permission.deleted", { permissionId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -306,6 +314,7 @@ router.put("/settings", requirePermission("admin.*"), async (req, res, next) => 
       })
       results.push(setting)
     }
+    auditLog(req, "admin.settings.updated", { count: results.length })
     res.json({ settings: results })
   } catch (err) { next(err) }
 })
@@ -328,6 +337,7 @@ router.post("/feature-flags", requirePermission("admin.*"), async (req, res, nex
       scope: z.string().optional(),
     }).parse(req.body)
     const flag = await prisma.featureFlag.create({ data })
+    auditLog(req, "admin.feature_flag.created", { flagId: flag.id })
     res.status(201).json({ flag })
   } catch (err) { next(err) }
 })
@@ -340,6 +350,7 @@ router.put("/feature-flags/:id/toggle", requirePermission("admin.*"), async (req
       where: { id: req.params.id },
       data: { enabled: !flag.enabled },
     })
+    auditLog(req, "admin.feature_flag.toggled", { flagId: req.params.id, enabled: updated.enabled })
     res.json({ flag: updated })
   } catch (err) { next(err) }
 })
@@ -349,6 +360,7 @@ router.delete("/feature-flags/:id", requirePermission("admin.*"), async (req, re
     const existingfeatureFlag = await prisma.featureFlag.findUnique({ where: { id: req.params.id } });
     if (!existingfeatureFlag) return res.status(404).json({ error: "Not found" });
     await prisma.featureFlag.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.feature_flag.deleted", { flagId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -387,6 +399,7 @@ router.post("/api-keys", requirePermission("admin.*"), async (req, res, next) =>
         expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
       },
     })
+    auditLog(req, "admin.api_key.created", { keyId: key.id })
     res.status(201).json({ key: { id: key.id, name: key.name, prefix: key.prefix, rawKey: raw, permissions: key.permissions, expiresAt: key.expiresAt } })
   } catch (err) { next(err) }
 })
@@ -396,6 +409,7 @@ router.delete("/api-keys/:id", requirePermission("admin.*"), async (req, res, ne
     const existingapiKey = await prisma.apiKey.findUnique({ where: { id: req.params.id } });
     if (!existingapiKey) return res.status(404).json({ error: "Not found" });
     await prisma.apiKey.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.api_key.deleted", { keyId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -418,6 +432,7 @@ router.delete("/sessions/:id", requirePermission("admin.*"), async (req, res, ne
     const existingsession = await prisma.session.findUnique({ where: { id: req.params.id } });
     if (!existingsession) return res.status(404).json({ error: "Not found" });
     await prisma.session.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.session.deleted", { sessionId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -435,6 +450,7 @@ router.post("/organizations", requirePermission("admin.*"), async (req, res, nex
   try {
     const data = z.object({ name: z.string().min(1), slug: z.string().min(1), domain: z.string().optional(), plan: z.string().optional() }).parse(req.body)
     const org = await prisma.organization.create({ data })
+    auditLog(req, "admin.organization.created", { organizationId: org.id })
     res.status(201).json({ organization: org })
   } catch (err) { next(err) }
 })
@@ -444,6 +460,7 @@ router.delete("/organizations/:id", requirePermission("admin.*"), async (req, re
     const existingorganization = await prisma.organization.findUnique({ where: { id: req.params.id } });
     if (!existingorganization) return res.status(404).json({ error: "Not found" });
     await prisma.organization.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.organization.deleted", { organizationId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -461,6 +478,7 @@ router.post("/projects", requirePermission("admin.*"), async (req, res, next) =>
   try {
     const data = z.object({ name: z.string().min(1), description: z.string().optional(), organizationId: z.string().uuid() }).parse(req.body)
     const project = await prisma.project.create({ data })
+    auditLog(req, "admin.project.created", { projectId: project.id })
     res.status(201).json({ project })
   } catch (err) { next(err) }
 })
@@ -478,6 +496,7 @@ router.post("/webhooks", requirePermission("admin.*"), async (req, res, next) =>
   try {
     const data = z.object({ name: z.string().min(1), url: z.string().url(), events: z.string().optional(), secret: z.string().optional() }).parse(req.body)
     const webhook = await prisma.webhook.create({ data })
+    auditLog(req, "admin.webhook.created", { webhookId: webhook.id })
     res.status(201).json({ webhook })
   } catch (err) { next(err) }
 })
@@ -487,6 +506,7 @@ router.put("/webhooks/:id/toggle", requirePermission("admin.*"), async (req, res
     const wh = await prisma.webhook.findUnique({ where: { id: req.params.id } })
     if (!wh) return res.status(404).json({ error: "Webhook not found" })
     const updated = await prisma.webhook.update({ where: { id: req.params.id }, data: { active: !wh.active } })
+    auditLog(req, "admin.webhook.toggled", { webhookId: req.params.id, active: updated.active })
     res.json({ webhook: updated })
   } catch (err) { next(err) }
 })
@@ -496,6 +516,7 @@ router.delete("/webhooks/:id", requirePermission("admin.*"), async (req, res, ne
     const existingwebhook = await prisma.webhook.findUnique({ where: { id: req.params.id } });
     if (!existingwebhook) return res.status(404).json({ error: "Not found" });
     await prisma.webhook.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.webhook.deleted", { webhookId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -513,6 +534,7 @@ router.post("/notification-templates", requirePermission("admin.*"), async (req,
   try {
     const data = z.object({ key: z.string().min(1), name: z.string().min(1), type: z.string().optional(), subject: z.string().optional(), body: z.string(), variables: z.string().optional() }).parse(req.body)
     const template = await prisma.notificationTemplate.create({ data })
+    auditLog(req, "admin.notification_template.created", { templateId: template.id })
     res.status(201).json({ template })
   } catch (err) { next(err) }
 })
@@ -533,6 +555,7 @@ router.post("/backups", requirePermission("admin.*"), async (req, res, next) => 
     setTimeout(async () => {
       await prisma.backup.update({ where: { id: backup.id }, data: { status: "completed", completedAt: new Date(), size: `${Math.floor(Math.random() * 1000 + 100)}MB` } })
     }, 5000)
+    auditLog(req, "admin.backup.created", { backupId: backup.id })
     res.status(201).json({ backup })
   } catch (err) { next(err) }
 })
@@ -542,6 +565,7 @@ router.delete("/backups/:id", requirePermission("admin.*"), async (req, res, nex
     const existingbackup = await prisma.backup.findUnique({ where: { id: req.params.id } });
     if (!existingbackup) return res.status(404).json({ error: "Not found" });
     await prisma.backup.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.backup.deleted", { backupId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -561,6 +585,7 @@ router.delete("/cache/:id", requirePermission("admin.*"), async (req, res, next)
     const existingcacheEntry = await prisma.cacheEntry.findUnique({ where: { id: req.params.id } });
     if (!existingcacheEntry) return res.status(404).json({ error: "Not found" });
     await prisma.cacheEntry.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.cache_entry.deleted", { cacheEntryId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -568,6 +593,7 @@ router.delete("/cache/:id", requirePermission("admin.*"), async (req, res, next)
 router.delete("/cache", requirePermission("admin.*"), async (req, res, next) => {
   try {
     await prisma.cacheEntry.deleteMany()
+    auditLog(req, "admin.cache.flushed", {})
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -593,6 +619,7 @@ router.post("/queue", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), payload: z.string().optional(), priority: z.number().optional(), scheduledAt: z.string().optional() }).parse(req.body)
     const job = await prisma.queueJob.create({ data: { ...data, payload: data.payload || "{}" } })
+    auditLog(req, "admin.queue_job.created", { jobId: job.id })
     res.status(201).json({ job })
   } catch (err) { next(err) }
 })
@@ -600,6 +627,7 @@ router.post("/queue", requirePermission("admin.*"), async (req, res, next) => {
 router.post("/queue/:id/retry", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const job = await prisma.queueJob.update({ where: { id: req.params.id }, data: { status: "pending", attempts: 0, error: null } })
+    auditLog(req, "admin.queue_job.retried", { jobId: req.params.id })
     res.json({ job })
   } catch (err) { next(err) }
 })
@@ -617,6 +645,7 @@ router.post("/scheduler", requirePermission("admin.*"), async (req, res, next) =
   try {
     const data = z.object({ name: z.string().min(1), description: z.string().optional(), cron: z.string(), taskType: z.string(), config: z.string().optional() }).parse(req.body)
     const task = await prisma.scheduledTask.create({ data })
+    auditLog(req, "admin.scheduled_task.created", { taskId: task.id })
     res.status(201).json({ task })
   } catch (err) { next(err) }
 })
@@ -626,6 +655,7 @@ router.put("/scheduler/:id/toggle", requirePermission("admin.*"), async (req, re
     const task = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } })
     if (!task) return res.status(404).json({ error: "Task not found" })
     const updated = await prisma.scheduledTask.update({ where: { id: req.params.id }, data: { active: !task.active } })
+    auditLog(req, "admin.scheduled_task.toggled", { taskId: req.params.id, active: updated.active })
     res.json({ task: updated })
   } catch (err) { next(err) }
 })
@@ -635,6 +665,7 @@ router.delete("/scheduler/:id", requirePermission("admin.*"), async (req, res, n
     const existingscheduledTask = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } });
     if (!existingscheduledTask) return res.status(404).json({ error: "Not found" });
     await prisma.scheduledTask.delete({ where: { id: req.params.id } })
+    auditLog(req, "admin.scheduled_task.deleted", { taskId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
 })
@@ -664,6 +695,7 @@ router.post("/license", requirePermission("admin.*"), async (req, res, next) => 
   try {
     const data = z.object({ key: z.string().min(1), type: z.string().optional(), seats: z.number().optional(), expiresAt: z.string().optional() }).parse(req.body)
     const license = await prisma.license.create({ data: { ...data, activatedAt: new Date(), expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined } })
+    auditLog(req, "admin.license.created", { licenseId: license.id })
     res.status(201).json({ license })
   } catch (err) { next(err) }
 })
@@ -691,6 +723,7 @@ router.put("/branding", requirePermission("admin.*"), async (req, res, next) => 
       })
       results.push(config)
     }
+    auditLog(req, "admin.branding.updated", { count: results.length })
     res.json({ configs: results })
   } catch (err) { next(err) }
 })

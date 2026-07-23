@@ -11,6 +11,7 @@ router.post("/operator", requirePermission("ai.*"), async (req, res, next) => {
   try {
     const { query } = z.object({ query: z.string().min(1).max(500) }).parse(req.body)
     const result = await aiOperator(query)
+    auditLog(req, "ai.operator", { query })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -19,6 +20,7 @@ router.post("/billing-assistant", requirePermission("ai.*"), async (req, res, ne
   try {
     const { invoiceId } = z.object({ invoiceId: z.string().uuid() }).parse(req.body)
     const result = await aiBillingAssistant(invoiceId)
+    auditLog(req, "ai.billing_assistant", { invoiceId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -27,6 +29,7 @@ router.post("/reading-validator", requirePermission("ai.*"), async (req, res, ne
   try {
     const { meterId } = z.object({ meterId: z.string().uuid() }).parse(req.body)
     const result = await aiReadingValidator(meterId)
+    auditLog(req, "ai.reading_validator", { meterId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -35,6 +38,7 @@ router.post("/leak-detection", requirePermission("ai.*"), async (req, res, next)
   try {
     const { meterId } = z.object({ meterId: z.string().uuid() }).parse(req.body)
     const result = await aiLeakDetection(meterId)
+    auditLog(req, "ai.leak_detection", { meterId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -52,6 +56,7 @@ router.post("/root-cause", requirePermission("ai.*"), async (req, res, next) => 
   try {
     const { invoiceId } = z.object({ invoiceId: z.string().uuid() }).parse(req.body)
     const result = await aiRootCauseAnalysis(invoiceId)
+    auditLog(req, "ai.root_cause", { invoiceId })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -60,6 +65,7 @@ router.post("/report-builder", requirePermission("ai.*"), async (req, res, next)
   try {
     const params = z.object({ reportType: z.string().optional(), period: z.string().optional(), metric: z.string().optional() }).parse(req.body)
     const result = await aiReportBuilder(params)
+    auditLog(req, "ai.report_builder", { params })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -68,6 +74,7 @@ router.post("/sql-assistant", requirePermission("ai.*"), async (req, res, next) 
   try {
     const { query } = z.object({ query: z.string().min(1).max(500) }).parse(req.body)
     const result = await aiSqlAssistant(query)
+    auditLog(req, "ai.sql_assistant", { query })
     res.json(result)
   } catch (err) { next(err) }
 })
@@ -76,6 +83,7 @@ router.post("/workflow-generator", requirePermission("ai.*"), async (req, res, n
   try {
     const { description } = z.object({ description: z.string().min(1).max(500) }).parse(req.body)
     const result = await aiWorkflowGenerator(description)
+    auditLog(req, "ai.workflow_generator", { description })
     res.json(result)
   } catch (err) { next(err) }
 })

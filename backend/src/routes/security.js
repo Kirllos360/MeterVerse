@@ -1,12 +1,17 @@
 import { authenticate } from "../middleware/auth.js"
 import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
 import { validatePassword } from "../middleware/security.js"
+import { z } from "zod"
 import { prisma } from "../server.js"
 import { Router } from "express"
 import crypto from "crypto"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
+
+const passwordSchema = z.object({
+  password: z.string({ required_error: "Password is required" }).min(1, "Password cannot be empty"),
+})
 
 const router = Router()
 router.use(authenticate)
@@ -144,11 +149,14 @@ router.get("/audit/dependencies", requireRole("super_admin"), async (req, res, n
 
 router.post("/validate-password", async (req, res, next) => {
   try {
-    const { password } = req.body
-    if (!password) return res.status(400).json({ error: "Password required" })
+    const { password } = passwordSchema.parse(req.body)
     const result = validatePassword(password)
+    auditLog(req, "security.password_validated", {})
     res.json(result)
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: err.errors })
+    next(err)
+  }
 })
 
 export { router as securityRouter }

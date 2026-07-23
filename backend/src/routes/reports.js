@@ -117,6 +117,7 @@ router.post("/kpi", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), category: z.string().optional(), target: z.number().optional(), unit: z.string().optional(), current: z.number().optional(), trend: z.string().optional() }).parse(req.body)
     const kpi = await prisma.kpiDefinition.create({ data })
+    auditLog(req, "reports.kpi.created", { kpiId: kpi.id })
     res.status(201).json({ kpi })
   } catch (err) { next(err) }
 })
@@ -138,6 +139,7 @@ router.post("/export", requirePermission("reports.*"), async (req, res, next) =>
     setTimeout(async () => {
       await prisma.exportLog.update({ where: { id: exp.id }, data: { status: "completed", totalRows: Math.floor(Math.random() * 1000 + 50), filePath: `/exports/${exp.id}.${data.format || "csv"}`, completedAt: new Date() } })
     }, 3000)
+    auditLog(req, "reports.export.created", { exportId: exp.id })
     res.status(201).json({ export: exp })
   } catch (err) { next(err) }
 })
@@ -155,6 +157,7 @@ router.post("/scheduled", requirePermission("reports.*"), async (req, res, next)
   try {
     const data = z.object({ name: z.string().min(1), reportType: z.string(), schedule: z.string().optional(), format: z.string().optional(), recipients: z.string().optional() }).parse(req.body)
     const report = await prisma.scheduledReport.create({ data })
+    auditLog(req, "reports.scheduled.created", { reportId: report.id })
     res.status(201).json({ report })
   } catch (err) { next(err) }
 })
@@ -164,6 +167,7 @@ router.put("/scheduled/:id/toggle", requirePermission("reports.*"), async (req, 
     const r = await prisma.scheduledReport.findUnique({ where: { id: req.params.id } })
     if (!r) return res.status(404).json({ error: "Not found" })
     const updated = await prisma.scheduledReport.update({ where: { id: req.params.id }, data: { active: !r.active } })
+    auditLog(req, "reports.scheduled.toggled", { reportId: req.params.id, active: updated.active })
     res.json({ report: updated })
   } catch (err) { next(err) }
 })
@@ -181,6 +185,7 @@ router.post("/definitions", requirePermission("reports.*"), async (req, res, nex
   try {
     const data = z.object({ name: z.string().min(1), type: z.string().optional(), description: z.string().optional(), config: z.string().optional(), schedule: z.string().optional(), recipients: z.string().optional() }).parse(req.body)
     const report = await prisma.reportDefinition.create({ data })
+    auditLog(req, "reports.definition.created", { reportId: report.id })
     res.status(201).json({ report })
   } catch (err) { next(err) }
 })
