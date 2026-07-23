@@ -1,1 +1,10 @@
-v1.0 � Completed 2026-07-23
+Planning OS v2.0
+Status: FROZEN (2026-07-23)
+Rule: No new layers, folders, hierarchy changes without Enterprise Architect approval
+Waves:
+  Wave 01: FROZEN — completing final verification gates
+  Wave 02: LOCKED — read-only, no changes until Wave 01 complete
+  Wave 03: LOCKED — read-only
+  Wave 04: LOCKED — read-only
+  Wave 05: LOCKED — read-only
+  Wave 06: LOCKED — read-only

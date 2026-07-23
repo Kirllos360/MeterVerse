@@ -206,6 +206,33 @@ Every tool invocation must be recorded. After each task, append to `configs/tool
 
 This log is read by GATE_CHECK (Phase 42d T03) to verify tool coverage.
 
+## Rule 9 — Planning OS Freeze & Implementation Priority
+
+Planning OS v2.0 is **FROZEN**. No new layers, folders, hierarchy changes without Enterprise Architect approval.
+
+### Priority Order
+```
+1. Implementation
+2. Verification (Quality Gates, Graphiti, SpecKit, Evidence)
+3. Documentation update
+4. Planning OS update (minimal, only as implementation requires)
+```
+
+### Sequential Execution
+```
+One Step → Verified → Committed → Pushed → Planning Updated → Next Step
+```
+Never work on two Waves, Phases, or Tasks simultaneously.
+
+### Wave Lock Status
+- Wave 01: FROZEN — completing final verification gates
+- Waves 02-06: LOCKED — read-only until prior wave complete
+
+### Execution Cycle (Every Step)
+```
+Read Planning → Read Graphiti → Read SpecKit → Analyze → Implement → Build → Type Check → Lint → Run → Playwright → Workflow Test → Performance Test → Graph Compare → Spec Compare → Evidence → Update Planning → Commit → Push → Next Step
+```
+
 ## Amendment Log
 
 | Date | Rule | Change |
@@ -216,3 +243,4 @@ This log is read by GATE_CHECK (Phase 42d T03) to verify tool coverage.
 | 2026-07-23 | 6 | STATUS.yaml verification protocol — prevent silent inconsistency |
 | 2026-07-23 | 7 | Mandatory Tool Selection Protocol — declare tools before every task |
 | 2026-07-23 | 8 | Tool Usage Audit Trail — log every tool invocation after each task |
+| 2026-07-23 | 9 | Planning OS Freeze — implementation priority, sequential execution |

@@ -99,4 +99,40 @@
 
 ---
 
+## Rule 31 — Planning OS Freeze
+
+Planning OS v2.0 is **FROZEN**. The AI may NOT:
+- Create new planning folders or layers
+- Redesign hierarchy (Program/Wave/Phase/Task/Step)
+- Rename or restructure existing waves
+- Move or reorder phases
+- Redesign or replace templates
+- Add new governance layers
+
+**Exceptions:** Only when explicitly requested by the Enterprise Architect.
+
+## Priority Order (Mandatory)
+
+```
+Priority 1: Implementation
+Priority 2: Verification (Quality Gates, Graphiti, SpecKit, Evidence)
+Priority 3: Documentation update
+Priority 4: Planning OS update (minimal, only as required by implementation)
+```
+
+Planning always follows implementation. Planning is documentation, not the goal.
+
+## Sequential Execution Rule
+
+```
+One Step → Verified → Committed → Pushed → Planning Updated → Next Step
+```
+
+Never work on two Waves simultaneously.
+Never work on two Phases simultaneously.
+Never work on two Tasks simultaneously.
+Every step must complete and be verified before the next begins.
+
+---
+
 *This contract must be completed before any implementation begins. No exceptions.*
