@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><title>MeterVerse Graph</title>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape/dist/cytoscape.min.js"></script>
+<style>body{margin:0}#cy{width:100vw;height:100vh}</style>
+</head><body><div id="cy"></div>
+<script>
+fetch('index.json').then(r=>r.json()).then(data=>{
+  const nodes = data.nodes.map(n => ({data:{id:n.id.toString(),name:n.name,type:n.type}}));
+  const edges = data.edges.map(e => ({data:{source:e.source.toString(),target:e.target.toString()}}));
+  cytoscape({container:document.getElementById('cy'),elements:[...nodes,...edges],
+    style:[{selector:'node',style:{label:'data(name)',width:30,height:30,'background-color':'#4a90d9','text-valign':'center','color':'#fff','font-size':'10px'}},
+           {selector:'edge',style:{width:1,'line-color':'#999','curve-style':'bezier'}},
+           {selector:'node[type="database"]',style:{'background-color':'#27ae60'}},
+           {selector:'node[type="api"]',style:{'background-color':'#e67e22'}},
+           {selector:'node[type="page"]',style:{'background-color':'#9b59b6'}},
+           {selector:'node[type="middleware"]',style:{'background-color':'#e74c3c'}}],
+    layout:{name:'breadthfirst',directed:true}});
+});
+</script></body></html>
