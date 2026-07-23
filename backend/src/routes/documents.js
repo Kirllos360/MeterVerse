@@ -8,6 +8,13 @@ import { requirePermission } from "../middleware/security.js"
 import { z } from "zod"
 
 const router = Router()
+
+const templateSchema = z.object({
+  name: z.string().min(1),
+  content: z.string().min(1),
+  variables: z.string().default("[]"),
+  category: z.string().default("general"),
+})
 const UPLOAD_DIR = process.env.UPLOAD_DIR || "./uploads"
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 
@@ -63,6 +70,44 @@ router.delete("/:id", requirePermission("documents.*"), async (req, res, next) =
     if (!file) return res.status(404).json({ error: "File not found" })
     if (fs.existsSync(file.path)) fs.unlinkSync(file.path)
     await prisma.storedFile.delete({ where: { id: req.params.id } })
+    res.json({ message: "Deleted" })
+  } catch (err) { next(err) }
+})
+
+router.get("/templates", requirePermission("documents.*"), async (req, res, next) => {
+  try {
+    const templates = await prisma.notificationTemplate.findMany({
+      where: { type: "document" },
+      orderBy: { createdAt: "desc" },
+    })
+    res.json({ templates })
+  } catch (err) { next(err) }
+})
+
+router.post("/templates", requirePermission("documents.*"), async (req, res, next) => {
+  try {
+    const data = templateSchema.parse(req.body)
+    const template = await prisma.notificationTemplate.create({
+      data: { ...data, key: `doc_${Date.now()}`, type: "document" },
+    })
+    res.status(201).json({ template })
+  } catch (err) { next(err) }
+})
+
+router.put("/templates/:id", requirePermission("documents.*"), async (req, res, next) => {
+  try {
+    const data = templateSchema.partial().parse(req.body)
+    const template = await prisma.notificationTemplate.update({
+      where: { id: req.params.id },
+      data,
+    })
+    res.json({ template })
+  } catch (err) { next(err) }
+})
+
+router.delete("/templates/:id", requirePermission("documents.*"), async (req, res, next) => {
+  try {
+    await prisma.notificationTemplate.delete({ where: { id: req.params.id } })
     res.json({ message: "Deleted" })
   } catch (err) { next(err) }
 })

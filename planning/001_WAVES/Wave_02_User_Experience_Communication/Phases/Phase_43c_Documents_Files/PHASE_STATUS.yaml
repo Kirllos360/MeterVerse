@@ -10,7 +10,7 @@ phase:
         S01: "Implement Document Upload UI"
     T10_Document_Templates:
       name: "Document Templates"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Implement Document Templates"
     T99_Phase_Audit:
