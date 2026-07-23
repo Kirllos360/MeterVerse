@@ -21,6 +21,9 @@ model User {
   language      String       @default("en")
   theme         String       @default("adaptive")
   mfaEnabled    Boolean      @default(false)
+  loginAttempts Int          @default(0)
+  lockedUntil   DateTime?
+  lastFailedAt  DateTime?
   lastActiveAt  DateTime?
   lastLoginAt   DateTime?
   createdAt     DateTime     @default(now())

@@ -17,7 +17,7 @@ const registerSchema = z.object({ email: z.string().email(), password: z.string(
 router.post("/login", async (req, res, next) => {
   try {
     const { email, password, system_type } = loginSchema.parse(req.body)
-    const result = await authenticateUser(email, password, system_type)
+    const result = await authenticateUser(email, password, system_type, req.ip)
     if (!result.success) return res.status(result.status).json({ error: result.error })
     auditLog(req, `auth.login_success`, { email, system: system_type })
     res.json({

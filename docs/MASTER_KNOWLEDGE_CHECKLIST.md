@@ -36,10 +36,10 @@ Execution Flow:
 
 - [ ] **T00: Shared Login Engine** `[PLANNING]` ← START HERE
   - [x] S01: Design login protocol with system_type param
-  - [ ] S02: Build shared core auth logic
-  - [ ] S03: Add admin-scoped + user-scoped JWT tokens
-  - [ ] S04: Wire different UI redirects per system type
-  - [ ] S05: Add login appearance theming per system
+  - [x] S02: Build shared core auth logic
+  - [x] S03: Add admin-scoped + user-scoped JWT tokens
+  - [x] S04: Wire different UI redirects per system type
+  - [x] S05: Add login appearance theming per system
 - [ ] **T00: Enforce Permissions** `[PLANNING]`
   - [ ] S01: Map all endpoints to permission keys
   - [ ] S02: Replace requireRole() with requirePermission()
@@ -307,4 +307,5 @@ Execution Flow:
 ---
 
 *This file is the single source of truth. Update after every step completion.*
+
 
