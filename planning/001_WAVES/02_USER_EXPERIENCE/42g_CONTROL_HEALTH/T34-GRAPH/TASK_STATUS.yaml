@@ -1,0 +1,8 @@
+# T34 — Graphiti Rebuild
+status: PLANNING
+started: null
+completed: null
+phase: 42g_CONTROL_HEALTH
+total_steps: 5
+completed_steps: 0
+checklist: "[/] graphify run on D:\meter [/] HTML renders correctly [/] 225+ files mapped [/] --watch enabled"

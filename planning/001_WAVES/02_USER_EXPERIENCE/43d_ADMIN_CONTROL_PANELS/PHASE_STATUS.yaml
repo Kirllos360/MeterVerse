@@ -1,0 +1,18 @@
+# Phase 43d — Admin Control Panels & Monitoring
+status: PLANNING
+started: null
+completed: null
+total_tasks: 15
+completed_tasks: 0
+evidence_dir: 43d_ADMIN_CONTROL_PANELS/_evidence/
+
+## Original Tasks (12)
+T22-T28: Admin control panels (contracts, permissions, monitoring, backup, queue, cache, system config)
+T32-T33: Admin improvements (added by ULTIMATE_AUDIT_LOOP)
+T36-T38: Admin debug & monitoring (added by ULTIMATE_AUDIT_LOOP)
+
+## Gap Coverage
+- ErrorBoundary on all pages (D01/D10 gap)
+- 2 missing detail pages (D01 gap)
+- Admin debug mode (D09 gap)
+- Export streaming fix (D11 gap)

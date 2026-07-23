@@ -1,0 +1,8 @@
+# T09 — Unit Test Infrastructure
+status: PLANNING
+started: null
+completed: null
+phase: 00_ENTERPRISE_TEST_FOUNDATION
+total_steps: 8
+completed_steps: 0
+checklist: "[/] Vitest configured [/] 54 existing scripts converted [/] 10 new unit tests written [/] Coverage target set [/] All pass"

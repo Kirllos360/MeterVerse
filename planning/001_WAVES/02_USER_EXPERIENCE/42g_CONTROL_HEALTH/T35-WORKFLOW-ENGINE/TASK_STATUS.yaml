@@ -1,0 +1,8 @@
+# T35 — Workflow Engine Service
+status: PLANNING
+started: null
+completed: null
+phase: 42g_CONTROL_HEALTH
+total_steps: 6
+completed_steps: 0
+checklist: "[/] workflow-engine.js built [/] 3 state machines validated [/] Transitions audited [/] Tests pass"

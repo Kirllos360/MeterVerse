@@ -1,0 +1,8 @@
+# T13 — CI Test Pipeline
+status: PLANNING
+started: null
+completed: null
+phase: 45f_CI_CD_PIPELINE
+total_steps: 5
+completed_steps: 0
+checklist: "[/] GitHub Actions config [/] Unit tests run [/] API tests run [/] Lint passes [/] Builds succeed"

@@ -1,0 +1,8 @@
+# T23 — Admin Control Panel
+status: PLANNING
+started: null
+completed: null
+phase: 43d_ADMIN_CONTROL_PANELS
+total_steps: 5
+completed_steps: 0
+checklist: "[/] Panel functional [/] Permissions enforced [/] Audit logged [/] Evidence captured"

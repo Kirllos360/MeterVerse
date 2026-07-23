@@ -1,0 +1,15 @@
+# Phase 45b — Security Hardening
+status: PLANNING
+started: null
+completed: null
+total_tasks: 6
+completed_tasks: 0
+evidence_dir: 45b_SECURITY_HARDENING/_evidence/
+
+## Gaps Covered
+- D13: MFA is a placeholder (T41)
+- D12: CSRF protection missing (T42)
+- D13: No IP-based blocking (T43)
+- D13: No DDoS protection (T44)
+- D13: No security scan in CI (T45)
+- D12/D13: CORS/Helmet verification (T46)

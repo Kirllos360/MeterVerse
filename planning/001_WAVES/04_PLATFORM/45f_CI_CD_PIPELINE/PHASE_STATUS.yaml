@@ -1,0 +1,12 @@
+# Phase 45f — CI/CD Pipeline
+status: PLANNING
+started: null
+completed: null
+total_tasks: 3
+completed_tasks: 0
+evidence_dir: 45f_CI_CD_PIPELINE/_evidence/
+
+## Gaps Covered
+- D15: No CI test pipeline (T13 moved here as dedicated task)
+- D05: No Graphiti validation in CI
+- All: No deployment pipeline

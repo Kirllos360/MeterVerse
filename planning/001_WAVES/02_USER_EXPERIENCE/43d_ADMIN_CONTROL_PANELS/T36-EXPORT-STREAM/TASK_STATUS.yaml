@@ -1,0 +1,8 @@
+# T36 — Export Streaming Fix
+status: PLANNING
+started: null
+completed: null
+phase: 43d_ADMIN_CONTROL_PANELS
+total_steps: 5
+completed_steps: 0
+checklist: "[/] Streams implemented [/] 10K row cap [/] Memory usage verified [/] Works with 1.5M records"

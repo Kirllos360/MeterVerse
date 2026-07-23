@@ -1,0 +1,8 @@
+# T37 — Pagination Caps on All Routes
+status: PLANNING
+started: null
+completed: null
+phase: 45a_PERFORMANCE_HARDENING
+total_steps: 4
+completed_steps: 0
+checklist: "[/] 12 routes updated [/] Caps verified [/] Existing queries not broken"

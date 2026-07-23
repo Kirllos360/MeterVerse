@@ -1,0 +1,8 @@
+# T32 — ErrorBoundary on All Pages
+status: PLANNING
+started: null
+completed: null
+phase: 43d_ADMIN_CONTROL_PANELS
+total_steps: 5
+completed_steps: 0
+checklist: "[/] All 103 pages wrapped [/] Error states render [/] Recovery navigation works"

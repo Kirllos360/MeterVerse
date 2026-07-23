@@ -1,0 +1,14 @@
+# Phase 45a — Performance Hardening
+status: PLANNING
+started: null
+completed: null
+total_tasks: 4
+completed_tasks: 0
+evidence_dir: 45a_PERFORMANCE_HARDENING/_evidence/
+
+## Gaps Covered
+- D11: Export memory issue (T36 moved to 43d)
+- D11: Pagination caps on 12 routes
+- D11: Circuit breakers on external calls
+- D03: Cache layer implementation
+- D10: Graceful degradation audit

@@ -1,0 +1,8 @@
+# T45 — Security Scan in CI
+status: PLANNING
+started: null
+completed: null
+phase: 45b_SECURITY_HARDENING
+total_steps: 4
+completed_steps: 0
+checklist: "[/] npm audit in CI [/] Dependency scan [/] CodeQL configured [/] Alerts on finding"

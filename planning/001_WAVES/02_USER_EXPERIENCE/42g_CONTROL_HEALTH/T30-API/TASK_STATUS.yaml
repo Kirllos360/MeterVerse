@@ -1,0 +1,8 @@
+# T30 — API Hardening
+status: PLANNING
+started: null
+completed: null
+phase: 42g_CONTROL_HEALTH
+total_steps: 8
+completed_steps: 0
+checklist: "[/] domain.js DELETE idempotent [/] 6 routes have Zod validation [/] Swagger docs generated [/] All pass"
