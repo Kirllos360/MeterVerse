@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
 
 const createSchema = z.object({
   serial: z.string().min(1).max(100),
@@ -15,7 +15,7 @@ const createSchema = z.object({
 const router = Router()
 router.use(authenticate)
 
-router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.get("/export", requirePermission("meters.create"), async (req, res, next) => {
   try {
     const items = await prisma.meter.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
     const header = "serial,type,location,status,area,customerId,createdAt"
@@ -27,7 +27,7 @@ router.get("/export", requireRole("admin", "super_admin", "operator"), async (re
   } catch (err) { next(err) }
 })
 
-router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requirePermission("meters.list"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, search } = req.query
     const where = { archivedAt: null, ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}) }
@@ -39,7 +39,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requirePermission("meters.list"), async (req, res, next) => {
   try {
     const meter = await prisma.meter.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { readings: { orderBy: { timestamp: "desc" }, take: 10 }, customer: true } })
     if (!meter) return res.status(404).json({ error: "Meter not found" })
@@ -48,7 +48,7 @@ router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), as
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.post("/", requirePermission("meters.create"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const meter = await prisma.meter.create({ data })
@@ -60,7 +60,7 @@ router.post("/", requireRole("admin", "super_admin", "operator"), async (req, re
   }
 })
 
-router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.put("/:id", requirePermission("meters.create"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const meter = await prisma.meter.update({ where: { id: req.params.id }, data })
@@ -72,7 +72,7 @@ router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, 
   }
 })
 
-router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/:id", requirePermission("meters.delete"), async (req, res, next) => {
   try {
     await prisma.meter.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "meter.archived", { meterId: req.params.id })
@@ -81,6 +81,8 @@ router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next
 })
 
 export { router as metersRouter }
+
+
 
 
 

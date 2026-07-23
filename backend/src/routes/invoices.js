@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -15,7 +15,7 @@ const createSchema = z.object({
   dueDate: z.string().optional(),
 })
 
-router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requirePermission("invoices.list"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, status } = req.query
     const where = { archivedAt: null }
@@ -29,7 +29,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
 })
 
 
-router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.get("/export", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const items = await prisma.invoice.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
     const header = "number,customerId,amount,status,dueDate,issuedAt,paidAt,createdAt"
@@ -41,7 +41,7 @@ router.get("/export", requireRole("admin", "super_admin", "operator"), async (re
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requirePermission("invoices.list"), async (req, res, next) => {
   try {
     const invoice = await prisma.invoice.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { customer: true, payments: true } })
     if (!invoice) return res.status(404).json({ error: "Invoice not found" })
@@ -50,7 +50,7 @@ router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), as
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
+router.post("/", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const invoice = await prisma.invoice.create({ data })
@@ -62,7 +62,7 @@ router.post("/", requireRole("admin", "super_admin", "billing"), async (req, res
   }
 })
 
-router.put("/:id", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
+router.put("/:id", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const invoice = await prisma.invoice.update({ where: { id: req.params.id }, data })
@@ -74,7 +74,7 @@ router.put("/:id", requireRole("admin", "super_admin", "billing"), async (req, r
   }
 })
 
-router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/:id", requirePermission("invoices.delete"), async (req, res, next) => {
   try {
     const inv = await prisma.invoice.findUnique({ where: { id: req.params.id } })
     if (!inv) return res.status(404).json({ error: "Invoice not found" })
@@ -85,7 +85,7 @@ router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next
   } catch (err) { next(err) }
 })
 
-router.post("/generate", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
+router.post("/generate", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const { customerId, periodStart, periodEnd } = req.body
     if (!customerId || !periodStart || !periodEnd) return res.status(400).json({ error: "customerId, periodStart, periodEnd required" })
@@ -130,6 +130,8 @@ router.post("/generate", requireRole("admin", "super_admin", "billing"), async (
 })
 
 export { router as invoicesRouter }
+
+
 
 
 

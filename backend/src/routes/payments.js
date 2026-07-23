@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -14,7 +14,7 @@ const createSchema = z.object({
   status: z.string().default("completed"),
 })
 
-router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requirePermission("payments.list"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10 } = req.query
     const where = {}
@@ -27,7 +27,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
 })
 
 
-router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.get("/export", requirePermission("payments.create"), async (req, res, next) => {
   try {
     const items = await prisma.payment.findMany({ orderBy: { createdAt: "desc" } })
     const header = "invoiceId,amount,method,status,paidAt,createdAt"
@@ -39,7 +39,7 @@ router.get("/export", requireRole("admin", "super_admin", "operator"), async (re
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requirePermission("payments.list"), async (req, res, next) => {
   try {
     const payment = await prisma.payment.findUnique({ where: { id: req.params.id }, include: { invoice: true } })
     if (!payment) return res.status(404).json({ error: "Payment not found" })
@@ -48,7 +48,7 @@ router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), as
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "super_admin", "billing"), async (req, res, next) => {
+router.post("/", requirePermission("payments.create"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const inv = await prisma.invoice.findUnique({ where: { id: data.invoiceId } })
@@ -69,7 +69,7 @@ router.post("/", requireRole("admin", "super_admin", "billing"), async (req, res
   }
 })
 
-router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/:id", requirePermission("payments.delete"), async (req, res, next) => {
   try {
     const existingpayment = await prisma.payment.findUnique({ where: { id: req.params.id } });
     if (!existingpayment) return res.status(404).json({ error: "Not found" });
@@ -80,6 +80,8 @@ router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next
 })
 
 export { router as paymentsRouter }
+
+
 
 
 

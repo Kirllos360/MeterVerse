@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -15,7 +15,7 @@ const createSchema = z.object({
   area: z.string().max(100).optional().or(z.literal("")),
 })
 
-router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requirePermission("customers.list"), async (req, res, next) => {
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 10))
@@ -29,7 +29,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
-router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.get("/export", requirePermission("customers.create"), async (req, res, next) => {
   try {
     const customers = await prisma.customer.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
     const header = "id,name,email,phone,status,area,createdAt"
@@ -41,7 +41,7 @@ router.get("/export", requireRole("admin", "super_admin", "operator"), async (re
   } catch (err) { next(err) }
 })
 
-router.get("/stats", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/stats", requirePermission("customers.list"), async (req, res, next) => {
   try {
     const [total, active, inactive, maintenance, terminated] = await Promise.all([
       prisma.customer.count({ where: { archivedAt: null } }),
@@ -54,7 +54,7 @@ router.get("/stats", requireRole("admin", "super_admin", "operator", "viewer"), 
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requirePermission("customers.list"), async (req, res, next) => {
   try {
     const customer = await prisma.customer.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { meters: true, invoices: true } })
     if (!customer) return res.status(404).json({ error: "Customer not found" })
@@ -63,7 +63,7 @@ router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), as
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.post("/", requirePermission("customers.create"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
     const customer = await prisma.customer.create({ data })
@@ -76,7 +76,7 @@ router.post("/", requireRole("admin", "super_admin", "operator"), async (req, re
   }
 })
 
-router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.put("/:id", requirePermission("customers.create"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const customer = await prisma.customer.update({ where: { id: req.params.id }, data })
@@ -88,7 +88,7 @@ router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, 
   }
 })
 
-router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/:id", requirePermission("customers.delete"), async (req, res, next) => {
   try {
     const activeAssignments = await prisma.meterAssignment.count({ where: { customerId: req.params.id, status: "active" } })
     if (activeAssignments > 0) return res.status(400).json({ error: "Cannot archive customer with active meter assignments" })
@@ -100,7 +100,7 @@ router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next
   } catch (err) { next(err) }
 })
 
-router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.get("/export", requirePermission("customers.create"), async (req, res, next) => {
   try {
     const customers = await prisma.customer.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
     const header = "id,name,email,phone,status,area,createdAt"
@@ -112,7 +112,7 @@ router.get("/export", requireRole("admin", "super_admin", "operator"), async (re
   } catch (err) { next(err) }
 })
 
-router.get("/stats", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/stats", requirePermission("customers.list"), async (req, res, next) => {
   try {
     const [total, active, inactive, maintenance, terminated] = await Promise.all([
       prisma.customer.count({ where: { archivedAt: null } }),
@@ -126,6 +126,8 @@ router.get("/stats", requireRole("admin", "super_admin", "operator", "viewer"), 
 })
 
 export { router as customersRouter }
+
+
 
 
 

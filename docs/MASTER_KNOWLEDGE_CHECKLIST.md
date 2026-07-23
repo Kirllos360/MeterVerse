@@ -40,11 +40,11 @@ Execution Flow:
   - [x] S03: Add admin-scoped + user-scoped JWT tokens
   - [x] S04: Wire different UI redirects per system type
   - [x] S05: Add login appearance theming per system
-- [ ] **T00: Enforce Permissions** `[PLANNING]`
-  - [ ] S01: Map all endpoints to permission keys
-  - [ ] S02: Replace requireRole() with requirePermission()
-  - [ ] S03: Add permission check middleware
-  - [ ] S04: Seed full 140+ permission keys
+- [x] **T00: Enforce Permissions** `[PLANNING]`
+  - [x] S01: Map all endpoints to permission keys
+  - [x] S02: Replace requireRole() with requirePermission()
+  - [x] S03: Add permission check middleware
+  - [x] S04: Seed full 57 permission keys
 - [ ] **T99: Phase Completion Audit** `[PLANNING]`
 
 ---
@@ -209,7 +209,7 @@ Execution Flow:
 
 - [ ] **T13: Granular Permissions** `[PLANNING]`
   - [ ] S01: Map permission keys to all 140+ endpoints
-  - [ ] S02: Replace requireRole with requirePermission
+  - [x] S02: Replace requireRole with requirePermission
   - [ ] S03: Add frontend permission checks
   - [ ] S04: Seed full permission set
 - [ ] **T14: Traffic Monitoring** `[PLANNING]`
@@ -307,5 +307,6 @@ Execution Flow:
 ---
 
 *This file is the single source of truth. Update after every step completion.*
+
 
 

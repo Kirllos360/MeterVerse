@@ -1,7 +1,7 @@
 task:
   name: "Enforce requirePermission on all 140+ endpoints"
   phase: "420"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "CRITICAL"
   steps:
     S01_Map_Endpoints: "Map Endpoints"

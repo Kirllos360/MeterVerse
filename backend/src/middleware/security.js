@@ -38,14 +38,50 @@ export function requireRole(...roles) {
   }
 }
 
+const ROUTE_PERMISSION_MAP = {
+  "GET /api/customers": "customers.list", "GET /api/customers/export": "customers.export",
+  "GET /api/customers/:id": "customers.read", "POST /api/customers": "customers.create",
+  "PUT /api/customers/:id": "customers.update", "DELETE /api/customers/:id": "customers.delete",
+  "GET /api/meters": "meters.list", "GET /api/meters/export": "meters.export",
+  "GET /api/meters/:id": "meters.read", "POST /api/meters": "meters.create",
+  "PUT /api/meters/:id": "meters.update", "DELETE /api/meters/:id": "meters.delete",
+  "GET /api/readings": "readings.list", "GET /api/readings/:id": "readings.read",
+  "POST /api/readings": "readings.create", "PUT /api/readings/:id": "readings.update",
+  "DELETE /api/readings/:id": "readings.delete",
+  "GET /api/invoices": "invoices.list", "GET /api/invoices/:id": "invoices.read",
+  "POST /api/invoices": "invoices.create", "PUT /api/invoices/:id": "invoices.update",
+  "DELETE /api/invoices/:id": "invoices.delete",
+  "GET /api/payments": "payments.list", "GET /api/payments/:id": "payments.read",
+  "POST /api/payments": "payments.create", "DELETE /api/payments/:id": "payments.delete",
+}
+
+const ROLE_PERMISSIONS = {
+  super_admin: null,
+  admin: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "notifications.*", "meter_assignments.*"],
+  operator: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*"],
+  billing: ["invoices.*", "payments.*", "customers.read", "customers.list", "meters.read", "meters.list"],
+  viewer: ["*.read", "*.list"],
+}
+
 export function requirePermission(...permissions) {
   return (req, res, next) => {
     if (!req.user) return res.status(401).json({ error: "Authentication required" })
-    const userPerms = req.user.permissions || []
-    const hasAll = permissions.every(p => userPerms.includes(p))
-    if (!hasAll) {
-      auditLog(req, "authorization.permission_denied", { required: permissions })
-      return res.status(403).json({ error: "Permission denied" })
+    if (req.user.role === "super_admin") return next()
+    if (permissions.length === 0) return next()
+
+    const userPerms = ROLE_PERMISSIONS[req.user.role]
+    if (!userPerms) return res.status(403).json({ error: "Insufficient permissions" })
+
+    const hasAny = permissions.some(required => {
+      return userPerms.some(allowed => {
+        const regex = new RegExp("^" + allowed.replace(/\./g, "\\.").replace(/\*/g, ".*") + "$")
+        return regex.test(required)
+      })
+    })
+
+    if (!hasAny) {
+      auditLog(req, "authorization.permission_denied", { required: permissions, role: req.user.role })
+      return res.status(403).json({ error: "Permission denied", required: permissions, role: req.user.role })
     }
     next()
   }
