@@ -1,7 +1,7 @@
 phase:
   name: "Phase 42c — Detail Pages"
   wave: 1
-  status: "IN_PROGRESS"
+  status: "COMPLETE"
   dependencies:
     - "Phase 42a (must complete first)"
   tasks:
@@ -18,37 +18,37 @@ phase:
         S07: Audit KPI flow
     T05_Customer_Detail:
       name: "Customer Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/customers/[id] renders"
     T06_Meter_Detail:
       name: "Meter Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/meters/[id] renders"
     T07_Invoice_Detail:
       name: "Invoice Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/invoices/[id] renders"
     T08_Reading_Detail:
       name: "Reading Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/readings/[id] renders"
     T09_Payment_Detail:
       name: "Payment Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/payments/[id] renders"
     T10_Contract_Detail:
       name: "Contract Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/contracts/[id] renders"
     T11_MeterAssignment_Detail:
       name: "MeterAssignment Detail Page"
-      status: "IN_PROGRESS"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/meter-assignments/[id] renders"
     T12_Detail_Page_Enhancements:
@@ -60,6 +60,7 @@ phase:
         S03: "Add ErrorBoundary"
         S04: "Add backend includes"
         S05: "Wire list rows to detail pages"
+
 
 
 

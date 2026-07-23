@@ -1,7 +1,7 @@
 task:
   name: "Add granular permission keys to all 140+ endpoints"
   phase: "42e"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "HIGH"
   steps:
     S01: "Map permission keys to every endpoint"
@@ -12,3 +12,4 @@ task:
     - "All 140+ endpoints use permission keys, not just role gates"
     - "Frontend UI hides unauthorized actions per permission"
     - "Permission seed covers all 140+ keys"
+

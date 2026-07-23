@@ -1,10 +1,12 @@
 step:
   name: "Split Into Domain Files"
   task: "T04"
-  status: "PLANNING"
+  status: "COMPLETE"
   depends_on: ["S01"]
   estimated_hours: 4
   evidence_required:
     - "No single config file exceeds 10KB"
     - "All 46 admin pages reference their config"
   prompts_available: true
+
+
