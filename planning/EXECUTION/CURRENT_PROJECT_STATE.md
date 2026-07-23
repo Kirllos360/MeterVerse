@@ -11,7 +11,7 @@
 |-------|-------|
 | Repository | https://github.com/Kirllos360/MeterVerse |
 | Branch | clean-main |
-| Planning OS | v2.1 (Enterprise Baseline) + Execution Engine v1.0 |
+| Planning OS | v3.0.0 (Final Architecture) |
 | Last Updated | 2026-07-23 |
 
 ---
@@ -28,24 +28,24 @@
 
 | Field | Value |
 |-------|-------|
-| Phase | **Phase 00 — Enterprise Test Foundation** (priority over all) |
-| Status | PLANNING |
-| Reason | ZERO API/Playwright tests — highest risk in system |
+| Phase | **Phase 42g — Enterprise Control Health** (current focus) |
+| Status | RUNNING |
+| Reason | T17 Permission Enforcement in progress (Steps 01-02 done) |
 
 ## Current Task
 
 | Field | Value |
 |-------|-------|
-| Task | **T09 — Unit Test Infrastructure** |
-| Status | PLANNING |
-| Execution Ticket | None yet |
+| Task | **T17 — Full Permission Enforcement** |
+| Status | RUNNING (2/8 steps done) |
+| Execution Ticket | EXEC-0002 |
 
 ## Current Step
 
 | Field | Value |
 |-------|-------|
-| Step | Step 01 |
-| Status | PLANNING |
+| Step | Step 03 |
+| Status | PENDING |
 
 ---
 
@@ -53,7 +53,8 @@
 
 | Ticket | Priority | Status | Phase | Task |
 |--------|:--------:|:------:|-------|------|
-| _(none open)_ | | | | |
+| **EXEC-0001** | HIGH | **CLOSED** | Phase 00 | T09 — Unit Tests (71 tests, 87.79% coverage) |
+| **EXEC-0002** | CRITICAL | **RUNNING** | Phase 42g | T17 — Permission Enforcement (2/8 steps done) |
 
 ---
 

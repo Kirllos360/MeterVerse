@@ -60,7 +60,8 @@ Planning OS v3.0.0 is declared **FROZEN**. No structural changes permitted witho
 
 ### Active
 - **Wave:** 02 — User Experience & Communication
-- **Next Phase:** Phase 00 — Enterprise Test Foundation (priority over all)
-- **Next Task:** T09 — Unit Test Infrastructure (Step 01)
+- **Current Phase:** Phase 42g — Enterprise Control Health (T17 permission migration in progress)
+- **Phase 00:** 1/4 tasks done (T09 COMPLETE: 71 tests, 87.79% coverage)
+- **Current Task:** T17 — Full Permission Enforcement (2/8 steps, 12 routes migrated)
 - **Execution Engine:** ACTIVE
-- **Superloop Score:** 51.0% (107/210)
+- **Superloop Score:** 51.0% (107/210) — unchanged; not re-audited since gap fixes began

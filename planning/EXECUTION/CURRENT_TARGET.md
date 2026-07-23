@@ -1,6 +1,6 @@
 # CURRENT TARGET — What We Are Working On Now
 
-**Updated:** Every session start
+**Updated:** 2026-07-23
 **Purpose:** Single focus. Never work on more than one ticket at a time.
 
 ---
@@ -9,51 +9,33 @@
 
 | Field | Value |
 |-------|-------|
-| **EXEC-0001** | _(next available ticket number)_ |
-| Status | WAITING |
-| Phase | 00 — Enterprise Test Foundation |
-| Task | T09 — Unit Test Infrastructure |
-| Step | Step 01 of 08 |
-| Started | _(ISO timestamp)_ |
-| Target Complete | _(ISO timestamp)_ |
+| **EXEC-0002** | Permission Enforcement |
+| Status | WAITING → RUNNING |
+| Phase | 42g — Enterprise Control Health |
+| Task | T17 — Full Permission Enforcement |
+| Step | Step 03 of 08 |
+| Started | 2026-07-23 |
+| Target Complete | 2026-07-23 |
 
 ---
 
 ## Execution Ticket States
 
 ```
-WAITING
-    │
-    ▼
-RUNNING
-    │
-    ▼
-TESTING
-    │
-    ▼
-FAILED ──→ FIXED ──→ TESTING (loop)
-    │
-    ▼
-VERIFIED
-    │
-    ▼
-COMMITTED
-    │
-    ▼
-CLOSED
+WAITING → RUNNING → TESTING → FAILED→FIXED→TESTING(loop) → VERIFIED → COMMITTED → CLOSED
 ```
 
 ## What This Ticket Requires
 
 | Requirement | Status |
 |-------------|:------:|
-| Read all required documents | ❌ |
-| Understand the task | ❌ |
-| Verify architecture | ❌ |
-| Plan implementation | ❌ |
-| Implement | ❌ |
+| Read all required documents | ✅ |
+| Understand the task | ✅ |
+| Verify architecture | ✅ |
+| Plan implementation | ✅ |
+| Implement (12 routes migrated) | ✅ |
 | Self-review | ❌ |
-| Test | ❌ |
+| Test role-based access | ❌ |
 | Compare expected vs actual | ❌ |
 | Capture evidence | ❌ |
 | Fix any failures | ❌ |
@@ -64,18 +46,16 @@ CLOSED
 
 ## What Is NOT This Ticket
 
-- Any task outside T09
-- Any phase outside Phase 00
+- Any task outside T17 (T21, T29, T30, T31, T34, T35)
+- Any phase outside Phase 42g
 - Any wave outside Wave 02
-- Any refactoring not required by the task
-- Any documentation not required by the task
 
 ## Information Classification for This Ticket
 
 | Item | Classification | Notes |
 |------|:-------------:|-------|
-| T09 requires Vitest | KNOWN | Standard for Next.js |
-| 54 scripts exist | KNOWN | At scripts/ directory |
-| Services need unit tests | KNOWN | 12 services |
-| Coverage target | ASSUMED | 80% target needs validation |
-| Test CI integration | UNKNOWN | Needs GitHub Actions investigation |
+| requirePermission() exists in security.js | KNOWN | Glob pattern matching, 8 routes already use it |
+| 12 routes need migration | KNOWN | Verified in audit-findings.md |
+| ROLE_PERMISSIONS needs expansion | KNOWN | ai.*, business.*, monitor.*, etc. added |
+| permissions.js is duplicate | KNOWN | Marked DEPRECATED, will remove fully in T31 |
+| Step 03: test all migrated routes | PLANNING | Verify 200/403 behavior per route |

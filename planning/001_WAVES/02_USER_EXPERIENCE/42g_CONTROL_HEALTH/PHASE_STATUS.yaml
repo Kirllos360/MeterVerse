@@ -1,7 +1,16 @@
 # Phase 42g — Enterprise Control Health
-status: PLANNING
-started: null
+status: RUNNING
+started: 2026-07-23
 completed: null
 total_tasks: 7
 completed_tasks: 0
 evidence_dir: 42g_CONTROL_HEALTH/_evidence/
+
+## Task Status
+- T17 — Full Permission Enforcement: RUNNING (2/8 steps, 12 routes migrated)
+- T21 — Full Audit Coverage: PLANNING
+- T29 — Database Schema Hardening: PLANNING
+- T30 — API Hardening: PLANNING
+- T31 — Codebase Consolidation: PLANNING
+- T34 — Graphiti Rebuild: PLANNING
+- T35 — Workflow Engine Service: PLANNING
