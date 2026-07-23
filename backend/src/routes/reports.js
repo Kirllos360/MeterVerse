@@ -58,7 +58,8 @@ router.get("/consumption", requirePermission("reports.*"), async (req, res, next
   try {
     const days = Math.min(90, Math.max(1, Number(req.query.days) || 30))
     const since = new Date(Date.now() - days * 86400000)
-    const readings = await prisma.reading.findMany({ where: { timestamp: { gte: since } }, orderBy: { timestamp: "asc" }, take: 1000 })
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 1000))
+    const readings = await prisma.reading.findMany({ where: { timestamp: { gte: since } }, orderBy: { timestamp: "asc" }, take: limit })
     const total = readings.reduce((s, r) => s + r.value, 0)
     const avg = readings.length ? total / readings.length : 0
     res.json({ summary: { totalReadings: readings.length, totalConsumption: total, avgReading: avg, days }, readings: readings.slice(-50) })
@@ -107,8 +108,9 @@ router.get("/aging", requirePermission("reports.*"), async (req, res, next) => {
 
 router.get("/kpi", requirePermission("reports.*"), async (req, res, next) => {
   try {
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 100))
     const kpis = await prisma.kpiDefinition.findMany({ orderBy: { category: "asc" } })
-    const snapshots = await prisma.kpiSnapshot.findMany({ orderBy: { recordedAt: "desc" }, take: 100, include: { kpi: { select: { name: true } } } })
+    const snapshots = await prisma.kpiSnapshot.findMany({ orderBy: { recordedAt: "desc" }, take: limit, include: { kpi: { select: { name: true } } } })
     res.json({ kpis, snapshots })
   } catch (err) { next(err) }
 })
@@ -126,7 +128,8 @@ router.post("/kpi", requirePermission("reports.*"), async (req, res, next) => {
 
 router.get("/export", requirePermission("reports.*"), async (req, res, next) => {
   try {
-    const exports = await prisma.exportLog.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50))
+    const exports = await prisma.exportLog.findMany({ orderBy: { createdAt: "desc" }, take: limit })
     const stats = { total: await prisma.exportLog.count(), completed: await prisma.exportLog.count({ where: { status: "completed" } }) }
     res.json({ exports, stats })
   } catch (err) { next(err) }
@@ -148,8 +151,13 @@ router.post("/export", requirePermission("reports.*"), async (req, res, next) =>
 
 router.get("/scheduled", requirePermission("reports.*"), async (req, res, next) => {
   try {
-    const reports = await prisma.scheduledReport.findMany({ orderBy: { nextRunAt: "asc" } })
-    res.json({ reports })
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50))
+    const page = Math.max(1, Number(req.query.page) || 1)
+    const [reports, total] = await Promise.all([
+      prisma.scheduledReport.findMany({ orderBy: { nextRunAt: "asc" }, skip: (page - 1) * limit, take: limit }),
+      prisma.scheduledReport.count(),
+    ])
+    res.json({ reports, total, page, limit })
   } catch (err) { next(err) }
 })
 
@@ -176,8 +184,13 @@ router.put("/scheduled/:id/toggle", requirePermission("reports.*"), async (req, 
 
 router.get("/definitions", requirePermission("reports.*"), async (req, res, next) => {
   try {
-    const reports = await prisma.reportDefinition.findMany({ orderBy: { name: "asc" } })
-    res.json({ reports })
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 50))
+    const page = Math.max(1, Number(req.query.page) || 1)
+    const [reports, total] = await Promise.all([
+      prisma.reportDefinition.findMany({ orderBy: { name: "asc" }, skip: (page - 1) * limit, take: limit }),
+      prisma.reportDefinition.count(),
+    ])
+    res.json({ reports, total, page, limit })
   } catch (err) { next(err) }
 })
 

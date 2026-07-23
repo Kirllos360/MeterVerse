@@ -1,9 +1,9 @@
 # Phase 45a — Performance Hardening
-status: PLANNING
-started: null
+status: RUNNING
+started: 2026-07-23
 completed: null
 total_tasks: 4
-completed_tasks: 0
+completed_tasks: 1
 evidence_dir: 45a_PERFORMANCE_HARDENING/_evidence/
 
 ## Gaps Covered

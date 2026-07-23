@@ -9,9 +9,13 @@ router.use(authenticate)
 
 router.get("/", requirePermission("admin.list"), async (req, res, next) => {
   try {
-    const alerts = await prisma.alert.findMany({ orderBy: { createdAt: "desc" }, take: 100 })
-    const total = await prisma.alert.count()
-    res.json({ alerts, total })
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
+    const page = Math.max(1, Number(req.query.page) || 1)
+    const [alerts, total] = await Promise.all([
+      prisma.alert.findMany({ orderBy: { createdAt: "desc" }, skip: (page - 1) * limit, take: limit }),
+      prisma.alert.count(),
+    ])
+    res.json({ alerts, total, page, limit })
   } catch (err) { next(err) }
 })
 

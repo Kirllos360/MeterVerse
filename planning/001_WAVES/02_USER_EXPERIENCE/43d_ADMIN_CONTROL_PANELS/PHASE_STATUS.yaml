@@ -3,7 +3,7 @@ status: RUNNING
 started: 2026-07-23
 completed: null
 total_tasks: 15
-completed_tasks: 2
+completed_tasks: 3
 evidence_dir: 43d_ADMIN_CONTROL_PANELS/_evidence/
 
 ## Original Tasks (12)
@@ -11,8 +11,14 @@ T22-T28: Admin control panels (contracts, permissions, monitoring, backup, queue
 T32-T33: Admin improvements (added by ULTIMATE_AUDIT_LOOP)
 T36-T38: Admin debug & monitoring (added by ULTIMATE_AUDIT_LOOP)
 
+## Completed
+- T32: ErrorBoundary on admin layout (all 59 admin pages protected) ✅
+- T36: Export streaming fix (10K cap, prevents OOM crash) ✅
+- T24: Monitoring page API paths fixed (health/deep, audit/explorer) ✅
+- T22-T28: Frontend pages exist via GenericAdminPage, need backend API verification
+
 ## Gap Coverage
-- ErrorBoundary on all pages (D01/D10 gap)
-- 2 missing detail pages (D01 gap)
-- Admin debug mode (D09 gap)
-- Export streaming fix (D11 gap)
+- ErrorBoundary on all pages (D01/D10 gap) — ✅ DONE
+- 2 missing detail pages (D01 gap) — PENDING
+- Admin debug mode (D09 gap) — PENDING
+- Export streaming fix (D11 gap) — ✅ DONE
