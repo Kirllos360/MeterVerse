@@ -1,0 +1,14 @@
+task:
+  name: "Payment Detail Page"
+  phase: "42c"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  risk: "No payments detail page — users cannot drill down from list"
+  depends_on: []
+  steps:
+    S01: "Create page — COMPLETE when /admin/payments/[id] renders with data"
+  completion_criteria:
+    - "Detail page renders at /admin/payments/[id]"
+    - "Shows key fields: Amount, Method, Status, Paid At"
+    - "Shows related data: Invoice, Transactions"
+    - "Uses GenericAdminPage pattern"

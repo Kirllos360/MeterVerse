@@ -78,7 +78,8 @@ remaining_gaps:
 gaps_covered:
   - "42a: indexes + domain.js fix"
   - "42b: notifications + export"
-  - "42c: detail pages"
+  - "42c: detail pages — expanded to 7 tasks (T05-T11)"
   - "42d: GATE_CHECK + page-configs + tests + Meter/ decision"
+
 
 

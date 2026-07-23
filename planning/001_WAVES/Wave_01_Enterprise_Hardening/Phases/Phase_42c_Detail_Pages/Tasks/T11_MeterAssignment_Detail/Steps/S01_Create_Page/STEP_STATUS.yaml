@@ -1,0 +1,9 @@
+step:
+  name: "Create MeterAssignment Detail Page"
+  task: "T11"
+  status: "PLANNING"
+  depends_on: []
+  estimated_hours: 3
+  evidence_required:
+    - "Page at Frontend/src/app/admin/meter-assignments/[id]/page.tsx"
+    - "Renders all required fields + relations"

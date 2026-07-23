@@ -1,0 +1,14 @@
+task:
+  name: "Contract Detail Page"
+  phase: "42c"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  risk: "No contracts detail page — users cannot drill down from list"
+  depends_on: []
+  steps:
+    S01: "Create page — COMPLETE when /admin/contracts/[id] renders with data"
+  completion_criteria:
+    - "Detail page renders at /admin/contracts/[id]"
+    - "Shows key fields: Number, Type, Status, Start Date, End Date"
+    - "Shows related data: Terms, Amendments, Assignments, Customer"
+    - "Uses GenericAdminPage pattern"

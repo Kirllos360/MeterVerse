@@ -1,0 +1,14 @@
+task:
+  name: "MeterAssignment Detail Page"
+  phase: "42c"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  risk: "No meter-assignments detail page — users cannot drill down from list"
+  depends_on: []
+  steps:
+    S01: "Create page — COMPLETE when /admin/meter-assignments/[id] renders with data"
+  completion_criteria:
+    - "Detail page renders at /admin/meter-assignments/[id]"
+    - "Shows key fields: Start Date, End Date, Reason, Status"
+    - "Shows related data: Meter, Customer, Contract, History"
+    - "Uses GenericAdminPage pattern"

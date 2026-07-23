@@ -1,0 +1,14 @@
+task:
+  name: "Invoice Detail Page"
+  phase: "42c"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  risk: "No invoices detail page — users cannot drill down from list"
+  depends_on: []
+  steps:
+    S01: "Create page — COMPLETE when /admin/invoices/[id] renders with data"
+  completion_criteria:
+    - "Detail page renders at /admin/invoices/[id]"
+    - "Shows key fields: Number, Amount, Status, Due Date, Issued At, Paid At"
+    - "Shows related data: Items, Taxes, Payments, Customer"
+    - "Uses GenericAdminPage pattern"
