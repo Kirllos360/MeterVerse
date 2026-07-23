@@ -1,0 +1,19 @@
+phase:
+  name: "Phase 42a — Indexes & Domain Fix"
+  wave: 1
+  status: "PLANNING"
+  dependencies:
+    - "None"
+  tasks:
+    T01_Add_Database_Indexes:
+      name: "Add 20+ database indexes"
+      status: "PLANNING"
+      steps:
+        S01: "Audit current indexes — COMPLETE when report generated"
+        S02: "Create migration with indexes — COMPLETE when applied"
+    T02_Fix_Domain_JS:
+      name: "Fix domain.js prisma init issue"
+      status: "PLANNING"
+      steps:
+        S01: "Diagnose root cause — COMPLETE when documented"
+        S02: "Implement fix — COMPLETE when all 18 domains work"

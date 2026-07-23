@@ -1,0 +1,83 @@
+# MeterVerse — Master Risk Register
+
+risks:
+  - id: R01
+    title: "Database performance degradation at scale"
+    probability: "HIGH"
+    impact: "HIGH"
+    description: "Zero composite indexes on 78 models. Queries do full table scans."
+    mitigation: "Add 20+ indexes before customer count reaches 10K. Priority: Reading(meterId,timestamp), Invoice(customerId,status), Customer(status,area)"
+    owner: "Database Architect"
+    status: "OPEN"
+
+  - id: R02
+    title: "Zero unit test coverage"
+    probability: "CERTAIN"
+    impact: "CRITICAL"
+    description: "No tests means every change is a regression risk. 16 route files with zero coverage."
+    mitigation: "Start with customer route tests. Use Vitest + Supertest. Target 80% coverage."
+    owner: "QA Lead"
+    status: "OPEN"
+
+  - id: R03
+    title: "domain.js prisma init failure blocks 18 entities"
+    probability: "CERTAIN"
+    impact: "HIGH"
+    description: "domain.js calls prisma at module scope before initialization. 18 domain entities have no working API."
+    mitigation: "Refactor to lazy initialization or move prisma import inside route handlers."
+    owner: "Backend Lead"
+    status: "OPEN"
+
+  - id: R04
+    title: "page-configs.ts memory exhaustion"
+    probability: "HIGH"
+    impact: "MEDIUM"
+    description: "44KB file causes 1.79GB dev server memory. First admin page load takes 3+ minutes."
+    mitigation: "Split into domain-specific config files."
+    owner: "Frontend Lead"
+    status: "OPEN"
+
+  - id: R05
+    title: "No JWT refresh mechanism"
+    probability: "MEDIUM"
+    impact: "HIGH"
+    description: "Tokens expire in 24h with no refresh endpoint. Users forced to re-login."
+    mitigation: "Add POST /api/auth/refresh endpoint with refresh token rotation."
+    owner: "Security Lead"
+    status: "OPEN"
+
+  - id: R06
+    title: "Meter/ parallel codebase confusion"
+    probability: "HIGH"
+    impact: "MEDIUM"
+    description: "267K files in separate Meter/ directory duplicates logic and confuses developers."
+    mitigation: "Architecture decision: merge, archive to branch, or delete."
+    owner: "Architect"
+    status: "OPEN"
+
+  - id: R07
+    title: "Notification events not wired (12/15 missing)"
+    probability: "CERTAIN"
+    impact: "MEDIUM"
+    description: "Only 3 of 15 business events trigger notifications. Customers don't get alerts."
+    mitigation: "Wire remaining 12 events: meter offline, contract expiring, reading failed, etc."
+    owner: "Backend Lead"
+    status: "OPEN"
+
+  - id: R08
+    title: "No brute-force protection on login"
+    probability: "MEDIUM"
+    impact: "HIGH"
+    description: "Auth rate limit is global (20/15min), not per-IP. Distributed attack bypasses."
+    mitigation: "Add per-IP rate limiting. Implement account lockout after N failures."
+    owner: "Security Lead"
+    status: "OPEN"
+
+  - id: R09
+    title: "Build memory allocation failure"
+    probability: "HIGH"
+    impact: "HIGH"
+    description: "npx next build fails with 'memory allocation of 117440512 bytes failed'"
+    mitigation: "Increase Node.js memory limit. Split page-configs.ts."
+    owner: "DevOps Lead"
+    status: "OPEN"

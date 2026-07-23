@@ -1,0 +1,15 @@
+step:
+  id: "S01"
+  name: "Audit current indexes"
+  task: "T01"
+  status: "PLANNING"
+  prompts:
+    frontend: false
+    backend: false
+    database: true
+  deliverables:
+    - "Index audit report"
+    - "List of 20+ missing indexes"
+  quality_gates:
+    - "All 78 models checked for indexes"
+    - "Report committed to planning/"
