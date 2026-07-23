@@ -47,7 +47,8 @@ router.post("/", requireRole("admin", "billing"), async (req, res, next) => {
       await tx.invoice.update({ where: { id: data.invoiceId }, data: { status: "paid" } })
       return p
     })
-    auditLog(req, "payment.created", { paymentId: payment.id, invoiceId: data.invoiceId })
+    auditLog(req, 'payment.created', { paymentId: payment.id, invoiceId: data.invoiceId })
+    prisma.notification.create({ data: { type: 'payment_received', title: 'Payment Received', body: 'Payment of EGP ' + data.amount + ' for invoice ' + data.invoiceId + ' received', recipientId: data.invoiceId } }).catch(() => {})
     res.status(201).json({ payment })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -64,3 +65,4 @@ router.delete("/:id", requireRole("admin"), async (req, res, next) => {
 })
 
 export { router as paymentsRouter }
+
