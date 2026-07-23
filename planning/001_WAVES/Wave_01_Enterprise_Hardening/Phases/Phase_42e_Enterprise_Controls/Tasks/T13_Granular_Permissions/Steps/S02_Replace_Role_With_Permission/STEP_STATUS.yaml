@@ -1,0 +1,8 @@
+step:
+  name: "Replace Role With Permission"
+  task: "Granular_Permissions"
+  status: "PLANNING"
+  depends_on: []
+  estimated_hours: 4
+  evidence_required:
+    - "Step completed and verified"

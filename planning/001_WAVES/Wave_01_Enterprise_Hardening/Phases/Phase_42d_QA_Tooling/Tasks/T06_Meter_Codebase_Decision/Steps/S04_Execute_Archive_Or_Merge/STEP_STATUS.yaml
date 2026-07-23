@@ -1,0 +1,9 @@
+step:
+  name: "Execute Archive or Merge"
+  task: "T06"
+  status: "PLANNING"
+  depends_on: ["S03"]
+  estimated_hours: 6
+  evidence_required:
+    - "Meter/ directory resolved per ADR-004 decision"
+    - "CI still passes after Meter/ removal or merge"

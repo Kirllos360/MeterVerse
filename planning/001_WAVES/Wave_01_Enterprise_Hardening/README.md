@@ -48,3 +48,9 @@ Every step execution MUST:
 This replaces the T99 end-of-phase-only audit with per-step verification.
 T99 remains as a final consistency check.
 
+
+## Execution Order (MANDATORY)
+
+Phase 42d T03 (GATE_CHECK) MUST be the first task executed in Wave 01.
+All subsequent work depends on GATE_CHECK for verification.
+Phase 42e cannot start until GATE_CHECK is complete.
