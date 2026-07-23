@@ -42,3 +42,37 @@
 **Structure:** Enterprise Program → Waves → Phases → Tasks → Steps
 **Products:** System A (Admin) + System B (User Workspace) under one program
 **Status:** Wave 01 Complete | Waves 02-06 Planned | Enterprise Release target: Wave 06
+
+
+30 Enterprise Governance Layers:
++-- 01_Enterprise_Capability_Model     ? What capabilities exist
++-- 02_Business_Process_Catalog        ? How business processes flow
++-- 03_Enterprise_Data_Dictionary      ? What data means
++-- 04_API_Contract_Library           ? API contracts and rules
++-- 05_Component_Catalog              ? Shared UI components
++-- 06_Runtime_Dependency_Map         ? Service dependencies
++-- 07_Feature_Dependency_Matrix      ? Feature prerequisites
++-- 08_CrossWave_Dependency_Matrix    ? Wave-to-wave dependencies
++-- 09_Risk_Register                  ? Identified risks
++-- 10_Architecture_Decision_Records  ? ADR index
++-- 11_Technical_Debt_Register        ? Known technical debt
++-- 12_Enterprise_Testing_Pyramid     ? Test type coverage
++-- 13_Migration_Catalog              ? Database migration history
++-- 14_Release_Train                  ? Release stages
++-- 15_AI_Knowledge_Base              ? Rules, standards, prompts
++-- 16_Enterprise_Traceability_Matrix ? Full traceability chain
++-- 17_Enterprise_State_Machine       ? Entity state machines
++-- 18_Data_Flow_Catalog              ? Data movement through system
++-- 19_Enterprise_Workflows           ? Cross-cutting workflows
++-- 20_Feature_Catalog                ? Features grouped by capability
++-- 21_Product_Strategy               ? WHY we build
++-- 22_Product_Personas               ? WHO we build for
++-- 23_Quality_Gates                  ? 10 gates per phase
++-- 24_Enterprise_Verification        ? Verification chain
++-- 25_Release_Governance             ? Release approval process
++-- 26_Operation_Runbook              ? Daily operations
++-- 27_PostRelease_Monitoring         ? Post-release checks
++-- 28_AI_Execution_Rules             ? AI behavior rules
++-- 29_AI_Self_Review                 ? AI self-review checklist
++-- 30_AI_Stop_Conditions             ? When AI must stop
++-- AI_EXECUTION_CONTRACT.md          ? Mandatory before any work
