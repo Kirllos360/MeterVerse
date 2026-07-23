@@ -24,7 +24,9 @@ import { searchRouter } from "./routes/search.js"
 import { tasksRouter } from "./routes/tasks.js"
 import { alertsRouter } from "./routes/alerts.js"
 import { notificationsRouter } from "./routes/notifications.js"
+import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
+import { initWebSocket } from "./services/websocket-gateway.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -114,5 +116,8 @@ app.use("/api/alerts", alertsRouter)
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`MeterVerse API running on port ${PORT}`))
+const httpServer = createServer(app)
+initWebSocket(httpServer)
+
+httpServer.listen(PORT, () => console.log(`MeterVerse API running on port ${PORT}`))
 
