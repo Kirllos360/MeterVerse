@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { WorkspaceLayout } from "@/workspace/components/WorkspaceLayout"
 import { WorkspaceTabs } from "@/workspace/components/WorkspaceTabs"
+import { ErrorBoundary } from "@/components/effects/ErrorBoundary"
 import { InspectorPanel } from "@/admin/layout/InspectorPanel"
 import { AdminToolbar, AdminStatusBar } from "@/admin/layout/AdminToolbar"
 import { useWorkspaceStore } from "@/workspace/stores"
@@ -135,7 +136,7 @@ export default function AdminLayout() {
             <button onClick={() => setViewMode("list")} className="px-2 py-1 rounded text-xs" style={{ backgroundColor: viewMode === "list" ? "var(--admin-accent)" : "var(--toolbar-surface)", color: viewMode === "list" ? "white" : "var(--toolbar-muted)" }}>{t(lang, "List", "قائمة")}</button>
             <button onClick={() => setViewMode("grid")} className="px-2 py-1 rounded text-xs" style={{ backgroundColor: viewMode === "grid" ? "var(--admin-accent)" : "var(--toolbar-surface)", color: viewMode === "grid" ? "white" : "var(--toolbar-muted)" }}>{t(lang, "Grid", "شبكة")}</button>
           </div>
-          {PageComponent && <PageComponent viewMode={viewMode} lang={lang} />}
+          {PageComponent && <ErrorBoundary><PageComponent viewMode={viewMode} lang={lang} /></ErrorBoundary>}
         </div>
       </WorkspaceLayout>
     </div>
