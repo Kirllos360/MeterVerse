@@ -1,0 +1,132 @@
+# PROJECT HEALTH — Dependency health, risk aging, AI quality
+# Updated: Every session end
+
+dependency_health:
+  # Every dependency is HEALTHY, WARNING, BLOCKED, DEPRECATED, REPLACING, or REMOVED
+  prisma_orm:
+    status: HEALTHY
+    version: "latest"
+    notes: "Type-safe database access, 78 models"
+  react_query:
+    status: HEALTHY
+    version: "5.x"
+    notes: "Server state management, staleTime 60s"
+  socket_io:
+    status: HEALTHY
+    version: "4.x"
+    notes: "WebSocket gateway with JWT auth"
+  nodemailer:
+    status: WARNING
+    version: "installed"
+    notes: "No SMTP credentials configured — not sending"
+  twilio:
+    status: BLOCKED
+    version: "not installed"
+    notes: "SMS engine is a stub — needs Twilio account"
+  firebase:
+    status: BLOCKED
+    version: "not installed"
+    notes: "Push engine doesn't exist — needs Firebase project"
+  clerk:
+    status: HEALTHY
+    version: "latest"
+    notes: "Frontend authentication, sign-in/sign-up"
+  zod:
+    status: HEALTHY
+    version: "3.x"
+    notes: "Schema validation on 15/21 routes"
+  playwright:
+    status: DEPRECATED
+    version: "not used"
+    notes: "Installed but zero tests written"
+  vitest:
+    status: WARNING
+    version: "not configured"
+    notes: "Need to set up for T09"
+
+risk_aging:
+  # Risks that persist get flagged automatically
+  - id: RSK-001
+    description: "ZERO API tests — highest risk in system"
+    created: "2026-07-23"
+    last_reviewed: "2026-07-23"
+    owner: "EOX Engineering"
+    priority: CRITICAL
+    days_open: 0
+    mitigation: "T10 — API Test Suite (Phase 00)"
+    status: OPEN
+  - id: RSK-002
+    description: "ZERO Playwright E2E tests"
+    created: "2026-07-23"
+    last_reviewed: "2026-07-23"
+    owner: "EOX Engineering"
+    priority: CRITICAL
+    days_open: 0
+    mitigation: "T11-T12 — Playwright Test Suite (Phase 00)"
+    status: OPEN
+  - id: RSK-003
+    description: "13/21 routes use requireRole() not requirePermission()"
+    created: "2026-07-23"
+    last_reviewed: "2026-07-23"
+    owner: "EOX Engineering"
+    priority: CRITICAL
+    days_open: 0
+    mitigation: "T17 — Permission Enforcement (Phase 42g)"
+    status: OPEN
+  - id: RSK-004
+    description: "Export endpoints load all data into memory — WILL crash on 1.5M records"
+    created: "2026-07-23"
+    last_reviewed: "2026-07-23"
+    owner: "EOX Engineering"
+    priority: HIGH
+    days_open: 0
+    mitigation: "T36 — Export Streaming Fix (Phase 43d)"
+    status: OPEN
+  - id: RSK-005
+    description: "domain.js DELETE bug — 15 entities return 500 instead of 404"
+    created: "2026-07-23"
+    last_reviewed: "2026-07-23"
+    owner: "EOX Engineering"
+    priority: HIGH
+    days_open: 0
+    mitigation: "T30 — API Hardening (Phase 42g)"
+    status: OPEN
+
+ai_quality:
+  # Track AI agent performance over time
+  sessions:
+    total: 0
+    successful: 0
+    failed: 0
+    stopped: 0
+    rolled_back: 0
+    retries: 0
+  averages:
+    audit_score: 0
+    fix_count: 0
+    completion_time_minutes: 0
+  incidents:
+    hallucination: 0
+    skipped_requirements: 0
+    blocked_sessions: 0
+  current_session:
+    id: null
+    model: null
+    tickets_completed: 0
+    steps_completed: 0
+    confidence: 0
+
+evidence_categories:
+  # Every evidence file must be categorized
+  screenshot: 0
+  console: 0
+  api_response: 0
+  database: 0
+  playwright: 0
+  unit_test: 0
+  integration_test: 0
+  performance: 0
+  security: 0
+  graphiti: 0
+  speckit: 0
+  git: 0

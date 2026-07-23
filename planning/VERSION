@@ -1,88 +1,66 @@
 # Planning OS Version
 
-## v2.1 (Enterprise Baseline) — 2026-07-23
+## v3.0.0 (Final Architecture) — 2026-07-23
 
-### Changes from v2.0
-- Added 32_Enterprise_Capability_Roadmap — maturity tracking across waves
-- Added 33_Feature_Lifecycle — idea-to-archived tracking per feature
-- Added 34_Dependency_Heat_Map — risk levels per task (BLOCKED/HIGH/MEDIUM/LOW/INDEPENDENT)
-- Added 35_Technical_Ownership — owners per directory/component (Business/Tech/Architecture/DB/Frontend/Backend/Testing/Docs)
-- Added 36_Runtime_Inventory — 15 engines documented with owner, deps, version, status, related waves/tasks/APIs/components
-- Added 37_Domain_Map — 16 domains linking models, pages, APIs, components, permissions, planning
-- Added 38_Enterprise_Metrics — coverage across 10 dimensions with calculation methodology
-- Added 39_Definition_of_Done — single checklist (Build/Type/Lint/Runtime/Playwright/Accessibility/API/DB/Docs/Planning/Git/Screenshots/Evidence/Review)
-- Added 40_Enterprise_Decision_Log — 13 business decisions recorded, 7 pending
-- Added 41_Executive_Dashboard — overall completion (82%), technical coverage, key metrics, blockers, capability maturity, enterprise readiness
-- Added IMPLEMENTATION_PLAYBOOK.md — execution engine for AI engineers (13-stage lifecycle: READ→UNDERSTAND→VERIFY→PLAN→IMPLEMENT→SELF REVIEW→TEST→COMPARE→EVIDENCE→FIX→RETEST→COMMIT→UPDATE PLANNING→NEXT STEP)
-- Added ULTIMATE_AUDIT_LOOP.md — SUPERLOOP verification engine (21 dimensions, recursive gap detection, cross-reference Layer 3, gap-to-fix traceability Layer 5, 12 critical gaps found, 27 high gaps found, 5 new phases recommended)
-
-### Total Layers: 41 (30 v2.0 + 11 v2.1 includes 41_Executive_Dashboard) + IMPLEMENTATION_PLAYBOOK.md + ULTIMATE_AUDIT_LOOP.md at root
-
-### Status: FROZEN — FINAL (including all audit and playbook files)
-No more governance layers, templates, planning folders, AI rules, playbook, or audit
-documents will be added. The planning and audit architecture is declared COMPLETE.
-
-### Active Wave: Wave 02 (User Experience & Communication)
-### Wave 02 Audited Score: 12% (before SUPERLOOP gaps)
-### Completed: Wave 01 (Enterprise Hardening) — 100%
-### Upcoming: Phase 00 (Test Foundation) — NEW RECOMMENDED BEFORE ALL WORK
-###            Phase 42g (Control Health) — NEW RECOMMENDED (insert after 42f)
-
-### Architecture
-planning/
-├── 000_ENTERPRISE_PROGRAM/     # 41 layers — FROZEN
-│   ├── 01_... to 31_...        # v2.0: Governance (30 layers)
-│   ├── 32_... to 41_...        # v2.1: Enterprise Baseline (11 layers)
-├── 001_WAVES/                   # Wave directories (02 active)
-│   ├── 02_USER_EXPERIENCE/
-│   ├── 03_BILLING/
-│   ├── ...
-├── IMPLEMENTATION_PLAYBOOK.md   # AI execution engine (13-stage lifecycle)
-├── ULTIMATE_AUDIT_LOOP.md       # SUPERLOOP verification (21D, recursive, 5 layers)
-└── VERSION                      # This file
-
-### Rules
-1. No new governance layers, templates, planning folders, AI rules, playbooks, or audit docs
-2. Focus shifts from planning to implementation
-3. SUPERLOOP audit must pass before any implementation step
-4. All 12 critical gaps must close before W03 starts
-
----
-
-## v3.0 (Execution Engine) — 2026-07-23
-
-### Major Changes
-- Repository reorganized into 6-layer architecture:
-  ```
-  planning/
-  ├── 000_ENTERPRISE_PROGRAM/    # Business, architecture, governance (41 layers)
-  ├── 001_WAVES/                 # Implementation planning (waves/phases/tasks)
-  ├── EXECUTION/                 # Session lifecycle (9 files)
-  ├── AUDIT_ENGINE/              # Multi-level verification (6 audit levels)
-  ├── KNOWLEDGE_BASE/            # Enterprise knowledge bridge
-  └── PROJECT/                   # Source code (backend, frontend)
-  ```
-
-### Added
-- `EXECUTION/SESSION_START.md` — Mandatory reading order for every AI session
-- `EXECUTION/SESSION_CONTEXT.md` — Per-session context and boundaries
-- `EXECUTION/EXECUTION_ORDER.md` — The execution lifecycle (13 stages)
-- `EXECUTION/CURRENT_PROJECT_STATE.md` — Single source of truth
-- `EXECUTION/CURRENT_TARGET.md` — Current execution ticket focus
-- `EXECUTION/CURRENT_STATE.md` — Granular execution state
-- `EXECUTION/IMPLEMENTATION_RULES.md` — 10 implementation rules
-- `EXECUTION/VALIDATION_RULES.md` — 6-level audit hierarchy
-- `EXECUTION/COMMIT_RULES.md` — Commit rules and conventions
-- `EXECUTION/SESSION_END.md` — Session completion protocol
-- `AUDIT_ENGINE/` — Mini/Task/Phase/Wave/Release/Enterprise audit templates
-- `KNOWLEDGE_BASE/` — Runtime knowledge bridge
+### Changes from v2.1
+- Repository reorganized into 7-layer architecture (see below)
+- Added EXECUTION_ENGINE/ — 9 session lifecycle files
+- Added AUDIT_ENGINE/ — 6-level audit hierarchy (Mini/Task/Phase/Wave/Release/Enterprise)
+- Added LEARNING_ENGINE/ — Continuous improvement engine (8 files)
+- Added KNOWLEDGE_BASE/ — Runtime knowledge bridge
+- Added PROJECT_METRICS.yaml — Machine-readable live dashboard
+- Added PROJECT_HEALTH.yaml — Dependency health, risk aging, AI quality
 
 ### Key Innovations
-- **Execution Tickets** (EXEC-XXXX): Single ticket per session, never multitask
-- **Information Classification**: KNOWN / ASSUMED / UNKNOWN / BLOCKED — never guess
+- **Execution Tickets** (EXEC-XXXX): One ticket per session, never multitask
+- **Information Classification**: KNOWN / ASSUMED / UNKNOWN / BLOCKED — never implement on guesswork
 - **Never Say Done**: Every completion requires Implementation + Verification + Evidence + Risks + Limitations + Next Ticket + Confidence%
-- **Planning → Verification → Implementation → Verification → Commit → Verification → Update → Gate**: Double verification at every layer
-- **Current Project State**: Single file any session reads to understand the project
+- **6-Level Audit**: Mini → Task → Phase → Wave → Release → Enterprise
+- **Continuous Learning**: Lessons learned, repeated failures, root cause library, pattern library, performance history, decision impact, AI mistakes, improvement backlog
+- **Dependency Health**: Every dependency classified HEALTHY / WARNING / BLOCKED / DEPRECATED / REPLACING / REMOVED
+- **Risk Aging**: Every risk tracked with days open — long-lived risks are visible
+- **Decision Traceability**: Every ADR references wave / phase / task / step / commit / graphiti / speckit
+- **AI Quality Metrics**: Sessions, success rate, hallucination incidents, skipped requirements
 
-### Status: ACTIVE — Implementation phase
-The planning freeze is complete. EXECUTION engine is the operating system.
+### Repository Architecture (FINAL)
+```
+planning/
+├── 000_ENTERPRISE_PROGRAM/     # Business, architecture, governance (41 layers)
+├── 001_WAVES/                  # Implementation planning (waves/phases/tasks)
+├── EXECUTION_ENGINE/           # Session lifecycle (9 files)
+├── AUDIT_ENGINE/               # Verification hierarchy (6 levels)
+├── LEARNING_ENGINE/            # Continuous improvement (8 files)
+├── KNOWLEDGE_BASE/             # Knowledge bridge
+├── PROJECT_METRICS.yaml        # Machine-readable dashboard
+├── PROJECT_HEALTH.yaml         # Dependency health, risk aging, AI quality
+└── VERSION                     # This file
+```
+
+### Status: 🚫 FROZEN — STRICT GOVERNANCE
+
+Planning OS v3.0.0 is declared **FROZEN**. No structural changes permitted without Enterprise Architect approval.
+
+**Permitted without approval:**
+- Content updates to existing files (new lessons, metrics, patterns)
+- Documentation updates
+- STATUS file updates (as steps complete)
+
+**Require Enterprise Architect approval:**
+- New folders
+- Renamed folders
+- Hierarchy changes
+- New governance layers
+- New templates
+- New AI rules
+
+**Semantic Versioning:**
+- MAJOR (v4.0.0): Hierarchy change, folder rename, new top-level layer
+- MINOR (v3.1.0): New file within existing structure
+- PATCH (v3.0.1): Content update, documentation, metrics
+
+### Active
+- **Wave:** 02 — User Experience & Communication
+- **Next Phase:** Phase 00 — Enterprise Test Foundation (priority over all)
+- **Next Task:** T09 — Unit Test Infrastructure (Step 01)
+- **Execution Engine:** ACTIVE
+- **Superloop Score:** 51.0% (107/210)

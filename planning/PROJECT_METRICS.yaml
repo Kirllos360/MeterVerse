@@ -1,0 +1,84 @@
+# PROJECT METRICS — Machine-readable live dashboard
+# Updated: Every session end
+# Format: YAML — parseable by any CI/CD tool
+
+project:
+  name: "MeterVerse"
+  repository: "https://github.com/Kirllos360/MeterVerse"
+  branch: "clean-main"
+  planning_version: "v3.0.0"
+  last_updated: "2026-07-23"
+
+current_state:
+  wave: "02 — User Experience & Communication"
+  phase: "00 — Enterprise Test Foundation (priority)"
+  task: "T09 — Unit Test Infrastructure"
+  step: "Step 01 (PLANNING)"
+  execution_ticket: null
+
+completion:
+  project_total: 82
+  wave_01: 100
+  wave_02: 12
+  wave_03: 5
+  wave_04: 0
+  wave_05: 0
+  wave_06: 0
+  wave_07: 0
+  wave_08: 0
+  wave_09: 0
+  wave_10: 0
+
+coverage:
+  backend: 91
+  frontend: 76
+  database: 88
+  runtime: 63
+  testing: 42
+  performance: 61
+  security: 65
+  documentation: 95
+  ai: 10
+  enterprise_readiness: 79
+  superloop_score: 51
+
+metrics:
+  prisma_models: 78
+  api_endpoints: 179
+  route_files: 21
+  permission_keys: 57
+  admin_pages: 59
+  detail_pages: 8
+  dashboard_pages: 19
+  planning_layers: 41
+  knowledge_base_docs: 20
+  unit_tests: 54
+  api_tests: 0
+  playwright_tests: 0
+  database_indexes: 68
+  execution_tickets_closed: 0
+  execution_tickets_open: 0
+
+bugs:
+  critical: 0
+  high: 3
+  medium: 2
+  low: 0
+  # known_bugs:
+  #   - domain.js DELETE idempotency (15 entities) — HIGH
+  #   - permissions.js/security.js duplication — MEDIUM
+  #   - Graphiti stale graph — HIGH
+
+risks:
+  total: 12
+  critical: 5
+  high: 27
+  medium: 31
+  # risks from ULTIMATE_AUDIT_LOOP.md
+
+blockers:
+  total: 3
+  items:
+    - smtp_credentials: "HIGH — needed for T06 Email Delivery"
+    - twilio_account: "HIGH — needed for T07 SMS Service"
+    - firebase_project: "HIGH — needed for T08 Push Notifications"
