@@ -13,12 +13,13 @@
 - Added 39_Definition_of_Done — single checklist (Build/Type/Lint/Runtime/Playwright/Accessibility/API/DB/Docs/Planning/Git/Screenshots/Evidence/Review)
 - Added 40_Enterprise_Decision_Log — 13 business decisions recorded, 7 pending
 - Added 41_Executive_Dashboard — overall completion (82%), technical coverage, key metrics, blockers, capability maturity, enterprise readiness
+- Added IMPLEMENTATION_PLAYBOOK.md — execution engine for AI engineers (13-stage lifecycle: READ→UNDERSTAND→VERIFY→PLAN→IMPLEMENT→SELF REVIEW→TEST→COMPARE→EVIDENCE→FIX→RETEST→COMMIT→UPDATE PLANNING→NEXT STEP)
 
-### Total Layers: 41 (30 v2.0 + 11 v2.1 includes 41_Executive_Dashboard)
+### Total Layers: 41 (30 v2.0 + 11 v2.1 includes 41_Executive_Dashboard) + IMPLEMENTATION_PLAYBOOK.md at root
 
 ### Status: FROZEN — FINAL
-No more governance layers, templates, planning folders, or AI rules
-will be added. The planning architecture is declared COMPLETE.
+No more governance layers, templates, planning folders, AI rules, or playbook
+documents will be added. The planning architecture is declared COMPLETE.
 
 ### Active Wave: Wave 02 (User Experience & Communication)
 ### Completed: Wave 01 (Enterprise Hardening) — 100%
@@ -33,6 +34,7 @@ planning/
 │   ├── 02_USER_EXPERIENCE/
 │   ├── 03_BILLING/
 │   ├── ...
+├── IMPLEMENTATION_PLAYBOOK.md   # AI execution engine (13-stage lifecycle)
 └── VERSION                      # This file
 
 ### Rules
