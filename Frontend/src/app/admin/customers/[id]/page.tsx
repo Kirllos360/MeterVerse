@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { apiClient } from "@/lib/api-client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Breadcrumb } from "@/components/ui/breadcrumb" from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
@@ -76,7 +76,12 @@ export default function CustomerDetailPage() {
     load()
   }, [params.id])
 
-  if (loading) {
+  
+      <Breadcrumb items={[
+        { label: "Admin", href: "/admin" },
+        { label: "Customers", href: "/admin/customers" },
+      ]} />
+      if (loading) {
     return (
       <div className="p-6 space-y-4">
         <Skeleton className="h-8 w-48" />
@@ -198,3 +203,4 @@ export default function CustomerDetailPage() {
     </div>
   )
 }
+

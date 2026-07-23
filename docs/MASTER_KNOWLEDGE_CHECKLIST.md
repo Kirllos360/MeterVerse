@@ -266,9 +266,35 @@ Execution Flow:
 
 ---
 
-## Wave 02 — Not Yet Defined
+## Wave 02 — User Experience & Communication `[LOCKED]`
 
-(Reserved for future phases: Performance, Security Audit, Multi-tenancy, API Docs, i18n, ETL/Migration)
+**Status:** LOCKED — Wave 01 must complete first  
+**Phases:** 4 (Phase 43a-43d)  
+**Focus:** Tasks module, search, command palette, WebSocket, email/SMS/push delivery, documents, accessibility
+
+## Wave 03 — Enterprise Billing & Tariff `[LOCKED]`
+
+**Status:** LOCKED — Wave 02 must complete first  
+**Phases:** 4 (Phase 44a-44d)  
+**Focus:** Tariff engine, billing pipeline, collections, compliance
+
+## Wave 04 — Platform Hardening & Scale `[LOCKED]`
+
+**Status:** LOCKED — Wave 03 must complete first  
+**Phases:** 5 (Phase 45a-45e)  
+**Focus:** Performance, security, multi-tenancy, observability, disaster recovery
+
+## Wave 05 — AI & Intelligence `[LOCKED]`
+
+**Status:** LOCKED — Wave 04 must complete first  
+**Phases:** 4 (Phase 46a-46d)  
+**Focus:** Anomaly detection, forecasting, analytics, automation, integrations
+
+## Wave 06 — Mobile & Enterprise Release `[LOCKED]`
+
+**Status:** LOCKED — Wave 05 must complete first  
+**Phases:** 3 (Phase 47a-47c)  
+**Focus:** Mobile API, production environment, load testing, go-live
 
 ---
 

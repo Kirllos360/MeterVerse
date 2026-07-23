@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { apiClient } from "@/lib/api-client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { Breadcrumb } from "@/components/ui/breadcrumb" from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 
 interface Invoice { id: string; number: string }
@@ -46,7 +46,12 @@ export default function PaymentDetailPage() {
     load()
   }, [params.id])
 
-  if (loading) return <div className="p-6 space-y-4"><Skeleton className="h-8 w-48" /><Skeleton className="h-32 w-full" /></div>
+  
+      <Breadcrumb items={[
+        { label: "Admin", href: "/admin" },
+        { label: "Payments", href: "/admin/payments" },
+      ]} />
+      if (loading) return <div className="p-6 space-y-4"><Skeleton className="h-8 w-48" /><Skeleton className="h-32 w-full" /></div>
   if (!payment) return <div className="p-6 text-center"><h2 className="text-xl font-semibold">Payment not found</h2><Button onClick={() => router.back()} className="mt-4">Go back</Button></div>
 
   return (
@@ -72,3 +77,4 @@ export default function PaymentDetailPage() {
     </div>
   )
 }
+
