@@ -9,6 +9,8 @@
         "db:push": "npx prisma db push",
         "db:seed": "node scripts/seed.js",
         "test": "vitest run",
+        "test:integration": "vitest run --config vitest.integration.config.ts",
+        "test:coverage": "vitest run --coverage",
         "db:setup": "npm run db:generate && npx prisma db push && npm run db:seed"
     },
     "dependencies": {
@@ -26,6 +28,7 @@
         "zod": "^3.24.0"
     },
     "devDependencies": {
+        "@vitest/coverage-v8": "^4.1.10",
         "prisma": "^6.0.0",
         "vitest": "^4.1.10"
     }

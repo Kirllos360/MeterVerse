@@ -1,0 +1,20 @@
+﻿Step 01 Complete — READ: Review existing verification scripts
+
+FINDINGS:
+- 10 total test/verification files found (backend/tests: 6, Frontend/tests: 24, scripts: 2)
+- 3 true automated tests (Vitest/Playwright with assertions):
+  1. backend/tests/integration.test.mjs (14 lines, 2 tests — 401 + health check)
+  2. Frontend/tests/design-tokens.test.ts (70 lines, 37 tautological token tests)
+  3. Frontend/tests/comprehensive-audit.spec.ts (264 lines, Playwright, 7 sections)
+- 7 verification scripts (console.log, no assertions, human-read):
+  gate-check.mjs, final-verification.mjs, notification-engine.test.mjs,
+  test-exports.mjs, test-notifications-api.mjs, verify-templates.mjs,
+  wire-events-test.mjs
+- Vitest IS configured in backend (vitest.config.ts, npm test -> vitest run)
+- Frontend has vitest + @playwright/test installed but npm test is no-op
+- 12 backend services needing unit tests
+- 21 route files needing API tests
+- 103 frontend pages needing Playwright smoke tests
+
+GAP: The 54 scripts mentioned in planning was an overestimate.
+Actual: 10 files, 7 are verification scripts not true tests.

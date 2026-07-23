@@ -1,0 +1,136 @@
+import { vi } from 'vitest';
+
+function createMockModel() {
+  return {
+    findMany: vi.fn(),
+    findUnique: vi.fn(),
+    findFirst: vi.fn(),
+    create: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
+    upsert: vi.fn(),
+    count: vi.fn(),
+    aggregate: vi.fn(),
+    groupBy: vi.fn(),
+  };
+}
+
+function createMockDelegate() {
+  return {
+    findMany: vi.fn(),
+    findUnique: vi.fn(),
+    findFirst: vi.fn(),
+    create: vi.fn(),
+    update: vi.fn(),
+    delete: vi.fn(),
+    upsert: vi.fn(),
+    count: vi.fn(),
+  };
+}
+
+export const prisma = {
+  customer: createMockModel(),
+  meter: createMockModel(),
+  reading: createMockModel(),
+  invoice: createMockModel(),
+  payment: createMockModel(),
+  user: createMockModel(),
+  role: createMockModel(),
+  permission: createMockModel(),
+  auditEntry: createMockModel(),
+  organization: createMockModel(),
+  area: createMockModel(),
+  project: createMockModel(),
+  tariff: createMockModel(),
+  tariffRate: createMockModel(),
+  tariffTier: createMockModel(),
+  chargeRule: createMockModel(),
+  discountRule: createMockModel(),
+  contract: createMockModel(),
+  contractTerm: createMockModel(),
+  contractAmendment: createMockModel(),
+  billCycle: createMockModel(),
+  billRun: createMockModel(),
+  billRunHistory: createMockModel(),
+  invoiceItem: createMockModel(),
+  invoiceTax: createMockModel(),
+  meterAssignment: createMockModel(),
+  meterAssignmentHistory: createMockModel(),
+  meterEvent: createMockModel(),
+  measurementPoint: createMockModel(),
+  measPointResType: createMockModel(),
+  resultType: createMockModel(),
+  result: createMockModel(),
+  resultM: createMockModel(),
+  quantity: createMockModel(),
+  notification: createMockModel(),
+  notificationTemplate: createMockModel(),
+  emailLog: createMockModel(),
+  smsLog: createMockModel(),
+  activityStream: createMockModel(),
+  session: createMockModel(),
+  permissionOnRole: createMockModel(),
+  userRole: createMockModel(),
+  userPreference: createMockModel(),
+  kpiDefinition: createMockModel(),
+  kpiSnapshot: createMockModel(),
+  reportDefinition: createMockModel(),
+  alertRule: createMockModel(),
+  alert: createMockModel(),
+  validationRule: createMockModel(),
+  validationResult: createMockModel(),
+  workflowState: createMockModel(),
+  workflowTransition: createMockModel(),
+  storedFile: createMockModel(),
+  importJob: createMockModel(),
+  exportJob: createMockModel(),
+  collectionCase: createMockModel(),
+  collectionAction: createMockModel(),
+  promiseToPay: createMockModel(),
+  paymentGateway: createMockModel(),
+  paymentTransaction: createMockModel(),
+  gatewayLog: createMockModel(),
+  customerGroup: createMockModel(),
+  groupMember: createMockModel(),
+  groupPricing: createMockModel(),
+  sla: createMockModel(),
+  slaBreach: createMockModel(),
+  slaEscalation: createMockModel(),
+  groupSla: createMockModel(),
+  escalationPolicy: createMockModel(),
+  escalationStep: createMockModel(),
+  customerContact: createMockModel(),
+  notificationPreference: createMockModel(),
+  apiKey: createMockModel(),
+  systemSetting: createMockModel(),
+  featureFlag: createMockModel(),
+  backup: createMockModel(),
+  cacheEntry: createMockModel(),
+  queueJob: createMockModel(),
+  scheduledTask: createMockModel(),
+  license: createMockModel(),
+  brandingConfig: createMockModel(),
+  webhook: createMockModel(),
+  scheduledReport: createMockModel(),
+  exportLog: createMockModel(),
+  chargeOverride: createMockModel(),
+  mprt: createMockModel(),
+  mprtfk: createMockModel(),
+  $transaction: vi.fn((callback) => callback(prisma)),
+  $disconnect: vi.fn(),
+  $on: vi.fn(),
+  $use: vi.fn(),
+  $extends: vi.fn(),
+};
+
+export function resetPrismaMocks() {
+  for (const model of Object.values(prisma)) {
+    if (typeof model === 'object' && model !== null) {
+      for (const method of Object.values(model)) {
+        if (typeof method === 'function' && 'mockReset' in method) {
+          method.mockReset();
+        }
+      }
+    }
+  }
+}
