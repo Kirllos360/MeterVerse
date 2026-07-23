@@ -5,6 +5,17 @@ phase:
   dependencies:
     - "Phase 42a (non-blocking — can run in parallel)"
   tasks:
+    T99_Phase_Audit:
+      name: Phase Completion Audit
+      status: PLANNING
+      steps:
+        S01: Audit planning docs
+        S02: Audit graph/architecture
+        S03: Audit frontend structure
+        S04: Audit backend structure
+        S05: Audit database design
+        S06: Audit process flow
+        S07: Audit KPI flow
     T03_GATE_CHECK_Enforcement:
       name: "GATE_CHECK — prevent AI from skipping work"
       status: "PLANNING"

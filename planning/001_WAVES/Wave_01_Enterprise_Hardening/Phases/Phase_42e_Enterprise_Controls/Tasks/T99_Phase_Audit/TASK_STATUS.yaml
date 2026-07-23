@@ -1,0 +1,23 @@
+task:
+  name: "Phase Completion Audit — Planning, Graph, Frontend, Backend, Database, Process, KPI"
+  phase: "42e"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  risk: "Without audit, incomplete work can be marked done"
+  depends_on: ["All other tasks in this phase"]
+  steps:
+    S01: "Audit planning docs — COMPLETE when all STATUS.yaml files verified"
+    S02: "Audit graph/architecture — COMPLETE when graphiti nodes match implementation"
+    S03: "Audit frontend structure — COMPLETE when all pages follow best practices"
+    S04: "Audit backend structure — COMPLETE when all APIs follow conventions"
+    S05: "Audit database design — COMPLETE when schema is normalized"
+    S06: "Audit process flow — COMPLETE when workflow documented end-to-end"
+    S07: "Audit KPI flow — COMPLETE when KPIs defined, no conflicts"
+  completion_criteria:
+    - "No gap between planning STATUS.yaml and actual implementation"
+    - "Graphiti knowledge graph is up to date"
+    - "Frontend: all pages use consistent patterns (GenericAdminPage or detail)")
+    - "Backend: all routes have RBAC + audit + validation"
+    - "Database: all foreign keys have indexes, no denormalization"
+    - "Process flow: documented at docs/process/<phase-name>.md"
+    - "KPI flow: no conflicting metrics, all measurable"
