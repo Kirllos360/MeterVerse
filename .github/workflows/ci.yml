@@ -1,103 +1,89 @@
-name: MeterVerse CI/CD
+name: CI â€” Tests & Quality
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [clean-main]
   pull_request:
-    branches: [ main ]
+    branches: [clean-main]
 
 jobs:
-  build-backend:
+  test-backend:
+    name: Backend Tests
     runs-on: ubuntu-latest
-    continue-on-error: true
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install dependencies
-        run: npm install 2>&1
-      - name: Generate Prisma client
-        run: npx prisma generate 2>&1 || echo "Prisma generate skipped (no DB)"
-      - name: Run tests
-        run: npm test 2>&1 || true
-      - name: Done
-        run: echo "Backend build complete"
 
-  build-frontend:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    defaults:
-      run:
-        working-directory: Frontend
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Install dependencies
-        run: npm install 2>&1
-      - name: Build
+    services:
+      postgres:
+        image: postgres:16
         env:
-          NEXT_PUBLIC_SENTRY_DISABLED: "true"
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: "pk_test_placeholder"
-          CLERK_SECRET_KEY: "sk_test_placeholder"
-        run: npm run build 2>&1
-      - name: Run tests
-        run: npm test 2>&1 || true
-      - name: Done
-        run: echo "Frontend build complete"
+          POSTGRES_DB: meterverse_test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
-  security-audit:
-    runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
-      - name: npm audit backend
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
         working-directory: backend
-        continue-on-error: true
-        run: npm audit --audit-level=high 2>&1 || true
-      - name: npm audit frontend
-        working-directory: Frontend
-        continue-on-error: true
-        run: npm audit --audit-level=high 2>&1 || true
-      - name: Check .env in git
-        run: |
-          if git log --all --diff-filter=A --name-only --format='' | grep -i '\.env'; then
-            echo "WARNING: .env files found in git history"
-          else
-            echo "No .env files in git history"
-          fi
 
-  docker-build:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build backend Docker
-        continue-on-error: true
-        run: docker build -t meterverse-backend -f Dockerfile.backend . 2>&1 || echo "Docker build skipped"
-      - name: Build frontend Docker
-        continue-on-error: true
-        run: docker build -t meterverse-frontend -f Frontend/Dockerfile . 2>&1 || echo "Docker build skipped"
+      - name: Generate Prisma client
+        run: npx prisma generate
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
 
-  gate-check:
+      - name: Run unit tests
+        run: npm test
+        working-directory: backend
+
+      - name: Run coverage
+        run: npm run test:coverage
+        working-directory: backend
+
+  lint-backend:
+    name: Backend Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
-      - name: GATE_CHECK — verify all STATUS files
-        run: |
-          for phase in planning/001_WAVES/Wave_01_Enterprise_Hardening/Phases/Phase_*/; do
-            phaseName=
-            for task in ""Tasks/*/; do
-              taskName=
-              echo "Checking /..."
-              node scripts/gate-check.mjs "" "" || true
-            done
-          done
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+        working-directory: backend
+      - name: Lint
+        run: npm run lint
+        working-directory: backend
+        continue-on-error: true
+
+  test-frontend:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: Frontend/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+        working-directory: Frontend
+      - name: Build
+        run: npm run build
+        working-directory: Frontend
