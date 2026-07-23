@@ -1,0 +1,9 @@
+task:
+  name: "Generate OpenAPI/Swagger documentation for all 179+ endpoints"
+  phase: "43d"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  steps:
+    S01: "Implement Generate OpenAPI/Swagger documentation for all 179+ endpoints"
+  completion_criteria:
+    - "Task complete with evidence"

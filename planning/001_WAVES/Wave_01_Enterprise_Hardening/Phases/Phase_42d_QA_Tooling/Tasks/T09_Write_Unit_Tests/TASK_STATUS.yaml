@@ -1,0 +1,14 @@
+task:
+  name: "Write unit tests for backend services"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S01: "Write test for auth-engine.js (login, lockout, tokens)"
+    S02: "Write test for notification-engine.js (processEvent, rate limiting)"
+    S03: "Write test for billing-engine.js (invoice generation, tax, discount)"
+    S04: "Write test for validation-engine.js (rule evaluation)"
+    S05: "Write test for kpi-engine.js (snapshot recording)"
+  completion_criteria:
+    - "20+ unit tests passing"
+    - "All 5 backend services have test coverage"

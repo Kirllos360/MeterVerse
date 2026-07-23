@@ -1,0 +1,16 @@
+task:
+  name: "Setup Playwright and write Chromium E2E tests"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S01: "Install Playwright with Chromium browser"
+    S02: "Write login E2E test (admin login, user login, invalid login, screenshots)"
+    S03: "Write customer CRUD E2E test (list, create, view, edit, delete, screenshots)"
+    S04: "Write meter CRUD E2E test (list, create, view, export, screenshots)"
+    S05: "Write invoice CRUD E2E test (list, create, view, generate, screenshots)"
+    S06: "Write payment CRUD E2E test (list, create, view, screenshots)"
+  completion_criteria:
+    - "Playwright installed with Chromium"
+    - "30+ E2E tests passing"
+    - "Screenshots captured as evidence per test"

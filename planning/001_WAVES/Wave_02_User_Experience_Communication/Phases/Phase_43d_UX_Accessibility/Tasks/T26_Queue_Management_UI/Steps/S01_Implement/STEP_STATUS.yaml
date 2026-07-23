@@ -1,0 +1,7 @@
+step:
+  name: "Implement Build admin queue management page with retry, cancel, and monitoring"
+  task: "T26_Queue_Management_UI"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Build admin queue management page with retry, cancel, and monitoring implemented and verified"

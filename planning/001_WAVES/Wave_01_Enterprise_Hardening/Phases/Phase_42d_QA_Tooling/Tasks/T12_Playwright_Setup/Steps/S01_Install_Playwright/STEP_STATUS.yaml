@@ -1,0 +1,7 @@
+step:
+  name: "Install Playwright"
+  task: "T12"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  evidence_required:
+    - "Install Playwright completed with screenshots"

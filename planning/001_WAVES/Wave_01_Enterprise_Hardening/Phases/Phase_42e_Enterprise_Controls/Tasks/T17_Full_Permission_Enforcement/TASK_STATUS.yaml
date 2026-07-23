@@ -1,0 +1,13 @@
+task:
+  name: "Enforce requirePermission on ALL 21 route files"
+  phase: "42e"
+  status: "PLANNING"
+  priority: "HIGH"
+  steps:
+    S01: "Audit all 21 route files — list which use requireRole vs requirePermission"
+    S02: "Replace requireRole with requirePermission on remaining 13 files"
+    S03: "Add missing permission keys for all entities"
+    S04: "Verify all endpoints return 403 for unauthorized users"
+  completion_criteria:
+    - "21/21 route files use requirePermission"
+    - "No route file uses deprecated requireRole"

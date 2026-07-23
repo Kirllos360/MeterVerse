@@ -1,0 +1,9 @@
+task:
+  name: "Build admin backup management page with schedule, manual backup, and restore"
+  phase: "43d"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  steps:
+    S01: "Implement Build admin backup management page with schedule, manual backup, and restore"
+  completion_criteria:
+    - "Task complete with evidence"

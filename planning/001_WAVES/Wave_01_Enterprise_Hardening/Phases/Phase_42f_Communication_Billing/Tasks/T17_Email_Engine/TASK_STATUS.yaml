@@ -1,12 +1,14 @@
 task:
-  name: "Build Email/SMTP sending engine"
+  name: "Wire Email Engine — actual SMTP sending"
   phase: "42f"
-  status: "COMPLETE"
+  status: "PLANNING"
   priority: "HIGH"
   steps:
-    S01: "Install Nodemailer + configure SMTP"
-    S02: "Wire EmailLog to actual sending"
-    S03: "Add email queue for retry"
+    S01: "Configure SMTP environment variables"
+    S02: "Wire email-engine.js to notification-engine.js"
+    S03: "Add retry queue for failed emails (3 attempts)"
+    S04: "Add email rate limiting (max 100/hour)"
   completion_criteria:
-    - "All steps complete with evidence"
-
+    - "Email sends successfully via SMTP"
+    - "Failed emails retry up to 3 times"
+    - "Rate limiting prevents spam"

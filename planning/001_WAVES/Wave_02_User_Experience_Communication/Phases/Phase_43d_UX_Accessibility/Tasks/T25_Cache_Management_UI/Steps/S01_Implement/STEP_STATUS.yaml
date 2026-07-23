@@ -1,0 +1,7 @@
+step:
+  name: "Implement Build admin cache management page with invalidation controls"
+  task: "T25_Cache_Management_UI"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Build admin cache management page with invalidation controls implemented and verified"

@@ -1,0 +1,7 @@
+step:
+  name: "Implement Build admin page for creating, editing, and managing alert rules"
+  task: "T23_Admin_AlertRules_Page"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Build admin page for creating, editing, and managing alert rules implemented and verified"

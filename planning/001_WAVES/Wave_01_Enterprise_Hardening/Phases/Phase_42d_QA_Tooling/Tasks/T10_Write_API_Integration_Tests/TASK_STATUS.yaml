@@ -1,0 +1,14 @@
+task:
+  name: "Write API integration tests"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S01: "Write test for customers API (CRUD, export, permissions)"
+    S02: "Write test for meters API (CRUD, export, permissions)"
+    S03: "Write test for invoices API (CRUD, generate, export)"
+    S04: "Write test for payments API (CRUD, export)"
+    S05: "Write test for auth API (login, register, me, system_type)"
+  completion_criteria:
+    - "25+ API integration tests passing"
+    - "All major CRUD endpoints tested"

@@ -1,0 +1,7 @@
+step:
+  name: "Login E2E"
+  task: "T12"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  evidence_required:
+    - "Login E2E completed with screenshots"

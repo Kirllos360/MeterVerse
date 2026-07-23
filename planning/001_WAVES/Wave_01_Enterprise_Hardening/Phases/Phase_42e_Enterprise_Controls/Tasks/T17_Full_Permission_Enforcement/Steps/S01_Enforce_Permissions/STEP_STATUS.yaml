@@ -1,0 +1,8 @@
+step:
+  name: "Enforce requirePermission on all routes"
+  task: "T17"
+  status: "PLANNING"
+  priority: "HIGH"
+  evidence_required:
+    - "All 21 route files use requirePermission"
+    - "All 403 responses tested"

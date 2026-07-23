@@ -1,0 +1,16 @@
+task:
+  name: "Write Playwright E2E browser tests"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S01: "Write login flow test (admin login, user login, failed login)"
+    S02: "Write customer flow test (list, create, view detail, edit, delete)"
+    S03: "Write meter flow test (list, create, view detail, export)"
+    S04: "Write reading flow test (list, create bulk, view detail)"
+    S05: "Write invoice flow test (list, create, view detail, generate)"
+    S06: "Write payment flow test (list, create, view detail)"
+  completion_criteria:
+    - "30+ Playwright tests passing in Chromium"
+    - "All critical user flows covered"
+    - "Screenshots captured as evidence"

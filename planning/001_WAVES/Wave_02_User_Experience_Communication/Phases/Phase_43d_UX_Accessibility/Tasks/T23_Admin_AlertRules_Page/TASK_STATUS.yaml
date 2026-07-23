@@ -1,0 +1,9 @@
+task:
+  name: "Build admin page for creating, editing, and managing alert rules"
+  phase: "43d"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  steps:
+    S01: "Implement Build admin page for creating, editing, and managing alert rules"
+  completion_criteria:
+    - "Task complete with evidence"

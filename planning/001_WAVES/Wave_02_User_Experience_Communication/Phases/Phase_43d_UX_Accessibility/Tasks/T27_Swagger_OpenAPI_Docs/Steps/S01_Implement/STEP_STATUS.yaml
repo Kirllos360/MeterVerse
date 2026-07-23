@@ -1,0 +1,7 @@
+step:
+  name: "Implement Generate OpenAPI/Swagger documentation for all 179+ endpoints"
+  task: "T27_Swagger_OpenAPI_Docs"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Generate OpenAPI/Swagger documentation for all 179+ endpoints implemented and verified"
