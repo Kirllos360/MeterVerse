@@ -3,7 +3,42 @@ phase:
   wave: "2"
   status: "PLANNING"
   tasks:
-    T11_Accessibility_Audit:
+
+    T21_Admin_Cache_Management_UI:
+      name: "Build admin cache management page with invalidation"
+      status: PLANNING
+      steps:
+        S01: "Implement"
+    T20_Admin_Queue_Management_UI:
+      name: "Build admin queue management page with retry and cancel"
+      status: PLANNING
+      steps:
+        S01: "Implement"
+    T19_Admin_Backup_Management_UI:
+      name: "Build admin backup management page with schedule and restore"
+      status: PLANNING
+      steps:
+        S01: "Implement"
+    T18_ActivityStream_Monitoring_Dashboard:
+      name: "Build monitoring dashboard using ActivityStream data"
+      status: PLANNING
+      steps:
+        S01: "Implement"
+    T17_Full_Permission_Enforcement:
+      name: "Replace requireRole with requirePermission on all remaining route files"
+      status: PLANNING
+      steps:
+        S01: "Implement"
+    T16_Contracts_Admin_UI:
+      name: "Build dedicated admin management page for contracts"
+      status: PLANNING
+      steps:
+        S01: "Implement"
+    T15_Admin_AlertRules_Page:
+      name: "Build admin page for managing alert rules"
+      status: PLANNING
+      steps:
+        S01: "Implement"    T11_Accessibility_Audit:
       name: "Accessibility Audit"
       status: "PLANNING"
       steps:
