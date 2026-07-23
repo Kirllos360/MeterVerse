@@ -1,5 +1,43 @@
-Planning OS v2.0
-Status: FROZEN � only Wave 02 active
-Wave 01: COMPLETE (2026-07-23)
-Wave 02: ACTIVE � User Experience & Communication
-Waves 03-06: LOCKED
+# Planning OS Version
+
+## v2.1 (Enterprise Baseline) — 2026-07-23
+
+### Changes from v2.0
+- Added 32_Enterprise_Capability_Roadmap — maturity tracking across waves
+- Added 33_Feature_Lifecycle — idea-to-archived tracking per feature
+- Added 34_Dependency_Heat_Map — risk levels per task (BLOCKED/HIGH/MEDIUM/LOW/INDEPENDENT)
+- Added 35_Technical_Ownership — owners per directory/component (Business/Tech/Architecture/DB/Frontend/Backend/Testing/Docs)
+- Added 36_Runtime_Inventory — 15 engines documented with owner, deps, version, status, related waves/tasks/APIs/components
+- Added 37_Domain_Map — 16 domains linking models, pages, APIs, components, permissions, planning
+- Added 38_Enterprise_Metrics — coverage across 10 dimensions with calculation methodology
+- Added 39_Definition_of_Done — single checklist (Build/Type/Lint/Runtime/Playwright/Accessibility/API/DB/Docs/Planning/Git/Screenshots/Evidence/Review)
+- Added 40_Enterprise_Decision_Log — 13 business decisions recorded, 7 pending
+- Added 41_Executive_Dashboard — overall completion (82%), technical coverage, key metrics, blockers, capability maturity, enterprise readiness
+
+### Total Layers: 41 (30 v2.0 + 11 v2.1 includes 41_Executive_Dashboard)
+
+### Status: FROZEN — FINAL
+No more governance layers, templates, planning folders, or AI rules
+will be added. The planning architecture is declared COMPLETE.
+
+### Active Wave: Wave 02 (User Experience & Communication)
+### Completed: Wave 01 (Enterprise Hardening) — 100%
+### Upcoming: Waves 03-10
+
+### Architecture
+planning/
+├── 000_ENTERPRISE_PROGRAM/     # 41 layers — FROZEN
+│   ├── 01_... to 31_...        # v2.0: Governance (30 layers)
+│   ├── 32_... to 41_...        # v2.1: Enterprise Baseline (11 layers)
+├── 001_WAVES/                   # Wave directories (02 active)
+│   ├── 02_USER_EXPERIENCE/
+│   ├── 03_BILLING/
+│   ├── ...
+└── VERSION                      # This file
+
+### Rules
+1. No new governance layers  — the architecture is complete
+2. No new templates
+3. No new planning folders
+4. No new AI rules
+5. Focus shifts from planning to implementation
