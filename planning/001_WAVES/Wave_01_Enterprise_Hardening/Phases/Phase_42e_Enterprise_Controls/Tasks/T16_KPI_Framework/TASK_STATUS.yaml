@@ -1,0 +1,14 @@
+task:
+  name: "Build KPI framework per domain entity"
+  phase: "42e"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  steps:
+    S01: "Define KPI targets for each entity"
+    S02: "Seed KpiDefinition records"
+    S03: "Build KPI snapshot service"
+    S04: "Add KPI dashboard page"
+  completion_criteria:
+    - "10+ KPI targets defined (customers, meters, readings, invoices, payments)"
+    - "KPI snapshots auto-recorded daily"
+    - "KPI dashboard at /admin/ai shows real data"

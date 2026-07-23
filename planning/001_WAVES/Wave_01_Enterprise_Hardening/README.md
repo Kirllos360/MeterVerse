@@ -19,10 +19,11 @@
 
 | Phase | Focus | Status | Tasks |
 |-------|-------|--------|-------|
-| 42a | Indexes & Domain Fix | PLANNING | T01 (indexes), T02 (domain.js) |
-| 42b | Notifications & Export | PLANNING | TBD |
-| 42c | Detail Pages | PLANNING | TBD |
+| 42a | Indexes & Domain Fix | COMPLETE | T01 (indexes), T02 (domain.js) |
+| 42b | Notifications & Export | COMPLETE | T03 (notifications), T04 (export) |
+| 42c | Detail Pages | IN_PROGRESS | T05-T11 (detail pages), T12 (enhancements) |
 | 42d | QA & Tooling | PLANNING | T03 (GATE_CHECK), T04 (page-configs), T05 (tests), T06 (Meter/) |
+| 42e | Enterprise Controls | PLANNING | T13 (permissions), T14 (alerts), T15 (monitoring), T16 (KPIs) |
 
 ## Dependencies
 - Phase 42a must complete before 42b

@@ -1,0 +1,13 @@
+task:
+  name: "Build per-entity traffic monitoring"
+  phase: "42e"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  steps:
+    S01: "Add request tracking middleware"
+    S02: "Add area/project filters to monitoring"
+    S03: "Build monitoring dashboard"
+  completion_criteria:
+    - "Every API call logs entity, action, user, area, project"
+    - "Traffic filterable by area and project"
+    - "Monitoring dashboard shows per-entity traffic"
