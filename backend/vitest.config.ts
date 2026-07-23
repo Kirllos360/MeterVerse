@@ -3,7 +3,8 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    include: ['tests/unit/**/*.test.mjs'],
+    setupFiles: ['tests/helpers/setup.js'],
+    include: ['tests/unit/**/*.test.mjs', 'tests/api/**/*.test.mjs'],
     exclude: ['node_modules', 'tests/integration.test.mjs', 'tests/notification-engine.test.mjs'],
     coverage: {
       provider: 'v8',

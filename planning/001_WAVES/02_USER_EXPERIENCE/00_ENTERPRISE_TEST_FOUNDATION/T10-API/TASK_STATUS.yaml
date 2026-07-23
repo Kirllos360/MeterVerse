@@ -1,8 +1,15 @@
 # T10 — API Test Suite
-status: PLANNING
-started: null
+status: RUNNING
+started: 2026-07-23
 completed: null
 phase: 00_ENTERPRISE_TEST_FOUNDATION
 total_steps: 10
-completed_steps: 0
-checklist: "[/] Supertest configured [/] Auth endpoints tested [/] CRUD endpoints tested [/] Error cases tested [/] Permission checks tested [/] All pass"
+completed_steps: 5
+checklist: "[X] Supertest configured [/] Auth endpoints tested [X] CRUD endpoints tested [X] Error cases tested [/] Permission checks tested [/] All pass"
+
+## Progress
+- Step 01-03: READ/UNDERSTAND/PLAN — Done
+- Step 04: Test helpers — Done (test-app.js, auth.test.mjs pattern)
+- Step 05: Auth route tests — Done (3 tests: login invalid, me unauthorized, Zod validation)
+- Step 06: CRUD route tests — Done (7 tests: customers list/read/404, invoices list/read, meters list, 404, 401)
+- Step 07-10: Remaining (more routes, permission checks, domain.js, full suite verification)
