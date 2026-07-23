@@ -1,7 +1,7 @@
 task:
   name: "Integration & E2E Tests"
   phase: "42d"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "HIGH"
   risk: "Unit tests alone (T05) don't verify API contract behavior"
   steps:
@@ -10,3 +10,4 @@ task:
   completion_criteria:
     - "10+ backend API integration tests pass"
     - "Playwright E2E covers: login, list view, detail view, export"
+

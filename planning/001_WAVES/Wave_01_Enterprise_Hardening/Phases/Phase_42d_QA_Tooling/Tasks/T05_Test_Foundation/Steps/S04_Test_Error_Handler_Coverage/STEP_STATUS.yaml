@@ -1,9 +1,10 @@
 step:
   name: "Test error handler covers domain CRUD + all routes"
   task: "T05"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "CRITICAL"
   estimated_hours: 2
   evidence_required:
     - "Invalid domain CRUD call returns JSON error, not stack trace"
     - "All 17 route files produce uniform error responses"
+

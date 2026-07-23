@@ -1,8 +1,9 @@
 step:
   name: "CORS origin whitelist"
   task: "T99"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "LOW"
   estimated_hours: 1
   evidence_required:
     - "Verify CORS allows only configured origins"
+

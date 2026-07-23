@@ -1,10 +1,11 @@
 step:
   name: "Write First Admin Page Test"
   task: "T05"
-  status: "PLANNING"
+  status: "COMPLETE"
   depends_on: ["S01"]
   estimated_hours: 4
   evidence_required:
     - "1 admin page has a passing component test"
     - "npm test passes"
   prompts_available: true
+

@@ -1,7 +1,7 @@
 task:
   name: "T05 — Unit Test Foundation"
   phase: "42d"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "CRITICAL"
   risk: "0% test coverage — highest risk item in audit"
   depends_on: []

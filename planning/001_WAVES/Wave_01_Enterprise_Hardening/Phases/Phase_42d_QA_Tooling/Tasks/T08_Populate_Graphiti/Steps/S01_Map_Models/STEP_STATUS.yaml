@@ -1,7 +1,8 @@
 step:
   name: "Map Models"
   task: "T08"
-  status: "PLANNING"
+  status: "COMPLETE"
   estimated_hours: 3
   evidence_required:
     - "Graph nodes committed to graphiti/index.json"
+

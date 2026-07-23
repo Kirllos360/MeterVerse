@@ -1,9 +1,10 @@
 step:
   name: "Create Architecture Decision Record"
   task: "T06"
-  status: "PLANNING"
+  status: "COMPLETE"
   depends_on: ["S01"]
   estimated_hours: 2
   evidence_required:
     - "ADR-004.md accepted in graphiti/"
   prompts_available: true
+

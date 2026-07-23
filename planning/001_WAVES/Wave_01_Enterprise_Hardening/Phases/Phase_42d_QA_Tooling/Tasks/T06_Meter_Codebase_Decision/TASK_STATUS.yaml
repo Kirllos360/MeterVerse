@@ -1,7 +1,7 @@
 task:
   name: "T06 — Meter/ Parallel Codebase Decision"
   phase: "42d"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "HIGH"
   risk: "267K unresolved files create developer confusion and CI bloat"
   depends_on: []
@@ -13,3 +13,4 @@ task:
     S01: "COMPLETE when audit documented"
     S02: "COMPLETE when ADR-004 accepted"
     S03: "COMPLETE when decision executed"
+
