@@ -69,17 +69,20 @@ export async function importData(modelName, records, userId) {
 
 // ─── EXPORT ────────────────────────────────────────────────────────────────────
 
+const EXPORT_MAX_ROWS = 10000
+
 export async function exportData(modelName, filters = {}, format = "json") {
   const model = prisma[modelName]
   if (!model) throw new Error(`Model ${modelName} not found`)
-  const items = await model.findMany({ where: { archivedAt: null, ...filters } })
+  const items = await model.findMany({ where: { archivedAt: null, ...filters }, take: EXPORT_MAX_ROWS })
+  const total = items.length
   if (format === "csv") {
     if (items.length === 0) return { format, data: "No data", total: 0 }
     const headers = Object.keys(items[0]).filter(k => !k.includes("password"))
     const csv = [headers.join(","), ...items.map(row => headers.map(h => JSON.stringify(row[h] ?? "")).join(","))].join("\n")
-    return { format: "csv", data: csv, total: items.length }
+    return { format: "csv", data: csv, total, truncated: total >= EXPORT_MAX_ROWS }
   }
-  return { format: "json", data: items, total: items.length }
+  return { format: "json", data: items, total, truncated: total >= EXPORT_MAX_ROWS }
 }
 
 // ─── UNDO ──────────────────────────────────────────────────────────────────────
