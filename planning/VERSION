@@ -46,3 +46,43 @@ planning/
 2. Focus shifts from planning to implementation
 3. SUPERLOOP audit must pass before any implementation step
 4. All 12 critical gaps must close before W03 starts
+
+---
+
+## v3.0 (Execution Engine) — 2026-07-23
+
+### Major Changes
+- Repository reorganized into 6-layer architecture:
+  ```
+  planning/
+  ├── 000_ENTERPRISE_PROGRAM/    # Business, architecture, governance (41 layers)
+  ├── 001_WAVES/                 # Implementation planning (waves/phases/tasks)
+  ├── EXECUTION/                 # Session lifecycle (9 files)
+  ├── AUDIT_ENGINE/              # Multi-level verification (6 audit levels)
+  ├── KNOWLEDGE_BASE/            # Enterprise knowledge bridge
+  └── PROJECT/                   # Source code (backend, frontend)
+  ```
+
+### Added
+- `EXECUTION/SESSION_START.md` — Mandatory reading order for every AI session
+- `EXECUTION/SESSION_CONTEXT.md` — Per-session context and boundaries
+- `EXECUTION/EXECUTION_ORDER.md` — The execution lifecycle (13 stages)
+- `EXECUTION/CURRENT_PROJECT_STATE.md` — Single source of truth
+- `EXECUTION/CURRENT_TARGET.md` — Current execution ticket focus
+- `EXECUTION/CURRENT_STATE.md` — Granular execution state
+- `EXECUTION/IMPLEMENTATION_RULES.md` — 10 implementation rules
+- `EXECUTION/VALIDATION_RULES.md` — 6-level audit hierarchy
+- `EXECUTION/COMMIT_RULES.md` — Commit rules and conventions
+- `EXECUTION/SESSION_END.md` — Session completion protocol
+- `AUDIT_ENGINE/` — Mini/Task/Phase/Wave/Release/Enterprise audit templates
+- `KNOWLEDGE_BASE/` — Runtime knowledge bridge
+
+### Key Innovations
+- **Execution Tickets** (EXEC-XXXX): Single ticket per session, never multitask
+- **Information Classification**: KNOWN / ASSUMED / UNKNOWN / BLOCKED — never guess
+- **Never Say Done**: Every completion requires Implementation + Verification + Evidence + Risks + Limitations + Next Ticket + Confidence%
+- **Planning → Verification → Implementation → Verification → Commit → Verification → Update → Gate**: Double verification at every layer
+- **Current Project State**: Single file any session reads to understand the project
+
+### Status: ACTIVE — Implementation phase
+The planning freeze is complete. EXECUTION engine is the operating system.
