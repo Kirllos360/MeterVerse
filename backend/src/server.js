@@ -19,6 +19,7 @@ import { crudRouter } from "./routes/crud.js"
 import { monitorRouter } from "./routes/monitor.js"
 import { aiRouter } from "./routes/ai.js"
 import { meterAssignmentRouter } from "./routes/meter-assignments.js"
+import { searchRouter } from "./routes/search.js"
 import { tasksRouter } from "./routes/tasks.js"
 import { alertsRouter } from "./routes/alerts.js"
 import { notificationsRouter } from "./routes/notifications.js"
@@ -103,6 +104,7 @@ app.use("/api/ai", aiRouter)
 app.use("/api/security", securityRouter)
 app.use("/api/meter-assignments", meterAssignmentRouter)
 app.use("/api/notifications", notificationsRouter)
+app.use("/api/search", searchRouter)
 app.use("/api/tasks", tasksRouter)
 app.use("/api/alerts", alertsRouter)
 
