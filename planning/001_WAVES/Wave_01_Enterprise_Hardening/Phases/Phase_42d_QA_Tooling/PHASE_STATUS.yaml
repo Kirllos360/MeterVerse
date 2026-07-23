@@ -5,6 +5,12 @@ phase:
   dependencies:
     - "Phase 42a (non-blocking — can run in parallel)"
   tasks:
+        T07_Integration_E2E_Tests:
+      name: "Integration & E2E Tests"
+      status: "PLANNING"
+      steps:
+        S01: "Write backend integration tests"
+        S02: "Write Playwright E2E tests"
     T99_Phase_Audit:
       name: Phase Completion Audit
       status: PLANNING
@@ -45,3 +51,4 @@ phase:
         S01: "Analyze content — COMPLETE when audit of Meter/ files is documented"
         S02: "Create Architecture Decision Record — COMPLETE when ADR-004 accepted"
         S03: "Execute decision — COMPLETE when Meter/ is archived or merged"
+

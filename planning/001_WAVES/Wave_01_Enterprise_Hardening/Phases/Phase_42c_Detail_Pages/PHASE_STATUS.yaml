@@ -59,6 +59,8 @@ phase:
         S02: "Add edit/delete"
         S03: "Add ErrorBoundary"
         S04: "Add backend includes"
+        S05: "Wire list rows to detail pages"
+
 
 
 

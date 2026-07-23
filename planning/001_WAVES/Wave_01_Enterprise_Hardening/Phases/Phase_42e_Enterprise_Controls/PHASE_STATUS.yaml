@@ -1,0 +1,50 @@
+phase:
+  name: "Phase 42e — Enterprise Controls"
+  wave: 1
+  status: "PLANNING"
+  dependencies:
+    - "Phase 42a (for domain CRUD base)"
+    - "Phase 42d (for GATE_CHECK verification)"
+  tasks:
+    T13_Granular_Permissions:
+      name: "Granular Permissions"
+      status: "PLANNING"
+      steps:
+        S01: "Map permission keys"
+        S02: "Replace requireRole with requirePermission"
+        S03: "Add frontend permission checks"
+        S04: "Seed full permission set"
+    T14_Monitoring_Traffic:
+      name: "Traffic Monitoring"
+      status: "PLANNING"
+      steps:
+        S01: "Add request tracking middleware"
+        S02: "Add area/project filters"
+        S03: "Build monitoring dashboard"
+    T15_Alert_Engine:
+      name: "Alert/Error Hint Engine"
+      status: "PLANNING"
+      steps:
+        S01: "Design error hint catalog"
+        S02: "Implement AlertEngine service"
+        S03: "Wire into API error handlers"
+        S04: "Add alert API + page"
+    T16_KPI_Framework:
+      name: "KPI Framework"
+      status: "PLANNING"
+      steps:
+        S01: "Define KPI targets"
+        S02: "Seed KpiDefinition records"
+        S03: "Build KPI snapshot service"
+        S04: "Add KPI dashboard page"
+    T99_Phase_Audit:
+      name: "Phase Completion Audit"
+      status: "PLANNING"
+      steps:
+        S01: "Audit planning docs"
+        S02: "Audit graph/architecture"
+        S03: "Audit frontend structure"
+        S04: "Audit backend structure"
+        S05: "Audit database design"
+        S06: "Audit process flow"
+        S07: "Audit KPI flow"

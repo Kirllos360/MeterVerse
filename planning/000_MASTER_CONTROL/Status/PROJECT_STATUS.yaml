@@ -38,6 +38,10 @@ phases:
     name: "Detail Pages"
     status: "ACTIVE"
     completion_pct: 0
+  phase_42e:
+    name: "Enterprise Controls"
+    status: "ACTIVE"
+    completion_pct: 0
   phase_42d:
     name: "QA & Tooling"
     status: "ACTIVE"
@@ -58,28 +62,35 @@ quality_gates:
   api_endpoints: 179
   prisma_models: 78
   avg_response_time_ms: 34
-  notifications_wired: 3
-  unit_test_coverage_pct: 0
+  notifications_wired: 23
+  unit_test_coverage_pct: 0 (vitest installed)
   screenshots_captured: 267
   reports_generated: 55
 
 remaining_gaps:
-  - "domain.js prisma init issue — 18 domain entities blocked"
-  - "Zero composite database indexes — query degradation at scale"
+  - "domain.js T02-S03/S04/S05 pending (includes, 404, soft delete)
+  - "Indexes added (68). T01-S03 pending (EXPLAIN ANALYZE)
   - "Zero unit tests — highest risk item"
-  - "12/15 notification events unwired"
+  - "23 events wired � notification pipeline active"
   - "Meter/ parallel codebase — 267K files, needs decision"
   - "page-configs.ts 44KB — 1.79GB dev server memory"
-  - "No customer/meter/invoice detail pages"
-  - "CSV export only for customers"
+  - "Detail pages built (7). T12 enhancements pending"
+  - "CSV export for meters, invoices, readings, payments added"
   - "No GATE_CHECK enforcement — AI can skip work"
   - "No pre-commit hooks validating Planning OS state"
   - "Graphiti graph not populated with actual nodes"
+  - "No permission keys on endpoints (Phase 42e T13)"
+  - "No alert/error hint engine (Phase 42e T14)"
+  - "No traffic monitoring (Phase 42e T15)"
+  - "No KPI framework (Phase 42e T16)"
+  - "No integration/E2E tests (Phase 42d T07)"
+  - "list rows don't navigate to detail pages (42c T12-S05)"
 gaps_covered:
   - "42a: indexes + domain.js fix"
   - "42b: notifications + export"
   - "42c: detail pages � expanded to 7 tasks (T05-T11)"
   - "42d: GATE_CHECK + page-configs + tests + Meter/ decision"
+
 
 
 

@@ -5,17 +5,6 @@ phase:
   dependencies:
     - "None"
   tasks:
-    T99_Phase_Audit:
-      name: Phase Completion Audit
-      status: PLANNING
-      steps:
-        S01: Audit planning docs
-        S02: Audit graph/architecture
-        S03: Audit frontend structure
-        S04: Audit backend structure
-        S05: Audit database design
-        S06: Audit process flow
-        S07: Audit KPI flow
     T01_Add_Database_Indexes:
       name: "Add 20+ database indexes"
       status: "IN_PROGRESS"
@@ -27,9 +16,29 @@ phase:
       name: "Fix domain.js prisma init issue"
       status: "IN_PROGRESS"
       steps:
+        S01: "Diagnose root cause � COMPLETE"
+        S02: "Implement fix � COMPLETE"
+        S03: "Add include/relations support"
+        S04: "Add 404 handling"
+        S05: "Add soft delete support"
+    T99_Phase_Audit:
+      name: Phase Completion Audit
+      status: PLANNING
+      steps:
+        S01: Audit planning docs
+        S02: Audit graph/architecture
+        S03: Audit frontend structure
+        S04: Audit backend structure
+        S05: Audit database design
+        S06: Audit process flow
+        S07: Audit KPI flow
+      name: "Fix domain.js prisma init issue"
+      status: "IN_PROGRESS"
+      steps:
         S01: "Diagnose root cause — COMPLETE"
         S02: "Implement fix — COMPLETE"
         S03: "Add include/relations support — COMPLETE when related data returned"
         S04: "Add 404 handling — COMPLETE when nonexistent returns 404"
         S05: "Add soft delete support — COMPLETE when archivedAt used"
+
 

@@ -47,3 +47,4 @@ Every step execution MUST:
 
 This replaces the T99 end-of-phase-only audit with per-step verification.
 T99 remains as a final consistency check.
+

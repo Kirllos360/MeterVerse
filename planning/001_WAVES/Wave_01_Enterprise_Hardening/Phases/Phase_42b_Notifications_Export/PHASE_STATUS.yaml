@@ -1,7 +1,7 @@
 phase:
   name: "Phase 42b — Notifications & Export"
   wave: 1
-  status: "COMPLETE"
+  status: "IN_PROGRESS"
   dependencies:
     - "Phase 42a (must complete first)"
   tasks:
@@ -18,7 +18,7 @@ phase:
         S07: Audit KPI flow
     T03_Wire_Notifications:
       name: "Wire Notifications"
-      status: "COMPLETE"
+      status: "IN_PROGRESS"
       steps:
         S01: "Audit events — COMPLETE"
         S02: "Build engine — COMPLETE"
@@ -27,9 +27,11 @@ phase:
         S05: "Create API route — COMPLETE"
     T04_Add_Export:
       name: "Add export for all entities"
-      status: "COMPLETE"
+      status: "IN_PROGRESS"
       steps:
-        S01: "Add Meter export — COMPLETE when meter CSV/PDF export works"
+        S01: "Add exports for meters, invoices, readings, payments — COMPLETE when meter CSV/PDF export works"
+
+
 
 
 
