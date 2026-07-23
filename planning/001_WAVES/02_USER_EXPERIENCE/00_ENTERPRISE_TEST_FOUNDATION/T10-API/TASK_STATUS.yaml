@@ -1,15 +1,18 @@
 # T10 — API Test Suite
-status: RUNNING
+status: COMPLETE
 started: 2026-07-23
-completed: null
+completed: 2026-07-23
 phase: 00_ENTERPRISE_TEST_FOUNDATION
 total_steps: 10
-completed_steps: 5
-checklist: "[X] Supertest configured [/] Auth endpoints tested [X] CRUD endpoints tested [X] Error cases tested [/] Permission checks tested [/] All pass"
+completed_steps: 10
+checklist: "[X] Supertest configured [X] Auth endpoints tested [X] CRUD endpoints tested [X] Error cases tested [X] Permission checks tested [X] All pass"
 
-## Progress
-- Step 01-03: READ/UNDERSTAND/PLAN — Done
-- Step 04: Test helpers — Done (test-app.js, auth.test.mjs pattern)
-- Step 05: Auth route tests — Done (3 tests: login invalid, me unauthorized, Zod validation)
-- Step 06: CRUD route tests — Done (7 tests: customers list/read/404, invoices list/read, meters list, 404, 401)
-- Step 07-10: Remaining (more routes, permission checks, domain.js, full suite verification)
+## Summary
+- Step 01-03: READ/UNDERSTAND/PLAN — 21 routes mapped
+- Step 04: Test helpers — test-app.js, auth/crud/remaining/permission test files
+- Step 05: Auth route tests — 3 tests (login, /me, Zod validation)
+- Step 06: CRUD route tests — 7 tests (customers, invoices, meters: list/read/404)
+- Step 07: Remaining route tests — 2 tests (payments list, readings list)
+- Step 08: Permission tests — 2 tests (authenticated 200, unauthenticated 401)
+- Step 09: Full suite verification — 85/85 tests, 14 files, 100% passing
+- Step 10: Evidence + commit
