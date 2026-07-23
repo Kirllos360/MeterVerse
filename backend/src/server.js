@@ -20,6 +20,7 @@ import { monitorRouter } from "./routes/monitor.js"
 import { aiRouter } from "./routes/ai.js"
 import { meterAssignmentRouter } from "./routes/meter-assignments.js"
 import { notificationsRouter } from "./routes/notifications.js"
+import { trackRequest } from "./middleware/monitor.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -80,6 +81,7 @@ app.use("/api/auth/login", authLimiter)
 
 // ─── ROUTES ─────────────────────────────────────────────────────────────────
 
+app.use(trackRequest)
 app.get("/api/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }))
 
 app.use("/api/auth", authRouter)
