@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -16,7 +16,7 @@ const createSchema = z.object({
   reason: z.string().optional(),
 })
 
-router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requirePermission("meter_assignments.*"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, status } = req.query
     const where = { status: "active" }
@@ -29,7 +29,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/:id", requirePermission("meter_assignments.*"), async (req, res, next) => {
   try {
     const assignment = await prisma.meterAssignment.findUnique({ where: { id: req.params.id }, include: { meter: true, customer: true, contract: true, history: true } })
     if (!assignment) return res.status(404).json({ error: "Assignment not found" })
@@ -38,7 +38,7 @@ router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), as
   } catch (err) { next(err) }
 })
 
-router.post("/", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.post("/", requirePermission("meter_assignments.*"), async (req, res, next) => {
   try {
     const data = createSchema.parse({ ...req.body, startDate: req.body.startDate || new Date().toISOString() })
     const assignment = await prisma.meterAssignment.create({ data })
@@ -51,7 +51,7 @@ router.post("/", requireRole("admin", "super_admin", "operator"), async (req, re
   }
 })
 
-router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+router.put("/:id", requirePermission("meter_assignments.*"), async (req, res, next) => {
   try {
     const data = createSchema.partial().parse(req.body)
     const assignment = await prisma.meterAssignment.update({ where: { id: req.params.id }, data })
@@ -63,7 +63,7 @@ router.put("/:id", requireRole("admin", "super_admin", "operator"), async (req, 
   }
 })
 
-router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/:id", requirePermission("meter_assignments.*"), async (req, res, next) => {
   try {
     await prisma.meterAssignment.update({ where: { id: req.params.id }, data: { status: "ended", endDate: new Date() } })
     auditLog(req, "assignment.ended", { assignmentId: req.params.id })

@@ -1,8 +1,8 @@
-# T17 — Full Permission Enforcement (13 routes)
-status: PLANNING
-started: null
+# T17 — Full Permission Enforcement
+status: RUNNING
+started: 2026-07-23
 completed: null
 phase: 42g_CONTROL_HEALTH
 total_steps: 8
-completed_steps: 0
-checklist: "[/] 13 routes audited [/] Missing perm keys added [/] All routes use requirePermission [/] Role-based tests pass [/] Migration documented"
+completed_steps: 2
+checklist: "[X] 12 routes audited [X] Missing perm keys added [/] All routes use requirePermission [ ] Role-based tests pass [ ] Migration documented"

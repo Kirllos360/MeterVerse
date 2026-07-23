@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
+import { requirePermission, auditLog , auditMiddleware } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -22,7 +22,7 @@ router.get("/notifications", async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.post("/notifications", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/notifications", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({
       type: z.string().optional(), title: z.string().min(1), body: z.string(),
@@ -57,7 +57,7 @@ router.get("/activity", async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.post("/activity", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/activity", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({
       actor: z.string().optional(), action: z.string().min(1),
@@ -71,7 +71,7 @@ router.post("/activity", requireRole("admin", "super_admin"), async (req, res, n
 
 // ─── EMAIL ───────────────────────────────────────────────────────────────────
 
-router.get("/email", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/email", requirePermission("services.*"), async (req, res, next) => {
   try {
     const logs = await prisma.emailLog.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     const stats = {
@@ -83,7 +83,7 @@ router.get("/email", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/email/send", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/email/send", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ to: z.string().email(), subject: z.string().min(1), body: z.string() }).parse(req.body)
     const log = await prisma.emailLog.create({ data: { ...data, from: "noreply@meterverse.com", status: "sent", sentAt: new Date() } })
@@ -93,7 +93,7 @@ router.post("/email/send", requireRole("admin", "super_admin"), async (req, res,
 
 // ─── SMS ─────────────────────────────────────────────────────────────────────
 
-router.get("/sms", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/sms", requirePermission("services.*"), async (req, res, next) => {
   try {
     const logs = await prisma.smsLog.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     const stats = {
@@ -105,7 +105,7 @@ router.get("/sms", requireRole("admin", "super_admin"), async (req, res, next) =
   } catch (err) { next(err) }
 })
 
-router.post("/sms/send", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/sms/send", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ to: z.string().min(1), message: z.string().min(1) }).parse(req.body)
     const log = await prisma.smsLog.create({ data: { ...data, status: "sent", sentAt: new Date() } })
@@ -115,7 +115,7 @@ router.post("/sms/send", requireRole("admin", "super_admin"), async (req, res, n
 
 // ─── IMPORTS ─────────────────────────────────────────────────────────────────
 
-router.get("/imports", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/imports", requirePermission("services.*"), async (req, res, next) => {
   try {
     const jobs = await prisma.importJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     const stats = {
@@ -127,7 +127,7 @@ router.get("/imports", requireRole("admin", "super_admin"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.post("/imports", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/imports", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), fileName: z.string().optional() }).parse(req.body)
     const job = await prisma.importJob.create({ data })
@@ -146,14 +146,14 @@ router.post("/imports", requireRole("admin", "super_admin"), async (req, res, ne
 
 // ─── EXPORTS ─────────────────────────────────────────────────────────────────
 
-router.get("/exports", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/exports", requirePermission("services.*"), async (req, res, next) => {
   try {
     const jobs = await prisma.exportJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     res.json({ jobs })
   } catch (err) { next(err) }
 })
 
-router.post("/exports", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/exports", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), format: z.string().optional(), filters: z.string().optional() }).parse(req.body)
     const job = await prisma.exportJob.create({ data })
@@ -169,7 +169,7 @@ router.post("/exports", requireRole("admin", "super_admin"), async (req, res, ne
 
 // ─── FILE STORAGE ────────────────────────────────────────────────────────────
 
-router.get("/storage", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/storage", requirePermission("services.*"), async (req, res, next) => {
   try {
     const [files, totalSize] = await Promise.all([
       prisma.storedFile.findMany({ orderBy: { createdAt: "desc" } }),
@@ -181,7 +181,7 @@ router.get("/storage", requireRole("admin", "super_admin"), async (req, res, nex
 
 // ─── QUEUE ───────────────────────────────────────────────────────────────────
 
-router.get("/queue/stats", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/queue/stats", requirePermission("services.*"), async (req, res, next) => {
   try {
     const [pending, running, completed, failed] = await Promise.all([
       prisma.queueJob.count({ where: { status: "pending" } }),
@@ -195,7 +195,7 @@ router.get("/queue/stats", requireRole("admin", "super_admin"), async (req, res,
 
 // ─── SCHEDULER ───────────────────────────────────────────────────────────────
 
-router.get("/scheduler/next", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/scheduler/next", requirePermission("services.*"), async (req, res, next) => {
   try {
     const tasks = await prisma.scheduledTask.findMany({ where: { active: true }, orderBy: { nextRunAt: "asc" }, take: 5 })
     res.json({ nextRun: tasks[0] || null, upcoming: tasks })
@@ -204,7 +204,7 @@ router.get("/scheduler/next", requireRole("admin", "super_admin"), async (req, r
 
 // ─── AUDIT SUMMARY ───────────────────────────────────────────────────────────
 
-router.get("/audit/summary", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/audit/summary", requirePermission("services.*"), async (req, res, next) => {
   try {
     const [total, today, failures] = await Promise.all([
       prisma.auditEntry.count(),
@@ -217,7 +217,7 @@ router.get("/audit/summary", requireRole("admin", "super_admin"), async (req, re
 
 // ─── PUSH NOTIFICATIONS ───────────────────────────────────────────────────────
 
-router.get("/push", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/push", requirePermission("services.*"), async (req, res, next) => {
   try {
     const notifications = await prisma.pushNotification.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     const stats = { total: await prisma.pushNotification.count(), sent: await prisma.pushNotification.count({ where: { status: "sent" } }), failed: await prisma.pushNotification.count({ where: { status: "failed" } }) }
@@ -225,7 +225,7 @@ router.get("/push", requireRole("admin", "super_admin"), async (req, res, next) 
   } catch (err) { next(err) }
 })
 
-router.post("/push/send", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/push/send", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ title: z.string().min(1), body: z.string().min(1), platform: z.string().optional() }).parse(req.body)
     const notification = await prisma.pushNotification.create({ data: { ...data, status: "sent", sentAt: new Date() } })
@@ -235,14 +235,14 @@ router.post("/push/send", requireRole("admin", "super_admin"), async (req, res, 
 
 // ─── OCR ──────────────────────────────────────────────────────────────────────
 
-router.get("/ocr", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/ocr", requirePermission("services.*"), async (req, res, next) => {
   try {
     const jobs = await prisma.ocrJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     res.json({ jobs })
   } catch (err) { next(err) }
 })
 
-router.post("/ocr", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/ocr", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ fileName: z.string().min(1) }).parse(req.body)
     const job = await prisma.ocrJob.create({ data: { ...data, status: "processing" } })
@@ -255,14 +255,14 @@ router.post("/ocr", requireRole("admin", "super_admin"), async (req, res, next) 
 
 // ─── PDF ──────────────────────────────────────────────────────────────────────
 
-router.get("/pdf", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/pdf", requirePermission("services.*"), async (req, res, next) => {
   try {
     const jobs = await prisma.pdfJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     res.json({ jobs })
   } catch (err) { next(err) }
 })
 
-router.post("/pdf", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/pdf", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().optional(), template: z.string().optional(), data: z.string().optional() }).parse(req.body)
     const job = await prisma.pdfJob.create({ data })
@@ -275,14 +275,14 @@ router.post("/pdf", requireRole("admin", "super_admin"), async (req, res, next) 
 
 // ─── EXCEL ─────────────────────────────────────────────────────────────────────
 
-router.get("/excel", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/excel", requirePermission("services.*"), async (req, res, next) => {
   try {
     const jobs = await prisma.excelJob.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     res.json({ jobs })
   } catch (err) { next(err) }
 })
 
-router.post("/excel", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/excel", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().optional(), format: z.string().optional(), data: z.string().optional() }).parse(req.body)
     const job = await prisma.excelJob.create({ data })
@@ -303,7 +303,7 @@ router.post("/error-tracking", async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.get("/error-tracking", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/error-tracking", requirePermission("services.*"), async (req, res, next) => {
   try {
     const errors = await prisma.activityStream.findMany({ where: { severity: { in: ["error","critical"] } }, orderBy: { createdAt: "desc" }, take: 100 })
     const stats = { total: await prisma.activityStream.count({ where: { severity: { in: ["error","critical"] } } }), last24h: await prisma.activityStream.count({ where: { severity: { in: ["error","critical"] }, createdAt: { gte: new Date(Date.now() - 86400000) } } }) }
@@ -313,7 +313,7 @@ router.get("/error-tracking", requireRole("admin","super_admin"), async (req, re
 
 // ─── CACHING ─────────────────────────────────────────────────────────────────
 
-router.get("/cache/stats", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/cache/stats", requirePermission("services.*"), async (req, res, next) => {
   try {
     const entries = await prisma.cacheEntry.findMany({ orderBy: { hits: "desc" }, take: 100 })
     const stats = { total: await prisma.cacheEntry.count(), totalHits: entries.reduce((s, e) => s + e.hits, 0) }
@@ -321,7 +321,7 @@ router.get("/cache/stats", requireRole("admin","super_admin"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-router.post("/cache", requireRole("admin","super_admin"), async (req, res, next) => {
+router.post("/cache", requirePermission("services.*"), async (req, res, next) => {
   try {
     const data = z.object({ key: z.string().min(1), value: z.string(), ttl: z.number().optional() }).parse(req.body)
     const entry = await prisma.cacheEntry.upsert({ where: { key: data.key }, update: { value: data.value, hits: 0 }, create: { ...data, expiresAt: data.ttl ? new Date(Date.now() + data.ttl * 1000) : null } })

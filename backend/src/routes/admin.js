@@ -3,7 +3,7 @@ import { z } from "zod"
 import bcrypt from "bcryptjs"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
+import { requirePermission, auditLog , auditMiddleware } from "../middleware/security.js"
 
 const router = Router()
 
@@ -56,7 +56,7 @@ const createUserSchema = z.object({
   status: z.string().optional(),
 })
 
-router.get("/users", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/users", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 10))
@@ -73,7 +73,7 @@ router.get("/users", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.get("/users/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/users/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       where: { id: req.params.id },
@@ -84,7 +84,7 @@ router.get("/users/:id", requireRole("admin", "super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.post("/users", requireRole("super_admin"), async (req, res, next) => {
+router.post("/users", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = createUserSchema.parse(req.body)
     const exists = await prisma.user.findUnique({ where: { email: data.email } })
@@ -101,7 +101,7 @@ router.post("/users", requireRole("super_admin"), async (req, res, next) => {
   }
 })
 
-router.put("/users/:id", requireRole("super_admin"), async (req, res, next) => {
+router.put("/users/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const updateData = createUserSchema.partial().omit({ password: true }).parse(req.body)
     if (req.body.password) {
@@ -120,7 +120,7 @@ router.put("/users/:id", requireRole("super_admin"), async (req, res, next) => {
   }
 })
 
-router.delete("/users/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/users/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existinguser = await prisma.user.findUnique({ where: { id: req.params.id } });
     if (!existinguser) return res.status(404).json({ error: "Not found" });
@@ -141,7 +141,7 @@ const createRoleSchema = z.object({
   permissionIds: z.array(z.string().uuid()).optional(),
 })
 
-router.get("/roles", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/roles", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const roles = await prisma.role.findMany({
       orderBy: { createdAt: "asc" },
@@ -151,7 +151,7 @@ router.get("/roles", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.get("/roles/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/roles/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const role = await prisma.role.findUnique({
       where: { id: req.params.id },
@@ -162,7 +162,7 @@ router.get("/roles/:id", requireRole("admin", "super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.post("/roles", requireRole("super_admin"), async (req, res, next) => {
+router.post("/roles", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const { permissionIds, ...data } = createRoleSchema.parse(req.body)
     const role = await prisma.role.create({
@@ -182,7 +182,7 @@ router.post("/roles", requireRole("super_admin"), async (req, res, next) => {
   }
 })
 
-router.put("/roles/:id", requireRole("super_admin"), async (req, res, next) => {
+router.put("/roles/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const { permissionIds, ...data } = createRoleSchema.partial().parse(req.body)
     if (permissionIds) {
@@ -203,7 +203,7 @@ router.put("/roles/:id", requireRole("super_admin"), async (req, res, next) => {
   }
 })
 
-router.delete("/roles/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/roles/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const role = await prisma.role.findUnique({ where: { id: req.params.id } })
     if (role?.isSystem) return res.status(400).json({ error: "Cannot delete system role" })
@@ -222,14 +222,14 @@ const createPermissionSchema = z.object({
   module: z.string().min(1).max(50),
 })
 
-router.get("/permissions", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/permissions", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const permissions = await prisma.permission.findMany({ orderBy: [{ module: "asc" }, { name: "asc" }] })
     res.json({ permissions })
   } catch (err) { next(err) }
 })
 
-router.post("/permissions", requireRole("super_admin"), async (req, res, next) => {
+router.post("/permissions", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = createPermissionSchema.parse(req.body)
     const permission = await prisma.permission.create({ data })
@@ -240,7 +240,7 @@ router.post("/permissions", requireRole("super_admin"), async (req, res, next) =
   }
 })
 
-router.delete("/permissions/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/permissions/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingpermission = await prisma.permission.findUnique({ where: { id: req.params.id } });
     if (!existingpermission) return res.status(404).json({ error: "Not found" });
@@ -251,7 +251,7 @@ router.delete("/permissions/:id", requireRole("super_admin"), async (req, res, n
 
 // ─── AUDIT LOGS ─────────────────────────────────────────────────────────────
 
-router.get("/audit", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/audit", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
@@ -283,7 +283,7 @@ const settingSchema = z.object({
   type: z.string().optional(),
 })
 
-router.get("/settings", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/settings", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const category = req.query.category
     const where = category ? { category: category } : {}
@@ -292,7 +292,7 @@ router.get("/settings", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.put("/settings", requireRole("super_admin"), async (req, res, next) => {
+router.put("/settings", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const { settings } = req.body
     if (!Array.isArray(settings)) return res.status(400).json({ error: "settings must be an array" })
@@ -312,14 +312,14 @@ router.put("/settings", requireRole("super_admin"), async (req, res, next) => {
 
 // ─── FEATURE FLAGS ───────────────────────────────────────────────────────────
 
-router.get("/feature-flags", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/feature-flags", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const flags = await prisma.featureFlag.findMany({ orderBy: { name: "asc" } })
     res.json({ flags })
   } catch (err) { next(err) }
 })
 
-router.post("/feature-flags", requireRole("super_admin"), async (req, res, next) => {
+router.post("/feature-flags", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({
       key: z.string().min(1).max(100),
@@ -332,7 +332,7 @@ router.post("/feature-flags", requireRole("super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.put("/feature-flags/:id/toggle", requireRole("super_admin"), async (req, res, next) => {
+router.put("/feature-flags/:id/toggle", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const flag = await prisma.featureFlag.findUnique({ where: { id: req.params.id } })
     if (!flag) return res.status(404).json({ error: "Feature flag not found" })
@@ -344,7 +344,7 @@ router.put("/feature-flags/:id/toggle", requireRole("super_admin"), async (req, 
   } catch (err) { next(err) }
 })
 
-router.delete("/feature-flags/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/feature-flags/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingfeatureFlag = await prisma.featureFlag.findUnique({ where: { id: req.params.id } });
     if (!existingfeatureFlag) return res.status(404).json({ error: "Not found" });
@@ -357,7 +357,7 @@ router.delete("/feature-flags/:id", requireRole("super_admin"), async (req, res,
 
 import crypto from "crypto"
 
-router.get("/api-keys", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/api-keys", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const keys = await prisma.apiKey.findMany({
       orderBy: { createdAt: "desc" },
@@ -367,7 +367,7 @@ router.get("/api-keys", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.post("/api-keys", requireRole("super_admin"), async (req, res, next) => {
+router.post("/api-keys", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({
       name: z.string().min(1).max(100),
@@ -391,7 +391,7 @@ router.post("/api-keys", requireRole("super_admin"), async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.delete("/api-keys/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/api-keys/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingapiKey = await prisma.apiKey.findUnique({ where: { id: req.params.id } });
     if (!existingapiKey) return res.status(404).json({ error: "Not found" });
@@ -402,7 +402,7 @@ router.delete("/api-keys/:id", requireRole("super_admin"), async (req, res, next
 
 // ─── SESSIONS ────────────────────────────────────────────────────────────────
 
-router.get("/sessions", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/sessions", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const sessions = await prisma.session.findMany({
       orderBy: { lastUsedAt: "desc" },
@@ -413,7 +413,7 @@ router.get("/sessions", requireRole("admin", "super_admin"), async (req, res, ne
   } catch (err) { next(err) }
 })
 
-router.delete("/sessions/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/sessions/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingsession = await prisma.session.findUnique({ where: { id: req.params.id } });
     if (!existingsession) return res.status(404).json({ error: "Not found" });
@@ -424,14 +424,14 @@ router.delete("/sessions/:id", requireRole("admin", "super_admin"), async (req, 
 
 // ─── ORGANIZATIONS ───────────────────────────────────────────────────────────
 
-router.get("/organizations", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/organizations", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const orgs = await prisma.organization.findMany({ orderBy: { createdAt: "desc" }, include: { _count: { select: { projects: true } } } })
     res.json({ organizations: orgs })
   } catch (err) { next(err) }
 })
 
-router.post("/organizations", requireRole("super_admin"), async (req, res, next) => {
+router.post("/organizations", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), slug: z.string().min(1), domain: z.string().optional(), plan: z.string().optional() }).parse(req.body)
     const org = await prisma.organization.create({ data })
@@ -439,7 +439,7 @@ router.post("/organizations", requireRole("super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.delete("/organizations/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/organizations/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingorganization = await prisma.organization.findUnique({ where: { id: req.params.id } });
     if (!existingorganization) return res.status(404).json({ error: "Not found" });
@@ -450,14 +450,14 @@ router.delete("/organizations/:id", requireRole("super_admin"), async (req, res,
 
 // ─── PROJECTS ────────────────────────────────────────────────────────────────
 
-router.get("/projects", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/projects", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const projects = await prisma.project.findMany({ orderBy: { createdAt: "desc" }, include: { organization: { select: { name: true } } } })
     res.json({ projects })
   } catch (err) { next(err) }
 })
 
-router.post("/projects", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/projects", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), description: z.string().optional(), organizationId: z.string().uuid() }).parse(req.body)
     const project = await prisma.project.create({ data })
@@ -467,14 +467,14 @@ router.post("/projects", requireRole("admin", "super_admin"), async (req, res, n
 
 // ─── WEBHOOKS ────────────────────────────────────────────────────────────────
 
-router.get("/webhooks", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/webhooks", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const webhooks = await prisma.webhook.findMany({ orderBy: { createdAt: "desc" } })
     res.json({ webhooks })
   } catch (err) { next(err) }
 })
 
-router.post("/webhooks", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/webhooks", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), url: z.string().url(), events: z.string().optional(), secret: z.string().optional() }).parse(req.body)
     const webhook = await prisma.webhook.create({ data })
@@ -482,7 +482,7 @@ router.post("/webhooks", requireRole("admin", "super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.put("/webhooks/:id/toggle", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.put("/webhooks/:id/toggle", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const wh = await prisma.webhook.findUnique({ where: { id: req.params.id } })
     if (!wh) return res.status(404).json({ error: "Webhook not found" })
@@ -491,7 +491,7 @@ router.put("/webhooks/:id/toggle", requireRole("admin", "super_admin"), async (r
   } catch (err) { next(err) }
 })
 
-router.delete("/webhooks/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/webhooks/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingwebhook = await prisma.webhook.findUnique({ where: { id: req.params.id } });
     if (!existingwebhook) return res.status(404).json({ error: "Not found" });
@@ -502,14 +502,14 @@ router.delete("/webhooks/:id", requireRole("admin", "super_admin"), async (req, 
 
 // ─── NOTIFICATION TEMPLATES ─────────────────────────────────────────────────
 
-router.get("/notification-templates", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/notification-templates", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const templates = await prisma.notificationTemplate.findMany({ orderBy: { name: "asc" } })
     res.json({ templates })
   } catch (err) { next(err) }
 })
 
-router.post("/notification-templates", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/notification-templates", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ key: z.string().min(1), name: z.string().min(1), type: z.string().optional(), subject: z.string().optional(), body: z.string(), variables: z.string().optional() }).parse(req.body)
     const template = await prisma.notificationTemplate.create({ data })
@@ -519,14 +519,14 @@ router.post("/notification-templates", requireRole("admin", "super_admin"), asyn
 
 // ─── BACKUPS ─────────────────────────────────────────────────────────────────
 
-router.get("/backups", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/backups", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const backups = await prisma.backup.findMany({ orderBy: { createdAt: "desc" } })
     res.json({ backups })
   } catch (err) { next(err) }
 })
 
-router.post("/backups", requireRole("super_admin"), async (req, res, next) => {
+router.post("/backups", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), type: z.string().optional() }).parse(req.body)
     const backup = await prisma.backup.create({ data: { ...data, status: "in_progress", startedAt: new Date() } })
@@ -537,7 +537,7 @@ router.post("/backups", requireRole("super_admin"), async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.delete("/backups/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/backups/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingbackup = await prisma.backup.findUnique({ where: { id: req.params.id } });
     if (!existingbackup) return res.status(404).json({ error: "Not found" });
@@ -548,7 +548,7 @@ router.delete("/backups/:id", requireRole("super_admin"), async (req, res, next)
 
 // ─── CACHE ───────────────────────────────────────────────────────────────────
 
-router.get("/cache", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/cache", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const entries = await prisma.cacheEntry.findMany({ orderBy: { hits: "desc" }, take: 100 })
     const stats = { totalEntries: await prisma.cacheEntry.count(), totalHits: entries.reduce((s, e) => s + e.hits, 0) }
@@ -556,7 +556,7 @@ router.get("/cache", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.delete("/cache/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/cache/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingcacheEntry = await prisma.cacheEntry.findUnique({ where: { id: req.params.id } });
     if (!existingcacheEntry) return res.status(404).json({ error: "Not found" });
@@ -565,7 +565,7 @@ router.delete("/cache/:id", requireRole("admin", "super_admin"), async (req, res
   } catch (err) { next(err) }
 })
 
-router.delete("/cache", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/cache", requirePermission("admin.*"), async (req, res, next) => {
   try {
     await prisma.cacheEntry.deleteMany()
     res.json({ success: true })
@@ -574,7 +574,7 @@ router.delete("/cache", requireRole("super_admin"), async (req, res, next) => {
 
 // ─── QUEUE ───────────────────────────────────────────────────────────────────
 
-router.get("/queue", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/queue", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const [jobs, stats] = await Promise.all([
       prisma.queueJob.findMany({ orderBy: { createdAt: "desc" }, take: 100 }),
@@ -589,7 +589,7 @@ router.get("/queue", requireRole("admin", "super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/queue", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/queue", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), payload: z.string().optional(), priority: z.number().optional(), scheduledAt: z.string().optional() }).parse(req.body)
     const job = await prisma.queueJob.create({ data: { ...data, payload: data.payload || "{}" } })
@@ -597,7 +597,7 @@ router.post("/queue", requireRole("admin", "super_admin"), async (req, res, next
   } catch (err) { next(err) }
 })
 
-router.post("/queue/:id/retry", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/queue/:id/retry", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const job = await prisma.queueJob.update({ where: { id: req.params.id }, data: { status: "pending", attempts: 0, error: null } })
     res.json({ job })
@@ -606,14 +606,14 @@ router.post("/queue/:id/retry", requireRole("admin", "super_admin"), async (req,
 
 // ─── SCHEDULER ───────────────────────────────────────────────────────────────
 
-router.get("/scheduler", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/scheduler", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const tasks = await prisma.scheduledTask.findMany({ orderBy: { createdAt: "desc" } })
     res.json({ tasks })
   } catch (err) { next(err) }
 })
 
-router.post("/scheduler", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/scheduler", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), description: z.string().optional(), cron: z.string(), taskType: z.string(), config: z.string().optional() }).parse(req.body)
     const task = await prisma.scheduledTask.create({ data })
@@ -621,7 +621,7 @@ router.post("/scheduler", requireRole("admin", "super_admin"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-router.put("/scheduler/:id/toggle", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.put("/scheduler/:id/toggle", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const task = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } })
     if (!task) return res.status(404).json({ error: "Task not found" })
@@ -630,7 +630,7 @@ router.put("/scheduler/:id/toggle", requireRole("admin", "super_admin"), async (
   } catch (err) { next(err) }
 })
 
-router.delete("/scheduler/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.delete("/scheduler/:id", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const existingscheduledTask = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } });
     if (!existingscheduledTask) return res.status(404).json({ error: "Not found" });
@@ -641,7 +641,7 @@ router.delete("/scheduler/:id", requireRole("admin", "super_admin"), async (req,
 
 // ─── STORAGE / FILES ─────────────────────────────────────────────────────────
 
-router.get("/storage", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/storage", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const [files, totalSize] = await Promise.all([
       prisma.storedFile.findMany({ orderBy: { createdAt: "desc" } }),
@@ -653,14 +653,14 @@ router.get("/storage", requireRole("admin", "super_admin"), async (req, res, nex
 
 // ─── LICENSE ─────────────────────────────────────────────────────────────────
 
-router.get("/license", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/license", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const license = await prisma.license.findFirst({ orderBy: { createdAt: "desc" } })
     res.json({ license })
   } catch (err) { next(err) }
 })
 
-router.post("/license", requireRole("super_admin"), async (req, res, next) => {
+router.post("/license", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const data = z.object({ key: z.string().min(1), type: z.string().optional(), seats: z.number().optional(), expiresAt: z.string().optional() }).parse(req.body)
     const license = await prisma.license.create({ data: { ...data, activatedAt: new Date(), expiresAt: data.expiresAt ? new Date(data.expiresAt) : undefined } })
@@ -670,14 +670,14 @@ router.post("/license", requireRole("super_admin"), async (req, res, next) => {
 
 // ─── BRANDING ────────────────────────────────────────────────────────────────
 
-router.get("/branding", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/branding", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const configs = await prisma.brandingConfig.findMany({ orderBy: { category: "asc" } })
     res.json({ configs })
   } catch (err) { next(err) }
 })
 
-router.put("/branding", requireRole("super_admin"), async (req, res, next) => {
+router.put("/branding", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const { configs } = req.body
     if (!Array.isArray(configs)) return res.status(400).json({ error: "configs must be an array" })
@@ -697,7 +697,7 @@ router.put("/branding", requireRole("super_admin"), async (req, res, next) => {
 
 // ─── MONITORING / LOGS ───────────────────────────────────────────────────────
 
-router.get("/logs", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/logs", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const limit = Math.min(200, Math.max(1, Number(req.query.limit) || 50))
     const level = req.query.level
@@ -707,7 +707,7 @@ router.get("/logs", requireRole("admin", "super_admin"), async (req, res, next) 
   } catch (err) { next(err) }
 })
 
-router.get("/monitoring", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/monitoring", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const [userCount, meterCount, readingCount, activeSessions, pendingJobs] = await Promise.all([
       prisma.user.count(), prisma.meter.count(), prisma.reading.count(),
@@ -723,7 +723,7 @@ router.get("/monitoring", requireRole("admin", "super_admin"), async (req, res, 
 
 // ─── AI DIAGNOSTICS ──────────────────────────────────────────────────────────
 
-router.get("/ai-diagnostics", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/ai-diagnostics", requirePermission("admin.*"), async (req, res, next) => {
   try {
     const checks = [
       { name: "Database Connection", status: "passed", duration: "4ms", details: "PostgreSQL responsive" },

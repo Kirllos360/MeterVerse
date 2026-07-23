@@ -1,3 +1,7 @@
+// DEPRECATED — use middleware/security.js instead
+// This file kept for reference during migration.
+// All permission logic has been consolidated into security.js.
+
 import { prisma } from "../db.js"
 
 const ROUTE_PERMISSION_MAP = {

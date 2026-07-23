@@ -1,5 +1,10 @@
-# T17 — Full Permission Enforcement (13 routes) — Step 2
-status: PLANNING
-started: null
-completed: null
-evidence: []
+# T17 — Full Permission Enforcement — Step 2
+status: COMPLETE
+started: 2026-07-23
+completed: 2026-07-23
+evidence:
+  - "12 route files migrated: admin, ai, business, crud, domain, meter-assignments, monitor, notifications, reports, services, preferences"
+  - "ROLE_PERMISSIONS expanded with new keys: ai.*, business.*, monitor.*, reports.*, services.*, preferences.*"
+  - "permissions.js marked as DEPRECATED"
+  - "63/63 unit tests still pass"
+  - "requireRole calls remaining only in security.js (export) and customers/meters/invoices/readings/payments (already using requirePermission)"

@@ -1,9 +1,11 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
+import { requirePermission } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
+router.use(requirePermission("preferences.*"))
 
 router.get("/", async (req, res, next) => {
   try {

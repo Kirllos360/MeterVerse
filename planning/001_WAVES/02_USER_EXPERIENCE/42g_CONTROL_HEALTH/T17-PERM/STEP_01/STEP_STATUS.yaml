@@ -1,5 +1,8 @@
 # T17 — Full Permission Enforcement (13 routes) — Step 1
-status: PLANNING
-started: null
-completed: null
-evidence: []
+status: COMPLETE
+started: 2026-07-23
+completed: 2026-07-23
+evidence:
+  - "audit-findings.md — 12 routes identified for requireRole→requirePermission migration"
+  - "8 routes already using requirePermission (customers, invoices, meters, payments, readings, tasks, alerts, search)"
+  - "New permission keys needed: ai.*, business.*, monitor.*, notifications.*, reports.*, services.*, preferences.*"

@@ -2,14 +2,14 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
+import { requirePermission, auditLog , auditMiddleware } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
 
 // ─── OPERATIONAL REPORTS ──────────────────────────────────────────────────────
 
-router.get("/operational", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/operational", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const [meters, customers, readings, activeSessions] = await Promise.all([
       prisma.meter.count(),
@@ -24,7 +24,7 @@ router.get("/operational", requireRole("admin","super_admin"), async (req, res, 
 
 // ─── FINANCIAL REPORTS ────────────────────────────────────────────────────────
 
-router.get("/financial", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/financial", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const [invoices, payments] = await Promise.all([
       prisma.invoice.aggregate({ _sum: { amount: true }, _count: true }),
@@ -39,7 +39,7 @@ router.get("/financial", requireRole("admin","super_admin"), async (req, res, ne
 
 // ─── EXECUTIVE DASHBOARD ──────────────────────────────────────────────────────
 
-router.get("/executive", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/executive", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const now = new Date(); const monthStart = new Date(now.getFullYear(), now.getMonth(), 1)
     const [totalMeters, totalCustomers, totalReadings, totalInvoices, monthReadings, monthInvoices, monthRevenue] = await Promise.all([
@@ -54,7 +54,7 @@ router.get("/executive", requireRole("admin","super_admin"), async (req, res, ne
 
 // ─── CONSUMPTION ANALYSIS ─────────────────────────────────────────────────────
 
-router.get("/consumption", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/consumption", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const days = Math.min(90, Math.max(1, Number(req.query.days) || 30))
     const since = new Date(Date.now() - days * 86400000)
@@ -67,7 +67,7 @@ router.get("/consumption", requireRole("admin","super_admin"), async (req, res, 
 
 // ─── VARIANCE REPORTS ─────────────────────────────────────────────────────────
 
-router.get("/variance", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/variance", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const now = new Date(); const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1)
     const lastMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1)
@@ -85,7 +85,7 @@ router.get("/variance", requireRole("admin","super_admin"), async (req, res, nex
 
 // ─── AGING REPORTS ────────────────────────────────────────────────────────────
 
-router.get("/aging", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/aging", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const now = new Date()
     const aging = [
@@ -105,7 +105,7 @@ router.get("/aging", requireRole("admin","super_admin"), async (req, res, next) 
 
 // ─── KPI DASHBOARD ────────────────────────────────────────────────────────────
 
-router.get("/kpi", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/kpi", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const kpis = await prisma.kpiDefinition.findMany({ orderBy: { category: "asc" } })
     const snapshots = await prisma.kpiSnapshot.findMany({ orderBy: { recordedAt: "desc" }, take: 100, include: { kpi: { select: { name: true } } } })
@@ -113,7 +113,7 @@ router.get("/kpi", requireRole("admin","super_admin"), async (req, res, next) =>
   } catch (err) { next(err) }
 })
 
-router.post("/kpi", requireRole("super_admin"), async (req, res, next) => {
+router.post("/kpi", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), category: z.string().optional(), target: z.number().optional(), unit: z.string().optional(), current: z.number().optional(), trend: z.string().optional() }).parse(req.body)
     const kpi = await prisma.kpiDefinition.create({ data })
@@ -123,7 +123,7 @@ router.post("/kpi", requireRole("super_admin"), async (req, res, next) => {
 
 // ─── EXPORT CENTER ────────────────────────────────────────────────────────────
 
-router.get("/export", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/export", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const exports = await prisma.exportLog.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     const stats = { total: await prisma.exportLog.count(), completed: await prisma.exportLog.count({ where: { status: "completed" } }) }
@@ -131,7 +131,7 @@ router.get("/export", requireRole("admin","super_admin"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/export", requireRole("admin","super_admin"), async (req, res, next) => {
+router.post("/export", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const data = z.object({ type: z.string().min(1), format: z.string().optional(), filters: z.string().optional() }).parse(req.body)
     const exp = await prisma.exportLog.create({ data })
@@ -144,14 +144,14 @@ router.post("/export", requireRole("admin","super_admin"), async (req, res, next
 
 // ─── SCHEDULED REPORTS ────────────────────────────────────────────────────────
 
-router.get("/scheduled", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/scheduled", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const reports = await prisma.scheduledReport.findMany({ orderBy: { nextRunAt: "asc" } })
     res.json({ reports })
   } catch (err) { next(err) }
 })
 
-router.post("/scheduled", requireRole("admin","super_admin"), async (req, res, next) => {
+router.post("/scheduled", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), reportType: z.string(), schedule: z.string().optional(), format: z.string().optional(), recipients: z.string().optional() }).parse(req.body)
     const report = await prisma.scheduledReport.create({ data })
@@ -159,7 +159,7 @@ router.post("/scheduled", requireRole("admin","super_admin"), async (req, res, n
   } catch (err) { next(err) }
 })
 
-router.put("/scheduled/:id/toggle", requireRole("admin","super_admin"), async (req, res, next) => {
+router.put("/scheduled/:id/toggle", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const r = await prisma.scheduledReport.findUnique({ where: { id: req.params.id } })
     if (!r) return res.status(404).json({ error: "Not found" })
@@ -170,14 +170,14 @@ router.put("/scheduled/:id/toggle", requireRole("admin","super_admin"), async (r
 
 // ─── REPORT DEFINITIONS ──────────────────────────────────────────────────────
 
-router.get("/definitions", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/definitions", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const reports = await prisma.reportDefinition.findMany({ orderBy: { name: "asc" } })
     res.json({ reports })
   } catch (err) { next(err) }
 })
 
-router.post("/definitions", requireRole("admin","super_admin"), async (req, res, next) => {
+router.post("/definitions", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const data = z.object({ name: z.string().min(1), type: z.string().optional(), description: z.string().optional(), config: z.string().optional(), schedule: z.string().optional(), recipients: z.string().optional() }).parse(req.body)
     const report = await prisma.reportDefinition.create({ data })

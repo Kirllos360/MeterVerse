@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole } from "../middleware/security.js"
+import { requirePermission } from "../middleware/security.js"
 
 const templateSchema = z.object({
   key: z.string().min(1).max(100),
@@ -16,7 +16,7 @@ const templateSchema = z.object({
 const router = Router()
 router.use(authenticate)
 
-router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const userId = req.user.sub
     const { page = 1, limit = 20 } = req.query
@@ -29,14 +29,14 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
-router.get("/unread-count", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.get("/unread-count", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const count = await prisma.notification.count({ where: { recipientId: req.user.sub, status: "sent", readAt: null } })
     res.json({ count })
   } catch (err) { next(err) }
 })
 
-router.put("/read-all", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.put("/read-all", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     await prisma.notification.updateMany({
       where: { recipientId: req.user.sub, readAt: null },
@@ -46,7 +46,7 @@ router.put("/read-all", requireRole("admin", "super_admin", "operator", "viewer"
   } catch (err) { next(err) }
 })
 
-router.put("/:id/read", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+router.put("/:id/read", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const notif = await prisma.notification.update({
       where: { id: req.params.id },
@@ -56,14 +56,14 @@ router.put("/:id/read", requireRole("admin", "super_admin", "operator", "viewer"
   } catch (err) { next(err) }
 })
 
-router.get("/templates", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/templates", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const templates = await prisma.notificationTemplate.findMany({ orderBy: { key: "asc" } })
     res.json({ templates })
   } catch (err) { next(err) }
 })
 
-router.post("/templates", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/templates", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const data = templateSchema.parse(req.body)
     const template = await prisma.notificationTemplate.create({ data })
@@ -74,7 +74,7 @@ router.post("/templates", requireRole("admin", "super_admin"), async (req, res, 
   }
 })
 
-router.put("/templates/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.put("/templates/:id", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const data = templateSchema.partial().parse(req.body)
     const template = await prisma.notificationTemplate.update({ where: { id: req.params.id }, data })
@@ -85,7 +85,7 @@ router.put("/templates/:id", requireRole("admin", "super_admin"), async (req, re
   }
 })
 
-router.delete("/templates/:id", requireRole("super_admin"), async (req, res, next) => {
+router.delete("/templates/:id", requirePermission("notifications.*"), async (req, res, next) => {
   try {
     const existingnotificationTemplate = await prisma.notificationTemplate.findUnique({ where: { id: req.params.id } });
     if (!existingnotificationTemplate) return res.status(404).json({ error: "Not found" });

@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
+import { requirePermission, auditLog , auditMiddleware } from "../middleware/security.js"
 import { executePipeline, validateReading, calculateConsumption, applyTariff } from "../services/business-engine.js"
 
 const router = Router()
@@ -10,7 +10,7 @@ router.use(authenticate)
 
 // ─── PIPELINE EXECUTION ───────────────────────────────────────────────────────
 
-router.post("/pipeline/execute", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/pipeline/execute", requirePermission("business.*"), async (req, res, next) => {
   try {
     const data = z.object({
       meterId: z.string().uuid(), customerId: z.string().uuid(), tariffId: z.string().uuid(),
@@ -22,7 +22,7 @@ router.post("/pipeline/execute", requireRole("admin", "super_admin"), async (req
   } catch (err) { next(err) }
 })
 
-router.post("/pipeline/validate-reading", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/pipeline/validate-reading", requirePermission("business.*"), async (req, res, next) => {
   try {
     const { readingId } = z.object({ readingId: z.string().uuid() }).parse(req.body)
     const result = await validateReading(readingId)
@@ -30,7 +30,7 @@ router.post("/pipeline/validate-reading", requireRole("admin", "super_admin"), a
   } catch (err) { next(err) }
 })
 
-router.post("/pipeline/calculate-consumption", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/pipeline/calculate-consumption", requirePermission("business.*"), async (req, res, next) => {
   try {
     const data = z.object({ meterId: z.string().uuid(), startDate: z.string(), endDate: z.string() }).parse(req.body)
     const result = await calculateConsumption(data.meterId, data.startDate, data.endDate)
@@ -38,7 +38,7 @@ router.post("/pipeline/calculate-consumption", requireRole("admin", "super_admin
   } catch (err) { next(err) }
 })
 
-router.post("/pipeline/apply-tariff", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/pipeline/apply-tariff", requirePermission("business.*"), async (req, res, next) => {
   try {
     const data = z.object({ tariffId: z.string().uuid(), consumption: z.number(), periodStart: z.string(), periodEnd: z.string() }).parse(req.body)
     const result = await applyTariff(data.tariffId, data.consumption, data.periodStart, data.periodEnd)
@@ -48,7 +48,7 @@ router.post("/pipeline/apply-tariff", requireRole("admin", "super_admin"), async
 
 // ─── PIPELINE STATUS ─────────────────────────────────────────────────────────
 
-router.get("/pipeline/status", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.get("/pipeline/status", requirePermission("business.*"), async (req, res, next) => {
   try {
     const [totalReadings, validReadings, totalInvoices, totalCharges] = await Promise.all([
       prisma.reading.count(), prisma.reading.count({ where: { status: "valid" } }),
@@ -61,7 +61,7 @@ router.get("/pipeline/status", requireRole("admin", "super_admin"), async (req, 
 
 // ─── TARIFF SIMULATION ────────────────────────────────────────────────────────
 
-router.post("/simulate/tariff", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/simulate/tariff", requirePermission("business.*"), async (req, res, next) => {
   try {
     const data = z.object({ tariffId: z.string().uuid(), consumption: z.number() }).parse(req.body)
     const result = await applyTariff(data.tariffId, data.consumption, new Date().toISOString(), new Date().toISOString())
@@ -69,7 +69,7 @@ router.post("/simulate/tariff", requireRole("admin", "super_admin"), async (req,
   } catch (err) { next(err) }
 })
 
-router.post("/simulate/invoice", requireRole("admin", "super_admin"), async (req, res, next) => {
+router.post("/simulate/invoice", requirePermission("business.*"), async (req, res, next) => {
   try {
     const data = z.object({ customerId: z.string().uuid(), consumption: z.number(), tariffId: z.string().uuid() }).parse(req.body)
     const tariff = await applyTariff(data.tariffId, data.consumption, new Date().toISOString(), new Date().toISOString())

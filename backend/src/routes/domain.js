@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../db.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
+import { requirePermission, auditLog , auditMiddleware } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -14,7 +14,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   const model = () => prisma[modelName]
 
   // List
-  router.get(`/${resource}`, requireRole("admin", "super_admin"), async (req, res, next) => {
+  router.get(`/${resource}`, requirePermission("admin.*"), async (req, res, next) => {
     try {
       const page = Math.max(1, Number(req.query.page) || 1)
       const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
@@ -29,7 +29,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Get by ID
-  router.get(`/${resource}/:id`, requireRole("admin", "super_admin"), async (req, res, next) => {
+  router.get(`/${resource}/:id`, requirePermission("admin.*"), async (req, res, next) => {
     try {
       const item = await model().findUnique({ where: { id: req.params.id }, include: options.include || undefined })
       if (!item) return res.status(404).json({ error: "Not found" })
@@ -38,7 +38,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Create
-  router.post(`/${resource}`, requireRole("admin", "super_admin"), async (req, res, next) => {
+  router.post(`/${resource}`, requirePermission("admin.*"), async (req, res, next) => {
     try {
       const data = createSchema.parse(req.body)
       const item = await model().create({ data })
@@ -47,7 +47,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Update
-  router.put(`/${resource}/:id`, requireRole("admin", "super_admin"), async (req, res, next) => {
+  router.put(`/${resource}/:id`, requirePermission("admin.*"), async (req, res, next) => {
     try {
       const data = createSchema.partial().parse(req.body)
       const item = await model().update({ where: { id: req.params.id }, data })
@@ -56,7 +56,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Delete
-  router.delete(`/${resource}/:id`, requireRole("super_admin"), async (req, res, next) => {
+  router.delete(`/${resource}/:id`, requirePermission("admin.*"), async (req, res, next) => {
     try {
       await model.delete({ where: { id: req.params.id } })
       res.json({ success: true })

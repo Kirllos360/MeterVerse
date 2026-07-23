@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 
@@ -76,7 +76,7 @@ router.get("/health/deep", async (req, res, next) => {
 
 // ─── PERFORMANCE ─────────────────────────────────────────────────────────────
 
-router.get("/performance", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/performance", requirePermission("monitor.*"), async (req, res, next) => {
   try {
     const [totalReadings, validReadings, totalInvoices, totalRevenue] = await Promise.all([
       prisma.reading.count(), prisma.reading.count({ where: { status: "valid" } }),
@@ -97,7 +97,7 @@ router.get("/performance", requireRole("admin","super_admin"), async (req, res, 
 
 // ─── AUDIT EXPLORER ──────────────────────────────────────────────────────────
 
-router.get("/audit/explorer", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/audit/explorer", requirePermission("monitor.*"), async (req, res, next) => {
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 25))
@@ -121,7 +121,7 @@ router.get("/audit/explorer", requireRole("admin","super_admin"), async (req, re
 
 // ─── BUSINESS ANALYTICS ─────────────────────────────────────────────────────
 
-router.get("/analytics", requireRole("admin","super_admin"), async (req, res, next) => {
+router.get("/analytics", requirePermission("monitor.*"), async (req, res, next) => {
   try {
     const days = Math.min(90, Math.max(1, Number(req.query.days) || 30))
     const since = new Date(Date.now() - days * 86400000)

@@ -50,4 +50,5 @@ EXEC-0001 → Phase 00 → T09 → Step 02 → RUNNING
 | 03 | Design test structure + plan | ✅ | test-plan.md | 2026-07-23 |
 | 04 | Vitest config + mock-prisma + auth-engine tests | ✅ | 13/13 tests pass | 2026-07-23 |
 | 04 | All STATUS files updated (4/8) | ✅ | TASK_STATUS.yaml | 2026-07-23 |
-| 05 | Write tests for remaining Priority 1 services | ⏳ | _in progress_ | 2026-07-23 |
+| 05 | Write tests for Priority 1 services | ✅ | 63/63 tests pass (4 files) | 2026-07-23 |
+| 06 | Write tests for Priority 2 services | ⏳ | _next_ | 2026-07-23 |
