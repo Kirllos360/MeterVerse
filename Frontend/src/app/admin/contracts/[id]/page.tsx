@@ -33,6 +33,8 @@ export default function ContractDetailPage() {
   const router = useRouter()
   const [contract, setContract] = useState<Contract | null>(null)
   const [loading, setLoading] = useState(true)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -56,7 +58,9 @@ export default function ContractDetailPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div><h1 className="text-2xl font-bold">Contract {contract.contractNumber}</h1><p className="text-muted-foreground">ID: {contract.id.slice(0, 8)}...</p></div>
-        <div className="flex gap-2"><StatusBadge status={contract.status} /><Button variant="outline" onClick={() => router.push("/admin/crud?entity=contracts")}>Back to list</Button></div>
+        <div className="flex gap-2"><StatusBadge status={contract.status} />          <Button variant="outline" onClick={() => setShowEdit(true)}>Edit</Button>
+          <Button variant="destructive" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
+          <Button variant="outline" onClick={() => router.push(`/admin/crud?entity=contracts`)}>Back to list</Button></div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card><CardHeader><CardTitle>Contract Info</CardTitle></CardHeader>

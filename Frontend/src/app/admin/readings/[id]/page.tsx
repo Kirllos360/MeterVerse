@@ -32,6 +32,8 @@ export default function ReadingDetailPage() {
   const router = useRouter()
   const [reading, setReading] = useState<Reading | null>(null)
   const [loading, setLoading] = useState(true)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -55,7 +57,9 @@ export default function ReadingDetailPage() {
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div><h1 className="text-2xl font-bold">Reading Details</h1><p className="text-muted-foreground">ID: {reading.id.slice(0, 8)}...</p></div>
-        <div className="flex gap-2"><StatusBadge status={reading.status} /><Button variant="outline" onClick={() => router.push("/admin/readings")}>Back to list</Button></div>
+        <div className="flex gap-2"><StatusBadge status={reading.status} />          <Button variant="outline" onClick={() => setShowEdit(true)}>Edit</Button>
+          <Button variant="destructive" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
+          <Button variant="outline" onClick={() => router.push(`/admin/readings`)}>Back to list</Button></div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card><CardHeader><CardTitle>Reading</CardTitle></CardHeader>

@@ -59,6 +59,8 @@ export default function MeterDetailPage() {
   const router = useRouter()
   const [meter, setMeter] = useState<Meter | null>(null)
   const [loading, setLoading] = useState(true)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showDelete, setShowDelete] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -107,6 +109,8 @@ export default function MeterDetailPage() {
         </div>
         <div className="flex gap-2">
           <StatusBadge status={meter.status} />
+                    <Button variant="outline" onClick={() => setShowEdit(true)}>Edit</Button>
+          <Button variant="destructive" size="sm" onClick={() => setShowDelete(true)}>Delete</Button>
           <Button variant="outline" onClick={() => router.push(`/admin/meters`)}>Back to list</Button>
         </div>
       </div>
