@@ -1,0 +1,9 @@
+step:
+  name: "Wire List Page Rows to Detail Pages"
+  task: "T12"
+  status: "PLANNING"
+  depends_on: ["S04"]
+  estimated_hours: 3
+  evidence_required:
+    - "Clicking a customer row navigates to /admin/customers/[id]"
+    - "All 7 list pages have clickable rows linking to their detail pages"

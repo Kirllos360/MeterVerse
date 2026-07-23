@@ -37,3 +37,13 @@
 - Notifications and detail pages are independent
 - GATE_CHECK is highest-priority: without it, no future work is verifiable
 - Zero tests is highest-risk: no regression safety for any change
+## Per-Step Audit Gate (MANDATORY)
+
+Every step execution MUST:
+1. Read its STEP_STATUS.yaml before starting (confirm PLANNING)
+2. After implementation, verify evidence_required exists
+3. Update status to COMPLETE only after evidence verified
+4. Re-read STEP_STATUS.yaml to confirm the update persisted
+
+This replaces the T99 end-of-phase-only audit with per-step verification.
+T99 remains as a final consistency check.

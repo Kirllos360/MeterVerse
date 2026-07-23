@@ -9,8 +9,9 @@ task:
     S02: "Add edit/delete actions — COMPLETE when all 7 pages have edit modal + delete"
     S03: "Add ErrorBoundary wrapper — COMPLETE when all 7 pages are wrapped"
     S04: "Add backend includes — COMPLETE when readings show meter serial, contracts show customer"
-  completion_criteria:
+  completion_criteria:    - All 7 list pages navigate to detail pages on row click
     - "All 7 detail pages have breadcrumb navigation"
     - "All 7 detail pages support edit/delete from the detail view"
     - "All 7 detail pages handle errors gracefully"
     - "Backend returns related data where missing"
+
