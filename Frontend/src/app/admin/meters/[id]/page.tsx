@@ -83,6 +83,7 @@ export default function MeterDetailPage() {
       ]} />
       if (loading) {
     return (
+    <ErrorBoundary>
       <div className="p-6 space-y-4">
         <Skeleton className="h-8 w-48" />
         <Skeleton className="h-32 w-full" />
@@ -183,6 +184,7 @@ export default function MeterDetailPage() {
         </Card>
       )}
     </div>
-  )
+
+    </ErrorBoundary>  )
 }
 

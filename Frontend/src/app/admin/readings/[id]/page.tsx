@@ -54,6 +54,7 @@ export default function ReadingDetailPage() {
   if (!reading) return <div className="p-6 text-center"><h2 className="text-xl font-semibold">Reading not found</h2><Button onClick={() => router.back()} className="mt-4">Go back</Button></div>
 
   return (
+    <ErrorBoundary>
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div><h1 className="text-2xl font-bold">Reading Details</h1><p className="text-muted-foreground">ID: {reading.id.slice(0, 8)}...</p></div>
@@ -76,6 +77,7 @@ export default function ReadingDetailPage() {
           </CardContent></Card>
       </div>
     </div>
-  )
+
+    </ErrorBoundary>  )
 }
 

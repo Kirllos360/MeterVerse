@@ -57,6 +57,7 @@ export default function PaymentDetailPage() {
   if (!payment) return <div className="p-6 text-center"><h2 className="text-xl font-semibold">Payment not found</h2><Button onClick={() => router.back()} className="mt-4">Go back</Button></div>
 
   return (
+    <ErrorBoundary>
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div><h1 className="text-2xl font-bold">Payment</h1><p className="text-muted-foreground">ID: {payment.id.slice(0, 8)}...</p></div>
@@ -79,6 +80,7 @@ export default function PaymentDetailPage() {
           </CardContent></Card>
       </div>
     </div>
-  )
+
+    </ErrorBoundary>  )
 }
 
