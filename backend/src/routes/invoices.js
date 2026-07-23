@@ -63,6 +63,9 @@ router.put("/:id", requireRole("admin", "billing"), async (req, res, next) => {
 
 router.delete("/:id", requireRole("admin"), async (req, res, next) => {
   try {
+    const inv = await prisma.invoice.findUnique({ where: { id: req.params.id } })
+    if (!inv) return res.status(404).json({ error: "Invoice not found" })
+    if (inv.status === "paid") return res.status(400).json({ error: "Cannot archive paid invoice — issue credit note instead" })
     await prisma.invoice.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "invoice.archived", { invoiceId: req.params.id })
     res.json({ success: true })
@@ -73,6 +76,9 @@ router.post("/generate", requireRole("admin", "billing"), async (req, res, next)
   try {
     const { customerId, periodStart, periodEnd } = req.body
     if (!customerId || !periodStart || !periodEnd) return res.status(400).json({ error: "customerId, periodStart, periodEnd required" })
+
+    const customer = await prisma.customer.findFirst({ where: { id: customerId, archivedAt: null } })
+    if (!customer) return res.status(400).json({ error: "Cannot generate invoice for archived customer" })
 
     // Find customer's meters
     const assignments = await prisma.meterAssignment.findMany({ where: { customerId, status: "active" }, include: { meter: { include: { readings: { orderBy: { timestamp: "desc" }, take: 2 } } } } })

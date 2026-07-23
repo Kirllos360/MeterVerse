@@ -38,6 +38,10 @@ router.get("/:id", requireRole("admin", "operator", "viewer"), async (req, res, 
 router.post("/", requireRole("admin", "billing"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
+    const inv = await prisma.invoice.findUnique({ where: { id: data.invoiceId } })
+    if (!inv) return res.status(404).json({ error: "Invoice not found" })
+    if (inv.status === "paid") return res.status(400).json({ error: "Invoice is already paid" })
+    if (inv.archivedAt) return res.status(400).json({ error: "Cannot pay archived invoice" })
     const payment = await prisma.$transaction(async (tx) => {
       const p = await tx.payment.create({ data })
       await tx.invoice.update({ where: { id: data.invoiceId }, data: { status: "paid" } })

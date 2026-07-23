@@ -65,6 +65,10 @@ router.put("/:id", requireRole("admin", "operator"), async (req, res, next) => {
 
 router.delete("/:id", requireRole("admin"), async (req, res, next) => {
   try {
+    const activeAssignments = await prisma.meterAssignment.count({ where: { customerId: req.params.id, status: "active" } })
+    if (activeAssignments > 0) return res.status(400).json({ error: "Cannot archive customer with active meter assignments" })
+    const unpaidInvoices = await prisma.invoice.count({ where: { customerId: req.params.id, status: "pending", archivedAt: null } })
+    if (unpaidInvoices > 0) return res.status(400).json({ error: "Cannot archive customer with unpaid invoices" })
     await prisma.customer.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, 'customer.archived', { customerId: req.params.id })
     res.json({ success: true })
