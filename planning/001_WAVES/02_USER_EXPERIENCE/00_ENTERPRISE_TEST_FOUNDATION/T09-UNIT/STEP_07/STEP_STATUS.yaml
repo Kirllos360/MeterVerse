@@ -1,5 +1,10 @@
 # T09 — Unit Test Infrastructure — Step 7
-status: PLANNING
-started: null
-completed: null
-evidence: []
+status: COMPLETE
+started: 2026-07-23
+completed: 2026-07-23
+evidence:
+  - "npm run test:coverage — 71/71 tests pass in 1.87s"
+  - "Coverage: 87.79% lines, 83.8% statements, 92.3% functions"
+  - "Threshold of 80% MET (87.79% > 80%)"
+  - "3 services at 100%: billing-engine, email-engine, kpi-engine (snapshot path)"
+  - "Lowest: sms-engine 60% (stub, unexercised error path)"
