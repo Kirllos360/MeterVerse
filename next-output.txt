@@ -1,0 +1,61 @@
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:7400
+- Network:       http://172.19.80.1:7400
+- Environments: .env.local
+✓ Ready in 868ms
+- Experiments (use with caution):
+  · optimizePackageImports
+
+○ Compiling /admin ...
+⨯ ./src/admin/tables/page-configs.ts
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 44294
+
+Import traces:
+  Client Component Browser:
+    ./src/admin/tables/page-configs.ts [Client Component Browser]
+    ./src/app/admin/webhooks/page.tsx [Client Component Browser]
+    ./src/app/admin/layout.tsx [Client Component Browser]
+    ./src/app/admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/admin/tables/page-configs.ts [Client Component SSR]
+    ./src/app/admin/webhooks/page.tsx [Client Component SSR]
+    ./src/app/admin/layout.tsx [Client Component SSR]
+    ./src/app/admin/layout.tsx [Server Component]
+
+
+ GET /admin/home 500 in 31.1s (next.js: 29.5s, proxy.ts: 222ms, application-code: 1370ms)
+⨯ ./src/admin/tables/page-configs.ts
+Reading source code for parsing failed
+An unexpected error happened while trying to read the source code to parse: failed to convert rope into string
+
+Caused by:
+- invalid utf-8 sequence of 1 bytes from index 44294
+
+Import traces:
+  Client Component Browser:
+    ./src/admin/tables/page-configs.ts [Client Component Browser]
+    ./src/app/admin/webhooks/page.tsx [Client Component Browser]
+    ./src/app/admin/layout.tsx [Client Component Browser]
+    ./src/app/admin/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/admin/tables/page-configs.ts [Client Component SSR]
+    ./src/app/admin/webhooks/page.tsx [Client Component SSR]
+    ./src/app/admin/layout.tsx [Client Component SSR]
+    ./src/app/admin/layout.tsx [Server Component]
+
+
+○ Compiling / ...
+ GET / 500 in 8.4s (next.js: 8.3s, proxy.ts: 18ms, application-code: 126ms)
+ GET / 500 in 169ms (next.js: 89ms, proxy.ts: 32ms, application-code: 48ms)
+✓ Finished writing to filesystem cache in 98s
+✓ Finished filesystem cache database compaction in 64s
+✓ Finished filesystem cache database compaction in 17.1s
+✓ Finished writing to filesystem cache in 22.4s
+✓ Finished writing to filesystem cache in 62s
+✓ Finished writing to filesystem cache in 36.4s
