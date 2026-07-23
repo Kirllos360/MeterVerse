@@ -1,37 +1,32 @@
 import { Router } from "express"
 import { z } from "zod"
-import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { auditLog } from "../middleware/security.js"
+import { authenticateUser, verifyToken } from "../services/auth-engine.js"
 
 const router = Router()
-const JWT_SECRET = process.env.JWT_SECRET
-if (!JWT_SECRET) { console.error("FATAL: JWT_SECRET required"); process.exit(1) }
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "24h"
 
-const loginSchema = z.object({ email: z.string().email(), password: z.string().min(1) })
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+  system_type: z.enum(["admin", "user", "mobile"]).optional().default("admin"),
+})
 const registerSchema = z.object({ email: z.string().email(), password: z.string().min(6), name: z.string().min(1).max(100) })
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { email, password } = loginSchema.parse(req.body)
-
-    const user = await prisma.user.findUnique({ where: { email } })
-    if (!user) { auditLog(req, "auth.login_failed", { email }); return res.status(401).json({ error: "Invalid credentials" }) }
-
-    const valid = await bcrypt.compare(password, user.password)
-    if (!valid) { auditLog(req, "auth.login_failed", { email }); return res.status(401).json({ error: "Invalid credentials" }) }
-
-    const payload = { sub: user.id, email: user.email, role: user.role }
-    const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN })
-
-    auditLog(req, "auth.login_success", { email })
+    const { email, password, system_type } = loginSchema.parse(req.body)
+    const result = await authenticateUser(email, password, system_type)
+    if (!result.success) return res.status(result.status).json({ error: result.error })
+    auditLog(req, `auth.login_success`, { email, system: system_type })
     res.json({
-      user: { id: user.id, email: user.email, name: user.name, role: user.role, area: user.area, project: user.project, tenant: user.tenant, language: user.language, theme: user.theme, mfaEnabled: user.mfaEnabled, permissions: user.role === "admin" ? ["read","write","delete","admin","export","approve"] : user.role === "operator" ? ["read","write","export"] : ["read"] },
-      accessToken,
-      expiresAt: Date.now() + 86400000,
+      user: result.user,
+      accessToken: result.accessToken,
+      expiresAt: result.expiresAt,
+      redirect: result.redirect,
+      system: result.system,
+      portal: result.portal,
     })
   } catch (err) { next(err) }
 })

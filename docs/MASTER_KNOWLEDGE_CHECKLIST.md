@@ -1,19 +1,51 @@
 # MeterVerse — Master Knowledge Checklist
 
 **Last Updated:** 2026-07-23  
+**Wave 01:** 8 phases, 37 tasks, 185 steps  
+**Complete:** 15/185 steps (8.1%)  
 **Purpose:** Single source of truth for planning progress. Read this first in any new session.  
 **How to use:** Check boxes as steps are completed. This file is authoritative — always update after any change.
 
 ---
 
-## Wave 01 — Enterprise Hardening (6 Phases, 29 Tasks, 145 Steps)
+## Wave 01 — Enterprise Hardening (8 Phases, 37 Tasks, 185 Steps)
 
 ```
 Execution Flow:
-GATE_CHECK (42d T03) → 42a (Indexes & Domain) → 42b (Notifications) → 
-42c (Detail Pages) → 42d (QA Tooling) → 42e (Enterprise Controls) → 
-42f (Communication & Billing) → T99 Audit on each → WAVE COMPLETE
+42.0 (Shared Auth) → 42d T03 (GATE_CHECK) → 42.0 (Permissions) → 42a → 
+42c → 42b → 42d → 42e → 42f → T99 Audit on each → WAVE COMPLETE
 ```
+
+---
+
+### Phase 42.0 — Shared Auth & Permission Enforcement `[PLANNING]` ← MUST BE FIRST
+
+**Status:** 0/17 steps complete  
+**Dependency:** None (foundation phase)
+
+```
+┌─────────────────────────────────────────────────┐
+│ 42.0 Flow:                                      │
+│ T00 Login: Design → Build Core → Scoped Tokens  │
+│           → UI Redirects → Theming               │
+│ T00 Permissions: Map → Replace Gates →          │
+│                 → Middleware → Seed Keys         │
+│ T99: 7-step Audit + Verification Loop           │
+└─────────────────────────────────────────────────┘
+```
+
+- [ ] **T00: Shared Login Engine** `[PLANNING]` ← START HERE
+  - [x] S01: Design login protocol with system_type param
+  - [ ] S02: Build shared core auth logic
+  - [ ] S03: Add admin-scoped + user-scoped JWT tokens
+  - [ ] S04: Wire different UI redirects per system type
+  - [ ] S05: Add login appearance theming per system
+- [ ] **T00: Enforce Permissions** `[PLANNING]`
+  - [ ] S01: Map all endpoints to permission keys
+  - [ ] S02: Replace requireRole() with requirePermission()
+  - [ ] S03: Add permission check middleware
+  - [ ] S04: Seed full 140+ permission keys
+- [ ] **T99: Phase Completion Audit** `[PLANNING]`
 
 ---
 
@@ -253,6 +285,13 @@ GATE_CHECK (42d T03) → 42a (Indexes & Domain) → 42b (Notifications) →
 | Rule 7 | Mandatory Tool Selection (🧰 block before every task) | AI_BIBLE.md, AGENTS.md |
 | Rule 8 | Tool Usage Audit Trail | AI_BIBLE.md |
 
+## Graphiti Knowledge Graph
+
+**Status:** ✅ Populated — `graphiti/index.json`
+**Nodes:** 118 (20 models, 17 routes, 72 pages, 4 middleware, 3 ADRs, 2 services)
+**Edges:** 103 (model→route, route→page, route→middleware connections)
+**Compare:** Run `node scripts/populate-graphiti.mjs` to regenerate from current codebase
+
 ## Tools Available
 
 | Tool | Configured | For |
@@ -268,3 +307,4 @@ GATE_CHECK (42d T03) → 42a (Indexes & Domain) → 42b (Notifications) →
 ---
 
 *This file is the single source of truth. Update after every step completion.*
+
