@@ -1,9 +1,11 @@
 step:
   name: "Create Meter Detail Page"
   task: "T06"
-  status: "PLANNING"
+  status: "COMPLETE"
   depends_on: []
   estimated_hours: 3
   evidence_required:
     - "Page at Frontend/src/app/admin/meters/[id]/page.tsx"
     - "Renders all required fields + relations"
+
+

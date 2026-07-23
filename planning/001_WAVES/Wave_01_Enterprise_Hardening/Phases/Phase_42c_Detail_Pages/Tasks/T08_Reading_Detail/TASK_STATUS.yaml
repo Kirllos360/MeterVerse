@@ -1,7 +1,7 @@
 task:
   name: "Reading Detail Page"
   phase: "42c"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "MEDIUM"
   risk: "No readings detail page — users cannot drill down from list"
   depends_on: []
@@ -12,3 +12,4 @@ task:
     - "Shows key fields: Value, Unit, Timestamp, Source, Status"
     - "Shows related data: Meter, Validation Results"
     - "Uses GenericAdminPage pattern"
+

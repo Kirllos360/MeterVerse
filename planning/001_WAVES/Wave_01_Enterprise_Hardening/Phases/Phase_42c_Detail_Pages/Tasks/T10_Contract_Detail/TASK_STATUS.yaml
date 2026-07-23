@@ -1,7 +1,7 @@
 task:
   name: "Contract Detail Page"
   phase: "42c"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "MEDIUM"
   risk: "No contracts detail page — users cannot drill down from list"
   depends_on: []
@@ -12,3 +12,4 @@ task:
     - "Shows key fields: Number, Type, Status, Start Date, End Date"
     - "Shows related data: Terms, Amendments, Assignments, Customer"
     - "Uses GenericAdminPage pattern"
+

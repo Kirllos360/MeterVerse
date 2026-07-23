@@ -1,10 +1,11 @@
 task:
   name: "T05 — Customer Detail Page"
   phase: "42c"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "MEDIUM"
   risk: "No customer detail page — need drill-down from list"
   steps:
     S01: "Create Page"
   completion_criteria:
     - "Customer detail shows profile, meters, invoices, contracts, payments"
+

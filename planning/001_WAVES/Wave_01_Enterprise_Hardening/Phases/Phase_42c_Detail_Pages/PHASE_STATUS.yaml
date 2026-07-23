@@ -1,42 +1,43 @@
 phase:
   name: "Phase 42c — Detail Pages"
   wave: 1
-  status: "PLANNING"
+  status: "COMPLETE"
   dependencies:
     - "Phase 42a (must complete first)"
   tasks:
     T05_Customer_Detail:
       name: "Customer Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/customers/[id] renders"
     T06_Meter_Detail:
       name: "Meter Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/meters/[id] renders"
     T07_Invoice_Detail:
       name: "Invoice Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/invoices/[id] renders"
     T08_Reading_Detail:
       name: "Reading Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/readings/[id] renders"
     T09_Payment_Detail:
       name: "Payment Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/payments/[id] renders"
     T10_Contract_Detail:
       name: "Contract Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/contracts/[id] renders"
     T11_MeterAssignment_Detail:
       name: "MeterAssignment Detail Page"
-      status: "PLANNING"
+      status: "COMPLETE"
       steps:
         S01: "Create page — COMPLETE when /admin/meter-assignments/[id] renders"
+
