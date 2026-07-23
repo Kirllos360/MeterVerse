@@ -21,7 +21,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
     const where = { archivedAt: null }
     if (status) where.status = status
     const [invoices, total] = await Promise.all([
-      prisma.invoice.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { issuedAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
+      prisma.invoice.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { issuedAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
       prisma.invoice.count({ where }),
     ])
     res.json({ invoices, total, page: Number(page), limit: Number(limit) })

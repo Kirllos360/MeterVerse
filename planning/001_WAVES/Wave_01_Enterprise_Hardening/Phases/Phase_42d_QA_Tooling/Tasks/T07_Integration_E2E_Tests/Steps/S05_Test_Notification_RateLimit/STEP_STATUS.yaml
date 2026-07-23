@@ -1,0 +1,8 @@
+step:
+  name: "Test notification cooldown prevents spam"
+  task: "T07"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  estimated_hours: 2
+  evidence_required:
+    - "Test passes and gap closed"

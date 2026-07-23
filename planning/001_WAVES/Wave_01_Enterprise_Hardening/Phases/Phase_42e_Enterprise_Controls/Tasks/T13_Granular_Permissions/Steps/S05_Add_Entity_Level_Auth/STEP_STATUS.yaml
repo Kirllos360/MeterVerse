@@ -1,0 +1,9 @@
+step:
+  name: "Add entity-level authorization in domain CRUD"
+  task: "T13"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  estimated_hours: 4
+  evidence_required:
+    - "Each domain entity checks requirePermission('entity.read')"
+    - "User with contracts.read cannot access tariffs"

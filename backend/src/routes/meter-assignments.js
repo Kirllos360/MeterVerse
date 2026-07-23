@@ -22,7 +22,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
     const where = { status: "active" }
     if (status) where.status = status
     const [assignments, total] = await Promise.all([
-      prisma.meterAssignment.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { startDate: "desc" }, include: { meter: { select: { id: true, serial: true } }, customer: { select: { id: true, name: true } } } }),
+      prisma.meterAssignment.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { startDate: "desc" }, include: { meter: { select: { id: true, serial: true } }, customer: { select: { id: true, name: true } } } }),
       prisma.meterAssignment.count({ where }),
     ])
     res.json({ assignments, total, page: Number(page), limit: Number(limit) })

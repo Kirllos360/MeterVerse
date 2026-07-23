@@ -1,0 +1,8 @@
+step:
+  name: "Test export streaming handles 100K+ records without OOM"
+  task: "T07"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  estimated_hours: 2
+  evidence_required:
+    - "Test passes and gap closed"

@@ -1,4 +1,16 @@
 import { prisma } from "../db.js"
+// Rate limiting: prevents event spam (60s cooldown per event+recipient)
+const COOLDOWN_SECONDS = 60;
+const lastSent = new Map();
+
+function isRateLimited(action, recipientId) {
+  const key = action + ":" + (recipientId || "global");
+  const last = lastSent.get(key);
+  if (last && Date.now() - last < COOLDOWN_SECONDS * 1000) return true;
+  lastSent.set(key, Date.now());
+  return false;
+}
+
 
 const EVENT_CHANNEL_MAP = {
   "invoice.generated":      ["in_app", "email"],
@@ -36,13 +48,16 @@ function renderTemplate(template, variables) {
 }
 
 export async function processEvent(action, variables = {}, metadata = {}) {
+  const recipientId = variables.recipientId || metadata.actorId || null;
+  if (isRateLimited(action, recipientId)) {
+    return { action, skipped: true, reason: "Rate limited (cooldown " + COOLDOWN_SECONDS + "s)" };
+  }
   const channels = EVENT_CHANNEL_MAP[action]
   if (!channels) return { action, skipped: true, reason: "No channels mapped" }
 
   const template = await prisma.notificationTemplate.findUnique({ where: { key: action } })
   if (!template) return { action, skipped: true, reason: "No template found" }
 
-  const recipientId = variables.recipientId || metadata.actorId || null
   const recipientEmail = variables.recipientEmail || null
   const rendered = renderTemplate(template, variables)
   const results = []

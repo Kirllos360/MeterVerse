@@ -32,7 +32,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
     const { page = 1, limit = 10, search } = req.query
     const where = { archivedAt: null, ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}) }
     const [meters, total] = await Promise.all([
-      prisma.meter.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { createdAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
+      prisma.meter.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { createdAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
       prisma.meter.count({ where }),
     ])
     res.json({ meters, total, page: Number(page), limit: Number(limit) })

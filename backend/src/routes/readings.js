@@ -23,7 +23,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
     if (meterId) where.meterId = meterId
     if (status) where.status = status
     const [readings, total] = await Promise.all([
-      prisma.reading.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { timestamp: "desc" }, include: { meter: { select: { id: true, serial: true } } } }),
+      prisma.reading.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { timestamp: "desc" }, include: { meter: { select: { id: true, serial: true } } } }),
       prisma.reading.count({ where }),
     ])
     res.json({ readings, total, page: Number(page), limit: Number(limit) })

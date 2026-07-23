@@ -122,6 +122,8 @@ router.put("/users/:id", requireRole("super_admin"), async (req, res, next) => {
 
 router.delete("/users/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existinguser = await prisma.user.findUnique({ where: { id: req.params.id } });
+    if (!existinguser) return res.status(404).json({ error: "Not found" });
     await prisma.user.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) {
@@ -205,6 +207,8 @@ router.delete("/roles/:id", requireRole("super_admin"), async (req, res, next) =
   try {
     const role = await prisma.role.findUnique({ where: { id: req.params.id } })
     if (role?.isSystem) return res.status(400).json({ error: "Cannot delete system role" })
+    const existingrole = await prisma.role.findUnique({ where: { id: req.params.id } });
+    if (!existingrole) return res.status(404).json({ error: "Not found" });
     await prisma.role.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -238,6 +242,8 @@ router.post("/permissions", requireRole("super_admin"), async (req, res, next) =
 
 router.delete("/permissions/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existingpermission = await prisma.permission.findUnique({ where: { id: req.params.id } });
+    if (!existingpermission) return res.status(404).json({ error: "Not found" });
     await prisma.permission.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -340,6 +346,8 @@ router.put("/feature-flags/:id/toggle", requireRole("super_admin"), async (req, 
 
 router.delete("/feature-flags/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existingfeatureFlag = await prisma.featureFlag.findUnique({ where: { id: req.params.id } });
+    if (!existingfeatureFlag) return res.status(404).json({ error: "Not found" });
     await prisma.featureFlag.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -385,6 +393,8 @@ router.post("/api-keys", requireRole("super_admin"), async (req, res, next) => {
 
 router.delete("/api-keys/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existingapiKey = await prisma.apiKey.findUnique({ where: { id: req.params.id } });
+    if (!existingapiKey) return res.status(404).json({ error: "Not found" });
     await prisma.apiKey.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -405,6 +415,8 @@ router.get("/sessions", requireRole("admin", "super_admin"), async (req, res, ne
 
 router.delete("/sessions/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
+    const existingsession = await prisma.session.findUnique({ where: { id: req.params.id } });
+    if (!existingsession) return res.status(404).json({ error: "Not found" });
     await prisma.session.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -429,6 +441,8 @@ router.post("/organizations", requireRole("super_admin"), async (req, res, next)
 
 router.delete("/organizations/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existingorganization = await prisma.organization.findUnique({ where: { id: req.params.id } });
+    if (!existingorganization) return res.status(404).json({ error: "Not found" });
     await prisma.organization.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -479,6 +493,8 @@ router.put("/webhooks/:id/toggle", requireRole("admin", "super_admin"), async (r
 
 router.delete("/webhooks/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
+    const existingwebhook = await prisma.webhook.findUnique({ where: { id: req.params.id } });
+    if (!existingwebhook) return res.status(404).json({ error: "Not found" });
     await prisma.webhook.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -523,6 +539,8 @@ router.post("/backups", requireRole("super_admin"), async (req, res, next) => {
 
 router.delete("/backups/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existingbackup = await prisma.backup.findUnique({ where: { id: req.params.id } });
+    if (!existingbackup) return res.status(404).json({ error: "Not found" });
     await prisma.backup.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -540,6 +558,8 @@ router.get("/cache", requireRole("admin", "super_admin"), async (req, res, next)
 
 router.delete("/cache/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
+    const existingcacheEntry = await prisma.cacheEntry.findUnique({ where: { id: req.params.id } });
+    if (!existingcacheEntry) return res.status(404).json({ error: "Not found" });
     await prisma.cacheEntry.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -612,6 +632,8 @@ router.put("/scheduler/:id/toggle", requireRole("admin", "super_admin"), async (
 
 router.delete("/scheduler/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
+    const existingscheduledTask = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } });
+    if (!existingscheduledTask) return res.status(404).json({ error: "Not found" });
     await prisma.scheduledTask.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }

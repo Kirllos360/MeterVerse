@@ -1,0 +1,8 @@
+step:
+  name: "Test all list endpoints return consistent { items, total, page, limit }"
+  task: "T07"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  estimated_hours: 2
+  evidence_required:
+    - "Test passes and gap closed"

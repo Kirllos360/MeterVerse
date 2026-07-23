@@ -24,7 +24,7 @@ function crud(resource, modelName, createSchema, options = {}) {
         model().findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: options.include || undefined }),
         model().count({ where }),
       ])
-      res.json({ [resource]: items, total, page, limit })
+      res.json({ [resource]: items, items, total, page, limit })
     } catch (err) { next(err) }
   })
 

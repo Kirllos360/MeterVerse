@@ -19,7 +19,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
     const { page = 1, limit = 10 } = req.query
     const where = {}
     const [payments, total] = await Promise.all([
-      prisma.payment.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { paidAt: "desc" }, include: { invoice: { select: { id: true, number: true } } } }),
+      prisma.payment.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { paidAt: "desc" }, include: { invoice: { select: { id: true, number: true } } } }),
       prisma.payment.count({ where }),
     ])
     res.json({ payments, total, page: Number(page), limit: Number(limit) })
@@ -71,6 +71,8 @@ router.post("/", requireRole("admin", "super_admin", "billing"), async (req, res
 
 router.delete("/:id", requireRole("admin", "super_admin"), async (req, res, next) => {
   try {
+    const existingpayment = await prisma.payment.findUnique({ where: { id: req.params.id } });
+    if (!existingpayment) return res.status(404).json({ error: "Not found" });
     await prisma.payment.delete({ where: { id: req.params.id } })
     auditLog(req, "payment.deleted", { paymentId: req.params.id })
     res.json({ success: true })

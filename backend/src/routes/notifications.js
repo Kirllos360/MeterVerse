@@ -22,7 +22,7 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
     const { page = 1, limit = 20 } = req.query
     const where = { recipientId: userId }
     const [notifications, total] = await Promise.all([
-      prisma.notification.findMany({ where, skip: (page - 1) * limit, take: Number(limit), orderBy: { createdAt: "desc" } }),
+      prisma.notification.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { createdAt: "desc" } }),
       prisma.notification.count({ where }),
     ])
     res.json({ notifications, total, page: Number(page), limit: Number(limit) })
@@ -87,6 +87,8 @@ router.put("/templates/:id", requireRole("admin", "super_admin"), async (req, re
 
 router.delete("/templates/:id", requireRole("super_admin"), async (req, res, next) => {
   try {
+    const existingnotificationTemplate = await prisma.notificationTemplate.findUnique({ where: { id: req.params.id } });
+    if (!existingnotificationTemplate) return res.status(404).json({ error: "Not found" });
     await prisma.notificationTemplate.delete({ where: { id: req.params.id } })
     res.json({ success: true })
   } catch (err) { next(err) }

@@ -1,0 +1,8 @@
+step:
+  name: "Test /api/user/* returns user-specific data"
+  task: "T07"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  estimated_hours: 2
+  evidence_required:
+    - "Test passes and gap closed"
