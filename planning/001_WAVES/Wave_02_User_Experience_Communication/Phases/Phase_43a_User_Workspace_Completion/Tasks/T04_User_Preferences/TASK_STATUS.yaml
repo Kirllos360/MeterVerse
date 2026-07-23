@@ -1,7 +1,7 @@
 task:
   name: "User Preferences"
   phase: "Phase_43a_User_Workspace_Completion"
-  status: "PLANNING"
+  status: "COMPLETE"
   steps:
     S01: "Implement User Preferences"
   completion_criteria:
