@@ -1,7 +1,7 @@
 phase:
   name: "Phase 43c Documents Files"
   wave: "2"
-  status: "PLANNING"
+  status: "RUNNING"
   tasks:
     T09_Document_Upload_UI:
       name: "Document Upload UI"

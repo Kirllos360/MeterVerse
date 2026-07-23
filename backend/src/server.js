@@ -24,6 +24,7 @@ import { searchRouter } from "./routes/search.js"
 import { tasksRouter } from "./routes/tasks.js"
 import { alertsRouter } from "./routes/alerts.js"
 import { notificationsRouter } from "./routes/notifications.js"
+import { documentsRouter } from "./routes/documents.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
@@ -111,6 +112,7 @@ app.use("/api/preferences", preferencesRouter)
 app.use("/api/search", searchRouter)
 app.use("/api/tasks", tasksRouter)
 app.use("/api/alerts", alertsRouter)
+app.use("/api/documents", documentsRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 
