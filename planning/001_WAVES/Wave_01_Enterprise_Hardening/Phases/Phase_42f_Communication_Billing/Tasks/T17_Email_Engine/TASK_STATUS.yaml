@@ -1,0 +1,11 @@
+task:
+  name: "Build Email/SMTP sending engine"
+  phase: "42f"
+  status: "PLANNING"
+  priority: "HIGH"
+  steps:
+    S01: "Install Nodemailer + configure SMTP"
+    S02: "Wire EmailLog to actual sending"
+    S03: "Add email queue for retry"
+  completion_criteria:
+    - "All steps complete with evidence"

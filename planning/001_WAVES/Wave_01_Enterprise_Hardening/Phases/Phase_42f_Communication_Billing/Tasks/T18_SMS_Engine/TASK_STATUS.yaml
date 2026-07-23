@@ -1,0 +1,10 @@
+task:
+  name: "Build SMS gateway adapter"
+  phase: "42f"
+  status: "PLANNING"
+  priority: "HIGH"
+  steps:
+    S01: "Add SMS provider adapter"
+    S02: "Wire SmsLog to actual sending"
+  completion_criteria:
+    - "All steps complete with evidence"

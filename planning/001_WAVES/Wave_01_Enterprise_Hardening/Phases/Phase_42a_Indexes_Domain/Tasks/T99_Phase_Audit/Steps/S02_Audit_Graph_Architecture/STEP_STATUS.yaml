@@ -5,4 +5,7 @@ step:
   depends_on: []
   estimated_hours: 2
   evidence_required:
+    - No component exists in implementation but missing from graphiti
+    - graphiti/index.json has nodes matching all implemented components
     - "Audit checklist completed and committed"
+

@@ -1,0 +1,12 @@
+task:
+  name: "Build billing engine from readings"
+  phase: "42f"
+  status: "PLANNING"
+  priority: "HIGH"
+  steps:
+    S01: "Implement ChargeRule evaluation"
+    S02: "Implement BillRun generation"
+    S03: "Wire invoice generation from readings"
+    S04: "Add invoice tax/discount calculation"
+  completion_criteria:
+    - "All steps complete with evidence"

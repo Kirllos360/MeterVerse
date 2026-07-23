@@ -23,7 +23,7 @@
 | 42b | Notifications & Export | COMPLETE | T03 (notifications), T04 (export) |
 | 42c | Detail Pages | IN_PROGRESS | T05-T11 (detail pages), T12 (enhancements) |
 | 42d | QA & Tooling | PLANNING | T03 (GATE_CHECK), T04 (page-configs), T05 (tests), T06 (Meter/) |
-| 42e | Enterprise Controls | PLANNING | T13 (permissions), T14 (alerts), T15 (monitoring), T16 (KPIs) |
+| 42f | Communication and Billing | PLANNING | T17 (Email), T18 (SMS), T19 (Billing), T20 (Validation) || 42e | Enterprise Controls | PLANNING | T13 (permissions), T14 (alerts), T15 (monitoring), T16 (KPIs) |
 
 ## Dependencies
 - Phase 42a must complete before 42b
@@ -54,3 +54,14 @@ T99 remains as a final consistency check.
 Phase 42d T03 (GATE_CHECK) MUST be the first task executed in Wave 01.
 All subsequent work depends on GATE_CHECK for verification.
 Phase 42e cannot start until GATE_CHECK is complete.
+
+## Graphiti Sync — Mandatory Per-Task Step
+
+Every task MUST include a "Sync Graphiti" step (either as its own step or as a substep of T99):
+1. Before marking a task COMPLETE, update graphiti/index.json with new/modified nodes
+2. Add edges connecting new nodes to existing architecture
+3. Verify graph accuracy: query graphiti to confirm all new components are represented
+4. If graph reveals missing components (planned but not built), return to implementation
+
+The T99-S02 audit step will verify graphiti consistency as the final gate.
+

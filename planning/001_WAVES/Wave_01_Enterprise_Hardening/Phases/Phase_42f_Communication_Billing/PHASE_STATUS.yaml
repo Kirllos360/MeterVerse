@@ -1,0 +1,46 @@
+phase:
+  name: "Phase 42f — Communication and Billing"
+  wave: 1
+  status: "PLANNING"
+  dependencies:
+    - "Phase 42b (for notification engine base)"
+    - "Phase 42a (for domain CRUD)"
+  tasks:
+    T17_Email_Engine:
+      name: "Build Email/SMTP sending engine"
+      status: "PLANNING"
+      steps:
+        S01: "Install Nodemailer + configure SMTP"
+        S02: "Wire EmailLog to actual sending"
+        S03: "Add email queue for retry"
+    T18_SMS_Engine:
+      name: "Build SMS gateway adapter"
+      status: "PLANNING"
+      steps:
+        S01: "Add SMS provider adapter"
+        S02: "Wire SmsLog to actual sending"
+    T19_Billing_Engine:
+      name: "Build billing engine from readings"
+      status: "PLANNING"
+      steps:
+        S01: "Implement ChargeRule evaluation"
+        S02: "Implement BillRun generation"
+        S03: "Wire invoice generation from readings"
+        S04: "Add invoice tax/discount calculation"
+    T20_Validation_Engine:
+      name: "Build data validation rule engine"
+      status: "PLANNING"
+      steps:
+        S01: "Wire ValidationRule into reading creation"
+        S02: "Add validation results API"
+    T99_Phase_Audit:
+      name: "Phase Completion Audit"
+      status: "PLANNING"
+      steps:
+        S01: "Audit planning docs"
+        S02: "Audit graph/architecture"
+        S03: "Audit frontend structure"
+        S04: "Audit backend structure"
+        S05: "Audit database design"
+        S06: "Audit process flow"
+        S07: "Audit KPI flow"

@@ -38,6 +38,10 @@ phases:
     name: "Detail Pages"
     status: "ACTIVE"
     completion_pct: 0
+  phase_42f:
+    name: "Communication and Billing"
+    status: "ACTIVE"
+    completion_pct: 0
   phase_42e:
     name: "Enterprise Controls"
     status: "ACTIVE"
@@ -90,6 +94,7 @@ gaps_covered:
   - "42b: notifications + export"
   - "42c: detail pages — expanded to 7 tasks (T05-T11)"
   - "42d: GATE_CHECK + page-configs + tests + Meter/ decision"
+
 
 
 

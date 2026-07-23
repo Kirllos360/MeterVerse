@@ -1,0 +1,15 @@
+task:
+  name: "Phase Completion Audit"
+  phase: "42f"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S01: "Audit planning docs"
+    S02: "Audit graph/architecture"
+    S03: "Audit frontend structure"
+    S04: "Audit backend structure"
+    S05: "Audit database design"
+    S06: "Audit process flow"
+    S07: "Audit KPI flow"
+  completion_criteria:
+    - "All 7 audit steps pass"
