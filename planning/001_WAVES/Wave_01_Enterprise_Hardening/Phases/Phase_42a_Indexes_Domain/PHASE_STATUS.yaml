@@ -1,21 +1,23 @@
 phase:
-  name: "Phase 42a — Indexes & Domain Fix"
+  name: "Phase 42a â€” Indexes & Domain Fix"
   wave: 1
-  status: "COMPLETE"
+  status: "IN_PROGRESS"
   dependencies:
     - "None"
   tasks:
     T01_Add_Database_Indexes:
       name: "Add 20+ database indexes"
-      status: "COMPLETE"
+      status: "IN_PROGRESS"
       steps:
-        S01: "Audit current indexes — COMPLETE when report generated"
-        S02: "Create migration with indexes — COMPLETE when applied"
+        S01: "Audit current indexes â€” COMPLETE"
+        S02: "Create migration with indexes â€” COMPLETE"
+        S03: "Verify with EXPLAIN ANALYZE â€” COMPLETE when index scans confirmed"
     T02_Fix_Domain_JS:
       name: "Fix domain.js prisma init issue"
-      status: "COMPLETE"
+      status: "IN_PROGRESS"
       steps:
-        S01: "Diagnose root cause — COMPLETE when documented"
-        S02: "Implement fix — COMPLETE when all 18 domains work"
-
-
+        S01: "Diagnose root cause â€” COMPLETE"
+        S02: "Implement fix â€” COMPLETE"
+        S03: "Add include/relations support â€” COMPLETE when related data returned"
+        S04: "Add 404 handling â€” COMPLETE when nonexistent returns 404"
+        S05: "Add soft delete support â€” COMPLETE when archivedAt used"

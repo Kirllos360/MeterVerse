@@ -1,0 +1,9 @@
+step:
+  name: "Add soft delete support to domain CRUD"
+  task: "T02"
+  status: "PLANNING"
+  depends_on: ["S04"]
+  estimated_hours: 2
+  evidence_required:
+    - "DELETE /api/domain/contracts/:id sets archivedAt instead of hard delete"
+    - "GET /api/domain/contracts excludes archived records by default"

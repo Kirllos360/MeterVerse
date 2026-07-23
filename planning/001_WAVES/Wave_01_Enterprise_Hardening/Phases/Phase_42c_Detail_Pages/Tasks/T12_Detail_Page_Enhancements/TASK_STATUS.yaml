@@ -1,0 +1,16 @@
+task:
+  name: "Enhance Detail Pages for Production"
+  phase: "42c"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  risk: "Detail pages lack breadcrumbs, edit actions, error boundaries"
+  steps:
+    S01: "Add breadcrumb navigation — COMPLETE when all 7 pages have breadcrumbs"
+    S02: "Add edit/delete actions — COMPLETE when all 7 pages have edit modal + delete"
+    S03: "Add ErrorBoundary wrapper — COMPLETE when all 7 pages are wrapped"
+    S04: "Add backend includes — COMPLETE when readings show meter serial, contracts show customer"
+  completion_criteria:
+    - "All 7 detail pages have breadcrumb navigation"
+    - "All 7 detail pages support edit/delete from the detail view"
+    - "All 7 detail pages handle errors gracefully"
+    - "Backend returns related data where missing"

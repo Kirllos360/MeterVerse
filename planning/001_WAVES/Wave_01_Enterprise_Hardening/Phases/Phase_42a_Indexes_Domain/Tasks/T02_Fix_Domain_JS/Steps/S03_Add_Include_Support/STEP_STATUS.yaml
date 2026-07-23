@@ -1,0 +1,9 @@
+step:
+  name: "Add include/relations support to domain CRUD"
+  task: "T02"
+  status: "PLANNING"
+  depends_on: ["S02"]
+  estimated_hours: 3
+  evidence_required:
+    - "GET /api/domain/contracts/:id returns customer + terms"
+    - "All 18 domain entities support include option"

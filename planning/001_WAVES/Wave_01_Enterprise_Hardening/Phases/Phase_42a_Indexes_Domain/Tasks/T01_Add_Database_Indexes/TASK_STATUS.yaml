@@ -6,9 +6,11 @@ task:
   risk: "LOW"
   files_affected:
     - "backend/prisma/schema.prisma"
+  status: "IN_PROGRESS"
   steps:
     S01: "Audit current indexes"
     S02: "Create migration with indexes"
+    S03: "Verify with EXPLAIN ANALYZE"
   acceptance_criteria:
     - "All 20+ indexes created"
     - "EXPLAIN ANALYZE shows index scans, not sequential scans"

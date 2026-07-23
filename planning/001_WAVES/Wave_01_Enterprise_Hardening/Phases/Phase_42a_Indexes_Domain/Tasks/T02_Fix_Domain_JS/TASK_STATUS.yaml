@@ -7,12 +7,20 @@ task:
   files_affected:
     - "backend/src/routes/domain.js"
     - "backend/src/server.js"
+  status: "IN_PROGRESS"
   steps:
     S01: "Diagnose root cause"
     S02: "Implement fix"
+    S03: "Add include/relations support"
+    S04: "Add 404 handling"
+    S05: "Add soft delete support"
   acceptance_criteria:
     - "All 18 domain entities unblocked"
     - "Domain routes enabled in server.js"
+    - "CRUD includes related data (customer, terms, etc.)"
+    - "Nonexistent IDs return 404, not 500"
+    - "DELETE sets archivedAt instead of hard delete"
     - "Zero TypeScript errors"
     - "Zero regression in existing APIs"
+
 
