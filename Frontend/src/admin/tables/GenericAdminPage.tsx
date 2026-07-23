@@ -40,7 +40,8 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
   const [editTarget, setEditTarget] = useState<any | null>(null)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<any | null>(null)
-  const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({})
+  const [submitting, setSubmitting] = useState(false)
+const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({})
   const debouncedSearch = useDebounce(search, 300)
 
   const queryKey = config.apiEndpoint ? [config.id, "list"] : []
@@ -92,6 +93,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
   const invalidate = () => queryClient.invalidateQueries({ queryKey: [config.id] })
 
   const handleSubmit = async () => {
+    setSubmitting(true)
     const isEdit = !!editTarget
     const method = isEdit ? "PUT" : "POST"
     const url = isEdit ? `${config.apiEndpoint}/${editTarget.id || editTarget[config.rowKey || "id"]}` : config.apiEndpoint
@@ -102,8 +104,8 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) })
       if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
       toast.success(isEdit ? "Updated successfully" : "Created successfully")
-      setSheetOpen(false); setEditTarget(null); invalidate()
-    } catch (e: any) { toast.error(e.message) }
+      setSubmitting(false); setSheetOpen(false); setEditTarget(null); invalidate()
+    } catch (e: any) { setSubmitting(false); toast.error(e.message) }
   }
 
   const updateStatus = async (row: any, status: string) => {
@@ -127,7 +129,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
       if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
       toast.success("Deleted successfully")
       invalidate()
-    } catch (e: any) { toast.error(e.message) }
+    } catch (e: any) { setSubmitting(false); toast.error(e.message) }
     setDeleteOpen(false)
     setDeleteTarget(null)
   }
@@ -282,7 +284,7 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
           </div>
           <SheetFooter>
             <Button variant="outline" onClick={() => { setSheetOpen(false); setEditTarget(null) }}>Cancel</Button>
-            <Button onClick={handleSubmit}><Icons.check className="mr-2 h-4 w-4" />{editTarget ? "Update" : "Save"}</Button>
+            <Button onClick={handleSubmit} disabled={submitting}><Icons.check className="mr-2 h-4 w-4" />{editTarget ? "Update" : "Save"}</Button>
           </SheetFooter>
         </SheetContent>
       </Sheet>
@@ -399,4 +401,5 @@ const defaultTabsWithStatus = [
   { value: "maintenance", label: "Maintenance", filter: (r: any) => r.status === "maintenance" },
   { value: "terminated", label: "Terminated", filter: (r: any) => r.status === "terminated" },
 ]
+
 
