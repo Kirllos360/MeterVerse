@@ -1,6 +1,6 @@
 step:
   name: "Implement BillRun generation"
-  status: "PLANNING"
+  status: "COMPLETE"
   estimated_hours: 4
   evidence_required:
     - "Step completed and verified"

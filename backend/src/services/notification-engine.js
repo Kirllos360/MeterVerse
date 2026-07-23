@@ -1,3 +1,4 @@
+import { sendEmail } from "./email-engine.js"
 import { prisma } from "../db.js"
 // Rate limiting: prevents event spam (60s cooldown per event+recipient)
 const COOLDOWN_SECONDS = 60;
@@ -95,3 +96,5 @@ export async function processEvent(action, variables = {}, metadata = {}) {
 
   return { action, template: template.key, channels, results }
 }
+
+
