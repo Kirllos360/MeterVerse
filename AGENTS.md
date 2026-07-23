@@ -114,11 +114,12 @@ next enterprise sprint.
 
 Before starting ANY task execution, you MUST:
 1. Read `configs/tools-manifest.md` for the full tool inventory
-2. Output 🧰 **`Tools activated: [tool1, tool2, ...]`** as your FIRST message line for that task
+2. Output 🧰 **`Tools activated: [tool1, tool2, ...]`** as your FIRST message line for that task — EVERY TIME, NO EXCEPTIONS
 3. Select from the correct category based on task type (DB → postgres MCP, git → git MCP, etc.)
 4. Log usage after completion in `configs/tool-usage-log.json`
 
 Failure to output the 🧰 block = protocol violation. The user can detect this immediately.
+**HISTORICAL VIOLATION:** This rule was violated during Wave 02 Phase 43b T05 execution. Never again.
 
 ## Rule: Always verify STATUS.yaml after every update
 
