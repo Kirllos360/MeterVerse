@@ -1,0 +1,12 @@
+task:
+  name: "Enforce requirePermission on all 140+ endpoints"
+  phase: "420"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S01_Map_Endpoints: "Map Endpoints"
+    S02_Replace_Role_Gates: "Replace Role Gates"
+    S03_Add_Permission_Middleware: "Add Permission Middleware"
+    S04_Seed_Permission_Keys: "Seed Permission Keys"
+  completion_criteria:
+    - "All steps complete with evidence"

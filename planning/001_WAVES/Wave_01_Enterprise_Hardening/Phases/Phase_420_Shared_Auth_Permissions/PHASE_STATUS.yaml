@@ -1,0 +1,37 @@
+phase:
+  name: "Phase 42.0 — Shared Auth & Permission Enforcement"
+  wave: 1
+  status: "PLANNING"
+  priority: "CRITICAL"
+  dependencies:
+    - "None (foundation phase — must run BEFORE all others)"
+  tasks:
+    T00_Shared_Login_Engine:
+      name: "Build shared login engine for admin + user portals"
+      status: "PLANNING"
+      steps:
+        S01: "Design login protocol with system_type param — COMPLETE when spec written"
+        S02: "Build shared core auth logic — COMPLETE when single engine validates both systems"
+        S03: "Add admin-scoped + user-scoped JWT tokens — COMPLETE when tokens restrict access"
+        S04: "Wire different UI redirects per system type — COMPLETE when admin?/admin, user?/dashboard"
+        S05: "Add login appearance theming per system — COMPLETE when admin login looks different from user login"
+    T00_Enforce_Permissions:
+      name: "Enforce requirePermission() on all 140+ endpoints"
+      status: "PLANNING"
+      steps:
+        S01: "Map all endpoints to permission keys — COMPLETE when every route has a key"
+        S02: "Replace requireRole() with requirePermission() — COMPLETE when role gates removed"
+        S03: "Add permission check middleware — COMPLETE when unauthorized returns 403 with missing permission name"
+        S04: "Seed full 140+ permission keys — COMPLETE when every endpoint key exists in DB"
+    T99_Phase_Audit:
+      name: "Phase Completion Audit"
+      status: "PLANNING"
+      steps:
+        S01: "Audit planning docs"
+        S02: "Audit graph/architecture"
+        S03: "Audit frontend structure"
+        S04: "Audit backend structure"
+        S05: "Audit database design"
+        S06: "Audit process flow"
+        S07: "Audit KPI flow"
+        S00: "Verification Loop — repeat until zero gaps"

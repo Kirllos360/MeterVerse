@@ -23,10 +23,10 @@
 | 42b | Notifications & Export | COMPLETE | T03 (notifications), T04 (export) |
 | 42c | Detail Pages | IN_PROGRESS | T05-T11 (detail pages), T12 (enhancements) |
 | 42d | QA & Tooling | PLANNING | T03 (GATE_CHECK), T04 (page-configs), T05 (tests), T06 (Meter/) |
-| 42f | Communication and Billing | PLANNING | T17 (Email), T18 (SMS), T19 (Billing), T20 (Validation) || 42e | Enterprise Controls | PLANNING | T13 (permissions), T14 (alerts), T15 (monitoring), T16 (KPIs) |
+| 42.0 | Shared Auth & Permissions | PLANNING | T00 (Login Engine), T00 (Permissions) || 42f | Communication and Billing | PLANNING | T17 (Email), T18 (SMS), T19 (Billing), T20 (Validation) || 42e | Enterprise Controls | PLANNING | T13 (permissions), T14 (alerts), T15 (monitoring), T16 (KPIs) |
 
 ## Dependencies
-- Phase 42a must complete before 42b
+- Phase 42.0 MUST execute before all other phases- Phase 42a must complete before 42b
 - 42b and 42c can run in parallel
 - 42d runs in parallel with 42a, 42b, 42c (non-blocking)
 - T03 (GATE_CHECK) is independent - can start immediately
@@ -64,4 +64,5 @@ Every task MUST include a "Sync Graphiti" step (either as its own step or as a s
 4. If graph reveals missing components (planned but not built), return to implementation
 
 The T99-S02 audit step will verify graphiti consistency as the final gate.
+
 

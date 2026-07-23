@@ -1,0 +1,7 @@
+step:
+  name: "Add Login Theming"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  estimated_hours: 4
+  evidence_required:
+    - "Step completed and verified"

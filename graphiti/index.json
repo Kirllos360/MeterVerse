@@ -1,10 +1,1374 @@
 {
   "name": "MeterVerse Knowledge Graph",
-  "version": "1.0.0",
-  "description": "Enterprise knowledge graph for MeterVerse architecture, components, decisions, and runtime knowledge",
-  "updated": "2026-07-19T00:00:00Z",
+  "version": "2.0.0",
+  "description": "Complete knowledge graph — all models, routes, pages, databases, decisions",
+  "updated": "2026-07-23T10:37:40.882Z",
   "schema": {
-    "nodes": ["component", "module", "api", "database", "decision", "spec", "runtime"],
-    "edges": ["depends_on", "implements", "extends", "contains", "references", "documents"]
-  }
+    "nodes": [
+      "component",
+      "module",
+      "api",
+      "database",
+      "decision",
+      "spec",
+      "runtime",
+      "page",
+      "middleware"
+    ],
+    "edges": [
+      "depends_on",
+      "implements",
+      "extends",
+      "contains",
+      "references",
+      "documents",
+      "connects_to",
+      "deployed_as"
+    ]
+  },
+  "nodes": [
+    {
+      "id": 1,
+      "type": "database",
+      "name": "PostgreSQL",
+      "group": "Database",
+      "description": "Primary database - meter_pulse on port 5433"
+    },
+    {
+      "id": 2,
+      "type": "database",
+      "name": "Prisma ORM",
+      "group": "Database",
+      "description": "ORM layer - 78 models, schema.prisma"
+    },
+    {
+      "id": 3,
+      "type": "database",
+      "name": "User",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 4,
+      "type": "database",
+      "name": "Role",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 5,
+      "type": "database",
+      "name": "Permission",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 6,
+      "type": "database",
+      "name": "PermissionOnRole",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 7,
+      "type": "database",
+      "name": "AuditEntry",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 8,
+      "type": "database",
+      "name": "Customer",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 9,
+      "type": "database",
+      "name": "Meter",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 10,
+      "type": "database",
+      "name": "Reading",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 11,
+      "type": "database",
+      "name": "Invoice",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 12,
+      "type": "database",
+      "name": "Payment",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 13,
+      "type": "database",
+      "name": "Contract",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 14,
+      "type": "database",
+      "name": "Tariff",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 15,
+      "type": "database",
+      "name": "BillCycle",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 16,
+      "type": "database",
+      "name": "MeterAssignment",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 17,
+      "type": "database",
+      "name": "Organization",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 18,
+      "type": "database",
+      "name": "Project",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 19,
+      "type": "database",
+      "name": "Notification",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 20,
+      "type": "database",
+      "name": "NotificationTemplate",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 21,
+      "type": "database",
+      "name": "AlertRule",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 22,
+      "type": "database",
+      "name": "KpiDefinition",
+      "group": "Prisma Model",
+      "description": "Core domain model"
+    },
+    {
+      "id": 23,
+      "type": "api",
+      "name": "/api/auth",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 24,
+      "type": "api",
+      "name": "/api/admin",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 25,
+      "type": "api",
+      "name": "/api/customers",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 26,
+      "type": "api",
+      "name": "/api/meters",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 27,
+      "type": "api",
+      "name": "/api/readings",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 28,
+      "type": "api",
+      "name": "/api/invoices",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 29,
+      "type": "api",
+      "name": "/api/payments",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 30,
+      "type": "api",
+      "name": "/api/contracts",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 31,
+      "type": "api",
+      "name": "/api/meter-assignments",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 32,
+      "type": "api",
+      "name": "/api/notifications",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 33,
+      "type": "api",
+      "name": "/api/reports",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 34,
+      "type": "api",
+      "name": "/api/services",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 35,
+      "type": "api",
+      "name": "/api/security",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 36,
+      "type": "api",
+      "name": "/api/monitor",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 37,
+      "type": "api",
+      "name": "/api/crud",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 38,
+      "type": "api",
+      "name": "/api/business",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 39,
+      "type": "api",
+      "name": "/api/ai",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 40,
+      "type": "api",
+      "name": "/api/domain",
+      "group": "API Route",
+      "description": "Express route handler"
+    },
+    {
+      "id": 41,
+      "type": "page",
+      "name": "admin/customers",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 42,
+      "type": "page",
+      "name": "admin/meters",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 43,
+      "type": "page",
+      "name": "admin/readings",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 44,
+      "type": "page",
+      "name": "admin/invoices",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 45,
+      "type": "page",
+      "name": "admin/payments",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 46,
+      "type": "page",
+      "name": "admin/users",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 47,
+      "type": "page",
+      "name": "admin/roles",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 48,
+      "type": "page",
+      "name": "admin/permissions",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 49,
+      "type": "page",
+      "name": "admin/audit",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 50,
+      "type": "page",
+      "name": "admin/reports",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 51,
+      "type": "page",
+      "name": "admin/settings",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 52,
+      "type": "page",
+      "name": "admin/notifications",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 53,
+      "type": "page",
+      "name": "admin/notification-templates",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 54,
+      "type": "page",
+      "name": "admin/security",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 55,
+      "type": "page",
+      "name": "admin/sessions",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 56,
+      "type": "page",
+      "name": "admin/api-keys",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 57,
+      "type": "page",
+      "name": "admin/backup",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 58,
+      "type": "page",
+      "name": "admin/cache",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 59,
+      "type": "page",
+      "name": "admin/queue",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 60,
+      "type": "page",
+      "name": "admin/scheduler",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 61,
+      "type": "page",
+      "name": "admin/storage",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 62,
+      "type": "page",
+      "name": "admin/logs",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 63,
+      "type": "page",
+      "name": "admin/monitoring",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 64,
+      "type": "page",
+      "name": "admin/health",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 65,
+      "type": "page",
+      "name": "admin/database",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 66,
+      "type": "page",
+      "name": "admin/themes",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 67,
+      "type": "page",
+      "name": "admin/branding",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 68,
+      "type": "page",
+      "name": "admin/localization",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 69,
+      "type": "page",
+      "name": "admin/translations",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 70,
+      "type": "page",
+      "name": "admin/feature-flags",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 71,
+      "type": "page",
+      "name": "admin/license",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 72,
+      "type": "page",
+      "name": "admin/plugins",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 73,
+      "type": "page",
+      "name": "admin/integrations",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 74,
+      "type": "page",
+      "name": "admin/webhooks",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 75,
+      "type": "page",
+      "name": "admin/organizations",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 76,
+      "type": "page",
+      "name": "admin/projects",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 77,
+      "type": "page",
+      "name": "admin/service-connections",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 78,
+      "type": "page",
+      "name": "admin/services",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 79,
+      "type": "page",
+      "name": "admin/domains",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 80,
+      "type": "page",
+      "name": "admin/crud",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 81,
+      "type": "page",
+      "name": "admin/business",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 82,
+      "type": "page",
+      "name": "admin/ai",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 83,
+      "type": "page",
+      "name": "admin/ai-diagnostics",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 84,
+      "type": "page",
+      "name": "admin/areas",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 85,
+      "type": "page",
+      "name": "admin/active-devices",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 86,
+      "type": "page",
+      "name": "admin/smtp",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 87,
+      "type": "page",
+      "name": "admin/sms",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 88,
+      "type": "page",
+      "name": "admin/tables",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 89,
+      "type": "page",
+      "name": "admin/import",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 90,
+      "type": "page",
+      "name": "admin/export",
+      "group": "Admin Page",
+      "description": "Next.js admin page"
+    },
+    {
+      "id": 91,
+      "type": "page",
+      "name": "dashboard/overview",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 92,
+      "type": "page",
+      "name": "dashboard/customers",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 93,
+      "type": "page",
+      "name": "dashboard/meters",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 94,
+      "type": "page",
+      "name": "dashboard/readings",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 95,
+      "type": "page",
+      "name": "dashboard/invoices",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 96,
+      "type": "page",
+      "name": "dashboard/billing",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 97,
+      "type": "page",
+      "name": "dashboard/payments",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 98,
+      "type": "page",
+      "name": "dashboard/notifications",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 99,
+      "type": "page",
+      "name": "dashboard/settings",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 100,
+      "type": "page",
+      "name": "dashboard/profile",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 101,
+      "type": "page",
+      "name": "dashboard/workspace",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 102,
+      "type": "page",
+      "name": "dashboard/workspaces",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 103,
+      "type": "page",
+      "name": "dashboard/product",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 104,
+      "type": "page",
+      "name": "dashboard/forms",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 105,
+      "type": "page",
+      "name": "dashboard/elements",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 106,
+      "type": "page",
+      "name": "dashboard/kanban",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 107,
+      "type": "page",
+      "name": "dashboard/chat",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 108,
+      "type": "page",
+      "name": "dashboard/react-query",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 109,
+      "type": "page",
+      "name": "dashboard/exclusive",
+      "group": "User Dashboard Page",
+      "description": "Next.js user dashboard page"
+    },
+    {
+      "id": 110,
+      "type": "middleware",
+      "name": "authenticate",
+      "group": "Security",
+      "description": "JWT authentication middleware"
+    },
+    {
+      "id": 111,
+      "type": "middleware",
+      "name": "requireRole/requirePermission",
+      "group": "Security",
+      "description": "RBAC + Permission gates"
+    },
+    {
+      "id": 112,
+      "type": "middleware",
+      "name": "auditLog",
+      "group": "Security",
+      "description": "Audit logging middleware"
+    },
+    {
+      "id": 113,
+      "type": "middleware",
+      "name": "errorHandler",
+      "group": "Security",
+      "description": "Global error handler"
+    },
+    {
+      "id": 114,
+      "type": "decision",
+      "name": "ADR-001",
+      "group": "Architecture",
+      "description": "BFF Pattern - Backend for Frontend"
+    },
+    {
+      "id": 115,
+      "type": "decision",
+      "name": "ADR-002",
+      "group": "Architecture",
+      "description": "Design Token System"
+    },
+    {
+      "id": 116,
+      "type": "decision",
+      "name": "ADR-003",
+      "group": "Architecture",
+      "description": "V3 Database Trigger Pattern"
+    },
+    {
+      "id": 117,
+      "type": "runtime",
+      "name": "Notification Engine",
+      "group": "Service",
+      "description": "Event-driven notification dispatch"
+    },
+    {
+      "id": 118,
+      "type": "runtime",
+      "name": "Rate Limiter",
+      "group": "Service",
+      "description": "Request rate limiting (express-rate-limit)"
+    }
+  ],
+  "edges": [
+    {
+      "source": 2,
+      "target": 3,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 5,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 6,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 7,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 8,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 9,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 10,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 11,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 12,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 13,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 14,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 15,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 16,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 17,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 18,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 19,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 20,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 21,
+      "type": "contains"
+    },
+    {
+      "source": 2,
+      "target": 22,
+      "type": "contains"
+    },
+    {
+      "source": 23,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 24,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 25,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 26,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 27,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 28,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 29,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 30,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 31,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 32,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 33,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 34,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 35,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 36,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 37,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 38,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 39,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 40,
+      "target": 1,
+      "type": "connects_to"
+    },
+    {
+      "source": 25,
+      "target": 8,
+      "type": "manages"
+    },
+    {
+      "source": 26,
+      "target": 9,
+      "type": "manages"
+    },
+    {
+      "source": 27,
+      "target": 10,
+      "type": "manages"
+    },
+    {
+      "source": 28,
+      "target": 11,
+      "type": "manages"
+    },
+    {
+      "source": 29,
+      "target": 12,
+      "type": "manages"
+    },
+    {
+      "source": 41,
+      "target": 25,
+      "type": "calls"
+    },
+    {
+      "source": 42,
+      "target": 26,
+      "type": "calls"
+    },
+    {
+      "source": 43,
+      "target": 27,
+      "type": "calls"
+    },
+    {
+      "source": 44,
+      "target": 28,
+      "type": "calls"
+    },
+    {
+      "source": 45,
+      "target": 29,
+      "type": "calls"
+    },
+    {
+      "source": 52,
+      "target": 32,
+      "type": "calls"
+    },
+    {
+      "source": 23,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 23,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 23,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 24,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 24,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 24,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 25,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 25,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 25,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 26,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 26,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 26,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 27,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 27,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 27,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 28,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 28,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 28,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 29,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 29,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 29,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 30,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 30,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 30,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 31,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 31,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 31,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 32,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 32,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 32,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 33,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 33,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 33,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 34,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 34,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 34,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 35,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 35,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 35,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 36,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 36,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 36,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 37,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 37,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 37,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 38,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 38,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 38,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 39,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 39,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 39,
+      "target": 112,
+      "type": "uses"
+    },
+    {
+      "source": 40,
+      "target": 110,
+      "type": "uses"
+    },
+    {
+      "source": 40,
+      "target": 111,
+      "type": "uses"
+    },
+    {
+      "source": 40,
+      "target": 112,
+      "type": "uses"
+    }
+  ]
 }
