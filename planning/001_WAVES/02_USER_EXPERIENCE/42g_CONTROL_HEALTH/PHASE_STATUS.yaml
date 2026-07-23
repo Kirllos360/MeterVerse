@@ -12,5 +12,5 @@ evidence_dir: 42g_CONTROL_HEALTH/_evidence/
 - T29 — Database Schema Hardening: PLANNING
 - T30 — API Hardening: COMPLETE (domain.js DELETE bug fixed, Zod on 6 routes)
 - T31 — Codebase Consolidation: PLANNING
-- T34 — Graphiti Rebuild: PLANNING
+- T34 — Graphiti Rebuild: COMPLETE (366 manifest entries path-fixed, graphify installed)
 - T35 — Workflow Engine Service: PLANNING
