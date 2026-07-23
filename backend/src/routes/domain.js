@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, auditLog } from "../middleware/security.js"
+import { requireRole, auditLog }, auditMiddleware from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -38,7 +38,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Create
-  router.post(`/${resource}`, requireRole("admin", "super_admin"), async (req, res, next) => {
+  router.post(`/${resource}`, requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
     try {
       const data = createSchema.parse(req.body)
       const item = await model.create({ data })
@@ -47,7 +47,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Update
-  router.put(`/${resource}/:id`, requireRole("admin", "super_admin"), async (req, res, next) => {
+  router.put(`/${resource}/:id`, requireRole("admin", "super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
     try {
       const data = createSchema.partial().parse(req.body)
       const item = await model.update({ where: { id: req.params.id }, data })
@@ -56,7 +56,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   })
 
   // Delete
-  router.delete(`/${resource}/:id`, requireRole("super_admin"), async (req, res, next) => {
+  router.delete(`/${resource}/:id`, requireRole("super_admin"), auditMiddleware(req, "entity.action"), async (req, res, next) => {
     try {
       await model.delete({ where: { id: req.params.id } })
       res.json({ success: true })
@@ -168,5 +168,6 @@ crud("escalation-policies", "escalationPolicy", z.object({
 }), { searchFields: ["name"] })
 
 export { router as domainRouter }
+
 
 
