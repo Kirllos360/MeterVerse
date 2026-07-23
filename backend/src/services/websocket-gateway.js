@@ -21,17 +21,12 @@ export function initWebSocket(server) {
   })
 
   io.on("connection", (socket) => {
-    console.log("WebSocket connected:", socket.user?.email)
-
     socket.join("user:" + socket.user.sub)
     socket.join("role:" + socket.user.role)
 
     socket.on("disconnect", () => {
-      console.log("WebSocket disconnected:", socket.user?.email)
     })
   })
-
-  console.log("WebSocket gateway initialized")
   return io
 }
 

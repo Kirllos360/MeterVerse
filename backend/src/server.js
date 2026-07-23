@@ -121,5 +121,5 @@ app.use(errorHandler)
 const httpServer = createServer(app)
 initWebSocket(httpServer)
 
-httpServer.listen(PORT, () => console.log(`MeterVerse API running on port ${PORT}`))
+httpServer.listen(PORT, () => {})
 
