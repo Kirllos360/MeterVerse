@@ -1,0 +1,7 @@
+step:
+  name: "Add Change AuditLog"
+  task: "T28"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Add Change AuditLog completed and verified"

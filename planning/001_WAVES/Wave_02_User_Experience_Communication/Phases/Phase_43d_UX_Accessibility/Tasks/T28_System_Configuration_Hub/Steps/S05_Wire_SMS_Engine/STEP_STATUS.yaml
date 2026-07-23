@@ -1,0 +1,7 @@
+step:
+  name: "Wire SMS Engine"
+  task: "T28"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Wire SMS Engine completed and verified"

@@ -1,0 +1,7 @@
+step:
+  name: "Wire Email Engine"
+  task: "T28"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  evidence_required:
+    - "Wire Email Engine completed and verified"

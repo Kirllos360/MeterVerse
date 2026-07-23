@@ -1,0 +1,18 @@
+task:
+  name: "Build System Configuration Hub — dynamic settings management"
+  phase: "43d"
+  status: "PLANNING"
+  priority: "MEDIUM"
+  steps:
+    S01: "Add SMTP settings (host, port, user, pass, from) to SystemSetting model"
+    S02: "Add SMS provider settings (provider, apiKey, apiSecret, fromNumber) to SystemSetting"
+    S03: "Build unified Configuration UI at /admin/settings showing all config groups"
+    S04: "Wire email-engine.js to read SMTP config from SystemSetting instead of .env"
+    S05: "Wire sms-engine.js to read SMS config from SystemSetting instead of .env"
+    S06: "Add config validation — test SMTP/SMS connection from admin UI"
+    S07: "Add config change audit log — every setting change recorded in AuditEntry"
+  completion_criteria:
+    - "SMTP configurable from admin UI without .env changes"
+    - "SMS configurable from admin UI without .env changes"
+    - "Config changes take effect without server restart"
+    - "All changes audited"
