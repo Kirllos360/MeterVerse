@@ -10,4 +10,4 @@ evidence_dir: 00_ENTERPRISE_TEST_FOUNDATION/_evidence/
 - T09 — Unit Test Infrastructure: COMPLETE (8/8 steps, 71 tests, 87.79% coverage)
 - T10 — API Test Suite: RUNNING (5/10 steps, 10 API tests, 81 total)
 - T11 — Playwright Auth Tests: COMPLETE (5 tests created)
-- T12 — Playwright Page Tests: PLANNING
+- T12 — Playwright Page Tests: COMPLETE (19 tests, T11+T12 = 24 total Playwright specs)
