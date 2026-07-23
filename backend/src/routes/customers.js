@@ -29,6 +29,31 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
+router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+  try {
+    const customers = await prisma.customer.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const header = "id,name,email,phone,status,area,createdAt"
+    const rows = customers.map(c => `${c.id},${c.name || ""},${c.email || ""},${c.phone || ""},${c.status || ""},${c.area || ""},${c.createdAt?.toISOString() || ""}`)
+    res.setHeader("Content-Type", "text/csv")
+    res.setHeader("Content-Disposition", "attachment; filename=customers.csv")
+    res.send([header, ...rows].join("\n"))
+    auditLog(req, "customer.export", { count: customers.length })
+  } catch (err) { next(err) }
+})
+
+router.get("/stats", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
+  try {
+    const [total, active, inactive, maintenance, terminated] = await Promise.all([
+      prisma.customer.count({ where: { archivedAt: null } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "active" } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "inactive" } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "maintenance" } }),
+      prisma.customer.count({ where: { archivedAt: null, status: "terminated" } }),
+    ])
+    res.json({ stats: { total, active, inactive, maintenance, terminated } })
+  } catch (err) { next(err) }
+})
+
 router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const customer = await prisma.customer.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { meters: true, invoices: true } })
@@ -101,6 +126,7 @@ router.get("/stats", requireRole("admin", "super_admin", "operator", "viewer"), 
 })
 
 export { router as customersRouter }
+
 
 
 
