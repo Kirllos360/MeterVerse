@@ -319,8 +319,8 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
                         {search ? "No records match your search." : "No records found."}
                       </TableCell>
                     </TableRow>
-                  ) : paged.map((row: any) => {
-                    const rid = row.id || row[config.rowKey || "id"] || Math.random()
+                  ) : paged.map((row: any, idx: number) => {
+                    const rid = row.id || row[config.rowKey || "id"] || `row-${idx}`
                     return (
                       <motion.tr key={rid}
                         initial={{ opacity: 0, x: -8 }}
@@ -401,5 +401,6 @@ const defaultTabsWithStatus = [
   { value: "maintenance", label: "Maintenance", filter: (r: any) => r.status === "maintenance" },
   { value: "terminated", label: "Terminated", filter: (r: any) => r.status === "terminated" },
 ]
+
 
 
