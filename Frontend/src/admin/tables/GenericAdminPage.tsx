@@ -32,6 +32,7 @@ function useDebounce<T>(value: T, delay: number): T {
 }
 
 export function GenericAdminPage({ config, initialData, renderCustom }: GenericAdminPageProps) {
+  const router = useRouter()
   const queryClient = useQueryClient()
   const [search, setSearch] = useState("")
   const [tab, setTab] = useState("all")
@@ -323,11 +324,18 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
                     const rid = row.id || row[config.rowKey || "id"] || `row-${idx}`
                     return (
                       <motion.tr key={rid}
+                        onClick={() => {
+                          const entityPath = config.resource || (config.title ? config.title.toLowerCase() : "");
+                          const id = row.id || row[config.rowKey || "id"];
+                          if (entityPath && id) {
+                            router.push("/admin/" + entityPath + "/" + id);
+                          }
+                        }}
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 8 }}
                         transition={{ duration: 0.15 }}
-                        className="hover:bg-muted/50 transition-colors border-b"
+                        className="cursor-pointer hover:bg-muted/50 transition-colors border-b"
                       >
                         {config.columns.map(col => (
                           <TableCell key={col.id}>{renderCell(row, col as ColumnConfig)}</TableCell>
