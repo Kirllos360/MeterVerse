@@ -15,9 +15,9 @@ export default function AdminMonitorPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/api/monitor/health-deep").then(r=>r.json()).catch(()=>({})),
+      fetch("/api/monitor/health/deep").then(r=>r.json()).catch(()=>({})),
       fetch("/api/monitor/performance").then(r=>r.json()).catch(()=>({})),
-      fetch("/api/monitor/audit-explorer").then(r=>r.json()).catch(()=>({})),
+      fetch("/api/monitor/audit/explorer").then(r=>r.json()).catch(()=>({})),
       fetch("/api/monitor/analytics?days=30").then(r=>r.json()).catch(()=>({})),
     ]).then(([h,p,a,an]) => { setDeep(h); setPerf(p); setAudit(a); setAnalytics(an); setLoading(false) }).catch(()=>setLoading(false))
   }, [])
