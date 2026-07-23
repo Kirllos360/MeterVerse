@@ -1,0 +1,7 @@
+step:
+  name: "Implement Custom Report Builder"
+  task: "T06_Custom_Report_Builder"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Custom Report Builder implemented and verified"

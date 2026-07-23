@@ -1,0 +1,8 @@
+task:
+  name: "Demand Pricing"
+  phase: "Phase_44a_Tariff_Engine"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Demand Pricing"
+  completion_criteria:
+    - "Task complete with evidence"

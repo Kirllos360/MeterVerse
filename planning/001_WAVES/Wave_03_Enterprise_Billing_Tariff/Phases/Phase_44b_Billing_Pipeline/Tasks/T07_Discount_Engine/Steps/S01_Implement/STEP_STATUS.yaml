@@ -1,0 +1,7 @@
+step:
+  name: "Implement Discount Engine"
+  task: "T07_Discount_Engine"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Discount Engine implemented and verified"

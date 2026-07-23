@@ -1,0 +1,8 @@
+task:
+  name: "Billing Reports"
+  phase: "Phase_44d_Billing_Compliance"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Billing Reports"
+  completion_criteria:
+    - "Task complete with evidence"

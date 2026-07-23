@@ -1,0 +1,8 @@
+task:
+  name: "SMS Delivery"
+  phase: "Phase_43b_Communication_RealTime"
+  status: "PLANNING"
+  steps:
+    S01: "Implement SMS Delivery"
+  completion_criteria:
+    - "Task complete with evidence"

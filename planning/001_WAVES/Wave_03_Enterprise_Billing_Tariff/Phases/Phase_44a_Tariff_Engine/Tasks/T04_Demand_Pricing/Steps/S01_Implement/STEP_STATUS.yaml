@@ -1,0 +1,7 @@
+step:
+  name: "Implement Demand Pricing"
+  task: "T04_Demand_Pricing"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Demand Pricing implemented and verified"

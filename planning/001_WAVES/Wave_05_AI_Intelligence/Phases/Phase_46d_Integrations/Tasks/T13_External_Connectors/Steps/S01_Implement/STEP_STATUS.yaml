@@ -1,0 +1,7 @@
+step:
+  name: "Implement External Connectors"
+  task: "T13_External_Connectors"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement External Connectors implemented and verified"

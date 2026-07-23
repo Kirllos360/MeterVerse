@@ -1,0 +1,7 @@
+step:
+  name: "Implement Tenant Provisioning"
+  task: "T10_Tenant_Provisioning"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Tenant Provisioning implemented and verified"

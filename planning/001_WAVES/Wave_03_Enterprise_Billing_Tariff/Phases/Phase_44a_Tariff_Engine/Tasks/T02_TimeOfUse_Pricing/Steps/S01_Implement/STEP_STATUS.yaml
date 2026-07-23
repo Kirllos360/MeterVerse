@@ -1,0 +1,7 @@
+step:
+  name: "Implement TimeOfUse Pricing"
+  task: "T02_TimeOfUse_Pricing"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement TimeOfUse Pricing implemented and verified"

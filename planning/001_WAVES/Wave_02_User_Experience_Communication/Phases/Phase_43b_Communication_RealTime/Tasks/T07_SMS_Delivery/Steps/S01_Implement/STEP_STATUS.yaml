@@ -1,0 +1,7 @@
+step:
+  name: "Implement SMS Delivery"
+  task: "T07_SMS_Delivery"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement SMS Delivery implemented and verified"

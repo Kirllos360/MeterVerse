@@ -1,0 +1,7 @@
+step:
+  name: "Implement CORS Hardening"
+  task: "T08_CORS_Hardening"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement CORS Hardening implemented and verified"

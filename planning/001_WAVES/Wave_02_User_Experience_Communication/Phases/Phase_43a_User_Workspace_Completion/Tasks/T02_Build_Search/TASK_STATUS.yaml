@@ -1,0 +1,8 @@
+task:
+  name: "Build Search"
+  phase: "Phase_43a_User_Workspace_Completion"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Build Search"
+  completion_criteria:
+    - "Task complete with evidence"

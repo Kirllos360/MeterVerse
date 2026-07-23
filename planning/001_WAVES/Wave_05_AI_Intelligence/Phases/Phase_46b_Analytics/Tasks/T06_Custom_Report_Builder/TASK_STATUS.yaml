@@ -1,0 +1,8 @@
+task:
+  name: "Custom Report Builder"
+  phase: "Phase_46b_Analytics"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Custom Report Builder"
+  completion_criteria:
+    - "Task complete with evidence"

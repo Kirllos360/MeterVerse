@@ -1,0 +1,7 @@
+step:
+  name: "Implement AI Chat Assistant"
+  task: "T04_AI_Chat_Assistant"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement AI Chat Assistant implemented and verified"

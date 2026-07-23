@@ -1,0 +1,16 @@
+task:
+  name: "Phase Completion Audit"
+  phase: "Phase_47a_Mobile_API"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  steps:
+    S00_Verification_Loop: "Verification Loop"
+    S01_Audit_Planning_Docs: "Audit Planning Docs"
+    S02_Audit_Graph_Architecture: "Audit Graph Architecture"
+    S03_Audit_Frontend_Structure: "Audit Frontend Structure"
+    S04_Audit_Backend_Structure: "Audit Backend Structure"
+    S05_Audit_Database_Design: "Audit Database Design"
+    S06_Audit_Process_Flow: "Audit Process Flow"
+    S07_Audit_KPI_Flow: "Audit KPI Flow"
+  completion_criteria:
+    - "All 7 audit steps plus verification loop pass"

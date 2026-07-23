@@ -1,0 +1,7 @@
+step:
+  name: "Implement Email Delivery"
+  task: "T06_Email_Delivery"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Email Delivery implemented and verified"

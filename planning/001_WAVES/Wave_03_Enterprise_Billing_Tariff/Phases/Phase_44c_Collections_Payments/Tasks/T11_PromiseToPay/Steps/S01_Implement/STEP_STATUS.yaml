@@ -1,0 +1,7 @@
+step:
+  name: "Implement PromiseToPay"
+  task: "T11_PromiseToPay"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement PromiseToPay implemented and verified"

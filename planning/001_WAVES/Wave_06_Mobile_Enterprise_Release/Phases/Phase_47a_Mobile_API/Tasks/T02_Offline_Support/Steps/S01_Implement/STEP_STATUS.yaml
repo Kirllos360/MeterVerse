@@ -1,0 +1,7 @@
+step:
+  name: "Implement Offline Support"
+  task: "T02_Offline_Support"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Offline Support implemented and verified"

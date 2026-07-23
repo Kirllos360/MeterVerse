@@ -1,0 +1,7 @@
+step:
+  name: "Implement Invoice Compliance"
+  task: "T12_Invoice_Compliance"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Invoice Compliance implemented and verified"

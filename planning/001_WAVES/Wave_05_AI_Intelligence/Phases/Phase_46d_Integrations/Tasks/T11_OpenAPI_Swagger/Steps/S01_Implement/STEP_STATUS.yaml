@@ -1,0 +1,7 @@
+step:
+  name: "Implement OpenAPI Swagger"
+  task: "T11_OpenAPI_Swagger"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement OpenAPI Swagger implemented and verified"

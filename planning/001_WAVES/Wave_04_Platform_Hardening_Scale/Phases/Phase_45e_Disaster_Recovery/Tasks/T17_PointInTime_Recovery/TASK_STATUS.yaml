@@ -1,0 +1,8 @@
+task:
+  name: "PointInTime Recovery"
+  phase: "Phase_45e_Disaster_Recovery"
+  status: "PLANNING"
+  steps:
+    S01: "Implement PointInTime Recovery"
+  completion_criteria:
+    - "Task complete with evidence"

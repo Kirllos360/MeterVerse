@@ -1,0 +1,8 @@
+task:
+  name: "Payment Gateway"
+  phase: "Phase_44c_Collections_Payments"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Payment Gateway"
+  completion_criteria:
+    - "Task complete with evidence"

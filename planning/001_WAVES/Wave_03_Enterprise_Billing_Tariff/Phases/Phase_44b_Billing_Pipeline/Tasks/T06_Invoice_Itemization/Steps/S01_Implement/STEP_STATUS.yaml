@@ -1,0 +1,7 @@
+step:
+  name: "Implement Invoice Itemization"
+  task: "T06_Invoice_Itemization"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Invoice Itemization implemented and verified"

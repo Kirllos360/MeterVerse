@@ -1,0 +1,7 @@
+step:
+  name: "Implement Support Tiers"
+  task: "T12_Support_Tiers"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Support Tiers implemented and verified"

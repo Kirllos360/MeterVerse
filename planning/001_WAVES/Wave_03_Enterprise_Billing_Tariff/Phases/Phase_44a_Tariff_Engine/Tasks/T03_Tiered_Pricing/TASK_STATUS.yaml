@@ -1,0 +1,8 @@
+task:
+  name: "Tiered Pricing"
+  phase: "Phase_44a_Tariff_Engine"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Tiered Pricing"
+  completion_criteria:
+    - "Task complete with evidence"

@@ -1,0 +1,8 @@
+task:
+  name: "TimeOfUse Pricing"
+  phase: "Phase_44a_Tariff_Engine"
+  status: "PLANNING"
+  steps:
+    S01: "Implement TimeOfUse Pricing"
+  completion_criteria:
+    - "Task complete with evidence"

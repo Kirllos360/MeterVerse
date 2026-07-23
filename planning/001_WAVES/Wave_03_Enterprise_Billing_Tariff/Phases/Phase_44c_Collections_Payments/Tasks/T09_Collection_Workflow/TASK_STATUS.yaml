@@ -1,0 +1,8 @@
+task:
+  name: "Collection Workflow"
+  phase: "Phase_44c_Collections_Payments"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Collection Workflow"
+  completion_criteria:
+    - "Task complete with evidence"

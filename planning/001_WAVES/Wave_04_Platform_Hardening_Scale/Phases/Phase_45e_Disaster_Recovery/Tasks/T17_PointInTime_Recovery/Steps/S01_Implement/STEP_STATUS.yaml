@@ -1,0 +1,7 @@
+step:
+  name: "Implement PointInTime Recovery"
+  task: "T17_PointInTime_Recovery"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement PointInTime Recovery implemented and verified"

@@ -1,0 +1,7 @@
+step:
+  name: "Implement Consumption Forecasting"
+  task: "T02_Consumption_Forecasting"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Consumption Forecasting implemented and verified"

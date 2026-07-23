@@ -1,0 +1,7 @@
+step:
+  name: "Implement Loading States"
+  task: "T14_Loading_States"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Loading States implemented and verified"

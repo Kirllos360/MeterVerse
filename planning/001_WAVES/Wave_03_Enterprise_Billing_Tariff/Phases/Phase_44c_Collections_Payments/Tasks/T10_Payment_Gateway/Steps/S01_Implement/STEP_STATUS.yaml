@@ -1,0 +1,7 @@
+step:
+  name: "Implement Payment Gateway"
+  task: "T10_Payment_Gateway"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Payment Gateway implemented and verified"

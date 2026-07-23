@@ -1,0 +1,7 @@
+step:
+  name: "Implement Billing Reports"
+  task: "T14_Billing_Reports"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Billing Reports implemented and verified"

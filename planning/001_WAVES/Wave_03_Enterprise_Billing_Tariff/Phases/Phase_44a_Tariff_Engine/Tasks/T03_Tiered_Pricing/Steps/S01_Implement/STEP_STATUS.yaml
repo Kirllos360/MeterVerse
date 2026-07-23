@@ -1,0 +1,7 @@
+step:
+  name: "Implement Tiered Pricing"
+  task: "T03_Tiered_Pricing"
+  status: "PLANNING"
+  estimated_hours: 4
+  evidence_required:
+    - "Implement Tiered Pricing implemented and verified"

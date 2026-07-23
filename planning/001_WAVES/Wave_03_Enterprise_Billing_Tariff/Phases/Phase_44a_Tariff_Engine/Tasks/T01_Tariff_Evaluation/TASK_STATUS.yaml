@@ -1,0 +1,8 @@
+task:
+  name: "Tariff Evaluation"
+  phase: "Phase_44a_Tariff_Engine"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Tariff Evaluation"
+  completion_criteria:
+    - "Task complete with evidence"

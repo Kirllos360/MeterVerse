@@ -1,0 +1,8 @@
+task:
+  name: "Support Tiers"
+  phase: "Phase_47c_PostLaunch"
+  status: "PLANNING"
+  steps:
+    S01: "Implement Support Tiers"
+  completion_criteria:
+    - "Task complete with evidence"
