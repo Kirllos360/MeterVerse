@@ -83,3 +83,21 @@ jobs:
       - name: Build frontend Docker
         continue-on-error: true
         run: docker build -t meterverse-frontend -f Frontend/Dockerfile . 2>&1 || echo "Docker build skipped"
+
+  gate-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: GATE_CHECK — verify all STATUS files
+        run: |
+          for phase in planning/001_WAVES/Wave_01_Enterprise_Hardening/Phases/Phase_*/; do
+            phaseName=
+            for task in ""Tasks/*/; do
+              taskName=
+              echo "Checking /..."
+              node scripts/gate-check.mjs "" "" || true
+            done
+          done

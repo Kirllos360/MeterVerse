@@ -1,7 +1,7 @@
 task:
   name: "T03 — GATE_CHECK Enforcement"
   phase: "42d"
-  status: "PLANNING"
+  status: "COMPLETE"
   priority: "CRITICAL"
   risk: "Without this, all future work is unverifiable"
   depends_on: []

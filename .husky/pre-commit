@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+// Pre-commit hook: Run GATE_CHECK on any modified STATUS.yaml files
+const { execSync } = require('child_process');
+const { readFileSync, existsSync } = require('fs');
+
+try {
+  const diff = execSync('git diff --cached --name-only', { encoding: 'utf8' });
+  const statusFiles = diff.split('\n').filter(f => f.includes('STATUS.yaml'));
+
+  for (const file of statusFiles) {
+    const parts = file.replace(/\\/g, '/').split('/');
+    const phaseIdx = parts.findIndex(p => p.startsWith('Phase_'));
+    if (phaseIdx === -1) continue;
+    
+    const phase = parts[phaseIdx];
+    const taskIdx = parts.findIndex(p => p.startsWith('T'));
+    const task = taskIdx >= 0 ? parts[taskIdx] : '';
+    
+    if (phase && task) {
+      console.log('GATE_CHECK: ' + phase + '/' + task);
+      try {
+        execSync('node scripts/gate-check.mjs "' + phase + '" "' + task + '"', { stdio: 'inherit' });
+      } catch (e) {
+        console.error('? GATE_CHECK failed. Commit blocked.');
+        process.exit(1);
+      }
+    }
+  }
+} catch (e) {
+  // No STATUS files changed, skip
+}

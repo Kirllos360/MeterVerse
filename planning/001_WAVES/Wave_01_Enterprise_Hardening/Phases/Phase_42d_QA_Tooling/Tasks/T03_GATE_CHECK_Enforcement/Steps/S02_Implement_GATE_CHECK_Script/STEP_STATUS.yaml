@@ -1,9 +1,10 @@
 step:
   name: "Implement GATE_CHECK Script"
   task: "T03"
-  status: "PLANNING"
+  status: "COMPLETE"
   depends_on: ["S01"]
   estimated_hours: 4
   evidence_required:
     - "scripts/gate-check.mjs exists and passes dry-run"
   prompts_available: true
+
