@@ -1,0 +1,15 @@
+task:
+  name: "T04 — Fix page-configs.ts Memory Issue"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "HIGH"
+  risk: "1.79GB dev server memory — blocks developer productivity"
+  depends_on: []
+  completion_criteria:
+    - "No single config file exceeds 10KB"
+    - "Dev server memory below 500MB on first admin page load"
+    - "All 46 GenericAdminPage references resolve correctly"
+  steps:
+    S01: "COMPLETE when dependency map created"
+    S02: "COMPLETE when all 46 admin pages reference their config"
+    S03: "COMPLETE when dev server memory below 500MB"

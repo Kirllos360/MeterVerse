@@ -19,6 +19,7 @@ import { crudRouter } from "./routes/crud.js"
 import { monitorRouter } from "./routes/monitor.js"
 import { aiRouter } from "./routes/ai.js"
 import { meterAssignmentRouter } from "./routes/meter-assignments.js"
+import { notificationsRouter } from "./routes/notifications.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 
 const app = express()
@@ -90,13 +91,14 @@ app.use("/api/payments", paymentsRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/services", servicesRouter)
 app.use("/api/reports", reportsRouter)
-// app.use('/api/domain', domainRouter) // disabled
+app.use("/api/domain", domainRouter)
 app.use("/api/business", businessRouter)
 app.use("/api/crud", crudRouter)
 app.use("/api/monitor", monitorRouter)
 app.use("/api/ai", aiRouter)
 app.use("/api/security", securityRouter)
 app.use("/api/meter-assignments", meterAssignmentRouter)
+app.use("/api/notifications", notificationsRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 

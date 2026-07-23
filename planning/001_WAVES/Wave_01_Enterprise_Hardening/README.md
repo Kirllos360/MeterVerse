@@ -1,21 +1,38 @@
-# Wave 01 — Enterprise Hardening
+# Wave 01 - Enterprise Hardening
 
-**Status:** PLANNING  
-**Target:** Phase 42  
-**Duration:** 3 sub-phases (42a, 42b, 42c)
+**Status:** ACTIVE
+**Target:** Phase 42 (a, b, c, d)
+**Duration:** 4 sub-phases
 
 ## Objectives
-1. Fix domain.js — unblock 18 domain entities
-2. Add 20+ database indexes — prevent query degradation
+1. Fix domain.js - unblock 18 domain entities
+2. Add 20+ database indexes - prevent query degradation
 3. Wire remaining 12 notification events
 4. Add export for all entities
 5. Create customer/meter/invoice detail pages
+6. Add GATE_CHECK enforcement - prevent AI from skipping work
+7. Split page-configs.ts - fix 1.79GB dev server memory
+8. Establish unit test foundation - move from 0% coverage
+9. Resolve Meter/ parallel codebase - 267K file decision
+
+## Phases
+
+| Phase | Focus | Status | Tasks |
+|-------|-------|--------|-------|
+| 42a | Indexes & Domain Fix | PLANNING | T01 (indexes), T02 (domain.js) |
+| 42b | Notifications & Export | PLANNING | TBD |
+| 42c | Detail Pages | PLANNING | TBD |
+| 42d | QA & Tooling | PLANNING | T03 (GATE_CHECK), T04 (page-configs), T05 (tests), T06 (Meter/) |
 
 ## Dependencies
 - Phase 42a must complete before 42b
 - 42b and 42c can run in parallel
+- 42d runs in parallel with 42a, 42b, 42c (non-blocking)
+- T03 (GATE_CHECK) is independent - can start immediately
 
 ## Risk Summary
-- Database indexes are non-breaking — safe to add anytime
-- domain.js fix is critical path — blocks 18 entities
+- Database indexes are non-breaking - safe to add anytime
+- domain.js fix is critical path - blocks 18 entities
 - Notifications and detail pages are independent
+- GATE_CHECK is highest-priority: without it, no future work is verifiable
+- Zero tests is highest-risk: no regression safety for any change

@@ -1,0 +1,23 @@
+phase:
+  name: "Phase 42b — Notifications & Export"
+  wave: 1
+  status: "COMPLETE"
+  dependencies:
+    - "Phase 42a (must complete first)"
+  tasks:
+    T03_Wire_Notifications:
+      name: "Wire Notifications"
+      status: "COMPLETE"
+      steps:
+        S01: "Audit events — COMPLETE"
+        S02: "Build engine — COMPLETE"
+        S03: "Create templates — COMPLETE"
+        S04: "Wire events — COMPLETE"
+        S05: "Create API route — COMPLETE"
+    T04_Add_Export:
+      name: "Add export for all entities"
+      status: "COMPLETE"
+      steps:
+        S01: "Add Meter export — COMPLETE when meter CSV/PDF export works"
+
+

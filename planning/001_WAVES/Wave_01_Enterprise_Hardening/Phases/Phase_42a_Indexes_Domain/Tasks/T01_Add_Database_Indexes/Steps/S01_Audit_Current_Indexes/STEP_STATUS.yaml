@@ -2,14 +2,16 @@ step:
   id: "S01"
   name: "Audit current indexes"
   task: "T01"
-  status: "PLANNING"
+  status: "COMPLETE"
   prompts:
     frontend: false
     backend: false
     database: true
   deliverables:
-    - "Index audit report"
-    - "List of 20+ missing indexes"
+    - "Index audit report at docs/reviews/INDEX_AUDIT_REPORT.md"
+    - "96 missing indexes identified across 78 models"
   quality_gates:
     - "All 78 models checked for indexes"
     - "Report committed to planning/"
+  evidence:
+    - "docs/reviews/INDEX_AUDIT_REPORT.md"

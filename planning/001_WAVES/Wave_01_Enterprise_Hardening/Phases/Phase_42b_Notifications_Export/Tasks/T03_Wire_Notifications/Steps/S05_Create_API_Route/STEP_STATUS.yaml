@@ -1,0 +1,12 @@
+step:
+  name: "Create Notification API Route"
+  task: "T03"
+  status: "COMPLETE"
+  depends_on: ["S04"]
+  estimated_hours: 3
+  evidence_required:
+    - "backend/src/routes/notifications.js exists"
+    - "GET /api/notifications returns user's notifications"
+    - "PUT /api/notifications/:id/read marks as read"
+    - "Admin can manage NotificationTemplates via /api/admin/notification-templates"
+

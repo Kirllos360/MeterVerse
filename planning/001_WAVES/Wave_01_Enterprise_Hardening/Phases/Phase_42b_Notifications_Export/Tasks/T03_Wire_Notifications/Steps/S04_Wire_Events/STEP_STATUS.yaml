@@ -1,0 +1,11 @@
+step:
+  name: "Wire Events to Notification Triggers"
+  task: "T03"
+  status: "COMPLETE"
+  depends_on: ["S03"]
+  estimated_hours: 4
+  evidence_required:
+    - "At least 5 events produce Notification records when triggered"
+    - "Events wired: customer.created, invoice.generated, payment.created, meter.archived, auth.login_failed"
+    - "Verification: trigger event via API ? check Notification table has record"
+

@@ -1,0 +1,11 @@
+step:
+  id: "S02"
+  name: "Implement fix"
+  task: "T02"
+  status: "COMPLETE"
+  acceptance_criteria:
+    - "All 18 domain entities unblocked"
+    - "Domain routes enabled in server.js"
+    - "Zero TypeScript errors"
+    - "Zero regression in existing APIs"
+

@@ -1,0 +1,10 @@
+step:
+  name: "Add Pre-commit Hook"
+  task: "T03"
+  status: "PLANNING"
+  depends_on: ["S02"]
+  estimated_hours: 2
+  evidence_required:
+    - ".husky/pre-commit file exists"
+    - "Hook blocks commit when STATUS.yaml changes without evidence"
+  prompts_available: true

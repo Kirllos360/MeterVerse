@@ -1,0 +1,9 @@
+step:
+  name: "Add Meter Export"
+  task: "T04"
+  status: "COMPLETE"
+  depends_on: []
+  estimated_hours: 4
+  evidence_required:
+    - "Meter CSV export works from admin UI"
+

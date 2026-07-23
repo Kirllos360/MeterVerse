@@ -1,0 +1,15 @@
+task:
+  name: "T05 — Unit Test Foundation"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  risk: "0% test coverage — highest risk item in audit"
+  depends_on: []
+  completion_criteria:
+    - "npm test passes with at least 5% coverage"
+    - "3 backend service files have tests"
+    - "1 admin page has a component test"
+  steps:
+    S01: "COMPLETE when npm test runs green"
+    S02: "COMPLETE when 3 backend services have tests"
+    S03: "COMPLETE when 1 admin page has component test"

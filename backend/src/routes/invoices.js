@@ -28,6 +28,19 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
+
+router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+  try {
+    const items = await prisma.invoice.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const header = "number,customerId,amount,status,dueDate,issuedAt,paidAt,createdAt"
+    const rows = items.map(i => [i.number, i.customerId, i.amount, i.status, i.dueDate, i.issuedAt, i.paidAt, i.createdAt].join(","))
+    res.setHeader("Content-Type", "text/csv")
+    res.setHeader("Content-Disposition", "attachment; filename=invoices.csv")
+    res.send([header, ...rows].join("\n"))
+    auditLog(req, "invoice.export", { count: items.length })
+  } catch (err) { next(err) }
+})
+
 router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const invoice = await prisma.invoice.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { customer: true, payments: true } })

@@ -1,0 +1,10 @@
+step:
+  name: "Update Imports & Test"
+  task: "T04"
+  status: "PLANNING"
+  depends_on: ["S02"]
+  estimated_hours: 2
+  evidence_required:
+    - "Dev server memory below 500MB on admin page load"
+    - "All existing admin pages render correctly"
+  prompts_available: true

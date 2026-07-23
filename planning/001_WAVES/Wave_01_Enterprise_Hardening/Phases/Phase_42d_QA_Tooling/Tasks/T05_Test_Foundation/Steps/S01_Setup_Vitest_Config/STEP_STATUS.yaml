@@ -1,0 +1,10 @@
+step:
+  name: "Setup Vitest Config"
+  task: "T05"
+  status: "PLANNING"
+  depends_on: []
+  estimated_hours: 2
+  evidence_required:
+    - "vitest.config.ts exists in backend/"
+    - "npm test runs and exits 0"
+  prompts_available: true

@@ -110,6 +110,32 @@ next enterprise sprint.
 - [ ] Manual readings (ResultM) also produce combined rows in both ResultM and Result
 - [ ] Delete + re-upload recalculates combined correctly
 
+## Rule: Mandatory tool selection before every task
+
+Before starting ANY task execution, you MUST:
+1. Read `configs/tools-manifest.md` for the full tool inventory
+2. Output 🧰 **`Tools activated: [tool1, tool2, ...]`** as your FIRST message line for that task
+3. Select from the correct category based on task type (DB → postgres MCP, git → git MCP, etc.)
+4. Log usage after completion in `configs/tool-usage-log.json`
+
+Failure to output the 🧰 block = protocol violation. The user can detect this immediately.
+
+## Rule: Always verify STATUS.yaml after every update
+
+Every time a STEP_STATUS, TASK_STATUS, or PHASE_STATUS file is updated, immediately re-read the file and assert the expected status value. Never assume a `-replace` or `Set-Content` succeeded without verification. This prevents silent inconsistency between actual work and planning state.
+
+Standard update protocol:
+```powershell
+# After updating any *STATUS.yaml:
+$content = Get-Content $path -Raw
+$content = $content -replace 'status: "OLD"', 'status: "NEW"'
+$content = $content -replace "status: OLD", "status: NEW"  # handle unquoted too
+Set-Content -Path $path -Value $content
+# VERIFY:
+$actual = (Select-String -Path $path -Pattern "status:" | Select-Object -First 1).Line
+if ($actual -notmatch "NEW") { Write-Host "❌ UPDATE FAILED for $path" }
+```
+
 ## Rule: Know the schema before coding
 
 DO NOT assume column names from one area apply to another. Always run schema discovery first (`reverse_engineer_system.sql` Set 2). The three common patterns seen so far:

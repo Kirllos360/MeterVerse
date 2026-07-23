@@ -15,6 +15,18 @@ const createSchema = z.object({
 const router = Router()
 router.use(authenticate)
 
+router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+  try {
+    const items = await prisma.meter.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const header = "serial,type,location,status,area,customerId,createdAt"
+    const rows = items.map(m => `${m.serial},${m.type || ""},${m.location || ""},${m.status || ""},${m.area || ""},${m.customerId || ""},${m.createdAt?.toISOString() || ""}`)
+    res.setHeader("Content-Type", "text/csv")
+    res.setHeader("Content-Disposition", "attachment; filename=meters.csv")
+    res.send([header, ...rows].join("\n"))
+    auditLog(req, "meter.export", { count: items.length })
+  } catch (err) { next(err) }
+})
+
 router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, search } = req.query

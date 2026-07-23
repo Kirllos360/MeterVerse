@@ -1,0 +1,16 @@
+task:
+  name: "T03 — GATE_CHECK Enforcement"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "CRITICAL"
+  risk: "Without this, all future work is unverifiable"
+  depends_on: []
+  completion_criteria:
+    - "Pre-commit hook blocks commits with PLANNING->COMPLETE without evidence"
+    - "CI validates YAML status files match git diff"
+    - "GATE_CHECK script exits non-zero when evidence missing"
+  steps:
+    S01: "COMPLETE when protocol doc written"
+    S02: "COMPLETE when script passes dry-run"
+    S03: "COMPLETE when hook blocks invalid status changes"
+    S04: "COMPLETE when CI job validates YAML against git diff"

@@ -1,0 +1,9 @@
+step:
+  name: "Audit Notification Events"
+  task: "T03"
+  status: "COMPLETE"
+  depends_on: []
+  estimated_hours: 3
+  evidence_required:
+    - "Complete event map at docs/reviews/NOTIFICATION_EVENT_AUDIT.md"
+

@@ -1,0 +1,15 @@
+task:
+  name: "T06 — Meter/ Parallel Codebase Decision"
+  phase: "42d"
+  status: "PLANNING"
+  priority: "HIGH"
+  risk: "267K unresolved files create developer confusion and CI bloat"
+  depends_on: []
+  completion_criteria:
+    - "Meter/ content audit documented"
+    - "ADR-004 accepted with clear decision (archive/merge/delete)"
+    - "Decision executed — Meter/ no longer in active workspace"
+  steps:
+    S01: "COMPLETE when audit documented"
+    S02: "COMPLETE when ADR-004 accepted"
+    S03: "COMPLETE when decision executed"

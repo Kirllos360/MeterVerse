@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import { prisma } from "../server.js"
+import { processEvent } from "../services/notification-engine.js"
 
 const JWT_SECRET = process.env.JWT_SECRET
 if (!JWT_SECRET) { console.error("FATAL: JWT_SECRET required"); process.exit(1) }
@@ -65,6 +66,7 @@ export function auditLog(req, action, details = {}) {
     status: details.error ? "failure" : "success",
   }
   prisma.auditEntry.create({ data }).catch(() => {})
+  processEvent(action, details, { actorId: req.user?.sub, ip: req.ip }).catch(() => {})
 }
 
 export function auditMiddleware(action) {

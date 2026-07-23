@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { z } from "zod"
-import { prisma } from "../server.js"
+import { prisma } from "../db.js"
 import { authenticate } from "../middleware/auth.js"
 import { requireRole, auditLog , auditMiddleware } from "../middleware/security.js"
 
@@ -10,8 +10,8 @@ router.use(authenticate)
 // ─── HELPER: Generic CRUD factory ────────────────────────────────────────────
 
 function crud(resource, modelName, createSchema, options = {}) {
+  if (!prisma[modelName]) { console.warn(`[domain] Model "${modelName}" not found in Prisma client — skipping`); return }
   const model = () => prisma[modelName]
-  if (!model) return
 
   // List
   router.get(`/${resource}`, requireRole("admin", "super_admin"), async (req, res, next) => {
@@ -50,7 +50,7 @@ function crud(resource, modelName, createSchema, options = {}) {
   router.put(`/${resource}/:id`, requireRole("admin", "super_admin"), async (req, res, next) => {
     try {
       const data = createSchema.partial().parse(req.body)
-      const item = await model.update({ where: { id: req.params.id }, data })
+      const item = await model().update({ where: { id: req.params.id }, data })
       res.json({ [modelName.slice(0, -1)]: item })
     } catch (err) { if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors }); next(err) }
   })
@@ -168,6 +168,7 @@ crud("escalation-policies", "escalationPolicy", z.object({
 }), { searchFields: ["name"] })
 
 export { router as domainRouter }
+
 
 
 

@@ -1,12 +1,10 @@
 generator client {
   provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 model User {
   id            String       @id @default(uuid())
   email         String       @unique
@@ -32,8 +30,11 @@ model User {
   auditEntries  AuditEntry[]
   roleId        String?
   roleRel       Role?        @relation(fields: [roleId], references: [id])
-}
 
+
+  @@index([roleId])
+  @@index([status, createdAt])
+}
 model Role {
   id          String             @id @default(uuid())
   name        String             @unique
@@ -44,7 +45,6 @@ model Role {
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
 }
-
 model Permission {
   id          String             @id @default(uuid())
   name        String             @unique
@@ -53,7 +53,6 @@ model Permission {
   roles       PermissionOnRole[]
   createdAt   DateTime           @default(now())
 }
-
 model PermissionOnRole {
   roleId       String
   permissionId String
@@ -61,8 +60,10 @@ model PermissionOnRole {
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
 
   @@id([roleId, permissionId])
-}
 
+
+  @@index([permissionId])
+}
 model AuditEntry {
   id         String   @id @default(uuid())
   timestamp  DateTime @default(now())
@@ -76,8 +77,12 @@ model AuditEntry {
   userAgent  String?
   status     String   @default("success")
   user       User?    @relation(fields: [actorId], references: [id])
-}
 
+
+  @@index([actorId])
+  @@index([action, timestamp])
+  @@index([resource, resourceId])
+}
 model SystemSetting {
   id        String   @id @default(uuid())
   key       String   @unique
@@ -87,7 +92,6 @@ model SystemSetting {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 model FeatureFlag {
   id        String   @id @default(uuid())
   key       String   @unique
@@ -97,7 +101,6 @@ model FeatureFlag {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 model ApiKey {
   id          String    @id @default(uuid())
   name        String
@@ -110,8 +113,11 @@ model ApiKey {
   expiresAt   DateTime?
   active      Boolean   @default(true)
   createdAt   DateTime  @default(now())
-}
 
+
+  @@index([userId])
+  @@index([active])
+}
 model Session {
   id         String   @id @default(uuid())
   userId     String
@@ -125,8 +131,11 @@ model Session {
   lastUsedAt DateTime @default(now())
   expiresAt  DateTime
   createdAt  DateTime @default(now())
-}
 
+
+  @@index([userId, isActive])
+  @@index([expiresAt])
+}
 model Organization {
   id        String    @id @default(uuid())
   name      String    @unique
@@ -140,7 +149,6 @@ model Organization {
   updatedAt DateTime  @updatedAt
   projects  Project[]
 }
-
 model Project {
   id             String       @id @default(uuid())
   name           String
@@ -150,8 +158,10 @@ model Project {
   status         String       @default("active")
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-}
 
+
+  @@index([organizationId, status])
+}
 model Webhook {
   id              String    @id @default(uuid())
   name            String
@@ -163,7 +173,6 @@ model Webhook {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
-
 model NotificationTemplate {
   id        String   @id @default(uuid())
   key       String   @unique
@@ -175,7 +184,6 @@ model NotificationTemplate {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
-
 model Backup {
   id          String    @id @default(uuid())
   name        String
@@ -187,7 +195,6 @@ model Backup {
   completedAt DateTime?
   createdAt   DateTime  @default(now())
 }
-
 model CacheEntry {
   id        String    @id @default(uuid())
   key       String    @unique
@@ -197,7 +204,6 @@ model CacheEntry {
   createdAt DateTime  @default(now())
   expiresAt DateTime?
 }
-
 model QueueJob {
   id          String    @id @default(uuid())
   type        String
@@ -212,7 +218,6 @@ model QueueJob {
   completedAt DateTime?
   createdAt   DateTime  @default(now())
 }
-
 model ScheduledTask {
   id          String    @id @default(uuid())
   name        String
@@ -226,7 +231,6 @@ model ScheduledTask {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
-
 model StoredFile {
   id           String   @id @default(uuid())
   name         String
@@ -238,7 +242,6 @@ model StoredFile {
   uploadedBy   String?
   createdAt    DateTime @default(now())
 }
-
 model License {
   id          String    @id @default(uuid())
   key         String    @unique
@@ -250,7 +253,6 @@ model License {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
-
 model BrandingConfig {
   id        String   @id @default(uuid())
   key       String   @unique
@@ -259,7 +261,6 @@ model BrandingConfig {
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }
-
 model Notification {
   id             String    @id @default(uuid())
   type           String    @default("in_app")
@@ -274,7 +275,6 @@ model Notification {
   error          String?
   createdAt      DateTime  @default(now())
 }
-
 model ActivityStream {
   id         String   @id @default(uuid())
   actor      String?
@@ -287,7 +287,6 @@ model ActivityStream {
   severity   String   @default("info")
   createdAt  DateTime @default(now())
 }
-
 model EmailLog {
   id        String    @id @default(uuid())
   to        String
@@ -299,7 +298,6 @@ model EmailLog {
   sentAt    DateTime?
   createdAt DateTime  @default(now())
 }
-
 model SmsLog {
   id        String    @id @default(uuid())
   to        String
@@ -310,7 +308,6 @@ model SmsLog {
   sentAt    DateTime?
   createdAt DateTime  @default(now())
 }
-
 model ImportJob {
   id          String    @id @default(uuid())
   type        String
@@ -323,7 +320,6 @@ model ImportJob {
   completedAt DateTime?
   createdAt   DateTime  @default(now())
 }
-
 model ExportJob {
   id          String    @id @default(uuid())
   type        String
@@ -335,7 +331,6 @@ model ExportJob {
   completedAt DateTime?
   createdAt   DateTime  @default(now())
 }
-
 model PushNotification {
   id          String    @id @default(uuid())
   title       String
@@ -347,7 +342,6 @@ model PushNotification {
   error       String?
   createdAt   DateTime  @default(now())
 }
-
 model OcrJob {
   id          String    @id @default(uuid())
   fileName    String
@@ -357,7 +351,6 @@ model OcrJob {
   processedAt DateTime?
   createdAt   DateTime  @default(now())
 }
-
 model PdfJob {
   id          String    @id @default(uuid())
   type        String    @default("report")
@@ -368,7 +361,6 @@ model PdfJob {
   createdAt   DateTime  @default(now())
   completedAt DateTime?
 }
-
 model ExcelJob {
   id          String    @id @default(uuid())
   type        String    @default("export")
@@ -380,7 +372,6 @@ model ExcelJob {
   createdAt   DateTime  @default(now())
   completedAt DateTime?
 }
-
 model ReportDefinition {
   id          String    @id @default(uuid())
   name        String
@@ -393,7 +384,6 @@ model ReportDefinition {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
-
 model KpiDefinition {
   id           String        @id @default(uuid())
   name         String
@@ -406,15 +396,16 @@ model KpiDefinition {
   updatedAt    DateTime      @updatedAt
   kpiSnapshots KpiSnapshot[]
 }
-
 model KpiSnapshot {
   id         String        @id @default(uuid())
   kpiId      String
   kpi        KpiDefinition @relation(fields: [kpiId], references: [id], onDelete: Cascade)
   value      Float
   recordedAt DateTime      @default(now())
-}
 
+
+  @@index([kpiId, recordedAt])
+}
 model ScheduledReport {
   id         String    @id @default(uuid())
   name       String
@@ -428,7 +419,6 @@ model ScheduledReport {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
-
 model ExportLog {
   id          String    @id @default(uuid())
   type        String
@@ -440,7 +430,6 @@ model ExportLog {
   createdAt   DateTime  @default(now())
   completedAt DateTime?
 }
-
 model Customer {
   id               String            @id @default(uuid())
   name             String
@@ -459,7 +448,6 @@ model Customer {
   collectionCases  CollectionCase[]
   groupMembers     GroupMember[]
 }
-
 model Meter {
   id               String            @id @default(uuid())
   serial           String            @unique
@@ -475,8 +463,11 @@ model Meter {
   readings         Reading[]
   meterAssignments MeterAssignment[]
   meterEvents      MeterEvent[]
-}
 
+
+  @@index([customerId])
+  @@index([status, createdAt])
+}
 model Reading {
   id         String    @id @default(uuid())
   meterId    String
@@ -488,8 +479,11 @@ model Reading {
   status     String    @default("valid")
   archivedAt DateTime?
   createdAt  DateTime  @default(now())
-}
 
+
+  @@index([meterId, timestamp])
+  @@index([status])
+}
 model Invoice {
   id              String           @id @default(uuid())
   number          String           @unique
@@ -506,8 +500,12 @@ model Invoice {
   payments        Payment[]
   invoiceItems    InvoiceItem[]
   collectionCases CollectionCase[]
-}
 
+
+  @@index([customerId, status])
+  @@index([status, createdAt])
+  @@index([dueDate])
+}
 model Payment {
   id                  String               @id @default(uuid())
   invoiceId           String
@@ -518,8 +516,11 @@ model Payment {
   paidAt              DateTime             @default(now())
   createdAt           DateTime             @default(now())
   paymentTransactions PaymentTransaction[]
-}
 
+
+  @@index([invoiceId, status])
+  @@index([paidAt])
+}
 // ═══════════════════════════════════════════════════════════════════════════════
 //  SPRINT 39 — DOMAIN COMPLETION
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -543,8 +544,12 @@ model Contract {
   contractTerms    ContractTerm[]
   amendments       ContractAmendment[]
   meterAssignments MeterAssignment[]
-}
 
+
+  @@index([customerId, status])
+  @@index([status, createdAt])
+  @@index([startDate])
+}
 model ContractTerm {
   id         String   @id @default(uuid())
   contractId String
@@ -552,8 +557,10 @@ model ContractTerm {
   key        String
   value      String
   createdAt  DateTime @default(now())
-}
 
+
+  @@index([contractId])
+}
 model ContractAmendment {
   id              String   @id @default(uuid())
   contractId      String
@@ -563,8 +570,10 @@ model ContractAmendment {
   changeDate      DateTime @default(now())
   approvedBy      String?
   createdAt       DateTime @default(now())
-}
 
+
+  @@index([contractId])
+}
 model Tariff {
   id            String         @id @default(uuid())
   name          String         @unique
@@ -583,7 +592,6 @@ model Tariff {
   tiers         TariffTier[]
   groupPricings GroupPricing[]
 }
-
 model TariffRate {
   id        String    @id @default(uuid())
   tariffId  String
@@ -595,8 +603,10 @@ model TariffRate {
   validTo   DateTime?
   priority  Int       @default(0)
   createdAt DateTime  @default(now())
-}
 
+
+  @@index([tariffId])
+}
 model TariffTier {
   id        String   @id @default(uuid())
   tariffId  String
@@ -608,8 +618,10 @@ model TariffTier {
   unit      String   @default("kWh")
   priority  Int      @default(0)
   createdAt DateTime @default(now())
-}
 
+
+  @@index([tariffId])
+}
 model BillCycle {
   id         String    @id @default(uuid())
   name       String
@@ -623,7 +635,6 @@ model BillCycle {
   updatedAt  DateTime  @updatedAt
   billRuns   BillRun[]
 }
-
 model BillRun {
   id          String           @id @default(uuid())
   billCycleId String
@@ -637,8 +648,11 @@ model BillRun {
   completedAt DateTime?
   createdAt   DateTime         @default(now())
   history     BillRunHistory[]
-}
 
+
+  @@index([billCycleId])
+  @@index([status, createdAt])
+}
 model BillRunHistory {
   id        String   @id @default(uuid())
   billRunId String
@@ -647,8 +661,10 @@ model BillRunHistory {
   details   String?
   actedBy   String?
   createdAt DateTime @default(now())
-}
 
+
+  @@index([billRunId])
+}
 model ChargeRule {
   id            String           @id @default(uuid())
   name          String
@@ -664,7 +680,6 @@ model ChargeRule {
   updatedAt     DateTime         @updatedAt
   overrides     ChargeOverride[]
 }
-
 model ChargeOverride {
   id            String     @id @default(uuid())
   chargeRuleId  String
@@ -676,8 +691,12 @@ model ChargeOverride {
   validTo       DateTime?
   reason        String?
   createdAt     DateTime   @default(now())
-}
 
+
+  @@index([chargeRuleId])
+  @@index([customerId])
+  @@index([contractId])
+}
 model InvoiceItem {
   id            String         @id @default(uuid())
   invoiceId     String
@@ -695,8 +714,10 @@ model InvoiceItem {
   createdAt     DateTime       @default(now())
   taxes         InvoiceTax[]
   discounts     DiscountRule[]
-}
 
+
+  @@index([invoiceId, type])
+}
 model InvoiceTax {
   id            String      @id @default(uuid())
   invoiceItemId String
@@ -705,8 +726,10 @@ model InvoiceTax {
   rate          Float
   amount        Float
   createdAt     DateTime    @default(now())
-}
 
+
+  @@index([invoiceItemId])
+}
 model DiscountRule {
   id            String       @id @default(uuid())
   invoiceItemId String?
@@ -719,8 +742,10 @@ model DiscountRule {
   validFrom     DateTime?
   validTo       DateTime?
   createdAt     DateTime     @default(now())
-}
 
+
+  @@index([invoiceItemId])
+}
 model MeterAssignment {
   id         String                   @id @default(uuid())
   meterId    String
@@ -735,8 +760,12 @@ model MeterAssignment {
   status     String                   @default("active")
   createdAt  DateTime                 @default(now())
   history    MeterAssignmentHistory[]
-}
 
+
+  @@index([meterId])
+  @@index([customerId, status])
+  @@index([contractId])
+}
 model MeterAssignmentHistory {
   id                String          @id @default(uuid())
   meterAssignmentId String
@@ -746,8 +775,10 @@ model MeterAssignmentHistory {
   newValue          String?
   changedBy         String?
   changedAt         DateTime        @default(now())
-}
 
+
+  @@index([meterAssignmentId])
+}
 model MeterEvent {
   id          String    @id @default(uuid())
   meterId     String
@@ -759,8 +790,11 @@ model MeterEvent {
   resolvedBy  String?
   status      String    @default("open")
   createdAt   DateTime  @default(now())
-}
 
+
+  @@index([meterId, timestamp])
+  @@index([type, status])
+}
 model ValidationRule {
   id          String             @id @default(uuid())
   name        String
@@ -776,7 +810,6 @@ model ValidationRule {
   updatedAt   DateTime           @updatedAt
   results     ValidationResult[]
 }
-
 model ValidationResult {
   id               String         @id @default(uuid())
   validationRuleId String
@@ -788,8 +821,12 @@ model ValidationResult {
   resolvedAt       DateTime?
   resolvedBy       String?
   createdAt        DateTime       @default(now())
-}
 
+
+  @@index([validationRuleId])
+  @@index([entityType, entityId])
+  @@index([status])
+}
 model WorkflowState {
   id          String               @id @default(uuid())
   name        String
@@ -801,7 +838,6 @@ model WorkflowState {
   createdAt   DateTime             @default(now())
   transitions WorkflowTransition[]
 }
-
 model WorkflowTransition {
   id              String        @id @default(uuid())
   workflowStateId String
@@ -812,8 +848,10 @@ model WorkflowTransition {
   triggeredBy     String?
   triggeredAt     DateTime      @default(now())
   notes           String?
-}
 
+
+  @@index([workflowStateId])
+}
 model CollectionCase {
   id          String             @id @default(uuid())
   customerId  String
@@ -833,8 +871,12 @@ model CollectionCase {
   updatedAt   DateTime           @updatedAt
   actions     CollectionAction[]
   promises    PromiseToPay[]
-}
 
+
+  @@index([customerId, status])
+  @@index([invoiceId])
+  @@index([priority, status])
+}
 model CollectionAction {
   id               String         @id @default(uuid())
   collectionCaseId String
@@ -845,8 +887,10 @@ model CollectionAction {
   actedBy          String?
   actedAt          DateTime       @default(now())
   createdAt        DateTime       @default(now())
-}
 
+
+  @@index([collectionCaseId])
+}
 model PromiseToPay {
   id               String         @id @default(uuid())
   collectionCaseId String
@@ -857,8 +901,11 @@ model PromiseToPay {
   keptAt           DateTime?
   notes            String?
   createdAt        DateTime       @default(now())
-}
 
+
+  @@index([collectionCaseId])
+  @@index([status])
+}
 model PaymentGateway {
   id           String               @id @default(uuid())
   name         String
@@ -870,7 +917,6 @@ model PaymentGateway {
   updatedAt    DateTime             @updatedAt
   transactions PaymentTransaction[]
 }
-
 model PaymentTransaction {
   id              String         @id @default(uuid())
   gatewayId       String
@@ -887,8 +933,12 @@ model PaymentTransaction {
   processedAt     DateTime?
   createdAt       DateTime       @default(now())
   logs            GatewayLog[]
-}
 
+
+  @@index([gatewayId])
+  @@index([paymentId])
+  @@index([status, createdAt])
+}
 model GatewayLog {
   id                   String             @id @default(uuid())
   paymentTransactionId String
@@ -897,8 +947,10 @@ model GatewayLog {
   message              String
   details              String?
   createdAt            DateTime           @default(now())
-}
 
+
+  @@index([paymentTransactionId])
+}
 model CustomerGroup {
   id          String         @id @default(uuid())
   name        String         @unique
@@ -910,7 +962,6 @@ model CustomerGroup {
   pricings    GroupPricing[]
   slas        GroupSLA[]
 }
-
 model GroupMember {
   id              String        @id @default(uuid())
   customerGroupId String
@@ -919,8 +970,10 @@ model GroupMember {
   customer        Customer      @relation(fields: [customerId], references: [id])
   joinedAt        DateTime      @default(now())
   createdAt       DateTime      @default(now())
-}
 
+
+  @@index([customerGroupId, customerId])
+}
 model GroupPricing {
   id              String        @id @default(uuid())
   customerGroupId String
@@ -931,8 +984,11 @@ model GroupPricing {
   validFrom       DateTime?
   validTo         DateTime?
   createdAt       DateTime      @default(now())
-}
 
+
+  @@index([customerGroupId])
+  @@index([tariffId])
+}
 model SLA {
   id             String          @id @default(uuid())
   name           String
@@ -948,7 +1004,6 @@ model SLA {
   escalations    SLAEscalation[]
   groups         GroupSLA[]
 }
-
 model SLABreach {
   id         String    @id @default(uuid())
   slaId      String
@@ -960,8 +1015,10 @@ model SLABreach {
   resolvedAt DateTime?
   notes      String?
   createdAt  DateTime  @default(now())
-}
 
+
+  @@index([slaId, breachedAt])
+}
 model SLAEscalation {
   id        String   @id @default(uuid())
   slaId     String
@@ -971,8 +1028,10 @@ model SLAEscalation {
   notifyTo  String?
   action    String?
   createdAt DateTime @default(now())
-}
 
+
+  @@index([slaId])
+}
 model GroupSLA {
   id              String        @id @default(uuid())
   customerGroupId String
@@ -981,8 +1040,11 @@ model GroupSLA {
   sla             SLA           @relation(fields: [slaId], references: [id], onDelete: Cascade)
   priority        Int           @default(0)
   createdAt       DateTime      @default(now())
-}
 
+
+  @@index([customerGroupId])
+  @@index([slaId])
+}
 model AlertRule {
   id          String   @id @default(uuid())
   name        String
@@ -996,7 +1058,6 @@ model AlertRule {
   updatedAt   DateTime @updatedAt
   alerts      Alert[]
 }
-
 model Alert {
   id             String    @id @default(uuid())
   alertRuleId    String
@@ -1010,8 +1071,12 @@ model Alert {
   resolvedAt     DateTime?
   resolvedBy     String?
   createdAt      DateTime  @default(now())
-}
 
+
+  @@index([alertRuleId])
+  @@index([entityType, entityId])
+  @@index([status, createdAt])
+}
 model EscalationPolicy {
   id          String           @id @default(uuid())
   name        String
@@ -1022,7 +1087,6 @@ model EscalationPolicy {
   updatedAt   DateTime         @updatedAt
   steps       EscalationStep[]
 }
-
 model EscalationStep {
   id                 String           @id @default(uuid())
   escalationPolicyId String
@@ -1033,4 +1097,8 @@ model EscalationStep {
   action             String?
   timeout            Int              @default(3600)
   createdAt          DateTime         @default(now())
+
+
+  @@index([escalationPolicyId])
 }
+

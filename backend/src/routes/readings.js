@@ -30,6 +30,19 @@ router.get("/", requireRole("admin", "super_admin", "operator", "viewer"), async
   } catch (err) { next(err) }
 })
 
+
+router.get("/export", requireRole("admin", "super_admin", "operator"), async (req, res, next) => {
+  try {
+    const items = await prisma.reading.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const header = "meterId,value,unit,timestamp,source,status,createdAt"
+    const rows = items.map(i => [i.meterId, i.value, i.unit, i.timestamp, i.source, i.status, i.createdAt].join(","))
+    res.setHeader("Content-Type", "text/csv")
+    res.setHeader("Content-Disposition", "attachment; filename=readings.csv")
+    res.send([header, ...rows].join("\n"))
+    auditLog(req, "reading.export", { count: items.length })
+  } catch (err) { next(err) }
+})
+
 router.get("/:id", requireRole("admin", "super_admin", "operator", "viewer"), async (req, res, next) => {
   try {
     const reading = await prisma.reading.findFirst({ where: { id: req.params.id, archivedAt: null } })

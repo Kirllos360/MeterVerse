@@ -161,6 +161,51 @@ Design next enterprise sprint with priorities, implementation strategy, acceptan
 Do not focus only on the requested feature. Review the entire repository as an Enterprise Architect.
 ```
 
+## Rule 6 — Verify STATUS.yaml After Every Update
+
+Every STATE change to a STEP_STATUS, TASK_STATUS, or PHASE_STATUS file must be verified immediately by re-reading the file and asserting the expected value. Never trust that a -replace or Set-Content succeeded. Use `scripts/Set-Status.ps1` for all status updates (handles quoted + unquoted variants, verifies after write).
+
+Failure mode discovered: Phase 42a had 3 status files (PHASE_STATUS, T01_TASK, T02_TASK) stuck on PLANNING while all 4 STEP_STATUS files showed COMPLETE. Root cause: ad-hoc PowerShell -replace with mismatched quoting, never verified.
+
+## Rule 7 — Mandatory Tool Selection Protocol
+
+Before starting ANY task (step execution), the AI MUST:
+
+1. **Read `configs/tools-manifest.md`** — the complete inventory of available tools
+2. **Select tools** relevant to the current task from the manifest
+3. **Declare selection** in a `🧰 Tools activated: [tool1, tool2, ...]` block as the FIRST output of the task
+4. **Use them** — call the tool via its mechanism during execution
+5. **Log usage** in `configs/tool-usage-log.json` after completion with: task name, tools used, what each tool contributed
+
+Failure to declare tool selection before starting is a protocol violation. The user can detect non-compliance by checking whether the `🧰 Tools activated` block appears.
+
+The tools-manifest.md is organized by task type. The AI must select from the correct category:
+
+| If the task involves... | MUST check these tools |
+|------------------------|----------------------|
+| Database (schema, indexes, queries) | postgres MCP, Prisma CLI |
+| Git (diff, history, branches) | git MCP |
+| Filesystem analysis (codebase size, structure) | filesystem MCP |
+| Complex reasoning (multi-step audit) | sequential-thinking MCP |
+| UI testing / screenshots | playwright MCP |
+| API contracts / OpenAPI | openapi MCP |
+
+## Rule 8 — Tool Usage Audit Trail
+
+Every tool invocation must be recorded. After each task, append to `configs/tool-usage-log.json`:
+```json
+{
+  "task": "T01-S02",
+  "date": "2026-07-23",
+  "tools_activated": ["git", "postgres"],
+  "tools_used": ["git"],
+  "tools_skipped": ["postgres (no DB queries needed)"],
+  "evidence": "docs/reviews/INDEX_AUDIT_REPORT.md"
+}
+```
+
+This log is read by GATE_CHECK (Phase 42d T03) to verify tool coverage.
+
 ## Amendment Log
 
 | Date | Rule | Change |
@@ -168,3 +213,6 @@ Do not focus only on the requested feature. Review the entire repository as an E
 | 2026-07-20 | 1-3 | Initial — Permanent Operating DNA established |
 | 2026-07-21 | 4 | Enterprise Engineering Protocol — Lead Engineer role |
 | 2026-07-21 | 5 | Enterprise QA Pipeline — 13-section mandatory post-implementation process |
+| 2026-07-23 | 6 | STATUS.yaml verification protocol — prevent silent inconsistency |
+| 2026-07-23 | 7 | Mandatory Tool Selection Protocol — declare tools before every task |
+| 2026-07-23 | 8 | Tool Usage Audit Trail — log every tool invocation after each task |

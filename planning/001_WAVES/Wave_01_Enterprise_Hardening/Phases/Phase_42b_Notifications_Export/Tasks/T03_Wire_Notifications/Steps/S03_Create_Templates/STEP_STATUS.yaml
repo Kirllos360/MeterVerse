@@ -1,0 +1,11 @@
+step:
+  name: "Create Notification Templates"
+  task: "T03"
+  status: "COMPLETE"
+  depends_on: ["S02"]
+  estimated_hours: 3
+  evidence_required:
+    - "Prisma seed creates 10+ NotificationTemplate records"
+    - "Templates cover: customer, meter, reading, invoice, payment, auth events"
+    - "Each template has correct variables defined"
+

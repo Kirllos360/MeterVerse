@@ -1,0 +1,9 @@
+step:
+  name: "Analyze Current Config Structure"
+  task: "T04"
+  status: "PLANNING"
+  depends_on: []
+  estimated_hours: 2
+  evidence_required:
+    - "Dependency map of all 46 admin pages to their config entries"
+  prompts_available: true

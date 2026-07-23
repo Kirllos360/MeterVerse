@@ -1,0 +1,18 @@
+task:
+  name: "T03 — Wire Notifications"
+  phase: "42b"
+  status: "COMPLETE"
+  priority: "MEDIUM"
+  risk: "0/23 events wired — full pipeline build needed"
+  steps:
+    S01: "Audit events — COMPLETE when audit report generated"
+    S02: "Build notification engine — COMPLETE when engine creates Notification records"
+    S03: "Create templates — COMPLETE when 10+ templates seeded"
+    S04: "Wire events — COMPLETE when 5+ events trigger notifications"
+    S05: "Create API route — COMPLETE when /api/notifications returns data"
+  completion_criteria:
+    - "Notification engine service is testable"
+    - "10+ template types seeded"
+    - "5+ events verified to produce notifications"
+    - "API route returns user notifications"
+

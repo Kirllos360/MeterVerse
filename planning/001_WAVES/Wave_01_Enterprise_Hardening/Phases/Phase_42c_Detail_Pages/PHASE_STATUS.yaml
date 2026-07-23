@@ -1,0 +1,12 @@
+phase:
+  name: "Phase 42c — Detail Pages"
+  wave: 1
+  status: "PLANNING"
+  dependencies:
+    - "Phase 42a (must complete first)"
+  tasks:
+    T05_Customer_Detail:
+      name: "Create customer/meter/invoice detail pages"
+      status: "PLANNING"
+      steps:
+        S01: "Create Customer detail — COMPLETE when customer detail renders"

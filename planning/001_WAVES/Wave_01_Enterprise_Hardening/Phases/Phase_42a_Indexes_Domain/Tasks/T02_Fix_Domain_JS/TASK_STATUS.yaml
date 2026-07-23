@@ -1,0 +1,18 @@
+task:
+  id: "T02"
+  name: "Fix domain.js prisma init issue"
+  phase: "42a"
+  status: "COMPLETE"
+  risk: "HIGH"
+  files_affected:
+    - "backend/src/routes/domain.js"
+    - "backend/src/server.js"
+  steps:
+    S01: "Diagnose root cause"
+    S02: "Implement fix"
+  acceptance_criteria:
+    - "All 18 domain entities unblocked"
+    - "Domain routes enabled in server.js"
+    - "Zero TypeScript errors"
+    - "Zero regression in existing APIs"
+

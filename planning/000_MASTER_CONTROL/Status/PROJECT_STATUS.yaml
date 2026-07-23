@@ -11,24 +11,36 @@ project:
 phases:
   phase_38:
     name: "Enterprise Administration"
-    status: "COMPLETE"
+    status: "ACTIVE"
     completion_pct: 100
   phase_39:
     name: "Customer Domain Analysis"
-    status: "COMPLETE"
+    status: "ACTIVE"
     completion_pct: 100
   phase_40:
     name: "Enterprise System Activation"
-    status: "COMPLETE"
+    status: "ACTIVE"
     completion_pct: 92
     notes: "22/24 steps. Steps 15(ServiceConnection) and 20(Quality) deferred"
   phase_41:
     name: "Enterprise Production Activation"
-    status: "COMPLETE"
+    status: "ACTIVE"
     completion_pct: 100
-  phase_42:
-    name: "Enterprise Hardening"
-    status: "PLANNED"
+  phase_42a:
+    name: "Indexes & Domain Fix"
+    status: "ACTIVE"
+    completion_pct: 0
+  phase_42b:
+    name: "Notifications & Export"
+    status: "ACTIVE"
+    completion_pct: 0
+  phase_42c:
+    name: "Detail Pages"
+    status: "ACTIVE"
+    completion_pct: 0
+  phase_42d:
+    name: "QA & Tooling"
+    status: "ACTIVE"
     completion_pct: 0
 
 current_focus:
@@ -60,3 +72,13 @@ remaining_gaps:
   - "page-configs.ts 44KB — 1.79GB dev server memory"
   - "No customer/meter/invoice detail pages"
   - "CSV export only for customers"
+  - "No GATE_CHECK enforcement — AI can skip work"
+  - "No pre-commit hooks validating Planning OS state"
+  - "Graphiti graph not populated with actual nodes"
+gaps_covered:
+  - "42a: indexes + domain.js fix"
+  - "42b: notifications + export"
+  - "42c: detail pages"
+  - "42d: GATE_CHECK + page-configs + tests + Meter/ decision"
+
+

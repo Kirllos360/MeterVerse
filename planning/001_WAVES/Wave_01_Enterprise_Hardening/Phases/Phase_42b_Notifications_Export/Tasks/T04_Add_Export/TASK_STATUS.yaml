@@ -1,0 +1,12 @@
+task:
+  name: "T04 — Add Export"
+  phase: "42b"
+  status: "COMPLETE"
+  priority: "MEDIUM"
+  risk: "Only CSV export for customers exists"
+  steps:
+    S01: "Add Meter export"
+  completion_criteria:
+    - "CSV export for meters, invoices, readings, payments"
+    - "PDF export for invoices"
+

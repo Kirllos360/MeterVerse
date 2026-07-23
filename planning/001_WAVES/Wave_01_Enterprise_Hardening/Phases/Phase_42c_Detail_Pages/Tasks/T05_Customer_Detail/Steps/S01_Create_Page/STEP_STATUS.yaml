@@ -1,0 +1,8 @@
+step:
+  name: "Create Customer Detail Page"
+  task: "T05"
+  status: "PLANNING"
+  depends_on: []
+  estimated_hours: 6
+  evidence_required:
+    - "Customer detail renders at /admin/customers/:id with all relations"

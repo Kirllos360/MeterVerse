@@ -1,0 +1,36 @@
+phase:
+  name: "Phase 42d — QA & Tooling"
+  wave: 1
+  status: "PLANNING"
+  dependencies:
+    - "Phase 42a (non-blocking — can run in parallel)"
+  tasks:
+    T03_GATE_CHECK_Enforcement:
+      name: "GATE_CHECK — prevent AI from skipping work"
+      status: "PLANNING"
+      steps:
+        S01: "Design gate protocol — COMPLETE when protocol doc written"
+        S02: "Implement GATE_CHECK script — COMPLETE when script passes dry-run"
+        S03: "Add pre-commit hook — COMPLETE when hook blocks invalid status changes"
+        S04: "Add CI validation — COMPLETE when CI job validates YAML against git diff"
+    T04_Fix_page_configs:
+      name: "Split page-configs.ts into per-domain files"
+      status: "PLANNING"
+      steps:
+        S01: "Analyze current config structure — COMPLETE when dependency map created"
+        S02: "Split into domain files — COMPLETE when all 46 admin pages reference their config"
+        S03: "Update imports and test — COMPLETE when dev server memory below 500MB"
+    T05_Test_Foundation:
+      name: "Establish unit test foundation"
+      status: "PLANNING"
+      steps:
+        S01: "Setup Vitest config — COMPLETE when npm test runs green"
+        S02: "Write core service tests — COMPLETE when 3 backend services have tests"
+        S03: "Write first admin page test — COMPLETE when 1 admin page has component test"
+    T06_Meter_Codebase_Decision:
+      name: "Resolve Meter/ parallel codebase"
+      status: "PLANNING"
+      steps:
+        S01: "Analyze content — COMPLETE when audit of Meter/ files is documented"
+        S02: "Create Architecture Decision Record — COMPLETE when ADR-004 accepted"
+        S03: "Execute decision — COMPLETE when Meter/ is archived or merged"

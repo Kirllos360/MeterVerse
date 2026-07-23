@@ -183,9 +183,44 @@ async function main() {
   }
   console.log(`  ✅ ${FEATURE_FLAGS.length} feature flags`)
 
+  // ─── NOTIFICATION TEMPLATES ──────────────────────────────────────────────
+
+  const NOTIFICATION_TEMPLATES = [
+    { key: "customer.created", name: "Customer Created", type: "in_app", subject: "New Customer: {name}", body: "Customer {name} has been registered. Email: {email}", variables: JSON.stringify(["name", "email"]) },
+    { key: "customer.updated", name: "Customer Updated", type: "in_app", subject: "Customer Updated: {name}", body: "Customer {name} profile has been updated.", variables: JSON.stringify(["name"]) },
+    { key: "customer.archived", name: "Customer Archived", type: "in_app", subject: "Customer Archived: {name}", body: "Customer {name} has been archived.", variables: JSON.stringify(["name"]) },
+    { key: "customer.export", name: "Customer Export", type: "in_app", subject: "Customer Export Complete", body: "{count} customers exported to CSV.", variables: JSON.stringify(["count"]) },
+    { key: "meter.created", name: "Meter Created", type: "in_app", subject: "New Meter: {serial}", body: "Meter {serial} has been registered at {location}.", variables: JSON.stringify(["serial", "location"]) },
+    { key: "meter.updated", name: "Meter Updated", type: "in_app", subject: "Meter Updated: {serial}", body: "Meter {serial} has been updated.", variables: JSON.stringify(["serial"]) },
+    { key: "meter.archived", name: "Meter Archived", type: "in_app", subject: "Meter Archived: {serial}", body: "Meter {serial} at {location} has been archived.", variables: JSON.stringify(["serial", "location"]) },
+    { key: "reading.created", name: "Reading Recorded", type: "in_app", subject: "Reading: {value} {unit}", body: "Reading of {value} {unit} recorded for meter {serial}.", variables: JSON.stringify(["value", "unit", "serial"]) },
+    { key: "reading.anomaly", name: "Reading Anomaly Detected", type: "in_app", subject: "Anomaly: Meter {serial}", body: "Anomaly detected on meter {serial}. Value: {value} {unit}. Expected range: {expected}.", variables: JSON.stringify(["serial", "value", "unit", "expected"]) },
+    { key: "readings.bulk_created", name: "Bulk Readings Imported", type: "in_app", subject: "Bulk Import: {count} Readings", body: "{count} readings imported for meter {serial}.", variables: JSON.stringify(["count", "serial"]) },
+    { key: "invoice.created", name: "Invoice Created", type: "in_app", subject: "Invoice #{number}", body: "Invoice #{number} for {amount} EGP created for {customer}.", variables: JSON.stringify(["number", "amount", "customer"]) },
+    { key: "invoice.generated", name: "Invoice Generated", type: "email", subject: "Invoice #{number} Generated", body: "Invoice #{number} for {amount} EGP generated for {customer}. Due: {dueDate}.", variables: JSON.stringify(["number", "amount", "customer", "dueDate"]) },
+    { key: "invoice.updated", name: "Invoice Updated", type: "in_app", subject: "Invoice #{number} Updated", body: "Invoice #{number} for {customer} updated. Status: {status}.", variables: JSON.stringify(["number", "customer", "status"]) },
+    { key: "invoice.archived", name: "Invoice Archived", type: "in_app", subject: "Invoice #{number} Archived", body: "Invoice #{number} for {customer} has been archived.", variables: JSON.stringify(["number", "customer"]) },
+    { key: "payment.created", name: "Payment Received", type: "email", subject: "Payment Received: {amount} EGP", body: "Payment of {amount} EGP received for invoice #{number}. Method: {method}.", variables: JSON.stringify(["amount", "number", "method"]) },
+    { key: "payment.deleted", name: "Payment Removed", type: "in_app", subject: "Payment Removed: {amount} EGP", body: "Payment of {amount} EGP for invoice #{number} has been removed.", variables: JSON.stringify(["amount", "number"]) },
+    { key: "assignment.created", name: "Meter Assigned", type: "in_app", subject: "Meter {serial} Assigned", body: "Meter {serial} assigned to customer {customer}. Contract: {contract}.", variables: JSON.stringify(["serial", "customer", "contract"]) },
+    { key: "assignment.ended", name: "Meter Assignment Ended", type: "in_app", subject: "Meter {serial} Unassigned", body: "Meter {serial} assignment with {customer} has ended.", variables: JSON.stringify(["serial", "customer"]) },
+    { key: "auth.login_success", name: "Login Successful", type: "in_app", subject: "Login: {email}", body: "Successful login from {ip} at {time}.", variables: JSON.stringify(["email", "ip", "time"]) },
+    { key: "auth.login_failed", name: "Login Failed", type: "in_app", subject: "Failed Login: {email}", body: "Failed login attempt for {email} from {ip}.", variables: JSON.stringify(["email", "ip"]) },
+  ]
+
+  for (const tpl of NOTIFICATION_TEMPLATES) {
+    await prisma.notificationTemplate.upsert({
+      where: { key: tpl.key },
+      update: tpl,
+      create: tpl,
+    })
+  }
+  console.log(`  ✅ ${NOTIFICATION_TEMPLATES.length} notification templates`)
+
   console.log("Seeding complete.")
 }
 
 main()
   .catch((e) => { console.error(e); process.exit(1) })
   .finally(() => prisma.$disconnect())
+
