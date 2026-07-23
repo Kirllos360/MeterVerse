@@ -9,7 +9,8 @@ interface ServiceStatus {
 const COLORS = { operational: "var(--status-success)", degraded: "var(--status-warning)", down: "var(--status-error)" }
 
 export function SystemHealth() {
-  const [services, setServices] = useState<ServiceStatus[]>([
+  const [services, setServices] = useState([])
+  useEffect(() => { fetch("/api/admin/health").then(r=>r.json()).then(d => setServices(d.services || d.checks || [])).catch(() => {}) }, [])
     { name: "API Gateway", status: "operational", latency: "12ms" },
     { name: "Auth Service", status: "operational", latency: "8ms" },
     { name: "Database", status: "operational", latency: "4ms" },
@@ -53,3 +54,4 @@ export function SystemHealth() {
     </div>
   )
 }
+

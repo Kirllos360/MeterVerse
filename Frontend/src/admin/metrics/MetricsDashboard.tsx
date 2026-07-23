@@ -5,7 +5,8 @@ import { useState, useEffect } from "react"
 interface Metric { label: string; value: string; color: string; change?: string }
 
 export function MetricsDashboard() {
-  const [metrics, setMetrics] = useState<Metric[]>([
+  const [metrics, setMetrics] = useState([])
+  useEffect(() => { fetch("/api/admin/health").then(r=>r.json()).then(d => { const m = d.metrics || []; setMetrics([{label:"Users",value:m.users||"?"},{label:"Meters",value:m.meters||"?"},{label:"Readings",value:m.readings||"?"},{label:"Uptime",value:m.uptime||"?"}]) }).catch(() => {}) }, [])
     { label: "CPU", value: "23%", color: "var(--brand)" },
     { label: "Memory", value: "6.2 GB", color: "#3B82F6" },
     { label: "Requests/min", value: "1,247", color: "#22C55E" },
@@ -44,4 +45,5 @@ export function MetricsDashboard() {
     </div>
   )
 }
+
 
