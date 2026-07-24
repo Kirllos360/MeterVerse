@@ -43,6 +43,7 @@ export async function apiClient<T>(
   const { useAuth = true, ...fetchOptions } = options || {}
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    "X-Dev-Mode": "true",
     ...(fetchOptions.headers as Record<string, string>),
   }
 
@@ -81,6 +82,7 @@ export async function apiBackend<T>(
   if (process.env.NEXT_PUBLIC_API_URL) {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
+      "X-Dev-Mode": "true",
     }
     if (useAuth) {
       Object.assign(headers, getAuthHeaders())
