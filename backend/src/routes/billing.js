@@ -106,4 +106,52 @@ router.get("/runs/:id", requirePermission("billing.*"), async (req, res, next) =
   } catch (err) { next(err) }
 })
 
+// ─── INVOICE CANCELLATION ──────────────────────────────────────────────
+
+router.post("/invoices/:id/cancel", requirePermission("billing.*"), async (req, res, next) => {
+  try {
+    const { reason } = z.object({ reason: z.string().min(1) }).parse(req.body)
+    const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } })
+    if (!invoice) return res.status(404).json({ error: "Invoice not found" })
+    if (invoice.status === "paid") return res.status(400).json({ error: "Cannot cancel a paid invoice" })
+    if (invoice.status === "cancelled") return res.status(400).json({ error: "Invoice already cancelled" })
+    if (invoice.status === "archived") return res.status(400).json({ error: "Cannot cancel an archived invoice" })
+
+    const highRisk = invoice.amount > 10000 || invoice.status === "overdue"
+    if (highRisk && req.user?.role !== "super_admin") {
+      return res.status(403).json({ error: "High-risk invoice cancellation requires super_admin approval", amount: invoice.amount })
+    }
+
+    await prisma.invoice.update({ where: { id: invoice.id }, data: { status: "cancelled" } })
+    await prisma.billRunHistory.create({ data: { billRunId: invoice.billRunId || "", action: "invoice_cancelled", details: `Invoice ${invoice.number} cancelled: ${reason}` } })
+    auditLog(req, "billing.invoice.cancelled", { invoiceId: invoice.id, number: invoice.number, reason, highRisk })
+    res.json({ message: "Invoice cancelled", invoiceId: invoice.id })
+  } catch (err) { next(err) }
+})
+
+// ─── APPROVAL WORKFLOW ──────────────────────────────────────────────────
+
+router.post("/invoices/:id/approve", requirePermission("billing.*"), async (req, res, next) => {
+  try {
+    const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } })
+    if (!invoice) return res.status(404).json({ error: "Invoice not found" })
+    if (invoice.status !== "pending_approval") return res.status(400).json({ error: `Invoice is ${invoice.status}, not pending_approval` })
+    await prisma.invoice.update({ where: { id: invoice.id }, data: { status: "approved" } })
+    auditLog(req, "billing.invoice.approved", { invoiceId: invoice.id, number: invoice.number })
+    res.json({ message: "Invoice approved" })
+  } catch (err) { next(err) }
+})
+
+router.post("/invoices/:id/reject", requirePermission("billing.*"), async (req, res, next) => {
+  try {
+    const { reason } = z.object({ reason: z.string().min(1) }).parse(req.body)
+    const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } })
+    if (!invoice) return res.status(404).json({ error: "Invoice not found" })
+    if (invoice.status !== "pending_approval") return res.status(400).json({ error: `Invoice is ${invoice.status}, not pending_approval` })
+    await prisma.invoice.update({ where: { id: invoice.id }, data: { status: "draft" } })
+    auditLog(req, "billing.invoice.rejected", { invoiceId: invoice.id, reason })
+    res.json({ message: "Invoice rejected, returned to draft" })
+  } catch (err) { next(err) }
+})
+
 export { router as billingRouter }
