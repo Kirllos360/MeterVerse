@@ -565,7 +565,9 @@ model Invoice {
   status          String           @default("pending")
   dueDate         DateTime?
   issuedAt        DateTime         @default(now())
+  immutableAt     DateTime?
   paidAt          DateTime?
+  paidAmount      Float            @default(0)
   archivedAt      DateTime?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
