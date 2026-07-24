@@ -26,6 +26,7 @@ import { alertsRouter } from "./routes/alerts.js"
 import { notificationsRouter } from "./routes/notifications.js"
 import { documentsRouter } from "./routes/documents.js"
 import { tariffsRouter } from "./routes/tariffs.js"
+import { billingRouter } from "./routes/billing.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
@@ -115,6 +116,7 @@ app.use("/api/tasks", tasksRouter)
 app.use("/api/alerts", alertsRouter)
 app.use("/api/documents", documentsRouter)
 app.use("/api/tariffs", tariffsRouter)
+app.use("/api/billing", billingRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 
