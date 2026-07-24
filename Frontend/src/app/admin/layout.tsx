@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { WorkspaceLayout } from "@/workspace/components/WorkspaceLayout"
 import { WorkspaceTabs } from "@/workspace/components/WorkspaceTabs"
@@ -31,8 +32,12 @@ const adminNav = [
 
 const t = (lang: string, en: string, ar: string) => lang === "ar" ? ar : en
 
-export default function AdminLayout() {
-  const [active, setActive] = useState("home")
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const router = useRouter()
+  const pathSegment = pathname?.split("/").pop() || "home"
+  const [active, setActive] = useState(pathSegment)
+  useEffect(() => { setActive(pathSegment) }, [pathSegment])
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [inspectorOpen, setInspectorOpen] = useState(false)
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false)
@@ -48,25 +53,6 @@ export default function AdminLayout() {
   const wsStore = useWorkspaceStore()
   useEffect(() => { wsStore.setSidebarMode(sidebarCollapsed ? "collapsed" : "expanded") }, [sidebarCollapsed])
   useEffect(() => { wsStore.setInspectorOpen(inspectorOpen) }, [inspectorOpen])
-
-  useEffect(() => {
-    if (!openTabs.includes(active)) setOpenTabs(p => [...p, active])
-  }, [active])
-
-  const [PageComponent, setPageComponent] = useState<any>(null)
-  useEffect(() => {
-    let cancelled = false
-    const load = async () => {
-      try {
-        const mod = await import(`./${active}/page`)
-        if (!cancelled) setPageComponent(() => mod.default)
-      } catch {
-        if (!cancelled) setPageComponent(null)
-      }
-    }
-    load()
-    return () => { cancelled = true }
-  }, [active])
 
   const isLight = !effectiveDark
   // Full theme: white bg + dark text + red accent for light mode
@@ -104,7 +90,7 @@ export default function AdminLayout() {
               {adminNav.map((item) => {
                 const isActive = active === item.id
                 return (
-                  <motion.button key={item.id} onClick={() => setActive(item.id)}
+                  <motion.button key={item.id} onClick={() => { setActive(item.id); router.push(`/admin/${item.id}`) }}
                     whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                     className="flex items-center justify-center w-full rounded-lg text-xs outline-none"
                     style={{ padding: "8px", backgroundColor: isActive ? "var(--admin-accent)" : "transparent", color: isActive ? "white" : "var(--text-tertiary)", border: "none", cursor: "pointer" }}
@@ -138,7 +124,7 @@ export default function AdminLayout() {
             <button onClick={() => setViewMode("list")} className="px-2 py-1 rounded text-xs" style={{ backgroundColor: viewMode === "list" ? "var(--admin-accent)" : "var(--toolbar-surface)", color: viewMode === "list" ? "white" : "var(--toolbar-muted)" }}>{t(lang, "List", "قائمة")}</button>
             <button onClick={() => setViewMode("grid")} className="px-2 py-1 rounded text-xs" style={{ backgroundColor: viewMode === "grid" ? "var(--admin-accent)" : "var(--toolbar-surface)", color: viewMode === "grid" ? "white" : "var(--toolbar-muted)" }}>{t(lang, "Grid", "شبكة")}</button>
           </div>
-          {PageComponent && <ErrorBoundary><PageComponent viewMode={viewMode} lang={lang} /></ErrorBoundary>}
+          {children ? <ErrorBoundary>{children}</ErrorBoundary> : null}
         </div>
       </WorkspaceLayout>
     </div>
