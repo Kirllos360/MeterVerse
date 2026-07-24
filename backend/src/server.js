@@ -31,6 +31,7 @@ import { simRouter } from "./routes/sim.js"
 import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
 import { pdfRouter } from "./routes/pdf.js"
+import { templatesRouter } from "./routes/templates.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
@@ -127,6 +128,7 @@ app.use("/api/tariffs", tariffsRouter)
 app.use("/api/sim", simRouter)
 app.use("/api/projects", projectsRouter)
 app.use("/api/pdf", pdfRouter)
+app.use("/api/templates", templatesRouter)
 app.use("/api/billing", billingRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
