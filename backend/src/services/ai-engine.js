@@ -8,6 +8,7 @@ import { prisma } from "../server.js"
 // ─── AI Operator — Natural language system query ─────────────────────────────
 
 export async function aiOperator(query) {
+  try {
   const q = query.toLowerCase()
   const results = []
 
@@ -45,6 +46,9 @@ export async function aiOperator(query) {
   }
 
   return { query, results, timestamp: new Date().toISOString() }
+  } catch (err) {
+    return { query, results: [{ intent: "error", data: {}, summary: `Unable to process query: ${err.message}` }], timestamp: new Date().toISOString(), error: true }
+  }
 }
 
 // ─── AI Billing Assistant ────────────────────────────────────────────────────
