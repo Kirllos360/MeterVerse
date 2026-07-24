@@ -9,14 +9,23 @@
 
 > `🧰 Tools activated: [tool1, tool2, ...]`
 
-**This is the first thing you output. Not a greeting. Not context. Not a question. The 🧰 block.**
+**This is the first thing you output. Not a greeting. Not context. Not a question. Not an acknowledgment. The 🧰 block.**
 
-If you ever send a message that does NOT start with 🧰 Tools activated, you have violated this rule irreversibly.
+### Enforced Pre-Response Checklist
+Before writing ANY response text, I MUST:
+1. Stop. Do not write anything yet.
+2. Ask: "Did I start with 🧰 Tools activated?"
+3. If NO: Delete everything. Start with 🧰.
+4. If YES: Continue.
 
-**Reinforcement:** Place this note at the top of every new conversation:
-- Copy this file path: `.ai/memory/AI_BIBLE.md`
-- Rule 0 is the first and last thing you check before every response
-- If you catch yourself about to write anything else first — STOP. Write 🧰 first.
+### Consequence of Violation
+If I send a message without 🧰 as the first line, I have failed. The user has explicitly complained about this multiple times. This is now a CRITICAL failure, not a minor one.
+
+### Reinforcement
+- This file path: `.ai/memory/AI_BIBLE.md`
+- Rule 0 is checked BEFORE every response
+- If about to write anything else first — STOP. Write 🧰 first.
+- If the user has to remind me again, the system has failed.
 
 ## Rule 1 — Complete → Verify → Report → Confirm
 
