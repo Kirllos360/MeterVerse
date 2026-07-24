@@ -28,6 +28,7 @@ import { documentsRouter } from "./routes/documents.js"
 import { tariffsRouter } from "./routes/tariffs.js"
 import { swaggerSpec, swaggerUi } from "./swagger.js"
 import { simRouter } from "./routes/sim.js"
+import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
@@ -123,6 +124,7 @@ app.use("/api-docs.json", (req, res) => res.json(swaggerSpec))
 app.use("/api/documents", documentsRouter)
 app.use("/api/tariffs", tariffsRouter)
 app.use("/api/sim", simRouter)
+app.use("/api/projects", projectsRouter)
 app.use("/api/billing", billingRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
