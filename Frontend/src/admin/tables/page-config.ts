@@ -42,6 +42,7 @@ export interface PageConfig {
   tabs?: { value: string; label: string; filter?: (row: any) => boolean }[]
   transform?: (data: any) => any[]
   rowKey?: string
+  resource?: string
 }
 
 export const defaultTabs = [
