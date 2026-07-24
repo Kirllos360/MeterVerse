@@ -6,6 +6,7 @@ interface Props {
   children: ReactNode
   fallback?: ReactNode
   onError?: (error: Error, errorInfo: ErrorInfo) => void
+  correlationId?: string
 }
 
 interface State {
@@ -24,13 +25,18 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error("[ErrorBoundary]", error.message)
+    console.error("[ErrorBoundary]", error.message, "CorrelationID:", this.props.correlationId || "N/A")
     this.props.onError?.(error, errorInfo)
+  }
+
+  handleRetry = () => {
+    this.setState({ hasError: false, error: undefined })
   }
 
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) return this.props.fallback
+      const corrId = this.props.correlationId || "N/A"
       return (
         <div className="flex items-center justify-center h-full p-6">
           <div className="text-center max-w-sm">
@@ -39,10 +45,17 @@ export class ErrorBoundary extends Component<Props, State> {
             </svg>
             <p className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>Something went wrong</p>
             <p className="text-xs mt-1" style={{ color: "var(--text-tertiary)" }}>{this.state.error?.message || "An unexpected error occurred"}</p>
-            <button onClick={() => this.setState({ hasError: false, error: undefined })}
-              className="mt-3 px-3 py-2 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--brand)" }}>
-              Try again
-            </button>
+            <p className="text-xs mt-2 font-mono" style={{ color: "var(--text-muted)" }}>Ref: {corrId}</p>
+            <div className="flex gap-2 justify-center mt-3">
+              <button onClick={this.handleRetry}
+                className="px-3 py-2 rounded-lg text-xs font-medium text-white" style={{ backgroundColor: "var(--brand)" }}>
+                Try again
+              </button>
+              <button onClick={() => window.location.reload()}
+                className="px-3 py-2 rounded-lg text-xs font-medium" style={{ backgroundColor: "var(--surface-elevated)", color: "var(--text-primary)" }}>
+                Reload page
+              </button>
+            </div>
           </div>
         </div>
       )
@@ -50,4 +63,3 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children
   }
 }
-
