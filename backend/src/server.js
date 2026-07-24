@@ -32,12 +32,14 @@ import { billingRouter } from "./routes/billing.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
-import { errorHandler } from "./middleware/errorHandler.js"
+import { errorHandler, correlationMiddleware, notFoundHandler } from "./middleware/errorHandler.js"
 
 const app = express()
 const PORT = process.env.PORT || 3001
 
 export const prisma = new PrismaClient()
+
+app.use(correlationMiddleware)
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  SECURITY LAYER
@@ -125,6 +127,7 @@ app.use("/api/billing", billingRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 
+app.use(notFoundHandler)
 app.use(errorHandler)
 
 const httpServer = createServer(app)
