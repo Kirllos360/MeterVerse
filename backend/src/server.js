@@ -26,6 +26,7 @@ import { alertsRouter } from "./routes/alerts.js"
 import { notificationsRouter } from "./routes/notifications.js"
 import { documentsRouter } from "./routes/documents.js"
 import { tariffsRouter } from "./routes/tariffs.js"
+import { swaggerSpec, swaggerUi } from "./swagger.js"
 import { simRouter } from "./routes/sim.js"
 import { billingRouter } from "./routes/billing.js"
 import { createServer } from "http"
@@ -115,6 +116,8 @@ app.use("/api/preferences", preferencesRouter)
 app.use("/api/search", searchRouter)
 app.use("/api/tasks", tasksRouter)
 app.use("/api/alerts", alertsRouter)
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use("/api-docs.json", (req, res) => res.json(swaggerSpec))
 app.use("/api/documents", documentsRouter)
 app.use("/api/tariffs", tariffsRouter)
 app.use("/api/sim", simRouter)
