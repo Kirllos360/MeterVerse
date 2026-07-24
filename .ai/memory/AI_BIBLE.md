@@ -233,6 +233,50 @@ Never work on two Waves, Phases, or Tasks simultaneously.
 Read Planning → Read Graphiti → Read SpecKit → Analyze → Implement → Build → Type Check → Lint → Run → Playwright → Workflow Test → Performance Test → Graph Compare → Spec Compare → Evidence → Update Planning → Commit → Push → Next Step
 ```
 
+## Rule 10 — Tool Activation & Self-Improvement Mandate
+
+### 10.1 — Mandatory Tool Declaration
+Before starting ANY task, the AI MUST output `🧰 Tools activated: [tool1, tool2, ...]` as the FIRST line of the task response. This is non-negotiable. The tools list must include ALL tools needed for the task, selected from `configs/tools-manifest.md`.
+
+### 10.2 — Tool Acquisition
+If the task requires a tool not currently installed or available, the AI MUST:
+1. Identify the missing tool
+2. Install it (npm install, pip install, or download via npx)
+3. Verify it works
+4. Add it to `configs/tools-manifest.md`
+5. Declare it in the 🧰 block
+
+### 10.3 — Full Tool Spectrum
+The AI must use the FULL spectrum of available tools, not just a subset. This includes:
+- **All MCP servers** (sequential-thinking, git, filesystem, postgres, playwright, openapi)
+- **All CLI tools** (vitest, prisma, npx, node)
+- **All project scripts** (Set-Status.ps1, gate-check.mjs, etc.)
+- **Self-directed learning**: download new tools, MCPs, or LLM functions as needed to improve thinking, auditing, and implementation quality
+
+### 10.4 — Self-Improvement Cycle
+After every task completion, before moving to the next task:
+1. Ask: "Could I have done this better with a different tool?"
+2. If yes: install the tool, add it to the manifest, document why
+3. Ask: "What gap in my approach did I discover?"
+4. Document the gap in `LEARNING_ENGINE/LESSONS_LEARNED.md`
+5. Ask: "Is there a tool, MCP, or process that would prevent this gap?"
+6. If yes: acquire and integrate it
+
+### 10.5 — Tool Usage Evidence
+After every task, log to `configs/tool-usage-log.json`:
+```json
+{
+  "task": "TASK-ID",
+  "date": "YYYY-MM-DD",
+  "tools_activated": ["tool1", "tool2"],
+  "tools_used": ["tool1"],
+  "tools_skipped": ["tool2 (reason)"],
+  "new_tools_acquired": ["tool3 (installed via npm)"],
+  "self_improvement": "Discovered gap: ... Fixed by: ...",
+  "evidence": "path/to/evidence"
+}
+```
+
 ## Amendment Log
 
 | Date | Rule | Change |
@@ -244,3 +288,4 @@ Read Planning → Read Graphiti → Read SpecKit → Analyze → Implement → B
 | 2026-07-23 | 7 | Mandatory Tool Selection Protocol — declare tools before every task |
 | 2026-07-23 | 8 | Tool Usage Audit Trail — log every tool invocation after each task |
 | 2026-07-23 | 9 | Planning OS Freeze — implementation priority, sequential execution |
+| 2026-07-23 | 10 | Tool Activation & Self-Improvement Mandate — always use full tool spectrum, acquire missing tools, continuous self-improvement cycle |

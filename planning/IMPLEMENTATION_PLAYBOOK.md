@@ -72,6 +72,14 @@ Before touching code, the AI must read these documents **in order**:
 
 **Only after ALL required documents have been read may implementation begin.**
 
+### Tool Activation (before any implementation)
+1. Read `configs/tools-manifest.md` — full tool inventory
+2. Declare `🧰 Tools activated: [tool1, tool2, ...]` as FIRST output line
+3. If a needed tool is missing: install it immediately (npm install, pip install, npx)
+4. Log all tool usage to `configs/tool-usage-log.json` after task completion
+5. After task: self-improvement check — could a different/better tool have helped?
+6. If yes: acquire the tool, update manifest, document in LEARNING_ENGINE/
+
 ---
 
 ## Stage 2 — UNDERSTAND

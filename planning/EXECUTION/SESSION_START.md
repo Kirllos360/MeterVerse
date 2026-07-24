@@ -25,10 +25,20 @@
 
 ## After Reading
 
-1. Update `SESSION_CONTEXT.md` with your session info
-2. Read the **Current Execution Ticket** from `CURRENT_TARGET.md`
-3. Begin the **Execution Lifecycle** per `EXECUTION_ORDER.md`
-4. After every step, update `CURRENT_PROJECT_STATE.md`
+1. Read `configs/tools-manifest.md` — inventory ALL available tools
+2. Declare `🧰 Tools activated: [tool1, tool2, ...]` as FIRST output line
+3. If the task requires a tool not in manifest: INSTALL IT immediately (npm/pip/npx)
+4. Update `SESSION_CONTEXT.md` with your session info
+5. Read the **Current Execution Ticket** from `CURRENT_TARGET.md`
+6. Begin the **Execution Lifecycle** per `EXECUTION_ORDER.md`
+7. After every step, update `CURRENT_PROJECT_STATE.md`
+
+## Self-Improvement Gate (After Every Task)
+After completing any task, ask:
+1. Could I have done this better with a different tool?
+2. What gap in my approach did I discover?
+3. Is there a new MCP, package, or process that would prevent this gap?
+4. If yes to any — acquire it, document in LESSONS_LEARNED.md, add to tools-manifest.md
 
 ## Information Classification
 

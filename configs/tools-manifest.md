@@ -45,9 +45,36 @@
 | Phase 42d T05: Test Foundation | `vitest` | `git` |
 | Phase 42d T06: Meter/ Decision | `filesystem`, `sequential-thinking` | `git` |
 
-## 5. Enforcement
+## 5. Tool Acquisition Protocol
 
-1. **Before every task**: AI outputs `🧰 Tools activated: [tool1, tool2, ...]`
-2. **During task**: AI uses the declared tools
+If the task requires a tool not listed above:
+1. **Identify** what's needed (MCP server, CLI tool, npm package, Python library)
+2. **Install** it (npx, npm install -g, pip install, or download)
+3. **Verify** it works with a quick test
+4. **Register** it in this manifest under the appropriate category
+5. **Declare** it in the 🧰 block along with how it was acquired
+6. **Document** why in `LEARNING_ENGINE/LESSONS_LEARNED.md`
+
+Examples of self-directed acquisition:
+- `npx @playwright/mcp@latest` — Playwright MCP for UI testing
+- `npm install -D @vitest/coverage-v8` — coverage provider
+- `pip install graphifyy` — knowledge graph
+- `npm install speakeasy` — MFA TOTP library
+- Any MCP server that improves reasoning, auditing, or implementation quality
+
+## 6. Self-Improvement Cycle
+
+After every task:
+1. **Evaluate**: Could I have done this better with a different tool, MCP, or LLM?
+2. **Identify gaps**: What blind spots did my current toolset leave?
+3. **Acquire**: Find and install the missing capability
+4. **Document**: Update this manifest + LEARNING_ENGINE
+5. **Next task**: Use the improved toolset
+
+## 7. Enforcement
+
+1. **Before every task**: AI outputs `🧰 Tools activated: [tool1, tool2, ...]` as FIRST line
+2. **During task**: AI uses the declared tools (installing any missing ones)
 3. **After task**: AI appends to `configs/tool-usage-log.json`
-4. **If no `🧰` block appears**: protocol violation — user can detect immediately
+4. **Self-improvement**: AI evaluates if a better tool exists for future similar tasks
+5. **If no `🧰` block appears**: protocol violation — user can detect immediately
