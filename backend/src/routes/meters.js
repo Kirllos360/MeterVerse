@@ -80,6 +80,32 @@ router.delete("/:id", requirePermission("meters.delete"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
+router.post("/:id/terminate", requirePermission("meters.delete"), async (req, res, next) => {
+  try {
+    const { reason, finalReading } = z.object({ reason: z.string().min(1), finalReading: z.number().optional() }).parse(req.body)
+    const meter = await prisma.meter.findUnique({ where: { id: req.params.id }, include: { simCard: true } })
+    if (!meter) return res.status(404).json({ error: "Meter not found" })
+    if (meter.status === "retired") return res.status(400).json({ error: "Meter already terminated" })
+
+    const result = await prisma.$transaction(async (tx) => {
+      if (finalReading) {
+        await tx.reading.create({ data: { meterId: req.params.id, value: finalReading, source: "termination", status: "valid", timestamp: new Date() } })
+      }
+      await tx.meter.update({ where: { id: req.params.id }, data: { status: "retired" } })
+      const sim = await tx.sIMCard.findFirst({ where: { meterId: req.params.id, status: { in: ["assigned", "active"] } } })
+      if (sim) {
+        await tx.sIMAssignment.updateMany({ where: { simId: sim.id, endAt: null }, data: { endAt: new Date(), status: "released" } })
+        const cooldownUntil = new Date(Date.now() + 7 * 86400000)
+        await tx.sIMCard.update({ where: { id: sim.id }, data: { status: "available", meterId: null, cooldownUntil } })
+      }
+      await tx.meterEvent.create({ data: { meterId: req.params.id, eventType: "terminated", description: reason, createdBy: req.user?.email } })
+      return { simReleased: !!sim }
+    })
+    auditLog(req, "meter.terminated", { meterId: req.params.id, reason, finalReading: finalReading || null })
+    res.json({ message: "Meter terminated", meterId: req.params.id, ...result })
+  } catch (err) { next(err) }
+})
+
 export { router as metersRouter }
 
 
