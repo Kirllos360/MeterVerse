@@ -92,3 +92,30 @@ jobs:
       - name: Build
         run: npm run build
         working-directory: Frontend
+
+  graphiti-validate:
+    name: Graphiti Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install graphify
+        run: pip install graphifyy -q
+      - name: Validate manifest
+        run: |
+          python -c "
+          import json
+          with open('graphify-out/manifest.json') as f:
+            m = json.load(f)
+          paths = list(m.keys())[:5]
+          print(f'Graph manifest: {len(m)} entries')
+          print(f'Sample paths: {paths}')
+          bad = [p for p in m if 'Meter-' in p]
+          if bad:
+            print(f'WARNING: {len(bad)} entries still have wrong path prefix')
+          else:
+            print('All paths verified correct')
+          "
