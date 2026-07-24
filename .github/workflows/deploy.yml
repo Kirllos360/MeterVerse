@@ -1,17 +1,16 @@
 name: Deploy — Production
 
 on:
-  push:
-    branches: [clean-main]
   workflow_run:
     workflows: [CI — Tests & Quality]
     types: [completed]
+    branches: [clean-main]
 
 jobs:
   deploy:
     name: Deploy to Production
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'push' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
       - uses: actions/checkout@v4
