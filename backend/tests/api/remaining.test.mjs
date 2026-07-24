@@ -5,11 +5,13 @@ function createMockModel() {
 }
 
 vi.mock('../../src/db.js', () => {
-  const prisma = { customer: createMockModel(), meter: createMockModel(), reading: createMockModel(), invoice: createMockModel(), payment: createMockModel(), user: createMockModel(), session: createMockModel(), auditEntry: createMockModel(), notification: createMockModel(), customerMeter: createMockModel(), meterAssignment: createMockModel(), billCycle: createMockModel(), billRun: createMockModel(), invoiceItem: createMockModel() };
+  const prisma = { customer: createMockModel(), meter: createMockModel(), reading: createMockModel(), invoice: createMockModel(), payment: createMockModel(), user: createMockModel(), session: createMockModel(), auditEntry: createMockModel(), notification: createMockModel(), customerMeter: createMockModel(), meterAssignment: createMockModel(), billCycle: createMockModel(), billRun: createMockModel(), invoiceItem: createMockModel(), customerLedgerEntry: createMockModel(), paymentTransaction: createMockModel() };
+  prisma.$transaction = vi.fn((cb) => cb(prisma));
   return { prisma };
 });
 vi.mock('../../src/server.js', () => {
-  const prisma = { customer: createMockModel(), meter: createMockModel(), reading: createMockModel(), invoice: createMockModel(), payment: createMockModel(), user: createMockModel(), session: createMockModel(), auditEntry: createMockModel(), notification: createMockModel(), customerMeter: createMockModel(), meterAssignment: createMockModel(), billCycle: createMockModel(), billRun: createMockModel(), invoiceItem: createMockModel() };
+  const prisma = { customer: createMockModel(), meter: createMockModel(), reading: createMockModel(), invoice: createMockModel(), payment: createMockModel(), user: createMockModel(), session: createMockModel(), auditEntry: createMockModel(), notification: createMockModel(), customerMeter: createMockModel(), meterAssignment: createMockModel(), billCycle: createMockModel(), billRun: createMockModel(), invoiceItem: createMockModel(), customerLedgerEntry: createMockModel(), paymentTransaction: createMockModel() };
+  prisma.$transaction = vi.fn((cb) => cb(prisma));
   return { prisma };
 });
 vi.mock('../../src/services/notification-engine.js', () => ({ processEvent: vi.fn().mockResolvedValue() }));
@@ -20,6 +22,7 @@ import request from 'supertest';
 import express from 'express';
 import { paymentsRouter } from '../../src/routes/payments.js';
 import { readingsRouter } from '../../src/routes/readings.js';
+import { prisma as prismaMock } from '../helpers/mock-prisma.js';
 import { errorHandler } from '../../src/middleware/errorHandler.js';
 
 const { prisma } = await import('../../src/db.js');
@@ -33,13 +36,13 @@ app.use(errorHandler);
 describe('API — Payments, Readings, Tasks', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    ['payment', 'reading', 'task', 'customer', 'meter', 'invoice', 'user', 'session', 'auditEntry', 'notification'].forEach(m => {
+    ['payment', 'reading', 'task', 'customer', 'meter', 'invoice', 'user', 'session', 'auditEntry', 'notification', 'customerLedgerEntry', 'paymentTransaction'].forEach(m => {
       if (prisma[m]) { prisma[m].findMany.mockResolvedValue([]); prisma[m].findUnique.mockResolvedValue(null); prisma[m].findFirst.mockResolvedValue(null); prisma[m].count.mockResolvedValue(0); }
     });
   });
 
   it('GET /api/payments — list', async () => {
-    prisma.payment.findMany.mockResolvedValue([{ id: 'p1', amount: 100, status: 'completed' }]);
+    prisma.payment.findMany.mockResolvedValue([{ id: 'p1', amount: 100, status: 'completed', customerId: 'c1', method: 'cash', reference: null, notes: null, transactions: [] }]);
     prisma.payment.count.mockResolvedValue(1);
     const res = await request(app).get('/api/payments').set('Authorization', 'Bearer t');
     expect(res.status).toBe(200);
