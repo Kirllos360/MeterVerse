@@ -10,13 +10,13 @@ taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
 timeout /t 2 /nobreak >nul
 
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0backend && node src/server.js"
-echo Backend started
+start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js"
+echo Backend started on port 3001
 
-if exist "%~dp0Frontend\.next\BUILD_ID" (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0Frontend && npx next start -p 7400"
+if exist "%~dp0..\Frontend\.next\BUILD_ID" (
+    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p 7400"
 ) else (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0Frontend && npx next dev -p 7400"
+    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p 7400"
 )
 echo Frontend started
 echo http://localhost:7400/admin
