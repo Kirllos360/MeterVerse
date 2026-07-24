@@ -1173,4 +1173,39 @@ model EscalationStep {
 
   @@index([escalationPolicyId])
 }
+model SIMCard {
+  id           String       @id @default(uuid())
+  iccid        String       @unique
+  simNumber    String       @unique
+  status       String       @default("available")
+  operator     String       @default("")
+  apn          String?
+  ipAddress    String?
+  cooldownUntil DateTime?
+  meterId      String?
+  meter        Meter?       @relation(fields: [meterId], references: [id])
+  assignments  SIMAssignment[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([status])
+  @@index([meterId])
+}
+model SIMAssignment {
+  id          String   @id @default(uuid())
+  simId       String
+  sim         SIMCard  @relation(fields: [simId], references: [id], onDelete: Cascade)
+  meterId     String
+  meter       Meter    @relation(fields: [meterId], references: [id])
+  startAt     DateTime @default(now())
+  endAt       DateTime?
+  status      String   @default("active")
+  createdBy   String?
+  createdAt   DateTime @default(now())
+
+  @@index([simId])
+  @@index([meterId])
+  @@index([status, startAt])
+}
+
 
