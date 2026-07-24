@@ -248,6 +248,21 @@ Never work on two Waves, Phases, or Tasks simultaneously.
 Read Planning → Read Graphiti → Read SpecKit → Analyze → Implement → Build → Type Check → Lint → Run → Playwright → Workflow Test → Performance Test → Graph Compare → Spec Compare → Evidence → Update Planning → Commit → Push → Next Step
 ```
 
+### Rule 9b — GitHub Error Check Cycle (Every 5 Tasks)
+After every 5 completed implementation tasks, the AI MUST:
+1. Run `node --check` on all backend JS files (syntax validation)
+2. Run `npm test` to verify all tests pass
+3. Run `npm audit --audit-level=high` to check security vulnerabilities
+4. Check `.github/workflows/` for corrupted characters (non-ASCII)
+5. Commit all fixes found
+6. Wait 2 minutes
+7. Re-run all checks
+8. If any error remains → fix → repeat from step 1
+9. If all clear → log to `LEARNING_ENGINE/LESSONS_LEARNED.md` as successful cycle
+10. Proceed to next task
+
+This cycle ensures the repository stays clean and GitHub does not send error notifications.
+
 ## Rule 10 — Tool Activation & Self-Improvement Mandate
 
 ### 10.1 — Mandatory Tool Declaration

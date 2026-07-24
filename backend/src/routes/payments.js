@@ -51,6 +51,7 @@ router.post("/payments", requirePermission("payments.*"), async (req, res, next)
 
 router.post("/payments/:id/reverse", requirePermission("payments.*"), async (req, res, next) => {
   try {
+    if (req.user?.role !== "super_admin") return res.status(403).json({ error: "Only super_admin can reverse payments" })
     const { reason } = z.object({ reason: z.string().min(1) }).parse(req.body)
     const payment = await prisma.payment.findUnique({ where: { id: req.params.id }, include: { transactions: true } })
     if (!payment) return res.status(404).json({ error: "Payment not found" })

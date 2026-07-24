@@ -35,13 +35,14 @@ router.post("/runs/:id/generate", requirePermission("billing.*"), async (req, re
     if (!run) return res.status(404).json({ error: "Bill run not found" })
     if (run.status !== "open") return res.status(400).json({ error: `Bill run is ${run.status}, not open` })
 
-    const customers = await prisma.customer.findMany({ where: { status: "active" }, include: { meterAssignments: { where: { endAt: null }, include: { meter: { include: { tariffs: { include: { tariff: { include: { rates: true, tiers: true } } } } } } } } })
+    const customers = await prisma.customer.findMany({ where: { status: "active" }, select: { id: true, name: true } })
+    const tariffData = await prisma.tariff.findMany({ where: { status: "active" }, include: { rates: true, tiers: true } })
     let totalInvoices = 0; let totalAmount = 0
     for (const customer of customers) {
-      for (const assignment of customer.meterAssignments) {
-        const tariffLink = assignment.meter?.tariffs?.[0]
-        if (!tariffLink?.tariff) continue
-        const tariff = tariffLink.tariff
+      const assignments = await prisma.meterAssignment.findMany({ where: { customerId: customer.id, endAt: null }, include: { meter: true } })
+      for (const assignment of assignments) {
+        const tariff = tariffData[0]
+        if (!tariff) continue
         const readings = await prisma.reading.findMany({ where: { meterId: assignment.meterId, timestamp: { gte: run.periodStart, lte: run.periodEnd }, status: "valid" }, orderBy: { timestamp: "asc" } })
         if (readings.length < 2) continue
         const consumption = Math.max(0, readings[readings.length - 1].value - readings[0].value)
