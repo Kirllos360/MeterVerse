@@ -3,7 +3,7 @@ status: RUNNING
 started: 2026-07-23
 completed: null
 total_tasks: 6
-completed_tasks: 1
+completed_tasks: 2
 evidence_dir: 45b_SECURITY_HARDENING/_evidence/
 
 ## Gaps Covered
