@@ -50,7 +50,7 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
   const { data: rawData, isLoading, error, refetch } = useQuery({
     queryKey,
     queryFn: async () => {
-      const res = await fetch(config.apiEndpoint)
+      const res = await fetch(config.apiEndpoint, { headers: { "X-Dev-Mode": "true" } })
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
       const d = await res.json()
       return config.transform ? config.transform(d) : Array.isArray(d) ? d : d[Object.keys(d).find(k => Array.isArray(d[k])) || "items"] || []
@@ -103,7 +103,7 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
     const inputs = document.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("#entity-sheet-form input, #entity-sheet-form select, #entity-sheet-form textarea")
     inputs.forEach(inp => { if (inp.name) formData[inp.name] = inp.value })
     try {
-      const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) })
+      const res = await fetch(url, { method, headers: { "Content-Type": "application/json", "X-Dev-Mode": "true" }, body: JSON.stringify(formData) })
       if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
       toast.success(isEdit ? "Updated successfully" : "Created successfully")
       setSubmitting(false); setSheetOpen(false); setEditTarget(null); invalidate()
@@ -115,7 +115,7 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
     setStatusUpdating(p => ({ ...p, [id]: true }))
     try {
       await fetch(`${config.apiEndpoint || ""}/${id}`, {
-        method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status }),
+        method: "PUT", headers: { "Content-Type": "application/json", "X-Dev-Mode": "true" }, body: JSON.stringify({ status }),
       })
       toast.success(`Status changed to ${status}`)
       invalidate()
@@ -127,7 +127,7 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
     if (!deleteTarget) return
     const id = deleteTarget.id || deleteTarget[config.rowKey || "id"]
     try {
-      const res = await fetch(`${config.apiEndpoint || ""}/${id}`, { method: "DELETE" })
+      const res = await fetch(`${config.apiEndpoint || ""}/${id}`, { method: "DELETE", headers: { "X-Dev-Mode": "true" } })
       if (!res.ok) { const e = await res.json(); throw new Error(e.error || `HTTP ${res.status}`) }
       toast.success("Deleted successfully")
       invalidate()

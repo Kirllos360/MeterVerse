@@ -53,12 +53,12 @@ router.post("/payments/:id/reverse", requirePermission("payments.*"), async (req
   try {
     if (req.user?.role !== "super_admin") return res.status(403).json({ error: "Only super_admin can reverse payments" })
     const { reason } = z.object({ reason: z.string().min(1) }).parse(req.body)
-    const payment = await prisma.payment.findUnique({ where: { id: req.params.id }, include: { transactions: true } })
+    const payment = await prisma.payment.findUnique({ where: { id: req.params.id }, include: { paymentTransactions: true } })
     if (!payment) return res.status(404).json({ error: "Payment not found" })
     if (payment.status !== "completed") return res.status(400).json({ error: "Payment already reversed" })
 
     await prisma.$transaction(async (tx) => {
-      for (const t of payment.transactions) {
+      for (const t of payment.paymentTransactions) {
         await tx.invoice.update({ where: { id: t.invoiceId }, data: { paidAmount: { decrement: t.amount } } })
       }
       await tx.payment.update({ where: { id: payment.id }, data: { status: "reversed" } })
@@ -107,7 +107,7 @@ router.get("/", requirePermission("payments.*"), async (req, res, next) => {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
     const [payments, total] = await Promise.all([
-      prisma.payment.findMany({ skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: { transactions: true } }),
+      prisma.payment.findMany({ skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: { paymentTransactions: true } }),
       prisma.payment.count(),
     ])
     res.json({ payments, total, page, limit })
