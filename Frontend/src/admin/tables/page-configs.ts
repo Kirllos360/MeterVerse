@@ -802,5 +802,90 @@ export const pageConfigs: Record<string, PageConfig> = {
     ],
     fields: defFields([]), statsCards: [],
   },
+  settings: {
+    id: "settings", title: "Settings", description: "System configuration settings",
+    apiEndpoint: "/api/admin/settings",
+    statusField,
+    transform: (d: any) => (d.settings || []).map((s: any) => ({
+      id: s.id || s.key, name: s.name || s.key, key: s.key,
+      value: typeof s.value === "string" ? s.value : JSON.stringify(s.value),
+      category: s.category || "general", status: s.status || "active",
+      updatedAt: s.updatedAt || "",
+    })),
+    columns: [
+      { id: "name", header: "Setting", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "value", header: "Value", accessor: r => r.value },
+      { id: "category", header: "Category", accessor: r => r.category, type: "badge", width: 120 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+    ],
+    fields: defFields([
+      { name: "name", label: "Setting Name", type: "text", required: true },
+      { name: "value", label: "Value", type: "text", required: true },
+      { name: "category", label: "Category", type: "select", options: [ { value: "general", label: "General" }, { value: "billing", label: "Billing" }, { value: "system", label: "System" }, { value: "security", label: "Security" } ] },
+    ]),
+    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
+  reports: {
+    id: "reports", title: "Reports & Analytics", description: "Report generation and export",
+    apiEndpoint: "/api/reports/exports",
+    statusField,
+    transform: (d: any) => (d.exports || []).map((e: any) => ({
+      id: e.id, name: e.name || e.reportName || "Report",
+      format: e.format || e.type || "PDF", status: e.status || "completed",
+      createdAt: e.createdAt || "",
+    })),
+    columns: [
+      { id: "name", header: "Report", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "format", header: "Format", accessor: r => r.format, type: "badge", width: 100 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+      { id: "createdAt", header: "Created", accessor: r => r.createdAt, type: "date", width: 110 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Total", Icons.post, r=>r.length), sc("Completed", Icons.circleCheck, r=>r.filter(x=>x.status==="completed"||x.status==="active").length)],
+  },
+  services: {
+    id: "services", title: "Enterprise Services", description: "Platform service management",
+    apiEndpoint: "/api/services",
+    statusField,
+    transform: () => [],
+    columns: [
+      { id: "name", header: "Service", accessor: r => r.name, width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]), statsCards: [],
+  },
+  security: {
+    id: "security", title: "Security & Compliance", description: "Security audit and compliance monitoring",
+    apiEndpoint: "/api/admin/security",
+    statusField,
+    transform: (d: any) => (d.checks || []).map((c: any) => ({
+      id: c.check || c.id, name: c.check || c.name,
+      status: c.status === "pass" || c.status === "ok" ? "active" : c.status === "warn" ? "maintenance" : "terminated",
+      detail: c.detail || "",
+    })),
+    columns: [
+      { id: "name", header: "Check", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "detail", header: "Detail", accessor: r => r.detail },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Total", Icons.lock, r=>r.length), sc("Passed", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
+  ai: {
+    id: "ai", title: "AI Layer", description: "AI agents and automation",
+    apiEndpoint: "/api/admin/ai-diagnostics",
+    statusField,
+    transform: (d: any) => (d.agents || []).map((a: any) => ({
+      id: a.id || a.name, name: a.name || a.label || "Agent",
+      status: a.status || "active", lastActive: a.lastActive || "",
+    })),
+    columns: [
+      { id: "name", header: "Agent", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+      { id: "lastActive", header: "Last Active", accessor: r => r.lastActive, type: "date", width: 120 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Total Agents", Icons.sparkles, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
 }
 
