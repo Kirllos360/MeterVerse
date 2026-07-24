@@ -70,8 +70,11 @@ router.post("/runs/:id/generate", requirePermission("billing.*"), async (req, re
 
 router.post("/runs/:id/close", requirePermission("billing.*"), async (req, res, next) => {
   try {
+    if (req.user?.role !== "super_admin" && req.user?.role !== "admin") {
+      return res.status(403).json({ error: "Only super_admin or admin can close bill runs", code: "FORBIDDEN" })
+    }
     const run = await prisma.billRun.findUnique({ where: { id: req.params.id } })
-    if (!run) return res.status(404).json({ error: "Bill run not found" })
+    if (!run) return res.status(404).json({ error: "Bill run not found", code: "NOT_FOUND" })
     if (run.status !== "completed") return res.status(400).json({ error: "Can only close a completed bill run" })
     await prisma.billRun.update({ where: { id: run.id }, data: { status: "closed" } })
     await prisma.billRunHistory.create({ data: { billRunId: run.id, action: "closed", details: "Bill run closed" } })
