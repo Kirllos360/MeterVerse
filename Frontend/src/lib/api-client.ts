@@ -19,8 +19,14 @@ export class ApiClientError extends Error {
 
 function getAuthHeaders(): Record<string, string> {
   if (typeof window === "undefined") return {}
+  // Dev mode: use mock token if no real auth
   const stored = localStorage.getItem("mv-identity")
-  if (!stored) return {}
+  if (!stored) {
+    // Check for dev bypass token
+    const devToken = localStorage.getItem("mv-dev-token")
+    if (devToken) return { Authorization: `Bearer ${devToken}` }
+    return {}
+  }
   try {
     const { state } = JSON.parse(stored)
     if (state?.tokens?.accessToken) {

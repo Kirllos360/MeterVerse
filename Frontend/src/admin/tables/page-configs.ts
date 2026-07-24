@@ -16,7 +16,7 @@ const sc = (label: string, icon: any, value: (r: any[]) => number | string) => (
 export const pageConfigs: Record<string, PageConfig> = {
   customers: {
     id: "customers", title: "Customers", description: "Manage your customer base",
-    apiEndpoint: "/api/meterverse/customers",
+    apiEndpoint: "/api/customers",
     statusField,
     transform: (d: any) => (d.customers || []).map((c: any) => ({
       id: c.id, name: c.name, email: c.email || "", phone: c.phone || "",
@@ -628,7 +628,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   meters: {
     id: "meters", title: "Meter Management", description: "Manage all metering devices across all areas",
-    apiEndpoint: "/api/meterverse/meters",
+    apiEndpoint: "/api/meters",
     statusField,
     transform: (d: any) => (d.meters || []).map((m: any) => ({
       id: m.id, name: m.meterId || m.serial || m.id?.substring(0,8) || "—",
@@ -655,7 +655,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   readings: {
     id: "readings", title: "Meter Readings", description: "Consumption readings from all meters",
-    apiEndpoint: "/api/meterverse/readings",
+    apiEndpoint: "/api/readings",
     statusField,
     transform: (d: any) => (d.readings || []).map((r: any) => ({
       id: r.id, meter: r.meterId || r.meter || "—",
@@ -678,7 +678,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   invoices: {
     id: "invoices", title: "Invoices", description: "Customer invoices and billing records",
-    apiEndpoint: "/api/meterverse/invoices",
+    apiEndpoint: "/api/invoices",
     statusField,
     transform: (d: any) => (d.invoices || []).map((inv: any) => ({
       id: inv.id, customer: inv.customerName || inv.customer || inv.customerId || "—",
@@ -702,7 +702,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   payments: {
     id: "payments", title: "Payments", description: "Customer payment transactions",
-    apiEndpoint: "/api/meterverse/payments",
+    apiEndpoint: "/api/payments",
     statusField,
     transform: (d: any) => (d.payments || []).map((p: any) => ({
       id: p.id, customer: p.customerName || p.customer || p.customerId || "—",
@@ -725,7 +725,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   "service-connections": {
     id: "service-connections", title: "Service Connections", description: "Meter-to-customer assignments and service points",
-    apiEndpoint: "/api/meterverse/meter-assignments",
+    apiEndpoint: "/api/meter-assignments",
     statusField,
     transform: (d) => (d.assignments || []).map((a: any) => ({
       id: a.id, meter: a.meter?.serial || a.meterId?.substring(0,8) || "�",

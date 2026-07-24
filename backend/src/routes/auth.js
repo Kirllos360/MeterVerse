@@ -53,6 +53,17 @@ router.get("/me", authenticate, async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
+// Dev login — returns JWT token without real auth (development only)
+router.post("/dev-login", async (req, res, next) => {
+  try {
+    const { role } = z.object({ role: z.enum(["super_admin", "admin", "operator", "billing", "viewer"]).default("super_admin") }).parse(req.body)
+    const jwt = await import("jsonwebtoken")
+    const secret = process.env.JWT_SECRET || "dev-secret-key"
+    const token = jwt.default.sign({ sub: "dev-user", email: "dev@meterverse.com", role, system: "admin" }, secret, { expiresIn: "24h" })
+    res.json({ success: true, accessToken: token, user: { id: "dev-user", email: "dev@meterverse.com", name: "Dev User", role, permissions: ["read","write","delete","admin","export","approve","all"] } })
+  } catch (err) { next(err) }
+})
+
 export { router as authRouter }
 
 
