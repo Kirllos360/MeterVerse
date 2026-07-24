@@ -5,6 +5,74 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum EntityStatus {
+  active
+  inactive
+  pending
+  suspended
+  archived
+  terminated
+}
+
+enum InvoiceStatus {
+  draft
+  pending
+  approved
+  issued
+  partially_paid
+  paid
+  cancelled
+  archived
+  overdue
+}
+
+enum MeterStatus {
+  stock
+  assigned
+  installed
+  reading
+  disconnected
+  maintenance
+  retired
+}
+
+enum ReadingStatus {
+  valid
+  flagged
+  rejected
+  pending
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+  refunded
+  cancelled
+}
+
+enum AuditStatus {
+  success
+  failure
+  info
+  warning
+}
+
+enum NotificationType {
+  in_app
+  email
+  sms
+  push
+}
+
+enum JobStatus {
+  pending
+  running
+  completed
+  failed
+  cancelled
+}
 model User {
   id            String       @id @default(uuid())
   email         String       @unique
