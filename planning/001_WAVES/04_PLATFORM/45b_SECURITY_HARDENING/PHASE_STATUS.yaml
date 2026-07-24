@@ -3,13 +3,13 @@ status: RUNNING
 started: 2026-07-23
 completed: null
 total_tasks: 6
-completed_tasks: 2
+completed_tasks: 4
 evidence_dir: 45b_SECURITY_HARDENING/_evidence/
 
 ## Gaps Covered
-- D13: MFA is a placeholder (T41)
-- D12: CSRF protection missing (T42)
-- D13: No IP-based blocking (T43)
-- D13: No DDoS protection (T44)
-- D13: No security scan in CI (T45)
-- D12/D13: CORS/Helmet verification (T46)
+- D13: MFA is a placeholder (T41) — DEFERRED (needs speakeasy/otplib integration)
+- D12: CSRF protection missing (T42) — MITIGATED (JWT-in-header pattern, CSRF not applicable to API)
+- D13: No IP-based blocking (T43) — DEFERRED (needs express-rate-limit extension)
+- D13: No DDoS protection (T44) — MITIGATED (rate limiting 200/15min, body size 1mb)
+- D13: No security scan in CI (T45) — COMPLETE (npm audit in CI workflow)
+- D12/D13: CORS/Helmet verification (T46) — COMPLETE (verified as properly configured)
