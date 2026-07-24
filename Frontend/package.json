@@ -15,7 +15,8 @@
         "lint:strict": "oxlint --deny-warnings",
         "format": "oxfmt --write . '!**/*.md' '!**/*.mdc' '!**/*.mdx' '!**/*.yml' '!**/*.yaml'",
         "format:check": "oxfmt --check . '!**/*.md' '!**/*.mdc' '!**/*.mdx' '!**/*.yml' '!**/*.yaml'",
-        "test": "echo \"MeterVerse: No unit tests configured yet\" && exit 0",
+        "test": "vitest run",
+        "test:integration": "vitest run --config vitest.integration.config.ts",
         "prepare": "husky"
     },
     "dependencies": {
