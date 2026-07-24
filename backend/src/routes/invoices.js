@@ -101,6 +101,11 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
     const tariff = await prisma.tariff.findFirst({ where: { status: "active" }, include: { rates: true } })
     if (!tariff) return res.status(400).json({ error: "No active tariff found" })
 
+    // Determine due date from project payment terms (default 30 days)
+    const project = await prisma.project.findFirst({ where: { organizationId: customer.area || "" } })
+    const paymentTermsDays = project?.paymentTermsDays || 30
+    const dueDate = new Date(Date.now() + paymentTermsDays * 86400000)
+
     // Generate invoice
     const invoiceNumber = `INV-${Date.now()}`
     let totalAmount = 0
@@ -117,7 +122,7 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
       }
     }
 
-    const invoice = await prisma.invoice.create({ data: { number: invoiceNumber, customerId, amount: totalAmount, status: "pending", dueDate: new Date(Date.now() + 30 * 86400000) } })
+    const invoice = await prisma.invoice.create({ data: { number: invoiceNumber, customerId, amount: totalAmount, status: "pending", dueDate } })
 
     if (items.length > 0) {
       await prisma.invoiceItem.createMany({ data: items.map(i => ({ ...i, invoiceId: invoice.id })) })

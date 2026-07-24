@@ -55,8 +55,10 @@ router.post("/runs/:id/generate", requirePermission("billing.*"), async (req, re
         }
         for (const rate of tariff.rates || []) totalCharge += consumption * rate.rate
         if (totalCharge <= 0) continue
+        const project = await prisma.project.findFirst({ where: { organizationId: customer.area || "" } })
+        const ptd = project?.paymentTermsDays || 30
         const invoice = await prisma.invoice.create({
-          data: { number: `INV-${run.id.slice(0, 8)}-${String(totalInvoices + 1).padStart(4, "0")}`, customerId: customer.id, amount: totalCharge, status: "pending", dueDate: new Date(Date.now() + 30 * 86400000), issuedAt: new Date(), billRunId: run.id },
+          data: { number: `INV-${run.id.slice(0, 8)}-${String(totalInvoices + 1).padStart(4, "0")}`, customerId: customer.id, amount: totalCharge, status: "pending", dueDate: new Date(Date.now() + ptd * 86400000), issuedAt: new Date(), billRunId: run.id },
         })
         totalInvoices++; totalAmount += totalCharge
       }
