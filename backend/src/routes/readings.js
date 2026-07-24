@@ -86,6 +86,73 @@ router.put("/:id", requirePermission("readings.create"), async (req, res, next) 
   }
 })
 
+router.post("/", requirePermission("readings.create"), async (req, res, next) => {
+  try {
+    const data = createSchema.parse(req.body)
+    const existing = await prisma.reading.findFirst({ where: { meterId: data.meterId, timestamp: data.timestamp ? new Date(data.timestamp) : undefined, source: data.source } })
+    if (existing && data.source !== "automatic") return res.status(409).json({ error: "Duplicate reading", existingId: existing.id })
+
+    const prevReading = await prisma.reading.findFirst({
+      where: { meterId: data.meterId, timestamp: { lt: data.timestamp ? new Date(data.timestamp) : new Date() } },
+      orderBy: { timestamp: "desc" },
+    })
+
+    let status = "valid"
+    const flags = []
+    if (prevReading && data.value < 0) { status = "flagged"; flags.push("negative_value") }
+    if (prevReading && data.value > prevReading.value * 3 && prevReading.value > 0) { status = "suspicious"; flags.push("spike") }
+    if (prevReading && data.value < prevReading.value * 0.1 && prevReading.value > 0) { status = "suspicious"; flags.push("drop") }
+    if (data.value === 0 && prevReading && prevReading.value > 0) { status = "flagged"; flags.push("zero_reading") }
+
+    const reading = await prisma.reading.create({
+      data: { ...data, timestamp: data.timestamp ? new Date(data.timestamp) : new Date(), status },
+    })
+    if (flags.length > 0) {
+      await prisma.validationResult.create({
+        data: { validationRuleId: "auto", entityType: "reading", entityId: reading.id, status, message: `Auto-flagged: ${flags.join(", ")}` },
+      })
+    }
+    auditLog(req, "reading.created", { readingId: reading.id, meterId: data.meterId, value: data.value, status })
+    res.status(201).json({ reading, flags })
+  } catch (err) { next(err) }
+})
+
+router.get("/review-queue", requirePermission("readings.list"), async (req, res, next) => {
+  try {
+    const page = Math.max(1, Number(req.query.page) || 1)
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
+    const where = { status: { in: ["flagged", "suspicious"] }, archivedAt: null }
+    if (req.query.meterId) where.meterId = req.query.meterId
+    const [readings, total] = await Promise.all([
+      prisma.reading.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { timestamp: "desc" }, include: { meter: { select: { meterId: true, type: true } } } }),
+      prisma.reading.count({ where }),
+    ])
+    res.json({ readings, total, page, limit, queueType: "review" })
+  } catch (err) { next(err) }
+})
+
+router.post("/:id/approve", requirePermission("readings.edit"), async (req, res, next) => {
+  try {
+    const reading = await prisma.reading.findUnique({ where: { id: req.params.id } })
+    if (!reading) return res.status(404).json({ error: "Reading not found" })
+    await prisma.reading.update({ where: { id: req.params.id }, data: { status: "approved" } })
+    await prisma.validationResult.create({ data: { validationRuleId: "manual", entityType: "reading", entityId: reading.id, status: "approved", message: "Approved by reviewer" } })
+    auditLog(req, "reading.approved", { readingId: reading.id })
+    res.json({ message: "Reading approved" })
+  } catch (err) { next(err) }
+})
+
+router.post("/:id/reject", requirePermission("readings.edit"), async (req, res, next) => {
+  try {
+    const reading = await prisma.reading.findUnique({ where: { id: req.params.id } })
+    if (!reading) return res.status(404).json({ error: "Reading not found" })
+    await prisma.reading.update({ where: { id: req.params.id }, data: { status: "rejected" } })
+    await prisma.validationResult.create({ data: { validationRuleId: "manual", entityType: "reading", entityId: reading.id, status: "rejected", message: "Rejected by reviewer" } })
+    auditLog(req, "reading.rejected", { readingId: reading.id })
+    res.json({ message: "Reading rejected" })
+  } catch (err) { next(err) }
+})
+
 router.delete("/:id", requirePermission("readings.delete"), async (req, res, next) => {
   try {
     await prisma.reading.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
