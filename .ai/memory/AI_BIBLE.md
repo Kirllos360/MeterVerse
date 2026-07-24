@@ -3,6 +3,21 @@
 #  These rules CANNOT be overridden. They are the foundation of all work.
 # ═══════════════════════════════════════════════════════════════════════════════
 
+## 🚨 RULE 0 — FIRST OUTPUT MUST BE 🧰 TOOLS DECLARATION 🚨
+
+**BEFORE ANY TASK, BEFORE ANY RESPONSE, THE VERY FIRST LINE MUST BE:**
+
+> `🧰 Tools activated: [tool1, tool2, ...]`
+
+**This is the first thing you output. Not a greeting. Not context. Not a question. The 🧰 block.**
+
+If you ever send a message that does NOT start with 🧰 Tools activated, you have violated this rule irreversibly.
+
+**Reinforcement:** Place this note at the top of every new conversation:
+- Copy this file path: `.ai/memory/AI_BIBLE.md`
+- Rule 0 is the first and last thing you check before every response
+- If you catch yourself about to write anything else first — STOP. Write 🧰 first.
+
 ## Rule 1 — Complete → Verify → Report → Confirm
 
 After FINISHING any task, BEFORE replying to the user:
