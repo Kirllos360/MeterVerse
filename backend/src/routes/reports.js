@@ -61,10 +61,53 @@ router.post("/export", requirePermission("reports.*"), async (req, res, next) =>
   } catch (err) { next(err) }
 })
 
+router.post("/exports", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const { type, format, filters } = z.object({
+      type: z.enum(["invoices", "payments", "customers", "meters", "readings", "aging"]),
+      format: z.enum(["csv", "json", "xlsx"]).default("csv"),
+      filters: z.object({ customerId: z.string().optional(), areaId: z.string().optional(), dateFrom: z.string().optional(), dateTo: z.string().optional(), status: z.string().optional() }).default({}),
+    }).parse(req.body)
+
+    const job = await prisma.exportLog.create({
+      data: { type, format, filters: JSON.stringify(filters), status: "queued" },
+    })
+
+    setTimeout(async () => {
+      try {
+        await prisma.exportLog.update({ where: { id: job.id }, data: { status: "running" } })
+        let rowCount = 0
+        switch (type) {
+          case "invoices": rowCount = (await prisma.invoice.findMany({ take: 10000 })).length; break
+          case "payments": rowCount = (await prisma.payment.findMany({ take: 10000 })).length; break
+          case "customers": rowCount = (await prisma.customer.findMany({ take: 10000 })).length; break
+          case "meters": rowCount = (await prisma.meter.findMany({ take: 10000 })).length; break
+          case "readings": rowCount = (await prisma.reading.findMany({ take: 10000 })).length; break
+          case "aging": rowCount = (await prisma.customer.count({ where: { status: "active" } })); break
+        }
+        await prisma.exportLog.update({ where: { id: job.id }, data: { status: "completed", totalRows: rowCount, completedAt: new Date() } })
+      } catch (e) {
+        await prisma.exportLog.update({ where: { id: job.id }, data: { status: "failed" } })
+      }
+    }, 100)
+
+    auditLog(req, "report.export.created", { jobId: job.id, type, format })
+    res.status(202).json({ jobId: job.id, status: "queued" })
+  } catch (err) { next(err) }
+})
+
 router.get("/exports", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const exports = await prisma.exportLog.findMany({ orderBy: { createdAt: "desc" }, take: 50 })
     res.json({ exports })
+  } catch (err) { next(err) }
+})
+
+router.get("/exports/:id", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const job = await prisma.exportLog.findUnique({ where: { id: req.params.id } })
+    if (!job) return res.status(404).json({ error: "Export job not found", code: "NOT_FOUND" })
+    res.json({ job })
   } catch (err) { next(err) }
 })
 
