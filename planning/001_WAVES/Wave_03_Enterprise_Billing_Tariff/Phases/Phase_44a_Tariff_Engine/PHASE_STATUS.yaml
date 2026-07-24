@@ -1,7 +1,7 @@
 phase:
   name: "Phase 44a Tariff Engine"
   wave: "3"
-  status: "PLANNING"
+  status: "RUNNING"
   tasks:
     T01_Tariff_Evaluation:
       name: "Tariff Evaluation"
