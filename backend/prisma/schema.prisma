@@ -89,6 +89,7 @@ model User {
   language      String       @default("en")
   theme         String       @default("adaptive")
   mfaEnabled    Boolean      @default(false)
+  mfaSecret     String?
   loginAttempts Int          @default(0)
   lockedUntil   DateTime?
   lastFailedAt  DateTime?

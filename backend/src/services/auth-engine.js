@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
+import speakeasy from "speakeasy"
 import { prisma } from "../db.js"
 
 const JWT_SECRET = process.env.JWT_SECRET
@@ -94,8 +95,21 @@ async function createSession(user, systemType, config, ip) {
   }
 }
 
+export async function setupMfa(userId) {
+  const secret = speakeasy.generateSecret({ name: `MeterVerse:${userId}` })
+  await prisma.user.update({ where: { id: userId }, data: { mfaSecret: secret.base32 } })
+  return { secret: secret.base32, otpauth_url: secret.otpauth_url }
+}
+
 export async function verifyMfa(userId, code) {
-  return { valid: true, message: "MFA verification placeholder" }
+  const user = await prisma.user.findUnique({ where: { id: userId } })
+  if (!user?.mfaSecret) return { valid: false, error: "MFA not configured" }
+  const valid = speakeasy.totp.verify({ secret: user.mfaSecret, encoding: "base32", token: code, window: 1 })
+  if (valid) {
+    await prisma.user.update({ where: { id: userId }, data: { mfaEnabled: true } })
+    return { valid: true }
+  }
+  return { valid: false, error: "Invalid code" }
 }
 
 export function verifyToken(token, allowedSystems = ["admin", "user", "mobile"]) {

@@ -1,6 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { prisma, resetPrismaMocks } from '../helpers/mock-prisma.js';
 
+vi.mock('../../src/db.js', () => ({ prisma }));
+vi.mock('speakeasy', async () => ({ default: { generateSecret: vi.fn(), totp: { verify: vi.fn() } }, generateSecret: vi.fn(), totp: { verify: vi.fn() } }));
+
 vi.mock('jsonwebtoken', async () => {
   const jwt = {
     sign: vi.fn(),
@@ -200,10 +203,11 @@ describe('auth-engine', () => {
   });
 
   describe('verifyMfa', () => {
-    it('should return placeholder success', async () => {
+    it('should return error if MFA not configured', async () => {
+      prisma.user.findUnique.mockResolvedValue({ id: 'user-1', mfaSecret: null });
       const result = await verifyMfa('user-1', '123456');
-      expect(result.valid).toBe(true);
-      expect(result.message).toContain('placeholder');
+      expect(result.valid).toBe(false);
+      expect(result.error).toBe('MFA not configured');
     });
   });
 });
