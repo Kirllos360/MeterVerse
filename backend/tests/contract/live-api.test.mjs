@@ -11,9 +11,18 @@ const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Typ
 const GET = (url) => fetch(`${BASE}${url}`, { headers: AUTH }).then(r => ({ status: r.status, body: r.json() }));
 const POST = (url, body) => fetch(`${BASE}${url}`, { method: 'POST', headers: AUTH, body: JSON.stringify(body) }).then(r => ({ status: r.status, body: r.json() }));
 
-// Check if backend is reachable before running live tests
-const backendReady = await fetch('http://localhost:3002/api/health', { signal: AbortSignal.timeout(2000) })
-  .then(r => r.status === 200).catch(() => false);
+// Check if backend is reachable before running live tests (retry with backoff)
+async function waitForBackend(retries = 10, delay = 1000) {
+  for (let i = 0; i < retries; i++) {
+    try {
+      const r = await fetch('http://localhost:3002/api/health', { signal: AbortSignal.timeout(2000) });
+      if (r.status === 200) return true;
+    } catch {}
+    await new Promise(r => setTimeout(r, delay));
+  }
+  return false;
+}
+const backendReady = await waitForBackend(10, 1000);
 
 const describeFn = backendReady ? describe : describe.skip;
 

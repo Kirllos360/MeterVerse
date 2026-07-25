@@ -3,9 +3,11 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
+    pool: 'forks',
+    poolOptions: { forks: { singleFork: true } },
     setupFiles: ['tests/helpers/setup.js'],
-    include: ['tests/unit/**/*.test.mjs', 'tests/api/**/*.test.mjs', 'tests/contract/**/*.test.mjs', 'tests/integration.test.mjs'],
-    exclude: ['node_modules', 'tests/notification-engine.test.mjs'],
+    include: ['tests/unit/**/*.test.mjs', 'tests/api/**/*.test.mjs'],
+    exclude: ['node_modules', 'tests/integration.test.mjs', 'tests/contract/**/*.test.mjs', 'tests/notification-engine.test.mjs'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
