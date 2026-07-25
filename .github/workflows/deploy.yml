@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["CI - Tests and Quality"]
     types: [completed]
-    branches: [clean-main]
+    branches: [clean-main, main]
 
 jobs:
   deploy:
