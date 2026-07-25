@@ -46,23 +46,36 @@ export function GenericAdminPage({ config, initialData, renderCustom }: GenericA
 const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({})
   const debouncedSearch = useDebounce(search, 300)
 
-  const queryKey = config.apiEndpoint ? [config.id, "list"] : []
-  const { data: rawData, isLoading, error, refetch } = useQuery({
+  const serverSide = config.serverSide
+  const qs = new URLSearchParams()
+  if (serverSide) {
+    qs.set("page", String(page)); qs.set("limit", String(ROWS_PER_PAGE))
+    if (tab !== "all") qs.set("status", tab)
+    if (debouncedSearch) qs.set("search", debouncedSearch)
+  }
+  const apiUrl = config.apiEndpoint + (serverSide && qs.toString() ? "?" + qs.toString() : "")
+
+  const queryKey = config.apiEndpoint ? [config.id, "list", page, tab, debouncedSearch] : []
+  const { data: queryData, isLoading, error, refetch } = useQuery({
     queryKey,
     queryFn: async () => {
-      const res = await fetch(config.apiEndpoint, { headers: { "X-Dev-Mode": "true" } })
+      const res = await fetch(apiUrl, { headers: { "X-Dev-Mode": "true" } })
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
       const d = await res.json()
-      return config.transform ? config.transform(d) : Array.isArray(d) ? d : d[Object.keys(d).find(k => Array.isArray(d[k])) || "items"] || []
+      return d
     },
     enabled: !!config.apiEndpoint && !initialData,
     staleTime: 30000,
     retry: 2,
   })
 
-  const data = initialData || rawData || []
+  const rawTotal = queryData?.total ?? (queryData ? (Array.isArray(queryData) ? queryData.length : 0) : 0)
+  const rawItems = queryData ? (config.transform ? config.transform(queryData) : Array.isArray(queryData) ? queryData : []) : []
+  const data = initialData || rawItems || []
+  const totalItems = serverSide ? rawTotal : data.length
 
   const filtered = useMemo(() => {
+    if (serverSide) return data
     let result = data
     if (tab !== "all") {
       const tabDef = config.tabs?.find(t => t.value === tab) || defaultTabsWithStatus.find(t => t.value === tab)
@@ -73,10 +86,10 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
       result = result.filter((r: any) => Object.values(r).some(v => String(v).toLowerCase().includes(q)))
     }
     return result
-  }, [data, tab, debouncedSearch, config.tabs])
+  }, [data, tab, debouncedSearch, config.tabs, serverSide])
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / ROWS_PER_PAGE))
-  const paged = useMemo(() => filtered.slice((page - 1) * ROWS_PER_PAGE, page * ROWS_PER_PAGE), [filtered, page])
+  const totalPages = Math.max(1, Math.ceil((serverSide ? totalItems : filtered.length) / ROWS_PER_PAGE))
+  const paged = useMemo(() => serverSide ? filtered : filtered.slice((page - 1) * ROWS_PER_PAGE, page * ROWS_PER_PAGE), [filtered, page, serverSide])
   useEffect(() => { setPage(1) }, [tab, debouncedSearch])
 
   const handleAction = (action: EntityAction, row?: any) => {

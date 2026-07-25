@@ -17,17 +17,18 @@ export const pageConfigs: Record<string, PageConfig> = {
   customers: {
     id: "customers", title: "Customers", description: "Manage your customer base",
     apiEndpoint: "/api/customers",
+    serverSide: true,
     statusField,
     transform: (d: any) => (d.customers || []).map((c: any) => ({
       id: c.id, name: c.name, email: c.email || "", phone: c.phone || "",
-      status: c.status || "active", area: c.area || "", createdAt: c.createdAt || "",
+      status: c.status || "active", area: c.area || "", address: c.address || "", createdAt: c.createdAt || "",
     })),
     columns: [
       { id: "name", header: "Name", accessor: r => r.name, type: "avatar", width: 220 },
       { id: "email", header: "Email", accessor: r => r.email, type: "email" },
       { id: "phone", header: "Phone", accessor: r => r.phone || "—", width: 140 },
-      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
       { id: "area", header: "Area", accessor: r => r.area || "—", width: 120 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
       { id: "createdAt", header: "Created", accessor: r => r.createdAt, type: "date", width: 110 },
     ],
     fields: defFields([
@@ -35,8 +36,9 @@ export const pageConfigs: Record<string, PageConfig> = {
       { name: "email", label: "Email", type: "email", required: true, placeholder: "john@example.com" },
       { name: "phone", label: "Phone", type: "phone", placeholder: "+1 555 0123" },
       { name: "area", label: "Area", type: "text", placeholder: "New Cairo" },
+      { name: "address", label: "Address", type: "textarea" },
     ]),
-    statsCards: [sc("Total", Icons.teams, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length), sc("Inactive", Icons.circleX, r=>r.filter(x=>x.status==="inactive").length), sc("Maintenance", Icons.settings, r=>r.filter(x=>x.status==="maintenance").length)],
+    statsCards: [sc("Total", Icons.teams, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
   },
   users: {
     id: "users", title: "User Management", description: "Manage administrators and system users",
