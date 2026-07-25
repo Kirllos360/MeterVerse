@@ -1,9 +1,34 @@
 #!/usr/bin/env node
-// Pre-commit hook: Run GATE_CHECK on any modified STATUS.yaml files
+// Pre-commit hook: TypeScript check + tests + GATE_CHECK on STATUS.yaml
 const { execSync } = require('child_process');
 const { readFileSync, existsSync } = require('fs');
 
 try {
+  // 1. TypeScript check (Frontend)
+  try {
+    execSync('npx tsc --noEmit', { cwd: 'Frontend', stdio: 'pipe', encoding: 'utf8' });
+    console.log('? TypeScript check passed');
+  } catch (e) {
+    console.error('? TypeScript errors found:');
+    console.error(e.stdout || e.message);
+    process.exit(1);
+  }
+} catch (e) {
+  // TypeScript check failed above
+}
+
+try {
+  // 2. Backend vitest (unit + api tests only, not live-api)
+  execSync('npx vitest run tests/unit tests/api', { cwd: 'Backend', stdio: 'pipe', encoding: 'utf8' });
+  console.log('? Backend tests passed');
+} catch (e) {
+  console.error('? Backend test failures:');
+  console.error(e.stdout || e.message);
+  process.exit(1);
+}
+
+try {
+  // 3. GATE_CHECK on any modified STATUS.yaml files
   const diff = execSync('git diff --cached --name-only', { encoding: 'utf8' });
   const statusFiles = diff.split('\n').filter(f => f.includes('STATUS.yaml'));
 
@@ -11,21 +36,15 @@ try {
     const parts = file.replace(/\\/g, '/').split('/');
     const phaseIdx = parts.findIndex(p => p.startsWith('Phase_'));
     if (phaseIdx === -1) continue;
-    
     const phase = parts[phaseIdx];
     const taskIdx = parts.findIndex(p => p.startsWith('T'));
     const task = taskIdx >= 0 ? parts[taskIdx] : '';
-    
     if (phase && task) {
       console.log('GATE_CHECK: ' + phase + '/' + task);
-      try {
-        execSync('node scripts/gate-check.mjs "' + phase + '" "' + task + '"', { stdio: 'inherit' });
-      } catch (e) {
-        console.error('? GATE_CHECK failed. Commit blocked.');
-        process.exit(1);
-      }
+      execSync('node scripts/gate-check.mjs "' + phase + '" "' + task + '"', { stdio: 'inherit' });
     }
   }
 } catch (e) {
-  // No STATUS files changed, skip
+  // STATUS check failed
+  if (e.status) process.exit(1);
 }
