@@ -90,7 +90,7 @@ app.use(express.urlencoded({ extended: false, limit: "1mb" }))
 
 // Rate limiting — stricter on auth routes
 const globalLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, max: 200,
+  windowMs: 60 * 1000, max: 2000,
   standardHeaders: true, legacyHeaders: false,
   message: { error: "Too many requests" },
 })

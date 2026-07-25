@@ -29,7 +29,10 @@ router.post("/login", async (req, res, next) => {
       system: result.system,
       portal: result.portal,
     })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.post("/register", async (req, res, next) => {
