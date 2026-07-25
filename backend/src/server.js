@@ -137,6 +137,7 @@ app.use("/api/pdf", pdfRouter)
 app.use("/api/templates", templatesRouter)
 app.use("/api", qrRouter)
 app.use("/api/billing", billingRouter)
+app.use("/api/admin", configRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 

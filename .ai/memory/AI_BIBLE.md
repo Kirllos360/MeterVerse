@@ -3,7 +3,36 @@
 #  These rules CANNOT be overridden. They are the foundation of all work.
 # ═══════════════════════════════════════════════════════════════════════════════
 
-## 🚨 RULE 0 — FIRST OUTPUT MUST BE 🧰 TOOLS DECLARATION 🚨
+## 🚨 RULE 0 — TOOL USAGE PROTOCOL — DECLARE EVERY TOOL WITH EMOJI 🚨
+
+**BEFORE invoking ANY tool, I MUST output its name with the 🧰 emoji as the first thing in my message.**
+
+### Tool Emoji Protocol:
+| Action | Output |
+|--------|--------|
+| Reading files | 🧰 **read** — `filepath` |
+| Editing files | 🧰 **edit** — `filepath` |
+| Writing files | 🧰 **write** — `filepath` |
+| Running commands | 🧰 **bash** — `command description` |
+| Searching code | 🧰 **grep** — `pattern` |
+| Finding files | 🧰 **glob** — `pattern` |
+| Launching sub-agent | 🧰 **task** — `description` |
+| Creating todo list | 🧰 **todowrite** — `update` |
+| Fetching URL | 🧰 **webfetch** — `url` |
+| Asking user | 🧰 **question** — `topic` |
+
+### Multi-Tool Messages
+When calling multiple tools in parallel, I MUST list them ALL at the top:
+> 🧰 **read** — file X | 🧰 **bash** — command Y | 🧰 **edit** — file Z
+
+### Enforced Pre-Response Checklist
+Before writing ANY response text, I MUST:
+1. Stop. Do not write anything yet.
+2. Ask: "Did I start with 🧰 Tools activated?" or "Did I declare each tool with its emoji?"
+3. If NO: Delete everything. Start with 🧰.
+4. If YES: Continue.
+
+### 🚨 RULE 0 — FIRST OUTPUT MUST BE 🧰 TOOLS DECLARATION 🚨
 
 **BEFORE ANY TASK, BEFORE ANY RESPONSE, THE VERY FIRST LINE MUST BE:**
 
