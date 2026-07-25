@@ -639,29 +639,33 @@ export const pageConfigs: Record<string, PageConfig> = {
   meters: {
     id: "meters", title: "Meter Management", description: "Manage all metering devices across all areas",
     apiEndpoint: "/api/meters",
+    serverSide: true,
     statusField,
     transform: (d: any) => (d.meters || []).map((m: any) => ({
-      id: m.id, name: m.meterId || m.serial || m.id?.substring(0,8) || "—",
+      id: m.id, serial: m.serial || m.meterId || m.id?.substring(0,8) || "—",
       type: m.type || m.meterType || "LP2", area: m.area || m.location || "—",
-      status: m.status || "active", lastReading: m.lastReadingAt || m.lastReading || "—",
+      status: m.status || "active", customer: m.customer?.name || "—",
       createdAt: m.createdAt || m.installedAt || "",
     })),
     columns: [
-      { id: "name", header: "Meter ID", accessor: r => r.name, type: "avatar", width: 180 },
+      { id: "serial", header: "Serial", accessor: r => r.serial, type: "avatar", width: 200 },
       { id: "type", header: "Type", accessor: r => r.type, type: "badge", width: 100 },
       { id: "area", header: "Area", accessor: r => r.area, width: 140 },
       { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
-      { id: "lastReading", header: "Last Reading", accessor: r => r.lastReading, type: "date", width: 130 },
+      { id: "customer", header: "Customer", accessor: r => r.customer, width: 160 },
       { id: "createdAt", header: "Installed", accessor: r => r.createdAt, type: "date", width: 110 },
     ],
     fields: defFields([
-      { name: "name", label: "Meter ID / Serial", type: "text", required: true },
+      { name: "serial", label: "Serial Number", type: "text", required: true, placeholder: "MTR-2024-001" },
       { name: "type", label: "Meter Type", type: "select", options: [
-        { value: "LP2", label: "LP2" }, { value: "M1", label: "M1" }, { value: "S1", label: "S1" },
+        { value: "electric", label: "Electric" }, { value: "water", label: "Water" }, { value: "gas", label: "Gas" },
       ]},
       { name: "area", label: "Area", type: "text", placeholder: "October, New Cairo, SODIC..." },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "active", label: "Active" }, { value: "inactive", label: "Inactive" }, { value: "maintenance", label: "Maintenance" }, { value: "retired", label: "Retired" },
+      ]},
     ]),
-    statsCards: [sc("Total Meters", Icons.settings, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length), sc("Inactive", Icons.circleX, r=>r.filter(x=>x.status==="inactive").length), sc("Maintenance", Icons.clock, r=>r.filter(x=>x.status==="maintenance").length)],
+    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
   },
   "meter-types": {
     id: "meter-types", title: "Meter Types", description: "Manage meter type catalog",
@@ -803,6 +807,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   sim: {
     id: "sim", title: "SIM Cards", description: "SIM card inventory and assignments",
     apiEndpoint: "/api/sim",
+    serverSide: true,
     statusField,
     transform: (d: any) => (d.sims || []).map((s: any) => ({
       id: s.id, iccid: s.iccid, simNumber: s.simNumber,
@@ -817,8 +822,16 @@ export const pageConfigs: Record<string, PageConfig> = {
       { id: "ipAddress", header: "IP", accessor: r => r.ipAddress, width: 140 },
       { id: "createdAt", header: "Created", accessor: r => r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "—", width: 120 },
     ],
-    fields: defFields([{ name: "iccid", label: "ICCID", type: "text", required: true }, { name: "simNumber", label: "SIM Number", type: "text", required: true }, { name: "operator", label: "Operator", type: "text" }, { name: "ipAddress", label: "IP Address", type: "text" }]),
-    statsCards: [],
+    fields: defFields([
+      { name: "iccid", label: "ICCID", type: "text", required: true, placeholder: "89000000000000000000" },
+      { name: "simNumber", label: "SIM Number", type: "text", required: true, placeholder: "SIM-001" },
+      { name: "operator", label: "Operator", type: "text", placeholder: "Vodafone" },
+      { name: "ipAddress", label: "IP Address", type: "text", placeholder: "10.0.0.1" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "available", label: "Available" }, { value: "assigned", label: "Assigned" }, { value: "active", label: "Active" }, { value: "faulty", label: "Faulty" }, { value: "retired", label: "Retired" },
+      ]},
+    ]),
+    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Available", Icons.circleCheck, r=>r.filter(x=>x.status==="available").length), sc("Assigned", Icons.chevronRight, r=>r.filter(x=>x.status==="assigned"||x.status==="active").length)],
   },
   domains: {
     id: "domains", title: "Domain Data", description: "Browse all domain entities",
