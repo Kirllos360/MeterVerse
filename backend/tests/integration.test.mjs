@@ -344,5 +344,22 @@ describeFn('API Integration Tests', () => {
     expect(r.status).toBe(403);
   });
 
+  // T062a: Water difference handling
+  it('T062a: water meter in report_only mode does not add to total', async () => {
+    const ts = Date.now();
+    await ensureTariff();
+    const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T062a-MTR-${ts}`, type: 'water', status: 'active' }) }).then(r => r.json());
+    const mId = m.meter?.id || m.id;
+    const c = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `T062a-Cust-${ts}`, email: `t062a-${ts}@test.com` }) }).then(r => r.json());
+    const cId = c.customer?.id || c.id;
+    await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, customerId: cId }) });
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 10, source: 't062a', timestamp: '2026-01-01T00:00:00Z' }) });
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 30, source: 't062a', timestamp: '2026-02-01T00:00:00Z' }) });
+
+    // Invoice should have 0 amount (water excluded per default report_only)
+    const inv = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId: cId, periodStart: '2026-01-01', periodEnd: '2026-01-31' }) }).then(r => r.json());
+    expect(inv.invoice?.amount).toBe(0);
+  });
+
   });
 });

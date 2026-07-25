@@ -95,6 +95,7 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
     const project = await prisma.project.findFirst({ where: { organizationId: customer.area || "" } })
     const paymentTermsDays = project?.paymentTermsDays || 30
     const dueDate = new Date(Date.now() + paymentTermsDays * 86400000)
+    const waterDiffMode = project?.waterDifferenceMode || "report_only"
 
     // Generate invoice
     const invoiceNumber = `INV-${Date.now()}`
@@ -105,10 +106,16 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
       const readings = a.meter.readings
       if (readings.length >= 2) {
         const consumption = readings[0].value - readings[1].value
-        const rate = tariff.rates?.[0]?.rate || 1
-        const amount = Math.abs(consumption) * rate
-        totalAmount += amount
-        items.push({ type: "charge", description: `Consumption (${a.meter.serial}): ${Math.abs(consumption)} ${readings[0].unit}`, quantity: Math.abs(consumption), unitPrice: rate, amount, total: amount })
+        const amount = Math.abs(consumption) * (tariff.rates?.[0]?.rate || 1)
+
+        // Water difference handling: report_only mode excludes water charges from total
+        const isWater = a.meter.type?.toLowerCase() === "water"
+        if (isWater && waterDiffMode === "report_only") {
+          items.push({ type: "info", description: `Water consumption (${a.meter.serial}): ${Math.abs(consumption)} ${readings[0].unit} (report only)`, quantity: Math.abs(consumption), unitPrice: 0, amount: 0, total: 0 })
+        } else {
+          totalAmount += amount
+          items.push({ type: "charge", description: `Consumption (${a.meter.serial}): ${Math.abs(consumption)} ${readings[0].unit}`, quantity: Math.abs(consumption), unitPrice: tariff.rates?.[0]?.rate || 1, amount, total: amount })
+        }
       }
     }
 
@@ -152,6 +159,37 @@ router.put("/:id", requirePermission("invoices.edit"), async (req, res, next) =>
     auditLog(req, "invoice.updated", { invoiceId: invoice.id, changes: Object.keys(data) })
     res.json({ invoice: updated })
   } catch (err) { next(err) }
+})
+
+// ─── ADJUSTMENTS (credit notes / surcharges) ──────────────────────────
+
+router.post("/:id/adjustments", requirePermission("invoices.edit"), async (req, res, next) => {
+  try {
+    const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } })
+    if (!invoice) return res.status(404).json({ error: "Invoice not found" })
+    if (invoice.immutableAt) return res.status(400).json({ error: "Cannot adjust an issued invoice" })
+
+    const data = z.object({
+      description: z.string().min(1),
+      amount: z.number(),
+      type: z.enum(["adjustment", "discount", "surcharge"]).default("adjustment"),
+    }).parse(req.body)
+
+    const item = await prisma.invoiceItem.create({
+      data: { invoiceId: req.params.id, type: data.type, description: data.description, quantity: 1, unitPrice: data.amount, amount: data.amount, total: data.amount },
+    })
+
+    const updated = await prisma.invoice.update({
+      where: { id: req.params.id },
+      data: { amount: { increment: data.amount } },
+    })
+
+    auditLog(req, "invoice.adjustment", { invoiceId: invoice.id, description: data.description, amount: data.amount })
+    res.status(201).json({ adjustment: item, invoice: updated })
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 export { router as invoicesRouter }
