@@ -462,5 +462,6 @@ Location:   wave-01 | wave-02 | wave-03 | wave-04 | wave-05 | wave-06
 ---
 
 *Enterprise Planning Formula v4.0.0*
-*Status: PROPOSED — pending Enterprise Architect ratification*
+*Status: RATIFIED — pending Enterprise Architect ratification*
 *Generated: 2026-07-24*
+
