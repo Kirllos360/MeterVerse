@@ -19,6 +19,7 @@ import { businessRouter } from "./routes/business.js"
 import { crudRouter } from "./routes/crud.js"
 import { monitorRouter } from "./routes/monitor.js"
 import { aiRouter } from "./routes/ai.js"
+import { aiCloudflareRouter } from "./routes/ai-cloudflare.js"
 import { meterAssignmentRouter } from "./routes/meter-assignments.js"
 import { preferencesRouter } from "./routes/preferences.js"
 import { searchRouter } from "./routes/search.js"
@@ -120,6 +121,7 @@ app.use("/api/crud", crudRouter)
 app.use("/api/monitor", monitorRouter)
 app.use("/api/monitoring", monitorRouter)
 app.use("/api/ai", aiRouter)
+app.use("/api", aiCloudflareRouter)
 app.use("/api/security", securityRouter)
 app.use("/api/meter-assignments", meterAssignmentRouter)
 app.use("/api/notifications", notificationsRouter)

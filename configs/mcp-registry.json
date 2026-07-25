@@ -8,51 +8,37 @@
       "command": "mcp-server-sequential-thinking",
       "purpose": "Structured reasoning for complex audit tasks",
       "status": "configured in opencode.json",
-      "used_by": ["T03 GATE_CHECK", "Phase 42d audit reasoning"]
+      "used_by": ["All complex reasoning tasks"]
     },
     "mcp-server-git": {
       "command": "mcp-server-git --repository D:\\meter",
       "purpose": "Git diff/blame for verifying STATUS.yaml consistency",
       "status": "configured in opencode.json",
-      "used_by": ["T03-S04 CI validation", "T06 Meter/ decision"]
+      "used_by": ["Git operations", "commit verification"]
     },
     "mcp-server-filesystem": {
       "command": "mcp-server-filesystem D:\\meter",
       "purpose": "Filesystem analysis for codebase auditing",
       "status": "configured in opencode.json",
-      "used_by": ["T06 Meter/ content analysis", "T04 page-configs analysis"]
+      "used_by": ["Codebase exploration", "file operations"]
     },
     "mcp-server-postgres": {
-      "command": "mcp-server-postgres postgresql://meter_pulse:meter_pulse_dev@localhost:5433/meter_pulse",
-      "purpose": "Direct database auditing without Prisma",
+      "command": "mcp-server-postgres postgresql://meter_pulse:meter_pulse_dev@localhost:5432/meter_pulse",
+      "purpose": "Direct database auditing without Prisma (FIXED PORT 5432)",
       "status": "configured in opencode.json",
-      "used_by": ["Phase 42d DB audits", "T05 test data setup"]
-    },
-    "mcp-openapi": {
-      "command": "mcp-openapi",
-      "purpose": "OpenAPI schema generation and validation",
-      "status": "available — not yet configured"
+      "used_by": ["DB audits", "data verification"]
     },
     "mcp-server-memory": {
       "command": "mcp-server-memory",
       "purpose": "Persistent knowledge graph across sessions",
-      "status": "available — not yet configured"
-    },
-    "mcp-server-gitlab": {
-      "command": "mcp-server-gitlab",
-      "purpose": "GitLab integration",
-      "status": "available — not yet configured"
-    },
-    "mcp-server-sqlite-npx": {
-      "command": "mcp-server-sqlite-npx",
-      "purpose": "SQLite database access",
-      "status": "available — not yet configured"
+      "status": "configured in opencode.json",
+      "used_by": ["Cross-session context", "project memory"]
     },
     "@playwright/mcp": {
       "command": "npx @playwright/mcp@latest",
       "purpose": "Browser automation for screenshot QA and visual regression",
       "status": "configured in opencode.json",
-      "used_by": ["Phase 42d T03 GATE_CHECK evidence"]
+      "used_by": ["All Playwright tests", "visual verification"]
     }
   },
   "configured_in_opencode": [
@@ -60,11 +46,22 @@
     "git",
     "filesystem",
     "postgres",
-    "playwright"
+    "playwright",
+    "memory"
   ],
+  "cloudflare": {
+    "status": "token provided — bridge ready",
+    "token_source": "user provided cfut_... token",
+    "free_tier": "100K requests/day",
+    "available_models": "@cf/meta/llama-3.2-3b-instruct, @cf/meta/llama-3.1-8b-instruct, @cf/mistral/mistral-7b-instruct-v0.1"
+  },
   "opencode_config_path": "C:\\Users\\EPower\\.config\\opencode\\opencode.json",
-  "next_to_configure": [
-    "mcp-server-memory",
-    "mcp-openapi"
-  ]
+  "free_alternatives": {
+    "ollama": "Laptop can't handle. Use Cloudflare Workers AI instead (free, 100K req/day)",
+    "deepinfra_replicate": "Cloudflare Workers AI — free inference, no GPU needed",
+    "autogen_chatdev_crewai_langgraph": "Not needed yet. Use sequential-thinking MCP + simple workflows",
+    "lakera_garak_rebuff": "Build simple input validation middleware in Node.js (already have zod)",
+    "llamafactory": "Cloudflare Workers AI runs Llama models on their GPUs — no local GPU needed"
+  },
+  "next_to_configure": []
 }
