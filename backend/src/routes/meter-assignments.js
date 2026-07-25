@@ -41,6 +41,11 @@ router.get("/:id", requirePermission("meter_assignments.*"), async (req, res, ne
 router.post("/", requirePermission("meter_assignments.*"), async (req, res, next) => {
   try {
     const data = createSchema.parse({ ...req.body, startDate: req.body.startDate || new Date().toISOString() })
+
+    // Check for existing active assignment on this meter
+    const existing = await prisma.meterAssignment.findFirst({ where: { meterId: data.meterId, status: "active" } })
+    if (existing) return res.status(409).json({ error: "Meter already has an active assignment", existingId: existing.id })
+
     const assignment = await prisma.meterAssignment.create({ data })
     await prisma.meter.update({ where: { id: data.meterId }, data: { customerId: data.customerId } })
     auditLog(req, "assignment.created", { assignmentId: assignment.id, meterId: data.meterId, customerId: data.customerId })

@@ -214,4 +214,35 @@ describeFn('Contract Tests — Live Backend', () => {
     const r = await fetch(`${BASE}/api/customers`);
     expect([401, 429]).toContain(r.status);
   });
+
+  // ─── T023: Meter Assignment Contract Tests ───
+  it('T023: POST /api/meter-assignments — 201 assign meter (200)', async () => {
+    // First create a customer and meter to assign
+    const cust = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: 'T023 Test Customer', email: 't023@test.com' }) }).then(r => r.json());
+    const meter = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: 'T023-MTR-001', type: 'electric', status: 'active' }) }).then(r => r.json());
+    const customerId = cust.customer?.id;
+    const meterId = meter.meter?.id;
+
+    if (customerId && meterId) {
+      const r = await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId, customerId }) });
+      expect(r.status).toBe(201);
+      const b = await r.json();
+      expect(b.assignment).toBeDefined();
+    }
+  });
+
+  it('T023: POST /api/meter-assignments — 409 conflict for duplicate (409)', async () => {
+    const cust = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: 'T023 Conflict Customer', email: 't023c@test.com' }) }).then(r => r.json());
+    const meter = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: 'T023-MTR-CONFLICT', type: 'water', status: 'active' }) }).then(r => r.json());
+    const customerId = cust.customer?.id;
+    const meterId = meter.meter?.id;
+
+    if (customerId && meterId) {
+      // First assignment — should succeed
+      await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId, customerId }) });
+      // Second assignment — should fail with 409
+      const r = await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId, customerId }) });
+      expect([409, 400]).toContain(r.status);
+    }
+  });
 });
