@@ -43,6 +43,7 @@ import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
 import { errorHandler, correlationMiddleware, notFoundHandler } from "./middleware/errorHandler.js"
 import { idempotencyMiddleware } from "./middleware/idempotency.js"
+import { getAvailabilityPlans, getAvailabilityPlan, setAvailabilityPlan } from "./services/availability-manager.js"
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -153,6 +154,13 @@ mount("/locations", locationsRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
+
+// Availability plans (T092)
+app.get("/api/availability", (req, res) => res.json({ plans: getAvailabilityPlans(), active: getAvailabilityPlan() }))
+app.post("/api/availability/:plan", (req, res) => {
+  try { res.json(setAvailabilityPlan(req.params.plan)) }
+  catch (err) { res.status(400).json({ error: err.message }) }
+})
 
 // Swagger — only at top level, not versioned
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
