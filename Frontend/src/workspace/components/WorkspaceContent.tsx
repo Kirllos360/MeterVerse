@@ -8,44 +8,151 @@ import { SmartSearch } from "@/components/effects/SmartSearch"
 import { Pagination } from "@/components/ui/pagination"
 import { useTranslation } from "@/hooks/use-translation"
 import { WorkspaceHome } from "./WorkspaceHome"
+import { EntityCrudDialog } from "@/components/enterprise/EntityCrudDialog"
 import { futuristic, transitions } from "@/design-system/motion"
 
-const entityColumns: Record<string, { id: string; label: string; sortable?: boolean }[]> = {
-  customers: [
-    { id: "name", label: "Name", sortable: true },
-    { id: "email", label: "Email", sortable: true },
-    { id: "phone", label: "Phone" },
-    { id: "status", label: "Status", sortable: true },
-  ],
-  meters: [
-    { id: "serial", label: "Serial", sortable: true },
-    { id: "type", label: "Type", sortable: true },
-    { id: "status", label: "Status", sortable: true },
-    { id: "location", label: "Location" },
-  ],
-  invoices: [
-    { id: "number", label: "Number", sortable: true },
-    { id: "amount", label: "Amount", sortable: true },
-    { id: "status", label: "Status", sortable: true },
-    { id: "date", label: "Date", sortable: true },
-  ],
-  readings: [
-    { id: "meter", label: "Meter", sortable: true },
-    { id: "value", label: "Value", sortable: true },
-    { id: "date", label: "Date", sortable: true },
-    { id: "status", label: "Status", sortable: true },
-  ],
-  payments: [
-    { id: "method", label: "Method", sortable: true },
-    { id: "amount", label: "Amount", sortable: true },
-    { id: "date", label: "Date", sortable: true },
-    { id: "status", label: "Status", sortable: true },
-  ],
+/* ── Entity Configuration ─────────────────────────────────────── */
+
+interface EntityConfig {
+  endpoint: string
+  listKey: string
+  columns: { id: string; label: string; sortable?: boolean }[]
+  fields: { name: string; label: string; type: "text" | "email" | "number" | "select" | "textarea" | "phone"; required?: boolean; placeholder?: string; options?: { value: string; label: string }[] }[]
 }
 
-const entityIcons: Record<string, string> = {
-  customers: "customers", meters: "meters", invoices: "invoices",
-  readings: "readings", payments: "payments",
+const entityConfigs: Record<string, EntityConfig> = {
+  customers: {
+    endpoint: "/api/customers",
+    listKey: "customers",
+    columns: [
+      { id: "name", label: "Name", sortable: true },
+      { id: "email", label: "Email", sortable: true },
+      { id: "phone", label: "Phone" },
+      { id: "status", label: "Status", sortable: true },
+    ],
+    fields: [
+      { name: "name", label: "Full Name", type: "text", required: true, placeholder: "John Doe" },
+      { name: "email", label: "Email", type: "email", placeholder: "john@example.com" },
+      { name: "phone", label: "Phone", type: "phone", placeholder: "+20 100 000 0000" },
+      { name: "address", label: "Address", type: "textarea", placeholder: "Street, City" },
+      { name: "area", label: "Area", type: "text", placeholder: "New Cairo" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "active", label: "Active" }, { value: "inactive", label: "Inactive" }, { value: "maintenance", label: "Maintenance" }, { value: "terminated", label: "Terminated" },
+      ]},
+    ],
+  },
+  meters: {
+    endpoint: "/api/meters",
+    listKey: "meters",
+    columns: [
+      { id: "serialNumber", label: "Serial", sortable: true },
+      { id: "type", label: "Type", sortable: true },
+      { id: "status", label: "Status", sortable: true },
+      { id: "location", label: "Location" },
+    ],
+    fields: [
+      { name: "serialNumber", label: "Serial Number", type: "text", required: true, placeholder: "MTR-001" },
+      { name: "type", label: "Meter Type", type: "select", options: [
+        { value: "electric", label: "Electric" }, { value: "water", label: "Water" }, { value: "gas", label: "Gas" },
+      ]},
+      { name: "location", label: "Location", type: "text", placeholder: "Building A, Floor 3" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "active", label: "Active" }, { value: "inactive", label: "Inactive" }, { value: "maintenance", label: "Maintenance" }, { value: "terminated", label: "Terminated" },
+      ]},
+    ],
+  },
+  readings: {
+    endpoint: "/api/readings",
+    listKey: "readings",
+    columns: [
+      { id: "meterId", label: "Meter", sortable: true },
+      { id: "value", label: "Value", sortable: true },
+      { id: "recordedAt", label: "Date", sortable: true },
+      { id: "status", label: "Status", sortable: true },
+    ],
+    fields: [
+      { name: "meterId", label: "Meter ID", type: "text", required: true, placeholder: "MTR-001" },
+      { name: "value", label: "Reading Value", type: "number", required: true, placeholder: "1234.56" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "active", label: "Active" }, { value: "pending", label: "Pending" }, { value: "verified", label: "Verified" },
+      ]},
+    ],
+  },
+  invoices: {
+    endpoint: "/api/invoices",
+    listKey: "invoices",
+    columns: [
+      { id: "number", label: "Number", sortable: true },
+      { id: "amount", label: "Amount", sortable: true },
+      { id: "status", label: "Status", sortable: true },
+      { id: "dueDate", label: "Due Date", sortable: true },
+    ],
+    fields: [
+      { name: "number", label: "Invoice Number", type: "text", required: true, placeholder: "INV-001" },
+      { name: "amount", label: "Amount", type: "number", required: true, placeholder: "1500.00" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "pending", label: "Pending" }, { value: "paid", label: "Paid" }, { value: "overdue", label: "Overdue" }, { value: "cancelled", label: "Cancelled" },
+      ]},
+      { name: "dueDate", label: "Due Date", type: "text", placeholder: "2026-08-15" },
+    ],
+  },
+  payments: {
+    endpoint: "/api/payments",
+    listKey: "payments",
+    columns: [
+      { id: "method", label: "Method", sortable: true },
+      { id: "amount", label: "Amount", sortable: true },
+      { id: "status", label: "Status", sortable: true },
+      { id: "paidAt", label: "Date", sortable: true },
+    ],
+    fields: [
+      { name: "method", label: "Payment Method", type: "select", options: [
+        { value: "bank", label: "Bank Transfer" }, { value: "cash", label: "Cash" }, { value: "card", label: "Credit Card" }, { value: "wallet", label: "Mobile Wallet" },
+      ]},
+      { name: "amount", label: "Amount", type: "number", required: true, placeholder: "1500.00" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "pending", label: "Pending" }, { value: "completed", label: "Completed" }, { value: "failed", label: "Failed" }, { value: "refunded", label: "Refunded" },
+      ]},
+    ],
+  },
+  "customer-groups": { endpoint: "/api/customers", listKey: "customers", columns: [{ id: "name", label: "Name", sortable: true }, { id: "email", label: "Email" }], fields: [{ name: "name", label: "Group Name", type: "text", required: true }] },
+  contacts: { endpoint: "/api/customers", listKey: "customers", columns: [{ id: "name", label: "Name" }, { id: "email", label: "Email" }], fields: [{ name: "name", label: "Contact Name", type: "text", required: true }, { name: "email", label: "Email", type: "email" }] },
+  contracts: { endpoint: "/api/domain/contracts", listKey: "contracts", columns: [{ id: "name", label: "Name" }, { id: "status", label: "Status" }], fields: [{ name: "name", label: "Contract Name", type: "text", required: true }] },
+  "invoice-generator": { endpoint: "/api/invoices", listKey: "invoices", columns: [{ id: "number", label: "Number" }, { id: "amount", label: "Amount" }], fields: [{ name: "number", label: "Invoice Number", type: "text", required: true }, { name: "amount", label: "Amount", type: "number", required: true }] },
+  "credit-notes": { endpoint: "/api/invoices", listKey: "invoices", columns: [{ id: "number", label: "Number" }, { id: "amount", label: "Amount" }], fields: [{ name: "number", label: "Credit Note", type: "text", required: true }] },
+  tariffs: { endpoint: "/api/tariffs", listKey: "tariffs", columns: [{ id: "name", label: "Name", sortable: true }, { id: "rate", label: "Rate" }], fields: [{ name: "name", label: "Tariff Name", type: "text", required: true }, { name: "rate", label: "Rate", type: "number" }] },
+  "meter-types": { endpoint: "/api/meters", listKey: "meters", columns: [{ id: "type", label: "Type" }], fields: [{ name: "type", label: "Type Name", type: "text", required: true }] },
+  "meter-map": { endpoint: "/api/meters", listKey: "meters", columns: [{ id: "serialNumber", label: "Serial" }, { id: "location", label: "Location" }], fields: [{ name: "serialNumber", label: "Serial", type: "text" }] },
+  "manual-reading": { endpoint: "/api/readings", listKey: "readings", columns: [{ id: "meterId", label: "Meter" }, { id: "value", label: "Value" }], fields: [{ name: "meterId", label: "Meter ID", type: "text", required: true }, { name: "value", label: "Value", type: "number", required: true }] },
+  "bulk-import": { endpoint: "/api/readings", listKey: "readings", columns: [{ id: "meterId", label: "Meter" }, { id: "value", label: "Value" }], fields: [{ name: "meterId", label: "Meter ID", type: "text", required: true }, { name: "value", label: "Value", type: "number", required: true }] },
+  operations: { endpoint: "/api/business/pipeline-status", listKey: "pipeline", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Operation", type: "text", required: true }] },
+  "work-orders": { endpoint: "/api/tasks", listKey: "tasks", columns: [{ id: "title", label: "Title" }, { id: "status", label: "Status" }], fields: [{ name: "title", label: "Work Order", type: "text", required: true }] },
+  financial: { endpoint: "/api/business/pipeline-status", listKey: "pipeline", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Item", type: "text" }] },
+  revenue: { endpoint: "/api/business/pipeline-status", listKey: "pipeline", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Revenue Source", type: "text" }] },
+  "cash-flow": { endpoint: "/api/business/pipeline-status", listKey: "pipeline", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Item", type: "text" }] },
+  reports: { endpoint: "/api/reports/exports", listKey: "exports", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Report Name", type: "text", required: true }] },
+  "financial-reports": { endpoint: "/api/reports/exports", listKey: "exports", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Report Name", type: "text", required: true }] },
+  "consumption-reports": { endpoint: "/api/reports/exports", listKey: "exports", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Report Name", type: "text", required: true }] },
+  monitoring: { endpoint: "/api/monitor", listKey: "health", columns: [{ id: "status", label: "Status" }], fields: [{ name: "name", label: "Monitor Item", type: "text" }] },
+  alerts: { endpoint: "/api/alerts", listKey: "alerts", columns: [{ id: "message", label: "Alert" }, { id: "severity", label: "Severity" }], fields: [{ name: "message", label: "Alert Message", type: "text", required: true }] },
+  iot: { endpoint: "/api/meters", listKey: "meters", columns: [{ id: "serialNumber", label: "Device" }], fields: [{ name: "serialNumber", label: "Device ID", type: "text" }] },
+  administration: { endpoint: "/api/admin/health", listKey: "services", columns: [{ id: "service", label: "Service" }], fields: [{ name: "name", label: "Service Name", type: "text" }] },
+  users: { endpoint: "/api/admin/users", listKey: "users", columns: [{ id: "name", label: "Name" }, { id: "email", label: "Email" }, { id: "role", label: "Role" }], fields: [{ name: "name", label: "User Name", type: "text", required: true }, { name: "email", label: "Email", type: "email", required: true }] },
+  roles: { endpoint: "/api/admin/roles", listKey: "roles", columns: [{ id: "name", label: "Role" }], fields: [{ name: "name", label: "Role Name", type: "text", required: true }] },
+  "audit-logs": { endpoint: "/api/admin/audit", listKey: "logs", columns: [{ id: "action", label: "Action" }, { id: "user", label: "User" }], fields: [{ name: "action", label: "Action", type: "text" }] },
+  security: { endpoint: "/api/security", listKey: "policies", columns: [{ id: "name", label: "Policy" }], fields: [{ name: "name", label: "Policy Name", type: "text" }] },
+  authentication: { endpoint: "/api/admin/sessions", listKey: "sessions", columns: [{ id: "user", label: "User" }, { id: "status", label: "Status" }], fields: [{ name: "user", label: "User", type: "text" }] },
+  "api-tokens": { endpoint: "/api/admin/api-keys", listKey: "keys", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Token Name", type: "text", required: true }] },
+  "ai-center": { endpoint: "/api/admin/ai-diagnostics", listKey: "diagnostics", columns: [{ id: "status", label: "Status" }], fields: [{ name: "name", label: "AI Model", type: "text" }] },
+  "ai-assistant": { endpoint: "/api/admin/ai-diagnostics", listKey: "diagnostics", columns: [{ id: "status", label: "Status" }], fields: [{ name: "name", label: "Query", type: "text" }] },
+  "ai-insights": { endpoint: "/api/admin/ai-diagnostics", listKey: "diagnostics", columns: [{ id: "status", label: "Status" }], fields: [{ name: "name", label: "Insight", type: "text" }] },
+  settings: { endpoint: "/api/admin/settings", listKey: "settings", columns: [{ id: "key", label: "Setting" }], fields: [{ name: "key", label: "Setting Key", type: "text" }] },
+  "system-config": { endpoint: "/api/admin/settings", listKey: "settings", columns: [{ id: "key", label: "Setting" }], fields: [{ name: "key", label: "Config Key", type: "text" }] },
+  backups: { endpoint: "/api/admin/backups", listKey: "backups", columns: [{ id: "name", label: "Name" }], fields: [{ name: "name", label: "Backup Name", type: "text" }] },
+  developer: { endpoint: "/api/admin/health", listKey: "services", columns: [{ id: "service", label: "Service" }], fields: [{ name: "name", label: "Tool", type: "text" }] },
+  "api-explorer": { endpoint: "/api/admin/health", listKey: "services", columns: [{ id: "service", label: "Service" }], fields: [{ name: "name", label: "Endpoint", type: "text" }] },
+  "runtime-inspector": { endpoint: "/api/admin/health", listKey: "services", columns: [{ id: "service", label: "Service" }], fields: [{ name: "name", label: "Component", type: "text" }] },
+  logs: { endpoint: "/api/admin/health", listKey: "services", columns: [{ id: "service", label: "Service" }], fields: [{ name: "name", label: "Log Source", type: "text" }] },
 }
 
 function AppPage({ appId, title, description }: { appId: string; title: string; description?: string }) {
@@ -55,51 +162,56 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
   const [activeFilters, setActiveFilters] = useState<string[]>([])
   const [sortOpen, setSortOpen] = useState(false)
+  const [crudOpen, setCrudOpen] = useState(false)
+  const [crudEdit, setCrudEdit] = useState<any>(null)
   const { viewMode, setViewMode } = useWorkspaceStore()
   const { t } = useTranslation()
-  const columns = entityColumns[appId] || [
+
+  const config = entityConfigs[appId]
+  const columns = config?.columns || [
     { id: "name", label: "Name", sortable: true },
     { id: "status", label: "Status", sortable: true },
   ]
-  const showAdd = [
-    "customers", "customer-groups", "contacts", "contracts",
-    "meters", "meter-types",
-    "invoices", "invoice-generator", "credit-notes",
-    "readings", "manual-reading", "bulk-import",
-    "payments",
-    "operations", "work-orders",
-    "financial", "revenue", "cash-flow",
-    "reports", "financial-reports", "consumption-reports",
-    "monitoring", "alerts",
-    "iot",
-    "admin", "users", "roles", "audit-logs",
-    "security", "authentication", "api-tokens",
-    "ai-center", "ai-assistant", "ai-insights",
-    "settings", "system-config", "backups",
-    "developer", "api-explorer", "runtime-inspector", "logs",
-  ].includes(appId)
-  const icon = entityIcons[appId] || "dashboard"
+  const showAdd = !!config
+  const icon = appId === "customers" ? "customers" : appId === "meters" ? "meters" : appId === "invoices" ? "invoices" : appId === "readings" ? "readings" : appId === "payments" ? "payments" : "dashboard"
+
   const [data, setData] = useState<any[] | null>(null)
   const [loading, setLoading] = useState(false)
-  const [dataError, setDataError] = useState<string | null>(null)
 
-  useEffect(() => {
-    const resourceMap: Record<string, string> = { customers: "customers", meters: "meters", readings: "readings", invoices: "invoices", payments: "payments" }
-    const resource = resourceMap[appId]
-    if (!resource) return
+  const fetchData = useCallback(() => {
+    if (!config) { setData(null); return }
     setLoading(true)
-    fetch(`/api/meterverse/${resource}`)
-      .then(r => r.ok ? r.json() : Promise.reject("API unavailable"))
-      .then(json => { setData(json[resource] || []); setLoading(false) })
-      .catch(() => { setData(null); setLoading(false); setDataError(null) })
-  }, [appId])
+    fetch(config.endpoint, { headers: { "X-Dev-Mode": "true" } })
+      .then(r => r.ok ? r.json() : Promise.reject("API error"))
+      .then(json => {
+        const items = json[config.listKey] || json.data || json.items || (Array.isArray(json) ? json : [])
+        setData(Array.isArray(items) ? items : [])
+        setLoading(false)
+      })
+      .catch(() => { setData([]); setLoading(false) })
+  }, [config])
 
-  const rows = data || Array.from({ length: 15 }, (_, i) => i + 1)
+  useEffect(() => { fetchData() }, [fetchData])
+
+  const rows = data ?? []
 
   const handleAdd = useCallback(() => {
-    setNotif(`New ${title} dialog would open here`)
-    setTimeout(() => setNotif(null), 3000)
-  }, [title])
+    setCrudEdit(null)
+    setCrudOpen(true)
+  }, [])
+
+  const handleEdit = useCallback((item: any) => {
+    setCrudEdit(item)
+    setCrudOpen(true)
+  }, [])
+
+  const handleDelete = useCallback(async (item: any) => {
+    if (!config || !item.id) return
+    try {
+      await fetch(`${config.endpoint}/${item.id}`, { method: "DELETE", headers: { "X-Dev-Mode": "true" } })
+      fetchData()
+    } catch {}
+  }, [config, fetchData])
 
   const toggleSort = useCallback((field: string) => {
     if (sortField === field) setSortDir((d) => (d === "asc" ? "desc" : "asc"))
@@ -433,12 +545,14 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                     </button>
                     <div id={`menu-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl z-50 overflow-hidden" role="menu" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }} onClick={(e) => e.stopPropagation()}>
-                      {[{ icon: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 100-6 3 3 0 000 6z", label: "View" }, { icon: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7", label: "Edit" }, { icon: "M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2", label: "Delete" }].map((opt) => (
-                        <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10" aria-label="Menu option" style={{ color: opt.label === "Delete" ? "var(--status-error)" : "var(--text-primary)" }}>
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={opt.icon} /></svg>
-                          {opt.label}
-                        </button>
-                      ))}
+                      <button onClick={() => { handleEdit(item); document.getElementById(`menu-${i}`)?.classList.add('hidden') }} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: "var(--text-primary)" }}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/></svg>
+                        Edit
+                      </button>
+                      <button onClick={() => { handleDelete(item); document.getElementById(`menu-${i}`)?.classList.add('hidden') }} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: "var(--status-error)" }}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -468,18 +582,20 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
               </thead>
               <tbody>
                 {rows.map((item: any, i: number) => {
-                  const statuses = ["Active","Active","Warning","Active","Error","Active","Active","Warning","Active","Active","Error","Active","Warning","Active","Active"]
-                  const status = statuses[i % statuses.length]
-                  const statusColor = status === "Error" ? "var(--status-error)" : status === "Warning" ? "var(--status-warning)" : "var(--brand)"
+                  const st = typeof item === "object" ? (item.status || "active") : "active"
+                  const status = String(st).charAt(0).toUpperCase() + String(st).slice(1)
+                  const statusColor = status === "Error" || status === "Overdue" || status === "Failed" ? "var(--status-error)" : status === "Warning" || status === "Pending" || status === "Maintenance" ? "var(--status-warning)" : "var(--brand)"
                   return (
-                  <motion.tr key={i}
+                  <motion.tr key={item.id || i}
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.03 }}
                     className="relative"
                     style={{ borderBottom: "1px solid var(--border-default)" }}
                   >
-                    {columns.map((col) => (
+                    {columns.map((col) => {
+                      const val = typeof item === "object" ? item[col.id] : null
+                      return (
                       <td key={col.id} className="px-4 py-3 text-sm" style={{ color: "var(--text-primary)" }}>
                         <span className="flex items-center gap-2">
                           {col.id === columns[0].id && (
@@ -490,10 +606,10 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                               transition={{ duration: 2, repeat: Infinity, delay: i * 0.05 }}
                             />
                           )}
-                          {col.sortable ? `${title} #${i}` : "—"}
+                          {val != null ? String(val) : "—"}
                         </span>
                       </td>
-                    ))}
+                    )})}
                     <td className="px-4 py-3 text-xs">
                       <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full font-medium"
                         style={{ backgroundColor: `${statusColor}15`, color: statusColor }}>
@@ -508,12 +624,14 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="5" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                         </button>
                         <div id={`rm-${i}`} className="hidden absolute right-0 bottom-full mb-1 w-36 rounded-xl z-50 overflow-hidden" role="menu" style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)" }}>
-                          {[{ icon: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zM12 15a3 3 0 100-6 3 3 0 000 6z", label: "View" }, { icon: "M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7", label: "Edit" }, { icon: "M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2", label: "Delete", danger: true }].map((opt) => (
-                            <button key={opt.label} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5" style={{ color: opt.danger ? "var(--status-error)" : "var(--text-primary)" }}>
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d={opt.icon} /></svg>
-                              {opt.label}
-                            </button>
-                          ))}
+                          <button onClick={() => { handleEdit(item); document.getElementById(`rm-${i}`)?.classList.add('hidden') }} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5" style={{ color: "var(--text-primary)" }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/></svg>
+                            Edit
+                          </button>
+                          <button onClick={() => { handleDelete(item); document.getElementById(`rm-${i}`)?.classList.add('hidden') }} className="flex items-center gap-2 w-full px-3 py-2 text-xs text-left transition-colors hover:bg-black/5" style={{ color: "var(--status-error)" }}>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                            Delete
+                          </button>
                         </div>
                       </div>
                     </td>
@@ -536,6 +654,34 @@ function AppPage({ appId, title, description }: { appId: string; title: string; 
           {notif}
         </div>
       )}
+
+      {/* CRUD Dialog */}
+      {config && (
+        <EntityCrudDialog
+          open={crudOpen}
+          onClose={() => setCrudOpen(false)}
+          title={title}
+          fields={config.fields}
+          initialData={crudEdit}
+          apiEndpoint={config.endpoint}
+          onSaved={fetchData}
+        />
+      )}
+
+      {/* Notification Toast */}
+      <AnimatePresence>
+        {notif && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed bottom-6 right-6 px-4 py-3 rounded-xl text-sm font-medium z-50"
+            style={{ backgroundColor: "var(--surface-raised)", boxShadow: "var(--shadow-md)", color: "var(--text-primary)" }}
+          >
+            {notif}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   )
 }

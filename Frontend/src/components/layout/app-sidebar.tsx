@@ -29,22 +29,27 @@ import { navGroups } from '@/config/nav-config';
 import { useMediaQuery } from '@/hooks/use-media-query';
 import { useAuth } from '@/providers/auth-context';
 import { useFilteredNavGroups } from '@/hooks/use-nav';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useDashboardStore } from '@/stores/dashboard-store';
 import * as React from 'react';
 import { Icons } from '../icons';
 
+function urlToPageKey(url: string): string {
+  const m = url.match(/\/dashboard\/([\w-]+)/)
+  return m ? m[1] : 'overview'
+}
 
 export default function AppSidebar() {
-  const pathname = usePathname();
   const { isOpen } = useMediaQuery();
   const { user } = useAuth();
-  const router = useRouter();
+  const setActivePage = useDashboardStore((s) => s.setActivePage);
+  const activePage = useDashboardStore((s) => s.activePage);
   const filteredGroups = useFilteredNavGroups(navGroups);
 
-  React.useEffect(() => {
-    // Side effects based on sidebar state changes
-  }, [isOpen]);
+  const handleNav = (url: string) => {
+    if (url.startsWith('/dashboard/')) {
+      setActivePage(urlToPageKey(url));
+    }
+  };
 
   return (
     <Sidebar collapsible='icon'>
@@ -61,6 +66,8 @@ export default function AppSidebar() {
             <SidebarMenu>
               {group.items.map((item) => {
                 const Icon = item.icon ? Icons[item.icon] : Icons.logo;
+                const itemPage = item.url.startsWith('/dashboard/') ? urlToPageKey(item.url) : null;
+                const isActive = itemPage === activePage;
                 return item?.items && item?.items?.length > 0 ? (
                   <Collapsible
                     key={item.title}
@@ -71,7 +78,7 @@ export default function AppSidebar() {
                       render={
                         <SidebarMenuButton
                           tooltip={item.title}
-                          isActive={pathname === item.url}
+                          isActive={isActive}
                           className='group/collapsible'
                         />
                       }
@@ -82,25 +89,28 @@ export default function AppSidebar() {
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <SidebarMenuSub>
-                        {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton
-                              render={<Link href={subItem.url} aria-label={subItem.title} />}
-                              isActive={pathname === subItem.url}
-                            >
-                              <span>{subItem.title}</span>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
+                        {item.items?.map((subItem) => {
+                          const subPage = subItem.url.startsWith('/dashboard/') ? urlToPageKey(subItem.url) : null;
+                          return (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <SidebarMenuSubButton
+                                render={<a href="#" aria-label={subItem.title} onClick={(e) => { e.preventDefault(); if (subPage) setActivePage(subPage); }} />}
+                                isActive={subPage === activePage}
+                              >
+                                <span>{subItem.title}</span>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          );
+                        })}
                       </SidebarMenuSub>
                     </CollapsibleContent>
                   </Collapsible>
                 ) : (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
-                      render={<Link href={item.url} aria-label={item.title} />}
+                      render={<a href="#" aria-label={item.title} onClick={(e) => { e.preventDefault(); handleNav(item.url); }} />}
                       tooltip={item.title}
-                      isActive={pathname === item.url}
+                      isActive={isActive}
                     >
                       <Icon />
                       <span>{item.title}</span>
@@ -145,15 +155,15 @@ export default function AppSidebar() {
                 <DropdownMenuSeparator />
 
                 <DropdownMenuGroup>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard/profile')}>
+                  <DropdownMenuItem onClick={() => setActivePage('profile')}>
                     <Icons.account className='mr-2 h-4 w-4' />
                     Profile
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard/billing')}>
+                  <DropdownMenuItem onClick={() => setActivePage('billing')}>
                     <Icons.creditCard className='mr-2 h-4 w-4' />
                     Billing
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard/notifications')}>
+                  <DropdownMenuItem onClick={() => setActivePage('notifications')}>
                     <Icons.notification className='mr-2 h-4 w-4' />
                     Notifications
                   </DropdownMenuItem>

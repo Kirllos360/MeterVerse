@@ -17,6 +17,7 @@ export const seedApps: ApplicationMeta[] = [
   { id: "invoice-generator", title: "Invoice Generator", icon: "FilePlus", description: "Generate invoices", category: "billing", route: "/app/billing/generator", order: 2 },
   { id: "payments", title: "Payments", icon: "DollarSign", description: "Payment processing", category: "billing", route: "/app/billing/payments", order: 3 },
   { id: "credit-notes", title: "Credit Notes", icon: "FileMinus", description: "Credit note management", category: "billing", route: "/app/billing/credit-notes", order: 4 },
+  { id: "tariffs", title: "Tariffs", icon: "FileText", description: "Tariff management", category: "billing", route: "/app/billing/tariffs", order: 5 },
 
   // Meters
   { id: "meters", title: "Meters", icon: "Gauge", description: "Meter inventory", category: "meters", route: "/app/meters", order: 1 },

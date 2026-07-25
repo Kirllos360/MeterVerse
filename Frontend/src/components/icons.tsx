@@ -136,6 +136,11 @@ export const Icons = {
   employee: IconUserX,
   userPen: IconUserEdit,
   teams: IconUsers,
+  users: IconUsers,
+  monitor: IconDeviceLaptop,
+  clipboard: IconClipboardText,
+  chart: IconTrendingUp,
+  bell: IconBell,
 
   // Brand
   github: IconBrandGithub,

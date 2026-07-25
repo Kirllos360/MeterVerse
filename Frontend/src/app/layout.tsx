@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner"
+import { DevAuthInit } from "@/components/effects/DevAuthInit"
 import { fontVariables } from "@/components/themes/font.config"
 import { DEFAULT_THEME, THEMES } from "@/components/themes/theme.config"
 import ThemeProvider from "@/components/themes/theme-provider"
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className={cn("bg-background overflow-x-hidden overscroll-none font-sans antialiased", fontVariables)}>
         <NextTopLoader color="var(--primary)" showSpinner={false} />
+        <DevAuthInit />
         <NuqsAdapter>
           <ThemeProvider defaultTheme="system" enableSystem disableTransitionOnChange enableColorScheme>
             <ActiveThemeProvider initialTheme={themeToApply}>

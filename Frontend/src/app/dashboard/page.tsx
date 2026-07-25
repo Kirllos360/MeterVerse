@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation"
+import { DashboardPageSwitch } from "@/components/dashboard/DashboardPageSwitch"
 
 export default function DashboardPage() {
-  redirect("/dashboard/overview")
+  return <DashboardPageSwitch />
 }
