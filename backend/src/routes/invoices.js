@@ -83,9 +83,14 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
     const customer = await prisma.customer.findFirst({ where: { id: customerId, archivedAt: null } })
     if (!customer) return res.status(400).json({ error: "Cannot generate invoice for archived customer" })
 
-    // Find customer's meters
+    // Find customer's meters (via assignments and units)
     const assignments = await prisma.meterAssignment.findMany({ where: { customerId, status: "active" }, include: { meter: { include: { readings: { orderBy: { timestamp: "desc" }, take: 2 } } } } })
-    if (assignments.length === 0) return res.status(400).json({ error: "Customer has no active meters" })
+    const unitMeters = await prisma.meter.findMany({ where: { customerId, archivedAt: null }, include: { readings: { orderBy: { timestamp: "desc" }, take: 2 } } })
+    const allMeters = [
+      ...assignments.map(a => a.meter),
+      ...unitMeters.filter(um => !assignments.some(a => a.meterId === um.id)),
+    ]
+    if (allMeters.length === 0) return res.status(400).json({ error: "Customer has no active meters" })
 
     // Find tariff for customer (use first active tariff)
     const tariff = await prisma.tariff.findFirst({ where: { status: "active" }, include: { rates: true } })
@@ -102,19 +107,19 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
     let totalAmount = 0
     const items = []
 
-    for (const a of assignments) {
-      const readings = a.meter.readings
+    for (const meter of allMeters) {
+      const readings = meter.readings
       if (readings.length >= 2) {
         const consumption = readings[0].value - readings[1].value
         const amount = Math.abs(consumption) * (tariff.rates?.[0]?.rate || 1)
 
         // Water difference handling: report_only mode excludes water charges from total
-        const isWater = a.meter.type?.toLowerCase() === "water"
+        const isWater = meter.type?.toLowerCase() === "water"
         if (isWater && waterDiffMode === "report_only") {
-          items.push({ type: "info", description: `Water consumption (${a.meter.serial}): ${Math.abs(consumption)} ${readings[0].unit} (report only)`, quantity: Math.abs(consumption), unitPrice: 0, amount: 0, total: 0 })
+          items.push({ type: "info", description: `Water consumption (${meter.serial}): ${Math.abs(consumption)} ${readings[0].unit} (report only)`, quantity: Math.abs(consumption), unitPrice: 0, amount: 0, total: 0 })
         } else {
           totalAmount += amount
-          items.push({ type: "charge", description: `Consumption (${a.meter.serial}): ${Math.abs(consumption)} ${readings[0].unit}`, quantity: Math.abs(consumption), unitPrice: tariff.rates?.[0]?.rate || 1, amount, total: amount })
+          items.push({ type: "charge", description: `Consumption (${meter.serial}): ${Math.abs(consumption)} ${readings[0].unit}`, quantity: Math.abs(consumption), unitPrice: tariff.rates?.[0]?.rate || 1, amount, total: amount })
         }
       }
     }
@@ -196,6 +201,30 @@ router.post("/:id/adjustments", requirePermission("invoices.edit"), async (req, 
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
     next(err)
   }
+})
+
+// ─── REGENERATE (cancel + create replacement) ──────────────────────
+
+router.post("/:id/regenerate", requirePermission("invoices.create"), async (req, res, next) => {
+  try {
+    const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } })
+    if (!invoice) return res.status(404).json({ error: "Invoice not found" })
+    if (invoice.status === "paid") return res.status(400).json({ error: "Cannot regenerate a paid invoice" })
+    if (invoice.immutableAt && invoice.status !== "cancelled") return res.status(400).json({ error: "Issue a credit note instead" })
+
+    // Cancel old invoice
+    await prisma.invoice.update({ where: { id: invoice.id }, data: { status: "cancelled" } })
+
+    // Generate new invoice for same customer+period
+    const genRes = await fetch(`${req.protocol}://${req.get("host")}/api/invoices/generate`, {
+      method: "POST", headers: { "Content-Type": "application/json", "Authorization": req.headers.authorization, "X-Dev-Mode": "true" },
+      body: JSON.stringify({ customerId: invoice.customerId, periodStart: invoice.createdAt.toISOString().split("T")[0], periodEnd: new Date().toISOString().split("T")[0] }),
+    })
+    const newInvoice = await genRes.json()
+
+    auditLog(req, "invoice.regenerated", { oldInvoiceId: invoice.id, newInvoiceId: newInvoice.invoice?.id, reason: req.body.reason || "" })
+    res.status(201).json({ cancelled: invoice.id, invoice: newInvoice.invoice })
+  } catch (err) { next(err) }
 })
 
 export { router as invoicesRouter }

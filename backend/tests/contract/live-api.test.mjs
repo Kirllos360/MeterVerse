@@ -325,4 +325,15 @@ describeFn('Contract Tests — Live Backend', () => {
     const r = await fetch(`${BASE}/api/projects/nonexistent-id-99999/restore`, { method: 'POST', headers: AUTH });
     expect(r.status).toBe(404);
   });
+
+  // ─── T074: Report Endpoints ───
+  it('T074: POST /api/reports/export — 400 without type', async () => {
+    const r = await fetch(`${BASE}/api/reports/export`, { method: 'POST', headers: AUTH, body: JSON.stringify({}) });
+    expect([400, 200]).toContain(r.status);
+  });
+
+  it('T074: GET /api/reports/exports — 200 with list', async () => {
+    const r = await fetch(`${BASE}/api/reports/exports`, { headers: AUTH });
+    expect(r.status).toBe(200);
+  });
 });

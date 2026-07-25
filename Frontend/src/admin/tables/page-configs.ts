@@ -763,6 +763,28 @@ export const pageConfigs: Record<string, PageConfig> = {
     ]),
     statsCards: [sc("Total", Icons.billing, r=>r.length), sc("Completed", Icons.circleCheck, r=>r.filter(x=>x.status==="completed"||x.status==="active").length), sc("Failed", Icons.circleX, r=>r.filter(x=>x.status==="failed"||x.status==="terminated").length)],
   },
+  statements: {
+    id: "statements", title: "Customer Statements", description: "View customer statements and aging",
+    apiEndpoint: "/api/payments/customers/:id/statement",
+    serverSide: false, statusField,
+    transform: (d: any) => {
+      if (!d || !d.customerId) return [];
+      return [{
+        id: d.customerId, customer: d.customerName || d.customerId,
+        totalInvoiced: d.totalInvoiced || 0, totalPaid: d.totalPaid || 0,
+        balance: d.balance || 0, aging: d.aging ? JSON.stringify(d.aging).slice(0, 200) : "",
+      }];
+    },
+    columns: [
+      { id: "customer", header: "Customer", accessor: r => r.customer, type: "avatar", width: 220 },
+      { id: "totalInvoiced", header: "Total Invoiced", accessor: r => `EGP ${(r.totalInvoiced||0).toLocaleString()}`, width: 140 },
+      { id: "totalPaid", header: "Total Paid", accessor: r => `EGP ${(r.totalPaid||0).toLocaleString()}`, width: 140 },
+      { id: "balance", header: "Balance", accessor: r => `EGP ${(r.balance||0).toLocaleString()}`, width: 140 },
+      { id: "aging", header: "Aging", accessor: r => r.aging || "—", width: 200 },
+    ],
+    fields: defFields([{ name: "customerId", label: "Customer ID", type: "text", required: true, placeholder: "Enter customer UUID" }]),
+    statsCards: [],
+  },
   "meter-assignments": {
     id: "meter-assignments", title: "Meter Assignments", description: "Manage meter-to-customer assignments",
     apiEndpoint: "/api/meter-assignments",
