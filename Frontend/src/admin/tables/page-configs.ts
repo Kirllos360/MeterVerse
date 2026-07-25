@@ -327,7 +327,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   projects: {
     id: "projects", title: "Projects", description: "Manage projects and workspaces",
     apiEndpoint: "/api/admin/projects",
-    statusField,
+    serverSide: true, statusField,
     transform: (d: any) => (d.projects || []).map((p: any) => ({
       id: p.id, name: p.name, org: p.organization?.name || p.org || "—",
       zoneCount: p._count?.zones ?? 0,

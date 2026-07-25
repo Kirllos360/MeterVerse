@@ -9,11 +9,10 @@ router.use(authenticate)
 
 const createSchema = z.object({
   meterId: z.string().min(1),
-  value: z.number().positive(),
+  value: z.number(),
   unit: z.string().default("kWh"),
+  source: z.string().optional(),
   timestamp: z.string().optional(),
-  source: z.string().default("manual"),
-  status: z.string().default("valid"),
 })
 
 router.get("/", requirePermission("readings.list"), async (req, res, next) => {
@@ -105,6 +104,17 @@ router.post("/", requirePermission("readings.create"), async (req, res, next) =>
     if (prevReading && data.value > prevReading.value * 3 && prevReading.value > 0) { status = "suspicious"; flags.push("spike") }
     if (prevReading && data.value < prevReading.value * 0.1 && prevReading.value > 0) { status = "suspicious"; flags.push("drop") }
     if (data.value === 0 && prevReading && prevReading.value > 0) { status = "flagged"; flags.push("zero_reading") }
+    // Project threshold-profile check
+    if (prevReading && data.meterId) {
+      const meter = await prisma.meter.findUnique({ where: { id: data.meterId }, include: { customer: true } }).catch(() => null);
+      if (meter?.customer?.area) {
+        const project = await prisma.project.findFirst({ where: { organizationId: meter.customer.area } }).catch(() => null);
+        if (project?.readingThreshold && prevReading.value > 0) {
+          const pctChange = Math.abs(data.value - prevReading.value) / prevReading.value;
+          if (pctChange > project.readingThreshold) { status = "flagged"; flags.push("threshold_exceeded") }
+        }
+      }
+    }
 
     const reading = await prisma.reading.create({
       data: { ...data, timestamp: data.timestamp ? new Date(data.timestamp) : new Date(), status },

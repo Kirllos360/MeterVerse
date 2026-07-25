@@ -88,6 +88,20 @@ describeFn('Contract Tests — Live Backend', () => {
     expect(r.status).toBe(200);
   });
 
+  it('T043: POST /api/readings — 201 create reading', async () => {
+    const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: 'T043-MTR-' + Date.now(), type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mId = m.meter?.id;
+    if (mId) {
+      const r = await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 100, source: 'T043-test' }) });
+      expect(r.status).toBe(201);
+    }
+  });
+
+  it('T043: POST /api/readings — 422 without meterId (validation)', async () => {
+    const r = await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ value: 100 }) });
+    expect([400, 422]).toContain(r.status);
+  });
+
   it('GET /api/readings/review-queue — 200', async () => {
     const r = await fetch(`${BASE}/api/readings/review-queue`, { headers: AUTH });
     expect(r.status).toBe(200);

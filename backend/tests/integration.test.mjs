@@ -227,6 +227,47 @@ describeFn('API Integration Tests', () => {
     expect(r.project.status).toBe('active');
   });
 
+  // ─── T045: Reading Validation Thresholds ───
+  describe('Phase 4 — Readings', { timeout: 15000 }, () => {
+  let t045TariffCreated = false;
+  async function ensureT045Tariff() {
+    if (t045TariffCreated) return;
+    const ts = Date.now();
+    const t = await fetch(`${BASE}/api/tariffs`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `T045-Tariff-${ts}`, code: `T045-${ts}`, type: 'Electricity', unit: 'kWh', effectiveFrom: '2026-01-01T00:00:00Z' }) });
+    if (t.status === 201) t045TariffCreated = true;
+  }
+
+  it('T045: negative reading is auto-flagged', async () => {
+    await ensureT045Tariff();
+    const ts = Date.now();
+    const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T045-MTR-A-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mId = m.meter?.id || m.id;
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 50, source: 'T045', timestamp: '2026-01-01T00:00:00Z' }) });
+    const r2 = await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: -5, source: 'T045', timestamp: '2026-01-02T00:00:00Z' }) }).then(r => r.json());
+    expect(r2.flags).toContain('negative_value');
+  });
+
+  it('T045: spike reading (>3x) is auto-flagged suspicious', async () => {
+    await ensureT045Tariff();
+    const ts = Date.now();
+    const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T045-MTR-B-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mId = m.meter?.id || m.id;
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 10, source: 'T045', timestamp: '2026-01-01T00:00:00Z' }) });
+    const r2 = await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 100, source: 'T045', timestamp: '2026-01-02T00:00:00Z' }) }).then(r => r.json());
+    expect(r2.flags).toContain('spike');
+  });
+
+  it('T045: zero reading after positive is auto-flagged', async () => {
+    await ensureT045Tariff();
+    const ts = Date.now();
+    const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T045-MTR-C-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mId = m.meter?.id || m.id;
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 50, source: 'T045', timestamp: '2026-01-01T00:00:00Z' }) });
+    const r2 = await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 0, source: 'T045', timestamp: '2026-01-02T00:00:00Z' }) }).then(r => r.json());
+    expect(r2.flags).toContain('zero_reading');
+  });
+  });
+
   // ─── PHASE 5: US3 — Invoices & Payments ───
   describe('Phase 5 — Invoices & Payments', { timeout: 30000 }, () => {
   let tariffCreated = false;
