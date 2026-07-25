@@ -269,6 +269,8 @@ export function ConfigCenterPage() {
       {activeTab === "api-keys" && (
         <ConfigForm title="External API Keys" configKey="api-keys"
           fields={[
+            { name: "cloudflare", label: "Cloudflare AI Token", type: "password", placeholder: "cfut_...", required: true },
+            { name: "vercel", label: "Vercel Token", type: "password", placeholder: "vck_...", required: true },
             { name: "openai", label: "OpenAI API Key", type: "password", placeholder: "sk-..." },
             { name: "clerk", label: "Clerk Secret Key", type: "password", placeholder: "sk_..." },
             { name: "sentry", label: "Sentry DSN", type: "text", placeholder: "https://...@...ingest.sentry.io/..." },

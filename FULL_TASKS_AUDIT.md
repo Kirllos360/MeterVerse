@@ -1,7 +1,25 @@
 # Complete Task Audit: old_tasks.md vs Actual Implementation
 
-> **Generated**: 2026-07-24
+> **Generated**: 2026-07-24 | **Last Updated**: 2026-07-25
 > **Codebase**: `D:\meter` (backend: Express.js, frontend: Next.js 16)
+
+---
+
+## Status Update (2026-07-25)
+
+Tasks that changed status since the original audit:
+
+| Task | Old Status | New Status | Reason |
+|:----:|:----------:|:----------:|--------|
+| T003 | COMPLETE | ⚠️ PARTIAL | ESLint added, still needs Prettier (NOW FIXED - .prettierrc added) |
+| T008 | MISSING | ✅ **COMPLETE** | Idempotency-Key middleware built and tested |
+| T019 | MISSING | ✅ **COMPLETE** | customer_statement_view SQL view created |
+| T031 | MISSING | ✅ **COMPLETE** | SIMCard model + API route + admin page working |
+| T034 | MISSING | ✅ **COMPLETE** | Dashboard KPI summary endpoint built |
+| T063 | MISSING | ✅ **COMPLETE** | Invoice issue endpoint with immutableAt guard |
+| T066 | PARTIAL | ✅ **COMPLETE** | super_admin guard exists on reversal + CustomerLedgerEntry model added |
+| T017 | PARTIAL | ✅ **COMPLETE** | CustomerLedgerEntry model added to schema |
+| T047 | PARTIAL | ✅ **COMPLETE** | Duplicate POST handler removed, readings route clean |
 
 ---
 
