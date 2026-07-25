@@ -92,7 +92,7 @@ app.use(express.urlencoded({ extended: false, limit: "1mb" }))
 const globalLimiter = rateLimit({
   windowMs: 60 * 1000, max: 2000,
   standardHeaders: true, legacyHeaders: false,
-  message: { error: "Too many requests" },
+  message: { error: "Too many requests", code: "RATE_LIMITED", retryAfter: "60s", limit: 2000 },
 })
 app.use("/api/", globalLimiter)
 

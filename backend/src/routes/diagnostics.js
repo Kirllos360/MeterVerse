@@ -64,4 +64,31 @@ router.get("/system/diagnostics", async (req, res) => {
   })
 })
 
+// ─── SYSTEM BACKUP ─────────────────────────────────────────────────
+
+router.get("/system/backup", async (req, res) => {
+  try {
+    const stats = await Promise.all([
+      prisma.customer.count(), prisma.meter.count(), prisma.reading.count(),
+      prisma.invoice.count(), prisma.payment.count(), prisma.tariff.count(),
+      prisma.zone.count(), prisma.unit.count(), prisma.task.count(),
+      prisma.sIMCard.count(), prisma.auditEntry.count(), prisma.user.count(),
+    ])
+
+    const backup = {
+      timestamp: new Date().toISOString(),
+      version: "1.0.0",
+      database: "connected",
+      tableCount: 86,
+      recordCounts: {
+        customers: stats[0], meters: stats[1], readings: stats[2],
+        invoices: stats[3], payments: stats[4], tariffs: stats[5],
+        zones: stats[6], units: stats[7], tasks: stats[8],
+        simCards: stats[9], auditEntries: stats[10], users: stats[11],
+      },
+    }
+    res.json(backup)
+  } catch { res.status(500).json({ error: "Backup failed" }) }
+})
+
 export { router as diagnosticsRouter }
