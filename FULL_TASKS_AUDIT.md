@@ -23,6 +23,77 @@ Tasks that changed status since the original audit:
 
 ---
 
+## ✅ Quick Status Checklist (with Tested Tags)
+
+### Phase 1: Setup
+- [x] T002 — Config + PostgreSQL ✅ TESTED
+- [x] T003 — Lint/format/test ✅ TESTED
+- [x] T004 — Prisma ORM ✅ TESTED
+- [x] T005 — Docker PostgreSQL ✅ TESTED
+- [x] T018 — Audit + Report migrations ✅ TESTED
+
+### Phase 2: Foundational
+- [x] T006 — Error envelope ✅ TESTED
+- [x] T007 — Correlation-ID middleware ✅ TESTED
+- [x] T008 — Idempotency-Key middleware ✅ TESTED
+- [x] T009 — JWT Auth + RBAC ✅ TESTED
+- [x] T010 — Audit log ✅ TESTED
+- [x] T011 — API versioning /api/v1 ✅ TESTED
+- [x] T012 — Contract test harness ✅ TESTED
+- [x] T013 — Project + Zone + Unit models ✅ TESTED
+- [x] T014 — Meter + SIMCard + MeterAssignment ✅ TESTED
+- [x] T015 — Reading + Tariff + BillCycle ✅ TESTED
+- [x] T016 — Invoice + InvoiceItem ✅ TESTED
+- [x] T017 — Payment + CustomerLedgerEntry ✅ TESTED
+- [x] T019 — SQL views (3) ✅ TESTED
+- [x] T020 — API client foundation ✅ TESTED
+- [x] T021 — React Query integration ✅ TESTED
+- [x] T022 — Feature-flag toggles ✅ TESTED
+
+### Phase 3: US1 — Meters & Locations
+- [x] T023 — Contract test assignMeter ✅ TESTED
+- [x] T024 — Contract test terminateMeter ✅ TESTED
+- [x] T025 — Integration test assignment conflict ✅ TESTED
+- [x] T026 — Integration test SIM reuse ✅ TESTED
+- [x] T028 — Locations module (Zone + Unit CRUD) ✅ TESTED
+- [x] T030 — Meters CRUD + lifecycle ✅ TESTED
+- [x] T032 — Assignment command ✅ TESTED
+- [x] T033 — Termination command ✅ TESTED
+- [x] T035 — Projects + Locations API migration ✅ TESTED
+- [x] T036 — Customers API migration ✅ TESTED
+- [x] T037 — Dashboard KPI backend ✅ TESTED
+- [x] T038 — Meters + SIM API migration ✅ TESTED
+- [x] T039 — Meter assignment workflow ✅ TESTED
+- [x] T040 — Meter replacement + termination ✅ TESTED
+- [x] T041 — SIM cooldown + reuse UI ✅ TESTED
+- [x] T042 — US1 batch validation ✅ TESTED
+
+### Phase 4: US2 — Readings
+- [x] T043 — Contract test createReading ✅ TESTED
+- [x] T044 — Contract test review queue ✅ TESTED
+- [x] T045 — Integration test validation thresholds ✅ TESTED
+- [x] T046 — Project threshold config ✅ TESTED
+- [x] T047a — Polling ingestion adapter ✅ TESTED
+- [x] T048 — Review queue endpoint ✅ TESTED
+- [x] T048a — Water balance service ✅ TESTED
+- [x] T050 — Reading schema validation ✅ TESTED
+- [x] T051 — Anomaly review queue ✅ TESTED
+- [x] T052 — US2 batch validation ✅ TESTED
+
+### Phase 5: US3 — Invoices & Payments
+- [x] T062 — Invoice generation ✅ TESTED
+- [x] T063 — Invoice issue (immutableAt) ✅ TESTED
+- [x] T065 — Payment allocation ✅ TESTED
+- [x] T066 — Payment reversal ✅ TESTED
+- [x] T067 — Ledger + statement ✅ TESTED
+
+### Phase 7: Governance
+- [x] T203 — Bill Cycle Governance ✅ TESTED
+- [x] T207 — Cancel Invoice ✅ TESTED
+- [x] T214 — Invoice Due Date ✅ TESTED
+
+---
+
 ## Classification Legend
 
 | Icon | Meaning |
