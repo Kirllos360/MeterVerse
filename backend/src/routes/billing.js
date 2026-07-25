@@ -26,7 +26,10 @@ router.post("/runs", requirePermission("billing.*"), async (req, res, next) => {
     await prisma.billRunHistory.create({ data: { billRunId: run.id, action: "created", details: `Bill run ${run.id} opened for ${periodStart} to ${periodEnd}` } })
     auditLog(req, "billing.billrun.created", { billRunId: run.id, periodStart, periodEnd })
     res.status(201).json({ billRun: run })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.post("/runs/:id/generate", requirePermission("billing.*"), async (req, res, next) => {
@@ -94,7 +97,10 @@ router.post("/runs/:id/cancel", requirePermission("billing.*"), async (req, res,
     await prisma.billRunHistory.create({ data: { billRunId: run.id, action: "cancelled", details: reason } })
     auditLog(req, "billing.billrun.cancelled", { billRunId: run.id, reason })
     res.json({ message: "Bill run cancelled" })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.get("/runs", requirePermission("billing.*"), async (req, res, next) => {
@@ -132,7 +138,10 @@ router.post("/invoices/:id/cancel", requirePermission("billing.*"), async (req, 
     await prisma.billRunHistory.create({ data: { billRunId: invoice.billRunId || "", action: "invoice_cancelled", details: `Invoice ${invoice.number} cancelled: ${reason}` } })
     auditLog(req, "billing.invoice.cancelled", { invoiceId: invoice.id, number: invoice.number, reason, highRisk })
     res.json({ message: "Invoice cancelled", invoiceId: invoice.id })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 // ─── APPROVAL WORKFLOW ──────────────────────────────────────────────────
@@ -157,7 +166,10 @@ router.post("/invoices/:id/reject", requirePermission("billing.*"), async (req, 
     await prisma.invoice.update({ where: { id: invoice.id }, data: { status: "draft" } })
     auditLog(req, "billing.invoice.rejected", { invoiceId: invoice.id, reason })
     res.json({ message: "Invoice rejected, returned to draft" })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 export { router as billingRouter }

@@ -83,7 +83,10 @@ router.post("/", requirePermission("admin.*"), async (req, res, next) => {
     const project = await prisma.project.create({ data })
     auditLog(req, "project.created", { projectId: project.id, name: project.name })
     res.status(201).json({ project })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.put("/:id", requirePermission("admin.*"), async (req, res, next) => {
@@ -94,7 +97,10 @@ router.put("/:id", requirePermission("admin.*"), async (req, res, next) => {
     const project = await prisma.project.update({ where: { id: req.params.id }, data })
     auditLog(req, "project.updated", { projectId: project.id, changes: Object.keys(data) })
     res.json({ project })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.delete("/:id", requirePermission("admin.*"), async (req, res, next) => {
@@ -124,7 +130,10 @@ router.post("/bulk/archive", requirePermission("admin.*"), async (req, res, next
     const result = await prisma.project.updateMany({ where: { id: { in: ids }, zones: { none: {} } }, data: { status: "inactive", archivedAt: new Date() } })
     auditLog(req, "projects.bulk.archived", { count: result.count })
     res.json({ archived: result.count })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 export { router as projectsRouter }

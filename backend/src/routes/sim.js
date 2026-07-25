@@ -45,7 +45,10 @@ router.post("/", requirePermission("meters.*"), async (req, res, next) => {
     const sim = await prisma.sIMCard.create({ data })
     auditLog(req, "sim.created", { simId: sim.id, iccid: sim.iccid })
     res.status(201).json({ sim })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.put("/:id", requirePermission("meters.*"), async (req, res, next) => {
@@ -56,7 +59,10 @@ router.put("/:id", requirePermission("meters.*"), async (req, res, next) => {
     const sim = await prisma.sIMCard.update({ where: { id: req.params.id }, data })
     auditLog(req, "sim.updated", { simId: sim.id, changes: Object.keys(data) })
     res.json({ sim })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.get("/:id/eligibility", requirePermission("meters.*"), async (req, res, next) => {
@@ -91,7 +97,10 @@ router.post("/:id/assign", requirePermission("meters.*"), async (req, res, next)
     })
     auditLog(req, "sim.assigned", { simId: req.params.id, meterId })
     res.status(201).json({ assignment: result })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.post("/:id/release", requirePermission("meters.*"), async (req, res, next) => {
@@ -109,3 +118,4 @@ router.post("/:id/release", requirePermission("meters.*"), async (req, res, next
 })
 
 export { router as simRouter }
+

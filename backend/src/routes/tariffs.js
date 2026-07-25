@@ -47,7 +47,10 @@ router.post("/", requirePermission("tariffs.*"), async (req, res, next) => {
     })
     auditLog(req, "tariff.created", { tariffId: tariff.id, name: tariff.name })
     res.status(201).json({ tariff })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.put("/:id", requirePermission("tariffs.*"), async (req, res, next) => {
@@ -63,7 +66,10 @@ router.put("/:id", requirePermission("tariffs.*"), async (req, res, next) => {
     })
     auditLog(req, "tariff.updated", { tariffId: tariff.id, changes: Object.keys(tariffData) })
     res.json({ tariff })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.post("/calculate", requirePermission("tariffs.*"), async (req, res, next) => {
@@ -96,7 +102,10 @@ router.post("/calculate", requirePermission("tariffs.*"), async (req, res, next)
     }
 
     res.json({ tariffId: tariff.id, tariffName: tariff.name, consumption, totalCharge, charges })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 export { router as tariffsRouter }

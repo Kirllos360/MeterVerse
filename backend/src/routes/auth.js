@@ -45,8 +45,12 @@ router.post("/register", async (req, res, next) => {
     const hashed = await bcrypt.hash(password, 10)
     const user = await prisma.user.create({ data: { email, password: hashed, name } })
 
+    auditLog(req, "user.registered", { userId: user.id, email: user.email })
     res.status(201).json({ user: { id: user.id, email: user.email, name: user.name, role: user.role } })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.get("/me", authenticate, async (req, res, next) => {
@@ -68,8 +72,12 @@ router.post("/dev-login", async (req, res, next) => {
     const jwt = await import("jsonwebtoken")
     const secret = process.env.JWT_SECRET || "dev-secret-key"
     const token = jwt.default.sign({ sub: "dev-user", email: "dev@meterverse.com", role, system: "admin" }, secret, { expiresIn: "24h" })
+    auditLog(req, "auth.dev_login", { role })
     res.json({ success: true, accessToken: token, user: { id: "dev-user", email: "dev@meterverse.com", name: "Dev User", role, permissions: ["read","write","delete","admin","export","approve","all"] } })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 export { router as authRouter }
