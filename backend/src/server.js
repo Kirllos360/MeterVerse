@@ -37,6 +37,7 @@ import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
 import { errorHandler, correlationMiddleware, notFoundHandler } from "./middleware/errorHandler.js"
+import { idempotencyMiddleware } from "./middleware/idempotency.js"
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -44,6 +45,7 @@ const PORT = process.env.PORT || 3001
 export const prisma = new PrismaClient()
 
 app.use(correlationMiddleware)
+app.use(idempotencyMiddleware)
 
 // ═══════════════════════════════════════════════════════════════════════════════
 //  SECURITY LAYER

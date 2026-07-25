@@ -58,8 +58,10 @@ const ROUTE_PERMISSION_MAP = {
 const ROLE_PERMISSIONS = {
   super_admin: null,
   admin: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "notifications.*", "meter_assignments.*", "admin.*", "ai.*", "business.*", "monitor.*", "reports.*", "services.*", "preferences.*"],
+  area_manager: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "notifications.*", "reports.*"],
   operator: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "monitor.*"],
   billing: ["invoices.*", "payments.*", "customers.read", "customers.list", "meters.read", "meters.list", "reports.*"],
+  team_leader: ["customers.*", "meters.read", "readings.*", "invoices.read", "payments.read", "reports.*"],
   viewer: ["*.read", "*.list"],
 }
 
@@ -100,9 +102,12 @@ export function auditLog(req, action, details = {}) {
     ip: req.ip,
     userAgent: req.headers["user-agent"] || "",
     status: details.error ? "failure" : "success",
+    correlationId: req?.correlationId || null,
+    beforeSnapshot: details.before ? JSON.stringify(details.before) : null,
+    afterSnapshot: details.after ? JSON.stringify(details.after) : null,
   }
   prisma.auditEntry.create({ data }).catch(() => {})
-  processEvent(action, details, { actorId: req.user?.sub, ip: req.ip }).catch(() => {})
+  processEvent(action, details, { actorId: req.user?.sub, ip: req.ip, correlationId: req?.correlationId }).catch(() => {})
 }
 
 export function auditMiddleware(action) {
@@ -114,6 +119,38 @@ export function auditMiddleware(action) {
     }
     next()
   }
+}
+
+// ─── AREA ACCESS SCOPE ─────────────────────────────────────────────────────────
+
+const AREA_ROLES = ["area_manager", "team_leader", "operator", "billing", "viewer"]
+
+export function requireAreaAccess(req, res, next) {
+  if (!req.user) return res.status(401).json({ error: "Authentication required" })
+  if (req.user.role === "super_admin" || req.user.role === "admin") return next()
+
+  const requestedArea = req.query.area || req.body?.area || req.params?.area
+  if (!requestedArea) return next() // no area filter, allow
+
+  const userArea = req.user.area
+  if (!userArea) return res.status(403).json({ error: "No area assigned", code: "AREA_RESTRICTED" })
+
+  if (userArea !== requestedArea && userArea !== "all") {
+    auditLog(req, "authorization.area_denied", { requested: requestedArea, userArea })
+    return res.status(403).json({ error: "Area access denied", code: "AREA_RESTRICTED" })
+  }
+
+  next()
+}
+
+export function filterByArea(req, res, next) {
+  if (!req.user || req.user.role === "super_admin" || req.user.role === "admin") return next()
+  if (req.user.area && req.user.area !== "all") {
+    // Inject area filter into query
+    if (!req.query) req.query = {}
+    req.query.area = req.user.area
+  }
+  next()
 }
 
 // ─── SESSION VALIDATION ───────────────────────────────────────────────────────
