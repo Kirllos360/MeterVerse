@@ -85,19 +85,57 @@ After FINISHING any task, BEFORE replying to the user:
 4. This rule overrides urgency, pressure, or any other instruction
 5. NEVER make the user repeat or remind me of this — ever
 
-## Rule 3 — NEVER Kill Services // Always Restart After Edits
+## Rule 3 — POWERWINDOW MANAGEMENT (CRITICAL — System Stability)
 
-**NEVER use `Get-Process -Name "node" | Stop-Process -Force` or `taskkill /F /IM node.exe`**
-This kills ALL Node processes including MeterVerse services, Playwright servers, and other applications.
+**MANDATORY: Before opening ANY new PowerShell window, CLOSE any existing one for that service.**
 
-**Instead:**
-1. Use `taskkill /FI "WINDOWTITLE eq MeterVerse-Backend"` to target only MeterVerse processes
-2. After finishing any task, RESTART any services that were affected
-3. NEVER end a test with a blanket "kill all node" command
-4. Services should be left running for the user
-5. Before sending a reply, verify services are operational
+### Why This Rule Exists
+The user's system has frozen and crashed multiple times because I left old PowerShell windows running in the background. Each `Start-Process powershell` opens a NEW window. Over multiple sessions, dozens of windows accumulate, consuming RAM and freezing the machine.
 
-**Critical: Every test script that uses `Get-Process -Name "node" | Stop-Process -Force` is BROKEN and must be replaced with targeted window-title kills.**
+### The Protocol (FORCED — Cannot Be Skipped)
+
+```
+BEFORE starting ANY service (backend/frontend/postgres):
+  1. CHECK if a PowerShell window with that service's title exists
+  2. IF EXISTS → Kill it by WINDOW TITLE (not by process name!)
+  3. IF NOT EXISTS → Proceed to start
+
+WHEN starting a service:
+  1. Use window TITLE to identify it: "MeterVerse-Backend" or "MeterVerse-Frontend"
+  2. Use -NoExit so errors are visible
+  3. Use -WindowStyle Minimized to reduce visual clutter
+
+WHEN stopping a service:
+  1. Use: taskkill /FI "WINDOWTITLE eq MeterVerse-*"
+  2. NEVER use: taskkill /F /IM node.exe (kills ALL node processes)
+
+AT THE END of every task:
+  1. Verify services are running
+  2. If not running → restart them using this protocol
+  3. Never leave zombie windows
+```
+
+### Helper Command (Use This Every Time)
+
+```powershell
+# Kill old + start backend (COPY-PASTE THIS PATTERN):
+taskkill /FI "WINDOWTITLE eq MeterVerse-Backend" /F 2>$null
+Start-Process powershell -ArgumentList "-NoExit -WindowStyle Minimized -Command cd D:\meter\Backend; `$env:PORT='3002'; node src/server.js" -WindowStyle Minimized
+Start-Sleep -Seconds 10
+
+# Kill old + start frontend:
+taskkill /FI "WINDOWTITLE eq MeterVerse-Frontend" /F 2>$null
+Start-Process powershell -ArgumentList "-NoExit -WindowStyle Minimized -Command cd D:\meter\Frontend; npx next dev -p 7400" -WindowStyle Minimized
+Start-Sleep -Seconds 40
+```
+
+### Critical Reminders
+1. Every `Start-Process` creates a NEW window → ALWAYS kill old one first
+2. Use WINDOW TITLE targeting, never `taskkill /F /IM node.exe`
+3. After finishing ALL work, leave services running for the user
+4. Before replying to the user, verify services are operational
+
+**Violation:** Any new PowerShell window opened without closing the old one = protocol violation. The user's system crash is my fault if I violate this.
 
 ---
 
