@@ -491,6 +491,7 @@ model Customer {
   meters           Meter[]
   meterAssignments MeterAssignment[]
   units            Unit[]
+  serviceConnections ServiceConnection[]
 }
 
 model MeterType {
@@ -525,9 +526,30 @@ model Meter {
   readings         Reading[]
   simAssignments   SIMAssignment[]
   simCards         SIMCard[]
+  serviceConnections ServiceConnection[]
 
   @@index([customerId])
   @@index([status, createdAt])
+}
+
+model ServiceConnection {
+  id          String   @id @default(uuid())
+  meterId     String
+  meter       Meter    @relation(fields: [meterId], references: [id])
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id])
+  type        String   @default("main")
+  status      String   @default("active")
+  startDate   DateTime @default(now())
+  endDate     DateTime?
+  contractId  String?
+  contract    Contract? @relation(fields: [contractId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([meterId])
+  @@index([customerId])
+  @@index([status])
 }
 
 model Zone {
@@ -636,6 +658,7 @@ model Contract {
   amendments       ContractAmendment[]
   contractTerms    ContractTerm[]
   meterAssignments MeterAssignment[]
+  serviceConnections ServiceConnection[]
 
   @@index([customerId, status])
   @@index([status, createdAt])
