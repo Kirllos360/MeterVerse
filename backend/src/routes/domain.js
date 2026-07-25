@@ -62,7 +62,7 @@ function crud(resource, modelName, createSchema, options = {}) {
     try {
       const existing = await model().findUnique({ where: { id: req.params.id } })
       if (!existing) return res.status(404).json({ error: "Not found" })
-      const item = await model().delete({ where: { id: req.params.id } })
+      const item = await model().update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
       auditLog(req, `domain.${resource}.deleted`, { entityId: req.params.id })
       res.json({ message: "Deleted", [resource]: item })
     } catch (err) { next(err) }

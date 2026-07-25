@@ -594,7 +594,7 @@ router.delete("/cache/:id", requirePermission("admin.*"), async (req, res, next)
   try {
     const existingcacheEntry = await prisma.cacheEntry.findUnique({ where: { id: req.params.id } });
     if (!existingcacheEntry) return res.status(404).json({ error: "Not found" });
-    await prisma.cacheEntry.delete({ where: { id: req.params.id } })
+    await prisma.cacheEntry.update({ where: { id: req.params.id }, data: { expiresAt: new Date() } })
     auditLog(req, "admin.cache_entry.deleted", { cacheEntryId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
