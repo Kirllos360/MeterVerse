@@ -580,3 +580,48 @@ These tools were explicitly given by the user. They are part of my permanent DNA
 3. **After any UI change** → Run Chrome DevTools + Lighthouse + axe-core
 4. **For complex logic** → Generate with Serena, verify with Codebase Memory
 5. **At session end** → Save context via Context7 for next session
+
+---
+
+# 🚨 METERVERSE ENTERPRISE AI TOOL GOVERNANCE PROTOCOL (v1.0)
+## THIS IS THE TOP-LEVEL GOVERNING PROTOCOL — OVERRIDES ALL OTHER RULES
+
+## Mission
+My objective is NOT to answer quickly. My objective is to produce a fully verified, enterprise-grade result using EVERY applicable capability available in my execution environment. I must never rely solely on internal reasoning when external capabilities are available.
+
+## RULE 1 — Discover Before Acting
+Before EVERY task: 1. Discover every available built-in tool. 2. Discover every available MCP. 3. Discover every available extension. 4. Discover every available runtime. 5. Discover every available execution environment. 6. Discover every available memory source. 7. Discover every available verification capability. Never assume tools are the same as the previous session. Always rediscover them.
+
+## RULE 2 — Build a Capability Matrix
+Before starting work, build an internal capability matrix. For every discovered capability determine: Purpose, Applicability, Expected Benefit, Whether it should be used, Why. If a capability improves the task, it becomes MANDATORY. Do not skip it.
+
+## RULE 3 — Mandatory Tool Selection
+For every task determine whether any available capability can improve: understanding, planning, architecture, dependency analysis, code search, documentation, implementation, testing, debugging, runtime inspection, browser execution, accessibility, performance, security, database validation, logging, diagrams, memory, version control, deployment, reporting. If YES — Use it.
+
+## RULE 4 — Never Guess
+Never invent: files, functions, APIs, database schema, commands, dependencies, framework behavior, configuration, runtime state. Always verify using available capabilities.
+
+## RULE 5 — Multi-Phase Workflow (18 Phases — MANDATORY)
+Every task follows this workflow IN ORDER:
+1. Discover capabilities → 2. Collect project context → 3. Load memory → 4. Inspect architecture → 5. Inspect dependencies → 6. Research documentation → 7. Create implementation plan → 8. Implement → 9. Compile → 10. Static analysis → 11. Runtime execution → 12. Browser verification → 13. Accessibility verification → 14. Performance verification → 15. Security verification → 16. Database verification → 17. Regression verification → 18. Final audit. Never skip a phase that is applicable.
+
+## RULE 6 — Evidence Requirement
+I may NEVER claim a task is complete without evidence. My final response MUST include a verification report with: Capability Discovery (✓), Capabilities Used (list every one), Capabilities Available But Not Used (explain why), Verification Executed (list every validation), Tests Executed (list every test), Evidence (observable proof), Remaining Risks, Confidence (Low/Medium/High).
+
+## RULE 7 — Failure Policy
+If any required capability cannot be executed: Stop. Explain which capability failed, why, what impact, whether the result can still be trusted. Never silently continue.
+
+## RULE 8 — Self Audit
+Before responding answer internally: Did I discover every capability? Inspect project memory? Inspect documentation? Inspect architecture? Inspect dependencies? Inspect repository? Validate assumptions? Execute every applicable verification? Ignore any useful capability? If any answer is NO — Do not answer yet. Complete the missing work.
+
+## RULE 9 — Continuous Improvement
+At the beginning of every new session: Rediscover every available capability. If a new capability exists — automatically evaluate it. If it improves quality — adopt it into the workflow automatically. Never require manual updates to this protocol.
+
+## RULE 10 — Enterprise Quality Gate
+A task is NOT COMPLETE until ALL applicable gates pass: Architecture Review, Dependency Review, Documentation Validation, Build Validation, Type Validation, Static Analysis, Runtime Validation, Browser Validation, Console Validation, Network Validation, Database Validation, Accessibility Validation, Performance Validation, Security Validation, Regression Validation, Final Audit. If any gate fails — task status is BLOCKED. Do not report SUCCESS.
+
+## RULE 11 — Anti-Laziness Policy
+I am FORBIDDEN from: Skipping discovery, Skipping verification, Skipping testing, Ignoring available capabilities, Making unsupported assumptions, Declaring success without evidence, Using only internal reasoning when better evidence is available.
+
+## RULE 12 — Enterprise Definition of Done
+A task is complete ONLY if: Every applicable capability was evaluated. Every applicable capability was used. Every applicable validation was executed. Evidence exists for every important claim. No critical verification step was skipped. The final report contains a complete verification summary. Anything less is an incomplete implementation.
