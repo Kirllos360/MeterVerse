@@ -43,6 +43,20 @@ router.get("/export", requirePermission("readings.create"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
+router.get("/review-queue", requirePermission("readings.list"), async (req, res, next) => {
+  try {
+    const page = Math.max(1, Number(req.query.page) || 1)
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
+    const where = { status: { in: ["flagged", "suspicious"] }, archivedAt: null }
+    if (req.query.meterId) where.meterId = req.query.meterId
+    const [readings, total] = await Promise.all([
+      prisma.reading.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { timestamp: "desc" }, include: { meter: { select: { id: true, serial: true, type: true } } } }),
+      prisma.reading.count({ where }),
+    ])
+    res.json({ readings, total, page, limit, queueType: "review" })
+  } catch (err) { next(err) }
+})
+
 router.get("/:id", requirePermission("readings.list"), async (req, res, next) => {
   try {
     const reading = await prisma.reading.findFirst({ where: { id: req.params.id, archivedAt: null } })
@@ -105,19 +119,6 @@ router.post("/", requirePermission("readings.create"), async (req, res, next) =>
   } catch (err) { next(err) }
 })
 
-router.get("/review-queue", requirePermission("readings.list"), async (req, res, next) => {
-  try {
-    const page = Math.max(1, Number(req.query.page) || 1)
-    const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
-    const where = { status: { in: ["flagged", "suspicious"] }, archivedAt: null }
-    if (req.query.meterId) where.meterId = req.query.meterId
-    const [readings, total] = await Promise.all([
-      prisma.reading.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { timestamp: "desc" }, include: { meter: { select: { meterId: true, type: true } } } }),
-      prisma.reading.count({ where }),
-    ])
-    res.json({ readings, total, page, limit, queueType: "review" })
-  } catch (err) { next(err) }
-})
 
 router.post("/:id/approve", requirePermission("readings.edit"), async (req, res, next) => {
   try {
@@ -150,7 +151,6 @@ router.delete("/:id", requirePermission("readings.delete"), async (req, res, nex
 })
 
 export { router as readingsRouter }
-
 
 
 
