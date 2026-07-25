@@ -159,4 +159,70 @@ describeFn('API Integration Tests', () => {
     const r = await fetch(`${BASE}/api/sim/${simId}/release`, { method: 'POST', headers: AUTH });
     expect(r.status).toBe(400);
   });
+
+  // ─── T027: Projects Module ───
+  it('T027: full CRUD lifecycle via /api/projects', async () => {
+    // Create org first (required for project FK)
+    const ts = Date.now();
+    const org = await fetch(`${BASE}/api/admin/organizations`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `T027-Org-${ts}`, slug: `t027-org-${ts}` }) }).then(r => r.json());
+    const orgId = org.organization?.id || org.id;
+    expect(orgId).toBeTruthy();
+
+    // Create project
+    const p = await fetch(`${BASE}/api/projects`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `T027 Project ${ts}`, description: 'Integration test', organizationId: orgId }) }).then(r => r.json());
+    const projId = p.project?.id || p.id;
+    expect(projId).toBeTruthy();
+
+    // GET by id
+    const g = await fetch(`${BASE}/api/projects/${projId}`, { headers: AUTH }).then(r => r.json());
+    expect(g.project.name).toContain('T027 Project');
+    expect(g.project._count.zones).toBe(0);
+
+    // Update
+    const u = await fetch(`${BASE}/api/projects/${projId}`, { method: 'PUT', headers: AUTH, body: JSON.stringify({ description: 'Updated desc' }) }).then(r => r.json());
+    expect(u.project.description).toBe('Updated desc');
+
+    // Stats
+    const s = await fetch(`${BASE}/api/projects/stats`, { headers: AUTH }).then(r => r.json());
+    expect(s.stats.total).toBeGreaterThanOrEqual(1);
+
+    // Delete (archive)
+    const d = await fetch(`${BASE}/api/projects/${projId}`, { method: 'DELETE', headers: AUTH }).then(r => r.json());
+    expect(d.project.status).toBe('inactive');
+    expect(d.project.archivedAt).toBeTruthy();
+
+    // Restore
+    const r = await fetch(`${BASE}/api/projects/${projId}/restore`, { method: 'POST', headers: AUTH }).then(r => r.json());
+    expect(r.project.status).toBe('active');
+    expect(r.project.archivedAt).toBeNull();
+  });
+
+  it('T027: admin routes mirror projects routes', async () => {
+    const ts = Date.now();
+    const org = await fetch(`${BASE}/api/admin/organizations`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `T027-Adm-Org-${ts}`, slug: `t027-adm-org-${ts}` }) }).then(r => r.json());
+    const orgId = org.organization?.id || org.id;
+    const p = await fetch(`${BASE}/api/admin/projects`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `T027 Admin Proj ${ts}`, description: 'Admin test', organizationId: orgId }) }).then(r => r.json());
+    const projId = p.project?.id || p.id;
+    expect(projId).toBeTruthy();
+
+    // List via admin
+    const list = await fetch(`${BASE}/api/admin/projects?page=1&limit=10`, { headers: AUTH }).then(r => r.json());
+    expect(Array.isArray(list.projects)).toBe(true);
+
+    // Get by id via admin
+    const g = await fetch(`${BASE}/api/admin/projects/${projId}`, { headers: AUTH }).then(r => r.json());
+    expect(g.project.id).toBe(projId);
+
+    // Update via admin
+    const u = await fetch(`${BASE}/api/admin/projects/${projId}`, { method: 'PUT', headers: AUTH, body: JSON.stringify({ description: 'Admin updated' }) }).then(r => r.json());
+    expect(u.project.description).toBe('Admin updated');
+
+    // Archive via admin
+    const d = await fetch(`${BASE}/api/admin/projects/${projId}`, { method: 'DELETE', headers: AUTH }).then(r => r.json());
+    expect(d.project.status).toBe('inactive');
+
+    // Restore via admin
+    const r = await fetch(`${BASE}/api/admin/projects/${projId}/restore`, { method: 'POST', headers: AUTH }).then(r => r.json());
+    expect(r.project.status).toBe('active');
+  });
 });

@@ -267,4 +267,48 @@ describeFn('Contract Tests — Live Backend', () => {
     const r = await fetch(`${BASE}/api/sim/nonexistent-sim-id/eligibility`, { headers: AUTH });
     expect(r.status).toBe(404);
   });
+
+  // ─── T027: Projects Module ───
+  it('T027: GET /api/projects — 200 with pagination', async () => {
+    const r = await fetch(`${BASE}/api/projects?page=1&limit=5`, { headers: AUTH });
+    expect(r.status).toBe(200);
+    const b = await r.json();
+    expect(Array.isArray(b.projects)).toBe(true);
+    expect(typeof b.total).toBe('number');
+    expect(b.page).toBe(1);
+    expect(b.limit).toBe(5);
+  });
+
+  it('T027: GET /api/projects — 400 for invalid page param', async () => {
+    const r = await fetch(`${BASE}/api/projects?page=-1`, { headers: AUTH });
+    expect(r.status).toBe(200);
+  });
+
+  it('T027: GET /api/projects/nonexistent — 404', async () => {
+    const r = await fetch(`${BASE}/api/projects/nonexistent-id-99999`, { headers: AUTH });
+    expect(r.status).toBe(404);
+  });
+
+  it('T027: GET /api/projects/stats — 200 with stats', async () => {
+    const r = await fetch(`${BASE}/api/projects/stats`, { headers: AUTH });
+    expect(r.status).toBe(200);
+    const b = await r.json();
+    expect(b.stats).toBeDefined();
+    expect(typeof b.stats.total).toBe('number');
+  });
+
+  it('T027: POST /api/projects — 400 without name (validation)', async () => {
+    const r = await fetch(`${BASE}/api/projects`, { method: 'POST', headers: AUTH, body: JSON.stringify({ description: 'No name' }) });
+    expect(r.status).toBe(400);
+  });
+
+  it('T027: DELETE /api/projects/nonexistent — 404', async () => {
+    const r = await fetch(`${BASE}/api/projects/nonexistent-id-99999`, { method: 'DELETE', headers: AUTH });
+    expect(r.status).toBe(404);
+  });
+
+  it('T027: POST /api/projects/nonexistent/restore — 404', async () => {
+    const r = await fetch(`${BASE}/api/projects/nonexistent-id-99999/restore`, { method: 'POST', headers: AUTH });
+    expect(r.status).toBe(404);
+  });
 });
