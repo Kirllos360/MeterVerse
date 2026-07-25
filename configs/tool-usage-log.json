@@ -264,6 +264,18 @@
             "git (commit/push 7 tasks)"
         ],
         "evidence": "Frontend/src/app/admin/{zones,units,meter-assignments,sim/[id],meters/[id]}/page.tsx, Frontend/src/admin/tables/page-configs.ts, Frontend/src/admin/tables/GenericAdminPage.tsx"
+    },
+    {
+        "date": "2026-07-25",
+        "task": "T049 — Readings API migration + Phase 5 (T053-T060) contract/integration tests",
+        "tools_activated": ["filesystem", "git", "vitest", "sequential-thinking"],
+        "tools_used": [
+            "filesystem (update readings page-config, write integration tests, fix tariffs.js + payments.js bugs)",
+            "sequential-thinking (debug invoice generation flow, fix Zod schema missing fields)",
+            "vitest (run 27 integration tests, 22 pass)",
+            "git (commit/push)"
+        ],
+        "evidence": "backend/tests/integration.test.mjs, backend/src/routes/tariffs.js, backend/src/routes/payments.js"
     }
 ]
     }
