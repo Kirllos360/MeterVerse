@@ -61,8 +61,12 @@ export function errorHandler(err, req, res, next) {
   if (err.errors) body.errors = err.errors
   if (status >= 500) body.retryable = true
 
-  if (status >= 500) console.error(`[ERROR ${correlationId}] ${err.stack || err.message}`)
-  else if (status >= 400) console.warn(`[WARN ${correlationId}] ${status} ${message}`)
+  if (status >= 500) {
+    const isDev = process.env.NODE_ENV !== "production"
+    console.error(`[ERROR ${correlationId}] ${isDev ? err.stack : err.message}`)
+  } else if (status >= 400) {
+    console.warn(`[WARN ${correlationId}] ${status} ${message}`)
+  }
 
   res.status(status).json(body)
 }

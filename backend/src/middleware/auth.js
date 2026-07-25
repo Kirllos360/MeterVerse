@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken"
 
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret-key"
-if (!process.env.JWT_SECRET) {
-  console.warn("WARN: JWT_SECRET not set — using dev fallback 'dev-secret-key'")
+const JWT_SECRET = process.env.JWT_SECRET
+if (!JWT_SECRET) {
+  console.error("FATAL: JWT_SECRET environment variable is not set")
+  process.exit(1)
 }
 
 export function authenticate(req, res, next) {
