@@ -20,15 +20,19 @@ export default function CustomerCardsPage() {
   const router = useRouter();
   const [customers, setCustomers] = useState<CustomerCard[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    apiClient<{ customers: CustomerCard[] }>("/api/customers").then(d => {
-      setCustomers(d.customers || []);
-      setLoading(false);
-    }).catch(() => setLoading(false));
-  }, []);
+  const load = () => {
+    setLoading(true);
+    setError(null);
+    apiClient<{ customers: CustomerCard[] }>("/api/customers")
+      .then(d => { setCustomers(d.customers || []); setLoading(false); })
+      .catch(e => { setError(e.message || "Failed to load"); setLoading(false); });
+  };
+
+  useEffect(() => { load(); }, []);
 
   const filtered = useMemo(() => {
     if (!search) return customers;
@@ -48,18 +52,19 @@ export default function CustomerCardsPage() {
 
   if (loading) return <div className="p-6 space-y-4"><Skeleton className="h-8 w-48" /><div className="grid grid-cols-1 md:grid-cols-3 gap-4"><Skeleton className="h-44" /><Skeleton className="h-44" /><Skeleton className="h-44" /></div></div>;
 
+  if (error) return <div className="p-6 text-center space-y-4"><p className="text-destructive text-lg">⚠ Failed to load customers</p><p className="text-sm text-muted-foreground">{error}</p><Button variant="outline" onClick={load}>Retry</Button></div>;
+
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold">Customers</h1>
-          <p className="text-sm text-muted-foreground">{filtered.length} customers</p>
-        </div>
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div><h1 className="text-2xl font-bold">Customers</h1><p className="text-sm text-muted-foreground">{filtered.length} customers</p></div>
         <div className="flex gap-2">
           <Input placeholder="Search..." className="w-64" value={search} onChange={e => setSearch(e.target.value)} />
-          <Button onClick={() => router.push("/admin")}>Back</Button>
+          <Button variant="outline" onClick={() => router.push("/admin")}>Back</Button>
         </div>
       </div>
+
+      {paged.length === 0 && <div className="text-center py-16"><p className="text-muted-foreground text-lg">No customers found</p><p className="text-sm text-muted-foreground mt-1">{search ? "Try a different search term." : "Create a customer to get started."}</p></div>}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {paged.map(c => (

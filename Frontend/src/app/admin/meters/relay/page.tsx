@@ -40,15 +40,16 @@ export default function MeterRelayPage() {
   const router = useRouter();
   const [meters, setMeters] = useState<MeterItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
 
   const load = () => {
-    apiClient<{ meters: MeterItem[] }>("/api/meters").then(d => {
-      setMeters(d.meters || []);
-      setLoading(false);
-    }).catch(() => setLoading(false));
+    setLoading(true); setError(null);
+    apiClient<{ meters: MeterItem[] }>("/api/meters")
+      .then(d => { setMeters(d.meters || []); setLoading(false); })
+      .catch(e => { setError(e.message || "Failed to load"); setLoading(false); });
   };
 
   useEffect(() => { load(); }, []);
@@ -74,25 +75,27 @@ export default function MeterRelayPage() {
         toast.success(`${action.label} successful`);
         load();
       } else {
-        toast.info(`${action.label} - action triggered`);
+        toast.info(`${action.label} — action triggered`);
       }
-    } catch (e: any) {
-      toast.error(`${action.label} failed: ${e.message || "Unknown error"}`);
-    }
+    } catch (e: any) { toast.error(`${action.label} failed: ${e.message || "Unknown error"}`); }
     setActionLoading(null);
   };
 
   if (loading) return <div className="p-6 space-y-4"><Skeleton className="h-8 w-48" /><div className="grid grid-cols-1 lg:grid-cols-2 gap-4"><Skeleton className="h-52" /><Skeleton className="h-52" /></div></div>;
 
+  if (error) return <div className="p-6 text-center space-y-4"><p className="text-destructive text-lg">⚠ Failed to load meters</p><p className="text-sm text-muted-foreground">{error}</p><Button variant="outline" onClick={load}>Retry</Button></div>;
+
   return (
     <div className="p-6 space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-2">
         <div><h1 className="text-2xl font-bold">Meter Management</h1><p className="text-sm text-muted-foreground">{filtered.length} meters</p></div>
         <div className="flex gap-2">
           <Input placeholder="Search serial, type, area..." className="w-72" value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} />
           <Button variant="outline" onClick={() => router.push("/admin")}>Back</Button>
         </div>
       </div>
+
+      {paged.length === 0 && <div className="text-center py-16"><p className="text-muted-foreground text-lg">No meters found</p><p className="text-sm text-muted-foreground mt-1">{search ? "Try a different search term." : "Add a meter to get started."}</p></div>}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {paged.map(m => (
@@ -110,7 +113,7 @@ export default function MeterRelayPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="flex gap-1">
+              <div className="flex gap-1 flex-wrap">
                 {RELAY_SIGNALS.map(s => (
                   <span key={s} className={"text-xs px-2 py-0.5 rounded " + (
                     s === "online" && m.status === "active" ? "bg-green-100 text-green-700" :
@@ -128,13 +131,9 @@ export default function MeterRelayPage() {
               </div>
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {ACTIONS.map(a => (
-                  <Button
-                    key={a.id}
-                    variant={a.id === "terminate" || a.id === "delete" ? "destructive" : "outline"}
-                    size="sm"
+                  <Button key={a.id} variant={a.id === "terminate" || a.id === "delete" ? "destructive" : "outline"} size="sm"
                     disabled={actionLoading === `${a.id}-${m.id}`}
-                    onClick={() => handleAction(m, a)}
-                  >
+                    onClick={() => handleAction(m, a)}>
                     {actionLoading === `${a.id}-${m.id}` ? "..." : a.label}
                   </Button>
                 ))}
