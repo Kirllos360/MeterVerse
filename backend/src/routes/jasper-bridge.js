@@ -6,6 +6,7 @@ import { z } from "zod"
 
 const router = Router()
 router.use(authenticate)
+const reportSchema = z.object({ type: z.string().min(1), format: z.string().default('html'), filters: z.any().optional() })
 
 const JAVA_ENGINE_URL = process.env.REPORTING_ENGINE_URL
 
@@ -38,7 +39,7 @@ th,td{padding:8px;text-align:left;font-size:9pt}
 
 router.post("/generate", requirePermission("reports.*"), async (req, res, next) => {
   try {
-    const { type, format = "html", filters = {} } = req.body
+    const { type, format, filters } = reportSchema.parse(req.body)
     if (!type) return res.status(400).json({ error: "Report type required" })
 
     let data = [], title = type

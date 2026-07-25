@@ -34,6 +34,7 @@ import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
+import { diagnosticsRouter } from "./routes/diagnostics.js"
 import { pdfRouter } from "./routes/pdf.js"
 import { templatesRouter } from "./routes/templates.js"
 import { qrRouter } from "./routes/qr.js"
@@ -159,6 +160,7 @@ app.use("/api-docs.json", (req, res) => res.json(swaggerSpec))
 
 // QR router mounted at /api level
 API_PREFIXES.forEach(p => app.use(p, qrRouter))
+API_PREFIXES.forEach(p => app.use(p, diagnosticsRouter))
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 

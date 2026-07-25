@@ -4,6 +4,7 @@ import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
 
+const generateSchema = z.object({ customerId: z.string().min(1), periodStart: z.string().min(1), periodEnd: z.string().min(1) })
 const router = Router()
 router.use(authenticate)
 
@@ -76,8 +77,8 @@ router.delete("/:id", requirePermission("invoices.delete"), async (req, res, nex
 
 router.post("/generate", requirePermission("invoices.create"), async (req, res, next) => {
   try {
-    const { customerId, periodStart, periodEnd } = req.body
-    if (!customerId || !periodStart || !periodEnd) return res.status(400).json({ error: "customerId, periodStart, periodEnd required" })
+    const { customerId, periodStart, periodEnd } = generateSchema.parse(req.body)
+    // Validation done by Zod above.json({ error: "customerId, periodStart, periodEnd required" })
 
     const customer = await prisma.customer.findFirst({ where: { id: customerId, archivedAt: null } })
     if (!customer) return res.status(400).json({ error: "Cannot generate invoice for archived customer" })

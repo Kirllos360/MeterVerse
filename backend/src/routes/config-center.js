@@ -3,6 +3,8 @@ import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
 import { savePermissions, getServicePermissions, ALL_SERVICES } from "../middleware/thirdPartyPermissions.js"
+const configSchema = z.object({ config: z.record(z.any()).optional(), connections: z.array(z.any()).optional() })
+const testSchema = z.object({ host: z.string().optional(), port: z.string().optional(), projectId: z.string().optional(), provider: z.string().optional(), accountSid: z.string().optional(), ip: z.string().optional(), apiKey: z.string().optional() })
 import { z } from "zod"
 import crypto from "crypto"
 
@@ -67,11 +69,11 @@ router.get("/config/:key", requirePermission("admin.*"), async (req, res) => {
 router.post("/config/:key", requirePermission("admin.*"), async (req, res) => {
   try {
     if (req.params.key === "symbiot") {
-      const { connections } = req.body
+      const { connections } = configSchema.parse(req.body)
       await setConfig("symbiot", { connections: connections || [] })
       return res.json({ message: `${connections?.length || 0} connection(s) saved` })
     }
-    await setConfig(req.params.key, req.body.config || {})
+    const parsed = configSchema.parse(req.body); await setConfig(req.params.key, parsed.config || {})
     res.json({ message: "Configuration saved" })
   } catch (err) { next(err) }
 })
