@@ -1,5 +1,6 @@
 import { Router } from "express"
 import { z } from "zod"
+import bcrypt from "bcryptjs"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { auditLog } from "../middleware/security.js"

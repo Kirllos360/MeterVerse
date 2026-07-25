@@ -98,7 +98,7 @@ router.post("/:id/terminate", requirePermission("meters.delete"), async (req, re
         const cooldownUntil = new Date(Date.now() + 7 * 86400000)
         await tx.sIMCard.update({ where: { id: sim.id }, data: { status: "available", meterId: null, cooldownUntil } })
       }
-      await tx.meterEvent.create({ data: { meterId: req.params.id, eventType: "terminated", description: reason, createdBy: req.user?.email } })
+      await tx.meterEvent.create({ data: { meterId: req.params.id, type: "terminated", description: reason, createdBy: req.user?.email } })
       return { simReleased: !!sim }
     })
     auditLog(req, "meter.terminated", { meterId: req.params.id, reason, finalReading: finalReading || null })
