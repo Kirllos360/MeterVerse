@@ -70,4 +70,93 @@ describeFn('API Integration Tests', () => {
     const r = await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, customerId: '00000000-0000-0000-0000-000000000000' }) });
     expect(r.status).toBe(404);
   });
+
+  // ─── T026: SIM Reuse Lifecycle ───
+  it('T026: POST /api/sim — 201 create SIM (available)', async () => {
+    const ts = Date.now();
+    const r = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000000${ts}`, simNumber: `SIM-T026-A-${ts}`, operator: 'Vodafone' }) });
+    expect(r.status).toBe(201);
+  });
+
+  it('T026: GET /api/sim/:id/eligibility — 200 eligible initially', async () => {
+    const ts = Date.now();
+    const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000001${ts}`, simNumber: `SIM-T026-B-${ts}` }) }).then(r => r.json());
+    const simId = sim.sim?.id || sim.id;
+    const r = await fetch(`${BASE}/api/sim/${simId}/eligibility`, { headers: AUTH });
+    const body = await r.json();
+    expect(r.status).toBe(200);
+    expect(body.eligible).toBe(true);
+  });
+
+  it('T026: POST /api/sim/:id/assign + eligibility flips to false', async () => {
+    const ts = Date.now();
+    const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000002${ts}`, simNumber: `SIM-T026-C-${ts}` }) }).then(r => r.json());
+    const simId = sim.sim?.id || sim.id;
+    const mtr = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T026-MTR-C-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mtrId = mtr.meter?.id || mtr.id;
+
+    // Assign
+    const a = await fetch(`${BASE}/api/sim/${simId}/assign`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mtrId }) });
+    expect(a.status).toBe(201);
+
+    // Eligibility should now be false
+    const e = await fetch(`${BASE}/api/sim/${simId}/eligibility`, { headers: AUTH });
+    const eBody = await e.json();
+    expect(eBody.eligible).toBe(false);
+  });
+
+  it('T026: POST /api/sim/:id/release + eligibility flips back to true (reuse)', async () => {
+    const ts = Date.now();
+    const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000003${ts}`, simNumber: `SIM-T026-D-${ts}` }) }).then(r => r.json());
+    const simId = sim.sim?.id || sim.id;
+    const mtr = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T026-MTR-D-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mtrId = mtr.meter?.id || mtr.id;
+
+    // Assign
+    await fetch(`${BASE}/api/sim/${simId}/assign`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mtrId }) });
+    // Release
+    const r = await fetch(`${BASE}/api/sim/${simId}/release`, { method: 'POST', headers: AUTH });
+    expect(r.status).toBe(200);
+
+    // Eligibility should be true again
+    const e = await fetch(`${BASE}/api/sim/${simId}/eligibility`, { headers: AUTH });
+    const eBody = await e.json();
+    expect(eBody.eligible).toBe(true);
+  });
+
+  it('T026: POST /api/sim/:id/assign — reassign after release (reuse)', async () => {
+    const ts = Date.now();
+    const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000004${ts}`, simNumber: `SIM-T026-E-${ts}` }) }).then(r => r.json());
+    const simId = sim.sim?.id || sim.id;
+    const mtrA = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T026-MTR-E1-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mtrAId = mtrA.meter?.id || mtrA.id;
+    const mtrB = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `T026-MTR-E2-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mtrBId = mtrB.meter?.id || mtrB.id;
+
+    // Assign to meter A
+    await fetch(`${BASE}/api/sim/${simId}/assign`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mtrAId }) });
+    // Release
+    await fetch(`${BASE}/api/sim/${simId}/release`, { method: 'POST', headers: AUTH });
+    // Reassign to meter B
+    const r = await fetch(`${BASE}/api/sim/${simId}/assign`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mtrBId }) });
+    expect(r.status).toBe(201);
+  });
+
+  it('T026: POST /api/sim/:id/assign — 404 for missing SIM', async () => {
+    const r = await fetch(`${BASE}/api/sim/nonexistent-sim-id/assign`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: '00000000-0000-0000-0000-000000000000' }) });
+    expect(r.status).toBe(404);
+  });
+
+  it('T026: POST /api/sim/:id/release — 404 for missing SIM', async () => {
+    const r = await fetch(`${BASE}/api/sim/nonexistent-sim-id/release`, { method: 'POST', headers: AUTH });
+    expect(r.status).toBe(404);
+  });
+
+  it('T026: POST /api/sim/:id/release — 400 for unassigned SIM', async () => {
+    const ts = Date.now();
+    const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000005${ts}`, simNumber: `SIM-T026-F-${ts}` }) }).then(r => r.json());
+    const simId = sim.sim?.id || sim.id;
+    const r = await fetch(`${BASE}/api/sim/${simId}/release`, { method: 'POST', headers: AUTH });
+    expect(r.status).toBe(400);
+  });
 });
