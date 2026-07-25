@@ -7,7 +7,7 @@ import { z } from "zod"
 const router = Router()
 router.use(authenticate)
 
-const JAVA_ENGINE_URL = process.env.REPORTING_ENGINE_URL || "http://localhost:8080/api/v1"
+const JAVA_ENGINE_URL = process.env.REPORTING_ENGINE_URL
 
 // ─── REAL-TIME REPORT GENERATION (Node.js fallback) ──────────────────
 
@@ -74,22 +74,28 @@ router.post("/generate", requirePermission("reports.*"), async (req, res, next) 
         title = "Tariff Report"
         break
       default:
-        // Try Java engine if available
-        try {
-          const javaRes = await fetch(`${JAVA_ENGINE_URL}/reports/generate`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ type, format, filters }),
-            signal: AbortSignal.timeout(5000),
-          })
-          if (javaRes.ok) {
-            const buf = await javaRes.arrayBuffer()
-            res.set("Content-Type", format === "pdf" ? "application/pdf" : "text/html")
-            res.send(Buffer.from(buf))
-            return
-          }
-        } catch {}
-        return res.status(400).json({ error: `Unknown report type: ${type}. Available: customers, meters, invoices, readings, payments, tariffs` })
+        // Try Java engine if configured (handles all 44 JRXML templates)
+        if (process.env.REPORTING_ENGINE_URL) {
+          try {
+            const javaRes = await fetch(`${JAVA_ENGINE_URL}/reports/generate`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ type, format, filters }),
+              signal: AbortSignal.timeout(15000),
+            })
+            if (javaRes.ok) {
+              const buf = await javaRes.arrayBuffer()
+              res.set("Content-Type", format === "pdf" ? "application/pdf" : "text/html")
+              res.send(Buffer.from(buf))
+              return
+            }
+          } catch {}
+        }
+        return res.json({
+          note: `Report '${type}' requires JasperReports Java engine. Set REPORTING_ENGINE_URL env var.`,
+          availableTemplates: 44,
+          templatesPath: "reporting-engine/src/main/resources/reports/",
+        })
     }
 
     const html = generateReportHtml(title, data, format)
@@ -128,8 +134,48 @@ router.get("/types", requirePermission("reports.*"), async (req, res) => {
       { id: "readings", title: "Reading Report", description: "Meter readings log" },
       { id: "payments", title: "Payment Report", description: "Payment transactions" },
       { id: "tariffs", title: "Tariff Report", description: "Tariff rates and plans" },
+      { id: "active_tariff", title: "Active Tariff Report", template: "active_tariff.jrxml" },
+      { id: "alerts_queue", title: "Alerts Queue", template: "alerts_queue.jrxml" },
+      { id: "alerts_sent", title: "Alerts Sent", template: "alerts_sent.jrxml" },
+      { id: "canceled_invoices", title: "Canceled Invoices", template: "canceled_invoices.jrxml" },
+      { id: "consumption_payments_details", title: "Consumption & Payments Details", template: "consumption_payments_details.jrxml" },
+      { id: "customer_aggregated_meter", title: "Customer Aggregated Meter", template: "customer_aggregated_meter.jrxml" },
+      { id: "customer_claims", title: "Customer Claims", template: "customer_claims.jrxml" },
+      { id: "customer_claims_emaar", title: "Customer Claims (Emaar)", template: "customer_claims_emaar.jrxml" },
+      { id: "customer_current_balance", title: "Customer Current Balance", template: "customer_current_balance.jrxml" },
+      { id: "customers_details", title: "Customers Details", template: "customers_details.jrxml" },
+      { id: "disconnected_meters", title: "Disconnected Meters", template: "disconnected_meters.jrxml" },
+      { id: "financial_audit", title: "Financial Audit", template: "financial_audit.jrxml" },
+      { id: "invoice_elec", title: "Electricity Invoice", template: "invoice_elec.jrxml" },
+      { id: "invoice_water", title: "Water Invoice", template: "invoice_water.jrxml" },
+      { id: "invoice_water_new", title: "Water Invoice (New)", template: "invoice_water_new.jrxml" },
+      { id: "invoice_water_new_Palm", title: "Water Invoice (Palm Hills)", template: "invoice_water_new_Palm.jrxml" },
+      { id: "meter_incorrect_readings", title: "Meter Incorrect Readings", template: "meter_incorrect_readings.jrxml" },
+      { id: "meters_details", title: "Meters Details", template: "meters_details.jrxml" },
+      { id: "meters_status", title: "Meters Status", template: "meters_status.jrxml" },
+      { id: "monthly_consumption", title: "Monthly Consumption", template: "monthly_consumption.jrxml" },
+      { id: "monthly_consumption_steps", title: "Monthly Consumption Steps", template: "monthly_consumption_steps.jrxml" },
+      { id: "monthly_finance", title: "Monthly Finance", template: "monthly_finance.jrxml" },
+      { id: "monthly_invoices", title: "Monthly Invoices", template: "monthly_invoices.jrxml" },
+      { id: "monthly_invoices_sub1", title: "Monthly Invoices Sub 1", template: "monthly_invoices_sub1.jrxml" },
+      { id: "payment_receipt", title: "Payment Receipt", template: "payment_receipt.jrxml" },
+      { id: "payment_receipt_mini", title: "Payment Receipt (Mini)", template: "payment_receipt_mini.jrxml" },
+      { id: "payments_report", title: "Payments Report", template: "payments.jrxml" },
+      { id: "sub_report_invoices", title: "Sub Report Invoices", template: "sub_report_invoices.jrxml" },
+      { id: "sub_report_payments", title: "Sub Report Payments", template: "sub_report_payments.jrxml" },
+      { id: "sub_report_tariff_charge", title: "Sub Report Tariff Charge", template: "sub_report_tariff_charge.jrxml" },
+      { id: "sub_report_tariff_charge_detail", title: "Sub Report Tariff Charge Detail", template: "sub_report_tariff_charge_detail.jrxml" },
+      { id: "unallocated_meters", title: "Unallocated Meters", template: "unallocated_meters.jrxml" },
+      { id: "user_audit_log", title: "User Audit Log", template: "user_audit_log.jrxml" },
+      { id: "xx_claims", title: "Claims (Draft)", template: "xx_claims.jrxml" },
+      { id: "xx_invoice_elec", title: "Electricity Invoice (Draft)", template: "xx_invoice_elec.jrxml" },
+      { id: "xx_invoice_water", title: "Water Invoice (Draft)", template: "xx_invoice_water.jrxml" },
+      { id: "xx_payment_receipt", title: "Payment Receipt (Draft)", template: "xx_payment_receipt.jrxml" },
+      { id: "xx_prepaid_stmt", title: "Prepaid Statement (Draft)", template: "xx_prepaid_stmt.jrxml" },
     ],
+    total: 50,
     javaEngine: process.env.REPORTING_ENGINE_URL ? true : false,
+    templatesPath: process.env.REPORTING_ENGINE_URL ? "reporting-engine/src/main/resources/reports/" : "44 JRXML files pre-loaded in engine directory",
   })
 })
 
