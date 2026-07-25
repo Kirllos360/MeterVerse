@@ -3,10 +3,14 @@ import multer from "multer"
 import path from "path"
 import fs from "fs"
 import crypto from "crypto"
+import { fileURLToPath } from "url"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission } from "../middleware/security.js"
 import { z } from "zod"
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const TEMPLATES_DIR = path.resolve(__dirname, "../../uploads/templates")
 
 const router = Router()
 
@@ -63,6 +67,36 @@ const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 }, fileFil
 }})
 
 router.use(authenticate)
+
+// ─── UPLOAD TEMPLATES (must be before /:id catch-all) ───────────────
+
+const UPLOAD_TEMPLATES = [
+  { id: "customers", file: "customers_template.xlsx", title: "Customers Template", description: "Bulk customer import/update", fields: "name, email, phone, address, area, status" },
+  { id: "meters", file: "meters_template.xlsx", title: "Meters Template", description: "Bulk meter registration", fields: "serial, type, location, area, status" },
+  { id: "readings", file: "readings_template.xlsx", title: "Readings Template", description: "Bulk meter reading import", fields: "meterId, value, timestamp, status" },
+  { id: "readings_solar", file: "readings_template solar.xlsx", title: "Solar Readings Template", description: "Bulk solar meter reading import", fields: "meterId, value, timestamp, status" },
+  { id: "payments", file: "payments_template.xlsx", title: "Payments Template", description: "Bulk payment recording", fields: "customerId, amount, method, date, reference" },
+  { id: "delete_readings", file: "delete_readings_template.xlsx", title: "Delete Readings Template", description: "Bulk reading deletion", fields: "readingId, meterId, dateRange" },
+  { id: "meter_settlements", file: "meter_settlements_template.xlsx", title: "Meter Settlements Template", description: "Meter settlement adjustments", fields: "meterId, customerId, startDate, endDate, adjustment" },
+  { id: "migration", file: "migration_template.xlsx", title: "Migration Template", description: "System data migration", fields: "sourceId, targetId, entityType, mapping" },
+  { id: "sim_cards", file: "Sim Card Template.xlsx", title: "SIM Cards Template", description: "Bulk SIM card registration", fields: "iccid, simNumber, operator, status, meterId" },
+]
+
+router.get("/upload-templates", requirePermission("documents.*"), (req, res) => {
+  const list = UPLOAD_TEMPLATES.map(t => ({
+    ...t, size: fs.existsSync(path.join(TEMPLATES_DIR, t.file)) ? fs.statSync(path.join(TEMPLATES_DIR, t.file)).size : 0,
+    downloadUrl: `/api/documents/upload-templates/${t.id}/download`,
+  }))
+  res.json({ templates: list, total: list.length })
+})
+
+router.get("/upload-templates/:id/download", requirePermission("documents.*"), (req, res) => {
+  const tpl = UPLOAD_TEMPLATES.find(t => t.id === req.params.id)
+  if (!tpl) return res.status(404).json({ error: "Template not found" })
+  const filePath = path.join(TEMPLATES_DIR, tpl.file)
+  if (!fs.existsSync(filePath)) return res.status(404).json({ error: "Template file not found" })
+  res.download(filePath, tpl.file)
+})
 
 router.post("/upload", requirePermission("documents.*"), upload.single("file"), async (req, res, next) => {
   try {
