@@ -834,20 +834,22 @@ export const pageConfigs: Record<string, PageConfig> = {
   sim: {
     id: "sim", title: "SIM Cards", description: "SIM card inventory and assignments",
     apiEndpoint: "/api/sim",
-    serverSide: true,
+    serverSide: true, resource: "sim",
     statusField,
     transform: (d: any) => (d.sims || []).map((s: any) => ({
       id: s.id, iccid: s.iccid, simNumber: s.simNumber,
       operator: s.operator || "—", status: s.status || "available",
-      ipAddress: s.ipAddress || "—", createdAt: s.createdAt || "",
+      ipAddress: s.ipAddress || "—", meterId: s.meter?.serial || s.meterId || "",
+      cooldownUntil: s.cooldownUntil || "", createdAt: s.createdAt || "",
     })),
     columns: [
       { id: "iccid", header: "ICCID", accessor: r => r.iccid, width: 200 },
       { id: "simNumber", header: "SIM #", accessor: r => r.simNumber, width: 150 },
-      { id: "operator", header: "Operator", accessor: r => r.operator, width: 120 },
-      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
-      { id: "ipAddress", header: "IP", accessor: r => r.ipAddress, width: 140 },
-      { id: "createdAt", header: "Created", accessor: r => r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "—", width: 120 },
+      { id: "operator", header: "Operator", accessor: r => r.operator, width: 100 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+      { id: "meterId", header: "Meter", accessor: r => r.meterId || "—", width: 120 },
+      { id: "cooldownUntil", header: "Cooldown", accessor: r => r.cooldownUntil ? new Date(r.cooldownUntil).toLocaleDateString() : "—", width: 110 },
+      { id: "createdAt", header: "Created", accessor: r => r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "—", width: 100 },
     ],
     fields: defFields([
       { name: "iccid", label: "ICCID", type: "text", required: true, placeholder: "89000000000000000000" },
@@ -858,7 +860,7 @@ export const pageConfigs: Record<string, PageConfig> = {
         { value: "available", label: "Available" }, { value: "assigned", label: "Assigned" }, { value: "active", label: "Active" }, { value: "faulty", label: "Faulty" }, { value: "retired", label: "Retired" },
       ]},
     ]),
-    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Available", Icons.circleCheck, r=>r.filter(x=>x.status==="available").length), sc("Assigned", Icons.chevronRight, r=>r.filter(x=>x.status==="assigned"||x.status==="active").length)],
+    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Available", Icons.circleCheck, r=>r.filter(x=>x.status==="available").length), sc("Assigned", Icons.chevronRight, r=>r.filter(x=>x.status==="assigned"||x.status==="active").length), sc("Cooldown", Icons.clock, r=>r.filter(x=>x.cooldownUntil && new Date(x.cooldownUntil) > new Date()).length)],
   },
   domains: {
     id: "domains", title: "Domain Data", description: "Browse all domain entities",
