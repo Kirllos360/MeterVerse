@@ -719,7 +719,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   invoices: {
     id: "invoices", title: "Invoices", description: "Customer invoices and billing records",
     apiEndpoint: "/api/invoices",
-    statusField,
+    serverSide: true, statusField,
     transform: (d: any) => (d.invoices || []).map((inv: any) => ({
       id: inv.id, customer: inv.customerName || inv.customer || inv.customerId || "—",
       amount: inv.amount || inv.total || 0, status: inv.status || "pending",
@@ -743,7 +743,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   payments: {
     id: "payments", title: "Payments", description: "Customer payment transactions",
     apiEndpoint: "/api/payments",
-    statusField,
+    serverSide: true, statusField,
     transform: (d: any) => (d.payments || []).map((p: any) => ({
       id: p.id, customer: p.customerName || p.customer || p.customerId || "—",
       amount: p.amount || p.total || 0, method: p.method || p.paymentMethod || "—",
