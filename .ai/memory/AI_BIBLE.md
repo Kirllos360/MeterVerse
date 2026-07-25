@@ -62,6 +62,60 @@ unless evidence exists from actual tool execution. A statement without evidence 
 
 ---
 
+## 🚨 MANDATORY PRE-FLIGHT CHECKLIST — EXECUTE BEFORE EVERY TASK 🚨
+## THIS IS THE ABSOLUTE FIRST STEP. NO EXCEPTIONS. NO SKIPPING.
+
+**Before doing ANY work, I MUST run this checklist and output the results.**
+
+```
+☐ 1. CAPABILITY DISCOVERY — Check ALL tools below (not just MCPs, everything)
+☐ 2. MCP CHECK — Verify each of the 10 MCPs is active
+☐ 3. CLI CHECK — Verify lighthouse, axe-core, puppeteer, artillery are installed
+☐ 4. RUNTIME CHECK — Node, Java, Docker, PostgreSQL are running
+☐ 5. BACKEND CHECK — localhost:3002/api/health returns 200
+☐ 6. TESTS CHECK — vitest run passes (114/114)
+☐ 7. TYPESCRIPT CHECK — tsc --noEmit has 0 errors
+☐ 8. GIT CHECK — working tree is clean, branch is correct
+```
+
+**If ANY check fails → STOP. Fix it. Then restart the checklist from the beginning.**
+Never proceed with a failed check.
+
+---
+
+## FULL CLI TOOLS REGISTRY (60+ Tools Available Globally)
+
+| Category | Tools | Version |
+|:---------|:------|:------:|
+| **Testing** | vitest (114 tests), playwright, lighthouse v13.4.1, axe-core v4.12.1, pa11y, artillery v2.0.33, k6 | ✅ |
+| **Security** | snyk v1.1305.0, @stoplight/spectral-cli v6.16.1 | ✅ |
+| **Analysis** | dependency-cruiser v18, madge v8, knip v26, ts-prune, @ast-grep/cli | ✅ |
+| **Documentation** | typedoc v0.28, adr v1.5, log4brains v1.1, mermaid-cli v11.16 | ✅ |
+| **Diagrams** | mermaid-cli, code2flow, state-machine-cat v15, prisma-erd-generator v2.4 | ✅ |
+| **API** | mcp-openapi, @redocly/cli v2.39, swagger-cli, @openapitools/openapi-generator | ✅ |
+| **Runtimes** | Node v24.15, Java v21, Docker v29.5, Bun v1.3, Prisma v7.8, TypeScript v7.0 | ✅ |
+| **Database** | PostgreSQL 16 (87 tables), Prisma ORM | ✅ |
+| **Special** | serena v0.0.1, context7 v1.0.3, puppeteer v25.3, bun, pnpm v11.11 | ✅ |
+
+---
+
+## MCP SERVERS — VERSIONS & STATUS (10 Configured)
+
+| MCP | Package | Version | Status |
+|:----|:--------|:-------:|:------:|
+| sequential-thinking | mcp-sequential-thinking | latest | ✅ active |
+| git | mcp-server-git | 0.0.2 | ✅ active |
+| filesystem | @modelcontextprotocol/server-filesystem | 2026.1.14 | ✅ active |
+| postgres | @modelcontextprotocol/server-postgres | 0.6.2 | ✅ active (port 5432) |
+| memory | @modelcontextprotocol/server-memory | 2026.7.4 | ✅ active |
+| playwright | @playwright/mcp | 0.0.76 | ✅ active |
+| openapi | mcp-openapi | 0.3.0 | ✅ active |
+| storybook | @storybook/mcp | 0.8.0 | ✅ active |
+| MCP_DOCKER | docker mcp gateway | — | ✅ active |
+| lovable | http | — | ✅ active |
+
+---
+
 ## 🚨 RULE 0 (Original) — TOOL USAGE PROTOCOL — DECLARE EVERY TOOL WITH EMOJI 🚨
 
 **BEFORE invoking ANY tool, I MUST output its name with the 🧰 emoji as the first thing in my message.**
