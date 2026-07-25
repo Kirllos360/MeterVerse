@@ -42,6 +42,14 @@ router.post("/", requirePermission("meter_assignments.*"), async (req, res, next
   try {
     const data = createSchema.parse({ ...req.body, startDate: req.body.startDate || new Date().toISOString() })
 
+    // Check meter and customer exist
+    const [meter, customer] = await Promise.all([
+      prisma.meter.findUnique({ where: { id: data.meterId } }),
+      prisma.customer.findUnique({ where: { id: data.customerId } }),
+    ])
+    if (!meter) return res.status(404).json({ error: "Meter not found" })
+    if (!customer) return res.status(404).json({ error: "Customer not found" })
+
     // Check for existing active assignment on this meter
     const existing = await prisma.meterAssignment.findFirst({ where: { meterId: data.meterId, status: "active" } })
     if (existing) return res.status(409).json({ error: "Meter already has an active assignment", existingId: existing.id })
