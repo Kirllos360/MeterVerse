@@ -32,7 +32,7 @@ SELECT
 FROM "MeterAssignment" ma
 JOIN "Meter" m ON m.id = ma."meterId"
 LEFT JOIN "Customer" c ON c.id = ma."customerId"
-WHERE ma."archivedAt" IS NULL AND ma.status = 'active';
+WHERE ma.status = 'active';
 
 -- SIM assignment view
 CREATE OR REPLACE VIEW sim_assignment_active_view AS

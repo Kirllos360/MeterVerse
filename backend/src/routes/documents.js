@@ -2,6 +2,7 @@ import { Router } from "express"
 import multer from "multer"
 import path from "path"
 import fs from "fs"
+import crypto from "crypto"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission } from "../middleware/security.js"
@@ -18,17 +19,59 @@ const templateSchema = z.object({
 const UPLOAD_DIR = process.env.UPLOAD_DIR || "./uploads"
 if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true })
 
+// ─── FILE VALIDATION (security layer) ─────────────────────────────
+
+const ALLOWED_MIME_TYPES = new Set([
+  "application/pdf", "image/jpeg", "image/png", "image/gif",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
+  "application/vnd.ms-excel", // .xls
+  "text/csv", "text/plain",
+  "application/json", "application/xml", "text/xml",
+  "application/zip", "application/gzip",
+])
+
+const MAGIC_BYTES = {
+  "application/pdf": [[0x25, 0x50, 0x44, 0x46]],
+  "image/jpeg": [[0xFF, 0xD8, 0xFF]],
+  "image/png": [[0x89, 0x50, 0x4E, 0x47]],
+  "image/gif": [[0x47, 0x49, 0x46]],
+  "application/zip": [[0x50, 0x4B, 0x03, 0x04]],
+  "application/gzip": [[0x1F, 0x8B]],
+}
+
+function validateFileType(file) {
+  const errors = []
+  if (!ALLOWED_MIME_TYPES.has(file.mimetype)) {
+    errors.push(`File type '${file.mimetype}' is not allowed. Allowed: ${[...ALLOWED_MIME_TYPES].join(", ")}`)
+  }
+  const magic = MAGIC_BYTES[file.mimetype]
+  if (magic) {
+    const buffer = fs.readFileSync(file.path, { flag: "r" })
+    const match = magic.some(sig => sig.every((b, i) => buffer[i] === b))
+    if (!match) errors.push(`File content does not match expected signature for '${file.mimetype}'`)
+  }
+  return errors
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+  filename: (req, file, cb) => cb(null, `${Date.now()}-${crypto.randomBytes(4).toString("hex")}-${file.originalname.replace(/[^a-zA-Z0-9._-]/g, "_")}`),
 })
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } })
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 }, fileFilter: (req, file, cb) => {
+  if (ALLOWED_MIME_TYPES.has(file.mimetype)) cb(null, true)
+  else cb(new Error(`File type '${file.mimetype}' not allowed`))
+}})
 
 router.use(authenticate)
 
 router.post("/upload", requirePermission("documents.*"), upload.single("file"), async (req, res, next) => {
   try {
     if (!req.file) return res.status(400).json({ error: "No file provided" })
+    const validationErrors = validateFileType(req.file)
+    if (validationErrors.length > 0) {
+      fs.unlinkSync(req.file.path)
+      return res.status(422).json({ error: "File rejected", details: validationErrors })
+    }
     const file = await prisma.storedFile.create({
       data: {
         name: req.file.filename,

@@ -65,27 +65,55 @@ const ROLE_PERMISSIONS = {
   viewer: ["*.read", "*.list"],
 }
 
+function matchPermission(required, allowed) {
+  const regex = new RegExp("^" + allowed.replace(/\./g, "\\.").replace(/\*/g, ".*") + "$")
+  return regex.test(required)
+}
+
+const permissionCache = new Map()
+const CACHE_TTL = 60000
+
 export function requirePermission(...permissions) {
-  return (req, res, next) => {
+  return async (req, res, next) => {
     if (!req.user) return res.status(401).json({ error: "Authentication required" })
     if (req.user.role === "super_admin") return next()
     if (permissions.length === 0) return next()
 
-    const userPerms = ROLE_PERMISSIONS[req.user.role]
-    if (!userPerms) return res.status(403).json({ error: "Insufficient permissions" })
-
-    const hasAny = permissions.some(required => {
-      return userPerms.some(allowed => {
-        const regex = new RegExp("^" + allowed.replace(/\./g, "\\.").replace(/\*/g, ".*") + "$")
-        return regex.test(required)
-      })
-    })
-
-    if (!hasAny) {
-      auditLog(req, "authorization.permission_denied", { required: permissions, role: req.user.role })
-      return res.status(403).json({ error: "Permission denied", required: permissions, role: req.user.role })
+    // Fast path: check hardcoded role permissions
+    const hardcodedPerms = ROLE_PERMISSIONS[req.user.role]
+    if (hardcodedPerms) {
+      const hasHardcoded = permissions.some(required =>
+        hardcodedPerms.some(allowed => matchPermission(required, allowed))
+      )
+      if (hasHardcoded) return next()
     }
-    next()
+
+    // DB path: query PermissionOnRole table for custom roles
+    try {
+      const cacheKey = `${req.user.role}:${permissions.join(",")}`
+      const cached = permissionCache.get(cacheKey)
+      if (cached && cached.expiresAt > Date.now()) {
+        if (cached.allowed) return next()
+        return res.status(403).json({ error: "Permission denied", required: permissions, role: req.user.role })
+      }
+
+      const role = await prisma.role.findFirst({
+        where: { name: req.user.role, isSystem: false },
+        include: { permissions: { include: { permission: true } } },
+      })
+
+      if (role) {
+        const dbPerms = role.permissions.map(p => p.permission.name)
+        const hasDb = permissions.some(required =>
+          dbPerms.some(allowed => matchPermission(required, allowed))
+        )
+        permissionCache.set(cacheKey, { allowed: hasDb, expiresAt: Date.now() + CACHE_TTL })
+        if (hasDb) return next()
+      }
+    } catch {}
+
+    auditLog(req, "authorization.permission_denied", { required: permissions, role: req.user.role })
+    res.status(403).json({ error: "Permission denied", required: permissions, role: req.user.role })
   }
 }
 
