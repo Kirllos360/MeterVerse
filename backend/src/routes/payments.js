@@ -132,4 +132,28 @@ router.get("/export", requirePermission("payments.list"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
+// ─── REFUND (reverse overpayment/credit) ─────────────────────
+
+router.post("/:id/refund", requirePermission("payments.*"), async (req, res, next) => {
+  try {
+    const { reason } = z.object({ reason: z.string().min(1) }).parse(req.body)
+    const payment = await prisma.payment.findUnique({ where: { id: req.params.id }, include: { paymentTransactions: true } })
+    if (!payment) return res.status(404).json({ error: "Payment not found" })
+    if (payment.status !== "completed") return res.status(400).json({ error: "Payment already refunded or reversed" })
+
+    await prisma.$transaction(async (tx) => {
+      for (const t of payment.paymentTransactions) {
+        await tx.invoice.update({ where: { id: t.invoiceId }, data: { paidAmount: { decrement: t.amount } } })
+      }
+      await tx.payment.update({ where: { id: payment.id }, data: { status: "refunded" } })
+      await tx.customerLedgerEntry.create({ data: { customerId: payment.customerId, type: "refund", amount: -payment.amount, description: reason, reference: payment.id } })
+    })
+    auditLog(req, "payment.refunded", { paymentId: payment.id, reason })
+    res.json({ message: "Payment refunded", paymentId: payment.id })
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
+})
+
 export { router as paymentsRouter }

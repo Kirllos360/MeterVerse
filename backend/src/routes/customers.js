@@ -125,6 +125,19 @@ router.get("/stats", requirePermission("customers.list"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
+// ─── RESTORE ──────────────────────────────────────────────────
+
+router.post("/:id/restore", requirePermission("customers.create"), async (req, res, next) => {
+  try {
+    const customer = await prisma.customer.findUnique({ where: { id: req.params.id } })
+    if (!customer) return res.status(404).json({ error: "Customer not found" })
+    if (!customer.archivedAt) return res.status(400).json({ error: "Customer is not archived" })
+    const restored = await prisma.customer.update({ where: { id: req.params.id }, data: { archivedAt: null, status: "active" } })
+    auditLog(req, "customer.restored", { customerId: customer.id })
+    res.json({ customer: restored })
+  } catch (err) { next(err) }
+})
+
 export { router as customersRouter }
 
 
