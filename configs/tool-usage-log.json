@@ -253,6 +253,17 @@
             "git (commit/push)"
         ],
         "evidence": "backend/src/routes/projects.js, backend/src/routes/admin.js, backend/tests/contract/live-api.test.mjs, backend/tests/integration.test.mjs"
+    },
+    {
+        "date": "2026-07-25",
+        "task": "T035-T041 — Phase 3 FE migrations (Projects, Locations, Customers, Meters, SIMs, Assignments)",
+        "tools_activated": ["filesystem", "git", "sequential-thinking"],
+        "tools_used": [
+            "filesystem (create page.tsx files, update page-configs.ts, update GenericAdminPage.tsx, create detail pages)",
+            "sequential-thinking (design server-side pagination integration, nav-config fixes)",
+            "git (commit/push 7 tasks)"
+        ],
+        "evidence": "Frontend/src/app/admin/{zones,units,meter-assignments,sim/[id],meters/[id]}/page.tsx, Frontend/src/admin/tables/page-configs.ts, Frontend/src/admin/tables/GenericAdminPage.tsx"
     }
 ]
     }
