@@ -1,7 +1,7 @@
 {
   "registry": {
-    "updated": "2026-07-25",
-    "description": "MeterVerse MCP Registry — All discovered and configured tools"
+    "updated": "2026-07-25 15:01",
+    "description": "MeterVerse MCP Registry v2 — Full infrastructure audit with runtime verification"
   },
   "capability_categories": {
     "planning": ["sequential-thinking", "codebase-memory", "context7", "graphical-mcp"],
@@ -67,26 +67,28 @@
     "mcp-openapi": {
       "command": "mcp-openapi",
       "purpose": "OpenAPI schema validation",
-      "status": "AVAILABLE — NOT CONFIGURED",
-      "category": "api_inspection"
+      "status": "CONFIGURED in opencode.json",
+      "category": "api_inspection",
+      "verified": "2026-07-25"
     },
     "mcp-server-sqlite-npx": {
       "command": "mcp-server-sqlite-npx",
       "purpose": "SQLite database access",
-      "status": "AVAILABLE — NOT CONFIGURED",
+      "status": "NOT CONFIGURED — not needed (using PostgreSQL)",
       "category": "database"
     },
     "mcp-server-gitlab": {
       "command": "mcp-server-gitlab",
       "purpose": "GitLab integration",
-      "status": "AVAILABLE — NOT CONFIGURED",
+      "status": "NOT CONFIGURED — not needed (using GitHub)",
       "category": "version_control"
     },
     "@storybook/mcp": {
       "command": "npx @storybook/mcp",
       "purpose": "Storybook component documentation",
-      "status": "AVAILABLE — NOT CONFIGURED",
-      "category": "documentation"
+      "status": "CONFIGURED in opencode.json",
+      "category": "documentation",
+      "verified": "2026-07-25"
     }
   },
   "cli_tools_available": {
@@ -122,11 +124,28 @@
     "pnpm": "11.11.0"
   },
   "configured_in_opencode": [
-    "sequential-thinking", "git", "filesystem", "postgres", "playwright", "memory"
+    "sequential-thinking",
+    "git",
+    "filesystem",
+    "postgres",
+    "playwright",
+    "memory",
+    "openapi",
+    "storybook"
   ],
-  "next_to_configure": [
-    "mcp-openapi",
-    "@storybook/mcp",
-    "mcp-server-memory"
-  ]
+  "next_to_configure": [],
+  "latest_runtime_scan": {
+    "timestamp": "2026-07-25 15:01",
+    "node": "24.15.0",
+    "java": "21.0.11",
+    "docker": "29.5.2",
+    "postgres": "16 (Up 38h, healthy)",
+    "npm": "11.12.1",
+    "typescript": "7.0.2",
+    "prisma": "7.8.0",
+    "bun": "1.3.14",
+    "git_branch": "clean-main",
+    "last_commit": "72574c5",
+    "uncommitted": 0
+  }
 }
