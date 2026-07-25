@@ -60,7 +60,7 @@ router.get("/config/:key", requirePermission("admin.*"), async (req, res) => {
     }
     const config = await getConfig(req.params.key)
     res.json({ config })
-  } catch (err) { res.status(500).json({ error: "Failed to load config" }) }
+  } catch (err) { next(err) }
 })
 
 // POST /api/admin/config/:key - Save configuration
@@ -73,7 +73,7 @@ router.post("/config/:key", requirePermission("admin.*"), async (req, res) => {
     }
     await setConfig(req.params.key, req.body.config || {})
     res.json({ message: "Configuration saved" })
-  } catch (err) { res.status(500).json({ error: "Failed to save config" }) }
+  } catch (err) { next(err) }
 })
 
 // POST /api/admin/config/smtp/test - Test SMTP connection
@@ -83,7 +83,7 @@ router.post("/config/smtp/test", requirePermission("admin.*"), async (req, res) 
     if (!host || !port) return res.status(400).json({ error: "Host and port required" })
     // SMTP connection test placeholder — real implementation uses nodemailer
     res.json({ message: `SMTP configuration validated. Host: ${host}:${port}. User: ${username}. Save config and install nodemailer for full test.` })
-  } catch (err) { res.status(500).json({ error: "SMTP test failed" }) }
+  } catch (err) { next(err) }
 })
 
 // POST /api/admin/config/sms/test - Test SMS connection
@@ -92,7 +92,7 @@ router.post("/config/sms/test", requirePermission("admin.*"), async (req, res) =
     const { provider, accountSid, fromNumber } = req.body.config || {}
     if (!provider || !accountSid) return res.status(400).json({ error: "Provider and account SID required" })
     res.json({ message: `SMS configuration validated. Provider: ${provider}. From: ${fromNumber}. Save config and install Twilio/Vonage SDK for full test.` })
-  } catch (err) { res.status(500).json({ error: "SMS test failed" }) }
+  } catch (err) { next(err) }
 })
 
 // POST /api/admin/config/firebase/test - Test Firebase connection
@@ -101,7 +101,7 @@ router.post("/config/firebase/test", requirePermission("admin.*"), async (req, r
     const { projectId } = req.body.config || {}
     if (!projectId) return res.status(400).json({ error: "Project ID required" })
     res.json({ message: `Firebase configuration validated. Project: ${projectId}. Save config and install firebase-admin SDK for full test.` })
-  } catch (err) { res.status(500).json({ error: "Firebase test failed" }) }
+  } catch (err) { next(err) }
 })
 
 // POST /api/admin/config/symbiot/test - Test Symbiot connection
@@ -120,7 +120,7 @@ router.post("/config/symbiot/test", requirePermission("admin.*"), async (req, re
     } catch (e) {
       return res.status(400).json({ error: `Cannot reach ${connection.ip}:${connection.port} — ${e.message}` })
     }
-  } catch (err) { res.status(500).json({ error: "Symbiot test failed" }) }
+  } catch (err) { next(err) }
 })
 
 // ─── THIRD PARTY PERMISSION GRANTS (phone-app style) ────────────────

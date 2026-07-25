@@ -117,7 +117,7 @@ router.post("/upload", requirePermission("documents.*"), upload.single("file"), 
         uploadedBy: req.user?.email,
       },
     })
-    res.status(201).json({ file })
+    auditLog(req, "document.uploaded", { fileId: file.id, name: file.originalName }); res.status(201).json({ file })
   } catch (err) { next(err) }
 })
 
@@ -146,8 +146,8 @@ router.delete("/:id", requirePermission("documents.*"), async (req, res, next) =
     const file = await prisma.storedFile.findUnique({ where: { id: req.params.id } })
     if (!file) return res.status(404).json({ error: "File not found" })
     if (fs.existsSync(file.path)) fs.unlinkSync(file.path)
-    await prisma.storedFile.delete({ where: { id: req.params.id } })
-    res.json({ message: "Deleted" })
+    await prisma.storedFile.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
+    auditLog(req, "document.deleted", { documentId: req.params.id }); res.json({ message: "Deleted" })
   } catch (err) { next(err) }
 })
 
@@ -167,7 +167,7 @@ router.post("/templates", requirePermission("documents.*"), async (req, res, nex
     const template = await prisma.notificationTemplate.create({
       data: { ...data, key: `doc_${Date.now()}`, type: "document" },
     })
-    res.status(201).json({ template })
+    auditLog(req, "notification_template.created", { templateId: template.id }); res.status(201).json({ template })
   } catch (err) { next(err) }
 })
 
@@ -178,14 +178,14 @@ router.put("/templates/:id", requirePermission("documents.*"), async (req, res, 
       where: { id: req.params.id },
       data,
     })
-    res.json({ template })
+    auditLog(req, "notification_template.updated", { templateId: req.params.id }); res.json({ template })
   } catch (err) { next(err) }
 })
 
 router.delete("/templates/:id", requirePermission("documents.*"), async (req, res, next) => {
   try {
-    await prisma.notificationTemplate.delete({ where: { id: req.params.id } })
-    res.json({ message: "Deleted" })
+    await prisma.notificationTemplate.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
+    auditLog(req, "document.deleted", { documentId: req.params.id }); res.json({ message: "Deleted" })
   } catch (err) { next(err) }
 })
 

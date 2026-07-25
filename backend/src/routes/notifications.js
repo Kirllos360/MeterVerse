@@ -93,7 +93,7 @@ router.delete("/templates/:id", requirePermission("notifications.*"), async (req
   try {
     const existingnotificationTemplate = await prisma.notificationTemplate.findUnique({ where: { id: req.params.id } });
     if (!existingnotificationTemplate) return res.status(404).json({ error: "Not found" });
-    await prisma.notificationTemplate.delete({ where: { id: req.params.id } })
+    await prisma.notificationTemplate.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "notification_template.deleted", { templateId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }

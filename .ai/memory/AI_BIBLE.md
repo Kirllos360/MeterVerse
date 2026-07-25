@@ -101,6 +101,31 @@ This kills ALL Node processes including MeterVerse services, Playwright servers,
 
 ---
 
+## 🚨 MANDATORY RULE — TASK VERIFICATION FLOW (PREVENT CRITICAL GAPS) 🚨
+
+**Every task marked COMPLETE must pass this flow. If any step fails, the task is NOT complete.**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  TASK VERIFICATION FLOW (MANDATORY — CANNOT BE SKIPPED)    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  1. IMPLEMENT — Write the code                              │
+│  2. STATIC CHECK — npx tsc --noEmit = 0 errors              │
+│  3. ROUTE SCAN — Check route ordering (/:id after specific) │
+│  4. PRISMA CHECK — Every query field matches schema field   │
+│  5. DELETE CHECK — Uses soft delete (archivedAt)            │
+│  6. AUDIT CHECK — Route calls auditLog()                    │
+│  7. ZOD CHECK — POST/PUT uses .parse(req.body)              │
+│  8. ERROR CHECK — async handler has try/catch + next(err)   │
+│  9. TEST — Run the endpoint, verify 200/201/400/404         │
+│  10. COMMIT — Only if all 9 steps pass                      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Violation consequence:** If any task marked COMPLETE is later found to have a critical gap (runtime crash, missing validation, wrong field names), the verification flow was not followed. This is a protocol violation.
+
 ## 🚨 MANDATORY RULE — MCP TOOL REGISTRY + FORCED USAGE 🚨
 
 **I MUST use these MCP tools for every task. This is not optional. It is forced.**

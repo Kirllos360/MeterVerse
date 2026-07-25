@@ -136,7 +136,7 @@ router.delete("/users/:id", requirePermission("admin.*"), async (req, res, next)
   try {
     const existinguser = await prisma.user.findUnique({ where: { id: req.params.id } });
     if (!existinguser) return res.status(404).json({ error: "Not found" });
-    await prisma.user.delete({ where: { id: req.params.id } })
+    await prisma.user.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.user.deleted", { userId: req.params.id })
     res.json({ success: true })
   } catch (err) {
@@ -224,7 +224,7 @@ router.delete("/roles/:id", requirePermission("admin.*"), async (req, res, next)
     if (role?.isSystem) return res.status(400).json({ error: "Cannot delete system role" })
     const existingrole = await prisma.role.findUnique({ where: { id: req.params.id } });
     if (!existingrole) return res.status(404).json({ error: "Not found" });
-    await prisma.role.delete({ where: { id: req.params.id } })
+    await prisma.role.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.role.deleted", { roleId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -261,7 +261,7 @@ router.delete("/permissions/:id", requirePermission("admin.*"), async (req, res,
   try {
     const existingpermission = await prisma.permission.findUnique({ where: { id: req.params.id } });
     if (!existingpermission) return res.status(404).json({ error: "Not found" });
-    await prisma.permission.delete({ where: { id: req.params.id } })
+    await prisma.permission.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.permission.deleted", { permissionId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -369,7 +369,7 @@ router.delete("/feature-flags/:id", requirePermission("admin.*"), async (req, re
   try {
     const existingfeatureFlag = await prisma.featureFlag.findUnique({ where: { id: req.params.id } });
     if (!existingfeatureFlag) return res.status(404).json({ error: "Not found" });
-    await prisma.featureFlag.delete({ where: { id: req.params.id } })
+    await prisma.featureFlag.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.feature_flag.deleted", { flagId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -418,7 +418,7 @@ router.delete("/api-keys/:id", requirePermission("admin.*"), async (req, res, ne
   try {
     const existingapiKey = await prisma.apiKey.findUnique({ where: { id: req.params.id } });
     if (!existingapiKey) return res.status(404).json({ error: "Not found" });
-    await prisma.apiKey.delete({ where: { id: req.params.id } })
+    await prisma.apiKey.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.api_key.deleted", { keyId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -441,7 +441,7 @@ router.delete("/sessions/:id", requirePermission("admin.*"), async (req, res, ne
   try {
     const existingsession = await prisma.session.findUnique({ where: { id: req.params.id } });
     if (!existingsession) return res.status(404).json({ error: "Not found" });
-    await prisma.session.delete({ where: { id: req.params.id } })
+    await prisma.session.update({ where: { id: req.params.id }, data: { expiresAt: new Date() } })
     auditLog(req, "admin.session.deleted", { sessionId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -469,7 +469,7 @@ router.delete("/organizations/:id", requirePermission("admin.*"), async (req, re
   try {
     const existingorganization = await prisma.organization.findUnique({ where: { id: req.params.id } });
     if (!existingorganization) return res.status(404).json({ error: "Not found" });
-    await prisma.organization.delete({ where: { id: req.params.id } })
+    await prisma.organization.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.organization.deleted", { organizationId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -525,7 +525,7 @@ router.delete("/webhooks/:id", requirePermission("admin.*"), async (req, res, ne
   try {
     const existingwebhook = await prisma.webhook.findUnique({ where: { id: req.params.id } });
     if (!existingwebhook) return res.status(404).json({ error: "Not found" });
-    await prisma.webhook.delete({ where: { id: req.params.id } })
+    await prisma.webhook.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.webhook.deleted", { webhookId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -574,7 +574,7 @@ router.delete("/backups/:id", requirePermission("admin.*"), async (req, res, nex
   try {
     const existingbackup = await prisma.backup.findUnique({ where: { id: req.params.id } });
     if (!existingbackup) return res.status(404).json({ error: "Not found" });
-    await prisma.backup.delete({ where: { id: req.params.id } })
+    await prisma.backup.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "admin.backup.deleted", { backupId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -674,7 +674,7 @@ router.delete("/scheduler/:id", requirePermission("admin.*"), async (req, res, n
   try {
     const existingscheduledTask = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } });
     if (!existingscheduledTask) return res.status(404).json({ error: "Not found" });
-    await prisma.scheduledTask.delete({ where: { id: req.params.id } })
+    await prisma.scheduledTask.update({ where: { id: req.params.id }, data: { active: false } })
     auditLog(req, "admin.scheduled_task.deleted", { taskId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -796,7 +796,7 @@ router.post("/meter-types", requirePermission("meters.create"), async (req, res,
 })
 router.delete("/meter-types/:id", requirePermission("meters.delete"), async (req, res, next) => {
   try {
-    await prisma.meterType.delete({ where: { id: req.params.id } })
+    await prisma.meterType.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "meter_type.deleted", { id: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }

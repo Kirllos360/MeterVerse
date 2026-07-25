@@ -68,7 +68,7 @@ router.put("/zones/:id", requirePermission("meters.update"), async (req, res, ne
 
 router.delete("/zones/:id", requirePermission("meters.delete"), async (req, res, next) => {
   try {
-    await prisma.zone.delete({ where: { id: req.params.id } })
+    await prisma.zone.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "zone.deleted", { zoneId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
@@ -119,7 +119,7 @@ router.put("/units/:id", requirePermission("meters.update"), async (req, res, ne
 
 router.delete("/units/:id", requirePermission("meters.delete"), async (req, res, next) => {
   try {
-    await prisma.unit.delete({ where: { id: req.params.id } })
+    await prisma.unit.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
     auditLog(req, "unit.deleted", { unitId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }
