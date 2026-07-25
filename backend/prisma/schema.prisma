@@ -542,6 +542,7 @@ model Customer {
   meterAssignments MeterAssignment[]
   units            Unit[]
   serviceConnections ServiceConnection[]
+  payments         Payment[]
 }
 
 model MeterType {
@@ -680,16 +681,19 @@ model Invoice {
 
 model Payment {
   id                  String               @id @default(uuid())
-  invoiceId           String
+  invoiceId           String?
+  customerId          String
+  customer            Customer             @relation(fields: [customerId], references: [id])
   amount              Float
   method              String               @default("cash")
   status              String               @default("completed")
   paidAt              DateTime             @default(now())
   createdAt           DateTime             @default(now())
-  archivedAt DateTime?
-  invoice             Invoice              @relation(fields: [invoiceId], references: [id])
+  archivedAt          DateTime?
+  invoice             Invoice?             @relation(fields: [invoiceId], references: [id])
   paymentTransactions PaymentTransaction[]
 
+  @@index([customerId])
   @@index([invoiceId, status])
   @@index([paidAt])
 }
@@ -1116,8 +1120,9 @@ model PaymentGateway {
 
 model PaymentTransaction {
   id              String         @id @default(uuid())
-  gatewayId       String
+  gatewayId       String?
   paymentId       String?
+  invoiceId       String?
   transactionId   String?
   type            String         @default("charge")
   amount          Float
@@ -1127,10 +1132,10 @@ model PaymentTransaction {
   errorMessage    String?
   processedAt     DateTime?
   createdAt       DateTime       @default(now())
-  archivedAt DateTime?
+  archivedAt      DateTime?
   logs            GatewayLog[]
-  gateway         PaymentGateway @relation(fields: [gatewayId], references: [id])
-  payment         Payment?       @relation(fields: [paymentId], references: [id])
+  gateway         PaymentGateway? @relation(fields: [gatewayId], references: [id])
+  payment         Payment?        @relation(fields: [paymentId], references: [id])
 
   @@index([gatewayId])
   @@index([paymentId])

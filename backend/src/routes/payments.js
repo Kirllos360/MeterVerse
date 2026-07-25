@@ -35,7 +35,7 @@ router.post("/", requirePermission("payments.*"), async (req, res, next) => {
         const due = inv.amount - (inv.paidAmount || 0)
         if (due <= 0) continue
         const alloc = Math.min(remaining, due)
-        await tx.paymentTransaction.create({ data: { paymentId: p.id, invoiceId: inv.id, amount: alloc } })
+        await tx.paymentTransaction.create({ data: { paymentId: p.id, invoiceId: inv.id, amount: alloc, status: "completed" } })
         await tx.invoice.update({ where: { id: inv.id }, data: { paidAmount: { increment: alloc }, status: alloc >= due ? "paid" : "partial" } })
         remaining -= alloc
       }

@@ -128,7 +128,10 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
     auditLog(req, "invoice.generated", { invoiceId: invoice.id, customerId, amount: totalAmount })
     prisma.notification.create({ data: { type: "invoice_generated", title: "Invoice Generated", body: `Invoice ${invoiceNumber} for EGP ${totalAmount.toFixed(2)}`, recipientId: customerId } }).catch(() => {})
     res.status(201).json({ invoice, items })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 // ─── ISSUE INVOICE (set immutable) ───────────────────────────────────
