@@ -118,11 +118,35 @@ describe('Contract Tests — OpenAPI Validation', () => {
     });
   });
 
-  describe('Readings', () => {
+  describe('Readings (T043-T045, T048)', () => {
     it('GET /api/readings — 200 with list', async () => {
       prisma.reading.findMany.mockResolvedValue([{ id: '1', meterId: 'm1', value: 100, unit: 'kWh', status: 'valid' }]);
       prisma.reading.count.mockResolvedValue(1);
       const res = await request(app).get('/api/readings').set('Authorization', AUTH).set('X-Dev-Mode', 'true');
+      expect(res.status).toBe(200);
+      expect(res.body.readings).toBeDefined();
+    });
+    it('POST /api/readings — 201 create reading (T043)', async () => {
+      prisma.reading.findFirst.mockResolvedValue(null);
+      prisma.reading.findMany.mockResolvedValue([]);
+      prisma.reading.create.mockResolvedValue({ id: 'r1', meterId: 'm1', value: 100, unit: 'kWh', status: 'valid' });
+      prisma.validationResult.create.mockResolvedValue({});
+      const res = await request(app).post('/api/readings').set('Authorization', AUTH).set('X-Dev-Mode', 'true').send({ meterId: 'm1', value: 100 });
+      expect(res.status).toBe(201);
+    });
+    it('POST /api/readings — 409 duplicate reading (T043)', async () => {
+      prisma.reading.findFirst.mockResolvedValue({ id: 'existing', meterId: 'm1', value: 100 });
+      const res = await request(app).post('/api/readings').set('Authorization', AUTH).set('X-Dev-Mode', 'true').send({ meterId: 'm1', value: 100 });
+      expect(res.status).toBe(409);
+    });
+    it('POST /api/readings — 400 validation fail (T043)', async () => {
+      const res = await request(app).post('/api/readings').set('Authorization', AUTH).set('X-Dev-Mode', 'true').send({ meterId: 'm1' });
+      expect(res.status).toBe(400);
+    });
+    it('GET /api/readings/review-queue — 200 with flagged readings (T044, T048)', async () => {
+      prisma.reading.findMany.mockResolvedValue([{ id: 'r1', meterId: 'm1', value: 100, status: 'flagged' }]);
+      prisma.reading.count.mockResolvedValue(1);
+      const res = await request(app).get('/api/readings/review-queue').set('Authorization', AUTH).set('X-Dev-Mode', 'true');
       expect(res.status).toBe(200);
       expect(res.body.readings).toBeDefined();
     });
