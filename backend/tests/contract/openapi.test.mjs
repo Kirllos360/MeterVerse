@@ -174,6 +174,47 @@ describe('Contract Tests — OpenAPI Validation', () => {
     });
   });
 
+  describe('Meter Assignment (T023-T026)', () => {
+    it('POST /api/meter-assignments — 201 assign meter to customer', async () => {
+      prisma.meterAssignment.create.mockResolvedValue({ id: 'a1', meterId: 'm1', customerId: 'c1', status: 'active', startDate: new Date() });
+      prisma.meter.update.mockResolvedValue({});
+      const res = await request(app).post('/api/meter-assignments').set('Authorization', AUTH).set('X-Dev-Mode', 'true').send({ meterId: 'm1', customerId: 'c1' });
+      expect(res.status).toBe(201);
+    });
+
+    it('POST /api/meter-assignments — 409 conflict for active assignment', async () => {
+      prisma.meterAssignment.findFirst.mockResolvedValue({ id: 'a1', status: 'active' });
+      const res = await request(app).post('/api/meter-assignments').set('Authorization', AUTH).set('X-Dev-Mode', 'true').send({ meterId: 'm1', customerId: 'c1' });
+      expect(res.status).toBe(409);
+    });
+
+    it('POST /api/meters/:id/terminate — 200 terminate meter', async () => {
+      prisma.meter.findUnique.mockResolvedValue({ id: 'm1', serial: 'MTR-001', status: 'active' });
+      prisma.meter.update.mockResolvedValue({ id: 'm1', status: 'retired' });
+      prisma.meterAssignment.findFirst.mockResolvedValue({ id: 'a1', status: 'active' });
+      prisma.meterAssignment.update.mockResolvedValue({});
+      prisma.meterEvent.create.mockResolvedValue({});
+      prisma.reading.create.mockResolvedValue({});
+      const res = await request(app).post('/api/meters/m1/terminate').set('Authorization', AUTH).set('X-Dev-Mode', 'true').send({ reason: 'Retired' });
+      expect(res.status).toBe(200);
+    });
+  });
+
+  describe('Locations (T028)', () => {
+    it('GET /api/locations/zones — 200 with list', async () => {
+      prisma.zone.findMany.mockResolvedValue([{ id: 'z1', name: 'Zone A', code: 'Z-A', projectId: 'p1', _count: { units: 5 }, project: { name: 'Project X' } }]);
+      const res = await request(app).get('/api/locations/zones').set('Authorization', AUTH).set('X-Dev-Mode', 'true');
+      expect(res.status).toBe(200);
+      expect(res.body.zones).toHaveLength(1);
+    });
+    it('GET /api/locations/units — 200 with list', async () => {
+      prisma.unit.findMany.mockResolvedValue([{ id: 'u1', name: 'Unit 1', code: 'U-1', zoneId: 'z1', type: 'residential', status: 'active', zone: { name: 'Zone A', code: 'Z-A' }, customer: { id: 'c1', name: 'Customer' } }]);
+      const res = await request(app).get('/api/locations/units').set('Authorization', AUTH).set('X-Dev-Mode', 'true');
+      expect(res.status).toBe(200);
+      expect(res.body.units).toHaveLength(1);
+    });
+  });
+
   describe('Security & Headers', () => {
     it('should return X-Correlation-ID header', async () => {
       prisma.customer.findMany.mockResolvedValue([{ id: '1', name: 'T', email: 't@t.com', status: 'active', createdAt: new Date(), phone: null, address: null, area: null }]);

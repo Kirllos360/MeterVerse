@@ -909,5 +909,67 @@ export const pageConfigs: Record<string, PageConfig> = {
     fields: defFields([]),
     statsCards: [sc("Total Agents", Icons.sparkles, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
   },
+  zones: {
+    id: "zones", title: "Zones", description: "Manage project zones (location hierarchy)",
+    apiEndpoint: "/api/locations/zones",
+    statusField,
+    transform: (d: any) => (d.zones || []).map((z: any) => ({
+      id: z.id, name: z.name, code: z.code,
+      project: z.project?.name || z.projectId || "",
+      unitCount: z._count?.units || 0,
+      description: z.description || "",
+      createdAt: z.createdAt || "",
+    })),
+    columns: [
+      { id: "name", header: "Name", accessor: r => r.name, type: "avatar", width: 200 },
+      { id: "code", header: "Code", accessor: r => r.code, width: 100 },
+      { id: "project", header: "Project", accessor: r => r.project, width: 160 },
+      { id: "unitCount", header: "Units", accessor: r => r.unitCount, width: 80 },
+      { id: "createdAt", header: "Created", accessor: r => r.createdAt, type: "date", width: 110 },
+    ],
+    fields: [
+      { name: "name", label: "Name", type: "text", required: true, placeholder: "Zone A" },
+      { name: "code", label: "Code", type: "text", required: true, placeholder: "ZONE-A" },
+      { name: "projectId", label: "Project ID", type: "text", required: true, placeholder: "uuid..." },
+      { name: "description", label: "Description", type: "textarea" },
+    ],
+    statsCards: [sc("Total", Icons.settings, r=>r.length)],
+  },
+  units: {
+    id: "units", title: "Units", description: "Manage units within zones",
+    apiEndpoint: "/api/locations/units",
+    statusField,
+    transform: (d: any) => (d.units || []).map((u: any) => ({
+      id: u.id, name: u.name, code: u.code,
+      zone: u.zone?.name || u.zoneId || "",
+      type: u.type || "",
+      area: u.area || "",
+      status: u.status || "active",
+      customer: u.customer?.name || "",
+      createdAt: u.createdAt || "",
+    })),
+    columns: [
+      { id: "name", header: "Name", accessor: r => r.name, type: "avatar", width: 200 },
+      { id: "code", header: "Code", accessor: r => r.code, width: 100 },
+      { id: "zone", header: "Zone", accessor: r => r.zone, width: 140 },
+      { id: "type", header: "Type", accessor: r => r.type, type: "badge", width: 100 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 100 },
+      { id: "customer", header: "Customer", accessor: r => r.customer, width: 140 },
+    ],
+    fields: [
+      { name: "name", label: "Name", type: "text", required: true, placeholder: "Unit 101" },
+      { name: "code", label: "Code", type: "text", required: true, placeholder: "U-101" },
+      { name: "zoneId", label: "Zone ID", type: "text", required: true, placeholder: "uuid..." },
+      { name: "type", label: "Type", type: "select", options: [
+        { value: "residential", label: "Residential" }, { value: "commercial", label: "Commercial" },
+        { value: "industrial", label: "Industrial" }, { value: "government", label: "Government" },
+      ]},
+      { name: "area", label: "Area (sqm)", type: "number" },
+      { name: "status", label: "Status", type: "select", options: [
+        { value: "active", label: "Active" }, { value: "inactive", label: "Inactive" }, { value: "maintenance", label: "Maintenance" },
+      ]},
+    ],
+    statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
 }
 

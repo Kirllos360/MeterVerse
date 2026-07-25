@@ -33,6 +33,7 @@ import { simRouter } from "./routes/sim.js"
 import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
 import { configRouter } from "./routes/config-center.js"
+import { locationsRouter } from "./routes/locations.js"
 import { pdfRouter } from "./routes/pdf.js"
 import { templatesRouter } from "./routes/templates.js"
 import { qrRouter } from "./routes/qr.js"
@@ -147,6 +148,7 @@ mount("/pdf", pdfRouter)
 mount("/templates", templatesRouter)
 mount("/billing", billingRouter)
 mount("/admin", configRouter)
+mount("/locations", locationsRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
