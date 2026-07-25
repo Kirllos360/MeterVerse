@@ -12,6 +12,7 @@ import { paymentsRouter } from "./routes/payments.js"
 import { adminRouter } from "./routes/admin.js"
 import { servicesRouter } from "./routes/services.js"
 import { reportsRouter } from "./routes/reports.js"
+import { jasperBridgeRouter } from "./routes/jasper-bridge.js"
 import { securityRouter } from "./routes/security.js"
 import { domainRouter } from "./routes/domain.js"
 import { businessRouter } from "./routes/business.js"
@@ -112,6 +113,7 @@ app.use("/api/payments", paymentsRouter)
 app.use("/api/admin", adminRouter)
 app.use("/api/services", servicesRouter)
 app.use("/api/reports", reportsRouter)
+app.use("/api/reports/jasper", jasperBridgeRouter)
 app.use("/api/domain", domainRouter)
 app.use("/api/business", businessRouter)
 app.use("/api/crud", crudRouter)
