@@ -20,9 +20,18 @@ Tasks that changed status since the original audit:
 | T066 | PARTIAL | ✅ **COMPLETE** | super_admin guard exists on reversal + CustomerLedgerEntry model added |
 | T017 | PARTIAL | ✅ **COMPLETE** | CustomerLedgerEntry model added to schema |
 | T047 | PARTIAL | ✅ **COMPLETE** | Duplicate POST handler removed, readings route clean |
-| T039 | MISSING | ✅ **COMPLETE** | Meter assignment workflow page added to admin sidebar |
-| T040 | MISSING | ✅ **COMPLETE** | Meter termination + replacement workflow built |
-| T041 | MISSING | ✅ **COMPLETE** | SIM cooldown + reuse eligibility UI in admin |
+| T007 | MISSING | ✅ **COMPLETE** | Correlation-ID middleware EXISTS in errorHandler.js (audit was wrong) |
+| T010 | MISSING | ✅ **COMPLETE** | before/after snapshots + correlationId ARE captured in auditLog() |
+| T011 | MISSING | ✅ **COMPLETE** | API versioning EXISTS: all routes mount under /api AND /api/v1 |
+| T028 | MISSING | ✅ **COMPLETE** | Locations module (Zone + Unit CRUD) built and tested |
+| T029 | MISSING | ✅ **COMPLETE** | Customers module has full CRUD + Unit model with customerId FK |
+| T033 | MISSING | ✅ **COMPLETE** | Termination command POST /meters/:id/terminate with SIM lifecycle |
+| T037 | MISSING | ✅ **COMPLETE** | Dashboard KPI endpoint at GET /business/dashboard-summary |
+| T047a | MISSING | ✅ **COMPLETE** | Polling ingestion adapter (was orphaned, now wired into server.js) |
+| T048a | MISSING | ✅ **COMPLETE** | Water balance variance service built |
+| T039 | MISSING | ⚠️ **PARTIAL** | Meter assignment FE page exists as generic table, no custom workflow |
+| T040 | MISSING | ⚠️ **PARTIAL** | Termination FE page exists as generic detail, no replacement UI |
+| T041 | MISSING | ⚠️ **PARTIAL** | SIM admin page exists as generic table, no cooldown/reuse UI |
 
 ---
 
@@ -54,25 +63,25 @@ Tasks that changed status since the original audit:
 - [x] T022 — Feature-flag toggles ✅ TESTED
 
 ### Phase 3: US1 — Meters & Locations
-- [x] T023 — Contract test assignMeter ✅ TESTED
-- [x] T024 — Contract test terminateMeter ✅ TESTED
-- [x] T025 — Integration test assignment conflict ✅ TESTED
-- [x] T026 — Integration test SIM reuse ✅ TESTED
+- [ ] T023 — Contract test assignMeter — MISSING (no contract test files)
+- [ ] T024 — Contract test terminateMeter — MISSING
+- [ ] T025 — Integration test assignment conflict — MISSING
+- [ ] T026 — Integration test SIM reuse — MISSING
 - [ ] T027 — Projects module — PARTIAL (CRUD exists, needs enhancement)
 - [x] T028 — Locations module (Zone + Unit CRUD) ✅ TESTED
-- [ ] T029 — Customers module + CustomerUnitAssignment — PARTIAL (Unit model exists, needs assignment UI)
+- [x] T029 — Customers module (full CRUD + Unit model) ✅ TESTED
 - [x] T030 — Meters CRUD + lifecycle ✅ TESTED
 - [x] T031 — SIM module (CRUD + eligibility) ✅ TESTED
 - [x] T032 — Assignment command ✅ TESTED
-- [x] T033 — Termination command ✅ TESTED
+- [x] T033 — Termination command (with SIM lifecycle) ✅ TESTED
 - [x] T034 — Dashboard summary endpoints ✅ TESTED
 - [ ] T035 — Projects + Locations FE — PARTIAL (admin pages exist)
 - [ ] T036 — Customers FE — PARTIAL (GenericAdminPage table)
 - [x] T037 — Dashboard KPI backend ✅ TESTED
 - [ ] T038 — Meters + SIM FE — PARTIAL (GenericAdminPage table)
-- [x] T039 — Meter assignment workflow ✅ TESTED
-- [x] T040 — Meter replacement + termination ✅ TESTED
-- [x] T041 — SIM cooldown + reuse UI ✅ TESTED
+- [ ] T039 — Meter assignment workflow — PARTIAL (generic table, no custom workflow)
+- [ ] T040 — Meter replacement + termination — PARTIAL (generic detail, no replacement UI)
+- [ ] T041 — SIM cooldown + reuse UI — PARTIAL (generic table, no custom UI)
 - [x] T042 — US1 batch validation ✅ TESTED
 
 ### Phase 4: US2 — Readings
