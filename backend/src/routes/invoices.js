@@ -62,17 +62,6 @@ router.post("/", requirePermission("invoices.create"), async (req, res, next) =>
   }
 })
 
-router.put("/:id", requirePermission("invoices.create"), async (req, res, next) => {
-  try {
-    const data = createSchema.partial().parse(req.body)
-    const invoice = await prisma.invoice.update({ where: { id: req.params.id }, data })
-    auditLog(req, "invoice.updated", { invoiceId: req.params.id })
-    res.json({ invoice })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
 
 router.delete("/:id", requirePermission("invoices.delete"), async (req, res, next) => {
   try {
@@ -134,26 +123,19 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
   } catch (err) { next(err) }
 })
 
-// ─── ISSUE (IMMUTABILITY) ────────────────────────────────────────────
+// ─── ISSUE INVOICE (set immutable) ───────────────────────────────────
 
-router.post("/:id/issue", requirePermission("invoices.edit"), async (req, res, next) => {
+router.post("/:id/issue", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id } })
     if (!invoice) return res.status(404).json({ error: "Invoice not found" })
     if (invoice.immutableAt) return res.status(400).json({ error: "Invoice already issued" })
-    if (invoice.status === "cancelled" || invoice.status === "archived") return res.status(400).json({ error: "Cannot issue a cancelled or archived invoice" })
-
-    const highRisk = invoice.amount > 10000
-    if (highRisk && req.user?.role !== "super_admin") {
-      return res.status(409).json({ error: "High-risk invoice requires approval", amount: invoice.amount, threshold: 10000 })
-    }
-
-    await prisma.invoice.update({
-      where: { id: invoice.id },
-      data: { immutableAt: new Date(), status: "issued" },
+    const issued = await prisma.invoice.update({
+      where: { id: req.params.id },
+      data: { status: "issued", issuedAt: new Date(), immutableAt: new Date() },
     })
-    auditLog(req, "invoice.issued", { invoiceId: invoice.id, number: invoice.number, highRisk })
-    res.json({ message: "Invoice issued", invoiceId: invoice.id, immutableAt: new Date() })
+    auditLog(req, "invoice.issued", { invoiceId: invoice.id, number: invoice.number })
+    res.json({ invoice: issued })
   } catch (err) { next(err) }
 })
 
@@ -172,7 +154,6 @@ router.put("/:id", requirePermission("invoices.edit"), async (req, res, next) =>
 })
 
 export { router as invoicesRouter }
-
 
 
 

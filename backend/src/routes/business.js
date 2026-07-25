@@ -86,6 +86,30 @@ router.post("/simulate/invoice", requirePermission("business.*"), async (req, re
   } catch (err) { next(err) }
 })
 
+// --- DASHBOARD KPI SUMMARY ---------------------------------------------------
+
+router.get("/dashboard-summary", requirePermission("business.*"), async (req, res, next) => {
+  try {
+    const [meters, customers, invoices, readings, payments] = await Promise.all([
+      prisma.meter.count({ where: { archivedAt: null } }),
+      prisma.customer.count({ where: { archivedAt: null } }),
+      prisma.invoice.aggregate({ _sum: { amount: true }, _count: true, where: { archivedAt: null } }),
+      prisma.reading.count({ where: { archivedAt: null } }),
+      prisma.payment.aggregate({ _sum: { amount: true }, _count: true }),
+    ])
+    res.json({
+      totalMeters: meters,
+      totalCustomers: customers,
+      totalInvoices: invoices._count,
+      totalRevenue: invoices._sum.amount || 0,
+      totalReadings: readings,
+      totalPayments: payments._count,
+      totalCollected: payments._sum.amount || 0,
+      outstandingBalance: (invoices._sum.amount || 0) - (payments._sum.amount || 0),
+    })
+  } catch (err) { next(err) }
+})
+
 export { router as businessRouter }
 
 
