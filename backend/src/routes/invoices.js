@@ -126,7 +126,7 @@ router.post("/generate", requirePermission("invoices.create"), async (req, res, 
     }
 
     auditLog(req, "invoice.generated", { invoiceId: invoice.id, customerId, amount: totalAmount })
-    prisma.notification.create({ data: { type: "invoice_generated", title: "Invoice Generated", body: `Invoice ${invoiceNumber} for EGP ${totalAmount.toFixed(2)}`, recipientId: customerId } }).catch(() => {})
+    prisma.notification.create({ data: { type: "invoice_generated", title: "Invoice Generated", body: `Invoice ${invoiceNumber} for EGP ${totalAmount.toFixed(2)}`, recipientId: customerId } }).catch(err => console.warn("[invoice] notification failed:", err?.message))
     res.status(201).json({ invoice, items })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
@@ -161,7 +161,10 @@ router.put("/:id", requirePermission("invoices.edit"), async (req, res, next) =>
     const updated = await prisma.invoice.update({ where: { id: req.params.id }, data: { ...data, ...(data.dueDate ? { dueDate: new Date(data.dueDate) } : {}) } })
     auditLog(req, "invoice.updated", { invoiceId: invoice.id, changes: Object.keys(data) })
     res.json({ invoice: updated })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 // ─── ADJUSTMENTS (credit notes / surcharges) ──────────────────────────

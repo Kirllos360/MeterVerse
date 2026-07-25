@@ -15,7 +15,7 @@ export async function trackRequest(req, res, next) {
         ip: req.ip,
         severity: res.statusCode >= 400 ? "error" : "info",
       },
-    }).catch(() => {})
+    }).catch(err => console.warn("[monitor] trackRequest failed:", err?.message))
   })
   next()
 }

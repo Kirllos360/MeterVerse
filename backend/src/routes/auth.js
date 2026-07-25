@@ -58,7 +58,11 @@ router.get("/me", authenticate, async (req, res, next) => {
 })
 
 // Dev login — returns JWT token without real auth (development only)
+// Gated behind NODE_ENV !== "production" to prevent production abuse
 router.post("/dev-login", async (req, res, next) => {
+  if (process.env.NODE_ENV === "production") {
+    return res.status(404).json({ error: "Not found", code: "NOT_FOUND" })
+  }
   try {
     const { role } = z.object({ role: z.enum(["super_admin", "admin", "operator", "billing", "viewer"]).default("super_admin") }).parse(req.body)
     const jwt = await import("jsonwebtoken")

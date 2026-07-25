@@ -122,11 +122,14 @@ router.post("/", requirePermission("readings.create"), async (req, res, next) =>
     if (flags.length > 0) {
       await prisma.validationResult.create({
         data: { validationRuleId: "auto-flag", entityType: "reading", entityId: reading.id, status, message: `Auto-flagged: ${flags.join(", ")}` },
-      }).catch(() => {})
+      }).catch(err => console.warn("[reading] validationResult create failed:", err?.message))
     }
     auditLog(req, "reading.created", { readingId: reading.id, meterId: data.meterId, value: data.value, status })
     res.status(201).json({ reading, flags })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 
@@ -135,7 +138,7 @@ router.post("/:id/approve", requirePermission("readings.edit"), async (req, res,
     const reading = await prisma.reading.findUnique({ where: { id: req.params.id } })
     if (!reading) return res.status(404).json({ error: "Reading not found" })
     await prisma.reading.update({ where: { id: req.params.id }, data: { status: "approved" } })
-    await prisma.validationResult.create({ data: { validationRuleId: "manual-review", entityType: "reading", entityId: reading.id, status: "approved", message: "Approved by reviewer" } }).catch(() => {})
+    await prisma.validationResult.create({ data: { validationRuleId: "manual-review", entityType: "reading", entityId: reading.id, status: "approved", message: "Approved by reviewer" } }).catch(err => console.warn("[reading] validationResult approve failed:", err?.message))
     auditLog(req, "reading.approved", { readingId: reading.id })
     res.json({ message: "Reading approved" })
   } catch (err) { next(err) }
@@ -146,7 +149,7 @@ router.post("/:id/reject", requirePermission("readings.edit"), async (req, res, 
     const reading = await prisma.reading.findUnique({ where: { id: req.params.id } })
     if (!reading) return res.status(404).json({ error: "Reading not found" })
     await prisma.reading.update({ where: { id: req.params.id }, data: { status: "rejected" } })
-    await prisma.validationResult.create({ data: { validationRuleId: "manual-review", entityType: "reading", entityId: reading.id, status: "rejected", message: "Rejected by reviewer" } }).catch(() => {})
+    await prisma.validationResult.create({ data: { validationRuleId: "manual-review", entityType: "reading", entityId: reading.id, status: "rejected", message: "Rejected by reviewer" } }).catch(err => console.warn("[reading] validationResult reject failed:", err?.message))
     auditLog(req, "reading.rejected", { readingId: reading.id })
     res.json({ message: "Reading rejected" })
   } catch (err) { next(err) }

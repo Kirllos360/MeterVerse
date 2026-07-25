@@ -583,7 +583,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   business: {
     id: "business", title: "Business Pipeline", description: "Meter reading and billing pipeline status",
-    apiEndpoint: "/api/business/pipeline-status",
+    apiEndpoint: "/api/business/pipeline/status",
     statusField,
     transform: (d: any) => (d.recentRuns || []).map((r: any) => ({
       id: r.id || r.cycle, name: r.cycle || r.name || "Run",
@@ -934,7 +934,7 @@ export const pageConfigs: Record<string, PageConfig> = {
   },
   security: {
     id: "security", title: "Security & Compliance", description: "Security audit and compliance monitoring",
-    apiEndpoint: "/api/admin/security",
+    apiEndpoint: "/api/security/audit/security",
     statusField,
     transform: (d: any) => (d.checks || []).map((c: any) => ({
       id: c.check || c.id, name: c.check || c.name,
@@ -953,9 +953,10 @@ export const pageConfigs: Record<string, PageConfig> = {
     id: "ai", title: "AI Layer", description: "AI agents and automation",
     apiEndpoint: "/api/admin/ai-diagnostics",
     statusField,
-    transform: (d: any) => (d.agents || []).map((a: any) => ({
-      id: a.id || a.name, name: a.name || a.label || "Agent",
-      status: a.status || "active", lastActive: a.lastActive || "",
+    transform: (d: any) => (d.checks || []).map((a: any) => ({
+      id: a.name || a.id, name: a.name || a.check || "Agent",
+      status: a.status === "pass" || a.status === "healthy" ? "active" : "terminated",
+      lastActive: "",
     })),
     columns: [
       { id: "name", header: "Agent", accessor: r => r.name, type: "avatar", width: 220 },

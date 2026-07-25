@@ -46,7 +46,10 @@ router.post("/", requirePermission("payments.*"), async (req, res, next) => {
     })
     auditLog(req, "payment.created", { paymentId: payment.id, customerId: data.customerId, amount: data.amount })
     res.status(201).json({ payment })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.post("/:id/reverse", requirePermission("payments.*"), async (req, res, next) => {
@@ -66,7 +69,10 @@ router.post("/:id/reverse", requirePermission("payments.*"), async (req, res, ne
     })
     auditLog(req, "payment.reversed", { paymentId: payment.id, reason })
     res.json({ message: "Payment reversed" })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 router.get("/customers/:id/statement", requirePermission("payments.*"), async (req, res, next) => {

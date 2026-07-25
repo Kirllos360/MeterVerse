@@ -103,7 +103,10 @@ router.post("/:id/terminate", requirePermission("meters.delete"), async (req, re
     })
     auditLog(req, "meter.terminated", { meterId: req.params.id, reason, finalReading: finalReading || null })
     res.json({ message: "Meter terminated", meterId: req.params.id, ...result })
-  } catch (err) { next(err) }
+  } catch (err) {
+    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+    next(err)
+  }
 })
 
 export { router as metersRouter }

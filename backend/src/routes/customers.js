@@ -68,7 +68,7 @@ router.post("/", requirePermission("customers.create"), async (req, res, next) =
     const data = createSchema.parse(req.body)
     const customer = await prisma.customer.create({ data })
     auditLog(req, 'customer.created', { customerId: customer.id })
-    prisma.notification.create({ data: { type: "customer_welcome", title: "New Customer", body: `Customer ${customer.name} was created`, recipientEmail: customer.email || undefined } }).catch(() => {})
+    prisma.notification.create({ data: { type: "customer_welcome", title: "New Customer", body: `Customer ${customer.name} was created`, recipientEmail: customer.email || undefined } }).catch(err => console.warn("[customer] notification failed:", err?.message))
     res.status(201).json({ customer })
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })

@@ -42,7 +42,7 @@ export async function computeWaterBalance(projectId, startDate, endDate, thresho
         details: JSON.stringify({ totalSupply, totalConsumption, variance, variancePercent, threshold, projectId }),
         validatedAt: new Date(),
       },
-    }).catch(() => {})
+    }).catch(err => console.warn("[water-balance] validationResult create failed:", err?.message))
   }
 
   return {

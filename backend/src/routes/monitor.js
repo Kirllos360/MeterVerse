@@ -6,6 +6,7 @@ import { z } from "zod"
 
 const router = Router()
 
+// Public health endpoint (no auth required)
 router.get("/", async (req, res) => {
   const health = { status: "ok", timestamp: new Date().toISOString(), services: [
     { name: "API Gateway", status: "operational" },
@@ -15,9 +16,12 @@ router.get("/", async (req, res) => {
   res.json(health)
 })
 
+// All other monitor routes require authentication
+router.use(authenticate)
+
 // ─── PROMETHEUS METRICS ──────────────────────────────────────────────────────
 
-router.get("/metrics/prometheus", async (req, res, next) => {
+router.get("/metrics/prometheus", requirePermission("monitor.*"), async (req, res, next) => {
   try {
     const [userCount, meterCount, readingCount, invoiceCount, activeSessions, queueDepth] = await Promise.all([
       prisma.user.count(), prisma.meter.count(), prisma.reading.count(),

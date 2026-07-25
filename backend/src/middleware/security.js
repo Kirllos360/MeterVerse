@@ -134,8 +134,8 @@ export function auditLog(req, action, details = {}) {
     beforeSnapshot: details.before ? JSON.stringify(details.before) : null,
     afterSnapshot: details.after ? JSON.stringify(details.after) : null,
   }
-  prisma.auditEntry.create({ data }).catch(() => {})
-  processEvent(action, details, { actorId: req.user?.sub, ip: req.ip, correlationId: req?.correlationId }).catch(() => {})
+  prisma.auditEntry.create({ data }).catch(err => console.warn("[audit] auditLog create failed:", err?.message))
+  processEvent(action, details, { actorId: req.user?.sub, ip: req.ip, correlationId: req?.correlationId }).catch(err => console.warn("[audit] processEvent failed:", err?.message))
 }
 
 export function auditMiddleware(action) {
