@@ -1,67 +1,132 @@
 {
   "registry": {
-    "updated": "2026-07-23",
-    "description": "MCP (Model Context Protocol) tools registry for MeterVerse"
+    "updated": "2026-07-25",
+    "description": "MeterVerse MCP Registry — All discovered and configured tools"
+  },
+  "capability_categories": {
+    "planning": ["sequential-thinking", "codebase-memory", "context7", "graphical-mcp"],
+    "memory": ["memory-mcp", "codebase-memory", "context7"],
+    "documentation": ["typedoc", "adr", "mermaid-cli", "code2flow"],
+    "architecture": ["dep-graph", "dependency-cruiser", "madge", "graphical-mcp"],
+    "dependency_analysis": ["dependency-cruiser", "madge", "knip", "ts-prune"],
+    "semantic_code_analysis": ["@ast-grep/cli", "jscodeshift", "serena"],
+    "language_intelligence": ["typescript", "eslint", "prettier"],
+    "static_analysis": ["eslint", "tsc", "knip", "ts-prune", "@stoplight/spectral-cli"],
+    "runtime_analysis": ["chrome-devtools", "puppeteer", "playwright"],
+    "browser_automation": ["playwright-mcp", "puppeteer", "lighthouse"],
+    "accessibility": ["axe-core", "pa11y", "lighthouse"],
+    "performance": ["lighthouse", "artillery", "k6"],
+    "security": ["snyk", "@stoplight/spectral-cli"],
+    "database": ["postgres-mcp", "prisma-erd-generator", "prisma"],
+    "api_inspection": ["@redocly/cli", "@openapitools/openapi-generator-cli", "swagger-cli", "mcp-openapi"],
+    "diagram_generation": ["mermaid-cli", "code2flow", "graphly", "prisma-erd-generator", "state-machine-cat"],
+    "visual_regression": ["playwright-mcp", "puppeteer", "lighthouse"],
+    "logging": ["log4brains", "adr"],
+    "version_control": ["git-mcp", "gh"],
+    "deployment": ["docker", "bun", "vercel"],
+    "testing": ["vitest", "playwright", "artillery", "k6", "lighthouse"],
+    "reporting": ["@fission-ai/openspec", "log4brains", "adr"]
   },
   "installed_globally": {
     "mcp-server-sequential-thinking": {
       "command": "mcp-server-sequential-thinking",
-      "purpose": "Structured reasoning for complex audit tasks",
-      "status": "configured in opencode.json",
-      "used_by": ["All complex reasoning tasks"]
+      "purpose": "Structured reasoning",
+      "status": "configured",
+      "category": "planning"
     },
     "mcp-server-git": {
       "command": "mcp-server-git --repository D:\\meter",
-      "purpose": "Git diff/blame for verifying STATUS.yaml consistency",
-      "status": "configured in opencode.json",
-      "used_by": ["Git operations", "commit verification"]
+      "purpose": "Git operations",
+      "status": "configured",
+      "category": "version_control"
     },
     "mcp-server-filesystem": {
       "command": "mcp-server-filesystem D:\\meter",
-      "purpose": "Filesystem analysis for codebase auditing",
-      "status": "configured in opencode.json",
-      "used_by": ["Codebase exploration", "file operations"]
+      "purpose": "File system access",
+      "status": "configured",
+      "category": "planning"
     },
     "mcp-server-postgres": {
       "command": "mcp-server-postgres postgresql://meter_pulse:meter_pulse_dev@localhost:5432/meter_pulse",
-      "purpose": "Direct database auditing without Prisma (FIXED PORT 5432)",
-      "status": "configured in opencode.json",
-      "used_by": ["DB audits", "data verification"]
+      "purpose": "Direct database access (port 5432)",
+      "status": "configured",
+      "category": "database"
     },
     "mcp-server-memory": {
       "command": "mcp-server-memory",
-      "purpose": "Persistent knowledge graph across sessions",
-      "status": "configured in opencode.json",
-      "used_by": ["Cross-session context", "project memory"]
+      "purpose": "Cross-session knowledge graph",
+      "status": "configured",
+      "category": "memory"
     },
     "@playwright/mcp": {
       "command": "npx @playwright/mcp@latest",
-      "purpose": "Browser automation for screenshot QA and visual regression",
-      "status": "configured in opencode.json",
-      "used_by": ["All Playwright tests", "visual verification"]
+      "purpose": "Browser automation + E2E testing",
+      "status": "configured",
+      "category": "browser_automation"
+    },
+    "mcp-openapi": {
+      "command": "mcp-openapi",
+      "purpose": "OpenAPI schema validation",
+      "status": "AVAILABLE — NOT CONFIGURED",
+      "category": "api_inspection"
+    },
+    "mcp-server-sqlite-npx": {
+      "command": "mcp-server-sqlite-npx",
+      "purpose": "SQLite database access",
+      "status": "AVAILABLE — NOT CONFIGURED",
+      "category": "database"
+    },
+    "mcp-server-gitlab": {
+      "command": "mcp-server-gitlab",
+      "purpose": "GitLab integration",
+      "status": "AVAILABLE — NOT CONFIGURED",
+      "category": "version_control"
+    },
+    "@storybook/mcp": {
+      "command": "npx @storybook/mcp",
+      "purpose": "Storybook component documentation",
+      "status": "AVAILABLE — NOT CONFIGURED",
+      "category": "documentation"
     }
   },
+  "cli_tools_available": {
+    "lighthouse": { "version": "13.4.1", "purpose": "Performance + accessibility auditing", "status": "available" },
+    "axe-core": { "version": "4.12.1", "purpose": "Accessibility testing engine", "status": "available" },
+    "pa11y": { "version": "9.1.1", "purpose": "Accessibility testing CLI", "status": "available" },
+    "artillery": { "version": "2.0.33", "purpose": "Load testing framework", "status": "available" },
+    "snyk": { "version": "1.1305.0", "purpose": "Security vulnerability scanning", "status": "available" },
+    "dependency-cruiser": { "version": "18.0.0", "purpose": "Dependency graph analysis", "status": "available" },
+    "madge": { "version": "8.0.0", "purpose": "Circular dependency detection", "status": "available" },
+    "knip": { "version": "6.26.0", "purpose": "Dead file/code detection", "status": "available" },
+    "ts-prune": { "version": "0.10.3", "purpose": "Unused TypeScript exports", "status": "available" },
+    "typedoc": { "version": "0.28.20", "purpose": "TypeScript documentation generator", "status": "available" },
+    "mermaid-cli": { "version": "11.16.0", "purpose": "Diagram generation from Markdown", "status": "available" },
+    "prisma-erd-generator": { "version": "2.4.3", "purpose": "ER diagram from Prisma schema", "status": "available" },
+    "puppeteer": { "version": "25.1.0", "purpose": "Headless browser automation", "status": "available" },
+    "@ast-grep/cli": { "version": "0.44.1", "purpose": "Structural code search", "status": "available" },
+    "@stoplight/spectral-cli": { "version": "6.16.1", "purpose": "API specification linting", "status": "available" },
+    "@redocly/cli": { "version": "2.39.0", "purpose": "OpenAPI documentation", "status": "available" },
+    "state-machine-cat": { "version": "15.0.6", "purpose": "State machine diagrams", "status": "available" },
+    "code2flow": { "version": "0.0.1", "purpose": "Code flow diagrams", "status": "available" },
+    "adr": { "version": "1.5.2", "purpose": "Architecture Decision Records", "status": "available" },
+    "log4brains": { "version": "1.1.0", "purpose": "Decision log documentation", "status": "available" }
+  },
+  "runtimes": {
+    "node": "24.15.0",
+    "java": "21.0.11 (Temurin)",
+    "docker": "29.5.2",
+    "postgres": "16 (via Docker)",
+    "prisma": "7.8.0",
+    "typescript": "7.0.2",
+    "bun": "1.3.14",
+    "pnpm": "11.11.0"
+  },
   "configured_in_opencode": [
-    "sequential-thinking",
-    "git",
-    "filesystem",
-    "postgres",
-    "playwright",
-    "memory"
+    "sequential-thinking", "git", "filesystem", "postgres", "playwright", "memory"
   ],
-  "cloudflare": {
-    "status": "token provided — bridge ready",
-    "token_source": "user provided cfut_... token",
-    "free_tier": "100K requests/day",
-    "available_models": "@cf/meta/llama-3.2-3b-instruct, @cf/meta/llama-3.1-8b-instruct, @cf/mistral/mistral-7b-instruct-v0.1"
-  },
-  "opencode_config_path": "C:\\Users\\EPower\\.config\\opencode\\opencode.json",
-  "free_alternatives": {
-    "ollama": "Laptop can't handle. Use Cloudflare Workers AI instead (free, 100K req/day)",
-    "deepinfra_replicate": "Cloudflare Workers AI — free inference, no GPU needed",
-    "autogen_chatdev_crewai_langgraph": "Not needed yet. Use sequential-thinking MCP + simple workflows",
-    "lakera_garak_rebuff": "Build simple input validation middleware in Node.js (already have zod)",
-    "llamafactory": "Cloudflare Workers AI runs Llama models on their GPUs — no local GPU needed"
-  },
-  "next_to_configure": []
+  "next_to_configure": [
+    "mcp-openapi",
+    "@storybook/mcp",
+    "mcp-server-memory"
+  ]
 }
