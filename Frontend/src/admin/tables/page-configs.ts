@@ -653,6 +653,28 @@ export const pageConfigs: Record<string, PageConfig> = {
     ]),
     statsCards: [sc("Total Meters", Icons.settings, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length), sc("Inactive", Icons.circleX, r=>r.filter(x=>x.status==="inactive").length), sc("Maintenance", Icons.clock, r=>r.filter(x=>x.status==="maintenance").length)],
   },
+  "meter-types": {
+    id: "meter-types", title: "Meter Types", description: "Manage meter type catalog",
+    apiEndpoint: "/api/admin/meter-types",
+    statusField,
+    transform: (d: any) => (d.meterTypes || []).map((t: any) => ({ id: t.id, name: t.name, category: t.category || "", unit: t.unit || "", manufacturer: t.manufacturer || "", formFactor: t.formFactor || "", createdAt: t.createdAt || "" })),
+    columns: [
+      { id: "name", header: "Name", accessor: r => r.name, type: "avatar", width: 200 },
+      { id: "category", header: "Category", accessor: r => r.category, type: "badge", width: 120 },
+      { id: "unit", header: "Unit", accessor: r => r.unit, width: 80 },
+      { id: "manufacturer", header: "Manufacturer", accessor: r => r.manufacturer || "—", width: 160 },
+      { id: "formFactor", header: "Form Factor", accessor: r => r.formFactor || "—", width: 120 },
+    ],
+    fields: [
+      { name: "name", label: "Name", type: "text", required: true, placeholder: "LP2" },
+      { name: "category", label: "Category", type: "select", options: [{ value: "electric", label: "Electric" }, { value: "water", label: "Water" }, { value: "gas", label: "Gas" }, { value: "solar", label: "Solar" }] },
+      { name: "unit", label: "Unit", type: "text", placeholder: "kWh" },
+      { name: "manufacturer", label: "Manufacturer", type: "text", placeholder: "Siemens" },
+      { name: "formFactor", label: "Form Factor", type: "text", placeholder: "Three-phase" },
+      { name: "description", label: "Description", type: "textarea" },
+    ],
+    statsCards: [sc("Total", Icons.settings, r=>r.length)],
+  },
   readings: {
     id: "readings", title: "Meter Readings", description: "Consumption readings from all meters",
     apiEndpoint: "/api/readings",

@@ -22,8 +22,8 @@ router.get("/", requirePermission("tasks.list"), async (req, res, next) => {
     const { page = 1, limit = 20, status, priority, assigneeId } = req.query
     const where = { ...(status ? { status } : {}), ...(priority ? { priority } : {}), ...(assigneeId ? { assigneeId } : {}) }
     const [tasks, total] = await Promise.all([
-      prisma.task.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { createdAt: "desc" }, include: { assignee: { select: { id: true, name: true, email: true } }, customer: { select: { id: true, name: true } } } }),
-      prisma.task.count({ where }),
+      prisma.scheduledTask.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { createdAt: "desc" } }),
+      prisma.scheduledTask.count({ where }),
     ])
     res.json({ tasks, total, page: Number(page), limit: Number(limit) })
   } catch (err) { next(err) }
@@ -31,7 +31,7 @@ router.get("/", requirePermission("tasks.list"), async (req, res, next) => {
 
 router.get("/:id", requirePermission("tasks.read"), async (req, res, next) => {
   try {
-    const task = await prisma.task.findUnique({ where: { id: req.params.id }, include: { assignee: { select: { id: true, name: true } }, customer: { select: { id: true, name: true } } } })
+    const task = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } })
     if (!task) return res.status(404).json({ error: "Task not found" })
     res.json({ task })
   } catch (err) { next(err) }
@@ -40,7 +40,7 @@ router.get("/:id", requirePermission("tasks.read"), async (req, res, next) => {
 router.post("/", requirePermission("tasks.create"), async (req, res, next) => {
   try {
     const data = taskSchema.parse(req.body)
-    const task = await prisma.task.create({ data: { ...data, createdBy: req.user?.email } })
+    const task = await prisma.scheduledTask.create({ data: { ...data, createdBy: req.user?.email } })
     auditLog(req, "task.created", { taskId: task.id, title: task.title })
     res.status(201).json({ task })
   } catch (err) {
@@ -52,7 +52,7 @@ router.post("/", requirePermission("tasks.create"), async (req, res, next) => {
 router.put("/:id", requirePermission("tasks.update"), async (req, res, next) => {
   try {
     const data = taskSchema.partial().parse(req.body)
-    const task = await prisma.task.update({ where: { id: req.params.id }, data })
+    const task = await prisma.scheduledTask.update({ where: { id: req.params.id }, data })
     auditLog(req, "task.updated", { taskId: task.id })
     res.json({ task })
   } catch (err) {
@@ -63,9 +63,9 @@ router.put("/:id", requirePermission("tasks.update"), async (req, res, next) => 
 
 router.delete("/:id", requirePermission("tasks.delete"), async (req, res, next) => {
   try {
-    const existing = await prisma.task.findUnique({ where: { id: req.params.id } })
+    const existing = await prisma.scheduledTask.findUnique({ where: { id: req.params.id } })
     if (!existing) return res.status(404).json({ error: "Not found" })
-    await prisma.task.delete({ where: { id: req.params.id } })
+    await prisma.scheduledTask.delete({ where: { id: req.params.id } })
     auditLog(req, "task.deleted", { taskId: req.params.id })
     res.json({ success: true })
   } catch (err) { next(err) }

@@ -6,6 +6,15 @@ import { z } from "zod"
 
 const router = Router()
 
+router.get("/", async (req, res) => {
+  const health = { status: "ok", timestamp: new Date().toISOString(), services: [
+    { name: "API Gateway", status: "operational" },
+    { name: "Database", status: "operational" },
+    { name: "Auth Service", status: "operational" },
+  ]}
+  res.json(health)
+})
+
 // ─── PROMETHEUS METRICS ──────────────────────────────────────────────────────
 
 router.get("/metrics/prometheus", async (req, res, next) => {

@@ -779,6 +779,29 @@ router.get("/ai-diagnostics", requirePermission("admin.*"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
+// --- MeterType CRUD ---
+router.get("/meter-types", requirePermission("meters.list"), async (req, res, next) => {
+  try {
+    const types = await prisma.meterType.findMany({ orderBy: { name: "asc" } })
+    res.json({ meterTypes: types, total: types.length })
+  } catch (err) { next(err) }
+})
+router.post("/meter-types", requirePermission("meters.create"), async (req, res, next) => {
+  try {
+    const data = z.object({ name: z.string().min(1), category: z.string().default("electric"), unit: z.string().default("kWh"), description: z.string().optional(), manufacturer: z.string().optional(), formFactor: z.string().optional() }).parse(req.body)
+    const type = await prisma.meterType.create({ data })
+    auditLog(req, "meter_type.created", { name: type.name })
+    res.status(201).json({ meterType: type })
+  } catch (err) { next(err) }
+})
+router.delete("/meter-types/:id", requirePermission("meters.delete"), async (req, res, next) => {
+  try {
+    await prisma.meterType.delete({ where: { id: req.params.id } })
+    auditLog(req, "meter_type.deleted", { id: req.params.id })
+    res.json({ success: true })
+  } catch (err) { next(err) }
+})
+
 export { router as adminRouter }
 
 

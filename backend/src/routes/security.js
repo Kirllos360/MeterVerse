@@ -16,6 +16,11 @@ const passwordSchema = z.object({
 const router = Router()
 router.use(authenticate)
 
+router.get("/", async (req, res) => {
+  const policies = await prisma.permission.findMany({ take: 20, orderBy: { createdAt: "desc" } }).catch(() => [])
+  res.json({ policies, total: policies.length })
+})
+
 // ─── SECURITY AUDIT ──────────────────────────────────────────────────────────
 
 router.get("/audit/security", requireRole("admin","super_admin"), async (req, res, next) => {

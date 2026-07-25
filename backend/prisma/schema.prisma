@@ -491,10 +491,25 @@ model Customer {
   meterAssignments MeterAssignment[]
 }
 
+model MeterType {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  category    String   @default("electric")
+  unit        String   @default("kWh")
+  description String?
+  manufacturer String?
+  formFactor  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  meters      Meter[]
+}
+
 model Meter {
   id               String            @id @default(uuid())
   serial           String            @unique
   type             String
+  meterTypeId      String?
+  meterType        MeterType?        @relation(fields: [meterTypeId], references: [id])
   location         String?
   status           String            @default("active")
   area             String?
