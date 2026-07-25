@@ -61,12 +61,14 @@ const [statusUpdating, setStatusUpdating] = useState<Record<string, boolean>>({}
     queryFn: async () => {
       const res = await fetch(apiUrl, { headers: { "X-Dev-Mode": "true" } })
       if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`)
-      const d = await res.json()
-      return d
+      return res.json()
     },
     enabled: !!config.apiEndpoint && !initialData,
     staleTime: 30000,
-    retry: 2,
+    gcTime: 5 * 60 * 1000,
+    retry: 3,
+    retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 10000),
+    placeholderData: (previousData) => previousData,
   })
 
   const rawTotal = queryData?.total ?? (queryData ? (Array.isArray(queryData) ? queryData.length : 0) : 0)

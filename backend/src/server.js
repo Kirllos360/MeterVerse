@@ -44,22 +44,28 @@ import { initWebSocket } from "./services/websocket-gateway.js"
 import { errorHandler, correlationMiddleware, notFoundHandler } from "./middleware/errorHandler.js"
 import { idempotencyMiddleware } from "./middleware/idempotency.js"
 import { getAvailabilityPlans, getAvailabilityPlan, setAvailabilityPlan } from "./services/availability-manager.js"
+import logger from "./services/logger.js"
 
 const app = express()
 const PORT = process.env.PORT || 3001
 const isProduction = process.env.NODE_ENV === "production"
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  PRODUCTION STARTUP GUARD
+//  PRODUCTION STARTUP GUARD — Fail fast, fail secure
 // ═══════════════════════════════════════════════════════════════════════════════
+
+if (!process.env.NODE_ENV) {
+  console.error("FATAL: NODE_ENV must be set to 'production' or 'development'")
+  process.exit(1)
+}
 
 if (isProduction && !process.env.JWT_SECRET) {
   console.error("FATAL: JWT_SECRET environment variable is required in production mode")
   process.exit(1)
 }
 
-if (isProduction && !process.env.CORS_ORIGIN) {
-  console.error("FATAL: CORS_ORIGIN environment variable is required in production mode")
+if (isProduction && !process.env.DATABASE_URL) {
+  console.error("FATAL: DATABASE_URL environment variable is required in production mode")
   process.exit(1)
 }
 
@@ -154,6 +160,34 @@ function mount(prefix, router) {
 app.use(trackRequest)
 
 API_PREFIXES.forEach(p => app.get(p + "/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString(), version: "1.0.0" })))
+
+// Readiness probe (Kubernetes)
+app.get("/api/health/ready", async (req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`
+    res.json({ status: "ready", db: "connected", uptime: process.uptime() })
+  } catch {
+    res.status(503).json({ status: "not ready", db: "disconnected" })
+  }
+})
+
+// Auth failure monitoring endpoint (rate limit tracking)
+const authFailures = new Map()
+app.use("/api/auth/login", (req, res, next) => {
+  const ip = req.ip || req.connection?.remoteAddress
+  const key = `auth:${ip}`
+  const attempts = authFailures.get(key) || 0
+  if (attempts > 5) logger.warn({ ip, attempts }, "Rate limit threshold reached for IP")
+  next()
+  const originalJson = res.json.bind(res)
+  res.json = function (body) {
+    if (body?.error === "Too many login attempts") {
+      authFailures.set(key, (authFailures.get(key) || 0) + 1)
+      logger.warn({ ip, key }, "Rate limit hit for IP")
+    }
+    return originalJson(body)
+  }
+})
 mount("/auth", authRouter)
 mount("/customers", customersRouter)
 mount("/meters", metersRouter)
