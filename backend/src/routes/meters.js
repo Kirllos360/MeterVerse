@@ -83,7 +83,7 @@ router.delete("/:id", requirePermission("meters.delete"), async (req, res, next)
 router.post("/:id/terminate", requirePermission("meters.delete"), async (req, res, next) => {
   try {
     const { reason, finalReading } = z.object({ reason: z.string().min(1), finalReading: z.number().optional() }).parse(req.body)
-    const meter = await prisma.meter.findUnique({ where: { id: req.params.id }, include: { simCard: true } })
+    const meter = await prisma.meter.findUnique({ where: { id: req.params.id } })
     if (!meter) return res.status(404).json({ error: "Meter not found" })
     if (meter.status === "retired") return res.status(400).json({ error: "Meter already terminated" })
 
@@ -98,7 +98,7 @@ router.post("/:id/terminate", requirePermission("meters.delete"), async (req, re
         const cooldownUntil = new Date(Date.now() + 7 * 86400000)
         await tx.sIMCard.update({ where: { id: sim.id }, data: { status: "available", meterId: null, cooldownUntil } })
       }
-      await tx.meterEvent.create({ data: { meterId: req.params.id, type: "terminated", description: reason, createdBy: req.user?.email } })
+      await tx.meterEvent.create({ data: { meterId: req.params.id, type: "terminated", description: reason } })
       return { simReleased: !!sim }
     })
     auditLog(req, "meter.terminated", { meterId: req.params.id, reason, finalReading: finalReading || null })

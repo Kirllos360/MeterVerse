@@ -245,4 +245,26 @@ describeFn('Contract Tests — Live Backend', () => {
       expect([409, 400]).toContain(r.status);
     }
   });
+
+  // ─── T024: Terminate Meter + SIM Eligibility ───
+  it('T024: POST /api/meters/:id/terminate — 200 terminate meter', async () => {
+    const meter = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: 'T024-MTR-' + Date.now(), type: 'electric', status: 'active' }) }).then(r => r.json());
+    const meterId = meter.meter?.id;
+    if (meterId) {
+      const r = await fetch(`${BASE}/api/meters/${meterId}/terminate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ reason: 'T024 test termination' }) });
+      expect(r.status).toBe(200);
+      const b = await r.json();
+      expect(b.message).toBe('Meter terminated');
+    }
+  });
+
+  it('T024: POST /api/meters/:id/terminate — 404 for missing meter', async () => {
+    const r = await fetch(`${BASE}/api/meters/nonexistent-id-12345/terminate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ reason: 'Test' }) });
+    expect(r.status).toBe(404);
+  });
+
+  it('T024: GET /api/sim/:id/eligibility — 404 for missing SIM', async () => {
+    const r = await fetch(`${BASE}/api/sim/nonexistent-sim-id/eligibility`, { headers: AUTH });
+    expect(r.status).toBe(404);
+  });
 });
