@@ -14,7 +14,7 @@
         "db:setup": "npm run db:generate && npx prisma db push && npm run db:seed"
     },
     "dependencies": {
-        "@prisma/client": "^6.0.0",
+        "@prisma/client": "^6.19.3",
         "bcryptjs": "^2.4.3",
         "cors": "^2.8.5",
         "express": "^4.21.0",
