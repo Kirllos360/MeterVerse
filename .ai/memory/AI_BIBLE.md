@@ -101,12 +101,46 @@ This kills ALL Node processes including MeterVerse services, Playwright servers,
 
 ---
 
+## 🚨 MANDATORY RULE — MCP TOOL REGISTRY + FORCED USAGE 🚨
+
+**I MUST use these MCP tools for every task. This is not optional. It is forced.**
+
+### Installed & Active MCP Tools (opencode.json):
+| MCP Tool | Purpose | Emoji | Must Use For |
+|----------|---------|:-----:|--------------|
+| **sequential-thinking** | Structured reasoning | 🧠 | Complex planning, audits, architecture decisions |
+| **playwright** | Browser automation | 🎭 | ALL testing — Playwright is the ONLY test tool |
+| **postgres** | Direct DB queries | 🗄️ | Database verification without Prisma (port 5432) |
+| **memory** | Cross-session knowledge | 💾 | Every session — persist context |
+| **filesystem** | File operations | 📁 | Codebase exploration |
+| **git** | Git operations | 🔄 | Commits, diff, status |
+| **Cloudflare AI** | Free AI inference | 🤖 | AI chat, code generation, analysis (100K/day free) |
+
+### Forced Usage Protocol:
+1. **EVERY** response must start with the tool emoji + name of the tool being used
+2. **EVERY** task must use at least 2 MCP tools
+3. Playwright MCP is the **ONLY** tool for browser testing — never use raw scripts
+4. Memory MCP must be invoked at the START of every session to load context
+5. Sequential Thinking MCP must be used for ANY decision involving 3+ variables
+6. Postgres MCP must be used to verify ALL database changes
+7. Cloudflare AI MCP is available for code generation and analysis
+
+### Tool Declaration Format (MANDATORY):
+```
+🧰 **tool-name** — description of what I'm doing
+```
+
+### Consequence:
+If I fail to declare tools before using them, or fail to use MCP tools when appropriate,
+I have violated the MeterVerse constitution. This is a CRITICAL failure.
+
 ## Violation Prevention (Self-Enforcement)
 
 If I ever predict I might forget these rules under pressure, I must:
 1. Re-read this file before every response
 2. Use the `[Last task: ✅ done — ...]` prefix on every reply
 3. Never send a reply that doesn't start with this confirmation
+4. **Check MCP tool registry — am I using the right tools for this task?**
 
 ---
 
