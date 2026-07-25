@@ -32,6 +32,7 @@ import { swaggerSpec, swaggerUi } from "./swagger.js"
 import { simRouter } from "./routes/sim.js"
 import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
+import { configRouter } from "./routes/config-center.js"
 import { pdfRouter } from "./routes/pdf.js"
 import { templatesRouter } from "./routes/templates.js"
 import { qrRouter } from "./routes/qr.js"
@@ -100,46 +101,62 @@ const authLimiter = rateLimit({
 })
 app.use("/api/auth/login", authLimiter)
 
+// ─── API VERSIONING ─────────────────────────────────────────────────────────
+// All routes mount under /api for backward compatibility
+// AND under /api/v1 for versioned access
+
+const API_PREFIXES = ["/api", "/api/v1"]
+
+function mount(prefix, router) {
+  API_PREFIXES.forEach(p => app.use(p + prefix, router))
+}
+
 // ─── ROUTES ─────────────────────────────────────────────────────────────────
 
 app.use(trackRequest)
-app.get("/api/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString() }))
 
-app.use("/api/auth", authRouter)
-app.use("/api/customers", customersRouter)
-app.use("/api/meters", metersRouter)
-app.use("/api/readings", readingsRouter)
-app.use("/api/invoices", invoicesRouter)
-app.use("/api/payments", paymentsRouter)
-app.use("/api/admin", adminRouter)
-app.use("/api/services", servicesRouter)
-app.use("/api/reports", reportsRouter)
-app.use("/api/reports/jasper", jasperBridgeRouter)
-app.use("/api/domain", domainRouter)
-app.use("/api/business", businessRouter)
-app.use("/api/crud", crudRouter)
-app.use("/api/monitor", monitorRouter)
-app.use("/api/monitoring", monitorRouter)
-app.use("/api/ai", aiRouter)
-app.use("/api", aiCloudflareRouter)
-app.use("/api/security", securityRouter)
-app.use("/api/meter-assignments", meterAssignmentRouter)
-app.use("/api/notifications", notificationsRouter)
-app.use("/api/preferences", preferencesRouter)
-app.use("/api/search", searchRouter)
-app.use("/api/tasks", tasksRouter)
-app.use("/api/alerts", alertsRouter)
+API_PREFIXES.forEach(p => app.get(p + "/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString(), version: "1.0.0" })))
+mount("/auth", authRouter)
+mount("/customers", customersRouter)
+mount("/meters", metersRouter)
+mount("/readings", readingsRouter)
+mount("/invoices", invoicesRouter)
+mount("/payments", paymentsRouter)
+mount("/admin", adminRouter)
+mount("/services", servicesRouter)
+mount("/reports", reportsRouter)
+mount("/reports/jasper", jasperBridgeRouter)
+mount("/domain", domainRouter)
+mount("/business", businessRouter)
+mount("/crud", crudRouter)
+mount("/monitor", monitorRouter)
+mount("/monitoring", monitorRouter)
+mount("/ai", aiRouter)
+mount("/security", securityRouter)
+mount("/meter-assignments", meterAssignmentRouter)
+mount("/notifications", notificationsRouter)
+mount("/preferences", preferencesRouter)
+mount("/search", searchRouter)
+mount("/tasks", tasksRouter)
+mount("/alerts", alertsRouter)
+mount("/documents", documentsRouter)
+mount("/tariffs", tariffsRouter)
+mount("/sim", simRouter)
+mount("/projects", projectsRouter)
+mount("/pdf", pdfRouter)
+mount("/templates", templatesRouter)
+mount("/billing", billingRouter)
+mount("/admin", configRouter)
+
+// Cloudflare AI bridge (mounted at /api level)
+API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
+
+// Swagger — only at top level, not versioned
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use("/api-docs.json", (req, res) => res.json(swaggerSpec))
-app.use("/api/documents", documentsRouter)
-app.use("/api/tariffs", tariffsRouter)
-app.use("/api/sim", simRouter)
-app.use("/api/projects", projectsRouter)
-app.use("/api/pdf", pdfRouter)
-app.use("/api/templates", templatesRouter)
-app.use("/api", qrRouter)
-app.use("/api/billing", billingRouter)
-app.use("/api/admin", configRouter)
+
+// QR router mounted at /api level
+API_PREFIXES.forEach(p => app.use(p, qrRouter))
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 
