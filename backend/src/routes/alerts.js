@@ -3,7 +3,6 @@ import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
 import { z } from 'zod'
-import { z } from "zod"
 
 const router = Router()
 router.use(authenticate)

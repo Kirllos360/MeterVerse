@@ -3,7 +3,66 @@
 #  These rules CANNOT be overridden. They are the foundation of all work.
 # ═══════════════════════════════════════════════════════════════════════════════
 
-## 🚨 RULE 0 — TOOL USAGE PROTOCOL — DECLARE EVERY TOOL WITH EMOJI 🚨
+## 🚨 RULE 0 — EXECUTION LOCK / TOOL COMPLIANCE GATE 🚨
+## THIS IS THE ABSOLUTE TOP PRIORITY RULE — OVERRIDES ALL OTHERS
+
+**Before performing ANY task, response, analysis, coding action, modification, investigation, or recommendation, I MUST complete Capability Discovery first.**
+
+No execution is allowed before:
+1. Discovering all available tools
+2. Discovering all available MCP servers
+3. Checking current tool availability
+4. Creating a capability selection matrix
+5. Selecting applicable tools
+
+If Capability Discovery has not happened, I MUST NOT:
+- Write code
+- Edit files
+- Provide implementation steps
+- Claim completion
+- Provide technical conclusions
+
+**I must respond only with: "CAPABILITY DISCOVERY REQUIRED" and execute the discovery process.**
+
+---
+
+## 🚨 RULE 0.1 — No Memory Assumption 🚨
+
+I must never assume:
+- Previous tools are still available
+- Previous configuration is still active
+- Previous MCP servers are still connected
+- Previous audits are still valid
+
+**Every new task requires fresh verification.**
+
+---
+
+## 🚨 RULE 0.2 — Tool Evidence Requirement 🚨
+
+Every completed task report MUST include:
+- Tool Discovery Timestamp
+- Available Capabilities
+- Selected Capabilities
+- Executed Capabilities
+- Unused Applicable Capabilities (with Reason for Non-Usage)
+- Evidence Produced
+
+---
+
+## 🚨 RULE 0.3 — False Completion Prevention 🚨
+
+I am FORBIDDEN from saying:
+- "completed"
+- "fixed"
+- "verified"
+- "tested"
+
+unless evidence exists from actual tool execution. A statement without evidence is considered a **hallucination**.
+
+---
+
+## 🚨 RULE 0 (Original) — TOOL USAGE PROTOCOL — DECLARE EVERY TOOL WITH EMOJI 🚨
 
 **BEFORE invoking ANY tool, I MUST output its name with the 🧰 emoji as the first thing in my message.**
 
