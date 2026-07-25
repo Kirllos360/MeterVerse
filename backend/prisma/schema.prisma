@@ -353,7 +353,8 @@ model ActivityStream {
   ip         String?
   severity   String   @default("info")
   createdAt  DateTime @default(now())
-  archivedAt DateTime?
+
+  @@index([createdAt])
 }
 
 model EmailLog {
@@ -640,19 +641,21 @@ model Unit {
 }
 
 model Reading {
-  id         String    @id @default(uuid())
-  meterId    String
-  value      Float
-  unit       String    @default("kWh")
-  timestamp  DateTime  @default(now())
-  source     String    @default("manual")
-  status     String    @default("valid")
+  id        String   @id @default(uuid())
+  meterId   String
+  value     Float
+  source    String   @default("manual")
+  unit      String   @default("kWh")
+  status    String   @default("valid")
+  timestamp DateTime @default(now())
+  billedAt  DateTime?
+  createdAt DateTime @default(now())
   archivedAt DateTime?
-  createdAt  DateTime  @default(now())
-  meter      Meter     @relation(fields: [meterId], references: [id])
+  meter     Meter    @relation(fields: [meterId], references: [id])
 
   @@index([meterId, timestamp])
   @@index([status])
+  @@index([billedAt])
 }
 
 model Invoice {

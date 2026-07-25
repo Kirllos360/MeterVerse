@@ -47,7 +47,7 @@ import { getAvailabilityPlans, getAvailabilityPlan, setAvailabilityPlan } from "
 import logger from "./services/logger.js"
 
 const app = express()
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3002
 const isProduction = process.env.NODE_ENV === "production"
 
 // ═══════════════════════════════════════════════════════════════════════════════

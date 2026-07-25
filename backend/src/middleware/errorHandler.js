@@ -19,7 +19,9 @@ function getErrorCode(status) {
 
 export function correlationMiddleware(req, res, next) {
   req.correlationId = req.headers["x-correlation-id"] || uuidv4().slice(0, 8)
+  req.requestId = uuidv4().slice(0, 12)
   res.setHeader("X-Correlation-ID", req.correlationId)
+  res.setHeader("X-Request-ID", req.requestId)
   next()
 }
 
@@ -57,7 +59,7 @@ export function errorHandler(err, req, res, next) {
   const code = getErrorCode(status)
   const message = err.message || "Internal server error"
 
-  const body = { error: message, code, correlationId }
+  const body = { error: message, code, correlationId, requestId: req?.requestId }
   if (err.details) body.details = err.details
   if (err.errors) body.errors = err.errors
   if (status >= 500) body.retryable = true

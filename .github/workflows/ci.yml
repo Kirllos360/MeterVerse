@@ -56,7 +56,7 @@ jobs:
       - name: Security audit
         run: npm audit --audit-level=high
         working-directory: backend
-        continue-on-error: true
+        continue-on-error: false
 
   test-frontend:
     name: Frontend Build
