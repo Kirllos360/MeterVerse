@@ -6,7 +6,11 @@ const router = Router()
 router.use(authenticate)
 
 const CF_AI_URL = "https://api.cloudflare.com/client/v4/accounts"
-const CF_ACCOUNT_ID = "" // Extracted from token or set via env
+const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID || ""
+// NOTE: To get your Cloudflare Account ID:
+// 1. Log in to https://dash.cloudflare.com
+// 2. The Account ID is in the URL after /:  https://dash.cloudflare.com/{account-id}/
+// 3. Set it in .env: CLOUDFLARE_ACCOUNT_ID=your-account-id
 const CF_API_TOKEN = process.env.CLOUDFLARE_AI_TOKEN || ""
 
 const MODELS = {
