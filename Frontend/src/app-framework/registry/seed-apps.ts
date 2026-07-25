@@ -43,6 +43,9 @@ export const seedApps: ApplicationMeta[] = [
   { id: "financial-reports", title: "Financial Reports", icon: "BarChart3", description: "Financial reporting", category: "reports", route: "/app/reports/financial", order: 2 },
   { id: "consumption-reports", title: "Consumption Reports", icon: "Activity", description: "Consumption analytics", category: "reports", route: "/app/reports/consumption", order: 3 },
 
+  // Meters
+  { id: "sim-cards", title: "SIM Cards", icon: "Radio", description: "SIM card inventory", category: "meters", route: "/app/meters/sim", order: 4 },
+
   // Monitoring
   { id: "monitoring", title: "Monitoring", icon: "Activity", description: "System monitoring", category: "monitoring", route: "/app/monitoring", order: 1 },
   { id: "alerts", title: "Alerts", icon: "Bell", description: "Alert management", category: "monitoring", route: "/app/monitoring/alerts", order: 2, badge: 7 },

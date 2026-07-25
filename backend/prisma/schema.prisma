@@ -7,74 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum EntityStatus {
-  active
-  inactive
-  pending
-  suspended
-  archived
-  terminated
-}
-
-enum InvoiceStatus {
-  draft
-  pending
-  approved
-  issued
-  partially_paid
-  paid
-  cancelled
-  archived
-  overdue
-}
-
-enum MeterStatus {
-  stock
-  assigned
-  installed
-  reading
-  disconnected
-  maintenance
-  retired
-}
-
-enum ReadingStatus {
-  valid
-  flagged
-  rejected
-  pending
-}
-
-enum PaymentStatus {
-  pending
-  completed
-  failed
-  refunded
-  cancelled
-}
-
-enum AuditStatus {
-  success
-  failure
-  info
-  warning
-}
-
-enum NotificationType {
-  in_app
-  email
-  sms
-  push
-}
-
-enum JobStatus {
-  pending
-  running
-  completed
-  failed
-  cancelled
-}
-
 model User {
   id            String       @id @default(uuid())
   email         String       @unique
@@ -99,10 +31,10 @@ model User {
   lastLoginAt   DateTime?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
-  sessions      Session[]
+  roleId        String?
   apiKeys       ApiKey[]
   auditEntries  AuditEntry[]
-  roleId        String?
+  sessions      Session[]
   roleRel       Role?        @relation(fields: [roleId], references: [id])
 
   @@index([roleId])
@@ -114,10 +46,10 @@ model Role {
   name        String             @unique
   description String?
   isSystem    Boolean            @default(false)
-  permissions PermissionOnRole[]
-  users       User[]
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
+  permissions PermissionOnRole[]
+  users       User[]
 }
 
 model Permission {
@@ -125,15 +57,15 @@ model Permission {
   name        String             @unique
   description String?
   module      String
-  roles       PermissionOnRole[]
   createdAt   DateTime           @default(now())
+  roles       PermissionOnRole[]
 }
 
 model PermissionOnRole {
   roleId       String
   permissionId String
-  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
   permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
 
   @@id([roleId, permissionId])
   @@index([permissionId])
@@ -188,12 +120,12 @@ model ApiKey {
   key         String    @unique
   prefix      String
   userId      String
-  user        User      @relation(fields: [userId], references: [id])
   permissions String    @default("read")
   lastUsedAt  DateTime?
   expiresAt   DateTime?
   active      Boolean   @default(true)
   createdAt   DateTime  @default(now())
+  user        User      @relation(fields: [userId], references: [id])
 
   @@index([userId])
   @@index([active])
@@ -202,7 +134,6 @@ model ApiKey {
 model Session {
   id         String   @id @default(uuid())
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   token      String   @unique
   ip         String?
   userAgent  String?
@@ -212,6 +143,7 @@ model Session {
   lastUsedAt DateTime @default(now())
   expiresAt  DateTime
   createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, isActive])
   @@index([expiresAt])
@@ -236,7 +168,6 @@ model Project {
   name                String
   description         String?
   organizationId      String
-  organization        Organization @relation(fields: [organizationId], references: [id])
   status              String       @default("active")
   taxEnabled          Boolean      @default(false)
   taxRate             Float        @default(0.14)
@@ -245,6 +176,7 @@ model Project {
   paymentTermsDays    Int          @default(30)
   createdAt           DateTime     @default(now())
   updatedAt           DateTime     @updatedAt
+  organization        Organization @relation(fields: [organizationId], references: [id])
 
   @@index([organizationId, status])
 }
@@ -507,9 +439,9 @@ model KpiDefinition {
 model KpiSnapshot {
   id         String        @id @default(uuid())
   kpiId      String
-  kpi        KpiDefinition @relation(fields: [kpiId], references: [id], onDelete: Cascade)
   value      Float
   recordedAt DateTime      @default(now())
+  kpi        KpiDefinition @relation(fields: [kpiId], references: [id], onDelete: Cascade)
 
   @@index([kpiId, recordedAt])
 }
@@ -551,12 +483,12 @@ model Customer {
   archivedAt       DateTime?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  meters           Meter[]
-  invoices         Invoice[]
-  contracts        Contract[]
-  meterAssignments MeterAssignment[]
   collectionCases  CollectionCase[]
+  contracts        Contract[]
   groupMembers     GroupMember[]
+  invoices         Invoice[]
+  meters           Meter[]
+  meterAssignments MeterAssignment[]
 }
 
 model Meter {
@@ -567,15 +499,15 @@ model Meter {
   status           String            @default("active")
   area             String?
   customerId       String?
-  customer         Customer?         @relation(fields: [customerId], references: [id])
   archivedAt       DateTime?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
-  readings         Reading[]
+  customer         Customer?         @relation(fields: [customerId], references: [id])
   meterAssignments MeterAssignment[]
   meterEvents      MeterEvent[]
-  simCards         SIMCard[]
+  readings         Reading[]
   simAssignments   SIMAssignment[]
+  simCards         SIMCard[]
 
   @@index([customerId])
   @@index([status, createdAt])
@@ -584,7 +516,6 @@ model Meter {
 model Reading {
   id         String    @id @default(uuid())
   meterId    String
-  meter      Meter     @relation(fields: [meterId], references: [id])
   value      Float
   unit       String    @default("kWh")
   timestamp  DateTime  @default(now())
@@ -592,6 +523,7 @@ model Reading {
   status     String    @default("valid")
   archivedAt DateTime?
   createdAt  DateTime  @default(now())
+  meter      Meter     @relation(fields: [meterId], references: [id])
 
   @@index([meterId, timestamp])
   @@index([status])
@@ -601,7 +533,6 @@ model Invoice {
   id              String           @id @default(uuid())
   number          String           @unique
   customerId      String
-  customer        Customer         @relation(fields: [customerId], references: [id])
   amount          Float
   status          String           @default("pending")
   dueDate         DateTime?
@@ -612,9 +543,10 @@ model Invoice {
   archivedAt      DateTime?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
-  payments        Payment[]
-  invoiceItems    InvoiceItem[]
   collectionCases CollectionCase[]
+  customer        Customer         @relation(fields: [customerId], references: [id])
+  invoiceItems    InvoiceItem[]
+  payments        Payment[]
 
   @@index([customerId, status])
   @@index([status, createdAt])
@@ -624,27 +556,22 @@ model Invoice {
 model Payment {
   id                  String               @id @default(uuid())
   invoiceId           String
-  invoice             Invoice              @relation(fields: [invoiceId], references: [id])
   amount              Float
   method              String               @default("cash")
   status              String               @default("completed")
   paidAt              DateTime             @default(now())
   createdAt           DateTime             @default(now())
+  invoice             Invoice              @relation(fields: [invoiceId], references: [id])
   paymentTransactions PaymentTransaction[]
 
   @@index([invoiceId, status])
   @@index([paidAt])
 }
 
-// ═══════════════════════════════════════════════════════════════════════════════
-//  SPRINT 39 — DOMAIN COMPLETION
-// ═══════════════════════════════════════════════════════════════════════════════
-
 model Contract {
   id               String              @id @default(uuid())
   contractNumber   String              @unique
   customerId       String
-  customer         Customer            @relation(fields: [customerId], references: [id])
   type             String              @default("standard")
   status           String              @default("active")
   startDate        DateTime
@@ -656,8 +583,9 @@ model Contract {
   archivedAt       DateTime?
   createdAt        DateTime            @default(now())
   updatedAt        DateTime            @updatedAt
-  contractTerms    ContractTerm[]
+  customer         Customer            @relation(fields: [customerId], references: [id])
   amendments       ContractAmendment[]
+  contractTerms    ContractTerm[]
   meterAssignments MeterAssignment[]
 
   @@index([customerId, status])
@@ -668,10 +596,10 @@ model Contract {
 model ContractTerm {
   id         String   @id @default(uuid())
   contractId String
-  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
   key        String
   value      String
   createdAt  DateTime @default(now())
+  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
 
   @@index([contractId])
 }
@@ -679,12 +607,12 @@ model ContractTerm {
 model ContractAmendment {
   id              String   @id @default(uuid())
   contractId      String
-  contract        Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
   amendmentNumber String
   description     String?
   changeDate      DateTime @default(now())
   approvedBy      String?
   createdAt       DateTime @default(now())
+  contract        Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
 
   @@index([contractId])
 }
@@ -694,7 +622,7 @@ model Tariff {
   name          String         @unique
   code          String         @unique
   description   String?
-  type          String         @default("flat") // flat, tiered, tou, demand
+  type          String         @default("flat")
   currency      String         @default("EGP")
   unit          String         @default("kWh")
   effectiveFrom DateTime
@@ -703,15 +631,14 @@ model Tariff {
   archivedAt    DateTime?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  groupPricings GroupPricing[]
   rates         TariffRate[]
   tiers         TariffTier[]
-  groupPricings GroupPricing[]
 }
 
 model TariffRate {
   id        String    @id @default(uuid())
   tariffId  String
-  tariff    Tariff    @relation(fields: [tariffId], references: [id], onDelete: Cascade)
   name      String
   rate      Float
   unit      String    @default("kWh")
@@ -719,6 +646,7 @@ model TariffRate {
   validTo   DateTime?
   priority  Int       @default(0)
   createdAt DateTime  @default(now())
+  tariff    Tariff    @relation(fields: [tariffId], references: [id], onDelete: Cascade)
 
   @@index([tariffId])
 }
@@ -726,7 +654,6 @@ model TariffRate {
 model TariffTier {
   id        String   @id @default(uuid())
   tariffId  String
-  tariff    Tariff   @relation(fields: [tariffId], references: [id], onDelete: Cascade)
   name      String
   minValue  Float?
   maxValue  Float?
@@ -734,6 +661,7 @@ model TariffTier {
   unit      String   @default("kWh")
   priority  Int      @default(0)
   createdAt DateTime @default(now())
+  tariff    Tariff   @relation(fields: [tariffId], references: [id], onDelete: Cascade)
 
   @@index([tariffId])
 }
@@ -742,7 +670,7 @@ model BillCycle {
   id         String    @id @default(uuid())
   name       String
   code       String    @unique
-  frequency  String    @default("monthly") // weekly, biweekly, monthly, bimonthly, quarterly, yearly
+  frequency  String    @default("monthly")
   billingDay Int       @default(1)
   dueDay     Int       @default(15)
   cutOffDay  Int       @default(5)
@@ -755,7 +683,6 @@ model BillCycle {
 model BillRun {
   id          String           @id @default(uuid())
   billCycleId String
-  billCycle   BillCycle        @relation(fields: [billCycleId], references: [id])
   periodStart DateTime
   periodEnd   DateTime
   status      String           @default("pending")
@@ -764,6 +691,7 @@ model BillRun {
   processedAt DateTime?
   completedAt DateTime?
   createdAt   DateTime         @default(now())
+  billCycle   BillCycle        @relation(fields: [billCycleId], references: [id])
   history     BillRunHistory[]
 
   @@index([billCycleId])
@@ -773,11 +701,11 @@ model BillRun {
 model BillRunHistory {
   id        String   @id @default(uuid())
   billRunId String
-  billRun   BillRun  @relation(fields: [billRunId], references: [id], onDelete: Cascade)
   action    String
   details   String?
   actedBy   String?
   createdAt DateTime @default(now())
+  billRun   BillRun  @relation(fields: [billRunId], references: [id], onDelete: Cascade)
 
   @@index([billRunId])
 }
@@ -787,7 +715,7 @@ model ChargeRule {
   name          String
   code          String           @unique
   description   String?
-  type          String           @default("fixed") // fixed, rate_based, formula_based, tiered
+  type          String           @default("fixed")
   formula       String?
   priority      Int              @default(0)
   active        Boolean          @default(true)
@@ -801,7 +729,6 @@ model ChargeRule {
 model ChargeOverride {
   id            String     @id @default(uuid())
   chargeRuleId  String
-  chargeRule    ChargeRule @relation(fields: [chargeRuleId], references: [id], onDelete: Cascade)
   customerId    String?
   contractId    String?
   overrideValue Float
@@ -809,6 +736,7 @@ model ChargeOverride {
   validTo       DateTime?
   reason        String?
   createdAt     DateTime   @default(now())
+  chargeRule    ChargeRule @relation(fields: [chargeRuleId], references: [id], onDelete: Cascade)
 
   @@index([chargeRuleId])
   @@index([customerId])
@@ -818,8 +746,7 @@ model ChargeOverride {
 model InvoiceItem {
   id            String         @id @default(uuid())
   invoiceId     String
-  invoice       Invoice        @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
-  type          String         @default("charge") // charge, discount, tax, adjustment
+  type          String         @default("charge")
   description   String
   quantity      Float          @default(1)
   unitPrice     Float          @default(0)
@@ -830,8 +757,9 @@ model InvoiceItem {
   referenceType String?
   referenceId   String?
   createdAt     DateTime       @default(now())
-  taxes         InvoiceTax[]
   discounts     DiscountRule[]
+  invoice       Invoice        @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  taxes         InvoiceTax[]
 
   @@index([invoiceId, type])
 }
@@ -839,11 +767,11 @@ model InvoiceItem {
 model InvoiceTax {
   id            String      @id @default(uuid())
   invoiceItemId String
-  invoiceItem   InvoiceItem @relation(fields: [invoiceItemId], references: [id], onDelete: Cascade)
   name          String
   rate          Float
   amount        Float
   createdAt     DateTime    @default(now())
+  invoiceItem   InvoiceItem @relation(fields: [invoiceItemId], references: [id], onDelete: Cascade)
 
   @@index([invoiceItemId])
 }
@@ -851,15 +779,15 @@ model InvoiceTax {
 model DiscountRule {
   id            String       @id @default(uuid())
   invoiceItemId String?
-  invoiceItem   InvoiceItem? @relation(fields: [invoiceItemId], references: [id], onDelete: Cascade)
   name          String
-  type          String       @default("percentage") // percentage, fixed
+  type          String       @default("percentage")
   value         Float
   code          String?
   maxAmount     Float?
   validFrom     DateTime?
   validTo       DateTime?
   createdAt     DateTime     @default(now())
+  invoiceItem   InvoiceItem? @relation(fields: [invoiceItemId], references: [id], onDelete: Cascade)
 
   @@index([invoiceItemId])
 }
@@ -867,16 +795,16 @@ model DiscountRule {
 model MeterAssignment {
   id         String                   @id @default(uuid())
   meterId    String
-  meter      Meter                    @relation(fields: [meterId], references: [id])
   customerId String
-  customer   Customer                 @relation(fields: [customerId], references: [id])
   contractId String?
-  contract   Contract?                @relation(fields: [contractId], references: [id])
   startDate  DateTime
   endDate    DateTime?
   reason     String?
   status     String                   @default("active")
   createdAt  DateTime                 @default(now())
+  contract   Contract?                @relation(fields: [contractId], references: [id])
+  customer   Customer                 @relation(fields: [customerId], references: [id])
+  meter      Meter                    @relation(fields: [meterId], references: [id])
   history    MeterAssignmentHistory[]
 
   @@index([meterId])
@@ -887,12 +815,12 @@ model MeterAssignment {
 model MeterAssignmentHistory {
   id                String          @id @default(uuid())
   meterAssignmentId String
-  meterAssignment   MeterAssignment @relation(fields: [meterAssignmentId], references: [id], onDelete: Cascade)
   field             String
   oldValue          String?
   newValue          String?
   changedBy         String?
   changedAt         DateTime        @default(now())
+  meterAssignment   MeterAssignment @relation(fields: [meterAssignmentId], references: [id], onDelete: Cascade)
 
   @@index([meterAssignmentId])
 }
@@ -900,14 +828,14 @@ model MeterAssignmentHistory {
 model MeterEvent {
   id          String    @id @default(uuid())
   meterId     String
-  meter       Meter     @relation(fields: [meterId], references: [id])
-  type        String // installation, removal, maintenance, failure, reading_anomaly
+  type        String
   description String?
   timestamp   DateTime  @default(now())
   resolvedAt  DateTime?
   resolvedBy  String?
   status      String    @default("open")
   createdAt   DateTime  @default(now())
+  meter       Meter     @relation(fields: [meterId], references: [id])
 
   @@index([meterId, timestamp])
   @@index([type, status])
@@ -918,10 +846,10 @@ model ValidationRule {
   name        String
   code        String             @unique
   description String?
-  entityType  String             @default("reading") // reading, customer, meter, invoice
-  condition   String // JSON expression
-  action      String             @default("reject") // reject, warn, flag, auto_fix
-  severity    String             @default("error") // error, warning, info
+  entityType  String             @default("reading")
+  condition   String
+  action      String             @default("reject")
+  severity    String             @default("error")
   active      Boolean            @default(true)
   priority    Int                @default(0)
   createdAt   DateTime           @default(now())
@@ -932,14 +860,14 @@ model ValidationRule {
 model ValidationResult {
   id               String         @id @default(uuid())
   validationRuleId String
-  validationRule   ValidationRule @relation(fields: [validationRuleId], references: [id])
   entityType       String
   entityId         String
-  status           String         @default("pending") // pending, passed, failed
+  status           String         @default("pending")
   message          String?
   resolvedAt       DateTime?
   resolvedBy       String?
   createdAt        DateTime       @default(now())
+  validationRule   ValidationRule @relation(fields: [validationRuleId], references: [id])
 
   @@index([validationRuleId])
   @@index([entityType, entityId])
@@ -949,8 +877,8 @@ model ValidationResult {
 model WorkflowState {
   id          String               @id @default(uuid())
   name        String
-  entityType  String // invoice, reading, customer, contract
-  state       String // draft, pending, approved, rejected, active, suspended, closed
+  entityType  String
+  state       String
   enteredAt   DateTime             @default(now())
   enteredBy   String?
   notes       String?
@@ -961,13 +889,13 @@ model WorkflowState {
 model WorkflowTransition {
   id              String        @id @default(uuid())
   workflowStateId String
-  workflowState   WorkflowState @relation(fields: [workflowStateId], references: [id], onDelete: Cascade)
   fromState       String
   toState         String
   action          String
   triggeredBy     String?
   triggeredAt     DateTime      @default(now())
   notes           String?
+  workflowState   WorkflowState @relation(fields: [workflowStateId], references: [id], onDelete: Cascade)
 
   @@index([workflowStateId])
 }
@@ -975,9 +903,7 @@ model WorkflowTransition {
 model CollectionCase {
   id          String             @id @default(uuid())
   customerId  String
-  customer    Customer           @relation(fields: [customerId], references: [id])
   invoiceId   String?
-  invoice     Invoice?           @relation(fields: [invoiceId], references: [id])
   status      String             @default("open")
   priority    String             @default("normal")
   totalAmount Float              @default(0)
@@ -990,6 +916,8 @@ model CollectionCase {
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
   actions     CollectionAction[]
+  customer    Customer           @relation(fields: [customerId], references: [id])
+  invoice     Invoice?           @relation(fields: [invoiceId], references: [id])
   promises    PromiseToPay[]
 
   @@index([customerId, status])
@@ -1000,13 +928,13 @@ model CollectionCase {
 model CollectionAction {
   id               String         @id @default(uuid())
   collectionCaseId String
-  collectionCase   CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
-  type             String // call, email, sms, visit, notice, escalation
+  type             String
   result           String?
   notes            String?
   actedBy          String?
   actedAt          DateTime       @default(now())
   createdAt        DateTime       @default(now())
+  collectionCase   CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
 
   @@index([collectionCaseId])
 }
@@ -1014,13 +942,13 @@ model CollectionAction {
 model PromiseToPay {
   id               String         @id @default(uuid())
   collectionCaseId String
-  collectionCase   CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
   promisedDate     DateTime
   promisedAmount   Float
   status           String         @default("pending")
   keptAt           DateTime?
   notes            String?
   createdAt        DateTime       @default(now())
+  collectionCase   CollectionCase @relation(fields: [collectionCaseId], references: [id], onDelete: Cascade)
 
   @@index([collectionCaseId])
   @@index([status])
@@ -1029,7 +957,7 @@ model PromiseToPay {
 model PaymentGateway {
   id           String               @id @default(uuid())
   name         String
-  provider     String               @default("stripe") // stripe, paymob, fawry, vodafone_cash
+  provider     String               @default("stripe")
   config       String               @default("{}")
   active       Boolean              @default(true)
   testMode     Boolean              @default(true)
@@ -1041,10 +969,8 @@ model PaymentGateway {
 model PaymentTransaction {
   id              String         @id @default(uuid())
   gatewayId       String
-  gateway         PaymentGateway @relation(fields: [gatewayId], references: [id])
   paymentId       String?
-  payment         Payment?       @relation(fields: [paymentId], references: [id])
-  transactionId   String? // gateway transaction ID
+  transactionId   String?
   type            String         @default("charge")
   amount          Float
   currency        String         @default("EGP")
@@ -1054,6 +980,8 @@ model PaymentTransaction {
   processedAt     DateTime?
   createdAt       DateTime       @default(now())
   logs            GatewayLog[]
+  gateway         PaymentGateway @relation(fields: [gatewayId], references: [id])
+  payment         Payment?       @relation(fields: [paymentId], references: [id])
 
   @@index([gatewayId])
   @@index([paymentId])
@@ -1063,11 +991,11 @@ model PaymentTransaction {
 model GatewayLog {
   id                   String             @id @default(uuid())
   paymentTransactionId String
-  paymentTransaction   PaymentTransaction @relation(fields: [paymentTransactionId], references: [id], onDelete: Cascade)
   level                String             @default("info")
   message              String
   details              String?
   createdAt            DateTime           @default(now())
+  paymentTransaction   PaymentTransaction @relation(fields: [paymentTransactionId], references: [id], onDelete: Cascade)
 
   @@index([paymentTransactionId])
 }
@@ -1087,11 +1015,11 @@ model CustomerGroup {
 model GroupMember {
   id              String        @id @default(uuid())
   customerGroupId String
-  customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
   customerId      String
-  customer        Customer      @relation(fields: [customerId], references: [id])
   joinedAt        DateTime      @default(now())
   createdAt       DateTime      @default(now())
+  customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
+  customer        Customer      @relation(fields: [customerId], references: [id])
 
   @@index([customerGroupId, customerId])
 }
@@ -1099,13 +1027,13 @@ model GroupMember {
 model GroupPricing {
   id              String        @id @default(uuid())
   customerGroupId String
-  customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
   tariffId        String?
-  tariff          Tariff?       @relation(fields: [tariffId], references: [id])
   discountRate    Float         @default(0)
   validFrom       DateTime?
   validTo         DateTime?
   createdAt       DateTime      @default(now())
+  customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
+  tariff          Tariff?       @relation(fields: [tariffId], references: [id])
 
   @@index([customerGroupId])
   @@index([tariffId])
@@ -1115,22 +1043,21 @@ model SLA {
   id             String          @id @default(uuid())
   name           String
   description    String?
-  responseTime   Int             @default(4) // hours
-  resolutionTime Int             @default(24) // hours
-  availability   Float           @default(99.9) // percentage
+  responseTime   Int             @default(4)
+  resolutionTime Int             @default(24)
+  availability   Float           @default(99.9)
   severity       String          @default("normal")
   active         Boolean         @default(true)
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
+  groups         GroupSLA[]
   breaches       SLABreach[]
   escalations    SLAEscalation[]
-  groups         GroupSLA[]
 }
 
 model SLABreach {
   id         String    @id @default(uuid())
   slaId      String
-  sla        SLA       @relation(fields: [slaId], references: [id], onDelete: Cascade)
   metric     String
   expected   Float
   actual     Float
@@ -1138,6 +1065,7 @@ model SLABreach {
   resolvedAt DateTime?
   notes      String?
   createdAt  DateTime  @default(now())
+  sla        SLA       @relation(fields: [slaId], references: [id], onDelete: Cascade)
 
   @@index([slaId, breachedAt])
 }
@@ -1145,12 +1073,12 @@ model SLABreach {
 model SLAEscalation {
   id        String   @id @default(uuid())
   slaId     String
-  sla       SLA      @relation(fields: [slaId], references: [id], onDelete: Cascade)
   level     Int      @default(1)
-  threshold Int      @default(1) // number of breaches before escalation
+  threshold Int      @default(1)
   notifyTo  String?
   action    String?
   createdAt DateTime @default(now())
+  sla       SLA      @relation(fields: [slaId], references: [id], onDelete: Cascade)
 
   @@index([slaId])
 }
@@ -1158,11 +1086,11 @@ model SLAEscalation {
 model GroupSLA {
   id              String        @id @default(uuid())
   customerGroupId String
-  customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
   slaId           String
-  sla             SLA           @relation(fields: [slaId], references: [id], onDelete: Cascade)
   priority        Int           @default(0)
   createdAt       DateTime      @default(now())
+  customerGroup   CustomerGroup @relation(fields: [customerGroupId], references: [id], onDelete: Cascade)
+  sla             SLA           @relation(fields: [slaId], references: [id], onDelete: Cascade)
 
   @@index([customerGroupId])
   @@index([slaId])
@@ -1172,11 +1100,11 @@ model AlertRule {
   id          String   @id @default(uuid())
   name        String
   description String?
-  entityType  String // meter, reading, invoice, payment, customer
-  condition   String // JSON expression
+  entityType  String
+  condition   String
   severity    String   @default("warning")
   enabled     Boolean  @default(true)
-  cooldown    Int      @default(3600) // seconds
+  cooldown    Int      @default(3600)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   alerts      Alert[]
@@ -1185,16 +1113,16 @@ model AlertRule {
 model Alert {
   id             String    @id @default(uuid())
   alertRuleId    String
-  alertRule      AlertRule @relation(fields: [alertRuleId], references: [id])
   entityType     String
   entityId       String
   message        String
   severity       String    @default("warning")
-  status         String    @default("open") // open, acknowledged, resolved
+  status         String    @default("open")
   acknowledgedAt DateTime?
   resolvedAt     DateTime?
   resolvedBy     String?
   createdAt      DateTime  @default(now())
+  alertRule      AlertRule @relation(fields: [alertRuleId], references: [id])
 
   @@index([alertRuleId])
   @@index([entityType, entityId])
@@ -1215,13 +1143,13 @@ model EscalationPolicy {
 model EscalationStep {
   id                 String           @id @default(uuid())
   escalationPolicyId String
-  escalationPolicy   EscalationPolicy @relation(fields: [escalationPolicyId], references: [id], onDelete: Cascade)
   level              Int              @default(1)
   notifyRole         String?
   notifyEmail        String?
   action             String?
   timeout            Int              @default(3600)
   createdAt          DateTime         @default(now())
+  escalationPolicy   EscalationPolicy @relation(fields: [escalationPolicyId], references: [id], onDelete: Cascade)
 
   @@index([escalationPolicyId])
 }
@@ -1236,10 +1164,10 @@ model SIMCard {
   ipAddress     String?
   cooldownUntil DateTime?
   meterId       String?
-  meter         Meter?          @relation(fields: [meterId], references: [id])
-  assignments   SIMAssignment[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  assignments   SIMAssignment[]
+  meter         Meter?          @relation(fields: [meterId], references: [id])
 
   @@index([status])
   @@index([meterId])
@@ -1248,16 +1176,84 @@ model SIMCard {
 model SIMAssignment {
   id        String    @id @default(uuid())
   simId     String
-  sim       SIMCard   @relation(fields: [simId], references: [id], onDelete: Cascade)
   meterId   String
-  meter     Meter     @relation(fields: [meterId], references: [id])
   startAt   DateTime  @default(now())
   endAt     DateTime?
   status    String    @default("active")
   createdBy String?
   createdAt DateTime  @default(now())
+  meter     Meter     @relation(fields: [meterId], references: [id])
+  sim       SIMCard   @relation(fields: [simId], references: [id], onDelete: Cascade)
 
   @@index([simId])
   @@index([meterId])
   @@index([status, startAt])
+}
+
+enum EntityStatus {
+  active
+  inactive
+  pending
+  suspended
+  archived
+  terminated
+}
+
+enum InvoiceStatus {
+  draft
+  pending
+  approved
+  issued
+  partially_paid
+  paid
+  cancelled
+  archived
+  overdue
+}
+
+enum MeterStatus {
+  stock
+  assigned
+  installed
+  reading
+  disconnected
+  maintenance
+  retired
+}
+
+enum ReadingStatus {
+  valid
+  flagged
+  rejected
+  pending
+}
+
+enum PaymentStatus {
+  pending
+  completed
+  failed
+  refunded
+  cancelled
+}
+
+enum AuditStatus {
+  success
+  failure
+  info
+  warning
+}
+
+enum NotificationType {
+  in_app
+  email
+  sms
+  push
+}
+
+enum JobStatus {
+  pending
+  running
+  completed
+  failed
+  cancelled
 }
