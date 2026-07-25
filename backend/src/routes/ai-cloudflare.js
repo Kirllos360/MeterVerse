@@ -1,7 +1,9 @@
 import { Router } from "express"
 import { requirePermission, auditLog } from "../middleware/security.js"
+import { authenticate } from "../middleware/auth.js"
 
 const router = Router()
+router.use(authenticate)
 
 const CF_AI_URL = "https://api.cloudflare.com/client/v4/accounts"
 const CF_ACCOUNT_ID = "" // Extracted from token or set via env

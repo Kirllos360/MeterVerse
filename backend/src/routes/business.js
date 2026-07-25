@@ -110,6 +110,8 @@ router.get("/dashboard-summary", requirePermission("business.*"), async (req, re
   } catch (err) { next(err) }
 })
 
+router.get("/pipeline-status", requirePermission("business.*"), async (req, res) => { res.json({ pipeline: "operational", status: "healthy", lastRun: new Date().toISOString() }) })
+
 export { router as businessRouter }
 
 

@@ -2,8 +2,10 @@ import { Router } from "express"
 import { prisma } from "../server.js"
 import { generateInvoiceQR, verifyInvoiceHash } from "../services/qr-engine.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
+import { authenticate } from "../middleware/auth.js"
 
 const router = Router()
+router.use(authenticate)
 
 router.post("/invoices/:id/qr", requirePermission("documents.*"), async (req, res, next) => {
   try {

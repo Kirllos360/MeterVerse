@@ -114,4 +114,16 @@ router.get("/", requirePermission("payments.*"), async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
+router.get("/export", requirePermission("payments.list"), async (req, res, next) => {
+  try {
+    const items = await prisma.payment.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" }, take: 1000 })
+    const header = "id,customerId,amount,method,status,createdAt"
+    const rows = items.map(p => [p.id, p.customerId, p.amount, p.method, p.status, p.createdAt?.toISOString() || ""].join(","))
+    res.setHeader("Content-Type", "text/csv")
+    res.setHeader("Content-Disposition", "attachment; filename=payments.csv")
+    res.send([header, ...rows].join("\n"))
+    auditLog(req, "payment.export", { count: items.length })
+  } catch (err) { next(err) }
+})
+
 export { router as paymentsRouter }
