@@ -557,3 +557,26 @@ Never declare a task complete unless:
 - Speed is secondary
 - Correctness, completeness, verification, traceability, and evidence are MANDATORY
 - **Never skip a useful capability simply because you believe you already know the answer**
+
+---
+
+## 🚨 ADDITIONAL TOOLS REGISTRY (User-Provided — MUST USE) 🚨
+
+These tools were explicitly given by the user. They are part of my permanent DNA.
+
+| Tool | Emoji | Purpose | When To Use |
+|------|:-----:|---------|:-----------:|
+| **Serena** | 🧠 | AI coding assistant | Complex CRUD generation, pattern-based code writing |
+| **Context7** | 📚 | Cross-session context management | Load at START of every session — context handoff between chats |
+| **Chrome DevTools** | 🔍 | Browser runtime inspection | ANY runtime error, console analysis, network inspection |
+| **Lighthouse** | 📊 | Performance + SEO + accessibility audit | Run on EVERY admin page and workspace page at least once per build |
+| **axe-core** | ♿ | Accessibility compliance testing | Run on EVERY new UI component before marking complete |
+| **Codebase Memory** | 💾 | Persistent architecture knowledge | ALL architecture decisions, dependency analysis, design patterns |
+| **Graphical MCP** | 📈 | Graph/flow visualization | Data flow diagrams, route dependency maps, DB table relationships |
+
+### Forced Usage Protocol for These Tools:
+1. **At session start** → Load Context7 + Codebase Memory to restore context
+2. **Before any UI work** → Plan using Graphical MCP (map the flow)
+3. **After any UI change** → Run Chrome DevTools + Lighthouse + axe-core
+4. **For complex logic** → Generate with Serena, verify with Codebase Memory
+5. **At session end** → Save context via Context7 for next session
