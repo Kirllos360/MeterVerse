@@ -1072,6 +1072,19 @@ model GatewayLog {
   @@index([paymentTransactionId])
 }
 
+model CustomerLedgerEntry {
+  id          String   @id @default(uuid())
+  customerId  String
+  type        String
+  amount      Float
+  description String?
+  reference   String?
+  createdAt   DateTime @default(now())
+
+  @@index([customerId])
+  @@index([type])
+}
+
 model CustomerGroup {
   id          String         @id @default(uuid())
   name        String         @unique

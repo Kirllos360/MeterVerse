@@ -52,18 +52,6 @@ router.get("/:id", requirePermission("readings.list"), async (req, res, next) =>
   } catch (err) { next(err) }
 })
 
-router.post("/", requirePermission("readings.create"), async (req, res, next) => {
-  try {
-    const data = createSchema.parse(req.body)
-    const reading = await prisma.reading.create({ data })
-    auditLog(req, "reading.created", { readingId: reading.id })
-    res.status(201).json({ reading })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
-
 router.post("/bulk", requirePermission("readings.create"), async (req, res, next) => {
   try {
     const { readings: items } = req.body
