@@ -11,7 +11,13 @@ const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Typ
 const GET = (url) => fetch(`${BASE}${url}`, { headers: AUTH }).then(r => ({ status: r.status, body: r.json() }));
 const POST = (url, body) => fetch(`${BASE}${url}`, { method: 'POST', headers: AUTH, body: JSON.stringify(body) }).then(r => ({ status: r.status, body: r.json() }));
 
-describe('Contract Tests — Live Backend', () => {
+// Check if backend is reachable before running live tests
+const backendReady = await fetch('http://localhost:3002/api/health', { signal: AbortSignal.timeout(2000) })
+  .then(r => r.status === 200).catch(() => false);
+
+const describeFn = backendReady ? describe : describe.skip;
+
+describeFn('Contract Tests — Live Backend', () => {
 
   // ─── Health & Versioning ───
   it('GET /api/health — 200', async () => {
