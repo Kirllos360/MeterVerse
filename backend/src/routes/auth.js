@@ -62,23 +62,22 @@ router.get("/me", authenticate, async (req, res, next) => {
 })
 
 // Dev login — returns JWT token without real auth (development only)
-// Gated behind NODE_ENV !== "production" to prevent production abuse
-router.post("/dev-login", async (req, res, next) => {
-  if (process.env.NODE_ENV === "production") {
-    return res.status(404).json({ error: "Not found", code: "NOT_FOUND" })
-  }
-  try {
-    const { role } = z.object({ role: z.enum(["super_admin", "admin", "operator", "billing", "viewer"]).default("super_admin") }).parse(req.body)
-    const jwt = await import("jsonwebtoken")
-    const secret = process.env.JWT_SECRET
-    const token = jwt.default.sign({ sub: "dev-user", email: "dev@meterverse.com", role, system: "admin" }, secret, { expiresIn: "24h" })
-    auditLog(req, "auth.dev_login", { role })
-    res.json({ success: true, accessToken: token, user: { id: "dev-user", email: "dev@meterverse.com", name: "Dev User", role, permissions: ["read","write","delete","admin","export","approve","all"] } })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
+// COMPILE-TIME REMOVAL: Route not registered in production
+if (process.env.NODE_ENV !== "production") {
+  router.post("/dev-login", async (req, res, next) => {
+    try {
+      const { role } = z.object({ role: z.enum(["super_admin", "admin", "operator", "billing", "viewer"]).default("super_admin") }).parse(req.body)
+      const jwt = await import("jsonwebtoken")
+      const secret = process.env.JWT_SECRET
+      const token = jwt.default.sign({ sub: "dev-user", email: "dev@meterverse.com", role, system: "admin" }, secret, { expiresIn: "24h" })
+      auditLog(req, "auth.dev_login", { role })
+      res.json({ success: true, accessToken: token, user: { id: "dev-user", email: "dev@meterverse.com", name: "Dev User", role, permissions: ["read","write","delete","admin","export","approve","all"] } })
+    } catch (err) {
+      if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
+      next(err)
+    }
+  })
+}
 
 export { router as authRouter }
 

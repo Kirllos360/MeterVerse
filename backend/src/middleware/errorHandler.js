@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid"
 import { Prisma } from "@prisma/client"
+import logger from "../services/logger.js"
 
 const ERROR_CODES = {
   400: "BAD_REQUEST",
@@ -62,10 +63,9 @@ export function errorHandler(err, req, res, next) {
   if (status >= 500) body.retryable = true
 
   if (status >= 500) {
-    const isDev = process.env.NODE_ENV !== "production"
-    console.error(`[ERROR ${correlationId}] ${isDev ? err.stack : err.message}`)
+    logger.error({ err, correlationId, status }, `Error ${correlationId}: ${err.message}`)
   } else if (status >= 400) {
-    console.warn(`[WARN ${correlationId}] ${status} ${message}`)
+    logger.warn({ correlationId, status, message }, `Warn ${correlationId}: ${status} ${message}`)
   }
 
   res.status(status).json(body)

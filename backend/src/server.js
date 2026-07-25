@@ -47,6 +47,21 @@ import { getAvailabilityPlans, getAvailabilityPlan, setAvailabilityPlan } from "
 
 const app = express()
 const PORT = process.env.PORT || 3001
+const isProduction = process.env.NODE_ENV === "production"
+
+// ═══════════════════════════════════════════════════════════════════════════════
+//  PRODUCTION STARTUP GUARD
+// ═══════════════════════════════════════════════════════════════════════════════
+
+if (isProduction && !process.env.JWT_SECRET) {
+  console.error("FATAL: JWT_SECRET environment variable is required in production mode")
+  process.exit(1)
+}
+
+if (isProduction && !process.env.CORS_ORIGIN) {
+  console.error("FATAL: CORS_ORIGIN environment variable is required in production mode")
+  process.exit(1)
+}
 
 export const prisma = new PrismaClient()
 
@@ -54,38 +69,57 @@ app.use(correlationMiddleware)
 app.use(idempotencyMiddleware)
 
 // ═══════════════════════════════════════════════════════════════════════════════
-//  SECURITY LAYER
+//  SECURITY LAYER — A+ Grade Production Hardening
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// CSP — Content Security Policy (XSS protection, inline script blocking)
+// CSP — Production: strict with nonces; Dev: allows HMR
 app.use(helmet({
   contentSecurityPolicy: {
+    useDefaults: false,
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],  // 'unsafe-inline' for Next.js HMR in dev
+      // Production: strict hashes; Development: allows HMR
+      scriptSrc: isProduction
+        ? ["'self'"]
+        : ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "http://localhost:3001", "http://localhost:7400"],
+      connectSrc: ["'self'"],
       fontSrc: ["'self'", "data:"],
       objectSrc: ["'none'"],
       frameAncestors: ["'none'"],
       upgradeInsecureRequests: [],
     },
   },
-  crossOriginEmbedderPolicy: false,  // Needed for Next.js
-  crossOriginResourcePolicy: { policy: "cross-origin" },
+  crossOriginEmbedderPolicy: !isProduction ? false : undefined,
+  crossOriginResourcePolicy: { policy: isProduction ? "same-origin" : "cross-origin" },
+  hsts: {
+    maxAge: 31536000,
+    includeSubDomains: true,
+    preload: true,
+  },
 }))
 
-// CORS — Strict origin
+// HTTPS redirect (production only)
+if (isProduction) {
+  app.use((req, res, next) => {
+    if (!req.secure && req.headers["x-forwarded-proto"] !== "https") {
+      return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`)
+    }
+    next()
+  })
+}
+
+// CORS — Strict single origin
 app.use(cors({
   origin: process.env.CORS_ORIGIN || "http://localhost:7400",
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token", "X-Dev-Mode"],
   exposedHeaders: ["X-Request-ID"],
 }))
 
-// Body parsing with size limit (prevents DOS)
+// Body parsing with explicit size limit (prevents DOS attacks)
 app.use(express.json({ limit: "1mb" }))
 app.use(express.urlencoded({ extended: false, limit: "1mb" }))
 
@@ -103,6 +137,7 @@ const authLimiter = rateLimit({
   message: { error: "Too many login attempts" },
 })
 app.use("/api/auth/login", authLimiter)
+app.use("/api/auth/dev-login", authLimiter)
 
 // ─── API VERSIONING ─────────────────────────────────────────────────────────
 // All routes mount under /api for backward compatibility

@@ -8,7 +8,8 @@ if (!JWT_SECRET) {
 
 export function authenticate(req, res, next) {
   // Dev bypass: allow requests with X-Dev-Mode header (development only)
-  if (req.headers["x-dev-mode"] === "true" && process.env.NODE_ENV !== "production") {
+  // Requires NODE_ENV != production AND JWT_SECRET must be explicitly set for dev
+  if (req.headers["x-dev-mode"] === "true" && process.env.NODE_ENV !== "production" && process.env.JWT_SECRET) {
     req.user = { sub: "dev-user", email: "dev@meterverse.com", role: "super_admin", system: "admin" }
     return next()
   }

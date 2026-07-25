@@ -61,7 +61,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
   filename: (req, file, cb) => cb(null, `${Date.now()}-${crypto.randomBytes(4).toString("hex")}-${file.originalname.replace(/[^a-zA-Z0-9._-]/g, "_")}`),
 })
-const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 }, fileFilter: (req, file, cb) => {
+const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024, files: 1 }, fileFilter: (req, file, cb) => {
   if (ALLOWED_MIME_TYPES.has(file.mimetype)) cb(null, true)
   else cb(new Error(`File type '${file.mimetype}' not allowed`))
 }})
