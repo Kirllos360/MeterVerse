@@ -1,6 +1,6 @@
 # Complete Task Audit: old_tasks.md vs Actual Implementation
 
-> **Generated**: 2026-07-24 | **Last Updated**: 2026-07-25
+> **Generated**: 2026-07-24 | **Last Updated**: 2026-07-25 (final)
 > **Codebase**: `D:\meter` (backend: Express.js, frontend: Next.js 16)
 
 ---
@@ -20,6 +20,9 @@ Tasks that changed status since the original audit:
 | T066 | PARTIAL | ✅ **COMPLETE** | super_admin guard exists on reversal + CustomerLedgerEntry model added |
 | T017 | PARTIAL | ✅ **COMPLETE** | CustomerLedgerEntry model added to schema |
 | T047 | PARTIAL | ✅ **COMPLETE** | Duplicate POST handler removed, readings route clean |
+| T039 | MISSING | ✅ **COMPLETE** | Meter assignment workflow page added to admin sidebar |
+| T040 | MISSING | ✅ **COMPLETE** | Meter termination + replacement workflow built |
+| T041 | MISSING | ✅ **COMPLETE** | SIM cooldown + reuse eligibility UI in admin |
 
 ---
 
@@ -55,14 +58,18 @@ Tasks that changed status since the original audit:
 - [x] T024 — Contract test terminateMeter ✅ TESTED
 - [x] T025 — Integration test assignment conflict ✅ TESTED
 - [x] T026 — Integration test SIM reuse ✅ TESTED
+- [ ] T027 — Projects module — PARTIAL (CRUD exists, needs enhancement)
 - [x] T028 — Locations module (Zone + Unit CRUD) ✅ TESTED
+- [ ] T029 — Customers module + CustomerUnitAssignment — PARTIAL (Unit model exists, needs assignment UI)
 - [x] T030 — Meters CRUD + lifecycle ✅ TESTED
+- [x] T031 — SIM module (CRUD + eligibility) ✅ TESTED
 - [x] T032 — Assignment command ✅ TESTED
 - [x] T033 — Termination command ✅ TESTED
-- [x] T035 — Projects + Locations API migration ✅ TESTED
-- [x] T036 — Customers API migration ✅ TESTED
+- [x] T034 — Dashboard summary endpoints ✅ TESTED
+- [ ] T035 — Projects + Locations FE — PARTIAL (admin pages exist)
+- [ ] T036 — Customers FE — PARTIAL (GenericAdminPage table)
 - [x] T037 — Dashboard KPI backend ✅ TESTED
-- [x] T038 — Meters + SIM API migration ✅ TESTED
+- [ ] T038 — Meters + SIM FE — PARTIAL (GenericAdminPage table)
 - [x] T039 — Meter assignment workflow ✅ TESTED
 - [x] T040 — Meter replacement + termination ✅ TESTED
 - [x] T041 — SIM cooldown + reuse UI ✅ TESTED
