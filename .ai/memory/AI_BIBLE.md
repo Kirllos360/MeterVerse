@@ -454,3 +454,106 @@ After every task, log to `configs/tool-usage-log.json`:
 | 2026-07-23 | 8 | Tool Usage Audit Trail — log every tool invocation after each task |
 | 2026-07-23 | 9 | Planning OS Freeze — implementation priority, sequential execution |
 | 2026-07-23 | 10 | Tool Activation & Self-Improvement Mandate — always use full tool spectrum, acquire missing tools, continuous self-improvement cycle |
+| 2026-07-25 | 11 | Enterprise AI Operating Protocol — 9-phase mandatory workflow (Understand → Discover → Select → Collect → Plan → Implement → Validate → Audit → Complete) + Anti-Hallucination Rules + Tool Usage Policy + Quality Standard |
+
+---
+
+## 🚨 RULE 11 — ENTERPRISE AI OPERATING PROTOCOL (MANDATORY — OVERRIDES ALL) 🚨
+
+**This protocol is the TOP-LEVEL workflow. Every task MUST follow these 9 phases in order. No skipping. No shortcuts.**
+
+### Phase 1 — Understand
+- Read the complete request
+- Determine the user's actual objective
+- Identify assumptions and missing information
+- Break the task into logical phases
+- **Never begin implementation before understanding the request**
+
+### Phase 2 — Capability Discovery
+Before doing any work, discover EVERY available capability:
+- Every available tool (read, edit, write, bash, glob, grep, task, todowrite, webfetch, question, skill)
+- Every available MCP (sequential-thinking, playwright, postgres, memory, filesystem, git)
+- Every available memory source (AI_BIBLE.md, PROJECT_STATE.md, CURRENT_SPRINT.md)
+- Every available execution environment (Node.js, Java 21, Docker, PostgreSQL)
+- Every available browser capability (Playwright)
+- Every available testing capability (vitest, Playwright)
+- **Never assume a capability does not exist — always check**
+
+### Phase 3 — Capability Selection
+For every discovered capability, evaluate:
+- Does it improve accuracy? Code quality? Reduce hallucination?
+- Does it inspect the codebase? Execute code? Test functionality?
+- Does it validate security? Performance? Architecture?
+- **If YES, use it. Never ignore an applicable capability.**
+
+### Phase 4 — Context Collection
+Before modifying anything, collect context from every available source:
+- Project memory (AI_BIBLE.md, PROJECT_STATE.md)
+- Repository structure (file listing)
+- Architecture (route files, schema, services)
+- Dependencies (package.json)
+- Runtime state (running services, diagnostics)
+- Related files and implementations
+- **Do not continue until enough context exists**
+
+### Phase 5 — Planning
+- Create an implementation plan
+- Verify the plan for: missing steps, hidden dependencies, risks, edge cases, failure paths, rollback strategy
+- **Only after verification may implementation begin**
+
+### Phase 6 — Implementation
+- Perform only changes supported by collected evidence
+- **Do not guess. Do not invent APIs, functions, libraries, or behavior.**
+- Always verify against available information
+
+### Phase 7 — Validation
+After implementation, perform EVERY applicable validation:
+- Compilation (npx tsc --noEmit)
+- Type checking
+- Runtime inspection (curl endpoints)
+- Browser execution (Playwright)
+- Network inspection
+- Console inspection
+- Integration testing (vitest run)
+- End-to-end testing (Playwright)
+- **Use every available validation capability that applies**
+
+### Phase 8 — Self Audit
+Before answering, ask EVERY question:
+- Did I use every applicable capability?
+- Did I inspect every required context?
+- Did I verify every important assumption?
+- Did I validate the implementation?
+- Did I skip any verification?
+- Did I leave any risk unchecked?
+- **If any answer is YES, stop and complete the missing work**
+
+### Phase 9 — Completion Criteria
+Never declare a task complete unless:
+- All applicable capabilities have been used
+- All applicable validations have been executed
+- No critical errors remain
+- The implementation satisfies the request
+- The result has been verified
+- **Never claim success without evidence**
+
+---
+
+### Anti-Hallucination Rules
+- Never fabricate: APIs, files, commands, configurations, documentation, outputs, logs, test results, execution results, build results
+- If evidence is unavailable, state that verification could not be performed
+
+### Tool Usage Policy
+- Assume new capabilities may be installed at any time
+- Never hardcode capability names — always rediscover at beginning of every task
+- Prefer evidence over assumptions
+- Prefer execution over prediction
+- Prefer verification over confidence
+- If multiple capabilities perform similar work, use the one that provides the strongest evidence
+
+### Quality Standard
+- Goal is NOT to answer quickly
+- Goal is to produce the most reliable, complete, verified, enterprise-grade result possible
+- Speed is secondary
+- Correctness, completeness, verification, traceability, and evidence are MANDATORY
+- **Never skip a useful capability simply because you believe you already know the answer**
