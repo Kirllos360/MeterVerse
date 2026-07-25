@@ -22,7 +22,7 @@ router.get("/", requirePermission("meters.*"), async (req, res, next) => {
     const where = {}
     if (req.query.status) where.status = req.query.status
     const [sims, total] = await Promise.all([
-      prisma.sIMCard.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: { meter: { select: { meterId: true, type: true } } } }),
+      prisma.sIMCard.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: { meter: { select: { id: true, serial: true, type: true } } } }),
       prisma.sIMCard.count({ where }),
     ])
     res.json({ sims, total, page, limit })

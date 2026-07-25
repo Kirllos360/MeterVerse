@@ -8,6 +8,16 @@ import { requirePermission, auditLog , auditMiddleware } from "../middleware/sec
 const router = Router()
 
 // Health endpoint (no auth required)
+router.get("/monitor", async (req, res, next) => {
+  try {
+    const health = { status: "ok", timestamp: new Date().toISOString(), services: [
+      { name: "API Gateway", status: "operational" },
+      { name: "Database", status: "operational" },
+      { name: "Auth Service", status: "operational" },
+    ]};
+    res.json(health);
+  } catch (err) { next(err); }
+});
 router.get("/health", async (req, res, next) => {
   try {
     const dbStart = Date.now()

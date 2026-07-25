@@ -540,6 +540,8 @@ model Meter {
   readings         Reading[]
   meterAssignments MeterAssignment[]
   meterEvents      MeterEvent[]
+  simCards         SIMCard[]
+  simAssignments   SIMAssignment[]
 
 
   @@index([customerId])
