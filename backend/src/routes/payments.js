@@ -15,7 +15,7 @@ const paymentSchema = z.object({
   notes: z.string().optional(),
 })
 
-router.post("/payments", requirePermission("payments.*"), async (req, res, next) => {
+router.post("/", requirePermission("payments.*"), async (req, res, next) => {
   try {
     const data = paymentSchema.parse(req.body)
     const customer = await prisma.customer.findUnique({ where: { id: data.customerId } })
@@ -49,7 +49,7 @@ router.post("/payments", requirePermission("payments.*"), async (req, res, next)
   } catch (err) { next(err) }
 })
 
-router.post("/payments/:id/reverse", requirePermission("payments.*"), async (req, res, next) => {
+router.post("/:id/reverse", requirePermission("payments.*"), async (req, res, next) => {
   try {
     if (req.user?.role !== "super_admin") return res.status(403).json({ error: "Only super_admin can reverse payments" })
     const { reason } = z.object({ reason: z.string().min(1) }).parse(req.body)

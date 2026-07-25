@@ -9,6 +9,7 @@ router.use(authenticate)
 
 const tariffSchema = z.object({
   name: z.string().min(1),
+  code: z.string().min(1),
   type: z.enum(["Electricity", "Water", "Gas", "Solar", "BTU"]),
   status: z.enum(["active", "inactive"]).default("active"),
   effectiveFrom: z.string().optional(),

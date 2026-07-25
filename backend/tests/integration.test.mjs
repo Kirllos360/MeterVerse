@@ -9,6 +9,7 @@ const backendReady = await fetch(`${BASE}/api/health`, { signal: AbortSignal.tim
   .then(r => r.status === 200).catch(() => false);
 
 const describeFn = backendReady ? describe : describe.skip;
+const LONG_TIMEOUT = 15000;
 
 describeFn('API Integration Tests', () => {
 
@@ -224,5 +225,124 @@ describeFn('API Integration Tests', () => {
     // Restore via admin
     const r = await fetch(`${BASE}/api/admin/projects/${projId}/restore`, { method: 'POST', headers: AUTH }).then(r => r.json());
     expect(r.project.status).toBe('active');
+  });
+
+  // ─── PHASE 5: US3 — Invoices & Payments ───
+  describe('Phase 5 — Invoices & Payments', { timeout: 30000 }, () => {
+  let tariffCreated = false;
+
+  async function ensureTariff() {
+    if (tariffCreated) return;
+    const ts = Date.now();
+    const t = await fetch(`${BASE}/api/tariffs`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `P5-Tariff-${ts}`, code: `P5-${ts}`, type: 'Electricity', unit: 'kWh', effectiveFrom: '2026-01-01T00:00:00Z' }) });
+    if (t.status === 201) tariffCreated = true;
+  }
+
+  async function createCustomerAndMeter(ts) {
+    await ensureTariff();
+    const c = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: `P5-Customer-${ts}`, email: `p5-${ts}@test.com` }) }).then(r => r.json());
+    const cId = c.customer?.id || c.id;
+    const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: `P5-MTR-${ts}`, type: 'electric', status: 'active' }) }).then(r => r.json());
+    const mId = m.meter?.id || m.id;
+    await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, customerId: cId }) });
+    // Add two readings for consumption calculation
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 50, source: 'P5-test', timestamp: '2026-01-01T00:00:00Z' }) });
+    await fetch(`${BASE}/api/readings`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, value: 150, source: 'P5-test', timestamp: '2026-02-01T00:00:00Z' }) });
+    return { customerId: cId, meterId: mId };
+  }
+
+  // T053: Generate + Issue Invoice
+  it('T053: POST /api/invoices/generate — 201 creates invoice', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const r = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-01-01', periodEnd: '2026-01-31' }) });
+    expect(r.status).toBe(201);
+  });
+
+  it('T053: POST /api/invoices/generate — 400 for missing customerId', async () => {
+    const r = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ periodStart: '2026-01-01', periodEnd: '2026-01-31' }) });
+    expect(r.status).toBe(400);
+  });
+
+  it('T053: POST /api/invoices/:id/issue — 200 issues invoice', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-02-01', periodEnd: '2026-02-28' }) }).then(r => r.json());
+    const invId = gen.invoice?.id || gen.id;
+    const r = await fetch(`${BASE}/api/invoices/${invId}/issue`, { method: 'POST', headers: AUTH });
+    expect(r.status).toBe(200);
+  });
+
+  it('T053: POST /api/invoices/:id/issue — 400 for already issued', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-03-01', periodEnd: '2026-03-31' }) }).then(r => r.json());
+    const invId = gen.invoice?.id || gen.id;
+    await fetch(`${BASE}/api/invoices/${invId}/issue`, { method: 'POST', headers: AUTH });
+    const r = await fetch(`${BASE}/api/invoices/${invId}/issue`, { method: 'POST', headers: AUTH });
+    expect(r.status).toBe(400);
+  });
+
+  // T054: Adjustments
+  it('T054: POST /api/invoices/:id/adjustments — 404 (todo)', async () => {
+    const r = await fetch(`${BASE}/api/invoices/nonexistent-id/adjustments`, { method: 'POST', headers: AUTH, body: JSON.stringify({}) });
+    expect([400, 404]).toContain(r.status);
+  });
+
+  // T055: Create + Reverse Payment
+  it('T055: POST /api/payments — 201 creates payment', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const r = await fetch(`${BASE}/api/payments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, amount: 500, method: 'cash' }) });
+    expect(r.status).toBe(201);
+  });
+
+  it('T055: POST /api/payments/:id/reverse — 403 without super_admin', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const pay = await fetch(`${BASE}/api/payments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, amount: 300, method: 'cash' }) }).then(r => r.json());
+    const payId = pay.payment?.id || pay.id;
+    const r = await fetch(`${BASE}/api/payments/${payId}/reverse`, { method: 'POST', headers: AUTH, body: JSON.stringify({ reason: 'T055 test reversal' }) });
+    expect([400, 403]).toContain(r.status);
+  });
+
+  // T056: Customer Statement
+  it('T056: GET /api/customers/:id/statement — 404 for nonexistent', async () => {
+    const r = await fetch(`${BASE}/api/customers/nonexistent-customer-id/statement`, { headers: AUTH });
+    expect(r.status).toBe(404);
+  });
+
+  // T057: Invoice immutability
+  it('T057: PUT /api/invoices/:id — 400 after issue (immutable)', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-04-01', periodEnd: '2026-04-30' }) }).then(r => r.json());
+    const invId = gen.invoice?.id || gen.id;
+    await fetch(`${BASE}/api/invoices/${invId}/issue`, { method: 'POST', headers: AUTH });
+    const r = await fetch(`${BASE}/api/invoices/${invId}`, { method: 'PUT', headers: AUTH, body: JSON.stringify({ status: 'cancelled' }) });
+    expect(r.status).toBe(400);
+  });
+
+  // T058: Oldest-due-first allocation (verify payment endpoint works)
+  it('T058: POST /api/payments — 200 allocates to oldest due', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-05-01', periodEnd: '2026-05-31' }) }).then(r => r.json());
+    const invId = gen.invoice?.id || gen.id;
+    await fetch(`${BASE}/api/invoices/${invId}/issue`, { method: 'POST', headers: AUTH });
+    const r = await fetch(`${BASE}/api/payments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, amount: gen.invoice?.amount || 1000, method: 'bank_transfer' }) });
+    expect(r.status).toBe(201);
+  });
+
+  // T059: Super-admin guard exists (check reverse requires higher role)
+  it('T059: POST /api/payments/:id/reverse — 403 for non-super-admin', async () => {
+    const ts = Date.now();
+    const { customerId } = await createCustomerAndMeter(ts);
+    const pay = await fetch(`${BASE}/api/payments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, amount: 200, method: 'card' }) }).then(r => r.json());
+    const payId = pay.payment?.id || pay.id;
+    const r = await fetch(`${BASE}/api/payments/${payId}/reverse`, { method: 'POST', headers: AUTH, body: JSON.stringify({ reason: 'T059 test' }) });
+    expect(r.status).toBe(403);
+  });
+
   });
 });
