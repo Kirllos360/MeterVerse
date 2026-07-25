@@ -9,6 +9,7 @@ const CONFIG_TABS = [
   { id: "firebase", label: "Firebase Push", icon: "M12 2a10 10 0 0110 10c0 2-1 4-2 5M12 2a10 10 0 00-10 10c0 2 1 4 2 5" },
   { id: "symbiot", label: "Symbiot Connections", icon: "M4 7v10c2 0 3 1 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6" },
   { id: "api-keys", label: "API Keys", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
+  { id: "permissions", label: "Permissions", icon: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" },
 ]
 
 function ConfigForm({ title, fields, configKey, testEndpoint }: { title: string; fields: { name: string; label: string; type: string; placeholder?: string; required?: boolean }[]; configKey: string; testEndpoint?: string }) {
@@ -212,6 +213,89 @@ function SymbiotConnections() {
   )
 }
 
+function ThirdPartyPermissions() {
+  const [services, setServices] = useState<any[]>([])
+  const [perms, setPerms] = useState<Record<string, any>>({})
+  const [loading, setLoading] = useState(true)
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null)
+
+  const load = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/admin/permissions", { headers: { "X-Dev-Mode": "true" } })
+      const data = await res.json()
+      setServices(data.services || [])
+      setPerms(data.permissions || {})
+    } catch {}
+    setLoading(false)
+  }
+
+  useEffect(() => { load() }, [])
+
+  const toggle = async (serviceId: string, grant: boolean) => {
+    setMessage(null)
+    try {
+      const res = await fetch(`/api/admin/permissions/${serviceId}/${grant ? "grant" : "revoke"}`, {
+        method: "POST", headers: { "X-Dev-Mode": "true" },
+      })
+      const data = await res.json()
+      if (res.ok) { setPerms(data.permissions || {}); setMessage({ type: "success", text: data.message }) }
+      else setMessage({ type: "error", text: data.error })
+    } catch (e: any) { setMessage({ type: "error", text: e.message }) }
+  }
+
+  if (loading) return <div className="p-4 text-xs" style={{ color: "var(--text-tertiary)" }}>Loading permissions...</div>
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
+      <p className="text-xs mb-3" style={{ color: "var(--text-secondary)" }}>
+        Grant or revoke access for third-party services. Each service requires explicit admin approval before the system can use it. This prevents unauthorized external API calls.
+      </p>
+
+      {message && (
+        <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(220,38,38,0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+          {message.text}
+        </div>
+      )}
+
+      {services.map((svc) => {
+        const grant = perms[svc.id]
+        const isGranted = grant?.granted === true
+
+        return (
+          <div key={svc.id} className="flex items-center justify-between p-4 rounded-lg" style={{ backgroundColor: "var(--surface-base)", border: "1px solid var(--border-default)" }}>
+            <div className="flex items-center gap-3">
+              <span className="text-lg">{svc.icon}</span>
+              <div>
+                <div className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>{svc.label}</div>
+                <div className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{svc.description}</div>
+                {isGranted && (
+                  <div className="text-[10px] mt-0.5" style={{ color: "var(--text-secondary)" }}>
+                    Granted by {grant.grantedBy} — {new Date(grant.grantedAt).toLocaleDateString()}
+                  </div>
+                )}
+              </div>
+            </div>
+            <motion.button
+              onClick={() => toggle(svc.id, !isGranted)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative w-14 h-7 rounded-full transition-colors outline-none"
+              style={{ backgroundColor: isGranted ? "#059669" : "rgba(107,114,128,0.3)" }}
+            >
+              <motion.div
+                animate={{ x: isGranted ? 28 : 2 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="absolute top-1 w-5 h-5 rounded-full bg-white shadow-md"
+              />
+            </motion.button>
+          </div>
+        )
+      })}
+    </motion.div>
+  )
+}
+
 export function ConfigCenterPage() {
   const [activeTab, setActiveTab] = useState("smtp")
 
@@ -278,8 +362,10 @@ export function ConfigCenterPage() {
           ]} />
       )}
 
+      {activeTab === "permissions" && <ThirdPartyPermissions />}
+
       <div className="mt-6 p-4 rounded-lg text-xs" style={{ backgroundColor: "rgba(5,150,105,0.08)", border: "1px solid rgba(5,150,105,0.2)", color: "#059669" }}>
-        <strong>Note:</strong> All configuration values are stored encrypted in the database. SMTP/SMS/Firebase require external credentials to function. Symbiot connections can be tested individually per project.
+        <strong>⚠️ Security Layer:</strong> Every third-party service requires explicit admin approval before it can be used. Go to the <strong>Permissions</strong> tab to activate services. This prevents unauthorized external calls.
       </div>
     </div>
   )

@@ -1,7 +1,8 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requirePermission } from "../middleware/security.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
+import { savePermissions, getServicePermissions, ALL_SERVICES } from "../middleware/thirdPartyPermissions.js"
 import { z } from "zod"
 import crypto from "crypto"
 
@@ -120,6 +121,44 @@ router.post("/config/symbiot/test", requirePermission("admin.*"), async (req, re
       return res.status(400).json({ error: `Cannot reach ${connection.ip}:${connection.port} — ${e.message}` })
     }
   } catch (err) { res.status(500).json({ error: "Symbiot test failed" }) }
+})
+
+// ─── THIRD PARTY PERMISSION GRANTS (phone-app style) ────────────────
+
+router.get("/permissions", requirePermission("admin.*"), async (req, res) => {
+  const data = getServicePermissions()
+  res.json(data)
+})
+
+router.post("/permissions/:serviceId/grant", requirePermission("admin.*"), async (req, res, next) => {
+  try {
+    const svc = ALL_SERVICES.find(s => s.id === req.params.serviceId)
+    if (!svc) return res.status(404).json({ error: "Unknown service" })
+
+    const setting = await prisma.systemSetting.findUnique({ where: { key: "third_party_permissions" } })
+    const perms = setting?.value ? JSON.parse(setting.value) : {}
+
+    perms[req.params.serviceId] = {
+      granted: true,
+      grantedBy: req.user?.email || "unknown",
+      grantedAt: new Date().toISOString(),
+    }
+
+    await savePermissions(perms)
+    auditLog(req, "permission.granted", { service: req.params.serviceId, grantedBy: req.user?.email })
+    res.json({ message: `${svc.label} permission granted.`, permissions: perms })
+  } catch (err) { next(err) }
+})
+
+router.post("/permissions/:serviceId/revoke", requirePermission("admin.*"), async (req, res, next) => {
+  try {
+    const setting = await prisma.systemSetting.findUnique({ where: { key: "third_party_permissions" } })
+    const perms = setting?.value ? JSON.parse(setting.value) : {}
+    perms[req.params.serviceId] = { granted: false, grantedBy: null, grantedAt: null }
+    await savePermissions(perms)
+    auditLog(req, "permission.revoked", { service: req.params.serviceId })
+    res.json({ message: `Permission revoked.`, permissions: perms })
+  } catch (err) { next(err) }
 })
 
 export { router as configRouter }
