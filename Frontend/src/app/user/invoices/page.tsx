@@ -1,8 +1,8 @@
 "use client"
 
-import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
+import { ListGridPage } from "@/features/grid/ListGridPage"
 import { pageConfigs } from "@/admin/tables/page-configs"
 
 export default function AdminInvoicesPage() {
-  return <GenericAdminPage config={pageConfigs["invoices"]} />
+  return <ListGridPage config={pageConfigs["invoices"]} />
 }

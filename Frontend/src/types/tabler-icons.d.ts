@@ -37,9 +37,11 @@ declare module "@tabler/icons-react" {
   export const IconDeviceLaptop: Icon
   export const IconDots: Icon
   export const IconDotsVertical: Icon
+  export const IconDownload: Icon
   export const IconEdit: Icon
   export const IconExternalLink: Icon
   export const IconEyeOff: Icon
+  export const IconFilter: Icon
   export const IconFile: Icon
   export const IconFileText: Icon
   export const IconFileTypeDoc: Icon
@@ -52,8 +54,11 @@ declare module "@tabler/icons-react" {
   export const IconInfoCircle: Icon
   export const IconItalic: Icon
   export const IconLayoutDashboard: Icon
+  export const IconLayoutGrid: Icon
   export const IconLayoutKanban: Icon
+  export const IconLayoutList: Icon
   export const IconLayoutSidebar: Icon
+  export const IconList: Icon
   export const IconLoader2: Icon
   export const IconLock: Icon
   export const IconLogin: Icon
