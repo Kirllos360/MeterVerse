@@ -14,16 +14,33 @@ const SYSTEM_TABS = [
   { id: "system", label: "System", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0" },
 ]
 
-const navGroups = [
+const ADMIN_ONLY_IDS = ["users", "settings", "tariffs", "audit", "monitoring", "projects", "zones", "database", "areas", "promotions", "api-management", "readings"]
+const USER_ONLY_IDS = ["accounting", "workspace", "upload", "add-data", "tracking", "sim-cards", "tickets", "info-guide"]
+
+const ALL_NAV_GROUPS = [
   { label: "Main", items: [
     { id: "home", label: "Home", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
     { id: "customers", label: "Customers", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
     { id: "meters", label: "Meters", icon: "M9 3l3-3m0 0l3 3m-3-3v12" },
     { id: "projects", label: "Projects", icon: "M4 8V4m0 0h4M4 4l5 5" },
+    { id: "database", label: "Database", icon: "M4 7v10c0 2 1.5 4 4 4h8c2.5 0 4-2 4-4V7c0-2-1.5-4-4-4H8c-2.5 0-4 2-4 4z" },
+    { id: "readings", label: "Readings", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" },
+  ]},
+  { label: "Workspace", items: [
+    { id: "workspace", label: "Workspace", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
+    { id: "upload", label: "Upload Center", icon: "M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5m0 0L7 8m5-5v12" },
+    { id: "add-data", label: "Add Data", icon: "M12 4v16m8-8H4" },
+    { id: "tracking", label: "Tracking", icon: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" },
+  ]},
+  { label: "Support", items: [
+    { id: "sim-cards", label: "SIM Cards", icon: "M9 3v2m6-2v2M9 7h6M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+    { id: "tickets", label: "Tickets", icon: "M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" },
+    { id: "info-guide", label: "Info & Guide", icon: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
   ]},
   { label: "Location", items: [
     { id: "zones", label: "Zones", icon: "M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
     { id: "units", label: "Units", icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" },
+    { id: "areas", label: "Areas", icon: "M21 12a9 9 0 11-18 0 9 9 0 0118 0zM3.6 9h16.8M3.6 15h16.8" },
   ]},
   { label: "Billing", items: [
     { id: "invoices", label: "Invoices", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586" },
@@ -37,6 +54,8 @@ const navGroups = [
     { id: "reports", label: "Reports", icon: "M9 17v-2m3 2v-4m3 4v-6" },
     { id: "monitoring", label: "Monitor", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z" },
     { id: "audit", label: "Audit", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" },
+    { id: "promotions", label: "Promotions", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
+    { id: "api-management", label: "API Management", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
   ]},
 ]
 
@@ -46,6 +65,7 @@ const PAGE_SUB_TABS: Record<string, { id: string; label: string }[]> = {
   invoices: [{ id: "", label: "Dashboard" }, { id: "analytics", label: "Analytics" }, { id: "settings", label: "Settings" }],
   settings: [{ id: "", label: "General" }, { id: "security", label: "Security" }, { id: "notifications", label: "Notifications" }],
   monitoring: [{ id: "", label: "Dashboard" }, { id: "events", label: "Events" }, { id: "logs", label: "Logs" }, { id: "apis", label: "APIs" }],
+  accounting: [{ id: "", label: "Dashboard" }, { id: "accounts", label: "Accounts" }, { id: "journal", label: "Journal" }, { id: "ledger", label: "Ledger" }, { id: "trial-balance", label: "Trial Balance" }],
 }
 
 const t = (lang: string, en: string, ar?: string) => lang === "ar" && ar ? ar : en
@@ -116,6 +136,13 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
     "--primary": brandColor,
     "--primary-foreground": "#FFFFFF",
   } as React.CSSProperties
+
+  const navGroups = ALL_NAV_GROUPS.map(group => ({
+    ...group,
+    items: group.items.filter(item =>
+      isGreen ? !ADMIN_ONLY_IDS.includes(item.id) : !USER_ONLY_IDS.includes(item.id)
+    ),
+  })).filter(group => group.items.length > 0)
 
   const goHome = () => setActivePage("home" as any)
   const subTabs = PAGE_SUB_TABS[activePage] || []

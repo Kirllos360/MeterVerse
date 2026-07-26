@@ -1162,5 +1162,35 @@ export const pageConfigs: Record<string, PageConfig> = {
     ],
     statsCards: [sc("Total", Icons.settings, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
   },
+  promotions: {
+    id: "promotions", title: "Promotions & Roles", description: "Manage promotions, discounts and user roles",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "Name", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "type", header: "Type", accessor: r => r.type, type: "badge", width: 120 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([
+      { name: "name", label: "Promotion Name", type: "text", required: true },
+      { name: "type", label: "Type", type: "select", options: [
+        { value: "discount", label: "Discount" }, { value: "role", label: "Role" },
+        { value: "promotion", label: "Promotion" },
+      ]},
+    ]),
+    statsCards: [sc("Total", Icons.pro, r=>r.length), sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
+  "api-management": {
+    id: "api-management", title: "API Management", description: "API keys, endpoints and usage monitoring",
+    apiEndpoint: "", statusField,
+    columns: [
+      { id: "name", header: "API Key", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "value", header: "Usage", accessor: r => r.value },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([
+      { name: "name", label: "Key Name", type: "text", required: true },
+    ]),
+    statsCards: [sc("Total", Icons.code, r=>r.length)],
+  },
 }
 

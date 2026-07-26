@@ -57,6 +57,27 @@
     animation: searchWave 3s ease-in-out infinite;
   }
 
+  /* Dark mode chart tooltip styling */
+  .dark .recharts-tooltip-wrapper .recharts-default-tooltip {
+    background-color: #1A1A1E !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 12px !important;
+  }
+  .dark .recharts-tooltip-wrapper .recharts-tooltip-label {
+    color: #F2F2F5 !important;
+  }
+  .dark .recharts-tooltip-wrapper .recharts-tooltip-item {
+    color: #F2F2F5 !important;
+  }
+  /* Fix chart container sizing — ensure charts fill their containers */
+  .recharts-responsive-container {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .recharts-wrapper {
+    width: 100% !important;
+  }
+
   /* Fix z-index stacking — ensure dropdowns are always on top */
   [data-radix-popper-content-wrapper], [role="menu"], [class*="DropdownMenu"], [class*="PopoverContent"] {
     z-index: 9999 !important;

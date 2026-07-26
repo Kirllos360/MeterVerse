@@ -10,6 +10,8 @@ export type AdminPage =
   | "config-sms" | "config-firebase" | "config-symbiot" | "config-api-keys"
   | "projects" | "zones" | "units" | "meter-assignments" | "consumption"
   | "batch-validation" | "statements" | "reports-v2" | "customers-cards" | "meters-relay"
+  | "accounting" | "workspace" | "upload" | "add-data" | "tracking" | "sim-cards"
+  | "tickets" | "info-guide" | "database" | "areas" | "promotions" | "api-management"
 
 interface AdminStore {
   activePage: AdminPage

@@ -25,7 +25,10 @@ const SettingsPage = dynamic(() => import("./settings/page"), { ssr: false })
 const RcaWorkspacePage = dynamic(() => import("./rca-workspace/page"), { ssr: false })
 const AiCommandCenterPage = dynamic(() => import("./ai-command-center/page"), { ssr: false })
 const AiOperationsPage = dynamic(() => import("./ai-operations/page"), { ssr: false })
-const AccountingPage = dynamic(() => import("./accounting/page"), { ssr: false })
+const DatabasePage = dynamic(() => import("./database/page"), { ssr: false })
+const AreasPage = dynamic(() => import("./areas/page"), { ssr: false })
+const PromotionsPage = dynamic(() => import("./promotions/page"), { ssr: false })
+const ApiManagementPage = dynamic(() => import("./api-management/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
@@ -50,7 +53,10 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   "rca-workspace": RcaWorkspacePage,
   "ai-command-center": AiCommandCenterPage,
   "ai-operations": AiOperationsPage,
-  accounting: AccountingPage,
+  database: DatabasePage,
+  areas: AreasPage,
+  promotions: PromotionsPage,
+  "api-management": ApiManagementPage,
 }
 
 export default function AdminSpaPage() {

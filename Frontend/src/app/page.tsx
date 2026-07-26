@@ -8,12 +8,28 @@ import dynamic from "next/dynamic"
 const CustomersPage = dynamic(() => import("@/app/admin/customers/page"), { ssr: false })
 const MetersPage = dynamic(() => import("@/app/admin/meters/page"), { ssr: false })
 const InvoicesPage = dynamic(() => import("@/app/admin/invoices/page"), { ssr: false })
+const AccountingPage = dynamic(() => import("@/app/accounting/page"), { ssr: false })
+const WorkspacePage = dynamic(() => import("@/app/workspace/page"), { ssr: false })
+const UploadPage = dynamic(() => import("@/app/upload/page"), { ssr: false })
+const AddDataPage = dynamic(() => import("@/app/add-data/page"), { ssr: false })
+const TrackingPage = dynamic(() => import("@/app/tracking/page"), { ssr: false })
+const SimCardsPage = dynamic(() => import("@/app/sim-cards/page"), { ssr: false })
+const TicketsPage = dynamic(() => import("@/app/tickets/page"), { ssr: false })
+const InfoGuidePage = dynamic(() => import("@/app/info-guide/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: () => <SystemDashboard brandColor="#059669" title="Dashboard" />,
   customers: CustomersPage,
   meters: MetersPage,
   invoices: InvoicesPage,
+  accounting: AccountingPage,
+  workspace: WorkspacePage,
+  upload: UploadPage,
+  "add-data": AddDataPage,
+  tracking: TrackingPage,
+  "sim-cards": SimCardsPage,
+  tickets: TicketsPage,
+  "info-guide": InfoGuidePage,
 }
 
 export default function RootPage() {
