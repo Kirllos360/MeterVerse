@@ -68,23 +68,39 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         </div>
       </motion.button>
 
-      {/* Search — Dynamic Island style */}
-      <div ref={searchContainerRef} className="relative flex-1 max-w-md mx-auto">
+      {/* Search — Dynamic Island with filters */}
+      <div ref={searchContainerRef} className="relative flex-1 max-w-lg mx-auto">
+        {/* Filter chips */}
+        <AnimatePresence>
+          {searchOpen && (
+            <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+              className="absolute -top-7 left-1 flex gap-1 z-10">
+              {["All", "Pages", "Tools"].map(f => (
+                <button key={f} onClick={() => {}}
+                  className="text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider transition-all"
+                  style={{ backgroundColor: f === "All" ? "var(--brand)" : "var(--toolbar-surface)", color: f === "All" ? "#FFFFFF" : "var(--text-tertiary)" }}>
+                  {f}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <motion.div
-          animate={{ width: searchOpen ? "100%" : "240px" }}
+          animate={{ width: searchOpen ? "100%" : "280px" }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           className="relative flex items-center"
-          style={{ backgroundColor: "var(--toolbar-surface)", borderRadius: "10px", border: searchOpen ? "1.5px solid var(--brand)" : "1px solid transparent" }}>
+          style={{ backgroundColor: effectiveDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)", borderRadius: "12px", border: searchOpen ? "1.5px solid var(--brand)" : "1px solid rgba(220,38,38,0.15)", boxShadow: searchOpen ? "0 0 20px rgba(220,38,38,0.08)" : "none" }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="absolute left-3 shrink-0" style={{ color: "var(--toolbar-muted)" }}><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
           <input ref={searchRef} value={searchQuery} onChange={e => { setSearchQuery(e.target.value); setSearchOpen(true) }} onFocus={() => setSearchOpen(true)}
-            placeholder="Search pages, tools, settings..." className="w-full bg-transparent outline-none text-xs py-2.5 pl-9 pr-3"
+            placeholder="Search pages, tools, settings..." className="w-full bg-transparent outline-none text-xs py-2.5 pl-9 pr-3 font-semibold"
             style={{ color: "var(--toolbar-text)" }} />
           {searchQuery && (
             <button onClick={() => { setSearchQuery(""); setSearchOpen(false) }} className="absolute right-2 text-[10px] p-1 rounded hover:bg-black/10 dark:hover:bg-white/10" style={{ color: "var(--toolbar-muted)" }}>✕</button>
           )}
         </motion.div>
 
-        {/* Search dropdown */}
+        {/* Search dropdown with filters inside */}
         <AnimatePresence>
           {searchOpen && filteredSearch.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, scale: 0.97 }}
