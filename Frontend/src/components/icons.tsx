@@ -149,6 +149,8 @@ export const Icons = {
 
   // Brand
   github: IconBrandGithub,
+  building: IconFolder,
+  map: IconTrendingUp,
   twitter: IconBrandTwitter,
   logo: IconCommand,
 
