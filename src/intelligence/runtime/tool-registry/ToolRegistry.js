@@ -1,5 +1,5 @@
 // Tool Registry — MCP-compatible tool registry for AI agents
-import logger from "../../../backend/src/services/logger.js"
+import logger from "../../../../backend/src/services/logger.js"
 
 class ToolRegistry {
   constructor() {
@@ -31,7 +31,7 @@ toolRegistry.register({
   name: "lookup_meter",
   description: "Look up meter details by serial number",
   async execute({ serial }) {
-    const { prisma } = await import("../../../backend/src/server.js")
+    const { prisma } = await import("../../../../backend/src/server.js")
     return prisma.meter.findUnique({ where: { serial }, include: { customer: true, readings: { take: 5, orderBy: { timestamp: "desc" } } } })
   },
 })
@@ -40,7 +40,7 @@ toolRegistry.register({
   name: "lookup_customer",
   description: "Look up customer by ID or name",
   async execute({ id, name }) {
-    const { prisma } = await import("../../../backend/src/server.js")
+    const { prisma } = await import("../../../../backend/src/server.js")
     if (id) return prisma.customer.findUnique({ where: { id }, include: { meters: true, invoices: { take: 10 } } })
     return prisma.customer.findFirst({ where: { name: { contains: name } }, include: { meters: true } })
   },
@@ -50,7 +50,7 @@ toolRegistry.register({
   name: "lookup_invoice",
   description: "Look up invoice by ID or customer ID",
   async execute({ id, customerId }) {
-    const { prisma } = await import("../../../backend/src/server.js")
+    const { prisma } = await import("../../../../backend/src/server.js")
     if (id) return prisma.invoice.findUnique({ where: { id }, include: { customer: true, items: true } })
     return prisma.invoice.findMany({ where: { customerId }, orderBy: { createdAt: "desc" }, take: 10 })
   },
@@ -60,7 +60,8 @@ toolRegistry.register({
   name: "lookup_similar_issues",
   description: "Find similar meter issues based on error pattern",
   async execute({ errorPattern, limit = 5 }) {
-    const { prisma } = await import("../../../backend/src/server.js")
+    const { prisma } = await import("../../../../backend/src/server.js")
     return prisma.meterEvent.findMany({ where: { description: { contains: errorPattern } }, take: limit, orderBy: { timestamp: "desc" }, include: { meter: { select: { serial: true, type: true } } } })
   },
 })
+

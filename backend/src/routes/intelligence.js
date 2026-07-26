@@ -1,9 +1,9 @@
 import { Router } from "express"
 import { z } from "zod"
-import { agentRuntime } from "../../src/intelligence/runtime/agent-engine/AgentRuntime.js"
-import { toolRegistry } from "../../src/intelligence/runtime/tool-registry/ToolRegistry.js"
-import { auditService } from "../../src/intelligence/runtime/audit-service/AuditService.js"
-import "../../src/intelligence/agents/RCAgent.js"
+import { agentRuntime } from "../../../src/intelligence/runtime/agent-engine/AgentRuntime.js"
+import { toolRegistry } from "../../../src/intelligence/runtime/tool-registry/ToolRegistry.js"
+import { auditService } from "../../../src/intelligence/runtime/audit-service/AuditService.js"
+import "../../../src/intelligence/agents/RCAgent.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission } from "../middleware/security.js"
 

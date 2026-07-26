@@ -1,5 +1,5 @@
 // Audit Service — Execution tracing for all AI operations
-import logger from "../../../backend/src/services/logger.js"
+import logger from "../../../../backend/src/services/logger.js"
 
 class AuditService {
   constructor() {
@@ -34,3 +34,4 @@ class AuditService {
 }
 
 export const auditService = new AuditService()
+

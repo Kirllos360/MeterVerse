@@ -1,5 +1,5 @@
 // Model Router — Provider-agnostic AI model abstraction
-import logger from "../../../backend/src/services/logger.js"
+import logger from "../../../../backend/src/services/logger.js"
 
 const PROVIDERS = {
   cloudflare: {
@@ -55,3 +55,4 @@ export class ModelRouter {
 }
 
 export const modelRouter = new ModelRouter()
+

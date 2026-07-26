@@ -1,5 +1,5 @@
 // Agent Runtime — Execution framework for AI agents
-import logger from "../../../backend/src/services/logger.js"
+import logger from "../../../../backend/src/services/logger.js"
 
 export class AgentRuntime {
   constructor(options = {}) {
@@ -56,3 +56,4 @@ export class AgentRuntime {
 }
 
 export const agentRuntime = new AgentRuntime()
+
