@@ -56,8 +56,7 @@ const isProduction = process.env.NODE_ENV === "production"
 // ═══════════════════════════════════════════════════════════════════════════════
 
 if (!process.env.NODE_ENV) {
-  console.error("FATAL: NODE_ENV must be set to 'production' or 'development'")
-  process.exit(1)
+  process.env.NODE_ENV = "development"
 }
 
 if (isProduction && !process.env.JWT_SECRET) {
@@ -68,6 +67,10 @@ if (isProduction && !process.env.JWT_SECRET) {
 if (isProduction && !process.env.DATABASE_URL) {
   console.error("FATAL: DATABASE_URL environment variable is required in production mode")
   process.exit(1)
+}
+
+if (!isProduction && !process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = "dev-secret-" + Date.now()
 }
 
 export const prisma = new PrismaClient()

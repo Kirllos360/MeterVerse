@@ -3,6 +3,10 @@ title MeterVerse
 cd /d "%~dp0.."
 call "%~dp0config.cmd"
 
+:: Set development environment (required by production guard)
+set NODE_ENV=development
+set JWT_SECRET=dev-secret-for-local-development
+
 call "%~dp0SafetyCheck.cmd" >nul 2>nul
 
 :: SAFE — only kills MeterVerse windows
@@ -20,7 +24,7 @@ if %errorlevel%==0 (
     timeout /t 8 /nobreak >nul
 )
 
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js"
+start "MeterVerse-Backend" cmd /c "set NODE_ENV=development && set JWT_SECRET=dev-secret && cd /d %~dp0..\backend && node src/server.js"
 echo Backend starting on port %BE_PORT%
 
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
