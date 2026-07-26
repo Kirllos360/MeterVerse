@@ -111,6 +111,8 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
     "--admin-surface": isLight ? "#F2F2F5" : "#222226",
     "--admin-border": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.08)",
     "--admin-accent": brandColor,
+    "--primary": brandColor,
+    "--primary-foreground": "#FFFFFF",
   } as React.CSSProperties
 
   const goHome = () => setActivePage("home" as any)

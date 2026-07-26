@@ -57,11 +57,19 @@
     animation: searchWave 3s ease-in-out infinite;
   }
 
+  /* Fix z-index stacking — ensure dropdowns are always on top */
+  [data-radix-popper-content-wrapper], [role="menu"], [class*="DropdownMenu"], [class*="PopoverContent"] {
+    z-index: 9999 !important;
+  }
+  .dropdown-content, [class*="select-content"] {
+    z-index: 9999 !important;
+  }
+
   /* Smooth scrollbar for all admin pages */
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(220,38,38,0.2); border-radius: 10px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(220,38,38,0.4); }
+  ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--brand) 30%, transparent); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--brand) 50%, transparent); }
 
   /* Hide scrollbar for sidebar */
   .scrollbar-none::-webkit-scrollbar { display: none; }
