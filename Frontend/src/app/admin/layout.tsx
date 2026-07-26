@@ -53,19 +53,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const effectiveDark = themeMode === "auto" ? !(hour >= 6 && hour < 18) : themeMode === "dark"
   const isLight = !effectiveDark
   const themeVars = {
-    "--brand": "#00BFA5", "--brand-rgb": "0,191,165",
-    "--surface-base": isLight ? "#F8FAFC" : "#0B1120",
-    "--surface-topbar": isLight ? "#FFFFFF" : "#0F1729",
-    "--surface-raised": isLight ? "#FFFFFF" : "#1A2332",
-    "--sidebar-background": isLight ? "#0F172A" : "#080E1A",
-    "--border-default": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)",
-    "--text-primary": isLight ? "#0F172A" : "#F1F5F9",
-    "--text-secondary": isLight ? "rgba(15,23,42,0.6)" : "rgba(241,245,249,0.6)",
-    "--text-tertiary": isLight ? "rgba(15,23,42,0.35)" : "rgba(241,245,249,0.35)",
-    "--toolbar-bg": isLight ? "rgba(255,255,255,0.85)" : "rgba(15,23,41,0.85)",
-    "--toolbar-border": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)",
-    "--toolbar-text": isLight ? "#0F172A" : "#F1F5F9",
-    "--toolbar-muted": isLight ? "rgba(15,23,42,0.35)" : "rgba(241,245,249,0.35)",
+    "--brand": "#DC2626", "--brand-rgb": "220,38,38",
+    "--surface-base": isLight ? "#FFFFFF" : "#1A1A1A",
+    "--surface-topbar": isLight ? "#FFFFFF" : "#1A1A1A",
+    "--surface-raised": isLight ? "#FFFFFF" : "#222222",
+    "--sidebar-background": isLight ? "#F5F5F5" : "#0D0D0D",
+    "--border-default": isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)",
+    "--text-primary": isLight ? "#1A1A1A" : "#FFFFFF",
+    "--text-secondary": isLight ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.6)",
+    "--text-tertiary": isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.35)",
+    "--toolbar-bg": isLight ? "rgba(255,255,255,0.9)" : "rgba(26,26,26,0.9)",
+    "--toolbar-border": isLight ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)",
+    "--toolbar-text": isLight ? "#1A1A1A" : "#FFFFFF",
+    "--toolbar-muted": isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.35)",
     "--toolbar-surface": isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.04)",
   } as React.CSSProperties
 
@@ -73,25 +73,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div style={{ ...themeVars, backgroundColor: "var(--surface-base)" }} dir={lang === "ar" ? "rtl" : "ltr"} className="h-screen w-screen overflow-hidden flex flex-col">
       <AdminToolbar activePage={activePage} onToggleInspector={() => setInspectorOpen(!inspectorOpen)} themeMode={themeMode} onCycleTheme={cycleTheme} effectiveDark={effectiveDark} lang={lang} onToggleLang={toggleLang} />
       <div className="flex flex-1 min-h-0 overflow-hidden">
-        {/* Sidebar — n8n-style dark palette */}
-        <motion.div animate={{ width: sidebarCollapsed ? 56 : 220 }} className="shrink-0 flex flex-col overflow-hidden" style={{ backgroundColor: "var(--sidebar-background)", borderRight: "1px solid rgba(255,255,255,0.06)" }}>
-          <div className="flex-1 overflow-y-auto py-4 px-2.5 space-y-5 scrollbar-thin">
+        {/* Sidebar */}
+        <motion.div animate={{ width: sidebarCollapsed ? 52 : 200 }} className="shrink-0 flex flex-col overflow-hidden" style={{ backgroundColor: "var(--sidebar-background)", borderRight: "1px solid var(--border-default)" }}>
+          <div className="flex-1 overflow-y-auto py-3 px-2 space-y-4 scrollbar-thin">
             {navGroups.map(group => (
               <div key={group.label}>
-                {!sidebarCollapsed && <p className="text-[9px] font-semibold uppercase tracking-[0.12em] px-2.5 mb-1.5" style={{ color: "rgba(255,255,255,0.35)" }}>{group.label}</p>}
+                {!sidebarCollapsed && <p className="text-[10px] font-semibold uppercase tracking-wider px-2 mb-1" style={{ color: "var(--text-tertiary)" }}>{group.label}</p>}
                 <div className="space-y-0.5">
                   {group.items.map(item => {
                     const isActive = activePage === item.id
                     return (
-                      <motion.button key={item.id} onClick={() => setActivePage(item.id as any)}
-                        className="flex items-center w-full rounded-md text-xs outline-none relative"
-                        style={{ padding: sidebarCollapsed ? "9px 7px" : "6px 10px", color: isActive ? "#FFFFFF" : "rgba(255,255,255,0.45)" }}>
-                        {isActive && <motion.div layoutId="activeNav" className="absolute left-0 top-0.5 bottom-0.5 w-0.5 rounded-full" style={{ backgroundColor: "var(--brand)" }} />}
-                        <motion.div className="absolute inset-0 rounded-md" initial={false} animate={{ backgroundColor: isActive ? "rgba(255,255,255,0.08)" : "transparent" }} transition={{ duration: 0.15 }} />
-                        {!isActive && <div className="absolute inset-0 rounded-md hover:bg-white/[0.04] transition-colors" />}
+                        <motion.button key={item.id} onClick={() => setActivePage(item.id as any)}
+                          className="flex items-center w-full rounded text-xs outline-none relative"
+                          style={{ padding: sidebarCollapsed ? "9px 7px" : "6px 10px", color: isActive ? "var(--brand)" : "var(--text-secondary)" }}>
+                          {isActive && <motion.div layoutId="activeNav" className="absolute left-0 top-0.5 bottom-0.5 w-0.5 rounded" style={{ backgroundColor: "var(--brand)" }} />}
+                          <motion.div className="absolute inset-0 rounded" initial={false} animate={{ backgroundColor: isActive ? "rgba(var(--brand-rgb),0.08)" : "transparent" }} transition={{ duration: 0.15 }} />
+                          {!isActive && <div className="absolute inset-0 rounded hover:bg-black/[0.03] dark:hover:bg-white/[0.04] transition-colors" />}
                         <span className="relative z-10 flex items-center gap-2.5">
                           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="shrink-0"><path d={item.icon} /></svg>
-                          {!sidebarCollapsed && <span className="truncate text-[11px] font-medium">{t(lang, item.label)}</span>}
+                          {!sidebarCollapsed && <span className="truncate text-xs font-medium">{t(lang, item.label)}</span>}
                         </span>
                       </motion.button>
                     )
@@ -100,7 +100,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </div>
             ))}
           </div>
-          <motion.button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} className="flex items-center justify-center py-2.5 shrink-0" style={{ borderTop: "1px solid rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.35)" }}>
+          <motion.button onClick={() => setSidebarCollapsed(!sidebarCollapsed)} className="flex items-center justify-center py-2 shrink-0" style={{ borderTop: "1px solid var(--border-default)", color: "var(--text-tertiary)" }}>
             <motion.svg animate={{ rotate: sidebarCollapsed ? 180 : 0 }} width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="15 18 9 12 15 6" /></motion.svg>
           </motion.button>
         </motion.div>

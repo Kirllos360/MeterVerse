@@ -23,7 +23,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
       {/* Logo + Breadcrumb */}
       <div className="flex items-center gap-3 text-sm min-w-0 shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: "var(--admin-accent)", boxShadow: "0 0 12px rgba(var(--brand-rgb),0.35)" }}>
+          <div className="w-7 h-7 rounded flex items-center justify-center shrink-0" style={{ backgroundColor: "var(--admin-accent)", boxShadow: "0 0 8px rgba(var(--brand-rgb),0.3)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
           <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--toolbar-text)" }}>MeterVerse</span>

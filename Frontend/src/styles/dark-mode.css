@@ -48,8 +48,8 @@ html.dark {
   --text-secondary: oklch(0.65 0.01 160);
   --text-tertiary: oklch(0.45 0.01 160);
   --border-default: oklch(1 0 0 / 10%);
-  --brand-primary: #00BFA5;
-  --brand-primary-rgb: 0, 191, 165;
+  --brand-primary: #DC2626;
+  --brand-primary-rgb: 220, 38, 38;
   --white-rgb: 255, 255, 255;
   --black-rgb: 0, 0, 0;
   --status-success: #059669;
@@ -64,10 +64,10 @@ html.dark {
   --surface-pop: oklch(0.2 0.02 160);
   --text-disabled: oklch(0.35 0.01 160);
 
-  /* Dark mode: neutral sidebar (no brand tint) */
-  --sidebar-background: oklch(0.1 0 0);
-  --sidebar-border: rgba(255, 255, 255, 0.04);
-  --sidebar-active: rgba(255, 255, 255, 0.08);
+  /* Dark mode: dark sidebar with red brand accent */
+  --sidebar-background: #0D0D0D;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-active: rgba(220, 38, 38, 0.12);
   --sidebar-selected: var(--brand);
 
   /* Dark mode: neutral inspector (no brand tint) */

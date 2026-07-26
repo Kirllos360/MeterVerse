@@ -55,9 +55,9 @@ body {
   --icon-md: 20px;
   --icon-lg: 24px;
 
-  /* ─── Brand (Minimal Palette) ────────────────────── */
-  --brand: #00BFA5;
-  --brand-rgb: 0, 191, 165;
+  /* ─── Brand (Red Palette) ────────────────────────── */
+  --brand: #DC2626;
+  --brand-rgb: 220, 38, 38;
   --brand-hover: color-mix(in srgb, var(--brand) 85%, black);
 
   /* ─── Neutral Surface Tokens ─────────────────────── */
@@ -119,23 +119,23 @@ body {
   --sidebar-count-text: rgba(255, 255, 255, 0.35);
 
   /* ─── Admin Panel Tokens ─────────────────────────── */
-  --admin-background: #0F172A;
-  --admin-surface: #1E293B;
-  --admin-border: #334155;
-  --admin-text: #F8FAFC;
-  --admin-text-muted: rgba(248, 250, 252, 0.5);
-  --admin-text-dim: rgba(248, 250, 252, 0.25);
+  --admin-background: #1A1A1A;
+  --admin-surface: #222222;
+  --admin-border: #333333;
+  --admin-text: #FFFFFF;
+  --admin-text-muted: rgba(255, 255, 255, 0.5);
+  --admin-text-dim: rgba(255, 255, 255, 0.25);
   --admin-accent: var(--brand);
   --admin-accent-muted: rgba(var(--brand-rgb), 0.5);
-  --admin-accent-subtle: rgba(var(--brand-rgb), 0.15);
+  --admin-accent-subtle: rgba(var(--brand-rgb), 0.12);
 
   /* ─── Admin Panel — Light Mode ──────────────────── */
-  --admin-background-light: #F8FAFC;
-  --admin-surface-light: #FFFFFF;
-  --admin-border-light: rgba(0, 0, 0, 0.06);
-  --admin-text-light: #0F172A;
-  --admin-text-muted-light: rgba(15, 23, 42, 0.5);
-  --admin-text-dim-light: rgba(15, 23, 42, 0.25);
+  --admin-background-light: #FFFFFF;
+  --admin-surface-light: #F5F5F5;
+  --admin-border-light: rgba(0, 0, 0, 0.08);
+  --admin-text-light: #1A1A1A;
+  --admin-text-muted-light: rgba(0, 0, 0, 0.5);
+  --admin-text-dim-light: rgba(0, 0, 0, 0.25);
 
   /* ─── Inspector Tokens ───────────────────────────── */
   --inspector-background: #005241;

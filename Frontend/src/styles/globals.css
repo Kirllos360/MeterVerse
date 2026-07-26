@@ -34,11 +34,11 @@
   .dark tr:hover, .dark [role="row"]:hover {
     background-color: rgba(255,255,255,0.03);
   }
-  /* Input focus ring — brand teal */
+  /* Input focus ring — brand red */
   input:focus, textarea:focus, select:focus {
     outline: none !important;
-    box-shadow: 0 0 0 2px rgba(0,191,165,0.2) !important;
-    border-color: rgba(0,191,165,0.4) !important;
+    box-shadow: 0 0 0 2px rgba(220,38,38,0.15) !important;
+    border-color: rgba(220,38,38,0.3) !important;
   }
   /* Consistent spacing for admin content areas */
   main, [class*="p-6"], [class*="space-y-6"] {
