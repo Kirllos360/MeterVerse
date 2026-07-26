@@ -1,40 +1,28 @@
 "use client"
 
-import { useEffect } from "react"
-import { useWorkspaceStore } from "@/workspace/stores"
-import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
-import { WorkspaceLayout } from "@/workspace/components/WorkspaceLayout"
-import { WorkspaceTabs } from "@/workspace/components/WorkspaceTabs"
-import { SidebarContent } from "@/workspace/components/SidebarContent"
-import { ToolbarContent } from "@/workspace/components/ToolbarContent"
-import { StatusBarContent } from "@/workspace/components/StatusBarContent"
-import { ContextPanel } from "@/workspace/components/ContextPanel"
-import { WorkspaceContent } from "@/workspace/components/WorkspaceContent"
-import AdminLoginPage from "@/app/login/page"
-import { AmbientBackground } from "@/components/effects/AmbientBackground"
-export default function HomePage() {
-  const { isAuthenticated } = useAuthRuntime()
-  const { inspectorOpen, setInspectorOpen } = useWorkspaceStore()
+import SystemLayout from "@/admin/layout/SystemLayout"
+import SystemDashboard from "@/admin/dashboard/SystemDashboard"
+import { useAdminStore } from "@/stores/admin-store"
+import dynamic from "next/dynamic"
 
-  useEffect(() => { setInspectorOpen(true) }, [])
+const CustomersPage = dynamic(() => import("@/app/admin/customers/page"), { ssr: false })
+const MetersPage = dynamic(() => import("@/app/admin/meters/page"), { ssr: false })
+const InvoicesPage = dynamic(() => import("@/app/admin/invoices/page"), { ssr: false })
 
-  if (!isAuthenticated) {
-    return <AdminLoginPage />
-  }
-
-  return (
-    <>
-      <AmbientBackground />
-            <WorkspaceLayout
-      sidebarContent={<SidebarContent />}
-      toolbarContent={<ToolbarContent onToggleInspector={() => setInspectorOpen(!inspectorOpen)} />}
-      tabBar={<WorkspaceTabs />}
-      statusBar={<StatusBarContent />}
-      inspectorContent={<ContextPanel />}
-    >
-      <WorkspaceContent />
-    </WorkspaceLayout>
-    </>
-  )
+const pageMap: Record<string, React.ComponentType<any>> = {
+  home: () => <SystemDashboard brandColor="#059669" title="Dashboard" />,
+  customers: CustomersPage,
+  meters: MetersPage,
+  invoices: InvoicesPage,
 }
 
+export default function RootPage() {
+  const activePage = useAdminStore((s) => s.activePage)
+  const PageComponent = pageMap[activePage] || pageMap.home
+
+  return (
+    <SystemLayout theme="green" title="Dashboard">
+      <PageComponent />
+    </SystemLayout>
+  )
+}
