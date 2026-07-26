@@ -430,6 +430,22 @@ export const pageConfigs: Record<string, PageConfig> = {
     fields: defFields([]),
     statsCards: [],
   },
+  "ai-command-center": {
+    id: "ai-command-center", title: "AI Command Center", description: "Enterprise AI Command Center — agents, RCA, knowledge graph",
+    apiEndpoint: "/api/ai/models",
+    serverSide: false, statusField,
+    transform: (d: any) => (d.models || []).map((m: any) => ({
+      id: m.id || m.name, name: m.name || m.model || "AI Agent",
+      status: m.status || "active", type: m.type || "model",
+    })),
+    columns: [
+      { id: "name", header: "Agent", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "type", header: "Type", accessor: r => r.type, type: "badge", width: 100 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+    ],
+    fields: defFields([]),
+    statsCards: [sc("Active", Icons.circleCheck, r=>r.filter(x=>x.status==="active").length)],
+  },
   "ai-diagnostics": {
     id: "ai-diagnostics", title: "AI Diagnostics", description: "AI agent health checks and diagnostics",
     apiEndpoint: "/api/admin/ai-diagnostics",
