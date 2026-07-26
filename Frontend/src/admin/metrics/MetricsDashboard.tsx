@@ -13,8 +13,8 @@ export function MetricsDashboard() {
       setMetrics([
         { label: "Users", value: String(m.users || m.totalUsers || "—"), color: "var(--brand)" },
         { label: "Meters", value: String(m.meters || m.totalMeters || "—"), color: "#3B82F6" },
-        { label: "Readings", value: String(m.readings || m.totalReadings || "—"), color: "#22C55E" },
-        { label: "Uptime", value: m.uptime || "—", color: "#22C55E" },
+        { label: "Readings", value: String(m.readings || m.totalReadings || "—"), color: "#DC2626" },
+        { label: "Uptime", value: m.uptime || "—", color: "#DC2626" },
       ])
     }).catch(() => {})
   }, [])

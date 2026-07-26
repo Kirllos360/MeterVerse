@@ -14,13 +14,9 @@ const QUICK_ACTIONS = [
 const STORAGE_KEY_TASKS = "mv-inspector-tasks"
 const STORAGE_KEY_NOTES = "mv-inspector-notes"
 
-const waveAnim = {
-  scale: [1, 1.06, 1],
-  opacity: [0.7, 1, 0.7],
-  transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" }
-}
+const waveAnim = { scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
 
-export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boolean; onToggleCollapse?: () => void }) {
+export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boolean; onToggleCollapse: () => void }) {
   const [tab, setTab] = useState<"api" | "tasks" | "notes">("api")
   const [input, setInput] = useState("")
   const [responseTime, setResponseTime] = useState<number | null>(null)
@@ -40,20 +36,13 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
 
   const execute = async (p?: string) => {
     const cmd = (p || input).trim()
-    if (!cmd) return
-    setInput("")
-    const start = performance.now()
+    if (!cmd) return; setInput(""); const start = performance.now()
     try {
       const path = cmd.startsWith("/") ? cmd : "/api/" + cmd
       const res = await fetch("http://localhost:3002" + path, { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } })
-      const text = await res.text()
-      const elapsed = Math.round(performance.now() - start)
-      setResponseTime(elapsed)
-      setHistory(h => [...h, { cmd, result: text.slice(0, 500), time: elapsed, error: !res.ok }])
-    } catch (e: any) {
-      setResponseTime(null)
-      setHistory(h => [...h, { cmd, result: "Error: " + e.message, time: 0, error: true }])
-    }
+      const text = await res.text(); const elapsed = Math.round(performance.now() - start)
+      setResponseTime(elapsed); setHistory(h => [...h, { cmd, result: text.slice(0, 500), time: elapsed, error: !res.ok }])
+    } catch (e: any) { setResponseTime(null); setHistory(h => [...h, { cmd, result: "Error: " + e.message, time: 0, error: true }]) }
   }
 
   const addTask = () => { if (!taskInput.trim()) return; setTasks(t => [...t, { id: Date.now(), text: taskInput.trim(), done: false }]); setTaskInput("") }
@@ -62,11 +51,38 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
   const addNote = () => { if (!noteInput.trim()) return; setNotes(n => [{ id: Date.now(), text: noteInput.trim(), date: new Date().toLocaleDateString() }, ...n]); setNoteInput("") }
   const deleteNote = (id: number) => setNotes(notes.filter(n => n.id !== id))
 
+  // Collapsed mode — narrow version
+  if (collapsed) {
+    return (
+      <motion.div layout className="h-full flex flex-col items-center overflow-hidden rounded-2xl border py-3 gap-3"
+        style={{ backgroundColor: "var(--sidebar-background)", borderColor: "var(--border-default)", width: 52 }}>
+        
+        <motion.button onClick={onToggleCollapse} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}
+          className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
+          style={{ backgroundColor: "var(--toolbar-surface)", color: "var(--text-tertiary)" }}>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="9 18 15 12 9 6" /></svg>
+        </motion.button>
+
+        <motion.div animate={waveAnim} className="w-6 h-6 rounded-full shrink-0 flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
+        </motion.div>
+
+        {[{ id: "api" as const, label: "A" }, { id: "tasks" as const, label: "T" }, { id: "notes" as const, label: "N" }].map(t => (
+          <button key={t.id} onClick={() => { setTab(t.id); onToggleCollapse() }}
+            className="w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-bold transition-colors"
+            style={{ backgroundColor: tab === t.id ? "var(--brand)" : "transparent", color: tab === t.id ? "#FFFFFF" : "var(--text-tertiary)" }}>
+            {t.label}
+          </button>
+        ))}
+      </motion.div>
+    )
+  }
+
+  // Expanded mode
   return (
     <motion.div layout className="h-full flex flex-col overflow-hidden rounded-2xl border"
       style={{ backgroundColor: "var(--sidebar-background)", borderColor: "var(--border-default)" }}>
       
-      {/* Header */}
       <div className="flex items-center justify-between px-3 py-3 shrink-0 border-b" style={{ borderColor: "var(--border-default)" }}>
         <div className="flex items-center gap-2.5">
           <motion.div animate={waveAnim} className="w-6 h-6 rounded-full shrink-0 flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
@@ -74,27 +90,23 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
           </motion.div>
           <span className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>Inspector</span>
           {responseTime !== null && (
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full"
-              style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: responseTime < 100 ? "var(--brand)" : responseTime < 500 ? "#F59E0B" : "var(--brand)" }}>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "var(--brand)" }}>
               {responseTime}ms
             </span>
           )}
         </div>
       </div>
 
-      {/* Sub-tabs — rounded */}
       <div className="flex gap-1 px-3 py-2 border-b shrink-0" style={{ borderColor: "var(--border-default)" }}>
         {[{ id: "api" as const, label: "API" }, { id: "tasks" as const, label: "Tasks" }, { id: "notes" as const, label: "Notes" }].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className="flex-1 py-1.5 text-[11px] font-semibold transition-all rounded-xl"
             style={{ backgroundColor: tab === t.id ? "var(--brand)" : "transparent", color: tab === t.id ? "#FFFFFF" : "var(--text-tertiary)" }}>
-            {tab === t.id && <motion.span animate={waveAnim}> </motion.span>}
             {t.label}
           </button>
         ))}
       </div>
 
-      {/* Tab: API */}
       {tab === "api" && (
         <>
           <div className="flex gap-1 px-3 py-2 border-b flex-wrap shrink-0" style={{ borderColor: "var(--border-default)" }}>
@@ -144,7 +156,6 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
         </>
       )}
 
-      {/* Tab: Tasks */}
       {tab === "tasks" && (
         <div className="flex-1 flex flex-col">
           <div className="flex-1 overflow-y-auto p-3 space-y-1">
@@ -166,7 +177,6 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
         </div>
       )}
 
-      {/* Tab: Notes */}
       {tab === "notes" && (
         <div className="flex-1 flex flex-col">
           <div className="flex-1 overflow-y-auto p-3 space-y-2">
@@ -190,14 +200,12 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
         </div>
       )}
 
-      {/* Collapse button — same as sidebar */}
-      {onToggleCollapse && (
-        <motion.button onClick={onToggleCollapse} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-          className="flex items-center justify-center py-2.5 shrink-0 mx-1.5 mb-1.5 rounded-xl"
-          style={{ borderTop: "1px solid var(--border-default)", color: "var(--text-tertiary)" }}>
-          <motion.svg animate={{ rotate: 180 }} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></motion.svg>
-        </motion.button>
-      )}
+      {/* Collapse button */}
+      <motion.button onClick={onToggleCollapse} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+        className="flex items-center justify-center py-2.5 shrink-0 mx-1.5 mb-1.5 rounded-xl"
+        style={{ borderTop: "1px solid var(--border-default)", color: "var(--text-tertiary)" }}>
+        <motion.svg animate={{ rotate: 180 }} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="15 18 9 12 15 6" /></motion.svg>
+      </motion.button>
     </motion.div>
   )
 }

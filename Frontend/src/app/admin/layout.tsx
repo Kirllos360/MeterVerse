@@ -246,21 +246,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </div>
         </div>
 
-        {/* INSPECTOR — collapse behavior matches sidebar */}
-        {inspectorOpen && (
-          <div className="shrink-0" style={{ width: 360 }}>
-            <InspectorPanel collapsed={false} onToggleCollapse={() => setInspectorOpen(false)} />
-          </div>
-        )}
-        {!inspectorOpen && sidebarCollapsed && (
-          <motion.button onClick={() => setInspectorOpen(true)} whileHover={{ scale: 1.05 }}
-            className="shrink-0 w-10 flex items-center justify-center rounded-2xl border self-start mt-2"
-            style={{ backgroundColor: "var(--sidebar-background)", borderColor: "var(--border-default)", height: 80 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--text-tertiary)" }}>
-              <polyline points={isRTL ? "15 18 9 12 15 6" : "9 18 15 12 9 6"} />
-            </svg>
-          </motion.button>
-        )}
+        {/* INSPECTOR — always visible, collapsed/expanded like sidebar */}
+        <motion.div className="shrink-0" animate={{ width: inspectorOpen ? 360 : 52 }}
+          style={{ overflow: "visible" }}>
+          <InspectorPanel collapsed={!inspectorOpen} onToggleCollapse={() => setInspectorOpen(!inspectorOpen)} />
+        </motion.div>
       </div>
 
       {/* FOOTER — 1.5cm height (56px) */}

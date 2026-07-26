@@ -51,7 +51,7 @@ export default function AICommandCenter() {
       {/* Agent Status */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {AI_AGENTS.map(a => (
-          <Card key={a.id} className={a.status === "active" ? "border-green-500/30" : "opacity-60"}>
+          <Card key={a.id} className={a.status === "active" ? "border-red-600/30" : "opacity-60"}>
             <CardHeader className="pb-2"><CardTitle className="text-sm flex items-center gap-2">{a.icon} {a.label}</CardTitle></CardHeader>
             <CardContent className="text-xs space-y-1">
               <Badge variant={a.status === "active" ? "default" : "secondary"} className="text-[10px]">{a.status}</Badge>
@@ -107,3 +107,4 @@ export default function AICommandCenter() {
     </div>
   )
 }
+

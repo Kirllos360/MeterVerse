@@ -107,7 +107,7 @@ export default function MeterRelayPage() {
                   {m.serial || m.id.slice(0, 8)}
                 </CardTitle>
                 <div className="flex items-center gap-2">
-                  <span className={"w-2 h-2 rounded-full " + (m.status === "active" ? "bg-green-500" : m.status === "maintenance" ? "bg-yellow-500" : "bg-gray-400")} />
+                  <span className={"w-2 h-2 rounded-full " + (m.status === "active" ? "bg-red-600" : m.status === "maintenance" ? "bg-yellow-500" : "bg-gray-400")} />
                   <Badge variant={STATUS_COLORS[m.status] || "outline"}>{m.status}</Badge>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function MeterRelayPage() {
               <div className="flex gap-1 flex-wrap">
                 {RELAY_SIGNALS.map(s => (
                   <span key={s} className={"text-xs px-2 py-0.5 rounded " + (
-                    s === "online" && m.status === "active" ? "bg-green-100 text-green-700" :
+                    s === "online" && m.status === "active" ? "bg-red-100 text-red-700" :
                     s === "offline" && m.status !== "active" ? "bg-red-100 text-red-700" :
                     s === "maintenance" && m.status === "maintenance" ? "bg-yellow-100 text-yellow-700" :
                     "bg-gray-100 text-gray-400"
@@ -153,3 +153,4 @@ export default function MeterRelayPage() {
     </div>
   );
 }
+

@@ -164,7 +164,7 @@ export default function RCAWorkspace() {
                       <span className="text-muted-foreground ml-1">→ {p.resolution?.slice(0, 30)}</span>
                     </div>
                     <div className="flex gap-1 shrink-0">
-                      <button className="text-green-500 hover:underline" onClick={() => recordEffectiveness(p.id, "effective")}>✓</button>
+                      <button className="text-red-600 hover:underline" onClick={() => recordEffectiveness(p.id, "effective")}>✓</button>
                       <button className="text-yellow-500 hover:underline" onClick={() => recordEffectiveness(p.id, "partial")}>~</button>
                       <button className="text-red-500 hover:underline" onClick={() => recordEffectiveness(p.id, "ineffective")}>✗</button>
                     </div>
@@ -286,3 +286,4 @@ export default function RCAWorkspace() {
     </div>
   )
 }
+

@@ -50,7 +50,7 @@ export default function AIOperationsDashboard() {
 
       {/* System Health */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className={health?.postgres ? "border-green-500/30" : "border-red-500/30"}>
+        <Card className={health?.postgres ? "border-red-600/30" : "border-red-500/30"}>
           <CardHeader className="pb-2"><CardTitle className="text-sm text-muted-foreground">Database</CardTitle></CardHeader>
           <CardContent><Badge variant={health?.postgres ? "default" : "destructive"}>{health?.postgres ? "Connected" : "Disconnected"}</Badge></CardContent>
         </Card>
@@ -64,7 +64,7 @@ export default function AIOperationsDashboard() {
         </Card>
         <Card>
           <CardHeader className="pb-2"><CardTitle className="text-sm text-muted-foreground">AI Accuracy</CardTitle></CardHeader>
-          <CardContent className="text-2xl font-bold text-green-500">87%</CardContent>
+          <CardContent className="text-2xl font-bold text-red-600">87%</CardContent>
         </Card>
       </div>
 
@@ -112,3 +112,4 @@ export default function AIOperationsDashboard() {
     </div>
   )
 }
+

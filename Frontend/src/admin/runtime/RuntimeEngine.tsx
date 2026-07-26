@@ -93,7 +93,7 @@ export const sampleEntities: Record<string, EntityMetadata> = {
     columns: ["number","customer","amount","status","dueDate"],
     formFields: ["customer","amount","status","dueDate"],
     actions: [
-      {name:"approve",label:"Approve",icon:"✅",color:"#22C55E",requirePermission:"invoices.approve",handler:"approve"},
+      {name:"approve",label:"Approve",icon:"✅",color:"#DC2626",requirePermission:"invoices.approve",handler:"approve"},
       {name:"delete",label:"Delete",icon:"🗑",color:"#EF4444",handler:"delete"},
       {name:"export",label:"PDF",icon:"📄",handler:"export"},
     ],
@@ -291,3 +291,4 @@ export function RuntimeEngine({ metadata }: { metadata: EntityMetadata }) {
     </div>
   )
 }
+
