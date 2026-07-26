@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { ChatTab } from "@/features/chat/ChatTab"
 
 const QUICK_ACTIONS = [
   { label: "Health", path: "/api/health" },
@@ -16,8 +17,26 @@ const STORAGE_KEY_NOTES = "mv-inspector-notes"
 
 const waveAnim = { scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
 
+// Connection status signal component
+function ConnectionSignal() {
+  const [status, setStatus] = useState<"online" | "degraded" | "offline">("online")
+  useEffect(() => {
+    const check = () => fetch("/api/health").then(r => setStatus(r.ok ? "online" : "degraded")).catch(() => setStatus("offline"))
+    check()
+    const interval = setInterval(check, 30000)
+    return () => clearInterval(interval)
+  }, [])
+  return (
+    <div className="flex items-center gap-1.5">
+      <motion.span animate={status === "online" ? {} : { opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }}
+        className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: status === "online" ? "#22C55E" : status === "degraded" ? "#F59E0B" : "#EF4444" }} />
+      <span className="text-[9px] font-semibold capitalize" style={{ color: "var(--text-tertiary)" }}>{status}</span>
+    </div>
+  )
+}
+
 export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boolean; onToggleCollapse: () => void }) {
-  const [tab, setTab] = useState<"api" | "tasks" | "notes">("api")
+  const [tab, setTab] = useState<"api" | "tasks" | "notes" | "chat">("api")
   const [input, setInput] = useState("")
   const [responseTime, setResponseTime] = useState<number | null>(null)
   const [history, setHistory] = useState<{cmd: string; result: string; time: number; error?: boolean}[]>([])
@@ -67,7 +86,7 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
         </motion.div>
 
-        {[{ id: "api" as const, label: "A" }, { id: "tasks" as const, label: "T" }, { id: "notes" as const, label: "N" }].map(t => (
+        {[{ id: "api" as const, label: "A" }, { id: "tasks" as const, label: "T" }, { id: "notes" as const, label: "N" }, { id: "chat" as const, label: "C" }].map(t => (
           <button key={t.id} onClick={() => { setTab(t.id); onToggleCollapse() }}
             className="w-8 h-8 rounded-xl flex items-center justify-center text-[10px] font-bold transition-colors"
             style={{ backgroundColor: tab === t.id ? "var(--brand)" : "transparent", color: tab === t.id ? "#FFFFFF" : "var(--text-tertiary)" }}>
@@ -89,6 +108,7 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
           </motion.div>
           <span className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>Inspector</span>
+          <ConnectionSignal />
           {responseTime !== null && (
             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "var(--brand)" }}>
               {responseTime}ms
@@ -98,7 +118,7 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
       </div>
 
       <div className="flex gap-1 px-3 py-2 border-b shrink-0" style={{ borderColor: "var(--border-default)" }}>
-        {[{ id: "api" as const, label: "API" }, { id: "tasks" as const, label: "Tasks" }, { id: "notes" as const, label: "Notes" }].map(t => (
+        {[{ id: "api" as const, label: "API" }, { id: "tasks" as const, label: "Tasks" }, { id: "notes" as const, label: "Notes" }, { id: "chat" as const, label: "Chat" }].map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className="flex-1 py-1.5 text-[11px] font-semibold transition-all rounded-xl"
             style={{ backgroundColor: tab === t.id ? "var(--brand)" : "transparent", color: tab === t.id ? "#FFFFFF" : "var(--text-tertiary)" }}>
@@ -176,6 +196,8 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
           </div>
         </div>
       )}
+
+      {tab === "chat" && <ChatTab />}
 
       {tab === "notes" && (
         <div className="flex-1 flex flex-col">
