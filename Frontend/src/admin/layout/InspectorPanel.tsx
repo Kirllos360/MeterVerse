@@ -86,7 +86,7 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
   ]
 
   return (
-    <motion.div className="flex flex-col h-full border-l" style={{ width: 360, borderColor: "var(--border-default)", backgroundColor: "var(--surface-raised)" }} layout>
+    <motion.div className="flex flex-col h-full overflow-hidden rounded-xl border" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--sidebar-background)" }} layout>
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-2 border-b shrink-0" style={{ borderColor: "var(--border-default)" }}>
         <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
           <span className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Inspector</span>
           {responseTime !== null && <span className="text-[10px] font-mono" style={{ color: responseTime < 100 ? "#22C55E" : responseTime < 500 ? "#F59E0B" : "#EF4444" }}>{responseTime}ms</span>}
         </div>
-        <button onClick={onToggleCollapse} className="text-xs p-1 hover:bg-black/10 dark:hover:bg-white/10 transition-colors" style={{ color: "var(--text-tertiary)" }}>✕</button>
+        <button onClick={onToggleCollapse} className="text-xs p-1 rounded transition-colors" style={{ color: "var(--text-tertiary)" }}>✕</button>
       </div>
 
       {/* Tabs */}

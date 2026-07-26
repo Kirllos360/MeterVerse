@@ -15,6 +15,43 @@
     @apply bg-background text-foreground;
   }
 
+  /* Bold modern system font — iPhone 'hello' style */
+  body, html, [class*="font-"] {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6, [class*="font-bold"], [class*="font-semibold"], [class*="font-medium"] {
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+  }
+  p, span, div, li, a, button, input, textarea, select, label {
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  /* Red buttons with white text + hover effects */
+  button, [role="button"], .btn {
+    transition: all 0.15s ease !important;
+  }
+  button:hover, [role="button"]:hover {
+    filter: brightness(1.1);
+    transform: translateY(-0.5px);
+  }
+  button:active, [role="button"]:active {
+    transform: translateY(0);
+    filter: brightness(0.95);
+  }
+  [style*="background-color: var(--brand)"],
+  [class*="bg-brand"], .btn-primary {
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
+  }
+  [style*="background-color: var(--brand)"]:hover,
+  [class*="bg-brand"]:hover, .btn-primary:hover {
+    box-shadow: 0 2px 12px rgba(220,38,38,0.3);
+  }
+
   /* Premium card & surface styling — n8n-style */
   [class*="card"], [class*="Card"], [role="region"], [class*="rounded-lg"] {
     box-shadow: 0 1px 2px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02);
