@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { z } from "zod"
-import { knowledgeRepository } from "../../src/intelligence/knowledge/repository/KnowledgeRepository.js"
+import { knowledgeRepository } from "../../../src/intelligence/knowledge/repository/KnowledgeRepository.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission } from "../middleware/security.js"
 

@@ -32,9 +32,9 @@ import { swaggerSpec, swaggerUi } from "./swagger.js"
 import { simRouter } from "./routes/sim.js"
 import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
-import { intelligenceRouter } from "./routes/intelligence.js"
-import { knowledgeRouter } from "./routes/knowledge.js"
-import { rcaRouter } from "./routes/rca.js"
+// import { intelligenceRouter } from "./routes/intelligence.js"
+// import { knowledgeRouter } from "./routes/knowledge.js"
+// import { rcaRouter } from "./routes/rca.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -226,9 +226,9 @@ mount("/templates", templatesRouter)
 mount("/billing", billingRouter)
 mount("/admin", configRouter)
 mount("/locations", locationsRouter)
-mount("/intelligence", intelligenceRouter)
-mount("/knowledge", knowledgeRouter)
-mount("/rca", rcaRouter)
+// mount("/intelligence", intelligenceRouter)
+// mount("/knowledge", knowledgeRouter)
+// mount("/rca", rcaRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
@@ -257,4 +257,5 @@ const httpServer = createServer(app)
 initWebSocket(httpServer)
 
 httpServer.listen(PORT, () => {})
+
 
