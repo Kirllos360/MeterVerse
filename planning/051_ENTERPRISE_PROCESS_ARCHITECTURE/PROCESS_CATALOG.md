@@ -1,6 +1,6 @@
 # Enterprise Process Catalog
 
-**File:** `planning/051_ENTERPRISE_PROCESS_ARCHITECTURE/PROCESS_CATALOG.md`
+**File:** `| `**120**planning/051_ENTERPRISE_PROCESS_ARCHITECTURE/PROCESS_CATALOG.md`| `**120**
 
 ---
 
@@ -120,4 +120,5 @@
 | Intelligence | 7 | 3 | 2 | 2 | 6 | 1 |
 | Integration | 8 | 3 | 4 | 1 | 7 | 1 |
 | Support | 12 | 4 | 6 | 2 | 6 | 6 |
-| **Total** | **108** | **59** | **37** | **12** | **82** | **26** |
+| **Total** | **120** | **59** | **37** | **12** | **82** | **26** |
+

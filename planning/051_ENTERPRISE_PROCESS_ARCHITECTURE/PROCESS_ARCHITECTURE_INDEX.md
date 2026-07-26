@@ -17,7 +17,7 @@
 | P-003 | `MTR-RPL` | Meter Replacement | MV-DOM-001 | P0 |
 | P-004 | `MTR-DSC` | Meter Disconnect | MV-DOM-001 | P0 |
 | P-005 | `MTR-RCN` | Meter Reconnect | MV-DOM-001 | P0 |
-| P-006 | `MTR-RTR` | Meter Retirement | MV-DOM-001 | P0 |
+| P-006 | `MTR-RTR` | Meter Retirement | MV-DOM-001 | P1 |
 | P-007 | `MTR-CFG` | Meter Configuration | MV-DOM-001 | P1 |
 | P-008 | `MTR-FWU` | Meter Firmware Upgrade | MV-DOM-001 | P2 |
 | P-009 | `MTR-TST` | Meter Testing | MV-DOM-001 | P1 |
@@ -165,3 +165,4 @@
 **P2 (Medium):** 22  
 
 **Cross-reference:** See `planning/050_ENTERPRISE_DOMAIN_ARCHITECTURE/INDEX.md` for domain details
+
