@@ -24,185 +24,178 @@ Received: "http://localhost:7400/admin/users"
 - generic [active] [ref=e1]:
   - generic [ref=e2]:
     - region "Notifications alt+T"
-    - generic [ref=e4]:
-      - generic [ref=e6]:
-        - generic [ref=e7]:
-          - generic [ref=e8]:
-            - img [ref=e10]
-            - generic [ref=e12]: MeterVerse
-          - generic [ref=e13]: Admin
-          - img [ref=e14]
-          - generic [ref=e16]: home
-        - generic [ref=e17]:
-          - button "Toggle Inspector" [ref=e18]:
-            - img [ref=e19]
-          - button "Notifications" [ref=e21]:
-            - img [ref=e22]
-          - 'button "Theme: auto" [ref=e25]':
-            - generic [ref=e26]: ⚙️
-          - 'button "Language: EN" [ref=e27]':
-            - generic [ref=e28]: EN
-          - button "Admin User Administrator" [ref=e30]:
-            - img [ref=e32]
-            - generic [ref=e34]:
-              - generic [ref=e35]: Admin User
-              - generic [ref=e36]: Administrator
-            - img [ref=e37]
-      - generic [ref=e39]:
-        - generic [ref=e41]:
-          - generic [ref=e42]:
-            - button "Home" [ref=e43] [cursor=pointer]:
-              - img [ref=e44]
-              - generic [ref=e46]: Home
-            - button "Users" [ref=e47] [cursor=pointer]:
-              - img [ref=e48]
-              - generic [ref=e50]: Users
-            - button "Roles" [ref=e51] [cursor=pointer]:
-              - img [ref=e52]
-              - generic [ref=e54]: Roles
-            - button "Audit" [ref=e55] [cursor=pointer]:
-              - img [ref=e56]
-              - generic [ref=e58]: Audit
-            - button "Customers" [ref=e59] [cursor=pointer]:
-              - img [ref=e60]
-              - generic [ref=e62]: Customers
-            - button "Settings" [ref=e63] [cursor=pointer]:
-              - img [ref=e64]
-              - generic [ref=e66]: Settings
-            - button "Reports" [ref=e67] [cursor=pointer]:
-              - img [ref=e68]
-              - generic [ref=e70]: Reports
-            - button "Services" [ref=e71] [cursor=pointer]:
-              - img [ref=e72]
-              - generic [ref=e74]: Services
-            - button "Security" [ref=e75] [cursor=pointer]:
-              - img [ref=e76]
-              - generic [ref=e78]: Security
-            - button "AI" [ref=e79] [cursor=pointer]:
-              - img [ref=e80]
-              - generic [ref=e82]: AI
-            - button "Monitor" [ref=e83] [cursor=pointer]:
-              - img [ref=e84]
-              - generic [ref=e86]: Monitor
-          - button [ref=e87] [cursor=pointer]:
-            - img [ref=e89]
-        - generic [ref=e91]:
-          - tab "Welcome" [selected] [ref=e94] [cursor=pointer]:
-            - generic [ref=e96]: Welcome
-            - img [ref=e97]
-          - generic [ref=e100]:
-            - generic [ref=e101]:
-              - textbox "Search admin..." [ref=e102]
-              - button "List" [ref=e103]
-              - button "Grid" [ref=e104]
-            - generic [ref=e105]:
-              - generic [ref=e106]:
-                - heading "Admin Dashboard" [level=1] [ref=e107]
-                - paragraph [ref=e108]: MeterVerse Enterprise Administration
-              - generic [ref=e109]:
-                - generic [ref=e110]:
-                  - generic [ref=e111]:
-                    - generic [ref=e112]: Total Users
-                    - img [ref=e114]
-                  - generic [ref=e116]: —
-                - generic [ref=e117]:
-                  - generic [ref=e118]:
-                    - generic [ref=e119]: Active Sessions
-                    - img [ref=e121]
-                  - generic [ref=e123]: —
-                - generic [ref=e124]:
-                  - generic [ref=e125]:
-                    - generic [ref=e126]: System Health
-                    - img [ref=e128]
-                  - generic [ref=e130]: ok
-                - generic [ref=e131]:
-                  - generic [ref=e132]:
-                    - generic [ref=e133]: Services
-                    - img [ref=e135]
-                  - generic [ref=e137]: 15 active
-              - generic [ref=e138]:
-                - generic [ref=e139]:
-                  - heading "Quick Access" [level=2] [ref=e140]
-                  - generic [ref=e141]:
-                    - link "👥 Users Manage administrators" [ref=e142] [cursor=pointer]:
-                      - /url: /admin/users
-                      - generic [ref=e143]: 👥
-                      - generic [ref=e144]: Users
-                      - generic [ref=e145]: Manage administrators
-                    - link "🛡️ Security Security audit & compliance" [ref=e146] [cursor=pointer]:
-                      - /url: /admin/security
-                      - generic [ref=e147]: 🛡️
-                      - generic [ref=e148]: Security
-                      - generic [ref=e149]: Security audit & compliance
-                    - link "📊 Reports Analytics & reporting" [ref=e150] [cursor=pointer]:
-                      - /url: /admin/reports
-                      - generic [ref=e151]: 📊
-                      - generic [ref=e152]: Reports
-                      - generic [ref=e153]: Analytics & reporting
-                    - link "🤖 AI AI agents & automation" [ref=e154] [cursor=pointer]:
-                      - /url: /admin/ai
-                      - generic [ref=e155]: 🤖
-                      - generic [ref=e156]: AI
-                      - generic [ref=e157]: AI agents & automation
-                    - link "📋 Audit System audit trail" [ref=e158] [cursor=pointer]:
-                      - /url: /admin/audit
-                      - generic [ref=e159]: 📋
-                      - generic [ref=e160]: Audit
-                      - generic [ref=e161]: System audit trail
-                    - link "📈 Monitor Performance metrics" [ref=e162] [cursor=pointer]:
-                      - /url: /admin/monitoring
-                      - generic [ref=e163]: 📈
-                      - generic [ref=e164]: Monitor
-                      - generic [ref=e165]: Performance metrics
-                    - link "⚙️ Settings System configuration" [ref=e166] [cursor=pointer]:
-                      - /url: /admin/settings
-                      - generic [ref=e167]: ⚙️
-                      - generic [ref=e168]: Settings
-                      - generic [ref=e169]: System configuration
-                    - link "🧩 Services Platform services" [ref=e170] [cursor=pointer]:
-                      - /url: /admin/services
-                      - generic [ref=e171]: 🧩
-                      - generic [ref=e172]: Services
-                      - generic [ref=e173]: Platform services
-                - generic [ref=e174]:
-                  - heading "Recent Activity" [level=2] [ref=e175]
-                  - generic [ref=e176]:
-                    - generic [ref=e177]:
-                      - generic [ref=e179]: System health check passed
-                      - generic [ref=e180]: 2m ago
-                    - generic [ref=e181]:
-                      - generic [ref=e183]: Backup completed
-                      - generic [ref=e184]: 15m ago
-                    - generic [ref=e185]:
-                      - generic [ref=e187]: New user registered
-                      - generic [ref=e188]: 1h ago
-                    - generic [ref=e189]:
-                      - generic [ref=e191]: "Invoice #INV-0042 generated"
-                      - generic [ref=e192]: 2h ago
-                    - generic [ref=e193]:
-                      - generic [ref=e195]: Meter reading anomaly flagged
-                      - generic [ref=e196]: 3h ago
-              - generic [ref=e197]:
-                - generic [ref=e198]: v8.0.0
-                - generic [ref=e199]: •
-                - generic [ref=e200]: 78 Prisma Models
-                - generic [ref=e201]: •
-                - generic [ref=e202]: 165 API Endpoints
-                - generic [ref=e203]: •
-                - generic [ref=e204]: 42 Admin Pages
-                - generic [ref=e205]: •
-                - generic [ref=e206]: 9 AI Agents
-                - generic [ref=e207]: ● All Systems Operational
-      - generic [ref=e211]:
-        - generic [ref=e212]: ●
-        - generic [ref=e213]: All Systems Operational
-        - generic [ref=e214]: "|"
-        - generic [ref=e215]: 78 Models · 165 APIs · 42 Pages
-        - generic [ref=e216]: Powering progress, one meter at a time
-        - button "◀ Inspector" [ref=e217] [cursor=pointer]:
-          - generic [ref=e218]: ◀
-          - generic [ref=e219]: Inspector
-  - alert [ref=e220]
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - generic [ref=e6]:
+            - img [ref=e8]
+            - generic [ref=e10]: MeterVerse
+          - generic [ref=e11]: Admin
+          - img [ref=e12]
+          - generic [ref=e14]: home
+        - generic [ref=e15]:
+          - button "Toggle Inspector" [ref=e16]:
+            - img [ref=e17]
+          - button "Notifications" [ref=e19]:
+            - img [ref=e20]
+          - 'button "Theme: auto" [ref=e23]':
+            - generic [ref=e24]: ⚙️
+          - 'button "Language: EN" [ref=e25]':
+            - generic [ref=e26]: EN
+          - button "Admin User Administrator" [ref=e28]:
+            - img [ref=e30]
+            - generic [ref=e32]:
+              - generic [ref=e33]: Admin User
+              - generic [ref=e34]: Administrator
+            - img [ref=e35]
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - button "Home" [ref=e40]:
+              - img [ref=e41]
+              - generic [ref=e43]: Home
+            - button "Users" [ref=e44]:
+              - img [ref=e45]
+              - generic [ref=e47]: Users
+            - button "Roles" [ref=e48]:
+              - img [ref=e49]
+              - generic [ref=e51]: Roles
+            - button "Audit" [ref=e52]:
+              - img [ref=e53]
+              - generic [ref=e55]: Audit
+            - button "Customers" [ref=e56]:
+              - img [ref=e57]
+              - generic [ref=e59]: Customers
+            - button "Meters" [ref=e60]:
+              - img [ref=e61]
+              - generic [ref=e63]: Meters
+            - button "Meter Relay" [ref=e64]:
+              - img [ref=e65]
+              - generic [ref=e67]: Meter Relay
+            - button "Meter Assign" [ref=e68]:
+              - img [ref=e69]
+              - generic [ref=e71]: Meter Assign
+            - button "Projects" [ref=e72]:
+              - img [ref=e73]
+              - generic [ref=e75]: Projects
+            - button "Zones" [ref=e76]:
+              - img [ref=e77]
+              - generic [ref=e79]: Zones
+            - button "Units" [ref=e80]:
+              - img [ref=e81]
+              - generic [ref=e83]: Units
+            - button "Readings" [ref=e84]:
+              - img [ref=e85]
+              - generic [ref=e87]: Readings
+            - button "Consumption" [ref=e88]:
+              - img [ref=e89]
+              - generic [ref=e91]: Consumption
+            - button "Batch Valid." [ref=e92]:
+              - img [ref=e93]
+              - generic [ref=e95]: Batch Valid.
+            - button "Invoices" [ref=e96]:
+              - img [ref=e97]
+              - generic [ref=e99]: Invoices
+            - button "Payments" [ref=e100]:
+              - img [ref=e101]
+              - generic [ref=e103]: Payments
+            - button "Tariffs" [ref=e104]:
+              - img [ref=e105]
+              - generic [ref=e107]: Tariffs
+            - button "SIM Cards" [ref=e108]:
+              - img [ref=e109]
+              - generic [ref=e111]: SIM Cards
+            - button "Settings" [ref=e112]:
+              - img [ref=e113]
+              - generic [ref=e115]: Settings
+            - button "Reports" [ref=e116]:
+              - img [ref=e117]
+              - generic [ref=e119]: Reports
+            - button "Services" [ref=e120]:
+              - img [ref=e121]
+              - generic [ref=e123]: Services
+            - button "Security" [ref=e124]:
+              - img [ref=e125]
+              - generic [ref=e127]: Security
+            - button "AI" [ref=e128]:
+              - img [ref=e129]
+              - generic [ref=e131]: AI
+            - button "AI Cmd Center" [ref=e132]:
+              - img [ref=e133]
+              - generic [ref=e135]: AI Cmd Center
+            - button "Monitor" [ref=e136]:
+              - img [ref=e137]
+              - generic [ref=e139]: Monitor
+            - button "Config" [ref=e140]:
+              - img [ref=e141]
+              - generic [ref=e143]: Config
+          - button [ref=e144]:
+            - img [ref=e145]
+        - generic [ref=e147]:
+          - generic [ref=e149]:
+            - generic [ref=e150]:
+              - generic [ref=e151]:
+                - heading "User Management" [level=1] [ref=e152]
+                - paragraph [ref=e153]: Manage administrators and system users — 0 records
+              - button "Add Management" [ref=e156]:
+                - img
+                - text: Add Management
+            - generic [ref=e157]:
+              - generic [ref=e159]:
+                - generic [ref=e160]:
+                  - generic [ref=e161]: Total
+                  - img [ref=e163]
+                - generic [ref=e169]: "0"
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - generic [ref=e173]: Active
+                  - img [ref=e175]
+                - generic [ref=e179]: "0"
+              - generic [ref=e181]:
+                - generic [ref=e182]:
+                  - generic [ref=e183]: Inactive
+                  - img [ref=e185]
+                - generic [ref=e189]: "0"
+            - generic [ref=e190]:
+              - tablist [ref=e192]:
+                - tab "All" [selected] [ref=e193]
+                - tab "Active (0)" [ref=e194]:
+                  - text: Active
+                  - generic [ref=e195]: (0)
+                - tab "Inactive (0)" [ref=e196]:
+                  - text: Inactive
+                  - generic [ref=e197]: (0)
+                - tab "Maintenance (0)" [ref=e198]:
+                  - text: Maintenance
+                  - generic [ref=e199]: (0)
+                - tab "Terminated (0)" [ref=e200]:
+                  - text: Terminated
+                  - generic [ref=e201]: (0)
+              - generic [ref=e202]:
+                - img [ref=e203]
+                - textbox "Search..." [ref=e206]
+            - table [ref=e211]:
+              - rowgroup [ref=e212]:
+                - row "Name Email Role Status Last Active" [ref=e213]:
+                  - columnheader "Name" [ref=e214]
+                  - columnheader "Email" [ref=e215]
+                  - columnheader "Role" [ref=e216]
+                  - columnheader "Status" [ref=e217]
+                  - columnheader "Last Active" [ref=e218]
+                  - columnheader [ref=e219]
+              - rowgroup [ref=e220]:
+                - row "No records found." [ref=e221]:
+                  - cell "No records found." [ref=e222]
+          - generic [ref=e223]:
+            - generic [ref=e224]: ●
+            - generic [ref=e225]: All Systems Operational
+            - generic [ref=e226]: "|"
+            - generic [ref=e227]: 78 Models · 165 APIs · 42 Pages
+            - generic [ref=e228]: Powering progress, one meter at a time
+            - button "◀ Inspector" [ref=e229] [cursor=pointer]:
+              - generic [ref=e230]: ◀
+              - generic [ref=e231]: Inspector
+  - alert [ref=e232]
 ```
 
 # Test source

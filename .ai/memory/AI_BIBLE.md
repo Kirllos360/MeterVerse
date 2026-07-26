@@ -33,7 +33,7 @@ Never say "completed/fixed/verified/tested" without tool execution evidence.
 **60+ CLIs:** lighthouse v13.4.1, axe-core v4.12.1, puppeteer v25.3, artillery v2.0.33, snyk v1.1305.0, dependency-cruiser v18, madge v8, knip v26, typedoc v0.28, serena v0.0.1, context7 v1.0.3, and 50+ more
 **Runtimes:** Node v24.15, Java 21, Docker 29.5, PostgreSQL 16, Prisma 7.8
 **Built-in:** read, edit, write, bash, glob, grep, task, todowrite, webfetch, question, skill
-**User-provided:** Serena 🧠, Context7 📚, Chrome DevTools 🔍, Lighthouse 📊, axe-core ♿, Codebase Memory 💾, Graphical MCP 📈
+**User-provided:** Serena 🧠, Context7 📚, Chrome DevTools 🔍, Lighthouse 📊, axe-core ♿, Codebase Memory 💾, Graphical MCP 📈, deepseek-eyes 👁️ (Cloudflare AI Vision, v2.0.0)
 
 ---
 
@@ -51,6 +51,23 @@ Never say "completed/fixed/verified/tested" without tool execution evidence.
 9. COMMIT     → git commit (WITHOUT --no-verify)
 ```
 If 5, 6, or 7 fails → STOP. Fix. Restart from 5.
+
+---
+
+## RCA INTELLIGENCE MODULES (Phase 20 completed)
+
+```
+src/intelligence/rca/
+  engine/RCACaseEngine.js        — 7-state case lifecycle (NEW→LEARNED)
+  evidence/EvidenceCollector.js  — 5 evidence types (meter, readings, events, SIMs, assignments)
+  analysis/FiveWhysEngine.js     — AI-powered 5 Whys generation (NEW in Phase 20.3)
+  recommendation/RecommendationEngine.js — AI + pattern-based recommendations (NEW in Phase 20.4-5)
+  learning/ResolutionLearner.js   — Persistent pattern storage, similarity search, effectiveness tracking (NEW in Phase 20.6-10)
+```
+
+**RCA Flow:** Create case → Auto-collect evidence → Auto-generate 5 Whys (AI) → Find similar past patterns → Generate recommendations → Human review → Approve → Resolve → Learn (pattern persisted)
+
+**Backend routes:** `POST /cases/:id/auto-analyze`, `GET /patterns/similar`, `POST /patterns/:id/effectiveness`, `PUT /cases/:id/preventive`
 
 ---
 

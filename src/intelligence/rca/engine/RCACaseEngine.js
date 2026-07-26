@@ -5,6 +5,7 @@ class RCACaseEngine {
   constructor() {
     this.cases = new Map()
     this.counter = 0
+    this.preventiveMeasures = new Map()
   }
 
   create(serial, issue) {
@@ -25,7 +26,9 @@ class RCACaseEngine {
       approvedBy: null,
       resolution: null,
       resolutionNotes: "",
+      preventiveMeasures: [],
       timeToFix: null,
+      similarPatterns: [],
       audit: [{ timestamp: new Date().toISOString(), action: "CASE_CREATED" }],
     }
     this.cases.set(caseId, rcaCase)
@@ -92,12 +95,34 @@ class RCACaseEngine {
     return c
   }
 
-  learn(id) {
+  async learn(id) {
     const c = this.cases.get(id)
     if (!c) return null
     c.status = "LEARNED"
     c.audit.push({ timestamp: new Date().toISOString(), action: "LEARNED" })
+    // Persist to resolution learner
+    try {
+      const { resolutionLearner } = await import("../learning/ResolutionLearner.js")
+      await resolutionLearner.learn(c)
+    } catch (err) {
+      logger.error({ err }, "RCACaseEngine: failed to persist learned pattern")
+    }
     logger.info({ caseId: id, rootCause: c.rootCause, resolution: c.resolution }, `RCA case learned: ${id}`)
+    return c
+  }
+
+  setPreventiveMeasures(id, measures) {
+    const c = this.cases.get(id)
+    if (!c) return null
+    c.preventiveMeasures = measures
+    c.audit.push({ timestamp: new Date().toISOString(), action: "PREVENTIVE_MEASURES_SET", detail: `${measures.length} measures` })
+    return c
+  }
+
+  setSimilarPatterns(id, patterns) {
+    const c = this.cases.get(id)
+    if (!c) return null
+    c.similarPatterns = patterns
     return c
   }
 

@@ -65,6 +65,12 @@
       "enabled": false,
       "description": "Semantic code search and structural AST analysis"
     },
+    "deepseek-eyes": {
+      "type": "local",
+      "command": ["D:\\meter\\mcp\\deepseek-eyes\\deepseek-eyes-main\\.venv\\Scripts\\python.exe", "-m", "deepseek_eyes"],
+      "enabled": true,
+      "description": "Vision AI: analyze UI screenshots, diagrams, charts, errors"
+    },
     "storybook-mcp": {
       "type": "local",
       "command": ["npx", "-y", "@storybook/mcp"],
