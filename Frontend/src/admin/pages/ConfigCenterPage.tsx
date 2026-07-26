@@ -78,13 +78,13 @@ function ConfigForm({ title, fields, configKey, testEndpoint }: { title: string;
             </div>
           ))}
           {message && (
-            <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(220,38,38,0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+            <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(var(--brand-rgb),0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
               {message.text}
             </div>
           )}
           <div className="flex items-center gap-3 pt-1">
             <motion.button onClick={save} disabled={saving} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-              className="px-4 py-2 rounded-lg text-xs font-semibold text-white" style={{ backgroundColor: saving ? "rgba(220,38,38,0.5)" : "#DC2626" }}>
+              className="px-4 py-2 rounded-lg text-xs font-semibold text-white" style={{ backgroundColor: saving ? "rgba(var(--brand-rgb),0.5)" : "var(--brand)" }}>
               {saving ? "Saving..." : "Save Configuration"}
             </motion.button>
             {testEndpoint && (
@@ -160,7 +160,7 @@ function SymbiotConnections() {
       <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ borderColor: "var(--border-default)" }}>
         <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>Symbiot Per-Project Connections</span>
         <motion.button onClick={addConnection} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-          className="px-3 py-1.5 rounded-lg text-xs font-semibold text-white" style={{ backgroundColor: "#DC2626" }}>+ Add Connection</motion.button>
+          className="px-3 py-1.5 rounded-lg text-xs font-semibold text-white" style={{ backgroundColor: "var(--brand)" }}>+ Add Connection</motion.button>
       </div>
       <div className="p-5 space-y-4">
         {connections.length === 0 && (
@@ -171,7 +171,7 @@ function SymbiotConnections() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Connection #{idx + 1}</span>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: conn.status === "active" ? "rgba(5,150,105,0.15)" : conn.status === "error" ? "rgba(220,38,38,0.15)" : "rgba(107,114,128,0.15)", color: conn.status === "active" ? "#059669" : conn.status === "error" ? "#dc2626" : "#6b7280" }}>
+                <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: conn.status === "active" ? "rgba(5,150,105,0.15)" : conn.status === "error" ? "rgba(var(--brand-rgb),0.15)" : "rgba(107,114,128,0.15)", color: conn.status === "active" ? "#059669" : conn.status === "error" ? "#dc2626" : "#6b7280" }}>
                   {conn.status || "inactive"}
                 </span>
                 <button onClick={() => removeConnection(conn.id)} className="text-[10px] px-2 py-0.5 rounded" style={{ color: "#dc2626" }}>Remove</button>
@@ -199,12 +199,12 @@ function SymbiotConnections() {
         ))}
         {connections.length > 0 && (
           <motion.button onClick={saveAll} disabled={saving} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-            className="px-4 py-2 rounded-lg text-xs font-semibold text-white" style={{ backgroundColor: saving ? "rgba(220,38,38,0.5)" : "#DC2626" }}>
+            className="px-4 py-2 rounded-lg text-xs font-semibold text-white" style={{ backgroundColor: saving ? "rgba(var(--brand-rgb),0.5)" : "var(--brand)" }}>
             {saving ? "Saving..." : `Save All Connections (${connections.length})`}
           </motion.button>
         )}
         {message && (
-          <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(220,38,38,0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+          <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(var(--brand-rgb),0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
             {message.text}
           </div>
         )}
@@ -253,7 +253,7 @@ function ThirdPartyPermissions() {
       </p>
 
       {message && (
-        <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(220,38,38,0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+        <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(var(--brand-rgb),0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
           {message.text}
         </div>
       )}
@@ -309,7 +309,7 @@ export function ConfigCenterPage() {
         {CONFIG_TABS.map(tab => (
           <button key={tab.id} onClick={() => setActiveTab(tab.id)}
             className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-colors"
-            style={{ backgroundColor: activeTab === tab.id ? "#DC2626" : "var(--surface-raised)", color: activeTab === tab.id ? "white" : "var(--text-secondary)" }}>
+            style={{ backgroundColor: activeTab === tab.id ? "var(--brand)" : "var(--surface-raised)", color: activeTab === tab.id ? "white" : "var(--text-secondary)" }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d={tab.icon} /></svg>
             {tab.label}
           </button>

@@ -98,6 +98,44 @@
 
 ---
 
+## UI Fix Results — 5 Audit Loops (2026-07-26)
+
+### Before → After Scores
+
+| Page | Before (Wave 0) | After (Wave 5) | Δ |
+|------|----------------|----------------|---|
+| Admin Root | 40/100 | **70/100** | +30 |
+| Customers | ~50/100 | **80/100** | +30 |
+| Invoices | 70/100 | **100/100** | +30 |
+| Meters | 40-60/100 | **65/100** | +15 |
+| RTL | Not audited | **60/100** | baseline |
+
+### What Was Fixed
+
+| Fix | Details |
+|-----|---------|
+| **Brand color** | Changed `#DC2626` (red) → `#00BFA5` (teal) in layout.tsx + all admin pages |
+| **Sidebar** | Light gray → Dark navy (`#0F172A` / `#080E1A`), improved contrast, better spacing |
+| **Admin accent** | `var(--semantic-error)` → `var(--brand)` so all accent elements use teal |
+| **Card styling** | Added subtle shadows, hover elevation effect |
+| **Interactive states** | Added hover effects on buttons, rows, links |
+| **Input focus** | Teal focus ring on all inputs |
+| **Content padding** | Added consistent `p-6` in admin layout |
+| **ConfigCenter page** | Replaced all hardcoded red `#DC2626` with `var(--brand)` |
+| **Admin login page** | Replaced all hardcoded red with brand teal |
+| **Text shadows** | Removed hacky text-shadow selectors from globals.css |
+| **Typography scale** | Added consistent heading/body/small sizes |
+| **RTL support** | Verified sidebar on right, text right-aligned, no broken elements |
+
+### Remaining Issues (Future Iterations)
+
+1. **Typography consistency** — individual pages still use varying font sizes (page-level fix needed)
+2. **Whitespace optimization** — some pages feel sparse, others dense (per-page audit needed)
+3. **Arabic translations** — UI direction works but many labels lack Arabic translations
+4. **Sidebar responsiveness** — collapsed mode needs better icon-only tooltips
+
+---
+
 ## DeepSeek Vision AI Audit (2026-07-26)
 
 **Model:** Cloudflare @cf/meta/llama-3.2-11b-vision-instruct via deepseek-eyes MCP v2.0.0  

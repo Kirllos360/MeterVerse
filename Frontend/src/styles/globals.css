@@ -15,25 +15,53 @@
     @apply bg-background text-foreground;
   }
 
-  /* Sidebar text shadow for readability */
-  [style*="--sidebar-background"] *,
-  [style*="--inspector-background"] * {
-    text-shadow: 0 1px 4px rgba(0,0,0,0.55) !important;
+  /* Premium card & surface styling — n8n-style */
+  [class*="card"], [class*="Card"], [role="region"], [class*="rounded-lg"] {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
-  /* Brighter text in sidebar/inspector */
-  [style*="--sidebar-background"] [class*="text-"],
-  [style*="--inspector-background"] [class*="text-"] {
-    text-shadow: 0 1px 4px rgba(0,0,0,0.55) !important;
+  [class*="card"]:hover, [class*="Card"]:hover, [class*="rounded-lg"]:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
   }
-  /* Remove text shadow from inputs and SVGs */
-  [style*="--sidebar-background"] input,
-  [style*="--inspector-background"] input,
-  [style*="--sidebar-background"] svg,
-  [style*="--inspector-background"] svg,
-  [style*="--sidebar-background"] button[class*="w-8"],
-  [style*="--inspector-background"] button[class*="w-8"] {
-    text-shadow: none !important;
+  /* Interactive hover states — smooth transitions */
+  button:not([disabled]), [role="button"]:not([disabled]), a, tr {
+    transition: all 0.15s ease;
   }
+  /* Consistent table row hover */
+  tr:hover, [role="row"]:hover {
+    background-color: rgba(0,0,0,0.02);
+  }
+  .dark tr:hover, .dark [role="row"]:hover {
+    background-color: rgba(255,255,255,0.03);
+  }
+  /* Input focus ring — brand teal */
+  input:focus, textarea:focus, select:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(0,191,165,0.2) !important;
+    border-color: rgba(0,191,165,0.4) !important;
+  }
+  /* Consistent spacing for admin content areas */
+  main, [class*="p-6"], [class*="space-y-6"] {
+    --content-padding: 24px;
+  }
+    /* Better section headers */
+  h1, h2, h3, [class*="font-bold"] {
+    letter-spacing: -0.01em;
+  }
+  /* Subtle brand separator for sections */
+  hr, [role="separator"] {
+    opacity: 0.5;
+  }
+  /* Consistent admin typography scale */
+  .admin-page h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+  .admin-page h2 { font-size: 18px; font-weight: 600; line-height: 1.35; }
+  .admin-page h3 { font-size: 15px; font-weight: 600; line-height: 1.4; }
+  .admin-page p, .admin-page li { font-size: 13px; line-height: 1.5; }
+  .admin-page small, .admin-page .text-xs { font-size: 11px; line-height: 1.4; }
+  /* RTL refinements */
+  [dir="rtl"] .sidebar-text { text-align: right; }
+  [dir="rtl"] [class*="ml-"] { margin-left: 0; margin-right: var(--tw-margin-left, 0); }
+  [dir="rtl"] svg:not([dir="ltr"]) { transform: scaleX(-1); }
 
   /* Global scrollbar styling to match ScrollArea */
   * {

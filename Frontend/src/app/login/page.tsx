@@ -153,7 +153,7 @@ export default function LoginPage() {
               )}
               {(error || localError) && (
                 <motion.div initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }}
-                  className="p-3 rounded-xl text-sm" style={{ backgroundColor: "rgba(220,38,38,0.15)", color: "#EF4444" }}>
+                  className="p-3 rounded-xl text-sm" style={{ backgroundColor: "rgba(var(--brand-rgb),0.15)", color: "#EF4444" }}>
                   {localError || error}
                   {!localError && isLocked() && <span> ({remainingLockout()} min remaining)</span>}
                 </motion.div>
