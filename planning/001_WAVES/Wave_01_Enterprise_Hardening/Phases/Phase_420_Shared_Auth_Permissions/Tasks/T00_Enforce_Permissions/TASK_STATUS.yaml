@@ -1,7 +1,7 @@
 task:
   name: "Enforce requirePermission on all 140+ endpoints"
   phase: "420"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "CRITICAL"
   steps:
     S01_Map_Endpoints: "Map Endpoints"
@@ -10,3 +10,4 @@ task:
     S04_Seed_Permission_Keys: "Seed Permission Keys"
   completion_criteria:
     - "All steps complete with evidence"
+

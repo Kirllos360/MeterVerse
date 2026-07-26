@@ -1,8 +1,9 @@
 task:
   name: "WebSocket Gateway"
   phase: "Phase_43b_Communication_RealTime"
-  status: "COMPLETE"
+  status: "ACTIVE"
   steps:
     S01: "Implement WebSocket Gateway"
   completion_criteria:
     - "Task complete with evidence"
+

@@ -1,9 +1,10 @@
 task:
   name: "Build admin queue management page with retry, cancel, and monitoring"
   phase: "43d"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "MEDIUM"
   steps:
     S01: "Implement Build admin queue management page with retry, cancel, and monitoring"
   completion_criteria:
     - "Task complete with evidence"
+

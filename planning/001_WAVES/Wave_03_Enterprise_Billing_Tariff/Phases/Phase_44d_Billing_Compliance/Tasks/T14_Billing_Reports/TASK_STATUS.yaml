@@ -1,7 +1,7 @@
 task:
   name: "Billing Reports"
   phase: "Phase_44d_Billing_Compliance"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Billing Reports"
   completion_criteria:

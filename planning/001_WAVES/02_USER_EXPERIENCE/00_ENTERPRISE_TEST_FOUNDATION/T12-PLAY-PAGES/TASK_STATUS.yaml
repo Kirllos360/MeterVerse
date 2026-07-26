@@ -17,3 +17,4 @@ checklist: "[X] List pages tested [X] Detail pages tested [X] CRUD flows tested 
 - Total Playwright tests: 5 (auth) + 19 (pages) = 24
 - Requires: Frontend running on :7400
 - Run: cd Frontend && npx playwright test
+

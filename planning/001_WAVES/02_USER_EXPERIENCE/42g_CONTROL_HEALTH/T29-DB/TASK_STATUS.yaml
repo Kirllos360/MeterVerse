@@ -17,3 +17,4 @@ checklist: "[X] Enums created (9 enums: EntityStatus, InvoiceStatus, MeterStatus
   4. Seed data update: pending (requires database connection)
   5. N+1 audit: pending (requires query logging against live DB)
 - These steps require a live database connection — documented for next developer
+

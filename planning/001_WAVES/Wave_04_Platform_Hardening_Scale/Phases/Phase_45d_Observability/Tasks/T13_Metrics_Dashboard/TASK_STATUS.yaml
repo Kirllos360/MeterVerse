@@ -1,7 +1,7 @@
 task:
   name: "Metrics Dashboard"
   phase: "Phase_45d_Observability"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Metrics Dashboard"
   completion_criteria:

@@ -1,11 +1,12 @@
 step:
   name: "Build Notification Engine"
   task: "T03"
-  status: "COMPLETE"
+  status: "ACTIVE"
   depends_on: ["S01"]
   estimated_hours: 6
   evidence_required:
     - "backend/src/services/notification-engine.js exists"
     - "Engine can create Notification + EmailLog records"
     - "Unit test passes: engine creates correct record types"
+
 

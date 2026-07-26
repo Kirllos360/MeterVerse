@@ -1,7 +1,8 @@
 step:
   name: "Meter E2E"
   task: "T12"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "CRITICAL"
   evidence_required:
     - "Meter E2E completed with screenshots"
+

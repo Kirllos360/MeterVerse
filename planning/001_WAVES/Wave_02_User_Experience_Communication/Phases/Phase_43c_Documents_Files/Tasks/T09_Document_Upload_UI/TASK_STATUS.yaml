@@ -1,7 +1,7 @@
 task:
   name: "Document Upload UI"
   phase: "Phase_43c_Documents_Files"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Document Upload UI"
   completion_criteria:

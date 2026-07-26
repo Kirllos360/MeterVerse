@@ -1,7 +1,7 @@
 step:
   name: "Implement Scheduled Jobs"
   task: "T09_Scheduled_Jobs"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement Scheduled Jobs implemented and verified"

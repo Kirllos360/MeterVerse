@@ -1,7 +1,7 @@
 task:
   name: "KPI Alerts"
   phase: "Phase_46b_Analytics"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement KPI Alerts"
   completion_criteria:

@@ -1,7 +1,7 @@
 step:
   name: "Implement ErrorBoundary Wrapper"
   task: "T13_ErrorBoundary_Wrapper"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement ErrorBoundary Wrapper implemented and verified"

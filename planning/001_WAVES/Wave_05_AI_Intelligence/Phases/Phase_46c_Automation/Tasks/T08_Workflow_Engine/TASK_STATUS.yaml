@@ -1,7 +1,7 @@
 task:
   name: "Workflow Engine"
   phase: "Phase_46c_Automation"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Workflow Engine"
   completion_criteria:

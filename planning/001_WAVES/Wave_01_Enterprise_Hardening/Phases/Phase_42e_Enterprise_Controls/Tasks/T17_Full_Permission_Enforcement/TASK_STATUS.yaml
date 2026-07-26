@@ -1,7 +1,7 @@
 task:
   name: "Enforce requirePermission on ALL 21 route files"
   phase: "42e"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "HIGH"
   steps:
     S01: "Audit all 21 route files — list which use requireRole vs requirePermission"
@@ -11,3 +11,4 @@ task:
   completion_criteria:
     - "21/21 route files use requirePermission"
     - "No route file uses deprecated requireRole"
+

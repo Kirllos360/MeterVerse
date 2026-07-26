@@ -1,7 +1,7 @@
 task:
   name: "Secret Scanning"
   phase: "Phase_45b_Security"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Secret Scanning"
   completion_criteria:

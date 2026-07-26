@@ -1,7 +1,7 @@
 task:
   name: "RealTime Dashboard"
   phase: "Phase_46b_Analytics"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement RealTime Dashboard"
   completion_criteria:

@@ -1,7 +1,7 @@
 task:
   name: "T03 — GATE_CHECK Enforcement"
   phase: "42d"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "CRITICAL"
   risk: "Without this, all future work is unverifiable"
   depends_on: []
@@ -14,3 +14,4 @@ task:
     S02: "COMPLETE when script passes dry-run"
     S03: "COMPLETE when hook blocks invalid status changes"
     S04: "COMPLETE when CI job validates YAML against git diff"
+

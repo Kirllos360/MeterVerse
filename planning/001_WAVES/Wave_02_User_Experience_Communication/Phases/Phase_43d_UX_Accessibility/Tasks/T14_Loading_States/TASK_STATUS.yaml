@@ -1,7 +1,7 @@
 task:
   name: "Loading States"
   phase: "Phase_43d_UX_Accessibility"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Loading States"
   completion_criteria:

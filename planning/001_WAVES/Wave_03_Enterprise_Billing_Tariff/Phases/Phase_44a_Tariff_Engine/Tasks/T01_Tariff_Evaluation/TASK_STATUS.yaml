@@ -1,7 +1,7 @@
 task:
   name: "Tariff Evaluation"
   phase: "Phase_44a_Tariff_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Tariff Evaluation"
   completion_criteria:

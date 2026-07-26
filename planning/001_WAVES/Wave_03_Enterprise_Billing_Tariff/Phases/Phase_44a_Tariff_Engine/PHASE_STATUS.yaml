@@ -1,31 +1,31 @@
 phase:
   name: "Phase 44a Tariff Engine"
   wave: "3"
-  status: "RUNNING"
+  status: "ACTIVE"
   tasks:
     T01_Tariff_Evaluation:
       name: "Tariff Evaluation"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Tariff Evaluation"
     T02_TimeOfUse_Pricing:
       name: "TimeOfUse Pricing"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement TimeOfUse Pricing"
     T03_Tiered_Pricing:
       name: "Tiered Pricing"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Tiered Pricing"
     T04_Demand_Pricing:
       name: "Demand Pricing"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Demand Pricing"
     T99_Phase_Audit:
       name: "Phase Completion Audit"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S00_Verification_Loop: "Verification Loop"
         S01_Audit_Planning_Docs: "Audit Planning Docs"
@@ -35,3 +35,4 @@ phase:
         S05_Audit_Database_Design: "Audit Database Design"
         S06_Audit_Process_Flow: "Audit Process Flow"
         S07_Audit_KPI_Flow: "Audit KPI Flow"
+

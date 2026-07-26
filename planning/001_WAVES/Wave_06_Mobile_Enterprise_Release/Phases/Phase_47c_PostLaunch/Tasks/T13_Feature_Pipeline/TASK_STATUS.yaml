@@ -1,7 +1,7 @@
 task:
   name: "Feature Pipeline"
   phase: "Phase_47c_PostLaunch"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Feature Pipeline"
   completion_criteria:

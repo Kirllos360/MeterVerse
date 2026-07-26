@@ -1,7 +1,7 @@
 step:
   name: "Implement Workflow Engine"
   task: "T08_Workflow_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement Workflow Engine implemented and verified"

@@ -1,7 +1,7 @@
 task:
   name: "PromiseToPay"
   phase: "Phase_44c_Collections_Payments"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement PromiseToPay"
   completion_criteria:

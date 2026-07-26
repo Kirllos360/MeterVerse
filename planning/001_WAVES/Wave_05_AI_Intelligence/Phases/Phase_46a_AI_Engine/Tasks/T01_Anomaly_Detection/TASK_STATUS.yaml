@@ -1,7 +1,7 @@
 task:
   name: "Anomaly Detection"
   phase: "Phase_46a_AI_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Anomaly Detection"
   completion_criteria:

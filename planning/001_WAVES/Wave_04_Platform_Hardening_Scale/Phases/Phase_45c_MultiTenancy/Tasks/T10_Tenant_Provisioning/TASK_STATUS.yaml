@@ -1,7 +1,7 @@
 task:
   name: "Tenant Provisioning"
   phase: "Phase_45c_MultiTenancy"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Tenant Provisioning"
   completion_criteria:

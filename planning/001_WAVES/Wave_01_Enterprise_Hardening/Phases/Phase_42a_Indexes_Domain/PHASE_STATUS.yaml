@@ -1,20 +1,20 @@
 phase:
   name: "Phase 42a — Indexes & Domain Fix"
   wave: 1
-  status: "COMPLETE"
+  status: "ACTIVE"
   dependencies:
     - "None"
   tasks:
     T01_Add_Database_Indexes:
       name: "Add 20+ database indexes"
-      status: "COMPLETE"
+      status: "ACTIVE"
       steps:
         S01: "Audit current indexes — COMPLETE"
         S02: "Create migration with indexes — COMPLETE"
         S03: "Verify with EXPLAIN ANALYZE — COMPLETE when index scans confirmed"
     T02_Fix_Domain_JS:
       name: "Fix domain.js prisma init issue"
-      status: "COMPLETE"
+      status: "ACTIVE"
       steps:
         S01: "Diagnose root cause � COMPLETE"
         S02: "Implement fix � COMPLETE"
@@ -33,13 +33,14 @@ phase:
         S06: Audit process flow
         S07: Audit KPI flow
       name: "Fix domain.js prisma init issue"
-      status: "COMPLETE"
+      status: "ACTIVE"
       steps:
         S01: "Diagnose root cause — COMPLETE"
         S02: "Implement fix — COMPLETE"
         S03: "Add include/relations support — COMPLETE when related data returned"
         S04: "Add 404 handling — COMPLETE when nonexistent returns 404"
         S05: "Add soft delete support — COMPLETE when archivedAt used"
+
 
 
 

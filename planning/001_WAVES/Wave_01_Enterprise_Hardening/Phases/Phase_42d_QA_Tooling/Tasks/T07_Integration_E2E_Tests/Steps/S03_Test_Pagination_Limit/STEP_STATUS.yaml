@@ -1,9 +1,10 @@
 step:
   name: "Test pagination max limit enforced on all list endpoints"
   task: "T07"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "MEDIUM"
   estimated_hours: 2
   evidence_required:
     - "Test passes and gap closed"
+
 

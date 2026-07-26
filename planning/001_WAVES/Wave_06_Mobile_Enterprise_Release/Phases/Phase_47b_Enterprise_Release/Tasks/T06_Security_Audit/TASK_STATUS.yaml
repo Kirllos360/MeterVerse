@@ -1,7 +1,7 @@
 task:
   name: "Security Audit"
   phase: "Phase_47b_Enterprise_Release"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Security Audit"
   completion_criteria:

@@ -2,7 +2,8 @@ step:
   id: "S01"
   name: "Diagnose root cause"
   task: "T02"
-  status: "COMPLETE"
+  status: "ACTIVE"
   evidence:
     - "docs/reviews/DOMAIN_JS_DIAGNOSIS.md"
     - "4 root causes identified"
+

@@ -1,7 +1,8 @@
 step:
   name: "Add Config Validation"
   task: "T28"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "MEDIUM"
   evidence_required:
     - "Add Config Validation completed and verified"
+

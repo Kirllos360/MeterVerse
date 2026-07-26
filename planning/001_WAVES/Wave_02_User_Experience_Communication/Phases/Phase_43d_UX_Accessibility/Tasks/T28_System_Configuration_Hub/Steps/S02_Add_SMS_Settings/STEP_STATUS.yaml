@@ -1,7 +1,8 @@
 step:
   name: "Add SMS Settings"
   task: "T28"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "MEDIUM"
   evidence_required:
     - "Add SMS Settings completed and verified"
+

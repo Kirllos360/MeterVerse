@@ -1,9 +1,10 @@
 step:
   name: "Add Frontend Permission Checks"
   task: "Granular_Permissions"
-  status: "COMPLETE"
+  status: "ACTIVE"
   depends_on: []
   estimated_hours: 4
   evidence_required:
     - "Step completed and verified"
+
 

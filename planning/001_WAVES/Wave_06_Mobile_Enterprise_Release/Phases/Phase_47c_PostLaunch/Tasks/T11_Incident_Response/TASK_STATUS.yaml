@@ -1,7 +1,7 @@
 task:
   name: "Incident Response"
   phase: "Phase_47c_PostLaunch"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Incident Response"
   completion_criteria:

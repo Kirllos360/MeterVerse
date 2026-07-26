@@ -8,3 +8,4 @@ evidence:
   - "2 MEDIUM priority: notification-engine, websocket-gateway"
   - "6 LOW priority: alert-engine, billing-engine, email-engine, kpi-engine, sms-engine, validation-engine"
   - "Mocking strategy: stub prisma from db.js/server.js"
+

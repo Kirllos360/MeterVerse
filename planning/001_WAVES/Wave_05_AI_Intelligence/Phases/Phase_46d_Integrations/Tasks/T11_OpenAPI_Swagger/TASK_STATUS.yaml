@@ -1,7 +1,7 @@
 task:
   name: "OpenAPI Swagger"
   phase: "Phase_46d_Integrations"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement OpenAPI Swagger"
   completion_criteria:

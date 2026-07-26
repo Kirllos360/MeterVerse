@@ -2,12 +2,12 @@ task:
   id: "T02"
   name: "Fix domain.js prisma init issue"
   phase: "42a"
-  status: "COMPLETE"
+  status: "ACTIVE"
   risk: "HIGH"
   files_affected:
     - "backend/src/routes/domain.js"
     - "backend/src/server.js"
-  status: "IN_PROGRESS"
+  status: "ACTIVE"
   steps:
     S01: "Diagnose root cause"
     S02: "Implement fix"
@@ -22,5 +22,6 @@ task:
     - "DELETE sets archivedAt instead of hard delete"
     - "Zero TypeScript errors"
     - "Zero regression in existing APIs"
+
 
 

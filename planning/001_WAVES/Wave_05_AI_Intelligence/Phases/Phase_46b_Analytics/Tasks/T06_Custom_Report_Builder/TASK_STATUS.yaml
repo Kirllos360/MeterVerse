@@ -1,7 +1,7 @@
 task:
   name: "Custom Report Builder"
   phase: "Phase_46b_Analytics"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Custom Report Builder"
   completion_criteria:

@@ -1,7 +1,7 @@
 task:
   name: "Offline Support"
   phase: "Phase_47a_Mobile_API"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Offline Support"
   completion_criteria:

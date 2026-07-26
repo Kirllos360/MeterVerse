@@ -1,7 +1,7 @@
 task:
   name: "Wire Email Engine — actual SMTP sending"
   phase: "42f"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "HIGH"
   steps:
     S01: "Configure SMTP environment variables"
@@ -12,3 +12,4 @@ task:
     - "Email sends successfully via SMTP"
     - "Failed emails retry up to 3 times"
     - "Rate limiting prevents spam"
+

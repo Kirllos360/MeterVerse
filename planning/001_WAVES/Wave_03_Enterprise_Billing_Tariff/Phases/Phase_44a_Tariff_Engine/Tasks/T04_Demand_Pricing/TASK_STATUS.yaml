@@ -1,7 +1,7 @@
 task:
   name: "Demand Pricing"
   phase: "Phase_44a_Tariff_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Demand Pricing"
   completion_criteria:

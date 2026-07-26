@@ -5,3 +5,4 @@ completed: 2026-07-23
 evidence:
   - "audit.md — 21 routes mapped, ~76 estimated tests across 6 categories"
   - "Approach: supertest + mock-prisma (no live server needed)"
+

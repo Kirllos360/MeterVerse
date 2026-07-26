@@ -13,3 +13,4 @@ evidence_dir: 45b_SECURITY_HARDENING/_evidence/
 - T44: DDoS Protection — MITIGATED (rate limiting + body size 1mb + connection limits) ✅
 - T45: Security Scan in CI — npm audit --audit-level=high in CI workflow ✅
 - T46: CORS/Helmet Verification — CSP, CORS whitelist, credentials, CSRF token header all verified ✅
+

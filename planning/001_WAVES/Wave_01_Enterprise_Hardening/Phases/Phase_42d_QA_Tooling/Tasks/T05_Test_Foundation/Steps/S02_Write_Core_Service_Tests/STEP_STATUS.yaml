@@ -1,11 +1,12 @@
 step:
   name: "Write Core Service Tests"
   task: "T05"
-  status: "COMPLETE"
+  status: "ACTIVE"
   depends_on: ["S01"]
   estimated_hours: 6
   evidence_required:
     - "3 backend service files have test coverage"
     - "npm test passes"
   prompts_available: true
+
 

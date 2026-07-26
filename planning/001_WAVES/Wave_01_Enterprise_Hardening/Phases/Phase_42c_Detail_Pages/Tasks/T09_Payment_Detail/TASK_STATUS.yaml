@@ -1,7 +1,7 @@
 task:
   name: "Payment Detail Page"
   phase: "42c"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "MEDIUM"
   risk: "No payments detail page — users cannot drill down from list"
   depends_on: []
@@ -12,4 +12,5 @@ task:
     - "Shows key fields: Amount, Method, Status, Paid At"
     - "Shows related data: Invoice, Transactions"
     - "Uses GenericAdminPage pattern"
+
 

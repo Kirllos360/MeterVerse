@@ -25,3 +25,4 @@ evidence_dir: 42g_CONTROL_HEALTH/_evidence/
 - T31: permissions.js deleted, codebase consolidated, console.log removed
 - T34: Graphiti manifest (366 entries) path-prefix corrected
 - T35: Workflow engine service with 3 state machines (customer, invoice, meter)
+

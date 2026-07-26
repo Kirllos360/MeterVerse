@@ -1,7 +1,7 @@
 step:
   name: "Implement Document Templates"
   task: "T10_Document_Templates"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement Document Templates implemented and verified"

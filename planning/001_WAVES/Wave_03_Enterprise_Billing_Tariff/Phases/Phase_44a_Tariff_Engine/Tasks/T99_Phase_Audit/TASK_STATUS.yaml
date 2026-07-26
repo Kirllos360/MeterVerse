@@ -1,7 +1,7 @@
 task:
   name: "Phase Completion Audit"
   phase: "Phase_44a_Tariff_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "CRITICAL"
   steps:
     S00_Verification_Loop: "Verification Loop"

@@ -10,3 +10,4 @@ evidence:
   - "tests/unit/auth-engine.test.mjs — 13 tests, all passing"
   - "npm test: 13/13 tests pass, 373ms"
   - "npm scripts: test, test:integration, test:coverage"
+

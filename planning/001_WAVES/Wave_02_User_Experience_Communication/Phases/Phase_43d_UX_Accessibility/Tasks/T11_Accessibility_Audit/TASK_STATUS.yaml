@@ -1,7 +1,7 @@
 task:
   name: "Accessibility Audit"
   phase: "Phase_43d_UX_Accessibility"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Accessibility Audit"
   completion_criteria:

@@ -12,3 +12,4 @@ checklist: "[X] Path prefix fixed: D:\meter\Meter-\ → D:\meter [X] 366 manifes
 - Fixed 366 entries in manifest.json — all paths now correct
 - graphify installed and available for future runs
 - Full graph rebuild requires longer timeout (>5 min) — deferred to CI pipeline
+

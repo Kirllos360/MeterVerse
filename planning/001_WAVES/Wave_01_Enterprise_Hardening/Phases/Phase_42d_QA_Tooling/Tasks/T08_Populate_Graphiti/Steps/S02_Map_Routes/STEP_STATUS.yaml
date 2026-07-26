@@ -1,8 +1,9 @@
 step:
   name: "Map Routes"
   task: "T08"
-  status: "COMPLETE"
+  status: "ACTIVE"
   estimated_hours: 3
   evidence_required:
     - "Graph nodes committed to graphiti/index.json"
+
 

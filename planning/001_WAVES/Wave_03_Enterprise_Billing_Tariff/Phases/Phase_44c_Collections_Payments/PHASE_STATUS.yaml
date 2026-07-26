@@ -1,26 +1,26 @@
 phase:
   name: "Phase 44c Collections Payments"
   wave: "3"
-  status: "PLANNING"
+  status: "ACTIVE"
   tasks:
     T09_Collection_Workflow:
       name: "Collection Workflow"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Collection Workflow"
     T10_Payment_Gateway:
       name: "Payment Gateway"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Payment Gateway"
     T11_PromiseToPay:
       name: "PromiseToPay"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement PromiseToPay"
     T99_Phase_Audit:
       name: "Phase Completion Audit"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S00_Verification_Loop: "Verification Loop"
         S01_Audit_Planning_Docs: "Audit Planning Docs"
@@ -30,3 +30,4 @@ phase:
         S05_Audit_Database_Design: "Audit Database Design"
         S06_Audit_Process_Flow: "Audit Process Flow"
         S07_Audit_KPI_Flow: "Audit KPI Flow"
+

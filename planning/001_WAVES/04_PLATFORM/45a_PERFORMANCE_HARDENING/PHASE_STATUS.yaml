@@ -17,3 +17,4 @@ evidence_dir: 45a_PERFORMANCE_HARDENING/_evidence/
 - D11: Circuit breakers — ✅ COMPLETE
 - D03: Cache layer — ✅ COMPLETE
 - D10: Graceful degradation — ✅ COMPLETE
+

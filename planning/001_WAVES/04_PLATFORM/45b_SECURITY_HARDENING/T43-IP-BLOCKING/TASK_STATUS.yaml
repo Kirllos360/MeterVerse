@@ -6,3 +6,4 @@ phase: 45b_SECURITY_HARDENING
 total_steps: 5
 completed_steps: 0
 checklist: "[/] IP tracking on auth failures [/] Temp block after N failures [/] Permanent block after M temp blocks [/] Admin unblock UI"
+

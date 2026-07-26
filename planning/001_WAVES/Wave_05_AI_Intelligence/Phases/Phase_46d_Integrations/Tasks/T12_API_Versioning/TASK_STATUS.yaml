@@ -1,7 +1,7 @@
 task:
   name: "API Versioning"
   phase: "Phase_46d_Integrations"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement API Versioning"
   completion_criteria:

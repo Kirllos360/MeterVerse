@@ -1,7 +1,7 @@
 task:
   name: "Payment Prediction"
   phase: "Phase_46a_AI_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Payment Prediction"
   completion_criteria:

@@ -1,11 +1,12 @@
 step:
   name: "Verify Indexes with EXPLAIN ANALYZE"
   task: "T01"
-  status: "PLANNING"
+  status: "ACTIVE"
   depends_on: ["S02"]
   estimated_hours: 4
   evidence_required:
     - Test data seeded (1000+ records per table)
     - "EXPLAIN ANALYZE output showing index scans for 5+ common queries"
     - "Query performance comparison: before vs after indexes"
+
 

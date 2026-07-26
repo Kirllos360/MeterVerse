@@ -1,7 +1,7 @@
 task:
   name: "Write unit tests for backend services"
   phase: "42d"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "CRITICAL"
   steps:
     S01: "Write test for auth-engine.js (login, lockout, tokens)"
@@ -12,3 +12,4 @@ task:
   completion_criteria:
     - "20+ unit tests passing"
     - "All 5 backend services have test coverage"
+

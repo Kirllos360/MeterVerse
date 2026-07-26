@@ -1,7 +1,7 @@
 task:
   name: "Mobile Endpoints"
   phase: "Phase_47a_Mobile_API"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Mobile Endpoints"
   completion_criteria:

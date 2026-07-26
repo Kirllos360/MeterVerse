@@ -63,7 +63,7 @@ quality_gates:
   business_rules_enforced: 6
   routes_with_rbac: 16
   routes_with_audit: 16
-  api_endpoints: 100
+  api_endpoints: 287
   prisma_models: 86
   avg_response_time_ms: 34
   notifications_wired: 23
@@ -94,6 +94,7 @@ gaps_covered:
   - "42b: notifications + export"
   - "42c: detail pages — expanded to 7 tasks (T05-T11)"
   - "42d: GATE_CHECK + page-configs + tests + Meter/ decision"
+
 
 
 

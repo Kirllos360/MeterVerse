@@ -1,7 +1,7 @@
 task:
   name: "CrossOrg Reports"
   phase: "Phase_45c_MultiTenancy"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement CrossOrg Reports"
   completion_criteria:

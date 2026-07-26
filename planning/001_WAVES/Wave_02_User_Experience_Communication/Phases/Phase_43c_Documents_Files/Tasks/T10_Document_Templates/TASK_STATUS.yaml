@@ -1,7 +1,7 @@
 task:
   name: "Document Templates"
   phase: "Phase_43c_Documents_Files"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Document Templates"
   completion_criteria:

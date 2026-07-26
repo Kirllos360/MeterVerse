@@ -1,7 +1,7 @@
 task:
   name: "ErrorBoundary Wrapper"
   phase: "Phase_43d_UX_Accessibility"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement ErrorBoundary Wrapper"
   completion_criteria:

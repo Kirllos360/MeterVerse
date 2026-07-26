@@ -1,7 +1,7 @@
 task:
   name: "Invoice Itemization"
   phase: "Phase_44b_Billing_Pipeline"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Invoice Itemization"
   completion_criteria:

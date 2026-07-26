@@ -1,31 +1,31 @@
 phase:
   name: "Phase 45b Security"
   wave: "4"
-  status: "PLANNING"
+  status: "ACTIVE"
   tasks:
     T05_Penetration_Testing:
       name: "Penetration Testing"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Penetration Testing"
     T06_Dependency_Auditing:
       name: "Dependency Auditing"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Dependency Auditing"
     T07_Secret_Scanning:
       name: "Secret Scanning"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Secret Scanning"
     T08_CORS_Hardening:
       name: "CORS Hardening"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement CORS Hardening"
     T99_Phase_Audit:
       name: "Phase Completion Audit"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S00_Verification_Loop: "Verification Loop"
         S01_Audit_Planning_Docs: "Audit Planning Docs"
@@ -35,3 +35,4 @@ phase:
         S05_Audit_Database_Design: "Audit Database Design"
         S06_Audit_Process_Flow: "Audit Process Flow"
         S07_Audit_KPI_Flow: "Audit KPI Flow"
+

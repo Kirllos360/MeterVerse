@@ -1,7 +1,7 @@
 task:
   name: "T03 — Wire Notifications"
   phase: "42b"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "MEDIUM"
   risk: "0/23 events wired — full pipeline build needed"
   steps:
@@ -15,4 +15,5 @@ task:
     - "10+ template types seeded"
     - "5+ events verified to produce notifications"
     - "API route returns user notifications"
+
 

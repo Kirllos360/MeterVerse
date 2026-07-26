@@ -1,7 +1,7 @@
 task:
   name: "Organization Isolation"
   phase: "Phase_45c_MultiTenancy"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Organization Isolation"
   completion_criteria:

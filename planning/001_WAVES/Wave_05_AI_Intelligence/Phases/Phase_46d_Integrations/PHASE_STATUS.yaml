@@ -1,26 +1,26 @@
 phase:
   name: "Phase 46d Integrations"
   wave: "5"
-  status: "PLANNING"
+  status: "ACTIVE"
   tasks:
     T11_OpenAPI_Swagger:
       name: "OpenAPI Swagger"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement OpenAPI Swagger"
     T12_API_Versioning:
       name: "API Versioning"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement API Versioning"
     T13_External_Connectors:
       name: "External Connectors"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement External Connectors"
     T99_Phase_Audit:
       name: "Phase Completion Audit"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S00_Verification_Loop: "Verification Loop"
         S01_Audit_Planning_Docs: "Audit Planning Docs"
@@ -30,3 +30,4 @@ phase:
         S05_Audit_Database_Design: "Audit Database Design"
         S06_Audit_Process_Flow: "Audit Process Flow"
         S07_Audit_KPI_Flow: "Audit KPI Flow"
+

@@ -18,3 +18,4 @@ evidence_dir: 00_ENTERPRISE_TEST_FOUNDATION/_evidence/
 - 87.79% line coverage (backend services)
 - mock-prisma.js, test-app.js, vitest config with 80% threshold
 - All gaps from SUPERLOOP audit for testing dimension closed
+

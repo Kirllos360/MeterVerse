@@ -16,3 +16,4 @@ checklist: "[X] Supertest configured [X] Auth endpoints tested [X] CRUD endpoint
 - Step 08: Permission tests — 2 tests (authenticated 200, unauthenticated 401)
 - Step 09: Full suite verification — 85/85 tests, 14 files, 100% passing
 - Step 10: Evidence + commit
+

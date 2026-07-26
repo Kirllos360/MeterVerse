@@ -1,9 +1,10 @@
 step:
   name: "DELETE idempotency check"
   task: "T99"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "LOW"
   estimated_hours: 1
   evidence_required:
     - "Verify double-delete returns 404 not 500"
+
 

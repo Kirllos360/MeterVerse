@@ -8,3 +8,4 @@ evidence:
   - "Threshold of 80% MET (87.79% > 80%)"
   - "3 services at 100%: billing-engine, email-engine, kpi-engine (snapshot path)"
   - "Lowest: sms-engine 60% (stub, unexercised error path)"
+

@@ -1,21 +1,21 @@
 phase:
   name: "Phase 43c Documents Files"
   wave: "2"
-  status: "RUNNING"
+  status: "ACTIVE"
   tasks:
     T09_Document_Upload_UI:
       name: "Document Upload UI"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Document Upload UI"
     T10_Document_Templates:
       name: "Document Templates"
-      status: "COMPLETE"
+      status: "ACTIVE"
       steps:
         S01: "Implement Document Templates"
     T99_Phase_Audit:
       name: "Phase Completion Audit"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S00_Verification_Loop: "Verification Loop"
         S01_Audit_Planning_Docs: "Audit Planning Docs"
@@ -25,3 +25,4 @@ phase:
         S05_Audit_Database_Design: "Audit Database Design"
         S06_Audit_Process_Flow: "Audit Process Flow"
         S07_Audit_KPI_Flow: "Audit KPI Flow"
+

@@ -1,7 +1,7 @@
 task:
   name: "Build shared login engine for admin and user portals"
   phase: "420"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "CRITICAL"
   steps:
     S01_Design_Login_Protocol: "Design Login Protocol"
@@ -11,3 +11,4 @@ task:
     S05_Add_Login_Theming: "Add Login Theming"
   completion_criteria:
     - "All steps complete with evidence"
+

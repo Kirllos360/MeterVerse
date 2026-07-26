@@ -6,3 +6,4 @@ phase: 42g_CONTROL_HEALTH
 total_steps: 8
 completed_steps: 2
 checklist: "[X] 12 routes audited [X] Missing perm keys added [/] All routes use requirePermission [ ] Role-based tests pass [ ] Migration documented"
+

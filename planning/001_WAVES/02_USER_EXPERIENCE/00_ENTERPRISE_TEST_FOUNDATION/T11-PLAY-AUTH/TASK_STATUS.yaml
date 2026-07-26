@@ -19,3 +19,4 @@ checklist: "[X] Playwright configured [X] Login flow tested [X] Unauthorized red
 - Tests run via: cd Frontend && npx playwright test
 - Requires: Frontend server running on :7400
 - Note: Clerk is in keyless mode (empty API keys) — full login flow requires Clerk test credentials
+

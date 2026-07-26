@@ -1,8 +1,9 @@
 task:
   name: "Build Command Palette"
   phase: "Phase_43a_User_Workspace_Completion"
-  status: "COMPLETE"
+  status: "ACTIVE"
   steps:
     S01: "Implement Build Command Palette"
   completion_criteria:
     - "Task complete with evidence"
+

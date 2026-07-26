@@ -8,3 +8,4 @@ evidence:
   - "permissions.js marked as DEPRECATED"
   - "63/63 unit tests still pass"
   - "requireRole calls remaining only in security.js (export) and customers/meters/invoices/readings/payments (already using requirePermission)"
+

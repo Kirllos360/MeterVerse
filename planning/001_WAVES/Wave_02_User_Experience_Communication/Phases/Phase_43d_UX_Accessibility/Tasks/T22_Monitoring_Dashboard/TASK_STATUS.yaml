@@ -1,9 +1,10 @@
 task:
   name: "Build real-time monitoring dashboard with ActivityStream data, traffic charts, error rates"
   phase: "43d"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "MEDIUM"
   steps:
     S01: "Implement Build real-time monitoring dashboard with ActivityStream data, traffic charts, error rates"
   completion_criteria:
     - "Task complete with evidence"
+

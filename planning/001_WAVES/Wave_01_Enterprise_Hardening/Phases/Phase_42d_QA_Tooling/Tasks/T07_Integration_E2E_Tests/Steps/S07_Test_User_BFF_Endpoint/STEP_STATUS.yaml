@@ -1,9 +1,10 @@
 step:
   name: "Test /api/user/* returns user-specific data"
   task: "T07"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "MEDIUM"
   estimated_hours: 2
   evidence_required:
     - "Test passes and gap closed"
+
 

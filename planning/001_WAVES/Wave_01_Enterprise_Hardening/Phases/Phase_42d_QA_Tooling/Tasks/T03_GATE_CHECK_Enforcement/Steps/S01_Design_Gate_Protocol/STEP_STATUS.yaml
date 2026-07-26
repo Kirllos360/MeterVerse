@@ -1,12 +1,13 @@
 step:
   name: "Design Gate Protocol"
   task: "T03"
-  status: "COMPLETE"
+  status: "ACTIVE"
   depends_on: []
   estimated_hours: 2
   evidence_required:
     - "Gate protocol document at docs/planning/GATE_PROTOCOL.md"
   prompts_available: true
+
 
 
 

@@ -1,7 +1,7 @@
 task:
   name: "Build contextual alert/error hint engine"
   phase: "42e"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "HIGH"
   steps:
     S01: "Design error hint catalog"
@@ -12,3 +12,4 @@ task:
     - "All 400/500 errors include contextual hints"
     - "AlertEngine returns workflow sequence hints"
     - "Active alerts visible in admin UI"
+

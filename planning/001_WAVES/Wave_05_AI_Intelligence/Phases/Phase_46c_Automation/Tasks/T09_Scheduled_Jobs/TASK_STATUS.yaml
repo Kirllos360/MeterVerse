@@ -1,7 +1,7 @@
 task:
   name: "Scheduled Jobs"
   phase: "Phase_46c_Automation"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Scheduled Jobs"
   completion_criteria:

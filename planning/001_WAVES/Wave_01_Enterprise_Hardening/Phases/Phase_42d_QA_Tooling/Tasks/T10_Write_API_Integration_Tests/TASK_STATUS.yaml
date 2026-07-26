@@ -1,7 +1,7 @@
 task:
   name: "Write API integration tests"
   phase: "42d"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "CRITICAL"
   steps:
     S01: "Write test for customers API (CRUD, export, permissions)"
@@ -12,3 +12,4 @@ task:
   completion_criteria:
     - "25+ API integration tests passing"
     - "All major CRUD endpoints tested"
+

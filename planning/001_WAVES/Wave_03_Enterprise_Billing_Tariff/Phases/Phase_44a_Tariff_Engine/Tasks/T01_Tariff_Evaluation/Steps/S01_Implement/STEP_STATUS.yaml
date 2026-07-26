@@ -1,7 +1,7 @@
 step:
   name: "Implement Tariff Evaluation"
   task: "T01_Tariff_Evaluation"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement Tariff Evaluation implemented and verified"

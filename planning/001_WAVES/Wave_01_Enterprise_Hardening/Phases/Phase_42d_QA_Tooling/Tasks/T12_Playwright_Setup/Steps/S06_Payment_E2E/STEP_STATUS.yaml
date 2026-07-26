@@ -1,7 +1,8 @@
 step:
   name: "Payment E2E"
   task: "T12"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "CRITICAL"
   evidence_required:
     - "Payment E2E completed with screenshots"
+

@@ -1,8 +1,9 @@
 step:
   name: "Write Playwright E2E Tests"
   task: "T07"
-  status: "COMPLETE"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Test report committed"
+
 

@@ -1,9 +1,10 @@
 task:
   name: "Build admin cache management page with invalidation controls"
   phase: "43d"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "MEDIUM"
   steps:
     S01: "Implement Build admin cache management page with invalidation controls"
   completion_criteria:
     - "Task complete with evidence"
+

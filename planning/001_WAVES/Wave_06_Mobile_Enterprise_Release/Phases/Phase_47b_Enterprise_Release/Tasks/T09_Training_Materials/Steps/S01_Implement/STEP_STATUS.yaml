@@ -1,7 +1,7 @@
 step:
   name: "Implement Training Materials"
   task: "T09_Training_Materials"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement Training Materials implemented and verified"

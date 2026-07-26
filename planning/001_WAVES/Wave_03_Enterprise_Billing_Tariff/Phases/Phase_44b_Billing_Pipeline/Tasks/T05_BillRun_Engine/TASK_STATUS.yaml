@@ -1,7 +1,7 @@
 task:
   name: "BillRun Engine"
   phase: "Phase_44b_Billing_Pipeline"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement BillRun Engine"
   completion_criteria:

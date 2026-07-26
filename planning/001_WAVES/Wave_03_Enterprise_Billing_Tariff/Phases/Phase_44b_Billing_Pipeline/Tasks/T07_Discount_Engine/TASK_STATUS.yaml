@@ -1,7 +1,7 @@
 task:
   name: "Discount Engine"
   phase: "Phase_44b_Billing_Pipeline"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Discount Engine"
   completion_criteria:

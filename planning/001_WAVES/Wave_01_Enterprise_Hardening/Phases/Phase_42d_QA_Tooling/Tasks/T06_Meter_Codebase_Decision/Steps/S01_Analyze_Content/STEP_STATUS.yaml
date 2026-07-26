@@ -1,10 +1,11 @@
 step:
   name: "Analyze Meter/ Content"
   task: "T06"
-  status: "COMPLETE"
+  status: "ACTIVE"
   depends_on: []
   estimated_hours: 3
   evidence_required:
     - "Content audit document at docs/analysis/METER_CONTENT_AUDIT.md"
   prompts_available: true
+
 

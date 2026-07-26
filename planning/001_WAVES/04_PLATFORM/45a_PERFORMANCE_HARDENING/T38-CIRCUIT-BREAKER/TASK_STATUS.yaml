@@ -6,3 +6,4 @@ phase: 45a_PERFORMANCE_HARDENING
 total_steps: 5
 completed_steps: 0
 checklist: "[/] Circuit breaker built [/] SYMBIOT calls protected [/] Half-open state works [/] Fallback documented"
+

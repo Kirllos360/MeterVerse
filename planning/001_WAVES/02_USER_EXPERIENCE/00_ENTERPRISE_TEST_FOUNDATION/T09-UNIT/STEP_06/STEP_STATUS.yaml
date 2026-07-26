@@ -10,3 +10,4 @@ evidence:
   - "tests/unit/billing-engine.test.mjs — 1 test PASS"
   - "tests/unit/validation-engine.test.mjs — 1 test PASS"
   - "Total: 10 test files, 71 tests, ALL PASSING"
+

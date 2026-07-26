@@ -1,7 +1,7 @@
 task:
   name: "Failover Testing"
   phase: "Phase_45e_Disaster_Recovery"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Failover Testing"
   completion_criteria:

@@ -1,9 +1,10 @@
 step:
   name: "Add proper 404 handling to domain CRUD"
   task: "T02"
-  status: "PLANNING"
+  status: "ACTIVE"
   depends_on: ["S03"]
   estimated_hours: 1
   evidence_required:
     - "GET /api/domain/contracts/nonexistent-id returns 404"
     - "GET /api/domain/contracts/:id returns 200 with data"
+

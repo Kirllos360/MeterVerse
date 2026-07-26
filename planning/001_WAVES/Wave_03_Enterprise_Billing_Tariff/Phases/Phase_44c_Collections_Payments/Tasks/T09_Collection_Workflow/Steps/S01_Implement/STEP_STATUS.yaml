@@ -1,7 +1,7 @@
 step:
   name: "Implement Collection Workflow"
   task: "T09_Collection_Workflow"
-  status: "PLANNING"
+  status: "ACTIVE"
   estimated_hours: 4
   evidence_required:
     - "Implement Collection Workflow implemented and verified"

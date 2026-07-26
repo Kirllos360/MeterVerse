@@ -1,7 +1,7 @@
 task:
   name: "SLA Monitoring"
   phase: "Phase_45d_Observability"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement SLA Monitoring"
   completion_criteria:

@@ -1,7 +1,7 @@
 task:
   name: "Webhook Delivery"
   phase: "Phase_46c_Automation"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Webhook Delivery"
   completion_criteria:

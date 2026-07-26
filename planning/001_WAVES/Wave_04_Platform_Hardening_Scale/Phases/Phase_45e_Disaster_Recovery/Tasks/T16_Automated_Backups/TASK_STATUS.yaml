@@ -1,7 +1,7 @@
 task:
   name: "Automated Backups"
   phase: "Phase_45e_Disaster_Recovery"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Automated Backups"
   completion_criteria:

@@ -1,7 +1,7 @@
 task:
   name: "Build billing engine from readings"
   phase: "42f"
-  status: "COMPLETE"
+  status: "ACTIVE"
   priority: "HIGH"
   steps:
     S01: "Implement ChargeRule evaluation"
@@ -10,4 +10,5 @@ task:
     S04: "Add invoice tax/discount calculation"
   completion_criteria:
     - "All steps complete with evidence"
+
 

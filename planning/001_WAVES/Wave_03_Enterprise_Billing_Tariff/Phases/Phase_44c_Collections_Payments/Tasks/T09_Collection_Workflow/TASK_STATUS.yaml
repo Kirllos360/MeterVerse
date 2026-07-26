@@ -1,7 +1,7 @@
 task:
   name: "Collection Workflow"
   phase: "Phase_44c_Collections_Payments"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Collection Workflow"
   completion_criteria:

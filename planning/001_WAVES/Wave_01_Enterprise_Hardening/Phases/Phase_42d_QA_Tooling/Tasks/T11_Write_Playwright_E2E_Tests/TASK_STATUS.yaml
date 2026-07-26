@@ -1,7 +1,7 @@
 task:
   name: "Write Playwright E2E browser tests"
   phase: "42d"
-  status: "PLANNING"
+  status: "ACTIVE"
   priority: "CRITICAL"
   steps:
     S01: "Write login flow test (admin login, user login, failed login)"
@@ -14,3 +14,4 @@ task:
     - "30+ Playwright tests passing in Chromium"
     - "All critical user flows covered"
     - "Screenshots captured as evidence"
+

@@ -1,31 +1,31 @@
 phase:
   name: "Phase 44b Billing Pipeline"
   wave: "3"
-  status: "PLANNING"
+  status: "ACTIVE"
   tasks:
     T05_BillRun_Engine:
       name: "BillRun Engine"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement BillRun Engine"
     T06_Invoice_Itemization:
       name: "Invoice Itemization"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Invoice Itemization"
     T07_Discount_Engine:
       name: "Discount Engine"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Discount Engine"
     T08_Tax_Engine:
       name: "Tax Engine"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S01: "Implement Tax Engine"
     T99_Phase_Audit:
       name: "Phase Completion Audit"
-      status: "PLANNING"
+      status: "ACTIVE"
       steps:
         S00_Verification_Loop: "Verification Loop"
         S01_Audit_Planning_Docs: "Audit Planning Docs"
@@ -35,3 +35,4 @@ phase:
         S05_Audit_Database_Design: "Audit Database Design"
         S06_Audit_Process_Flow: "Audit Process Flow"
         S07_Audit_KPI_Flow: "Audit KPI Flow"
+

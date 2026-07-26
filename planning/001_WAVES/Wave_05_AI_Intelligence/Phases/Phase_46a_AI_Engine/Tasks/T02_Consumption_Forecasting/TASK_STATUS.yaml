@@ -1,7 +1,7 @@
 task:
   name: "Consumption Forecasting"
   phase: "Phase_46a_AI_Engine"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Consumption Forecasting"
   completion_criteria:

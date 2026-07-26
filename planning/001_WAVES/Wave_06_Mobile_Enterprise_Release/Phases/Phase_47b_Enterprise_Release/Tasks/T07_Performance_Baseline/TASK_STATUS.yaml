@@ -1,7 +1,7 @@
 task:
   name: "Performance Baseline"
   phase: "Phase_47b_Enterprise_Release"
-  status: "PLANNING"
+  status: "ACTIVE"
   steps:
     S01: "Implement Performance Baseline"
   completion_criteria:
