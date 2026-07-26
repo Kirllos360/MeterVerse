@@ -80,3 +80,5 @@ Frontend/backend/
 
 # TypeScript build info
 tsconfig.tsbuildinfo
+
+.opencode/
