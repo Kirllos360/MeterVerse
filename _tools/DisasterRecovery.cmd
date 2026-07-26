@@ -2,6 +2,8 @@
 title MeterVerse Disaster Recovery
 cd /d "%~dp0.."
 setlocal enabledelayedexpansion
+call "%~dp0config.cmd"cd /d "%~dp0.."
+setlocal enabledelayedexpansion
 
 :: ═══════════════════════════════════════════════════════════════════════════════
 ::  MeterVerse Disaster Recovery Plan
@@ -83,3 +85,4 @@ echo ═════════════════════════
 echo.
 echo [%DATE% %TIME%] Recovery complete >> %LOG%
 pause
+

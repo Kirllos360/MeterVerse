@@ -1,6 +1,8 @@
 @echo off
 title MeterVerse Advanced Crash Test
-cd /d D:\meter
+cd /d "%~dp0.."
+setlocal enabledelayedexpansion
+call "%~dp0config.cmd"cd /d D:\meter
 setlocal enabledelayedexpansion
 
 :: ═══════════════════════════════════════════════════════════════════════════════
@@ -170,3 +172,4 @@ set /a FAIL+=1
 echo  ❌ FAIL
 echo [%DATE% %TIME%] FAIL >> %LOG%
 exit /b
+

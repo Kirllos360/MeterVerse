@@ -2,6 +2,10 @@
 title MeterVerse System
 cd /d "%~dp0.."
 setlocal enabledelayedexpansion
+call "%~dp0SafetyCheck.cmd"
+if !errorlevel!==1 exit /b 1
+call "%~dp0config.cmd"cd /d "%~dp0.."
+setlocal enabledelayedexpansion
 
 call "%~dp0SafetyCheck.cmd"
 if %errorlevel%==1 exit /b 1
@@ -302,3 +306,4 @@ cls
 type "%LE%" 2>nul | more
 if %errorlevel%==1 echo (no errors)
 pause & goto MENU
+
