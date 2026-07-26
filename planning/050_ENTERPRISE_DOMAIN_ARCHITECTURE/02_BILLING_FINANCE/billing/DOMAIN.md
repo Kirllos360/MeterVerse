@@ -60,3 +60,9 @@ DRAFT → PENDING_APPROVAL → APPROVED → ISSUED → PAID → ARCHIVED
 | POST | `/api/invoices/:id/adjustments` | ✅ Live |
 
 **Priority:** P0 — Critical | **Wave:** 03 | **Sessions:** 20
+
+## Definition of Done
+Billing domain fully implemented with bill run, tariff application, and invoice generation.
+
+## Acceptance Criteria
+Bill runs execute correctly. Tariffs applied accurately. Invoices generated without errors.

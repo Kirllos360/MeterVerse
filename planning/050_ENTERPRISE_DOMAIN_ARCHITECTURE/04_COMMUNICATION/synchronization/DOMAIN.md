@@ -72,3 +72,9 @@ model SyncJob {
 | GET | `/api/sync/areas/:id/status` | Area sync status |
 
 **Priority:** P0 — Critical | **Wave:** 04 | **Sessions:** 12 | **Dependencies:** All core domains
+
+## Definition of Done
+Sync domain fully implemented with job management, conflict resolution, and area replication.
+
+## Acceptance Criteria
+Sync jobs execute. Conflicts resolved. All areas consistent.

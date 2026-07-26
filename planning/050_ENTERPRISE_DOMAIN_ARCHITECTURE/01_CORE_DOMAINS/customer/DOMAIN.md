@@ -60,3 +60,9 @@ LEAD → PROSPECT → ACTIVE → SUSPENDED → CLOSED → ARCHIVED
 | GET | `/api/customers/:id/aging` | ✅ Live |
 
 **Priority:** P0 — Critical | **Wave:** 01 | **Sessions:** 10
+
+## Definition of Done
+Customer domain fully implemented with registration, groups, contacts, and statements.
+
+## Acceptance Criteria
+Customer CRUD operational. Group management functional. Statements accurate.

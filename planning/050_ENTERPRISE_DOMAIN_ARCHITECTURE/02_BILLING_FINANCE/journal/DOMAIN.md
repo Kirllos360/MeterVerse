@@ -59,3 +59,41 @@ The Journal domain provides all operational, financial, and analytical journals 
 | GET | `/api/journals/summary/yearly` | Yearly summary |
 
 **Priority:** P0 — Critical | **Wave:** 07 | **Sessions:** 15 | **Dependencies:** Accounting, Payment, Collection, Invoice
+
+## Lifecycle States
+ACTIVE → CLOSED → ARCHIVED
+
+## Actors
+Finance Admin: Creates and posts journal entries
+Finance Director: Approves journal postings
+System: Auto-creates journals from billing/payment transactions
+
+## Permissions
+finance.admin (create), finance.director (post), system (auto)
+
+## Security Requirements
+Journal entries require finance.admin to create, finance.director to post. All entries audited. Sequential numbering enforced.
+
+## Compliance Requirements
+Journals must comply with GAAP/IFRS. Debits must equal credits. Supporting documentation required.
+
+## Performance Requirements
+< 5s per manual entry, < 1hr for batch processing
+
+## Availability Requirements
+99.9% uptime
+
+## Scalability Requirements
+Support 10,000 journal entries per day
+
+## Future Expansion
+Automated journal creation from transaction patterns. AI-powered anomaly detection.
+
+## Known Risks
+Journal out of balance (must be corrected before posting). Missing supporting documentation.
+
+## Definition of Done
+Journal posted. Debits = credits. Supporting documentation attached.
+
+## Acceptance Criteria
+Journal balanced. All required fields present. Audit trail created.

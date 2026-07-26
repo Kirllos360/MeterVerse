@@ -85,7 +85,7 @@
 ### 08 Platform
 | # | Domain | File | Priority | Status |
 |---|--------|------|----------|--------|
-| 46 | Authentication | `08_PLATFORM/auth/DOMAIN.md` | P0 | Draft |
+| 46 | Authentication | `08_PLATFORM/authentication/DOMAIN.md` | P0 | Draft |
 | 47 | Authorization | `08_PLATFORM/authorization/DOMAIN.md` | P0 | Draft |
 | 48 | Tenant | `08_PLATFORM/tenant/DOMAIN.md` | P0 | Draft |
 | 49 | Configuration | `08_PLATFORM/configuration/DOMAIN.md` | P0 | Draft |
@@ -103,6 +103,7 @@
 | # | Domain | File | Priority | Status |
 |---|--------|------|----------|--------|
 | 59 | Document | `09_DOCUMENTS/document/DOMAIN.md` | P0 | Draft |
+| 61 | Attachment | 09_DOCUMENTS/attachment/DOMAIN.md | P1 | Draft |
 | 60 | Media | `09_DOCUMENTS/media/DOMAIN.md` | P1 | Draft |
 | 61 | Report | `09_DOCUMENTS/report/DOMAIN.md` | P0 | Draft |
 | 62 | Dashboard | `09_DOCUMENTS/dashboard/DOMAIN.md` | P0 | Draft |
@@ -117,3 +118,4 @@
 
 ---
 **Cross-reference:** All domains reference `planning/ENTERPRISE_MASTER_PLANNING_PACKAGE.md`
+

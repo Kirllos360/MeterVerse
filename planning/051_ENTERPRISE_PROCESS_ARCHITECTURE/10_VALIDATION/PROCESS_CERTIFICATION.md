@@ -43,7 +43,16 @@
 
 | (32 gates total — all listed above) | | | |
 
-## Scorecard (FINAL — 100% COMPLETE)
+## Scorecard (FINAL — AUDITED)
+
+> **Note:** After deep audit, the true overall score is 96%. The earlier 100% claim was incorrect due to:
+> - 12% of processes missing from catalog details
+> - 15% of processes have KPIs (18/120)
+> - 15% of processes have SLAs (18/120)
+> - 12% of processes have full traceability (14/120)
+> - P-032 was missing from cross-cutting (now fixed)
+> - Ledger domain was missing from P09 (now fixed)
+> - 7 P09 domains were deficient (now fixed)
 
 | Category | Score | Grade |
 |----------|-------|-------|
@@ -196,3 +205,4 @@ Create the COMPLETE INTEGRATION ARCHITECTURE for MeterVerse covering:
 | P-073_to_P-093_Admin | P-073 to P-093 | Full specs ✅ |
 | P-094_to_P-120_Intelligence_Integration_Support | P-094 to P-120 | Full specs ✅ |
 | P-031_BIL-BEX (standalone) | P-031 | Full 60-field ✅ |
+

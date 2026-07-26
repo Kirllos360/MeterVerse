@@ -235,3 +235,9 @@ model BankStatement {
 **Dependencies:** Invoice, Payment, Collection  
 **Risk:** HIGH — No existing database models. Complete schema migration required.
 **Rollback:** Feature flag on accounting features. Financial periods can be re-opened.
+
+## Definition of Done
+Accounting domain fully implemented with chart of accounts, journal entries, and GL posting.
+
+## Acceptance Criteria
+Accounts created. Journal entries post correctly. Trial balance balanced.

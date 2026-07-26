@@ -63,3 +63,9 @@ PENDING → VALIDATED → APPROVED → BILLED → ARCHIVED
 | GET | `/api/readings/review-queue` | ✅ Live |
 
 **Priority:** P0 — Critical | **Wave:** 01 | **Sessions:** 8
+
+## Definition of Done
+Reading domain fully implemented with ingestion, validation, approval, and correction capabilities.
+
+## Acceptance Criteria
+All reading operations functional. Validation rules configurable. Auto-approval rate > 95%.

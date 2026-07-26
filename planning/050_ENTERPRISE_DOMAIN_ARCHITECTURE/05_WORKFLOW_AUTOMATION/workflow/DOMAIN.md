@@ -51,3 +51,41 @@ model WorkflowStateDefinition {
 ```
 
 **Priority:** P0 — Critical | **Wave:** 05 | **Sessions:** 18 | **Dependencies:** All operational domains
+
+## Lifecycle States
+DRAFT → ACTIVE → ARCHIVED
+
+## Actors
+Workflow Designer: Creates and modifies workflow definitions
+System: Executes workflow transitions
+Approver: Reviews and approves workflow steps
+
+## Permissions
+admin.*, workflow.admin
+
+## Security Requirements
+Workflow definitions configurable by admin only. Execution permissions enforced per transition.
+
+## Compliance Requirements
+Workflow execution logged for audit. Approval steps require electronic signature.
+
+## Performance Requirements
+< 1s per state transition, < 100ms for guard condition evaluation
+
+## Availability Requirements
+99.9% uptime
+
+## Scalability Requirements
+Support 10,000 concurrent workflow instances
+
+## Future Expansion
+Visual workflow designer (n8n-style). AI-recommended workflow optimizations.
+
+## Known Risks
+Workflow stuck in invalid state (manual intervention required). Infinite loop detection missing.
+
+## Definition of Done
+Workflow definition created. States and transitions configured. Testing complete.
+
+## Acceptance Criteria
+All states reachable. All transitions guarded. No infinite loops detected.
