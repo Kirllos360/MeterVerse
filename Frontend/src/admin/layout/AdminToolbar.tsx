@@ -14,7 +14,7 @@ function TbBtn({ children, label, onClick, isActive }: { children: React.ReactNo
 const MODE_ICONS: Record<string, string> = { light: "☀️", dark: "🌙", auto: "⚙️" }
 const t = (lang: string, en: string, ar: string) => lang === "ar" ? ar : en
 
-export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark, lang = "en", onToggleLang }: any) {
+export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark, lang = "en", onToggleLang, onLogoClick }: any) {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -56,16 +56,17 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
   return (
     <div className="flex items-center h-14 px-4 gap-3 shrink-0" style={{ backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)" }}>
       
-      {/* Logo — pulsating circle + Meter Verse name */}
-      <div className="flex items-center gap-2.5 min-w-0 shrink-0">
-        <motion.div animate={{ scale: [1, 1.08, 1] }} transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }} className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center" style={{ backgroundColor: "var(--brand)", boxShadow: "0 0 12px rgba(var(--brand-rgb),0.3)" }}>
+      {/* Logo — clickable, pulsating circle + Meter Verse name */}
+      <motion.button onClick={onLogoClick} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+        className="flex items-center gap-2.5 min-w-0 shrink-0 rounded-xl px-1 py-1">
+        <motion.div animate={{ scale: [1, 1.08, 1] }} transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }} className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center" style={{ backgroundColor: "var(--brand)", boxShadow: "0 0 15px rgba(var(--brand-rgb),0.3)" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </motion.div>
-        <div className="hidden md:block leading-tight">
+        <div className="hidden md:block leading-tight text-left">
           <div className="text-sm font-bold tracking-tight" style={{ color: "var(--toolbar-text)" }}>Meter Verse</div>
           <div className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--toolbar-muted)" }}>Administration</div>
         </div>
-      </div>
+      </motion.button>
 
       {/* Search — Dynamic Island style */}
       <div ref={searchContainerRef} className="relative flex-1 max-w-md mx-auto">
