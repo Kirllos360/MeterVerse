@@ -1375,6 +1375,108 @@ model SIMAssignment {
   @@index([status, startAt])
 }
 
+model Account {
+  id          String    @id @default(uuid())
+  code        String    @unique
+  name        String
+  type        String    @default("ASSET")
+  category    String?
+  parentId    String?
+  parent      Account?  @relation("AccountHierarchy", fields: [parentId], references: [id])
+  children    Account[] @relation("AccountHierarchy")
+  currency    String    @default("EGP")
+  active      Boolean   @default(true)
+  description String?
+  createdAt   DateTime  @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime  @updatedAt
+  journalLines JournalLineItem[]
+  ledgers     GeneralLedgerEntry[]
+
+  @@index([type, active])
+  @@index([parentId])
+}
+
+model JournalEntry {
+  id           String   @id @default(uuid())
+  entryNumber  String   @unique
+  description  String
+  entryDate    DateTime
+  periodId     String
+  period       FinancialPeriod @relation(fields: [periodId], references: [id])
+  status       String   @default("DRAFT")
+  source       String   @default("MANUAL")
+  referenceId  String?
+  referenceType String?
+  totalDebit   Float    @default(0)
+  totalCredit  Float    @default(0)
+  createdBy    String?
+  postedAt     DateTime?
+  reversedAt   DateTime?
+  createdAt    DateTime @default(now())
+  archivedAt   DateTime?
+  lines        JournalLineItem[]
+
+  @@index([periodId, status])
+  @@index([entryDate])
+  @@index([referenceType, referenceId])
+}
+
+model JournalLineItem {
+  id          String  @id @default(uuid())
+  journalId   String
+  journal     JournalEntry @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  accountId   String
+  account     Account @relation(fields: [accountId], references: [id])
+  description String?
+  debitAmount Float   @default(0)
+  creditAmount Float  @default(0)
+  currency    String  @default("EGP")
+  exchangeRate Float @default(1)
+  createdAt   DateTime @default(now())
+
+  @@index([accountId, journalId])
+  @@index([journalId])
+}
+
+model GeneralLedgerEntry {
+  id             String   @id @default(uuid())
+  accountId      String
+  account        Account  @relation(fields: [accountId], references: [id])
+  periodId       String
+  period         FinancialPeriod @relation(fields: [periodId], references: [id])
+  openingBalance Float    @default(0)
+  totalDebit     Float    @default(0)
+  totalCredit    Float    @default(0)
+  closingBalance Float    @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([accountId, periodId])
+  @@index([periodId])
+}
+
+model FinancialPeriod {
+  id        String   @id @default(uuid())
+  year      Int
+  month     Int
+  quarter   Int
+  startDate DateTime
+  endDate   DateTime
+  status    String   @default("OPEN")
+  openedAt  DateTime @default(now())
+  closedAt  DateTime?
+  closedBy  String?
+  createdAt DateTime @default(now())
+  archivedAt DateTime?
+
+  journalEntries JournalEntry[]
+  ledgers        GeneralLedgerEntry[]
+
+  @@unique([year, month])
+  @@index([status, year, quarter])
+}
+
 enum EntityStatus {
   active
   inactive

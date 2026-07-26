@@ -25,6 +25,7 @@ const SettingsPage = dynamic(() => import("./settings/page"), { ssr: false })
 const RcaWorkspacePage = dynamic(() => import("./rca-workspace/page"), { ssr: false })
 const AiCommandCenterPage = dynamic(() => import("./ai-command-center/page"), { ssr: false })
 const AiOperationsPage = dynamic(() => import("./ai-operations/page"), { ssr: false })
+const AccountingPage = dynamic(() => import("./accounting/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
@@ -49,6 +50,7 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   "rca-workspace": RcaWorkspacePage,
   "ai-command-center": AiCommandCenterPage,
   "ai-operations": AiOperationsPage,
+  accounting: AccountingPage,
 }
 
 export default function AdminSpaPage() {
