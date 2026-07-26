@@ -99,7 +99,24 @@ Processes that observe, measure, and report on system health and performance.
 | P-109 | Incident Creation | Incident count | Manual + auto | 2 years |
 | P-110 | Incident Resolution | Resolution time | Manual | 2 years |
 
-## 6. Integration Process Catalog
+## 6. AI Process Catalog
+
+Processes that leverage artificial intelligence for automation, analysis, and decision support.
+
+| ID | Process | AI Model/Technique | Automation Level | Human Oversight | Training Data |
+|----|---------|-------------------|-----------------|----------------|---------------|
+| P-019 | Abnormal Consumption Detection | Anomaly Detection (Isolation Forest, Z-score) | Fully automated alert | Review required | 12 months historical readings |
+| P-020 | Leak Detection | Pattern Recognition (LSTM, threshold) | Fully automated | Review before customer notify | Continuous flow patterns |
+| P-094 | AI Root Cause Analysis | LLM (llama-3.1-8b via Cloudflare) | Analysis auto, action manual | Required if confidence < 70% | Meter events, readings, patterns |
+| P-095 | AI Knowledge Search | Semantic search (vector embeddings) | Fully automated | None | Knowledge base documents |
+| P-096 | AI Recommendation | LLM + Rule Engine | Analysis auto, action manual | Required for financial impact | Case histories, resolutions |
+| P-097 | AI Automation | LLM + Workflow Engine | Semi-automated | Required | Previous automation outcomes |
+| P-100 | Analytics Report Generation | Statistical models, ML forecasting | Scheduled automated | Review before distribution | Historical business data |
+| P-111 | Problem Management | Pattern matching across incidents | Assisted | Human-led | Incident records |
+| P-115 | Asset Maintenance | Predictive maintenance ML model | Scheduled with AI optimization | Technician executes | Asset sensor data, history |
+| P-058 | Bank Reconciliation | Transaction matching ML | Auto-match suggested | Human confirms | Historical matched transactions |
+
+## 7. Integration Process Catalog
 
 Processes that connect MeterVerse with external systems.
 
