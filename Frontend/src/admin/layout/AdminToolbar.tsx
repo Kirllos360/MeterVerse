@@ -68,8 +68,8 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         </div>
       </motion.button>
 
-      {/* Search — Dynamic Island with filters */}
-      <div ref={searchContainerRef} className="relative flex-1 max-w-lg mx-auto">
+      {/* Search — centered, with wave border */}
+      <div ref={searchContainerRef} className="relative flex-1 max-w-xl mx-auto">
         {/* Filter chips */}
         <AnimatePresence>
           {searchOpen && (
@@ -89,8 +89,8 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         <motion.div
           animate={{ width: searchOpen ? "100%" : "280px" }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="relative flex items-center"
-          style={{ backgroundColor: effectiveDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)", borderRadius: "12px", border: searchOpen ? "1.5px solid var(--brand)" : "1px solid rgba(220,38,38,0.15)", boxShadow: searchOpen ? "0 0 20px rgba(220,38,38,0.08)" : "none" }}>
+          className="relative flex items-center search-wave"
+          style={{ backgroundColor: effectiveDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)", borderRadius: "12px", border: "2px solid rgba(220,38,38,0.2)", boxShadow: searchOpen ? "0 0 25px rgba(220,38,38,0.12)" : "0 0 10px rgba(220,38,38,0.04)" }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="absolute left-3 shrink-0" style={{ color: "var(--toolbar-muted)" }}><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
           <input ref={searchRef} value={searchQuery} onChange={e => { setSearchQuery(e.target.value); setSearchOpen(true) }} onFocus={() => setSearchOpen(true)}
             placeholder="Search pages, tools, settings..." className="w-full bg-transparent outline-none text-xs py-2.5 pl-9 pr-3 font-semibold"

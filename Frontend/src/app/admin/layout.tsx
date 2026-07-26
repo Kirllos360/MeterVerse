@@ -175,25 +175,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         style={{ padding: sidebarCollapsed ? "10px 8px" : "8px 11px" }}>
                         
                         {isActive ? (
-                          <motion.div layoutId="navBg" className="absolute inset-0 rounded-xl"
-                            animate={{ backgroundColor: "rgba(220,38,38,0.12)" }} />
+                          <>
+                            <motion.div layoutId="navBg" className="absolute inset-0 rounded-xl" style={{ backgroundColor: "var(--brand)" }} />
+                            <motion.div className="absolute inset-0 rounded-xl" style={{ boxShadow: "inset 0 0 20px rgba(255,255,255,0.15)" }} />
+                          </>
                         ) : (
-                          <div className="absolute inset-0 rounded-xl hover:bg-black/[0.02] dark:hover:bg-white/[0.03] transition-colors" />
-                        )}
-                        
-                        {/* Active: solid red bg + white text. Inactive: red border + wave */}
-                        {isActive ? (
-                          <motion.div layoutId="navActiveBg" className="absolute inset-0 rounded-xl" style={{ backgroundColor: "var(--brand)", opacity: 0.15 }} />
-                        ) : (
-                          <motion.div className="absolute inset-0 rounded-xl border border-red-500/20" style={{ borderColor: "rgba(220,38,38,0.15)" }} />
+                          <div className="absolute inset-0 rounded-xl hover:bg-black/[0.03] dark:hover:bg-white/[0.04] transition-colors" />
                         )}
 
                         <span className="relative z-10 flex items-center gap-3" style={{
-                          color: isActive ? "var(--brand)" : "var(--text-secondary)",
+                          color: isActive ? "#FFFFFF" : "var(--text-secondary)",
                           fontWeight: isActive ? 700 : 500,
                         }}>
-                          <motion.span animate={isActive ? waveAnim : {}} className="shrink-0 relative">
-                            <svg width="17" height="17" viewBox="0 0 24 24" fill={isActive ? "var(--brand)" : "none"} stroke="currentColor" strokeWidth={isActive ? 2.5 : 1.5}>
+                          <motion.span animate={isActive ? waveAnim : {}} className="shrink-0 relative flex items-center justify-center w-5 h-5 rounded-full" style={{ backgroundColor: isActive ? "rgba(255,255,255,0.15)" : "transparent" }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill={isActive ? "#FFFFFF" : "none"} stroke={isActive ? "#FFFFFF" : "currentColor"} strokeWidth={isActive ? 2.5 : 1.5}>
                               <path d={item.icon} />
                             </svg>
                           </motion.span>

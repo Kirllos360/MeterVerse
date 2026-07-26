@@ -46,15 +46,15 @@
     animation: borderPulse 4s ease-in-out infinite;
   }
 
-  /* Wave signal animation for unselected elements */
-  @keyframes waveSignal {
-    0%, 100% { border-color: rgba(220,38,38,0.08); }
-    25% { border-color: rgba(220,38,38,0.2); }
-    50% { border-color: rgba(220,38,38,0.08); }
-    75% { border-color: rgba(220,38,38,0.15); }
+  /* Wave border animation for search bar */
+  @keyframes searchWave {
+    0%, 100% { border-color: rgba(220,38,38,0.15); box-shadow: 0 0 10px rgba(220,38,38,0.04); }
+    25% { border-color: rgba(220,38,38,0.35); box-shadow: 0 0 20px rgba(220,38,38,0.1); }
+    50% { border-color: rgba(220,38,38,0.2); box-shadow: 0 0 10px rgba(220,38,38,0.04); }
+    75% { border-color: rgba(220,38,38,0.3); box-shadow: 0 0 15px rgba(220,38,38,0.08); }
   }
-  .wave-signal {
-    animation: waveSignal 3s ease-in-out infinite;
+  .search-wave {
+    animation: searchWave 3s ease-in-out infinite;
   }
 
   /* Smooth scrollbar for all admin pages */
