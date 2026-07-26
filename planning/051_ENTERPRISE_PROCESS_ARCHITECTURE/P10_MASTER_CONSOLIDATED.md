@@ -173,9 +173,9 @@ Meter shows correct customer. Old assignment archived.
 - **Trigger:** Fault/end of life
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Old meter retired. New meter active at same location. Readings continuous.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Old meter decommissioned. New serial linked. First reading OK.
 ---
 
 ## P-004: Meter Disconnect
@@ -188,9 +188,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Invoice overdue
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Meter disconnected. Final reading captured. Customer notified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Disconnect order executed. Tag applied. Status = DISCONNECTED.
 ---
 
 ## P-005: Meter Reconnect
@@ -203,9 +203,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Payment received
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Meter reconnected. Communication verified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Reconnect order executed. Comm test passed. Status = ACTIVE.
 ---
 
 ## P-006: Meter Retirement
@@ -218,9 +218,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** End of life
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Meter removed from inventory. Final audit complete. Records archived.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Retirement approved. Asset status = RETIRED. Final report filed.
 ---
 
 ## P-007: Meter Configuration
@@ -233,9 +233,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Config change
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Meter parameters updated. Config change logged. Device confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Config applied. Meter confirmed new values. Audit trail complete.
 ---
 
 ## P-008: Firmware Upgrade
@@ -248,9 +248,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Vendor release
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Firmware upgraded to target version. Rollback available. Test passed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Target version confirmed. Upgrade successful. Functional test passed.
 ---
 
 ## P-009: Meter Testing
@@ -263,9 +263,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/complaint
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Meter tested. Accuracy within tolerance. Certificate generated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Test results within spec. Certificate issued. Next test scheduled.
 ---
 
 ## P-010: Meter Calibration
@@ -278,9 +278,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Meter calibrated. Tolerance verified. Seal applied.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Calibration within tolerance. Seal tag applied. Calibration cert issued.
 ---
 
 ## P-011: Reading Import
@@ -308,9 +308,9 @@ Reading exists. Validation status set.
 - **Trigger:** Field visit
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Manual reading recorded. Field tech confirmed. Route updated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Reading value saved. GPS location tagged. Route status updated.
 ---
 
 ## P-013: Bulk Reading Upload
@@ -323,9 +323,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Monthly cycle
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Bulk file imported. All readings parsed. Validation queued.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+File parsed. Row count matches. Validation triggered for all readings.
 ---
 
 ## P-014: Reading Validation
@@ -353,9 +353,9 @@ Reading status = APPROVED or FLAGGED.
 - **Trigger:** Flagged reading
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Flagged reading reviewed. Approval decision recorded. Status updated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Approval action logged. Reading status = APPROVED. Audit timestamp set.
 ---
 
 ## P-016: Reading Rejection
@@ -368,9 +368,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Validation fail
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Invalid reading rejected. Correction workflow initiated. Audit logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Rejection reason recorded. Correction ticket opened. Original preserved.
 ---
 
 ## P-017: Reading Correction
@@ -383,9 +383,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Error found
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Reading corrected. Old value archived. Recalculation triggered.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+New value saved. Old value in audit log. Downstream recalc queued.
 ---
 
 ## P-018: Consumption Calculation
@@ -413,9 +413,9 @@ Consumption value accurate. CT/PT applied.
 - **Trigger:** Consumption calculated
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Abnormal pattern identified. Alert generated. Analyst notified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Pattern matched rules. Severity assigned. Alert sent to analyst.
 ---
 
 ## P-020: Leak Detection
@@ -428,9 +428,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Continuous flow
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Leak signature detected. Customer notified. Field dispatch queued.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Continuous flow confirmed. Notification sent. Work order created.
 ---
 
 ## P-021: Customer Registration
@@ -458,9 +458,9 @@ Customer record exists. Email verified.
 - **Trigger:** Restore request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Customer restored to active. Data integrity verified. Services reactivated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Customer status = ACTIVE. Archived data merged. All services live.
 ---
 
 ## P-023: Customer Archive
@@ -473,9 +473,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Close request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Customer archived. Data preserved. Final invoice generated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Customer status = ARCHIVED. Data exported. Final balance zeroed.
 ---
 
 ## P-024: Customer Merge
@@ -488,9 +488,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Duplicate found
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Customers merged. Duplicates removed. History consolidated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Primary customer retained. Duplicate flagged. Transaction history merged.
 ---
 
 ## P-025: Customer Migration
@@ -503,9 +503,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Move request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Customer migrated to new area. Old contract closed. New assignment confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+New area record created. Old area closed. Meter assignment updated.
 ---
 
 ## P-026: Contract Creation
@@ -518,9 +518,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** New customer
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Contract created. Terms recorded. Customer signed. Effective date set.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Contract record exists. All terms populated. Signed document attached.
 ---
 
 ## P-027: Contract Renewal
@@ -533,9 +533,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** End date approaching
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Contract renewed. Terms updated. Start date confirmed. Notification sent.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Renewal effective. Updated terms saved. Renewal notice delivered.
 ---
 
 ## P-028: Contract Suspension
@@ -548,9 +548,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Customer/vacancy
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Contract suspended. Reading schedule set. Reactivation trigger configured.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Status = SUSPENDED. Suspension period set. Auto-reactivate configured.
 ---
 
 ## P-029: Contract Cancellation
@@ -563,9 +563,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Move/request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Contract cancelled. Final bill generated. Meter disconnection scheduled.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Status = CANCELLED. Final bill issued. Disconnect request submitted.
 ---
 
 ## P-030: Bill Cycle Creation
@@ -578,9 +578,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Scheduled
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Bill cycle created. Meters assigned. Schedule confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Cycle period defined. Meter list attached. Start/end dates set.
 ---
 
 ## P-031: Bill Cycle Execution
@@ -608,9 +608,9 @@ All billable meters invoiced. Zero errors.
 - **Trigger:** Before execution
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Bills previewed. Validation complete. Ready for execution.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Preview report generated. Anomalies flagged. Approval status recorded.
 ---
 
 ## P-033: Invoice Generation
@@ -638,9 +638,9 @@ Invoice total matches sum of items.
 - **Trigger:** Generated
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Invoice approved. Version locked. Distribution queued.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Approval timestamp set. Version frozen. Distribution batch created.
 ---
 
 ## P-035: Invoice Version Update
@@ -653,9 +653,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Correction needed
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Invoice updated. Version incremented. Previous version archived.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+New version saved. Change log updated. Prior version accessible.
 ---
 
 ## P-036: Invoice Distribution
@@ -668,9 +668,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Invoice issued
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Invoice distributed via all channels. Delivery confirmed. Receipt logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+All channels processed. Delivery status tracked. Failed retries queued.
 ---
 
 ## P-037: Invoice Email
@@ -683,9 +683,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** After issue
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Email sent. Attachment included. Delivery status tracked.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+SMTP confirmed. PDF attached. Bounce handling active.
 ---
 
 ## P-038: Invoice SMS
@@ -698,9 +698,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** After issue
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+SMS sent. Customer notified. Delivery confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Gateway confirmed. Delivery receipt received. Fallback queued.
 ---
 
 ## P-039: Settlement Upload
@@ -713,9 +713,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Cycle/request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Settlement data uploaded. Validation passed. Ready for approval.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+File parsed. Records validated. Totals match source.
 ---
 
 ## P-040: Settlement Approval
@@ -728,9 +728,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Uploaded
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Settlement approved. Financial impact calculated. Ledger queued.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Approval recorded. Impact report generated. Journal entries prepared.
 ---
 
 ## P-041: Settlement Rollback
@@ -743,9 +743,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Error found
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Settlement rolled back. Previous state restored. Audit log updated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Reversal posted. Original data restored. Audit trail complete.
 ---
 
 ## P-042: Discount Upload
@@ -758,9 +758,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Promotion
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Discount rules uploaded. Validation passed. Effective period set.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Rules parsed. Conditions validated. Start/end dates confirmed.
 ---
 
 ## P-043: Discount Approval
@@ -773,9 +773,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Created
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Discount approved. Schedule confirmed. Application triggered.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Approver signed. Schedule activated. First application batch queued.
 ---
 
 ## P-044: Discount Rollback
@@ -788,9 +788,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Error found
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Discount rolled back. Reversal posted. Customer notified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Reversal effective. Impact calculated. Notification sent.
 ---
 
 ## P-045: Payment Registration
@@ -818,9 +818,9 @@ Payment amount matches invoice. Gateway confirmed.
 - **Trigger:** Payment recorded
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Payment allocated to invoices. Remaining balance calculated. Ledger updated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Allocation rules applied. Remaining = 0 or partial. GL entries posted.
 ---
 
 ## P-047: Partial Payment
@@ -833,9 +833,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Insufficient funds
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Partial payment applied. Outstanding balance tracked. Reminder scheduled.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Payment split across invoices. Due amount updated. Next reminder date set.
 ---
 
 ## P-048: Refund
@@ -848,9 +848,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Overpayment
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Refund processed. Amount returned. Invoice adjusted. Ledger updated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Refund authorized. Payment gateway confirmed. Invoice credited.
 ---
 
 ## P-049: Credit Note
@@ -863,9 +863,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Adjustment
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Credit note issued. Customer balance adjusted. Ledger posted.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Credit note generated. Balance reduced. GL entry complete.
 ---
 
 ## P-050: Debit Note
@@ -878,9 +878,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Undercharge
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Debit note issued. Customer account debited. Invoice updated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Debit note generated. Amount added. New invoice total calculated.
 ---
 
 ## P-051: Collection Assignment
@@ -893,9 +893,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Overdue threshold
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Account assigned to collector. Case created. Workflow initiated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Collector assigned. Priority set. First action scheduled.
 ---
 
 ## P-052: Collection Visit
@@ -908,9 +908,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Assignment
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Visit completed. Payment attempt recorded. Next action determined.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Visit outcome logged. Payment collected or promise recorded. Follow-up set.
 ---
 
 ## P-053: Collection Completion
@@ -923,9 +923,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Payment/resolved
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Collection case closed. Payment confirmed. Resolution logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Full payment received. Case status = CLOSED. Collector notes archived.
 ---
 
 ## P-054: Collection Escalation
@@ -938,9 +938,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Unresolved
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Case escalated. Supervisor notified. Enhanced actions queued.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Escalation level set. Legal or field action queued. Timeline updated.
 ---
 
 ## P-055: Customer Ledger Update
@@ -953,9 +953,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Any transaction
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Customer ledger updated. Transaction posted. Balance recalculated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Debit/credit applied. Running balance correct. Transaction reference stored.
 ---
 
 ## P-056: GL Posting
@@ -983,9 +983,9 @@ Debits = credits. All accounts active.
 - **Trigger:** Manual entry
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Journal entry posted. Approval trail complete. Accounts in balance.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Debit = credit. Account codes valid. Approval chain complete.
 ---
 
 ## P-058: Bank Reconciliation
@@ -998,9 +998,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Statement import
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Bank statement reconciled. All transactions matched. Discrepancies resolved.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Statement balance = system balance. Unmatched items resolved.
 ---
 
 ## P-059: Month Close
@@ -1028,9 +1028,9 @@ Trial balance balanced. Director approved.
 - **Trigger:** End of year
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Fiscal year closed. Final reports generated. Books locked.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Year-end adjustments posted. Reports archived. No further postings allowed.
 ---
 
 ## P-061: SIM Assignment
@@ -1043,9 +1043,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Meter activation
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+SIM assigned to meter. Network registration confirmed. APN configured.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+ICCID linked. Network attach OK. APN profile set. Data session tested.
 ---
 
 ## P-062: SIM Replacement
@@ -1058,9 +1058,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Faulty SIM
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+SIM replaced. New ICCID registered. Old SIM deactivated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+New SIM active. Old SIM blocked in HLR. Meter comms restored.
 ---
 
 ## P-063: Gateway Registration
@@ -1073,9 +1073,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** New gateway
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Gateway registered. Certificate installed. Communication verified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Gateway record created. TLS cert installed. Head-end ping OK.
 ---
 
 ## P-064: Gateway Connection
@@ -1088,9 +1088,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Gateway online
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Gateway connected. Link established. Data flow confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Connection state = CONNECTED. Data rate within spec. Redundancy active.
 ---
 
 ## P-065: Communication Test
@@ -1103,9 +1103,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Communication test completed. End-to-end verified. Latency within threshold.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Meter to head-end path verified. RTT within SLA. Packet loss < 1%.
 ---
 
 ## P-066: Synchronization Job
@@ -1118,9 +1118,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Scheduled
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Synchronization job completed. Conflicts identified. Consistency verified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+All entities synced. Conflict count = 0 or flagged. Checksum matched.
 ---
 
 ## P-067: Conflict Resolution
@@ -1133,9 +1133,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Conflict detected
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Conflict resolved. Data reconciled. Source of truth established.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Resolution rule applied. Both sides updated. Audit logged.
 ---
 
 ## P-068: Area Synchronization
@@ -1148,9 +1148,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Area sync completed. All records matched. Divergence reported.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Full sync cycle done. Record hash comparison passed. Differences logged.
 ---
 
 ## P-069: Notification Delivery
@@ -1163,9 +1163,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** System event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Notification delivered. Channel confirmed. Receipt logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Delivery confirmed. Channel status recorded. Failure retry exhausted.
 ---
 
 ## P-070: Email Delivery
@@ -1178,9 +1178,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Notification
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Email delivered. Open tracked. Bounce handled.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+SMTP accepted. Tracking pixel embedded. Bounce processed per policy.
 ---
 
 ## P-071: SMS Delivery
@@ -1193,9 +1193,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Notification
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+SMS delivered. Status confirmed. Delivery report received.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Gateway delivery report received. DLR status = DELIVERED.
 ---
 
 ## P-072: Push Notification
@@ -1208,9 +1208,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Notification
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Push notification sent. Device reached. Engagement tracked.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+FCM/APNs accepted. Device online. Open rate logged.
 ---
 
 ## P-073: Login
@@ -1238,9 +1238,9 @@ Valid JWT issued. Session stored.
 - **Trigger:** User request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Session terminated. Token invalidated. Audit logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Session ID cleared. JWT blacklisted. Logout timestamp recorded.
 ---
 
 ## P-075: Password Reset
@@ -1253,9 +1253,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Forgot password
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Password reset. Verification email sent. Token expires in 24h.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Reset token generated. Email delivered. Token expiry set.
 ---
 
 ## P-076: MFA Enrollment
@@ -1268,9 +1268,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Setup request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+MFA enrolled. Backup codes generated. Device registered.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+MFA method active. Backup codes printable. Device trusted.
 ---
 
 ## P-077: Session Recovery
@@ -1283,9 +1283,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Expired session
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Session recovered. New tokens issued. Previous session invalidated.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Refresh token validated. New access token issued. Old session revoked.
 ---
 
 ## P-078: User Registration
@@ -1298,9 +1298,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** New employee
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+User account created. Role pending. Welcome email sent.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+User record exists. Approval workflow triggered. Credentials delivered.
 ---
 
 ## P-079: User Approval
@@ -1313,9 +1313,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Self-registered
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+User approved. Account activated. Permissions granted.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Status = ACTIVE. Default role assigned. Welcome notification sent.
 ---
 
 ## P-080: Role Assignment
@@ -1328,9 +1328,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Role change
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Role assigned. Permissions updated. User notified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Role mapped to user. Permission set recalculated. Notification delivered.
 ---
 
 ## P-081: Permission Assignment
@@ -1343,9 +1343,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Permission change
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Permissions updated. Access recalculated. Audit logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Permission matrix updated. Session refresh required. Change recorded.
 ---
 
 ## P-082: Configuration Update
@@ -1358,9 +1358,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Admin request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Configuration updated. Change logged. Impact assessed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+New value applied. Old value backed up. Impact analysis documented.
 ---
 
 ## P-083: Configuration Approval
@@ -1373,9 +1373,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Change submitted
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Configuration approved. Change applied. Rollback available.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Approval chain complete. Change deployed. Rollback script ready.
 ---
 
 ## P-084: Feature Toggle
@@ -1388,9 +1388,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Feature request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Feature toggled. Visibility updated. Environment confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Toggle state flipped. Affected users/environments updated. Cache invalidated.
 ---
 
 ## P-085: License Validation
@@ -1403,9 +1403,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Startup/daily
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+License validated. Expiry checked. Compliance confirmed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+License key verified. Feature set enabled. Days to expiry reported.
 ---
 
 ## P-086: Health Check
@@ -1433,9 +1433,9 @@ All checks pass. Latency within threshold.
 - **Trigger:** Continuous
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Metrics collected. Thresholds evaluated. Alerts processed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Metric sample stored. All thresholds checked. Alert rules evaluated.
 ---
 
 ## P-088: Backup Creation
@@ -1463,9 +1463,9 @@ Backup file exists. Checksum verified.
 - **Trigger:** Incident
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Restore completed. Data integrity verified. System operational.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Restore from backup confirmed. Checksum match. Application health OK.
 ---
 
 ## P-090: Disaster Recovery
@@ -1478,9 +1478,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Catastrophic failure
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+DR plan executed. Services restored. RTO/RPO met.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Failover complete. Data loss within RPO. Services up within RTO.
 ---
 
 ## P-091: Plugin Installation
@@ -1493,9 +1493,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Marketplace
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Plugin installed. Dependencies resolved. Integration tested.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Package deployed. Dependency tree satisfied. Smoke test passed.
 ---
 
 ## P-092: Plugin Upgrade
@@ -1508,9 +1508,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** New version
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Plugin upgraded. Backward compatibility verified. Data migration completed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+New version active. Old version backed up. Data schema migrated.
 ---
 
 ## P-093: Plugin Removal
@@ -1523,9 +1523,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Uninstall
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Plugin removed. Dependencies cleaned. Configuration reverted.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Plugin deactivated. Files purged. Config restored to previous.
 ---
 
 ## P-094: AI Root Cause Analysis
@@ -1553,9 +1553,9 @@ Analysis complete with evidence.
 - **Trigger:** Search query
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Search executed. Results ranked. Sources cited.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Query processed. Relevance scored. Top results returned with references.
 ---
 
 ## P-096: AI Recommendation
@@ -1568,9 +1568,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Analysis ready
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Recommendation generated. Confidence scored. Context provided.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Model inference complete. Score > threshold. Actionable output formatted.
 ---
 
 ## P-097: AI Automation
@@ -1583,9 +1583,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** AI decision
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Action executed. Outcome monitored. Audit logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Automated action triggered. Success/failure status logged. Rollback available.
 ---
 
 ## P-098: Alert Generation
@@ -1613,9 +1613,9 @@ Threshold matched. Alert stored.
 - **Trigger:** Alert generated
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Alert acknowledged. Root cause identified. Resolution action taken.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Ack timestamp set. RCA notes saved. Resolution steps documented.
 ---
 
 ## P-100: Analytics Report Generation
@@ -1628,9 +1628,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Report generated. Data validated. Visualization ready.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Query executed. Results validated. Chart/table rendered.
 ---
 
 ## P-101: ERP Sync
@@ -1643,9 +1643,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+ERP sync completed. Records matched. Errors resolved.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+All entities synced. Mismatch report generated. Unmatched items resolved.
 ---
 
 ## P-102: CRM Sync
@@ -1658,9 +1658,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+CRM sync completed. Contacts updated. Deals synchronized.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Customer records matched. Activity log synced. Deals reconciled.
 ---
 
 ## P-103: GIS Sync
@@ -1673,9 +1673,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+GIS sync completed. Assets matched. Coordinates verified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Asset locations matched. Coordinate accuracy confirmed. New assets registered.
 ---
 
 ## P-104: SCADA Sync
@@ -1688,9 +1688,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Real-time
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+SCADA sync completed. Telemetry aligned. Alarms synchronized.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Telemetry stream matched. Alarm events reconciled. Historian updated.
 ---
 
 ## P-105: IoT Sync
@@ -1703,9 +1703,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Device data
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+IoT sync completed. Device data ingested. Stream processed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Device payload parsed. Timeseries stored. Downstream pipeline triggered.
 ---
 
 ## P-106: Webhook Processing
@@ -1718,9 +1718,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Domain event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Webhook delivered. Payload validated. Retry exhausted.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+HTTP 200 received. Payload schema valid. Max retries reached if failed.
 ---
 
 ## P-107: Queue Processing
@@ -1733,9 +1733,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Job queued
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Queue processed. Jobs completed. Dead letters handled.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+All messages dequeued. Failed messages in DLQ. Processing time within SLA.
 ---
 
 ## P-108: Scheduler Execution
@@ -1748,9 +1748,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Cron trigger
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Scheduler executed. Tasks completed. Next run scheduled.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+All tasks in batch executed. Status logged. Next trigger time set.
 ---
 
 ## P-109: Incident Creation
@@ -1763,9 +1763,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** System issue
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Incident created. Severity assigned. Team notified.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Incident record saved. Priority set. On-call group paged.
 ---
 
 ## P-110: Incident Resolution
@@ -1778,9 +1778,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Incident logged
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Incident resolved. RCA documented. Service restored.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Resolution actions completed. RCA report attached. Monitoring verified OK.
 ---
 
 ## P-111: Problem Management
@@ -1793,9 +1793,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Recurring incidents
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Problem identified. Root cause documented. Preventive action planned.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Problem record created. Known error database updated. Fix scheduled.
 ---
 
 ## P-112: Change Management
@@ -1808,9 +1808,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Change request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Change approved. Implementation planned. Rollback prepared.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+CAB approval recorded. Change window scheduled. Rollback plan attached.
 ---
 
 ## P-113: Release Management
@@ -1823,9 +1823,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Ready for release
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Release deployed. Smoke tests passed. Version tagged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Build promoted. Deployment verified. Git tag created. Release notes published.
 ---
 
 ## P-114: Asset Registration
@@ -1838,9 +1838,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** New asset
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Asset registered. Details recorded. Location mapped.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Asset record exists. Barcode/serial assigned. GPS coordinates stored.
 ---
 
 ## P-115: Asset Maintenance
@@ -1853,9 +1853,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Schedule/event
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Asset maintained. Service performed. Next maintenance scheduled.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Maintenance log updated. Parts replaced recorded. Next due date set.
 ---
 
 ## P-116: Asset Retirement
@@ -1868,9 +1868,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** End of life
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Asset retired. Inventory updated. Disposal completed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Asset status = RETIRED. Inventory count adjusted. Disposal certificate filed.
 ---
 
 ## P-117: Document Upload
@@ -1883,9 +1883,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Upload request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Document uploaded. Virus scanned. Metadata indexed.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+File stored. Scan result clean. Search index updated. Version created.
 ---
 
 ## P-118: Document Approval
@@ -1898,9 +1898,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Uploaded
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Document approved. Version locked. Distribution authorized.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Approval signature recorded. Document finalised. Access permissions set.
 ---
 
 ## P-119: Audit Export
@@ -1913,9 +1913,9 @@ All requirements satisfied. No errors detected.
 - **Trigger:** Audit request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+Audit exported. Format validated. Retention logged.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+Export file generated. Hash verified. Retention period recorded.
 ---
 
 ## P-120: API Access
@@ -1928,8 +1928,8 @@ All requirements satisfied. No errors detected.
 - **Trigger:** API request
 
 ### Definition of Done
-Process completed. Outputs verified. Audit trail created.
+API request authenticated. Rate limit checked. Access granted.
 ### Acceptance Criteria
-All requirements satisfied. No errors detected.
+API key valid. Rate within quota. Response returned within SLA.
 ---
 
