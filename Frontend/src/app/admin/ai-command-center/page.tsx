@@ -28,26 +28,15 @@ export default function AICommandCenter() {
     setChat(prev => [...prev, { role: "user", text: query }])
     setLoading(true)
     try {
-      // Route to the correct intelligence capability based on query
-      let capability = "system_health"
-      let args = {}
-      if (query.match(/meter|serial|mtr/i)) { capability = "db_query_meters"; args = { limit: 5 } }
-      else if (query.match(/customer|client/i)) { capability = "db_query_customers"; args = { limit: 5 } }
-      else if (query.match(/reading|consumption/i)) { capability = "db_query_readings"; args = { limit: 5 } }
-      else if (query.match(/invoice|bill/i)) { capability = "db_query_invoices"; args = { limit: 5 } }
-      else if (query.match(/health|status/i)) { capability = "system_health" }
-      else if (query.match(/rca|issue|problem|fail/i)) { capability = "rca_meter"; const s = query.match(/([A-Z0-9-]+)/)?.[1]; if (s) args = { serial: s } }
-
-      const res = await fetch("/api/intelligence/execute", {
+      const res = await fetch("/api/ai/operator", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: "Bearer dev", "X-Dev-Mode": "true" },
-        body: JSON.stringify({ capability, args }),
+        body: JSON.stringify({ query }),
       })
       const data = await res.json()
-      const text = data.error ? `❌ ${data.error}` : JSON.stringify(data.result || data, null, 2).slice(0, 1000)
-      setChat(prev => [...prev, { role: "ai", text }])
+      setChat(prev => [...prev, { role: "ai", text: data.response || data.message || "No response" }])
     } catch {
-      setChat(prev => [...prev, { role: "ai", text: "Intelligence service unavailable" }])
+      setChat(prev => [...prev, { role: "ai", text: "AI service unavailable. Please try again." }])
     }
     setLoading(false)
     setQuery("")
