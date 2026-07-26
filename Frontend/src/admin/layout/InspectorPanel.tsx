@@ -124,21 +124,21 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
           </div>
 
           {/* Output */}
-          <div className="flex-1 overflow-y-auto p-3 font-mono text-[12px] space-y-2" style={{ backgroundColor: "#080808" }}>
+          <div className="flex-1 overflow-y-auto p-3 font-mono text-[12px] space-y-2" style={{ backgroundColor: "var(--toolbar-surface)" }}>
             {history.length === 0 && (
-              <div className="p-3 text-xs" style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}>
+              <div className="p-3 text-xs" style={{ backgroundColor: "var(--toolbar-surface)", border: "1px solid var(--border-default)" }}>
                 <p style={{ color: "var(--text-tertiary)" }}>Try a quick action or type an API path</p>
               </div>
             )}
             <AnimatePresence>
               {history.map((h, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="space-y-1">
-                  <div className="flex items-center gap-2 px-3 py-1.5" style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
+                  <div className="flex items-center gap-2 px-3 py-1.5" style={{ backgroundColor: "var(--toolbar-surface)" }}>
                     <span style={{ color: "var(--brand)" }}>$</span>
                     <span style={{ color: "var(--text-primary)" }} className="text-xs">{h.cmd}</span>
                     <span className="ml-auto text-[10px] font-mono" style={{ color: h.time < 100 ? "#22C55E" : "#F59E0B" }}>{h.time}ms</span>
                   </div>
-                  <div className={`px-3 py-2 whitespace-pre-wrap text-xs ${h.error ? "border" : ""}`} style={{ backgroundColor: "rgba(255,255,255,0.02)", borderColor: h.error ? "rgba(239,68,68,0.2)" : "transparent", color: h.error ? "#EF4444" : "var(--text-secondary)" }}>
+                  <div className={`px-3 py-2 whitespace-pre-wrap text-xs ${h.error ? "border" : ""}`} style={{ backgroundColor: "var(--toolbar-surface)", borderColor: h.error ? "rgba(239,68,68,0.2)" : "transparent", color: h.error ? "#EF4444" : "var(--text-secondary)" }}>
                     {h.result.length > 800 ? h.result.slice(0, 800) + "..." : h.result}
                   </div>
                 </motion.div>
@@ -149,9 +149,9 @@ export function InspectorPanel({ collapsed, onToggleCollapse }: { collapsed: boo
 
           {/* Input */}
           <div className="flex gap-1.5 p-3 border-t shrink-0" style={{ borderColor: "var(--border-default)" }}>
-            <div className="flex-1 flex items-center gap-1.5 px-3 py-2" style={{ backgroundColor: "#0A0A0A", border: "1px solid rgba(255,255,255,0.1)" }}>
+            <div className="flex-1 flex items-center gap-1.5 px-3 py-2" style={{ backgroundColor: "var(--toolbar-surface)", border: "1px solid var(--border-default)" }}>
               <input value={input} onChange={e => setInput(e.target.value)} onKeyDown={e => e.key === "Enter" && execute()}
-                placeholder="/api/health" className="flex-1 bg-transparent outline-none text-xs font-mono" style={{ color: "#E0E0E0" }} />
+                placeholder="/api/health" className="flex-1 bg-transparent outline-none text-xs font-mono" style={{ color: "var(--text-primary)" }} />
             </div>
             <motion.button onClick={() => execute()} whileTap={{ scale: 0.95 }}
               className="px-4 py-2 text-xs font-medium text-white" style={{ backgroundColor: "var(--brand)" }}>
