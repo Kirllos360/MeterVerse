@@ -33,6 +33,7 @@ import { simRouter } from "./routes/sim.js"
 import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
 import { intelligenceRouter } from "./routes/intelligence.js"
+import { knowledgeRouter } from "./routes/knowledge.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -225,6 +226,7 @@ mount("/billing", billingRouter)
 mount("/admin", configRouter)
 mount("/locations", locationsRouter)
 mount("/intelligence", intelligenceRouter)
+mount("/knowledge", knowledgeRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
