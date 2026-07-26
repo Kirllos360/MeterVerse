@@ -18,7 +18,7 @@ export default function AIOperationsDashboard() {
 
   useEffect(() => {
     Promise.all([
-      apiClient("/api/intelligence/health").catch(() => ({ result: { postgres: false, backend: false } })),
+      apiClient<any>("/api/intelligence/health").catch(() => ({ result: { postgres: false, backend: false } })),
     ]).then(([h]) => { setHealth(h?.result); setLoading(false) })
   }, [])
 
