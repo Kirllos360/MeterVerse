@@ -31,6 +31,7 @@ const adminNav = [
   { id: "security", label: "Security", labelAr: "الأمان", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
   { id: "ai", label: "AI", labelAr: "الذكاء", icon: "M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7M4 7h16M9 11h6" },
   { id: "ai-command-center", label: "AI Cmd Center", labelAr: "مركز القيادة", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
+  { id: "ai-operations", label: "AI Operations", labelAr: "عمليات الذكاء", icon: "M12 2l7 3v6c0 4.5-3 8.7-7 10-4-1.3-7-5.5-7-10V5l7-3z" },
   { id: "monitoring", label: "Monitor", labelAr: "المراقبة", icon: "M12 2a10 10 0 1010 10M12 12l4-4M12 2v10" },
   { id: "config-center", label: "Config", labelAr: "الإعدادات", icon: "M12 15a3 3 0 100-6 3 3 0 000 6z" },
 ]
