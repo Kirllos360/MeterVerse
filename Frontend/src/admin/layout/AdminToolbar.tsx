@@ -14,7 +14,7 @@ function TbBtn({ children, label, onClick, isActive }: { children: React.ReactNo
 const MODE_ICONS: Record<string, string> = { light: "☀️", dark: "🌙", auto: "⚙️" }
 const t = (lang: string, en: string, ar: string) => lang === "ar" ? ar : en
 
-export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark, lang = "en", onToggleLang, onLogoClick }: any) {
+export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark, lang = "en", onToggleLang, onLogoClick, systemTitle = "Administration", themeColor }: any) {
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
@@ -64,7 +64,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         </motion.div>
         <div className="hidden md:block leading-tight text-left">
           <div className="text-sm font-bold tracking-tight" style={{ color: "var(--toolbar-text)" }}>Meter Verse</div>
-          <div className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--toolbar-muted)" }}>Administration</div>
+          <div className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--toolbar-muted)" }}>{systemTitle}</div>
         </div>
       </motion.button>
 
@@ -90,7 +90,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
           animate={{ width: searchOpen ? "100%" : "280px" }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
           className="relative flex items-center search-wave"
-          style={{ backgroundColor: effectiveDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)", borderRadius: "12px", border: "2px solid rgba(220,38,38,0.2)", boxShadow: searchOpen ? "0 0 25px rgba(220,38,38,0.12)" : "0 0 10px rgba(220,38,38,0.04)" }}>
+          style={{ backgroundColor: effectiveDark ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.05)", borderRadius: "12px", border: `2px solid ${themeColor || "#DC2626"}33`, boxShadow: searchOpen ? `0 0 25px ${themeColor || "#DC2626"}1A` : `0 0 10px ${themeColor || "#DC2626"}0A` }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="absolute left-3 shrink-0" style={{ color: "var(--toolbar-muted)" }}><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
           <input ref={searchRef} value={searchQuery} onChange={e => { setSearchQuery(e.target.value); setSearchOpen(true) }} onFocus={() => setSearchOpen(true)}
             placeholder="Search pages, tools, settings..." className="w-full bg-transparent outline-none text-xs py-2.5 pl-9 pr-3 font-semibold"

@@ -55,10 +55,19 @@ body {
   --icon-md: 20px;
   --icon-lg: 24px;
 
-  /* ─── Brand (Red Palette) ────────────────────────── */
+  /* ─── Brand (Red Palette — Admin) ────────────────── */
   --brand: #DC2626;
   --brand-rgb: 220, 38, 38;
   --brand-hover: color-mix(in srgb, var(--brand) 85%, black);
+  --brand-light: rgba(220, 38, 38, 0.1);
+  --brand-dark: rgba(220, 38, 38, 0.8);
+
+  /* ─── Brand (Green Palette — User) ───────────────── */
+  --brand-user: #059669;
+  --brand-user-rgb: 5, 150, 105;
+  --brand-user-hover: color-mix(in srgb, var(--brand-user) 85%, black);
+  --brand-user-light: rgba(5, 150, 105, 0.1);
+  --brand-user-dark: rgba(5, 150, 105, 0.8);
 
   /* ─── Neutral Surface Tokens ─────────────────────── */
   --surface-base: oklch(0.94 0.006 160);
