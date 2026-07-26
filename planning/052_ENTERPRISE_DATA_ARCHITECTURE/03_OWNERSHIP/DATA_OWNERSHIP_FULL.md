@@ -1,6 +1,6 @@
 # Data Ownership Matrix
 
-**Total: 96 entities**
+**Total: 109 entities**
 
 | Entity | Business Owner | Technical Owner | Security Class |
 |--------|---------------|----------------|----------------|
@@ -113,3 +113,4 @@
 | KpiDefinition | Finance Director | Platform Team | Internal |
 | AnalyticsQuery | Platform Director | Platform Team | Internal |
 | DashboardWidget | Platform Director | Platform Team | Internal |
+

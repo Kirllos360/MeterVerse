@@ -1,6 +1,6 @@
 # Data Retention Policy
 
-**Total: 96 entities**
+**Total: 109 entities**
 
 | Entity | Active Retention | Archive Trigger | Archive Retention | Total Retention | Disposal |
 |--------|-----------------|----------------|-------------------|----------------|----------|
@@ -113,3 +113,4 @@
 | KpiDefinition | Active + 1 years | End of active life | 1 years cold | 1 year | Purge or Anonymize |
 | AnalyticsQuery | Active + 2 years | End of active life | 2 years cold | 2 years | Purge or Anonymize |
 | DashboardWidget | Active + 2 years | End of active life | 2 years cold | 2 years | Purge or Anonymize |
+
