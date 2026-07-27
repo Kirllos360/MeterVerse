@@ -1,9 +1,18 @@
 "use client"
 
 import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts"
+import { useMemo } from "react"
+
+function useDarkMode() {
+  return useMemo(() => {
+    if (typeof window === "undefined") return false
+    return window.matchMedia("(prefers-color-scheme: dark)").matches || document.documentElement.classList.contains("dark")
+  }, [])
+}
 
 const CHART_COLORS = ["#DC2626", "#F59E0B", "#10B981", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
 const CHART_COLORS_GREEN = ["#059669", "#F59E0B", "#DC2626", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
+const CHART_COLORS_DARK = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#B794F4", "#FF85A1", "#64D8CB", "#FFA94D"]
 
 interface ChartCardProps {
   title: string
@@ -88,13 +97,15 @@ interface PieChartCardProps {
   donut?: boolean
 }
 
-export function PieChartCard({ title, subtitle, data, height = 250, colors = CHART_COLORS, donut = false }: PieChartCardProps) {
+export function PieChartCard({ title, subtitle, data, height = 250, colors, donut = false }: PieChartCardProps) {
+  const isDark = useDarkMode()
+  const resolvedColors = colors ?? (isDark ? CHART_COLORS_DARK : CHART_COLORS)
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
           <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={90} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
-            {data.map((_, i) => <Cell key={i} fill={colors[i % colors.length]} />)}
+            {data.map((_, i) => <Cell key={i} fill={resolvedColors[i % resolvedColors.length]} />)}
           </Pie>
           <Tooltip contentStyle={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)", borderRadius: 8, fontSize: 12 }} />
           <Legend wrapperStyle={{ fontSize: 11 }} />

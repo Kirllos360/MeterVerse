@@ -172,8 +172,8 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
       </div>
 
       {/* SYSTEM TABS */}
-      <div className="relative z-10 shrink-0 px-3" style={{ backgroundColor: "var(--surface-topbar)", borderBottom: "1px solid var(--toolbar-border)" }}>
-        <div className="flex gap-0.5 overflow-x-auto py-1 scrollbar-none justify-center">
+      <div className="relative z-10 shrink-0 px-4" style={{ backgroundColor: "var(--surface-topbar)", borderBottom: "1px solid var(--toolbar-border)" }}>
+        <div className="flex gap-0.5 overflow-x-auto py-2 scrollbar-none justify-center">
           {SYSTEM_TABS.map(tab => (
             <button key={tab.id} onClick={() => setSystemTab(tab.id)}
               className="flex items-center gap-2 shrink-0 px-4 py-1.5 text-xs font-bold transition-all rounded-lg relative"
@@ -246,8 +246,8 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
         {/* CONTENT */}
         <div className="flex-1 flex flex-col min-w-0 gap-2">
           {subTabs.length > 0 && (
-            <div className="shrink-0 rounded-2xl border px-2 flex justify-center" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-              <div className="flex gap-1 overflow-x-auto py-1 scrollbar-none">
+            <div className="shrink-0 rounded-2xl border px-4 flex justify-center" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+              <div className="flex gap-1 overflow-x-auto py-2 scrollbar-none">
                 {subTabs.map(t => (
                   <button key={t.id} onClick={() => setSubTab(t.id)}
                     className="shrink-0 flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-bold transition-all rounded-xl whitespace-nowrap"
@@ -283,8 +283,8 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
       </div>
 
       {/* FOOTER */}
-      <div className="relative z-10 shrink-0 flex items-center" style={{ height: 56, backgroundColor: "var(--surface-topbar)", borderTop: "1px solid var(--border-default)" }}>
-        <div className="flex items-center justify-between w-full px-5 text-[12px] font-bold tracking-wide" style={{ color: "var(--text-tertiary)" }}>
+      <div className="relative z-10 shrink-0 flex items-center" style={{ height: 40, backgroundColor: "var(--surface-topbar)", borderTop: "1px solid var(--border-default)" }}>
+        <div className="flex items-center justify-between w-full px-5 text-[12px] font-bold tracking-wide" style={{ color: "var(--text-secondary)" }}>
           <div className="flex items-center gap-3">
             <motion.div animate={waveAnim} className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: brandColor }} />
             <span className="font-extrabold tracking-wider" style={{ color: "var(--text-secondary)", fontSize: "13px" }}>Meter Verse v8.0</span>

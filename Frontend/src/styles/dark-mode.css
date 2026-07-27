@@ -164,6 +164,14 @@ html.dark .status-dot-error {
   box-shadow: 0 0 6px rgba(var(--status-error-rgb), 0.4);
 }
 
+/* Footer text in dark mode — lighter for readability */
+html.dark footer,
+html.dark [class*="footer"],
+html.dark .footer-text,
+html.dark [class*="system-footer"] {
+  color: oklch(0.75 0.01 160) !important;
+}
+
 /* Chart overrides */
 html.dark svg text { fill: oklch(0.8 0 0); }
 html.dark .chart-bar { fill: #00BFA5; }
