@@ -47,6 +47,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
   const tasksRef = useRef<HTMLDivElement>(null)
   const remindersRef = useRef<HTMLDivElement>(null)
   const notificationsRef = useRef<HTMLDivElement>(null)
+  const userMenuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (searchOpen && searchRef.current) searchRef.current.focus()
@@ -62,10 +63,11 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
       if (tasksRef.current && !tasksRef.current.contains(e.target as Node)) setShowTasks(false)
       if (remindersRef.current && !remindersRef.current.contains(e.target as Node)) setShowReminders(false)
       if (notificationsRef.current && !notificationsRef.current.contains(e.target as Node)) setShowNotifications(false)
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) setShowUserMenu(false)
     }
-    if (searchOpen || showTasks || showReminders || showNotifications) document.addEventListener("mousedown", handleClick)
+    if (searchOpen || showTasks || showReminders || showNotifications || showUserMenu) document.addEventListener("mousedown", handleClick)
     return () => document.removeEventListener("mousedown", handleClick)
-  }, [searchOpen, showTasks, showReminders, showNotifications])
+  }, [searchOpen, showTasks, showReminders, showNotifications, showUserMenu])
 
   const tasks = [
     { id: 1, label: "Set up new meter MTR-8842", done: false, priority: "high" },
@@ -326,7 +328,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         </TbBtn>
 
         {/* User menu */}
-        <div className="relative">
+        <div className="relative" ref={userMenuRef}>
           <button onClick={() => setShowUserMenu(!showUserMenu)}
             className="flex items-center gap-2 rounded-lg transition-all hover:bg-black/5 dark:hover:bg-white/10 px-2 py-1 active:scale-95">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: "var(--admin-accent)" }}>
