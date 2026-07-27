@@ -42,6 +42,7 @@ import { diagnosticsRouter } from "./routes/diagnostics.js"
 import { pdfRouter } from "./routes/pdf.js"
 import { templatesRouter } from "./routes/templates.js"
 import { qrRouter } from "./routes/qr.js"
+import { dataGateRouter } from "./routes/data-gate.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
@@ -249,6 +250,7 @@ app.use("/api-docs.json", (req, res) => res.json(swaggerSpec))
 // QR router mounted at /api level
 API_PREFIXES.forEach(p => app.use(p, qrRouter))
 API_PREFIXES.forEach(p => app.use(p, diagnosticsRouter))
+mount("/data-gate", dataGateRouter)
 
 // ─── ERROR HANDLING ──────────────────────────────────────────────────────────
 

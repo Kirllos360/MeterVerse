@@ -1,11 +1,11 @@
 "use client"
 
-import SystemLayout from "@/admin/layout/SystemLayout"
+import AdminLayout from "@/admin/layout/AdminLayout"
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
+export default function AdminRootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SystemLayout theme="red" title="Administration">
+    <AdminLayout title="Administration">
       {children}
-    </SystemLayout>
+    </AdminLayout>
   )
 }
