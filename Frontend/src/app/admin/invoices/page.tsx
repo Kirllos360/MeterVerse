@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
 import { pageConfigs } from "@/admin/tables/page-configs"
+import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { LineChartCard, BarChartCard, PieChartCard } from "@/features/charts/components/ChartComponents"
 
 export default function EnhancedInvoicesPage() {
@@ -60,5 +61,22 @@ export default function EnhancedInvoicesPage() {
       </div>
     )
   }
-  return (<div><div className="flex items-center gap-3 mb-4"><motion.button whileHover={{scale:1.02}} onClick={()=>setTab("dashboard")} className="px-3 py-1.5 rounded-xl text-xs font-bold text-white" style={{backgroundColor:"var(--brand)"}}>← Dashboard</motion.button></div><GenericAdminPage config={pageConfigs.invoices}/></div>)
+  return (
+    <EnhancedListPage
+      title="Invoices"
+      description="Customer invoices and billing records"
+      chartConfigs={{
+        title: "Invoice Analytics",
+        data1: [{name:"Jan",revenue:85000},{name:"Feb",revenue:92000},{name:"Mar",revenue:88000},{name:"Apr",revenue:105000},{name:"May",revenue:98000},{name:"Jun",revenue:112000}].map(d=>({name:d.name,value:d.revenue})),
+        data2: [{name:"Paid",value:450},{name:"Pending",value:120},{name:"Overdue",value:45},{name:"Cancelled",value:15}],
+        data3: [{name:"Online",value:320},{name:"Bank",value:180},{name:"Cash",value:90},{name:"Other",value:40}],
+      }}
+      toolbarConfig={{
+        sortOptions: [{value:"date",label:"Date"},{value:"amount",label:"Amount"},{value:"status",label:"Status"}],
+        filterOptions: [{value:"all",label:"All"},{value:"paid",label:"Paid"},{value:"pending",label:"Pending"},{value:"overdue",label:"Overdue"}],
+      }}
+    >
+      <GenericAdminPage config={pageConfigs.invoices} />
+    </EnhancedListPage>
+  )
 }

@@ -10,20 +10,19 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { ErrorBoundary } from "@/components/effects/ErrorBoundary"
 
-interface CustomerData {
+interface UnitData {
   id: string
   name?: string
-  email?: string
-  phone?: string
-  status?: string
   code?: string
   type?: string
-  address?: string
-  city?: string
+  status?: string
   area?: string
+  address?: string
+  floor?: string
+  unitNumber?: string
   totalMeters?: number
+  totalCustomers?: number
   totalInvoices?: number
-  totalPaid?: number
   balance?: number
   createdAt?: string
   updatedAt?: string
@@ -33,27 +32,28 @@ interface CustomerData {
 const statusVariant: Record<string, "default" | "secondary" | "destructive" | "outline"> = {
   active: "default",
   inactive: "secondary",
-  suspended: "destructive",
-  pending: "outline",
+  maintenance: "outline",
+  occupied: "default",
+  vacant: "secondary",
 }
 
-const tabs = ["Overview", "Meters", "Invoices", "Payments", "Activity"] as const
+const tabs = ["Overview", "Meters", "Customers", "History"] as const
 type Tab = (typeof tabs)[number]
 
 const container = { hidden: {}, show: { transition: { staggerChildren: 0.06 } } }
 const fadeUp = { hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }
 
-export default function CustomerDetailPage() {
+export default function UnitDetailPage() {
   const params = useParams()
   const router = useRouter()
-  const [data, setData] = useState<CustomerData | null>(null)
+  const [data, setData] = useState<UnitData | null>(null)
   const [loading, setLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<Tab>("Overview")
 
   const load = useCallback(async () => {
     try {
-      const res = await apiClient<Record<string, unknown>>(`/api/customers/${params.id}`)
-      setData((res.customer || res) as CustomerData)
+      const res = await apiClient<Record<string, unknown>>(`/api/units/${params.id}`)
+      setData((res.unit || res) as UnitData)
     } catch { setData(null) } finally { setLoading(false) }
   }, [params.id])
 
@@ -68,7 +68,7 @@ export default function CustomerDetailPage() {
   )
   if (!data) return (
     <div className="p-6 text-center">
-      <h2 className="text-xl font-semibold" style={{ color: "var(--text-primary)" }}>Customer not found</h2>
+      <h2 className="text-xl font-semibold" style={{ color: "var(--text-primary)" }}>Unit not found</h2>
       <Button onClick={() => router.back()} className="mt-4">Go back</Button>
     </div>
   )
@@ -82,15 +82,15 @@ export default function CustomerDetailPage() {
         <motion.div variants={fadeUp} className="flex items-center justify-between flex-wrap gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: "rgba(var(--brand-rgb),0.12)" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2"><path d="M3 21h18M3 7v1a3 3 0 003 3h12a3 3 0 003-3V7m-18 0l3-3h12l3 3M3 7l3 3h12l3-3" /><path d="M9 21v-4a3 3 0 016 0v4" /></svg>
             </div>
             <div>
-              <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>{data.name || `Customer ${data.id?.slice(0, 8)}`}</h1>
-              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{data.email || "—"} {data.phone ? `· ${data.phone}` : ""}</p>
+              <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>{data.name || `Unit ${data.id?.slice(0, 8)}`}</h1>
+              <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{data.code || data.unitNumber ? `${data.code || data.unitNumber} · ` : ""}{data.type || "—"}</p>
             </div>
             <Badge variant={sv}>{data.status || "unknown"}</Badge>
           </div>
-          <Button variant="outline" size="sm" onClick={() => router.push("/admin/customers")}>Back to list</Button>
+          <Button variant="outline" size="sm" onClick={() => router.push("/admin/units")}>Back to list</Button>
         </motion.div>
 
         {/* Tabs */}
@@ -100,7 +100,7 @@ export default function CustomerDetailPage() {
               className="relative px-4 py-2 text-xs font-semibold rounded-lg whitespace-nowrap transition-colors"
               style={{ color: activeTab === t ? "var(--brand)" : "var(--text-secondary)", backgroundColor: activeTab === t ? "rgba(var(--brand-rgb),0.08)" : "transparent" }}>
               {t}
-              {activeTab === t && <motion.div layoutId="ctab" className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full" style={{ backgroundColor: "var(--brand)" }} />}
+              {activeTab === t && <motion.div layoutId="utab" className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full" style={{ backgroundColor: "var(--brand)" }} />}
             </button>
           ))}
         </motion.div>
@@ -112,8 +112,8 @@ export default function CustomerDetailPage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {[
                 { label: "Total Meters", value: data.totalMeters ?? "—", icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" },
+                { label: "Total Customers", value: data.totalCustomers ?? "—", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" },
                 { label: "Total Invoices", value: data.totalInvoices ?? "—", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
-                { label: "Total Paid", value: typeof data.totalPaid === "number" ? `$${data.totalPaid.toLocaleString()}` : "—", icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
                 { label: "Balance", value: typeof data.balance === "number" ? `$${data.balance.toLocaleString()}` : "—", icon: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" },
               ].map((c, i) => (
                 <motion.div key={i} variants={fadeUp}
@@ -129,17 +129,19 @@ export default function CustomerDetailPage() {
               ))}
             </div>
 
-            {/* Contact & Details */}
+            {/* Unit Details */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <motion.div variants={fadeUp} className="rounded-2xl border p-5" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-                <h3 className="text-sm font-bold mb-4" style={{ color: "var(--text-primary)" }}>Contact Information</h3>
+                <h3 className="text-sm font-bold mb-4" style={{ color: "var(--text-primary)" }}>Unit Information</h3>
                 <div className="space-y-3 text-sm">
                   {[
-                    ["Email", data.email],
-                    ["Phone", data.phone],
-                    ["Address", data.address],
-                    ["City", data.city],
-                    ["Area", data.area],
+                    ["Unit ID", data.id],
+                    ["Name", data.name],
+                    ["Code", data.code],
+                    ["Unit Number", data.unitNumber],
+                    ["Floor", data.floor],
+                    ["Type", data.type],
+                    ["Status", data.status],
                   ].map(([l, v]) => (
                     <div key={l as string} className="flex justify-between">
                       <span style={{ color: "var(--text-secondary)" }}>{l}</span>
@@ -149,13 +151,11 @@ export default function CustomerDetailPage() {
                 </div>
               </motion.div>
               <motion.div variants={fadeUp} className="rounded-2xl border p-5" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-                <h3 className="text-sm font-bold mb-4" style={{ color: "var(--text-primary)" }}>Account Details</h3>
+                <h3 className="text-sm font-bold mb-4" style={{ color: "var(--text-primary)" }}>Location & Timeline</h3>
                 <div className="space-y-3 text-sm">
                   {[
-                    ["Customer ID", data.id],
-                    ["Code", data.code],
-                    ["Type", data.type],
-                    ["Status", data.status],
+                    ["Area", data.area],
+                    ["Address", data.address],
                     ["Created", data.createdAt ? new Date(data.createdAt).toLocaleDateString() : "—"],
                     ["Updated", data.updatedAt ? new Date(data.updatedAt).toLocaleDateString() : "—"],
                   ].map(([l, v]) => (

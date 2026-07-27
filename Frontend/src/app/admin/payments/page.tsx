@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
 import { pageConfigs } from "@/admin/tables/page-configs"
+import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { LineChartCard, BarChartCard, PieChartCard } from "@/features/charts/components/ChartComponents"
 
 export default function EnhancedPaymentsPage() {
@@ -87,15 +88,21 @@ export default function EnhancedPaymentsPage() {
   }
 
   return (
-    <div>
-      <div className="flex items-center gap-3 mb-4">
-        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-          onClick={() => setTab("dashboard")}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold text-white" style={{ backgroundColor: "var(--brand)" }}>
-          ← Dashboard
-        </motion.button>
-      </div>
+    <EnhancedListPage
+      title="Payments"
+      description="Customer payment transactions"
+      chartConfigs={{
+        title: "Payment Analytics",
+        data1: [{name:"Jan",value:185000},{name:"Feb",value:192000},{name:"Mar",value:178000},{name:"Apr",value:210000},{name:"May",value:198000},{name:"Jun",value:225000}],
+        data2: [{name:"Credit Card",value:45},{name:"Bank Transfer",value:28},{name:"Cash",value:15},{name:"Digital Wallet",value:12}],
+        data3: [{name:"Completed",value:520},{name:"Pending",value:85},{name:"Refunded",value:32},{name:"Failed",value:18}],
+      }}
+      toolbarConfig={{
+        sortOptions: [{value:"date",label:"Date"},{value:"amount",label:"Amount"},{value:"method",label:"Method"}],
+        filterOptions: [{value:"all",label:"All"},{value:"completed",label:"Completed"},{value:"pending",label:"Pending"},{value:"refunded",label:"Refunded"}],
+      }}
+    >
       <GenericAdminPage config={pageConfigs.payments} />
-    </div>
+    </EnhancedListPage>
   )
 }

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
 import { pageConfigs } from "@/admin/tables/page-configs"
+import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { BarChartCard, PieChartCard, LineChartCard } from "@/features/charts/components/ChartComponents"
 
 export default function EnhancedMetersPage() {
@@ -63,5 +64,22 @@ export default function EnhancedMetersPage() {
       </div>
     )
   }
-  return ( <div><div className="flex items-center gap-3 mb-4"><motion.button whileHover={{ scale: 1.02 }} onClick={() => setTab("dashboard")} className="px-3 py-1.5 rounded-xl text-xs font-bold text-white" style={{ backgroundColor: "var(--brand)" }}>← Dashboard</motion.button></div><GenericAdminPage config={pageConfigs.meters} /></div> )
+  return (
+    <EnhancedListPage
+      title="Meters"
+      description="Meter inventory &amp; performance analytics"
+      chartConfigs={{
+        title: "Meter Analytics",
+        data1: [{name:"Jan",readings:45000},{name:"Feb",readings:42000},{name:"Mar",readings:48000},{name:"Apr",readings:51000},{name:"May",readings:49000},{name:"Jun",readings:53000}].map(d=>({name:d.name,value:d.readings})),
+        data2: [{name:"Water",value:850},{name:"Electric",value:420},{name:"Gas",value:120},{name:"Solar",value:45}],
+        data3: [{name:"Active",value:1240},{name:"Inactive",value:85},{name:"Maintenance",value:42},{name:"Retired",value:120}],
+      }}
+      toolbarConfig={{
+        sortOptions: [{value:"name",label:"Name"},{value:"type",label:"Type"},{value:"status",label:"Status"}],
+        filterOptions: [{value:"all",label:"All"},{value:"active",label:"Active"},{value:"inactive",label:"Inactive"},{value:"maintenance",label:"Maintenance"}],
+      }}
+    >
+      <GenericAdminPage config={pageConfigs.meters} />
+    </EnhancedListPage>
+  )
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { GenericAdminPage } from "@/admin/tables/GenericAdminPage"
 import { pageConfigs } from "@/admin/tables/page-configs"
+import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { LineChartCard, BarChartCard, PieChartCard, AreaChartCard } from "@/features/charts/components/ChartComponents"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -83,15 +84,21 @@ export default function EnhancedCustomersPage() {
   }
 
   return (
-    <div>
-      <div className="flex items-center gap-3 mb-4">
-        <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
-          onClick={() => setTab("dashboard")}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold text-white" style={{ backgroundColor: "var(--brand)" }}>
-          ← Dashboard
-        </motion.button>
-      </div>
+    <EnhancedListPage
+      title="Customers"
+      description="Manage your customer base"
+      chartConfigs={{
+        title: "Customer Analytics",
+        data1: [{name:"Jan",value:120},{name:"Feb",value:135},{name:"Mar",value:150},{name:"Apr",value:168},{name:"May",value:180},{name:"Jun",value:195}],
+        data2: [{name:"Active",value:165},{name:"Inactive",value:20},{name:"Suspended",value:10}],
+        data3: [{name:"New",value:28},{name:"Returning",value:120},{name:"Churned",value:8}],
+      }}
+      toolbarConfig={{
+        sortOptions: [{value:"name",label:"Name"},{value:"createdAt",label:"Created"},{value:"status",label:"Status"}],
+        filterOptions: [{value:"all",label:"All"},{value:"active",label:"Active"},{value:"inactive",label:"Inactive"}],
+      }}
+    >
       <GenericAdminPage config={pageConfigs.customers} />
-    </div>
+    </EnhancedListPage>
   )
 }
