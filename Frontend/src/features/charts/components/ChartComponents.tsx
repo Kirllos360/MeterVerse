@@ -1,18 +1,44 @@
 "use client"
 
 import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts"
-import { useMemo } from "react"
+import { useState, useEffect } from "react"
 
 function useDarkMode() {
-  return useMemo(() => {
-    if (typeof window === "undefined") return false
-    return window.matchMedia("(prefers-color-scheme: dark)").matches || document.documentElement.classList.contains("dark")
+  const [isDark, setIsDark] = useState(false)
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.classList.contains("dark"))
+    check()
+    const observer = new MutationObserver(check)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] })
+    return () => observer.disconnect()
   }, [])
+  return isDark
 }
 
-const CHART_COLORS = ["#DC2626", "#F59E0B", "#10B981", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
-const CHART_COLORS_GREEN = ["#059669", "#F59E0B", "#DC2626", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
-const CHART_COLORS_DARK = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#B794F4", "#FF85A1", "#64D8CB", "#FFA94D"]
+function useIsGreen() {
+  const [isGreen, setIsGreen] = useState(false)
+  useEffect(() => {
+    const check = () => setIsGreen(getComputedStyle(document.documentElement).getPropertyValue("--brand").trim() === "#059669")
+    check()
+    const observer = new MutationObserver(check)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] })
+    return () => observer.disconnect()
+  }, [])
+  return isGreen
+}
+
+// Colors that work well on both light and dark backgrounds
+const CHART_COLORS_RED_LIGHT = ["#DC2626", "#F59E0B", "#10B981", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
+const CHART_COLORS_RED_DARK = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#B794F4", "#FF85A1", "#64D8CB", "#FFA94D"]
+const CHART_COLORS_GREEN_LIGHT = ["#059669", "#F59E0B", "#DC2626", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
+const CHART_COLORS_GREEN_DARK = ["#34D399", "#FFD93D", "#FF6B6B", "#60A5FA", "#C084FC", "#F472B6", "#2DD4BF", "#FBBF24"]
+
+function useChartColors() {
+  const isDark = useDarkMode()
+  const isGreen = useIsGreen()
+  if (isGreen) return isDark ? CHART_COLORS_GREEN_DARK : CHART_COLORS_GREEN_LIGHT
+  return isDark ? CHART_COLORS_RED_DARK : CHART_COLORS_RED_LIGHT
+}
 
 interface ChartCardProps {
   title: string
@@ -46,7 +72,7 @@ interface LineChartCardProps {
   height?: number
 }
 
-export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "#DC2626", height = 250 }: LineChartCardProps) {
+export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: LineChartCardProps) {
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
@@ -72,7 +98,7 @@ interface BarChartCardProps {
   height?: number
 }
 
-export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "#DC2626", height = 250 }: BarChartCardProps) {
+export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: BarChartCardProps) {
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
@@ -98,8 +124,8 @@ interface PieChartCardProps {
 }
 
 export function PieChartCard({ title, subtitle, data, height = 250, colors, donut = false }: PieChartCardProps) {
-  const isDark = useDarkMode()
-  const resolvedColors = colors ?? (isDark ? CHART_COLORS_DARK : CHART_COLORS)
+  const defaultColors = useChartColors()
+  const resolvedColors = colors ?? defaultColors
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
@@ -125,7 +151,7 @@ interface AreaChartCardProps {
   height?: number
 }
 
-export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "#DC2626", height = 250 }: AreaChartCardProps) {
+export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: AreaChartCardProps) {
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
