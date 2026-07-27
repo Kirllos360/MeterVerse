@@ -48,7 +48,7 @@ export function HorizontalBarCard({ title, subtitle, data, height = 250 }: Horiz
   palette[0] = brand
 
   return (
-    <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+    <div className="rounded-2xl border p-5" style={{ backgroundColor: "var(--chart-bg)", borderColor: "var(--border-default)" }}>
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{title}</h3>

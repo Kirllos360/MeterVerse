@@ -69,7 +69,7 @@ interface ChartCardProps {
 
 export function ChartCard({ title, subtitle, children, className = "", brandColor }: ChartCardProps) {
   return (
-    <div className={`rounded-2xl border p-5 ${className}`} style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+    <div className={`rounded-2xl border p-5 ${className}`} style={{ backgroundColor: "var(--chart-bg)", borderColor: "var(--border-default)" }}>
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{title}</h3>

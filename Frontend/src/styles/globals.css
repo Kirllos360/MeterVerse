@@ -7,6 +7,10 @@
 @import './theme.css';
 @import './dark-mode.css';
 
+/* Chart card backgrounds — white in light, dark in dark mode */
+:root { --chart-bg: #FFFFFF; }
+.dark { --chart-bg: #0D0D0D; }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -318,3 +322,4 @@
 [class*="go1754112896"] {
   display: none !important;
 }
+
