@@ -30,7 +30,7 @@ function tooltipStyle(isDark: boolean): React.CSSProperties {
 function useIsGreen() {
   const [isGreen, setIsGreen] = useState(false)
   useEffect(() => {
-    const check = () => setIsGreen(getComputedStyle(document.documentElement).getPropertyValue("--brand").trim() === "#059669")
+    const check = () => setIsGreen(getComputedStyle(document.documentElement).getPropertyValue("--brand").trim().toLowerCase() === "#059669")
     check()
     const observer = new MutationObserver(check)
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] })
@@ -39,11 +39,15 @@ function useIsGreen() {
   return isGreen
 }
 
-// Professional color palettes — harmonious and accessible
-const CHART_COLORS_RED_LIGHT = ["#E74C3C", "#F39C12", "#2ECC71", "#3498DB", "#9B59B6", "#1ABC9C", "#E67E22", "#2980B9"]
-const CHART_COLORS_RED_DARK = ["#E74C3C", "#F1C40F", "#2ECC71", "#5DADE2", "#AF7AC5", "#48C9B0", "#F5B041", "#85C1E9"]
-const CHART_COLORS_GREEN_LIGHT = ["#059669", "#F59E0B", "#DC2626", "#3B82F6", "#8B5CF6", "#14B8A6", "#E67E22", "#6366F1"]
-const CHART_COLORS_GREEN_DARK = ["#34D399", "#FBBF24", "#F87171", "#60A5FA", "#A78BFA", "#2DD4BF", "#FCD34D", "#818CF8"]
+// Premium color palettes — optimized for each brand + mode combination
+// Admin / Light (white bg + red brand): warm, professional, high contrast on white
+const CHART_COLORS_RED_LIGHT = ["#DC2626", "#D97706", "#059669", "#2563EB", "#7C3AED", "#0891B2", "#EA580C", "#4F46E5"]
+// Admin / Dark (black bg + red brand): vibrant, glowing, high contrast on dark  
+const CHART_COLORS_RED_DARK = ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#22D3EE", "#FB923C", "#818CF8"]
+// User / Light (white bg + green brand): fresh, natural, elegant on white
+const CHART_COLORS_GREEN_LIGHT = ["#059669", "#D97706", "#DC2626", "#2563EB", "#7C3AED", "#0D9488", "#EA580C", "#4F46E5"]
+// User / Dark (black bg + green brand): luminous, rich, striking on dark
+const CHART_COLORS_GREEN_DARK = ["#34D399", "#FBBF24", "#F87171", "#60A5FA", "#C084FC", "#2DD4BF", "#FDBA74", "#A5B4FC"]
 
 function useChartColors() {
   const isDark = useDarkMode()
