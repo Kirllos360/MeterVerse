@@ -1,8 +1,7 @@
 "use client"
 
-import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, Sector } from "recharts"
+import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Legend } from "recharts"
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 
 function useDarkMode() {
   const [isDark, setIsDark] = useState(false)
@@ -17,16 +16,7 @@ function useDarkMode() {
 }
 
 // Shared tooltip style that adapts to dark/light mode
-function tooltipStyle(isDark: boolean): React.CSSProperties {
-  return {
-    backgroundColor: isDark ? "#1A1A1E" : "#FFFFFF",
-    border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.08)",
-    borderRadius: 12,
-    color: isDark ? "#F2F2F5" : "#1C1C1E",
-    fontSize: 12,
-    boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.06)"
-  }
-}
+
 
 function useIsGreen() {
   const [isGreen, setIsGreen] = useState(false)
@@ -146,19 +136,15 @@ interface PieChartCardProps {
 }
 
 export function PieChartCard({ title, subtitle, data, height = 250, colors, donut = false }: PieChartCardProps) {
-  const isDark = useDarkMode()
-  const [activeIndex, setActiveIndex] = useState(-1)
   const defaultColors = useChartColors()
   const resolvedColors = colors ?? defaultColors
-  const handleEnter = (_: any, i: number) => setActiveIndex(i)
-  const handleLeave = () => setActiveIndex(-1)
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <div style={{ width: "100%", height, backgroundColor: "transparent" }}>
       <ResponsiveContainer width="100%" height={height}>
         <PieChart style={{ backgroundColor: "transparent" }}>
-          <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={Math.min(height * 0.35, 90)} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} activeIndex={activeIndex >= 0 ? activeIndex : undefined} activeShape={(props: any) => <Sector {...props} outerRadius={(props.outerRadius || 90) * 1.08} />}>
-            {data.map((_, i) => <Cell key={i} fill={resolvedColors[i % resolvedColors.length]} onMouseEnter={(e: any) => handleEnter(e, i)} onClick={() => handleEnter(null, i)} />)}
+          <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={Math.min(height * 0.35, 90)} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false}>
+            {data.map((_, i) => <Cell key={i} fill={resolvedColors[i % resolvedColors.length]} />)}
           </Pie>
           <Legend wrapperStyle={{ fontSize: 11 }} />
         </PieChart>
