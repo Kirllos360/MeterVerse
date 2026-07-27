@@ -59,7 +59,10 @@
       "command": ["npx", "-y", "codebase-memory-mcp"],
       "enabled": true
     },
-    "ast-grep": {\n      "type": "local",\n      "command": ["sg", "--mcp"],\n      "enabled": true,\n      "description": "Semantic code search and structural AST analysis",
+    "ast-grep": {
+      "type": "local",
+      "command": ["sg", "--mcp"],
+      "enabled": true,
       "description": "Semantic code search and structural AST analysis"
     },
     "deepseek-eyes": {

@@ -96,7 +96,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
       { label: "Settings", id: "settings" }, { label: "Monitoring", id: "monitoring" },
     ]},
     { cat: "Tools", items: [
-      { label: "API Explorer", action: "inspector" }, { label: "RCA Workspace", id: "rca-workspace" },
+      { label: "API Explorer", action: "Shortcut" }, { label: "RCA Workspace", id: "rca-workspace" },
       { label: "AI Command Center", id: "ai-command-center" }, { label: "Audit Log", id: "audit" },
     ]},
   ]
@@ -400,3 +400,4 @@ export function AdminStatusBar({ inspectorOpen, onToggleInspector, lang = "en" }
     </div>
   )
 }
+
