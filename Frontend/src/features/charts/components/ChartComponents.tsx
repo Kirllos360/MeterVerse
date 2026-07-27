@@ -93,7 +93,6 @@ interface LineChartCardProps {
 }
 
 export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: LineChartCardProps) {
-  const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <div style={{ width: "100%", backgroundColor: "transparent" }}>
@@ -102,8 +101,7 @@ export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", c
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
           <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
-          <Tooltip contentStyle={tooltipStyle(isDark)} />
-          <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
+          <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={false} />
         </LineChart>
       </ResponsiveContainer>
       </div>
@@ -122,7 +120,6 @@ interface BarChartCardProps {
 }
 
 export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: BarChartCardProps) {
-  const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <div style={{ width: "100%", backgroundColor: "transparent" }}>
@@ -131,7 +128,6 @@ export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", co
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" vertical={false} />
           <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
-          <Tooltip contentStyle={tooltipStyle(isDark)} />
           <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
@@ -164,8 +160,7 @@ export function PieChartCard({ title, subtitle, data, height = 250, colors, donu
           <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={Math.min(height * 0.35, 90)} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false} activeIndex={activeIndex >= 0 ? activeIndex : undefined} activeShape={(props: any) => <Sector {...props} outerRadius={(props.outerRadius || 90) * 1.08} />}>
             {data.map((_, i) => <Cell key={i} fill={resolvedColors[i % resolvedColors.length]} onMouseEnter={(e: any) => handleEnter(e, i)} onClick={() => handleEnter(null, i)} />)}
           </Pie>
-          <Tooltip contentStyle={tooltipStyle(isDark)} />
-          <Legend wrapperStyle={{ fontSize: 11, color: isDark ? "#F2F2F5" : "#1C1C1E" }} />
+          <Legend wrapperStyle={{ fontSize: 11 }} />
         </PieChart>
       </ResponsiveContainer>
       </div>
@@ -184,7 +179,6 @@ interface AreaChartCardProps {
 }
 
 export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: AreaChartCardProps) {
-  const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <div style={{ width: "100%", backgroundColor: "transparent" }}>
@@ -193,8 +187,7 @@ export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", c
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
           <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
-          <Tooltip contentStyle={tooltipStyle(isDark)} />
-          <Area type="monotone" dataKey={dataKey} stroke={color} fill={color} fillOpacity={0.1} strokeWidth={2} />
+          <Area type="monotone" dataKey={dataKey} stroke={color} fill="transparent" strokeWidth={2} />
         </AreaChart>
       </ResponsiveContainer>
       </div>
