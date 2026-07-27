@@ -58,17 +58,12 @@
   }
 
   /* Chart hover effect — subtle scale + glow, no background change */
-  .recharts-surface {
-    transition: filter 0.2s ease;
-  }
-  .recharts-surface:hover {
-    filter: drop-shadow(0 0 8px rgba(var(--brand-rgb, 220, 38, 38), 0.25));
-  }
-  .recharts-pie-sector:hover {
-    transform: scale(1.03);
-    filter: drop-shadow(0 0 12px rgba(var(--brand-rgb, 220, 38, 38), 0.35));
-    transition: transform 0.2s ease, filter 0.2s ease;
-    cursor: pointer;
+  /* Chart hover effects — minimal, clean, no glow/noise */
+  .recharts-pie-sector:hover,
+  .recharts-bar-rectangle:hover {
+    cursor: default;
+    opacity: 0.85;
+    transition: opacity 0.15s ease;
   }
 
   /* Dark mode chart tooltip styling */
