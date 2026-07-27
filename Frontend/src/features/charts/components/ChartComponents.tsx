@@ -15,6 +15,18 @@ function useDarkMode() {
   return isDark
 }
 
+// Shared tooltip style that adapts to dark/light mode
+function tooltipStyle(isDark: boolean): React.CSSProperties {
+  return {
+    backgroundColor: isDark ? "#1A1A1E" : "#FFFFFF",
+    border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.08)",
+    borderRadius: 12,
+    color: isDark ? "#F2F2F5" : "#1C1C1E",
+    fontSize: 12,
+    boxShadow: isDark ? "0 4px 20px rgba(0,0,0,0.3)" : "0 4px 20px rgba(0,0,0,0.06)"
+  }
+}
+
 function useIsGreen() {
   const [isGreen, setIsGreen] = useState(false)
   useEffect(() => {
@@ -27,11 +39,11 @@ function useIsGreen() {
   return isGreen
 }
 
-// Colors that work well on both light and dark backgrounds
-const CHART_COLORS_RED_LIGHT = ["#DC2626", "#F59E0B", "#10B981", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
-const CHART_COLORS_RED_DARK = ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#B794F4", "#FF85A1", "#64D8CB", "#FFA94D"]
-const CHART_COLORS_GREEN_LIGHT = ["#059669", "#F59E0B", "#DC2626", "#3B82F6", "#8B5CF6", "#EC4899", "#14B8A6", "#F97316"]
-const CHART_COLORS_GREEN_DARK = ["#34D399", "#FFD93D", "#FF6B6B", "#60A5FA", "#C084FC", "#F472B6", "#2DD4BF", "#FBBF24"]
+// Professional color palettes — harmonious and accessible
+const CHART_COLORS_RED_LIGHT = ["#E74C3C", "#F39C12", "#2ECC71", "#3498DB", "#9B59B6", "#1ABC9C", "#E67E22", "#2980B9"]
+const CHART_COLORS_RED_DARK = ["#E74C3C", "#F1C40F", "#2ECC71", "#5DADE2", "#AF7AC5", "#48C9B0", "#F5B041", "#85C1E9"]
+const CHART_COLORS_GREEN_LIGHT = ["#059669", "#F59E0B", "#DC2626", "#3B82F6", "#8B5CF6", "#14B8A6", "#E67E22", "#6366F1"]
+const CHART_COLORS_GREEN_DARK = ["#34D399", "#FBBF24", "#F87171", "#60A5FA", "#A78BFA", "#2DD4BF", "#FCD34D", "#818CF8"]
 
 function useChartColors() {
   const isDark = useDarkMode()
@@ -73,14 +85,15 @@ interface LineChartCardProps {
 }
 
 export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: LineChartCardProps) {
+  const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
-        <LineChart data={data}>
+        <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
-          <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} />
-          <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} />
-          <Tooltip contentStyle={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)", borderRadius: 8, fontSize: 12 }} />
+          <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
+          <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
+          <Tooltip contentStyle={tooltipStyle(isDark)} />
           <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
         </LineChart>
       </ResponsiveContainer>
@@ -99,14 +112,15 @@ interface BarChartCardProps {
 }
 
 export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: BarChartCardProps) {
+  const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
-          <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} />
-          <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} />
-          <Tooltip contentStyle={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)", borderRadius: 8, fontSize: 12 }} />
+        <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" vertical={false} />
+          <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
+          <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
+          <Tooltip contentStyle={tooltipStyle(isDark)} />
           <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
@@ -124,17 +138,18 @@ interface PieChartCardProps {
 }
 
 export function PieChartCard({ title, subtitle, data, height = 250, colors, donut = false }: PieChartCardProps) {
+  const isDark = useDarkMode()
   const defaultColors = useChartColors()
   const resolvedColors = colors ?? defaultColors
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
         <PieChart>
-          <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={90} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+          <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={Math.min(height * 0.35, 90)} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false}>
             {data.map((_, i) => <Cell key={i} fill={resolvedColors[i % resolvedColors.length]} />)}
           </Pie>
-          <Tooltip contentStyle={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)", borderRadius: 8, fontSize: 12 }} />
-          <Legend wrapperStyle={{ fontSize: 11 }} />
+          <Tooltip contentStyle={tooltipStyle(isDark)} />
+          <Legend wrapperStyle={{ fontSize: 11, color: isDark ? "#F2F2F5" : "#1C1C1E" }} />
         </PieChart>
       </ResponsiveContainer>
     </ChartCard>
@@ -152,14 +167,15 @@ interface AreaChartCardProps {
 }
 
 export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", color = "var(--brand)", height = 250 }: AreaChartCardProps) {
+  const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
       <ResponsiveContainer width="100%" height={height}>
-        <AreaChart data={data}>
+        <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
-          <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} />
-          <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} />
-          <Tooltip contentStyle={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)", borderRadius: 8, fontSize: 12 }} />
+          <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
+          <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
+          <Tooltip contentStyle={tooltipStyle(isDark)} />
           <Area type="monotone" dataKey={dataKey} stroke={color} fill={color} fillOpacity={0.1} strokeWidth={2} />
         </AreaChart>
       </ResponsiveContainer>
