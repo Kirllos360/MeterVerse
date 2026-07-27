@@ -15,7 +15,10 @@ const SYSTEM_TABS = [
 ]
 
 const ADMIN_ONLY_IDS = [
-    "roles","users", "settings", "tariffs", "audit", "monitoring", "projects", "zones", "database", "areas", "promotions", "api-management", "readings"]
+    "roles","users", "settings", "tariffs", "audit", "monitoring", "projects", "zones", "database", "areas", "promotions", "api-management", "readings",
+    "admin-home", "database-management", "connection-settings", "monitoring-view", "customer-settings",
+    "meter-settings", "location-settings", "payment-settings", "users-permissions", "tariff-settings",
+    "report-settings", "upload-settings", "bill-cycle-settings", "bill-cycle"]
 const USER_ONLY_IDS = ["accounting", "workspace", "upload", "add-data", "tracking", "sim-cards", "tickets", "info-guide"]
 
 const ALL_NAV_GROUPS = [
@@ -58,6 +61,22 @@ const ALL_NAV_GROUPS = [
     { id: "audit", label: "Audit", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" },
     { id: "promotions", label: "Promotions", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
     { id: "api-management", label: "API Management", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
+  ]},
+  { label: "Admin Settings", items: [
+    { id: "admin-home", label: "Home", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
+    { id: "database-management", label: "Database Mgmt", icon: "M4 7v10c2 0 3 1 3 3h10c2 0 3-1 3-3V7M4 7h16" },
+    { id: "connection-settings", label: "Connection", icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9" },
+    { id: "monitoring-view", label: "Monitoring", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" },
+    { id: "customer-settings", label: "Customer", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" },
+    { id: "meter-settings", label: "Meters", icon: "M9 3l3-3m0 0l3 3m-3-3v12" },
+    { id: "location-settings", label: "Location", icon: "M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+    { id: "payment-settings", label: "Payment", icon: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" },
+    { id: "users-permissions", label: "Users & Perm", icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z" },
+    { id: "tariff-settings", label: "Tariff", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0" },
+    { id: "report-settings", label: "Reports", icon: "M9 17v-2m3 2v-4m3 4v-6" },
+    { id: "upload-settings", label: "Upload", icon: "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4" },
+    { id: "bill-cycle-settings", label: "Bill Cycle", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7" },
+    { id: "bill-cycle", label: "Bill Run", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7" },
   ]},
 ]
 

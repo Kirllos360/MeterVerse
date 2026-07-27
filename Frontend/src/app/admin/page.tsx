@@ -29,6 +29,20 @@ const DatabasePage = dynamic(() => import("./database/page"), { ssr: false })
 const AreasPage = dynamic(() => import("./areas/page"), { ssr: false })
 const PromotionsPage = dynamic(() => import("./promotions/page"), { ssr: false })
 const ApiManagementPage = dynamic(() => import("./api-management/page"), { ssr: false })
+const AdminHomePage = dynamic(() => import("./home/page"), { ssr: false })
+const DatabaseMgmtPage = dynamic(() => import("./database-management/page"), { ssr: false })
+const ConnectionSettingsPage = dynamic(() => import("./connection-settings/page"), { ssr: false })
+const MonitoringViewPage = dynamic(() => import("./monitoring-view/page"), { ssr: false })
+const CustomerSettingsPage = dynamic(() => import("./customer-settings/page"), { ssr: false })
+const MeterSettingsPage = dynamic(() => import("./meter-settings/page"), { ssr: false })
+const LocationSettingsPage = dynamic(() => import("./location-settings/page"), { ssr: false })
+const PaymentSettingsPage = dynamic(() => import("./payment-settings/page"), { ssr: false })
+const UsersPermissionsPage = dynamic(() => import("./users-permissions/page"), { ssr: false })
+const TariffSettingsPage = dynamic(() => import("./tariff-settings/page"), { ssr: false })
+const ReportSettingsPage = dynamic(() => import("./report-settings/page"), { ssr: false })
+const UploadSettingsPage = dynamic(() => import("./upload-settings/page"), { ssr: false })
+const BillCycleSettingsPage = dynamic(() => import("./bill-cycle-settings/page"), { ssr: false })
+const BillCyclePage = dynamic(() => import("./bill-cycle/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
@@ -57,6 +71,20 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   areas: AreasPage,
   promotions: PromotionsPage,
   "api-management": ApiManagementPage,
+  "admin-home": AdminHomePage,
+  "database-management": DatabaseMgmtPage,
+  "connection-settings": ConnectionSettingsPage,
+  "monitoring-view": MonitoringViewPage,
+  "customer-settings": CustomerSettingsPage,
+  "meter-settings": MeterSettingsPage,
+  "location-settings": LocationSettingsPage,
+  "payment-settings": PaymentSettingsPage,
+  "users-permissions": UsersPermissionsPage,
+  "tariff-settings": TariffSettingsPage,
+  "report-settings": ReportSettingsPage,
+  "upload-settings": UploadSettingsPage,
+  "bill-cycle-settings": BillCycleSettingsPage,
+  "bill-cycle": BillCyclePage,
 }
 
 export default function AdminSpaPage() {

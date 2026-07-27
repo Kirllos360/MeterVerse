@@ -4,26 +4,29 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 
 const TABS = [
-  { id: "0", label: "System Health" },
-    { id: "1", label: "Database Health" },
-    { id: "2", label: "Connection Status" },
-    { id: "3", label: "DB Size" },
-    { id: "4", label: "User Counters" }
+  { id: "0", label: "Payment Center" },
+    { id: "1", label: "Payment Types" },
+    { id: "2", label: "Journal Types" },
+    { id: "3", label: "Main Settings" },
+    { id: "4", label: "Accounts" },
+    { id: "5", label: "Report Settings" },
+    { id: "6", label: "Event Log" },
+    { id: "7", label: "Error Log" }
 ]
 
-export default function HomePage() {
+export default function PaymentSettingsPage() {
   const [tab, setTab] = useState(0)
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Home</h1>
+          <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Payment Settings</h1>
           <p className="text-sm" style={{ color: "var(--text-secondary)" }}>System configuration & management</p>
         </div>
         <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ repeat: Infinity, duration: 2.5 }}
           className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" /></svg>
         </motion.div>
       </div>
 
