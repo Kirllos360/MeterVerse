@@ -39,21 +39,17 @@ function useIsGreen() {
   return isGreen
 }
 
-// Premium color palettes — optimized for each brand + mode combination
-// Admin / Light (white bg + red brand): warm, professional, high contrast on white
-const CHART_COLORS_RED_LIGHT = ["#DC2626", "#D97706", "#059669", "#2563EB", "#7C3AED", "#0891B2", "#EA580C", "#4F46E5"]
-// Admin / Dark (black bg + red brand): vibrant, glowing, high contrast on dark  
-const CHART_COLORS_RED_DARK = ["#F87171", "#FBBF24", "#34D399", "#60A5FA", "#A78BFA", "#22D3EE", "#FB923C", "#818CF8"]
-// User / Light (white bg + green brand): fresh, natural, elegant on white
-const CHART_COLORS_GREEN_LIGHT = ["#059669", "#D97706", "#DC2626", "#2563EB", "#7C3AED", "#0D9488", "#EA580C", "#4F46E5"]
-// User / Dark (black bg + green brand): luminous, rich, striking on dark
-const CHART_COLORS_GREEN_DARK = ["#34D399", "#FBBF24", "#F87171", "#60A5FA", "#C084FC", "#2DD4BF", "#FDBA74", "#A5B4FC"]
+// Universal professional palette — works on ALL backgrounds, ALL brands
+// Inspired by Apple Numbers, Tableau, and corporate dashboard standards
+// Light enough for dark mode visibility, saturated enough for light mode contrast
+const CHART_COLORS = ["#E74C3C", "#F39C12", "#27AE60", "#3498DB", "#8E44AD", "#16A085", "#D35400", "#2C3E50"]
+const CHART_COLORS_BRIGHT = ["#FF6B6B", "#FFD93D", "#6BCB77", "#5DADE2", "#AF7AC5", "#48C9B0", "#F5B041", "#85C1E9"]
 
 function useChartColors() {
   const isDark = useDarkMode()
-  const isGreen = useIsGreen()
-  if (isGreen) return isDark ? CHART_COLORS_GREEN_DARK : CHART_COLORS_GREEN_LIGHT
-  return isDark ? CHART_COLORS_RED_DARK : CHART_COLORS_RED_LIGHT
+  // Single universal palette — same colors regardless of brand
+  // Dark mode uses brighter variants for visibility on dark backgrounds
+  return isDark ? CHART_COLORS_BRIGHT : CHART_COLORS
 }
 
 interface ChartCardProps {
