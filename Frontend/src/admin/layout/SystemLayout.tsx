@@ -164,8 +164,8 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
         transition: "background 0.3s ease",
       }} />
 
-      {/* HEADER */}
-      <div className="relative z-10">
+      {/* HEADER — high z-index so dropdowns appear above everything */}
+      <div className="relative z-[100]">
         <AdminToolbar activePage={activePage} onToggleInspector={() => setInspectorOpen(!inspectorOpen)}
           themeMode={themeMode} onCycleTheme={cycleTheme} effectiveDark={effectiveDark} lang={lang} onToggleLang={toggleLang}
           onLogoClick={goHome} systemTitle={title} themeColor={brandColor} />
@@ -301,5 +301,6 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
     </div>
   )
 }
+
 
 
