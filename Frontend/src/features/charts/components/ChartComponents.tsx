@@ -95,8 +95,9 @@ export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", c
   const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
+      <div style={{ width: "100%", backgroundColor: "transparent" }}>
       <ResponsiveContainer width="100%" height={height}>
-        <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+        <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }} style={{ backgroundColor: "transparent" }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
           <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
@@ -104,6 +105,7 @@ export function LineChartCard({ title, subtitle, data, dataKey, xKey = "name", c
           <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} />
         </LineChart>
       </ResponsiveContainer>
+      </div>
     </ChartCard>
   )
 }
@@ -122,8 +124,9 @@ export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", co
   const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
+      <div style={{ width: "100%", backgroundColor: "transparent" }}>
       <ResponsiveContainer width="100%" height={height}>
-        <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+        <BarChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }} style={{ backgroundColor: "transparent" }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" vertical={false} />
           <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
@@ -131,6 +134,7 @@ export function BarChartCard({ title, subtitle, data, dataKey, xKey = "name", co
           <Bar dataKey={dataKey} fill={color} radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
+      </div>
     </ChartCard>
   )
 }
@@ -150,8 +154,9 @@ export function PieChartCard({ title, subtitle, data, height = 250, colors, donu
   const resolvedColors = colors ?? defaultColors
   return (
     <ChartCard title={title} subtitle={subtitle}>
+      <div style={{ width: "100%", height, backgroundColor: "transparent" }}>
       <ResponsiveContainer width="100%" height={height}>
-        <PieChart>
+        <PieChart style={{ backgroundColor: "transparent" }}>
           <Pie data={data} cx="50%" cy="50%" innerRadius={donut ? 50 : 0} outerRadius={Math.min(height * 0.35, 90)} paddingAngle={2} dataKey="value" label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} labelLine={false}>
             {data.map((_, i) => <Cell key={i} fill={resolvedColors[i % resolvedColors.length]} />)}
           </Pie>
@@ -159,6 +164,7 @@ export function PieChartCard({ title, subtitle, data, height = 250, colors, donu
           <Legend wrapperStyle={{ fontSize: 11, color: isDark ? "#F2F2F5" : "#1C1C1E" }} />
         </PieChart>
       </ResponsiveContainer>
+      </div>
     </ChartCard>
   )
 }
@@ -177,8 +183,9 @@ export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", c
   const isDark = useDarkMode()
   return (
     <ChartCard title={title} subtitle={subtitle}>
+      <div style={{ width: "100%", backgroundColor: "transparent" }}>
       <ResponsiveContainer width="100%" height={height}>
-        <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+        <AreaChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }} style={{ backgroundColor: "transparent" }}>
           <CartesianGrid strokeDasharray="3 3" stroke="var(--border-default)" />
           <XAxis dataKey={xKey} tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={{ stroke: "var(--border-default)" }} tickLine={false} />
           <YAxis tick={{ fontSize: 11, fill: "var(--text-tertiary)" }} axisLine={false} tickLine={false} />
@@ -186,6 +193,7 @@ export function AreaChartCard({ title, subtitle, data, dataKey, xKey = "name", c
           <Area type="monotone" dataKey={dataKey} stroke={color} fill={color} fillOpacity={0.1} strokeWidth={2} />
         </AreaChart>
       </ResponsiveContainer>
+      </div>
     </ChartCard>
   )
 }
