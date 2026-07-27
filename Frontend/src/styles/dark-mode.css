@@ -3,8 +3,7 @@
 /* Brand colors stay the same — only surfaces, text, and borders invert */
 
 html.dark {
-  /* Chart cards — pure dark bg (not white) */
-  --chart-bg: #0D0D0D;
+  /* Chart bg set by SystemLayout themeVars */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
