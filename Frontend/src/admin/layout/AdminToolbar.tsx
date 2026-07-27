@@ -3,6 +3,22 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
+function ConnectionHeader() {
+  const [status, setStatus] = useState("online")
+  useEffect(() => {
+    const check = () => fetch("/api/health").then(r => setStatus(r.ok ? "online" : "degraded")).catch(() => setStatus("offline"))
+    check()
+    const interval = setInterval(check, 30000)
+    return () => clearInterval(interval)
+  }, [])
+  return (
+    <div className="flex items-center gap-1.5 px-2">
+      <span className={`w-2 h-2 rounded-full shrink-0 ${status === "online" ? "bg-green-500" : status === "degraded" ? "bg-yellow-500" : "bg-red-500"}`} />
+      <span className="text-[9px] font-semibold capitalize" style={{ color: "var(--toolbar-muted)" }}>{status}</span>
+    </div>
+  )
+}
+
 function TbBtn({ children, label, onClick, isActive }: { children: React.ReactNode; label: string; onClick: () => void; isActive?: boolean }) {
   return (
     <button onClick={onClick} className="w-8 h-8 flex items-center justify-center rounded-lg transition-all hover:bg-black/5 dark:hover:bg-white/10 active:scale-95" style={{ color: isActive ? "var(--admin-accent)" : "var(--toolbar-muted)" }} title={label} aria-label={label}>
@@ -129,7 +145,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="15" y1="3" x2="15" y2="21" /></svg>
         </TbBtn>
 
-        <TbBtn label={`${t(lang, "Theme", "المظهر")}: ${themeMode}`} onClick={() => onCycleTheme?.()}>
+        <ConnectionHeader /><TbBtn label={`${t(lang, "Theme", "المظهر")}: ${themeMode}`} onClick={() => onCycleTheme?.()}>
           <span className="text-sm">{MODE_ICONS[themeMode]}</span>
         </TbBtn>
 

@@ -14,7 +14,8 @@ const SYSTEM_TABS = [
   { id: "system", label: "System", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0" },
 ]
 
-const ADMIN_ONLY_IDS = ["users", "settings", "tariffs", "audit", "monitoring", "projects", "zones", "database", "areas", "promotions", "api-management", "readings"]
+const ADMIN_ONLY_IDS = [
+    "roles","users", "settings", "tariffs", "audit", "monitoring", "projects", "zones", "database", "areas", "promotions", "api-management", "readings"]
 const USER_ONLY_IDS = ["accounting", "workspace", "upload", "add-data", "tracking", "sim-cards", "tickets", "info-guide"]
 
 const ALL_NAV_GROUPS = [
@@ -53,6 +54,7 @@ const ALL_NAV_GROUPS = [
     { id: "accounting", label: "Accounting", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" },
     { id: "reports", label: "Reports", icon: "M9 17v-2m3 2v-4m3 4v-6" },
     { id: "monitoring", label: "Monitor", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z" },
+    { id: "roles", label: "Roles", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944" },
     { id: "audit", label: "Audit", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" },
     { id: "promotions", label: "Promotions", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
     { id: "api-management", label: "API Management", icon: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" },
@@ -299,3 +301,5 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
     </div>
   )
 }
+
+
