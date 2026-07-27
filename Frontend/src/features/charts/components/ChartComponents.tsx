@@ -47,9 +47,16 @@ const CHART_COLORS_BRIGHT = ["#FF6B6B", "#FFD93D", "#6BCB77", "#5DADE2", "#AF7AC
 
 function useChartColors() {
   const isDark = useDarkMode()
-  // Single universal palette — same colors regardless of brand
-  // Dark mode uses brighter variants for visibility on dark backgrounds
-  return isDark ? CHART_COLORS_BRIGHT : CHART_COLORS
+  // Read the brand color from CSS variable — adapts to red OR green theme
+  let brand = "#E74C3C" // fallback
+  if (typeof document !== "undefined") {
+    const cssBrand = getComputedStyle(document.documentElement).getPropertyValue("--brand").trim()
+    if (cssBrand) brand = cssBrand
+  }
+  // Inject brand color as first color (for "Active", "Water", etc.)
+  // then fill remaining with universal palette
+  const palette = isDark ? CHART_COLORS_BRIGHT : CHART_COLORS
+  return [brand, ...palette.slice(1)]
 }
 
 interface ChartCardProps {
