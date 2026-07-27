@@ -156,7 +156,7 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
   )
 
   return (
-    <div style={{ ...themeVars, backgroundColor: "var(--surface-base)" }} dir={lang === "ar" ? "rtl" : "ltr"} className="h-screen w-screen overflow-hidden flex flex-col">
+    <div style={{ ...themeVars, backgroundColor: "var(--surface-base)" }} dir={lang === "ar" ? "rtl" : "ltr"} className="h-screen max-h-screen w-screen flex flex-col">
       
       {/* Mouse-following gradient */}
       <div className="fixed inset-0 pointer-events-none z-0" style={{

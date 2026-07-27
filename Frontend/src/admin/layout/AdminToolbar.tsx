@@ -156,7 +156,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         <AnimatePresence>
           {searchOpen && filteredSearch.length > 0 && (
             <motion.div initial={{ opacity: 0, y: -4, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, scale: 0.97 }}
-              className="fixed left-1/3 top-14 w-96 rounded-xl overflow-visible z-[9999] shadow-lg"
+              className="absolute top-full mt-1.5 left-0 right-0 rounded-xl overflow-visible z-[9999] shadow-lg"
               style={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)" }}>
               {filteredSearch.map(group => (
                 <div key={group.cat} className="p-1.5">
@@ -288,7 +288,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
           <AnimatePresence>
             {showNotifications && (
               <motion.div initial={{ opacity: 0, y: -4, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                transition={{ duration: 0.12 }} className="fixed right-52 top-14 w-80 rounded-xl z-[9999] overflow-visible shadow-lg"
+                transition={{ duration: 0.12 }} className="absolute right-0 top-full mt-2 w-80 rounded-xl z-[9999] overflow-visible shadow-lg"
                 style={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)" }}>
                 <div className="flex items-center justify-between px-4 py-3 border-b" style={{ borderColor: "var(--border-default)" }}>
                   <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{t(lang, "Notifications", "الإشعارات")}</span>
@@ -342,7 +342,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
           <AnimatePresence>
             {showUserMenu && (
               <motion.div initial={{ opacity: 0, y: -4, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                transition={{ duration: 0.12 }} className="fixed right-4 top-14 w-56 rounded-xl z-[9999] overflow-visible shadow-lg"
+                transition={{ duration: 0.12 }} className="absolute right-0 top-full mt-2 w-56 rounded-xl z-[9999] overflow-visible shadow-lg"
                 style={{ backgroundColor: "var(--surface-raised)", border: "1px solid var(--border-default)" }}
                 onClick={() => setShowUserMenu(false)}>
                 <div className="p-3 border-b" style={{ borderColor: "var(--border-default)" }}>
