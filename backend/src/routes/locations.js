@@ -1,127 +1,100 @@
 import { Router } from "express"
-import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
 
-// ─── ZONE SCHEMA ───────────────────────────────────────────────────
-
-const zoneSchema = z.object({
-  name: z.string().min(1).max(200),
-  code: z.string().min(1).max(50),
-  projectId: z.string().uuid(),
-  description: z.string().optional(),
-})
-
-const unitSchema = z.object({
-  name: z.string().min(1).max(200),
-  code: z.string().min(1).max(50),
-  zoneId: z.string().uuid(),
-  type: z.string().default("residential"),
-  area: z.number().positive().optional(),
-  customerId: z.string().uuid().optional().nullable(),
-})
-
-// ─── ZONES ─────────────────────────────────────────────────────────
-
-router.get("/zones", requirePermission("meters.list"), async (req, res, next) => {
+// GET /areas — distinct all areas from Meter records + system settings fallback
+router.get("/areas", async (req, res, next) => {
   try {
-    const zones = await prisma.zone.findMany({ orderBy: { name: "asc" }, include: { _count: { select: { units: true } }, project: { select: { name: true } } } })
-    res.json({ zones, total: zones.length })
+    const rows = await prisma.meter.groupBy({ by: ["area"], _count: { _all: true }, where: { area: { not: null }, archivedAt: null }, orderBy: { area: "asc" } })
+    if (rows.length > 0) {
+      const areas = rows.map(r => ({ name: r.area, code: r.area?.substring(0, 3).toUpperCase(), meterCount: r._count._all }))
+      return res.json({ areas })
+    }
+    // Fallback: get areas from system settings
+    const settings = await prisma.systemSetting.findMany({ where: { category: "location", type: "area", archivedAt: null } })
+    const areas = settings.map(s => ({ name: s.value, code: s.value.substring(0, 3).toUpperCase(), meterCount: 0 }))
+    // Also try Area model
+    const areaRecords = await prisma.area.findMany({ where: { archivedAt: null } })
+    for (const a of areaRecords) {
+      if (!areas.find(x => x.name === a.name)) areas.push({ name: a.name, code: a.code, meterCount: 0 })
+    }
+    res.json({ areas })
   } catch (err) { next(err) }
 })
 
-router.get("/zones/:id", requirePermission("meters.list"), async (req, res, next) => {
+// GET /areas/:area/projects — projects within an area
+router.get("/areas/:area/projects", async (req, res, next) => {
   try {
-    const zone = await prisma.zone.findUnique({ where: { id: req.params.id }, include: { units: true, project: { select: { name: true } } } })
-    if (!zone) return res.status(404).json({ error: "Zone not found" })
-    res.json({ zone })
+    const { area } = req.params
+    const areaRec = await prisma.area.findFirst({ where: { name: area, archivedAt: null } })
+    const projects = areaRec
+      ? await prisma.project.findMany({ where: { areaId: areaRec.id, archivedAt: null }, include: { _count: { select: { zones: true } } }, orderBy: { name: "asc" } })
+      : await prisma.project.findMany({
+          where: { archivedAt: null },
+          include: { _count: { select: { zones: true } } },
+          orderBy: { name: "asc" },
+        })
+    res.json({ projects: projects.map(p => ({ id: p.id, name: p.name, zoneCount: p._count.zones })) })
   } catch (err) { next(err) }
 })
 
-router.post("/zones", requirePermission("meters.create"), async (req, res, next) => {
+// GET /projects/:projectId/zones — zones within a project
+router.get("/projects/:projectId/zones", async (req, res, next) => {
   try {
-    const data = zoneSchema.parse(req.body)
-    const zone = await prisma.zone.create({ data })
-    auditLog(req, "zone.created", { zoneId: zone.id, name: zone.name, projectId: zone.projectId })
-    res.status(201).json({ zone })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
-
-router.put("/zones/:id", requirePermission("meters.update"), async (req, res, next) => {
-  try {
-    const data = zoneSchema.partial().parse(req.body)
-    const zone = await prisma.zone.update({ where: { id: req.params.id }, data })
-    auditLog(req, "zone.updated", { zoneId: zone.id })
-    res.json({ zone })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
-
-router.delete("/zones/:id", requirePermission("meters.delete"), async (req, res, next) => {
-  try {
-    await prisma.zone.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
-    auditLog(req, "zone.deleted", { zoneId: req.params.id })
-    res.json({ success: true })
+    const zones = await prisma.zone.findMany({
+      where: { projectId: req.params.projectId, archivedAt: null },
+      include: { _count: { select: { units: true } } },
+      orderBy: { name: "asc" },
+    })
+    res.json({ zones: zones.map(z => ({ id: z.id, name: z.name, code: z.code, unitCount: z._count.units })) })
   } catch (err) { next(err) }
 })
 
-// ─── UNITS ─────────────────────────────────────────────────────────
-
-router.get("/units", requirePermission("meters.list"), async (req, res, next) => {
+// GET /zones/:zoneId/units — units within a zone
+router.get("/zones/:zoneId/units", async (req, res, next) => {
   try {
-    const { zoneId, status } = req.query
-    const where = { ...(zoneId ? { zoneId } : {}), ...(status ? { status } : {}) }
-    const units = await prisma.unit.findMany({ where, orderBy: { name: "asc" }, include: { zone: { select: { name: true, code: true } }, customer: { select: { id: true, name: true } } } })
-    res.json({ units, total: units.length })
+    const units = await prisma.unit.findMany({
+      where: { zoneId: req.params.zoneId, archivedAt: null },
+      orderBy: { name: "asc" },
+    })
+    res.json({ units })
   } catch (err) { next(err) }
 })
 
-router.get("/units/:id", requirePermission("meters.list"), async (req, res, next) => {
+// GET /unit-types — distinct unit types
+router.get("/unit-types", async (req, res, next) => {
   try {
-    const unit = await prisma.unit.findUnique({ where: { id: req.params.id }, include: { zone: { select: { name: true, projectId: true } }, customer: { select: { id: true, name: true } } } })
-    if (!unit) return res.status(404).json({ error: "Unit not found" })
-    res.json({ unit })
+    const rows = await prisma.unit.groupBy({ by: ["type"], _count: { _all: true }, where: { archivedAt: null }, orderBy: { type: "asc" } })
+    res.json({ types: rows.map(r => ({ type: r.type, count: r._count._all })) })
   } catch (err) { next(err) }
 })
 
-router.post("/units", requirePermission("meters.create"), async (req, res, next) => {
+// GET /tree — full cascading tree
+router.get("/tree", async (req, res, next) => {
   try {
-    const data = unitSchema.parse(req.body)
-    const unit = await prisma.unit.create({ data })
-    auditLog(req, "unit.created", { unitId: unit.id, name: unit.name, zoneId: unit.zoneId })
-    res.status(201).json({ unit })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
-
-router.put("/units/:id", requirePermission("meters.update"), async (req, res, next) => {
-  try {
-    const data = unitSchema.partial().parse(req.body)
-    const unit = await prisma.unit.update({ where: { id: req.params.id }, data })
-    auditLog(req, "unit.updated", { unitId: unit.id })
-    res.json({ unit })
-  } catch (err) {
-    if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
-    next(err)
-  }
-})
-
-router.delete("/units/:id", requirePermission("meters.delete"), async (req, res, next) => {
-  try {
-    await prisma.unit.update({ where: { id: req.params.id }, data: { archivedAt: new Date() } })
-    auditLog(req, "unit.deleted", { unitId: req.params.id })
-    res.json({ success: true })
+    const areaRows = await prisma.meter.groupBy({ by: ["area"], _count: { _all: true }, where: { area: { not: null }, archivedAt: null }, orderBy: { area: "asc" } })
+    const tree = []
+    for (const a of areaRows) {
+      const areaName = a.area
+      const areaRec = await prisma.area.findFirst({ where: { name: areaName } })
+      const projects = areaRec
+        ? await prisma.project.findMany({ where: { areaId: areaRec.id, archivedAt: null }, include: { zones: { include: { units: true } } } })
+        : []
+      tree.push({
+        name: areaName,
+        projects: projects.map(p => ({
+          id: p.id, name: p.name,
+          zones: p.zones.filter(z => !z.archivedAt).map(z => ({
+            id: z.id, name: z.name, code: z.code,
+            units: z.units.filter(u => !u.archivedAt).map(u => ({ id: u.id, name: u.name, type: u.type })),
+          })),
+        })),
+      })
+    }
+    res.json({ tree })
   } catch (err) { next(err) }
 })
 

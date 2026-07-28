@@ -1,6 +1,8 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { HeaderAreaSelector } from "@/features/admin-settings/components/LocationSelector"
+import { useAdminStore } from "@/stores/admin-store"
 import { motion, AnimatePresence } from "framer-motion"
 
 function ConnectionHeader() {
@@ -183,7 +185,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><line x1="15" y1="3" x2="15" y2="21" /></svg>
         </TbBtn>
 
-        <span className="text-[10px] font-bold px-2" style={{ color: "var(--toolbar-text)" }}>October</span><ConnectionHeader />
+        <HeaderAreaSelector /><ConnectionHeader />
 
         {/* Tasks */}
         <div ref={tasksRef} className="relative">

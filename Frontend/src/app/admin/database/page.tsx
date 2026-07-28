@@ -26,6 +26,7 @@ interface TableMeta {
 }
 
 // ─── Mock Data ───
+import { getHealthSummary } from "@/features/admin-settings/api/service"
 
 const now = new Date().toISOString().split("T")[0]
 const daysAgo = (n: number) => new Date(Date.now() - n * 86400000).toISOString().split("T")[0]
@@ -301,6 +302,8 @@ const ROWS_PER_PAGE_OPTIONS = [10, 25, 50, 100]
 // ─── Main Page ───
 
 export default function AdminDatabasePage() {
+  const [healthData, setHealthData] = useState<any>(null)
+  useEffect(() => { getHealthSummary().then(setHealthData).catch(() => {}) }, [])
   const [selectedTable, setSelectedTable] = useState<TableName>("Customer")
   const [data, setData] = useState<Record<string, any>[]>(() => mockData["Customer"])
   const [selectedRows, setSelectedRows] = useState<Set<string>>(new Set())
@@ -431,6 +434,22 @@ export default function AdminDatabasePage() {
   const MetaIcon = Icons[meta.icon] || Icons.settings
 
   return (
+    <div className="space-y-3">
+      {healthData && (
+        <div className="flex gap-2 text-xs">
+          {[
+            { label: "Meters", value: healthData.meters },
+            { label: "Customers", value: healthData.customers },
+            { label: "Invoices", value: healthData.invoices },
+            { label: "Payments", value: healthData.payments },
+          ].map(s => (
+            <div key={s.label} className="rounded-xl border px-3 py-1.5" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+              <span className="font-semibold" style={{ color: "var(--text-primary)" }}>{s.value}</span>
+              <span className="ml-1.5" style={{ color: "var(--text-secondary)" }}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      )}
     <div className="flex h-full gap-3">
       {/* ── Left Sidebar ── */}
       <motion.div
@@ -716,6 +735,7 @@ export default function AdminDatabasePage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   )
 }

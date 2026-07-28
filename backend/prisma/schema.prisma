@@ -170,12 +170,25 @@ model Organization {
   updatedAt DateTime  @updatedAt
   projects  Project[]
 }
+model Area {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  code      String    @unique
+  status    String    @default("active")
+  createdAt DateTime  @default(now())
+  archivedAt DateTime?
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
 
 model Project {
   id                  String       @id @default(uuid())
   name                String
   description         String?
   organizationId      String
+  areaId              String?
+  area                Area?    @relation(fields: [areaId], references: [id])
   status              String       @default("active")
   taxEnabled          Boolean      @default(false)
   taxRate             Float        @default(0.14)
@@ -189,6 +202,7 @@ model Project {
   zones               Zone[]
 
   @@index([organizationId, status])
+  @@index([areaId])
 }
 
 model Webhook {
