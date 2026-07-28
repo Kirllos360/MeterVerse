@@ -73,11 +73,32 @@ export async function apiClient<T>(
 }
 
 // Backend proxy: calls either the BFF route handler or direct backend URL
+// Automatically includes location context (areaId/projectId) from admin store
+function getLocationQuery(): string {
+  if (typeof window === "undefined") return ""
+  try {
+    const stored = localStorage.getItem("admin-store")
+    if (!stored) return ""
+    const { state } = JSON.parse(stored)
+    const area = state?.location?.selectedArea
+    const project = state?.location?.selectedProject
+    const params = new URLSearchParams()
+    if (area) params.set("areaId", area)
+    if (project?.id) params.set("projectId", project.id)
+    return params.toString()
+  } catch { return "" }
+}
+
 export async function apiBackend<T>(
   path: string,
   options?: RequestInit & { useAuth?: boolean }
 ): Promise<T> {
   const { useAuth = true, ...fetchOptions } = options || {}
+  // Append location context to GET requests
+  const isGet = !fetchOptions.method || fetchOptions.method === "GET"
+  const locQuery = isGet ? getLocationQuery() : ""
+  const separator = path.includes("?") ? "&" : "?"
+  const finalPath = locQuery ? `${path}${separator}${locQuery}` : path
 
   if (process.env.NEXT_PUBLIC_API_URL) {
     const headers: Record<string, string> = {
@@ -87,7 +108,7 @@ export async function apiBackend<T>(
     if (useAuth) {
       Object.assign(headers, getAuthHeaders())
     }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${finalPath}`, {
       ...fetchOptions,
       headers,
     })
@@ -101,5 +122,5 @@ export async function apiBackend<T>(
   }
 
   // Fall back to local BFF route handler
-  return apiClient<T>(path, { ...fetchOptions, useAuth })
+  return apiClient<T>(finalPath, { ...fetchOptions, useAuth })
 }

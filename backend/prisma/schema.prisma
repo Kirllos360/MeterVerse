@@ -169,6 +169,8 @@ model Organization {
   archivedAt DateTime?
   updatedAt DateTime  @updatedAt
   projects  Project[]
+  meters    Meter[]
+  customers Customer[]
 }
 model Area {
   id        String    @id @default(uuid())
@@ -568,6 +570,8 @@ model Customer {
   address          String?
   status           String            @default("active")
   area             String?
+  areaId           String?
+  areaRef          Area?            @relation(fields: [areaId], references: [id])
   archivedAt       DateTime?
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
@@ -605,6 +609,8 @@ model Meter {
   location         String?
   status           String            @default("active")
   area             String?
+  areaId           String?
+  areaRef          Area?            @relation(fields: [areaId], references: [id])
   customerId       String?
   archivedAt       DateTime?
   createdAt        DateTime          @default(now())
@@ -618,6 +624,7 @@ model Meter {
   serviceConnections ServiceConnection[]
 
   @@index([customerId])
+  @@index([areaId])
   @@index([status, createdAt])
 }
 
