@@ -115,8 +115,8 @@ If any gate fails → task is BLOCKED. Not complete.
 
 **After fixing CI issues, run the full CI-compatible test suite 5 times:**
 
-- 3 minutes MINIMUM between attempts (catches transient failures)
-- 10 minutes MAXIMUM between attempts (keeps pace reasonable)
+- 10–30 seconds between attempts for local testing (same environment, no infra variability)
+- 1–3 minutes between attempts for CI testing (catches runner-specific transient failures)
 - All 5 must pass consecutively. If any round fails → restart count from 0.
 - Each round verifies:
   - Backend unit + API tests (82+ tests)
