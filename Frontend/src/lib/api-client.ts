@@ -1,4 +1,5 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api"
+const BACKEND_URL = "http://localhost:3002"
+const BASE_URL = "/api"
 
 interface ApiError {
   status: number
@@ -100,27 +101,22 @@ export async function apiBackend<T>(
   const separator = path.includes("?") ? "&" : "?"
   const finalPath = locQuery ? `${path}${separator}${locQuery}` : path
 
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-      "X-Dev-Mode": "true",
-    }
-    if (useAuth) {
-      Object.assign(headers, getAuthHeaders())
-    }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${finalPath}`, {
-      ...fetchOptions,
-      headers,
-    })
-    if (!res.ok) {
-      throw new ApiClientError({
-        status: res.status,
-        message: `Backend error: ${res.status}`,
-      })
-    }
-    return res.json() as Promise<T>
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "X-Dev-Mode": "true",
   }
-
-  // Fall back to local BFF route handler
-  return apiClient<T>(finalPath, { ...fetchOptions, useAuth })
+  if (useAuth) {
+    Object.assign(headers, getAuthHeaders())
+  }
+  const res = await fetch(`${BACKEND_URL}${finalPath}`, {
+    ...fetchOptions,
+    headers,
+  })
+  if (!res.ok) {
+    throw new ApiClientError({
+      status: res.status,
+      message: `Backend error: ${res.status}`,
+    })
+  }
+  return res.json() as Promise<T>
 }
