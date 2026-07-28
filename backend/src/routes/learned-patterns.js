@@ -23,12 +23,12 @@ router.get("/", requirePermission("learned_patterns.list"), async (req, res, nex
   try {
     const { limit = 50, offset = 0, sort = "frequency", order = "desc", tag, areaId } = req.query
     const where = { archivedAt: null }
-    if (tag) where.tags = { contains: tag as string }
-    if (areaId) where.areaId = areaId as string
+    if (tag) where.tags = { contains: String(tag) }
+    if (areaId) where.areaId = String(areaId)
     const [patterns, total] = await Promise.all([
       prisma.learnedPattern.findMany({
         where, take: Number(limit), skip: Number(offset),
-        orderBy: { [sort as string]: order === "asc" ? "asc" : "desc" },
+        orderBy: { [String(sort)]: order === "asc" ? "asc" : "desc" },
       }),
       prisma.learnedPattern.count({ where }),
     ])
