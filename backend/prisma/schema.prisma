@@ -631,6 +631,28 @@ model Incident {
   @@index([fingerprint])
   @@index([assignedTo, status])
 }
+
+
+model KnowledgeArticle {
+  id            String    @id @default(uuid())
+  title         String
+  content       String
+  category      String    @default("general")
+  tags          String    @default("[]")
+  areaId        String?
+  meterType     String?
+  source        String    @default("manual")  // manual, rca, ai_generated
+  rcaCaseId     String?   // Link to RCA case if applicable
+  views         Int       @default(0)
+  helpfulCount  Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  archivedAt    DateTime?
+
+  @@index([category])
+  @@index([tags])
+  @@index([areaId])
+}
 model LearnedPattern {
   id            String   @id @default(uuid())
   pattern       String
