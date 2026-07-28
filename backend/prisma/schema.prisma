@@ -247,6 +247,26 @@ model Area {
   customers Customer[]
 }
 
+model Gateway {
+  id            String    @id @default(uuid())
+  serial        String    @unique
+  name          String
+  type          String    @default("dlms")  // dlms, mqtt, modbus, gateway
+  areaId        String?
+  firmware      String?
+  ipAddress     String?
+  status        String    @default("active")  // active, offline, maintenance
+  lastSeen      DateTime?
+  config        String    @default("{}")
+  createdAt     DateTime  @default(now())
+  archivedAt    DateTime?
+  updatedAt     DateTime  @updatedAt
+
+  @@index([areaId])
+  @@index([status])
+}
+
+
 
 model Project {
   id                  String       @id @default(uuid())
