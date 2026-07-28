@@ -169,18 +169,82 @@ model Organization {
   archivedAt DateTime?
   updatedAt DateTime  @updatedAt
   projects  Project[]
-  meters    Meter[]
-  customers Customer[]
+
+}
+
+
+model Country {
+  id            String       @id @default(uuid())
+  name          String       @unique
+  code          String       @unique
+  currency      String       @default("EGP")
+  locale        String       @default("en")
+  status        String       @default("active")
+  createdAt     DateTime     @default(now())
+  archivedAt    DateTime?
+  updatedAt     DateTime     @updatedAt
+  governorates  Governorate[]
+}
+
+model Governorate {
+  id          String    @id @default(uuid())
+  name        String    
+  code        String    @unique
+  countryId   String
+  country     Country   @relation(fields: [countryId], references: [id])
+  status      String    @default("active")
+  createdAt   DateTime  @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime  @updatedAt
+  areas       Area[]
+
+  @@index([countryId])
+}
+
+model Building {
+  id          String   @id @default(uuid())
+  name        String
+  code        String   @unique
+  zoneId      String
+  zone        Zone     @relation(fields: [zoneId], references: [id])
+  type        String   @default("residential")
+  floors      Int      @default(1)
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+  floorsRel   Floor[]
+
+  @@index([zoneId])
+}
+
+model Floor {
+  id          String   @id @default(uuid())
+  name        String
+  number      Int      @default(1)
+  buildingId  String
+  building    Building @relation(fields: [buildingId], references: [id])
+  units       Int      @default(0)
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+
+  @@index([buildingId])
 }
 model Area {
   id        String    @id @default(uuid())
   name      String    @unique
   code      String    @unique
+  governorateId String?
+  governorate Governorate? @relation(fields: [governorateId], references: [id])
   status    String    @default("active")
   createdAt DateTime  @default(now())
   archivedAt DateTime?
   updatedAt DateTime  @updatedAt
   projects  Project[]
+  meters    Meter[]
+  customers Customer[]
 }
 
 
@@ -662,6 +726,7 @@ model Zone {
   units       Unit[]
 
   @@index([projectId])
+  buildings Building[]
 }
 
 model Unit {
@@ -692,6 +757,8 @@ model Reading {
   status    String   @default("valid")
   timestamp DateTime @default(now())
   billedAt  DateTime?
+  areaId    String?
+  projectId String?
   createdAt DateTime @default(now())
   archivedAt DateTime?
   meter     Meter    @relation(fields: [meterId], references: [id])
@@ -699,6 +766,8 @@ model Reading {
   @@index([meterId, timestamp])
   @@index([status])
   @@index([billedAt])
+  @@index([areaId, timestamp])
+  @@index([projectId, timestamp])
 }
 
 model Invoice {
@@ -712,6 +781,8 @@ model Invoice {
   immutableAt     DateTime?
   paidAt          DateTime?
   paidAmount      Float            @default(0)
+  areaId          String?
+  projectId       String?
   archivedAt      DateTime?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
@@ -723,6 +794,8 @@ model Invoice {
   @@index([customerId, status])
   @@index([status, createdAt])
   @@index([dueDate])
+  @@index([areaId, issuedAt])
+  @@index([projectId, issuedAt])
 }
 
 model Payment {
@@ -734,6 +807,8 @@ model Payment {
   method              String               @default("cash")
   status              String               @default("completed")
   paidAt              DateTime             @default(now())
+  areaId              String?
+  projectId           String?
   createdAt           DateTime             @default(now())
   archivedAt          DateTime?
   invoice             Invoice?             @relation(fields: [invoiceId], references: [id])
@@ -742,6 +817,8 @@ model Payment {
   @@index([customerId])
   @@index([invoiceId, status])
   @@index([paidAt])
+  @@index([areaId, paidAt])
+  @@index([projectId, paidAt])
 }
 
 model Contract {

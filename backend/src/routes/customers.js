@@ -20,7 +20,7 @@ router.get("/", requirePermission("customers.list"), async (req, res, next) => {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 10))
     const search = req.query.search
-    const where = { archivedAt: null, ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}) }
+    const where = { archivedAt: null, ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}), ...(req.query.areaId ? { areaId: String(req.query.areaId) } : {}), ...(req.query.projectId ? { projectId: String(req.query.projectId) } : {}) }
     const [customers, total] = await Promise.all([
       prisma.customer.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" } }),
       prisma.customer.count({ where }),

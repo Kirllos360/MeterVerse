@@ -29,8 +29,8 @@ router.get("/export", requirePermission("meters.create"), async (req, res, next)
 
 router.get("/", requirePermission("meters.list"), async (req, res, next) => {
   try {
-    const { page = 1, limit = 10, search } = req.query
-    const where = { archivedAt: null, ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}) }
+    const { page = 1, limit = 10, search, areaId, projectId } = req.query
+    const where = { archivedAt: null, ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}), ...(areaId ? { areaId: String(areaId) } : {}), ...(projectId ? { projectId: String(projectId) } : {}) }
     const [meters, total] = await Promise.all([
       prisma.meter.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { createdAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
       prisma.meter.count({ where }),

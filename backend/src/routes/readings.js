@@ -21,6 +21,8 @@ router.get("/", requirePermission("readings.list"), async (req, res, next) => {
     const where = { archivedAt: null }
     if (meterId) where.meterId = meterId
     if (status) where.status = status
+    if (req.query.areaId) where.areaId = String(req.query.areaId)
+    if (req.query.projectId) where.projectId = String(req.query.projectId)
     const [readings, total] = await Promise.all([
       prisma.reading.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { timestamp: "desc" }, include: { meter: { select: { id: true, serial: true } } } }),
       prisma.reading.count({ where }),

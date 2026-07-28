@@ -21,6 +21,8 @@ router.get("/", requirePermission("invoices.list"), async (req, res, next) => {
     const { page = 1, limit = 10, status } = req.query
     const where = { archivedAt: null }
     if (status) where.status = status
+    if (req.query.areaId) where.areaId = String(req.query.areaId)
+    if (req.query.projectId) where.projectId = String(req.query.projectId)
     const [invoices, total] = await Promise.all([
       prisma.invoice.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { issuedAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
       prisma.invoice.count({ where }),
