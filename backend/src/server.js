@@ -36,6 +36,7 @@ import { intelligenceRouter } from "./routes/intelligence.js"
 import { knowledgeRouter } from "./routes/knowledge.js"
 import { rcaRouter } from "./routes/rca.js"
 import { accountingRouter } from "./routes/accounting.js"
+import { learnedPatternsRouter } from "./routes/learned-patterns.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -233,6 +234,7 @@ mount("/intelligence", intelligenceRouter)
 mount("/knowledge", knowledgeRouter)
 mount("/rca", rcaRouter)
 mount("/accounting", accountingRouter)
+mount("/learned-patterns", learnedPatternsRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))

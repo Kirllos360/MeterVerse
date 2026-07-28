@@ -510,6 +510,28 @@ model KpiSnapshot {
   @@index([kpiId, recordedAt])
 }
 
+model LearnedPattern {
+  id            String   @id @default(uuid())
+  pattern       String
+  resolution    String
+  frequency     Int      @default(1)
+  effectiveness Float    @default(0)
+  tags          String   @default("[]")
+  areaId        String?
+  meterType     String?
+  source        String   @default("manual")
+  lastObserved  DateTime @default(now())
+  confidence    Float    @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  archivedAt    DateTime?
+
+  @@index([frequency])
+  @@index([effectiveness])
+  @@index([tags])
+}
+
+
 model ScheduledReport {
   id         String    @id @default(uuid())
   name       String
