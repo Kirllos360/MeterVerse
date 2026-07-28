@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { toast } from "sonner"
+import { motion } from "framer-motion"
 
 // Phase 15 — AI Command Center
 const AI_AGENTS = [
@@ -22,6 +23,20 @@ export default function AICommandCenter() {
   const [query, setQuery] = useState("")
   const [chat, setChat] = useState<{ role: string; text: string }[]>([])
   const [loading, setLoading] = useState(false)
+  const [stats, setStats] = useState<any>(null)
+  const [kpis, setKpis] = useState<any[]>([])
+
+  useEffect(() => {
+    Promise.all([
+      fetch("/api/incidents/stats", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } }).then(r => r.json()).catch(() => null),
+      fetch("/api/admin-settings/health/summary", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } }).then(r => r.json()).catch(() => null),
+    ]).then(([s, h]) => { setStats(s); if (h) setKpis([
+      { name: "Total Meters", value: h.meters },
+      { name: "Customers", value: h.customers },
+      { name: "Open Incidents", value: s?.byStatus?.find((x: any) => x.status !== "resolved")?._count || 0 },
+      { name: "Avg Correlation", value: s?.avgCorrelation || 0 },
+    ]) })
+  }, [])
 
   const handleSend = async () => {
     if (!query.trim()) return
@@ -47,6 +62,18 @@ export default function AICommandCenter() {
       <div className="flex items-center justify-between">
         <div><h1 className="text-2xl font-bold">AI Command Center</h1><p className="text-sm text-muted-foreground">Intelligence Layer — MeterVerse Enterprise AI</p></div>
       </div>
+
+      {kpis.length > 0 && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {kpis.map((k, i) => (
+            <motion.div key={k.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+              className="rounded-xl border p-4" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+              <p className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--text-secondary)" }}>{k.name}</p>
+              <p className="text-2xl font-bold mt-1" style={{ color: "var(--text-primary)" }}>{String(k.value)}</p>
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       {/* Agent Status */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
