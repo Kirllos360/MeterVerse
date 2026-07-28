@@ -3,6 +3,12 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 
+const TABS = [
+  { id: "config", label: "Configuration" },
+  { id: "status", label: "Connection Status" },
+  { id: "vms", label: "VM Settings" },
+]
+
 const DB_TYPES = [
   { value: "postgresql", label: "PostgreSQL" },
   { value: "mssql", label: "SQL Server" },
@@ -13,6 +19,7 @@ const DB_TYPES = [
 const EMPTY_FORM = { name: "", type: "postgresql", host: "", port: 5432, database: "", username: "", password: "", areaId: "", projectId: "" }
 
 export default function ConnectionSettingsPage() {
+  const [tab, setTab] = useState("config")
   const [connections, setConnections] = useState<any[]>([])
   const [selectedConn, setSelectedConn] = useState<any | null>(null)
   const [activePopup, setActivePopup] = useState<string | null>(null)
@@ -81,7 +88,25 @@ export default function ConnectionSettingsPage() {
         <div><h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Connection Settings</h1><p className="text-xs" style={{ color: "var(--text-secondary)" }}>Manage database connections per area and project</p></div>
       </div>
 
-      {loading ? <div className="flex items-center justify-center py-12"><div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" /></div> : Object.keys(grouped).length === 0 ? (
+      {/* Tab bar */}
+      <div className="flex gap-1 overflow-x-auto py-1 scrollbar-none rounded-2xl border px-3" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+        {TABS.map((t, i) => (
+          <button key={t.id} onClick={() => setTab(t.id)}
+            className="shrink-0 px-3 py-1.5 text-xs font-semibold transition-all rounded-xl whitespace-nowrap"
+            style={{ backgroundColor: tab === t.id ? "var(--brand)" : "transparent", color: tab === t.id ? "#FFFFFF" : "var(--text-secondary)" }}>
+            {tab === t.id && <span className="w-1.5 h-1.5 rounded-full bg-white inline-block mr-1.5" />}
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {tab !== "config" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl border p-5 text-center" style={{ borderColor: "var(--border-default)" }}>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{tab === "status" ? "Connection status monitoring" : "VM management settings"} — coming soon</p>
+        </motion.div>
+      )}
+
+      {tab === "config" && (loading ? <div className="flex items-center justify-center py-12"><div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" /></div> : Object.keys(grouped).length === 0 ? (
         <div className="rounded-2xl border p-8 text-center" style={{ borderColor: "var(--border-default)" }}>
           <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>No connections configured</p>
           <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>Click "Add" to create your first database connection</p>
@@ -126,7 +151,7 @@ export default function ConnectionSettingsPage() {
             </motion.div>
           ))}
         </div>
-      )}
+      ))}
 
       {/* ─── ADD / EDIT POPUP ─── */}
       <PopupWrapper title={activePopup === "edit" ? "Edit Connection" : "New Connection"}>
