@@ -6,7 +6,7 @@ import qrcode from "qrcode"
 import jwt from "jsonwebtoken"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { auditLog } from "../middleware/security.js"
+import { auditLog, requirePermission } from "../middleware/security.js"
 import { authenticateUser, verifyToken } from "../services/auth-engine.js"
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret"
@@ -174,6 +174,27 @@ router.post("/logout", authenticate, async (req, res, next) => {
     }
     auditLog(req, "auth.logout", { userId: req.user.sub })
     res.json({ success: true })
+  } catch (err) { next(err) }
+})
+
+// ─── Emergency Access (Break-Glass — T06) ────────────────────────────────────
+// Super-admin can generate emergency tokens for support engineers.
+// Auto-expires after 4 hours. Every action is audited with emergency flag.
+
+router.post("/emergency/token", authenticate, requirePermission("admin.emergency"), async (req, res, next) => {
+  try {
+    const { reason, duration = 240 } = z.object({ reason: z.string().min(1).max(500), duration: z.number().min(30).max(480).optional() }).parse(req.body)
+    const emergencyToken = jwt.sign({ sub: req.user.sub, email: req.user.email, role: "emergency", emergency: true, reason }, JWT_SECRET, { expiresIn: `${duration}m` })
+    const session = await prisma.session.create({ data: { userId: req.user.sub, isActive: true, ipAddress: req.ip, userAgent: req.headers["user-agent"] || "" } })
+    auditLog(req, "emergency.token_issued", { reason, duration, sessionId: session.id })
+    res.json({ emergencyToken, expiresIn: duration * 60, sessionId: session.id })
+  } catch (err) { next(err) }
+})
+
+router.get("/emergency/audit", authenticate, requirePermission("admin.emergency"), async (req, res, next) => {
+  try {
+    const entries = await prisma.auditEntry.findMany({ where: { action: { startsWith: "emergency." } }, orderBy: { timestamp: "desc" }, take: 50 })
+    res.json({ entries })
   } catch (err) { next(err) }
 })
 

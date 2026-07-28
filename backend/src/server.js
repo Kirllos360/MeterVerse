@@ -14,6 +14,7 @@ import { servicesRouter } from "./routes/services.js"
 import { reportsRouter } from "./routes/reports.js"
 import { jasperBridgeRouter } from "./routes/jasper-bridge.js"
 import { securityRouter } from "./routes/security.js"
+import { sessionsRouter } from "./routes/sessions.js"
 import { domainRouter } from "./routes/domain.js"
 import { businessRouter } from "./routes/business.js"
 import { crudRouter } from "./routes/crud.js"
@@ -155,6 +156,22 @@ const authLimiter = rateLimit({
 app.use("/api/auth/login", authLimiter)
 app.use("/api/auth/dev-login", authLimiter)
 
+// Per-user rate limiting (T04) — tracks requests by user ID from JWT
+const userRateStore = new Map()
+app.use("/api/", (req, res, next) => {
+  const userId = req.user?.sub || req.ip
+  const now = Date.now()
+  const windowMs = 60000
+  if (!userRateStore.has(userId)) userRateStore.set(userId, [])
+  const timestamps = userRateStore.get(userId).filter(t => now - t < windowMs)
+  if (timestamps.length >= 500) {  // 500 req/min per user
+    return res.status(429).json({ error: "Too many requests (user rate limit)", code: "USER_RATE_LIMITED" })
+  }
+  timestamps.push(now)
+  userRateStore.set(userId, timestamps)
+  next()
+})
+
 // ─── API VERSIONING ─────────────────────────────────────────────────────────
 // All routes mount under /api for backward compatibility
 // AND under /api/v1 for versioned access
@@ -215,6 +232,7 @@ mount("/monitor", monitorRouter)
 mount("/monitoring", monitorRouter)
 mount("/ai", aiRouter)
 mount("/security", securityRouter)
+mount("/sessions", sessionsRouter)
 mount("/meter-assignments", meterAssignmentRouter)
 mount("/notifications", notificationsRouter)
 mount("/preferences", preferencesRouter)

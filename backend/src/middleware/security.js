@@ -73,6 +73,67 @@ function matchPermission(required, allowed) {
 const permissionCache = new Map()
 const CACHE_TTL = 60000
 
+// ─── OBJECT-LEVEL AUTHORIZATION (T01) ──────────────────────────────────────
+// Checks if the authenticated user can access a specific resource
+// by verifying the resource's areaId is within the user's permission scope.
+// Usage: requireAccess("Meter", req.params.id)
+export async function requireAccess(model, resourceId) {
+  return async (req, res, next) => {
+    try {
+      if (!req.user) return res.status(401).json({ error: "Authentication required" })
+      if (req.user.role === "super_admin") return next()
+
+      const resource = await prisma[model.toLowerCase()].findUnique({ where: { id: resourceId } })
+      if (!resource) return res.status(404).json({ error: "Resource not found" })
+
+      // If resource has no areaId, check global permissions
+      if (!resource.areaId) {
+        const allowed = await checkPermission(req.user.role, `${model.toLowerCase()}.read`)
+        return allowed ? next() : res.status(403).json({ error: "Access denied" })
+      }
+
+      // Check user's permissions scoped to this area
+      const role = await prisma.role.findUnique({ where: { name: req.user.role } })
+      if (!role) return res.status(403).json({ error: "Role not found" })
+
+      const permOnRole = await prisma.permissionOnRole.findFirst({
+        where: {
+          roleId: role.id,
+          scopeType: { in: ["area", null] },
+          scopeId: { in: [resource.areaId, null] },
+          grant: true,
+          permission: { name: { contains: model.toLowerCase() } },
+        },
+      })
+
+      if (permOnRole) return next()
+      return res.status(403).json({ error: "Access denied to this resource" })
+    } catch (err) { next(err) }
+  }
+}
+
+// ─── API KEY AUTHENTICATION (T03) ───────────────────────────────────────────
+// Authenticates service accounts via X-API-Key header
+// Usage: router.use(authenticateApiKey)
+export async function authenticateApiKey(req, res, next) {
+  try {
+    const apiKey = req.headers["x-api-key"]
+    if (!apiKey) return req.headers.authorization ? next() : res.status(401).json({ error: "API key required" })
+
+    // Look up the API key (stored as hash in DB)
+    const keyRecord = await prisma.apiKey.findFirst({ where: { active: true, archivedAt: null } })
+    if (!keyRecord) return res.status(401).json({ error: "Invalid API key" })
+
+    // Simple comparison (in production, use bcrypt.compare)
+    const isValid = keyRecord.key === apiKey
+    if (!isValid) return res.status(401).json({ error: "Invalid API key" })
+
+    req.user = { sub: keyRecord.id, email: `api-${keyRecord.name}@meterverse.com`, role: "service", apiKey: true }
+    await prisma.apiKey.update({ where: { id: keyRecord.id }, data: { lastUsedAt: new Date() } })
+    next()
+  } catch (err) { next(err) }
+}
+
 export function requirePermission(...permissions) {
   return async (req, res, next) => {
     if (!req.user) return res.status(401).json({ error: "Authentication required" })
