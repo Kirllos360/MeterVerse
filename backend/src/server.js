@@ -42,6 +42,7 @@ import { incidentsRouter } from "./routes/incidents.js"
 import { materializedViewsRouter } from "./routes/materialized-views.js"
 import { gatewaysRouter } from "./routes/gateways.js"
 import { knowledgeArticlesRouter } from "./routes/knowledge-articles.js"
+import { aiFeedbackRouter } from "./routes/ai-feedback.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -261,6 +262,7 @@ mount("/incidents", incidentsRouter)
 mount("/materialized-views", materializedViewsRouter)
 mount("/gateways", gatewaysRouter)
 mount("/knowledge-articles", knowledgeArticlesRouter)
+mount("/ai-feedback", aiFeedbackRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
