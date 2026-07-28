@@ -7,6 +7,8 @@ import { InspectorPanel } from "@/admin/layout/InspectorPanel"
 import { AdminToolbar } from "@/admin/layout/AdminToolbar"
 import { useAdminStore } from "@/stores/admin-store"
 import { LocationSelector } from "@/features/admin-settings/components/LocationSelector"
+import { CommandPalette } from "@/features/admin-settings/components/CommandPalette"
+import { Breadcrumbs } from "@/features/admin-settings/components/Breadcrumbs"
 
 const SYSTEM_TABS = [
   { id: "admin", label: "Admin", icon: "M12 15V3m0 12l-4-4m4 4l4-4" },
@@ -201,7 +203,12 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
           </motion.div>
         </div>
 
-        {/* CONTENT AREA */}
+          {/* BREADCRUMBS */}
+          <div className="shrink-0 px-1">
+            <Breadcrumbs />
+          </div>
+
+          {/* CONTENT AREA */}
         <div className="flex-1 flex flex-col min-w-0 gap-2">
           {/* FIRST TAB ROW — Open pages from sidebar */}
           <div className="shrink-0 rounded-2xl border px-2" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
@@ -265,6 +272,7 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
           )}
         </AnimatePresence>
       </div>
+      <CommandPalette />
     </div>
   )
 }
