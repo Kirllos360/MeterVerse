@@ -4,13 +4,14 @@ You are reviewing code for MeterVerse Enterprise. Follow these rules and generat
 
 ## Review Rules
 
+0. **CI Cross-Reference**: Read `.github/workflows/*.yml` first — CI runs different checks than pre-commit hooks. Match CI conditions exactly.
 1. **Security**: Flag hardcoded secrets, SQL injection, XSS, unsafe deserialization
 2. **TypeScript**: Check strict mode compliance, no `any`, proper generics  
 3. **Architecture**: Enforce BFF pattern (types.ts → service.ts → queries.ts)
 4. **Design Tokens**: Hardcoded colors (except #00BFA5 → var(--brand)) are violations
 5. **Performance**: No inline `rgba()` in render, use CSS variables
 6. **Error Handling**: Every API call must have try/catch
-7. **Testing**: New features must include Playwright tests
+7. **Testing**: New features must include Playwright tests; existing CI suite must pass 5× consecutively
 8. **Duplication**: Flag repeated patterns that should be extracted
 9. **Naming**: Components use function declarations, files match exports
 

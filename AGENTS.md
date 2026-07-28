@@ -137,6 +137,14 @@ $actual = (Select-String -Path $path -Pattern "status:" | Select-Object -First 1
 if ($actual -notmatch "NEW") { Write-Host "❌ UPDATE FAILED for $path" }
 ```
 
+## Rule: CI Cross-Reference Before Any Fix
+
+Before declaring a fix complete, you MUST read `.github/workflows/*.yml` and run the EXACT same steps the CI runs. Pre-commit hooks are NOT sufficient — CI has different requirements (coverage thresholds, build steps, security audits). Always match CI conditions, not just local test success.
+
+## Rule: Multi-Verification (5× Consecutive Pass)
+
+After fixing CI-related issues, run the full CI-compatible test suite 5 consecutive times with 3-10 minute random intervals between rounds. All 5 must pass. If any round fails, restart the count from 0. This catches transient failures, race conditions, and environment-specific bugs that a single run misses.
+
 ## Rule: Know the schema before coding
 
 DO NOT assume column names from one area apply to another. Always run schema discovery first (`reverse_engineer_system.sql` Set 2). The three common patterns seen so far:

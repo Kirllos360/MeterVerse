@@ -19,6 +19,7 @@ If discovery hasn't happened → respond ONLY "CAPABILITY DISCOVERY REQUIRED".
 ☐ TESTS CHECK — vitest run passes
 ☐ TYPESCRIPT CHECK — 0 errors
 ☐ GIT CHECK — clean tree
+☐ CI CONFIG CHECK — Cross-reference .github/workflows/*.yml before declaring any fix
 ```
 If ANY check fails → STOP. Fix. Restart checklist.
 
@@ -95,3 +96,34 @@ A task is COMPLETE only if ALL apply:
 - No `--no-verify` used ✅
 
 If any gate fails → task is BLOCKED. Not complete.
+
+---
+
+## RULE 4 — CI CROSS-REFERENCE PROTOCOL (G01 LEARNED)
+
+**Before declaring any fix complete, you MUST:**
+
+1. Read `.github/workflows/*.yml` — understand exactly what CI runs
+2. Run ALL CI steps locally in the exact same order:
+   - Backend: `npm test` + `npm run test:coverage` + `npm audit --audit-level=high`
+   - Frontend: `npx tsc --noEmit` + `npm test` (build if time permits)
+   - Git: `git status --porcelain` must be clean
+3. Match CI coverage thresholds — don't assume local success = CI success
+4. CI has different requirements than pre-commit hooks — never rely on hooks alone
+
+## RULE 5 — MULTI-VERIFICATION (5× CONSECUTIVE PASS)
+
+**After fixing CI issues, run the full CI-compatible test suite 5 times:**
+
+- 3 minutes MINIMUM between attempts (catches transient failures)
+- 10 minutes MAXIMUM between attempts (keeps pace reasonable)
+- All 5 must pass consecutively. If any round fails → restart count from 0.
+- Each round verifies:
+  - Backend unit + API tests (82+ tests)
+  - Backend coverage (thresholds from CI config)
+  - Security audit (npm audit, 0 high+ vulns)
+  - Frontend TypeScript (0 errors)
+  - Frontend tests (44+ tests)
+  - Git status clean (only gitignored files allowed)
+
+**Why 5 rounds?** Cathes transient failures, race conditions, flaky tests, and environment-specific bugs that a single run would miss. This is the gold standard — not optional.
