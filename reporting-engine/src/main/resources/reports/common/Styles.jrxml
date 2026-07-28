@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="SharedStyles" pageWidth="1" pageHeight="1" uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890">
+    <property name="net.sf.jasperreports.export.pdf.rtl.encoding" value="true"/>
+
+    <style name="BaseStyle" default="true" fontName="DejaVu Sans" fontSize="7" pdfFontName="DejaVu Sans"
+           isPdfEmbedded="true" hAlign="Right" vAlign="Middle">
+        <box padding="1"/>
+    </style>
+
+    <style name="Banner" style="BaseStyle" fontSize="9" isBold="true" forecolor="#FFFFFF" backcolor="#CC0000"
+           hAlign="Center" vAlign="Middle">
+        <box><pen lineWidth="0.0"/></box>
+    </style>
+
+    <style name="Title" style="BaseStyle" fontSize="12" isBold="true" forecolor="#000066" hAlign="Center">
+        <box><pen lineWidth="0.0"/></box>
+    </style>
+
+    <style name="HeaderLabel" style="BaseStyle" fontSize="8" isBold="true" forecolor="#000066"
+           hAlign="Right" vAlign="Middle">
+        <box><pen lineWidth="0.0"/></box>
+    </style>
+
+    <style name="GridHeader" style="BaseStyle" fontSize="7" isBold="true" backcolor="#CCCCFF"
+           hAlign="Center" vAlign="Middle" mode="Opaque">
+        <box><topPen lineWidth="0.25"/><bottomPen lineWidth="0.25"/>
+             <leftPen lineWidth="0.25"/><rightPen lineWidth="0.25"/></box>
+    </style>
+
+    <style name="GridData" style="BaseStyle" fontSize="7" hAlign="Center" vAlign="Middle" mode="Opaque">
+        <box><topPen lineWidth="0.25"/><bottomPen lineWidth="0.25"/>
+             <leftPen lineWidth="0.25"/><rightPen lineWidth="0.25"/></box>
+    </style>
+
+    <style name="GridDataLeft" style="GridData" hAlign="Left" isItalic="false">
+        <box leftPadding="3"/>
+    </style>
+
+    <style name="GridDataRight" style="GridData" hAlign="Right">
+        <box rightPadding="3"/>
+    </style>
+
+    <style name="LabelCell" style="GridData" backcolor="#CCCCFF" isBold="true"/>
+
+    <style name="AmountCell" style="GridData" hAlign="Right" pattern="#,##0.00"/>
+
+    <style name="AmountCellBold" style="AmountCell" isBold="true"/>
+
+    <style name="TotalLabel" style="LabelCell" hAlign="Center"/>
+
+    <style name="TotalValue" style="GridData" isBold="true" hAlign="Center"/>
+
+    <style name="HighlightRow" style="GridData" backcolor="#E8E8FF" isBold="true"/>
+
+    <style name="AmountInWords" style="BaseStyle" fontSize="7" isBold="true" hAlign="Center" vAlign="Middle">
+        <box><topPen lineWidth="0.25"/><bottomPen lineWidth="0.25"/>
+             <leftPen lineWidth="0.25"/><rightPen lineWidth="0.25"/></box>
+    </style>
+
+    <style name="VerticalLabel" style="GridHeader" fontSize="8" rotation="None"/>
+
+    <style name="SignatureText" style="BaseStyle" fontSize="8" isBold="true" forecolor="#000066"
+           hAlign="Right" vAlign="Middle">
+        <box><pen lineWidth="0.0"/></box>
+    </style>
+
+    <style name="FooterText" style="BaseStyle" fontSize="5" forecolor="#666666" hAlign="Center"/>
+
+    <style name="DeletedWatermark" style="BaseStyle" fontSize="60" isBold="true" forecolor="#FF0033"
+           hAlign="Center" vAlign="Middle" isTransparent="true">
+    </style>
+
+    <style name="SeparatorLine" style="BaseStyle">
+        <box><pen lineWidth="0.0"/></box>
+        <pen lineWidth="4.0" lineColor="#000099"/>
+    </style>
+
+    <style name="LicenseCell" style="BaseStyle" fontSize="6" hAlign="Center" vAlign="Middle" mode="Opaque"
+           backcolor="#FFFFFF">
+        <box><topPen lineWidth="0.25"/><bottomPen lineWidth="0.25"/>
+             <leftPen lineWidth="0.25"/><rightPen lineWidth="0.25"/></box>
+    </style>
+
+    <style name="CompanyInfoCell" style="BaseStyle" fontSize="6" hAlign="Center" vAlign="Middle" mode="Opaque"
+           backcolor="#CCCCFF">
+        <box><topPen lineWidth="0.25"/><bottomPen lineWidth="0.25"/>
+             <leftPen lineWidth="0.25"/><rightPen lineWidth="0.25"/></box>
+    </style>
+</jasperReport>

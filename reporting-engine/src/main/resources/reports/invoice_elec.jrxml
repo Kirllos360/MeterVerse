@@ -1,0 +1,574 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="elec_invoice" language="java" pageWidth="421" pageHeight="297" orientation="Landscape" columnWidth="413" leftMargin="4" rightMargin="4" topMargin="5" bottomMargin="5" uuid="b3aae808-6eeb-4617-b9a8-226c81ef6df3">
+	<property name="ireport.zoom" value="1.6500000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
+	<parameter name="invoiceId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="billcycleLogId" class="java.lang.Long">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<query language="sql"><![CDATA[select
+  (select project_title_ar from project where id = c.project_id) project_title,
+  (select address_ar from project where id = c.project_id) address,
+  (select company_info from project where id = c.project_id) company_info,
+  (select img from project where id = c.project_id) logo,
+  (select license from project where id = c.project_id ) license,
+  (select signature from project where id = c.project_id ) signature,
+  i.id,
+  i.[number],
+  i.status,
+  i.issue_date,
+  i.counsumption_month,
+  i.counsumption_value,
+  i.start_reading,
+  i.end_reading,
+  i.meter_serial,
+  i.customer_id,
+  t.name,
+  i.total_amt,
+  i.open_amt,
+  i.balance_after,
+  i.balance_before,
+  c.name_ar,
+  c.tenant_name,
+  c.project_id,
+  l.unit_no,
+  l.address_ar,
+  l.city,
+  (select sum(amount) from invoice_details id where invoice_id = i.id and charge_group = 0) 'Cons',
+  (select sum(amount) from invoice_details id where invoice_id = i.id and charge_group = 4) 'Admin',
+  (select sum(amount) from invoice_details id where invoice_id = i.id and charge_group in (2,3)) 'CS',
+  (select sum(amount) from invoice_details id where invoice_id = i.id and charge_group = 1) 'OTHER'
+from
+  invoice i,
+  customer c,
+  meter m,
+  tariff t,
+  location l
+where
+  i.customer_id = c.id
+  and i.meter_id = m.id
+  and m.tariff_id = t.id
+  and m.location_id = l.id
+  and ($P!{invoiceId} IS NULL or i.id = $P!{invoiceId})
+  and ($P!{billcycleLogId} IS NULL or i.billcycle_log_id = $P!{billcycleLogId})]]></query>
+	<field name="project_title" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="logo" class="java.lang.String"/>
+	<field name="license" class="java.lang.String"/>
+	<field name="signature" class="java.lang.String"/>
+	<field name="id" class="java.lang.Long"/>
+	<field name="number" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="issue_date" class="java.sql.Timestamp"/>
+	<field name="counsumption_month" class="java.sql.Timestamp"/>
+	<field name="counsumption_value" class="java.lang.Double"/>
+	<field name="start_reading" class="java.lang.Double"/>
+	<field name="end_reading" class="java.lang.Double"/>
+	<field name="meter_serial" class="java.lang.String"/>
+	<field name="customer_id" class="java.lang.Long"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="total_amt" class="java.lang.Long"/>
+	<field name="open_amt" class="java.lang.Long"/>
+	<field name="balance_after" class="java.lang.Long"/>
+	<field name="balance_before" class="java.lang.Long"/>
+	<field name="name_ar" class="java.lang.String"/>
+	<field name="tenant_name" class="java.lang.String"/>
+	<field name="project_id" class="java.lang.Long"/>
+	<field name="unit_no" class="java.lang.String"/>
+	<field name="address_ar" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="Cons" class="java.lang.Long"/>
+	<field name="Admin" class="java.lang.Long"/>
+	<field name="CS" class="java.lang.Long"/>
+	<field name="OTHER" class="java.lang.Long"/>
+	<field name="company_info" class="java.lang.String"/>
+	<background height="247">
+		<element kind="textField" uuid="33c8e220-1765-4178-b12b-6aa10d1b9998" x="16" y="14" width="381" height="222" forecolor="#FF0033" fontName="DejaVu Sans" fontSize="60.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA[$F{status}.equals("DELETED") ? "ملغيــــة" : ""]]></expression>
+		</element>
+	</background>
+	<detail>
+		<band height="285" splitType="Stretch">
+			<element kind="staticText" uuid="0bbcb40d-b9e1-49a6-8454-fb6ad80729b8" mode="Transparent" x="153" y="14" width="100" height="12" forecolor="#000066" backcolor="#FFFFFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="8.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="false" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[فاتورة كهرباء]]></text>
+			</element>
+			<element kind="staticText" uuid="9d4d41d5-2799-4ae4-89f6-e5d49bfebc91" mode="Opaque" x="295" y="132" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[سابقة (ك و س)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="29193438-b794-4674-b48c-94d9aa07fc41" mode="Opaque" x="0" y="64" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" fontName="DejaVu Sans" fontSize="7.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[نوع النشاط]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="80cb4dee-8242-4a96-b552-47ba5d21d1b4" mode="Opaque" x="0" y="98" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[عدد العدادات]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="13ec0b76-086e-4728-a1bd-46625d7a3e0e" mode="Opaque" x="159" y="64" width="50" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[اشهر المحاسبة]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="a5e9583e-a930-4de6-a763-2375b4e92637" mode="Transparent" x="227" y="27" width="25" height="13" forecolor="#000066" backcolor="#FFFFFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="8.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="false" underline="false" strikeThrough="false" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[رقم ]]></text>
+				<box leftPadding="1" rightPadding="1"/>
+			</element>
+			<element kind="staticText" uuid="a9db26f3-4e34-4160-9bf6-296a7bf0ca96" mode="Opaque" x="0" y="132" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[مقابل القدرة]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="83457161-c670-421b-be7e-5700184e1cc1" mode="Opaque" x="236" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[قيمة الإستهلاك
+(جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="35bf59dc-9026-442b-aeec-9ea3c07b124c" mode="Opaque" x="0" y="200" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[ إجمالي الفاتورة (جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="14e38435-4785-4718-aba5-af9c964b14ee" mode="Opaque" x="177" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[ رسوم و دمغات
+(جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="855bdbc0-d308-4243-ad8b-993dcadce525" mode="Opaque" x="109" y="64" width="50" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[تاريخ الإصدار]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="41e00f9d-3e33-4551-873e-7688aa0f0df7" mode="Opaque" x="354" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[ خدمة عملاء
+(جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="34b5d69f-2d34-4a1f-9316-ddd195ce46af" mode="Opaque" x="0" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[ خصومات
+(جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="d9a3c8e7-1e51-4525-8901-d1636b99243d" mode="Opaque" x="295" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[ الإستهلاك
+(ك و س)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="960ee83a-7728-4c58-a7b7-531df3e7483a" mode="Opaque" x="295" y="98" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[حالية (ك و س)]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="42e044bc-cd1c-4018-be24-bf095bd8b5ac" x="234" y="98" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[السيد/]]></text>
+				<box rightPadding="3"/>
+			</element>
+			<element kind="staticText" uuid="b087612a-a3d3-40e3-910c-6dbc4bd4c474" mode="Opaque" x="59" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[ إدارية
+(جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="c6af82a9-e77d-47f3-87a5-8734c8483139" mode="Opaque" x="209" y="64" width="50" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[رقم العداد]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="dbf8db04-1ec1-4361-b945-879d457c9ea8" mode="Opaque" x="118" y="166" width="59" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[تسويات
+(جم)]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="3859c26f-ae80-4128-90c9-ef0f17c8f124" mode="Opaque" x="59" y="64" width="50" height="17" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[كود العميل]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="41ca1aa8-67a1-4630-812c-87c37921a9b1" x="236" y="132" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[العنوان/]]></text>
+				<box rightPadding="3"/>
+			</element>
+			<element kind="staticText" uuid="e72941b7-daab-4810-8009-a71c03717e52" mode="Opaque" x="159" y="81" width="50" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[1]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="a1b34ac0-b5bd-4bb5-a820-cbea7d848da9" x="153" y="27" width="75" height="13" forecolor="#000000" fontName="DejaVu Sans" fontSize="8.0" bold="false" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{number}]]></expression>
+				<box leftPadding="1" rightPadding="1"/>
+			</element>
+			<element kind="textField" uuid="9bc5ac56-c905-4e48-ad93-34fc4499e15e" mode="Opaque" x="59" y="81" width="50" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{customer_id}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="e6a576e4-a0b3-43e6-8b43-3c1544a68bf2" x="59" y="115" width="236" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{tenant_name} == null ? $F{name_ar} : $F{tenant_name}]]></expression>
+				<box rightPadding="3"/>
+			</element>
+			<element kind="textField" uuid="1ce3be8f-d940-448c-84ba-b1592cf74c0c" mode="Opaque" x="209" y="81" width="50" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{meter_serial}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="b9fd9d32-397d-47a9-9500-ae183957e7d4" mode="Opaque" x="109" y="81" width="50" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="MMM-yyyy" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{counsumption_month}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="50f8ebaf-1efb-4f14-b974-54b14a9eda61" mode="Opaque" x="0" y="217" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{total_amt}.doubleValue() / 1000]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="064a11a1-6a24-4736-8172-3bd67543f2e3" mode="Opaque" x="295" y="115" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.000" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{end_reading}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="c2600344-ca34-421b-b042-75aef4c872b5" mode="Opaque" x="295" y="149" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.000" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{start_reading}]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="ad1f0a08-4538-4cb1-a410-e405e9688e8b" mode="Opaque" x="354" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{CS} == null ? "0" : $F{CS}.doubleValue() / 1000]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="ac24ce57-6f54-4352-ae69-a540ee1195b9" mode="Opaque" x="236" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Cons} == null ? "0" : $F{Cons}.doubleValue() / 1000]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="172bdc57-b8f3-4e77-a42a-c89d291a364e" mode="Opaque" x="177" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{OTHER} == null ? "0" : $F{OTHER}.doubleValue() / 1000]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="ab2256bb-7969-483e-8f50-cfa99f682f32" mode="Opaque" x="59" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" blankWhenNull="false" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Admin} == null ? "0" : $F{Admin}.doubleValue() / 1000]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d2871f72-4b48-4246-b60d-6702e719d273" mode="Opaque" x="295" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.000" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{counsumption_value}]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="debcb0a7-3c44-4bad-b581-abf9b03442a6" mode="Opaque" x="0" y="149" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["0"]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="488d5d6e-4ebc-4b71-b341-5798d1c3eeed" mode="Opaque" x="0" y="81" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{name}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="78bf3b52-afdc-4573-b8dd-da18f2bcc5f0" x="59" y="149" width="236" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{address_ar}]]></expression>
+				<box rightPadding="3"/>
+			</element>
+			<element kind="textField" uuid="02990534-e2a2-4d6b-89d1-a4894e4e0165" mode="Opaque" x="0" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" bold="false" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["0"]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="image" uuid="bd73575e-63f1-4dee-b213-2f9f61d8d407" x="294" y="13" width="119" height="28">
+				<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{logo}.substring( 22,$F{logo}.length()).getBytes()))]]></expression>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+			</element>
+			<element kind="line" uuid="735ef88e-3eab-43c8-ac80-af9ce8dc08c3" x="2" y="245" width="409" height="1" forecolor="#000099">
+				<pen lineWidth="4.0"/>
+			</element>
+			<element kind="textField" uuid="6a073651-8f05-4f82-901c-82e50ba0f7b4" x="59" y="200" width="295" height="34" fontName="DejaVu Sans" fontSize="7.0" pattern="" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{total_amt} != 0 ? com.hypercell.shared.utils.NumberToArabic.convertToArabic( ($F{total_amt}.doubleValue()/1000), "EGP" )
+: "صفر"]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="04d3c029-39ec-4eb1-84d8-7de70eff68aa" mode="Opaque" x="354" y="200" width="59" height="34" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="7.0" pdfEncoding="Cp1252" pdfEmbedded="false" italic="false" bold="true" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<text><![CDATA[المبلغ الإجمالي]]></text>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="fdd6378b-2f9a-437c-8ca4-9a5c9cdab872" mode="Opaque" x="118" y="183" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="#,##0.00" bold="false" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["0"]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="9dfc206b-e083-4eba-bbb6-52b00ee2ccdf" mode="Opaque" x="0" y="115" width="59" height="17" fontName="DejaVu Sans" fontSize="7.0" pattern="###0.00" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA["1"]]></expression>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="3a26b1ff-1edd-4a5f-be50-482f9f51fc6e" mode="Transparent" x="110" y="27" width="37" height="15" forecolor="#000066" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="8.0" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[المشروع :]]></text>
+			</element>
+			<element kind="staticText" uuid="a8a6acaa-5dc2-4996-990f-f6b304438159" mode="Transparent" x="109" y="12" width="37" height="15" forecolor="#000066" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="8.0" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[المنطقة :]]></text>
+			</element>
+			<element kind="staticText" uuid="44352d20-b520-4f3b-8967-651eccaada2d" mode="Transparent" x="340" y="254" width="64" height="20" forecolor="#000066" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="8.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[العضو المنتدب / ]]></text>
+			</element>
+			<element kind="image" uuid="f012c9b3-43f3-4059-9e98-4d1a2da9c23b" x="269" y="254" width="71" height="20">
+				<expression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{signature}.substring( 22,$F{signature}.length()).getBytes()))]]></expression>
+			</element>
+			<element kind="staticText" uuid="e0168698-e6a7-4c3c-98cd-3c4bf4aa5513" x="4" y="0" width="409" height="12" forecolor="#CC0000" fontName="DejaVu Sans" fontSize="9.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[  ]]></text>
+			</element>
+			<element kind="textField" uuid="7c3bb6b6-2ea9-4a18-b38d-602ef08234a0" mode="Opaque" x="295" y="64" width="118" height="34" forecolor="#000000" backcolor="#FFFFFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="6.0" pdfEncoding="Cp1252" pattern="" blankWhenNull="true" pdfEmbedded="false" italic="false" bold="false" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<expression><![CDATA[$F{license}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="d0735f06-2279-4068-b9e3-c1b1ecda7ca7" mode="Opaque" x="354" y="98" width="59" height="68" forecolor="#000000" backcolor="#CCCCFF" rotation="None" markup="none" fontName="DejaVu Sans" fontSize="6.0" pdfEncoding="Cp1252" blankWhenNull="true" pdfEmbedded="false" italic="false" bold="false" underline="false" strikeThrough="false" hTextAlign="Center" vTextAlign="Middle">
+				<paragraph lineSpacing="Single"/>
+				<expression><![CDATA[$F{company_info}]]></expression>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="26e979f7-34dc-410e-afea-c79e6ad6b3e4" mode="Transparent" x="110" y="42" width="37" height="15" forecolor="#000066" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="8.0" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[وحدة رقم:]]></text>
+			</element>
+			<element kind="textField" uuid="cb2b07c7-c672-4417-bf0a-736e1963c287" mode="Transparent" x="3" y="42" width="104" height="15" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{unit_no}]]></expression>
+			</element>
+			<element kind="textField" uuid="18ad5993-8b0b-41f0-91d2-52eb571d9e98" mode="Transparent" x="3" y="27" width="104" height="15" backcolor="#FFFFFF" fontName="DejaVu Sans" fontSize="8.0" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<expression><![CDATA[$F{project_title}]]></expression>
+			</element>
+			<element kind="staticText" uuid="f677c318-b0cf-4b3f-a6a2-7296221a206d" mode="Opaque" x="295" y="44" width="118" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Center" vTextAlign="Middle">
+				<text><![CDATA[شركة إي للكهرباء والطاقة]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+			<element kind="staticText" uuid="f36d84b8-f87e-4a62-8275-180f71f1cded" mode="Opaque" x="3" y="11" width="104" height="17" fontName="DejaVu Sans" fontSize="7.0" hTextAlign="Right" vTextAlign="Middle">
+				<text><![CDATA[أكتوبر]]></text>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+</jasperReport>

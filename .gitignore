@@ -42,7 +42,7 @@ tmp/
 
 # Reports & testing
 test-reports/
-reports/
+/reports/
 session-snapshot/
 
 # Design & media files (too large)
