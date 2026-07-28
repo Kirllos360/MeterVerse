@@ -31,7 +31,7 @@ const baseConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   // Bundle analysis (run: ANALYZE=true next build)
-    ...(process.env.ANALYZE === 'true' ? { withBundleAnalyzer: true } : {}),
+  // Removed invalid withBundleAnalyzer config key
   async rewrites() {
     return [
       {
@@ -57,8 +57,8 @@ const baseConfig: NextConfig = {
 
 let configWithPlugins = baseConfig;
 
-// Conditionally enable Sentry configuration
-if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED) {
+// Conditionally enable Sentry configuration (disabled in CI or when env vars missing)
+if (!process.env.NEXT_PUBLIC_SENTRY_DISABLED && process.env.NEXT_PUBLIC_SENTRY_ORG && process.env.NEXT_PUBLIC_SENTRY_PROJECT) {
   configWithPlugins = withSentryConfig(configWithPlugins, {
     org: process.env.NEXT_PUBLIC_SENTRY_ORG,
     project: process.env.NEXT_PUBLIC_SENTRY_PROJECT,

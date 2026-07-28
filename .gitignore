@@ -21,6 +21,8 @@ backend/.env
 # Logs
 *.log
 logs/
+backend/coverage/
+g01-test-loop.ps1
 
 # IDE
 .vscode/
