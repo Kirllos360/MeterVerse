@@ -61,45 +61,29 @@ router.delete("/:id", requirePermission("admin.settings"), async (req, res, next
   } catch (err) { next(err) }
 })
 
-// POST /database-connections/test — test a connection
+// POST /database-connections/test — test a connection via TCP socket
 router.post("/test", requirePermission("admin.settings"), async (req, res, next) => {
   try {
     const data = connectionSchema.parse(req.body)
     const start = Date.now()
-
-    let ok = false
-    let error = null
+    const { createConnection } = await import("net")
 
     try {
-      // Build connection string based on type
-      let url = ""
-      switch (data.type) {
-        case "postgresql":
-          url = `postgresql://${data.username}:${data.password}@${data.host}:${data.port}/${data.database}?connect_timeout=5`
-          break
-        case "mysql":
-          url = `mysql://${data.username}:${data.password}@${data.host}:${data.port}/${data.database}?connectTimeout=5000`
-          break
-        case "mssql":
-          url = `mssql://${data.username}:${data.password}@${data.host}:${data.port}/${data.database}?encrypt=true&trustServerCertificate=true&connectTimeout=5000`
-          break
-        default:
-          return res.json({ success: false, error: "Unsupported database type", latency: Date.now() - start })
-      }
+      await new Promise((resolve, reject) => {
+        const socket = createConnection({ host: data.host, port: data.port, timeout: 5000 }, () => {
+          socket.end()
+          resolve(true)
+        })
+        socket.on("error", (err) => { socket.destroy(); reject(err) })
+        socket.on("timeout", () => { socket.destroy(); reject(new Error("Connection timed out")) })
+      })
 
-      const response = await fetch(url.replace(/\/\/[^:]+:[^@]+@/, "//dummy:dummy@"), {
-        method: "HEAD",
-        signal: AbortSignal.timeout(5000),
-      }).catch(() => null)
-
-      // If we can reach the host, consider it a success
-      ok = true
+      auditLog(req, "db_connection.test", { name: data.name, success: true })
+      res.json({ success: true, error: null, latency: Date.now() - start, type: data.type })
     } catch (e) {
-      error = e.message
+      auditLog(req, "db_connection.test", { name: data.name, success: false })
+      res.json({ success: false, error: e.message, latency: Date.now() - start, type: data.type })
     }
-
-    auditLog(req, "db_connection.test", { name: data.name, success: ok })
-    res.json({ success: ok, error, latency: Date.now() - start, type: data.type })
   } catch (err) { next(err) }
 })
 

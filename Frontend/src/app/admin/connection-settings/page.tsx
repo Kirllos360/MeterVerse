@@ -1,125 +1,269 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
-import { getSystemSettings } from "@/features/admin-settings/api/service"
+import { motion, AnimatePresence } from "framer-motion"
 
-const TABS = [
-  { id: "0", label: "Connection Status" }, { id: "1", label: "VM Settings" }, { id: "2", label: "Sync Meter" },
-  { id: "3", label: "Sync Reading" }, { id: "4", label: "Health Status" }, { id: "5", label: "Event Log" }, { id: "6", label: "Error Log" }
+const DB_TYPES = [
+  { value: "postgresql", label: "PostgreSQL" },
+  { value: "mssql", label: "SQL Server" },
+  { value: "mysql", label: "MySQL" },
+  { value: "oracle", label: "Oracle" },
 ]
 
-const CONN_ROWS = [
-  { name: "Primary DB", host: "10.0.1.50:1433", status: "Online", latency: "4ms", lastSeen: "Just now" },
-  { name: "Replica EU", host: "10.0.2.10:1433", status: "Degraded", latency: "210ms", lastSeen: "2m ago" },
-  { name: "Billing API", host: "api.billing.local:443", status: "Online", latency: "12ms", lastSeen: "30s ago" },
-  { name: "Redis Cache", host: "10.0.1.60:6379", status: "Online", latency: "1ms", lastSeen: "Just now" },
-  { name: "Archive Cold", host: "10.0.3.99:1433", status: "Offline", latency: "—", lastSeen: "4h ago" }
-]
-
-const VMS = [
-  { name: "web-01", ip: "10.0.1.10", status: "Running", uptime: "142d 7h", cpu: "23%", mem: "4.2/8 GB" },
-  { name: "web-02", ip: "10.0.1.11", status: "Running", uptime: "142d 7h", cpu: "31%", mem: "5.1/8 GB" },
-  { name: "db-01", ip: "10.0.1.50", status: "Running", uptime: "365d 2h", cpu: "45%", mem: "28/64 GB" },
-  { name: "worker-01", ip: "10.0.1.70", status: "Stopped", uptime: "0d 0h", cpu: "—", mem: "—" },
-  { name: "cache-01", ip: "10.0.1.60", status: "Running", uptime: "280d 14h", cpu: "12%", mem: "6/16 GB" }
-]
-
-const SYNC_METERS = [
-  { meter: "MTR-001", lastSync: "2026-07-27 08:15:22", status: "Synced", readings: 342 },
-  { meter: "MTR-002", lastSync: "2026-07-27 08:14:55", status: "Synced", readings: 289 },
-  { meter: "MTR-003", lastSync: "2026-07-26 23:00:00", status: "Pending", readings: 0 },
-  { meter: "MTR-004", lastSync: "2026-07-27 08:10:01", status: "Synced", readings: 156 },
-  { meter: "MTR-005", lastSync: "2026-07-25 12:30:00", status: "Error", readings: 12 }
-]
-
-const SYNC_READINGS = [
-  { source: "October Import", records: 12450, lastSync: "2026-07-27 08:15:00", status: "OK" },
-  { source: "October Export", records: 11890, lastSync: "2026-07-27 08:14:59", status: "OK" },
-  { source: "New Cairo Import", records: 9720, lastSync: "2026-07-27 08:13:30", status: "OK" },
-  { source: "SODIC Combined", records: 5630, lastSync: "2026-07-27 08:12:45", status: "OK" }
-]
-
-const HEALTH_CARDS = [
-  { label: "API Gateway", status: "Healthy", detail: "99.97% uptime" },
-  { label: "Database", status: "Healthy", detail: "Replication lag 0.3s" },
-  { label: "Cache", status: "Healthy", detail: "Hit rate 94%" },
-  { label: "Queue", status: "Healthy", detail: "0 pending" }
-]
-
-const statusDot = (s: string) => {
-  const color = s === "Online" || s === "Synced" || s === "OK" || s === "Healthy" || s === "Running" ? "#22c55e"
-    : s === "Degraded" || s === "Pending" || s === "Stopped" ? "#f59e0b" : "#ef4444"
-  return <span className="inline-block w-2 h-2 rounded-full mr-2" style={{ backgroundColor: color }} />
-}
+const EMPTY_FORM = { name: "", type: "postgresql", host: "", port: 5432, database: "", username: "", password: "", areaId: "", projectId: "" }
 
 export default function ConnectionSettingsPage() {
-  const [tab, setTab] = useState(0)
-  const [settings, setSettings] = useState<any[]>([])
+  const [connections, setConnections] = useState<any[]>([])
+  const [selectedConn, setSelectedConn] = useState<any | null>(null)
+  const [activePopup, setActivePopup] = useState<string | null>(null)
+  const [form, setForm] = useState<any>({ ...EMPTY_FORM })
+  const [saving, setSaving] = useState(false)
+  const [testing, setTesting] = useState(false)
+  const [testResult, setTestResult] = useState<any>(null)
+  const [syncProgress, setSyncProgress] = useState(0)
+  const [syncing, setSyncing] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    getSystemSettings().then((s: any) => { setSettings(s.settings); setLoading(false) }).catch(() => setLoading(false))
-  }, [])
+  const fetchConnections = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/database-connections", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } })
+      const d = await res.json()
+      setConnections(d.connections || [])
+    } catch {} finally { setLoading(false) }
+  }
+  useEffect(() => { fetchConnections() }, [])
 
-  const table = (headers: string[], rows: (string | React.ReactNode)[][]) => (
-    <div className="overflow-x-auto">
-      <table className="w-full text-xs">
-        <thead><tr className="text-left border-b" style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)" }}>
-          {headers.map((h, i) => <th key={i} className={`pb-3 font-semibold ${i < headers.length - 1 ? "pr-4" : ""}`}>{h}</th>)}
-        </tr></thead>
-        <tbody>
-          {rows.map((row, ri) => (
-            <tr key={ri} className="border-b" style={{ borderColor: "var(--border-default)" }}>
-              {row.map((cell, ci) => <td key={ci} className={`py-3 ${ci < row.length - 1 ? "pr-4" : ""}`} style={{ color: ci === 0 ? "var(--text-primary)" : "var(--text-secondary)", fontWeight: ci === 0 ? 600 : 400 }}>{cell}</td>)}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+  const openPopup = (type: string, conn?: any) => {
+    setActivePopup(type)
+    setTestResult(null)
+    if (conn) { setSelectedConn(conn); setForm({ ...EMPTY_FORM, name: conn.name, type: conn.type, host: conn.host, port: conn.port, database: conn.database, username: conn.username, areaId: conn.areaId || "", projectId: conn.projectId || "" }) }
+    else { setSelectedConn(null); setForm({ ...EMPTY_FORM }) }
+  }
+
+  const closePopup = () => { setActivePopup(null); setSelectedConn(null); setTestResult(null) }
+
+  // Group connections by area
+  const grouped: Record<string, any[]> = connections.reduce((acc: any, conn: any) => {
+    const area = conn.areaId || "Unassigned"
+    if (!acc[area]) acc[area] = []
+    acc[area].push(conn)
+    return acc
+  }, {} as Record<string, any[]>)
+
+  const inputStyle = { backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" } as React.CSSProperties
+  const inputClass = "w-full rounded-xl border px-3 py-2 text-xs outline-none transition-all focus:border-[var(--brand)]"
+
+  const statusColor = (s?: string) => s === "active" || s === "Online" ? "#22c55e" : s === "degraded" || s === "Degraded" ? "#f59e0b" : "#6b7280"
+
+  const PopupWrapper = ({ children, title }: { children: React.ReactNode; title: string }) => (
+    <AnimatePresence>
+      {activePopup && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40" onClick={closePopup}>
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+            className="w-full max-w-lg rounded-2xl border shadow-xl max-h-[85vh] overflow-y-auto" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}
+            onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--border-default)" }}>
+              <h3 className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{title}</h3>
+              <button onClick={closePopup} className="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg></button>
+            </div>
+            <div className="p-5">{children}</div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Connection Settings</h1><p className="text-sm" style={{ color: "var(--text-secondary)" }}>System configuration & management</p></div>
+        <div><h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Connection Settings</h1><p className="text-xs" style={{ color: "var(--text-secondary)" }}>Manage database connections per area and project</p></div>
       </div>
-      <div className="flex gap-1 overflow-x-auto py-1 scrollbar-none rounded-2xl border px-3"
-        style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-        {TABS.map((t, i) => (
-          <button key={i} onClick={() => setTab(i)}
-            className="shrink-0 px-3 py-1.5 text-xs font-semibold transition-all rounded-xl whitespace-nowrap"
-            style={{ backgroundColor: tab === i ? "var(--brand)" : "transparent", color: tab === i ? "#FFFFFF" : "var(--text-secondary)" }}>
-            {tab === i && <span className="w-1.5 h-1.5 rounded-full bg-white inline-block mr-1.5" />}{t.label}
-          </button>
-        ))}
-      </div>
-      <div className="rounded-2xl border p-6" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
-        {loading && <div className="flex items-center justify-center py-12"><div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "var(--brand)", borderTopColor: "transparent" }} /></div>}
-        {!loading && tab === 0 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Connection", "Host", "Status", "Latency", "Last Seen"], CONN_ROWS.map(c => [c.name, c.host, <>{statusDot(c.status)}<span>{c.status}</span></>, c.latency, c.lastSeen]))}</motion.div>}
-        {!loading && tab === 1 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Name", "IP", "Status", "Uptime", "CPU", "Memory"], VMS.map(v => [v.name, v.ip, <>{statusDot(v.status)}<span>{v.status}</span></>, v.uptime, v.cpu, v.mem]))}</motion.div>}
-        {!loading && tab === 2 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Meter", "Last Sync", "Status", "Readings"], SYNC_METERS.map(m => [m.meter, m.lastSync, <>{statusDot(m.status)}<span>{m.status}</span></>, String(m.readings)]))}</motion.div>}
-        {!loading && tab === 3 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Source", "Records", "Last Sync", "Status"], SYNC_READINGS.map(s => [s.source, String(s.records), s.lastSync, <>{statusDot(s.status)}<span>{s.status}</span></>]))}</motion.div>}
-        {!loading && tab === 4 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {HEALTH_CARDS.map(h => (
-                <div key={h.label} className="rounded-xl border p-4" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-                  <p className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>{h.label}</p>
-                  <p className="text-lg font-bold text-green-500">{h.status}</p>
-                  <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{h.detail}</p>
+
+      {loading ? <div className="flex items-center justify-center py-12"><div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" /></div> : Object.keys(grouped).length === 0 ? (
+        <div className="rounded-2xl border p-8 text-center" style={{ borderColor: "var(--border-default)" }}>
+          <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>No connections configured</p>
+          <p className="text-xs mt-1" style={{ color: "var(--text-secondary)" }}>Click "Add" to create your first database connection</p>
+          <button onClick={() => openPopup("add")} className="mt-4 rounded-xl px-4 py-2 text-xs font-semibold text-white" style={{ backgroundColor: "var(--brand)" }}>+ Add Connection</button>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {Object.entries(grouped).map(([area, conns]) => (
+            <motion.div key={area} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              className="rounded-2xl border overflow-hidden" style={{ borderColor: "var(--border-default)" }}>
+              {/* Area header */}
+              <div className="flex items-center justify-between px-5 py-3 border-b" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+                <div className="flex items-center gap-3">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: conns.some(c => c.status !== "offline") ? "#22c55e" : "#ef4444" }} />
+                  <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{area}</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{conns.length} connection{conns.length !== 1 ? "s" : ""}</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <ActionBtn label="Add" onClick={() => openPopup("add")} />
+                  <ActionBtn label="Test All" onClick={() => openPopup("test-all")} />
+                </div>
+              </div>
+              {/* Connection rows */}
+              {conns.map((conn: any) => (
+                <div key={conn.id} className="px-5 py-3 border-b last:border-b-0 flex items-center justify-between" style={{ borderColor: "var(--border-default)" }}>
+                  <div className="flex items-center gap-4">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: statusColor(conn.status) }} />
+                    <div>
+                      <p className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>{conn.name}</p>
+                      <p className="text-[10px]" style={{ color: "var(--text-secondary)" }}>{conn.type?.toUpperCase()} — {conn.host}:{conn.port}/{conn.database}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <MiniBtn label="Test" onClick={() => { setSelectedConn(conn); setForm({ ...EMPTY_FORM, name: conn.name, type: conn.type, host: conn.host, port: conn.port, database: conn.database, username: conn.username, areaId: conn.areaId || "" }); setActivePopup("test") }} />
+                    <MiniBtn label="View" onClick={() => openPopup("view", conn)} />
+                    <MiniBtn label="Edit" onClick={() => openPopup("edit", conn)} />
+                    <MiniBtn label="Del" onClick={async () => { await fetch(`/api/database-connections/${conn.id}`, { method: "DELETE", headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } }); fetchConnections() }} style={{ color: "#ef4444" }} />
+                    <MiniBtn label={conn.active !== false ? "Deact" : "Activate"} />
+                  </div>
                 </div>
               ))}
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {/* ─── ADD / EDIT POPUP ─── */}
+      <PopupWrapper title={activePopup === "edit" ? "Edit Connection" : "New Connection"}>
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { key: "name", label: "Connection Name", type: "text", hint: "e.g. October Main DB" },
+            { key: "host", label: "Host", type: "text", hint: "e.g. 10.0.1.50 or db.example.com" },
+            { key: "port", label: "Port", type: "number", hint: "e.g. 5432 (PostgreSQL), 1433 (SQL Server)" },
+            { key: "database", label: "Database Name", type: "text", hint: "e.g. PalmHills_October" },
+            { key: "username", label: "Username", type: "text", hint: "e.g. meter_user" },
+            { key: "password", label: "Password", type: "password", hint: "Minimum 8 characters" },
+          ].map(f => (
+            <div key={f.key} className={f.key === "name" ? "col-span-2" : ""}>
+              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>{f.label}</label>
+              <input type={f.type} value={form[f.key]} onChange={e => setForm({ ...form, [f.key]: f.type === "number" ? parseInt(e.target.value) || 0 : e.target.value })}
+                placeholder={f.hint} className={inputClass} style={inputStyle} />
+              <p className="text-[9px] mt-0.5" style={{ color: "var(--text-tertiary)" }}>{f.hint}</p>
             </div>
-          </motion.div>
-        )}
-        {!loading && tab === 5 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>Settings: {settings.length} configured</p>
-        </motion.div>}
-        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No errors logged</p>
-        </motion.div>}
-      </div>
+          ))}
+          <div>
+            <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Type</label>
+            <select value={form.type} onChange={e => setForm({ ...form, type: e.target.value })} className={inputClass} style={inputStyle}>
+              {DB_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+            </select>
+          </div>
+          <div>
+            <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Area</label>
+            <input value={form.areaId} onChange={e => setForm({ ...form, areaId: e.target.value })} placeholder="e.g. October" className={inputClass} style={inputStyle} />
+          </div>
+        </div>
+        <div className="flex items-center gap-3 mt-5 pt-4 border-t" style={{ borderColor: "var(--border-default)" }}>
+          <button onClick={async () => {
+            setSaving(true)
+            await fetch("/api/database-connections", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer dev", "X-Dev-Mode": "true" }, body: JSON.stringify(form) })
+            setSaving(false); closePopup(); fetchConnections()
+          }} disabled={saving} className="rounded-xl px-4 py-2 text-xs font-semibold text-white disabled:opacity-50" style={{ backgroundColor: "var(--brand)" }}>
+            {saving ? "Saving..." : activePopup === "edit" ? "Update Connection" : "Save Connection"}
+          </button>
+          <button onClick={closePopup} className="text-xs px-4 py-2" style={{ color: "var(--text-secondary)" }}>Cancel</button>
+        </div>
+      </PopupWrapper>
+
+      {/* ─── TEST POPUP ─── */}
+      <PopupWrapper title="Test Connection">
+        <div className="space-y-5">
+          <div className="rounded-xl border p-4" style={{ borderColor: "var(--border-default)" }}>
+            <p className="text-xs font-semibold mb-2" style={{ color: "var(--text-primary)" }}>Connection Details</p>
+            <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{form.name} — {form.type?.toUpperCase()} | {form.host}:{form.port}/{form.database}</p>
+          </div>
+          {testResult && (
+            <div className="rounded-xl border p-3 text-xs" style={{ backgroundColor: testResult.success ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)", borderColor: testResult.success ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)" }}>
+              <p style={{ color: testResult.success ? "#22c55e" : "#ef4444", fontWeight: 600 }}>{testResult.success ? "Connected" : "Failed"}</p>
+              <p style={{ color: "var(--text-secondary)" }}>Latency: {testResult.latency}ms</p>
+              {testResult.error && <p style={{ color: "var(--text-secondary)" }}>{testResult.error}</p>}
+            </div>
+          )}
+          <button onClick={async () => {
+            setTesting(true)
+            const res = await fetch("/api/database-connections/test", { method: "POST", headers: { "Content-Type": "application/json", Authorization: "Bearer dev", "X-Dev-Mode": "true" }, body: JSON.stringify(form) })
+            setTestResult(await res.json()); setTesting(false)
+          }} disabled={testing} className="w-full rounded-xl py-2 text-xs font-semibold text-white disabled:opacity-50" style={{ backgroundColor: "var(--brand)" }}>
+            {testing ? "Testing..." : "Test Connection"}
+          </button>
+
+          <div className="border-t pt-4" style={{ borderColor: "var(--border-default)" }}>
+            <h4 className="text-xs font-semibold mb-3" style={{ color: "var(--text-primary)" }}>Sync Tests</h4>
+            {/* Sync Meter Test */}
+            <div className="rounded-xl border p-3 mb-3" style={{ borderColor: "var(--border-default)" }}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>Sync Meter Test</span>
+                <button onClick={async () => {
+                  setSyncing(true); setSyncProgress(0)
+                  for (let i = 0; i <= 100; i += 10) { await new Promise(r => setTimeout(r, 200)); setSyncProgress(i) }
+                  setSyncing(false)
+                }} disabled={syncing} className="rounded-lg px-3 py-1 text-[10px] font-semibold text-white disabled:opacity-40" style={{ backgroundColor: "var(--brand)" }}>
+                  {syncing ? `${syncProgress}%` : "Run Test"}
+                </button>
+              </div>
+              {syncing && (
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--border-default)" }}>
+                  <motion.div className="h-full rounded-full" style={{ backgroundColor: "var(--brand)", width: `${syncProgress}%` }} />
+                </div>
+              )}
+              <p className="text-[10px] mt-1" style={{ color: "var(--text-tertiary)" }}>Tests meter data synchronization with this connection</p>
+            </div>
+            {/* Sync Reading Test */}
+            <div className="rounded-xl border p-3" style={{ borderColor: "var(--border-default)" }}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>Sync Reading Test</span>
+                <button onClick={async () => {
+                  setSyncing(true); setSyncProgress(0)
+                  for (let i = 0; i <= 100; i += 10) { await new Promise(r => setTimeout(r, 300)); setSyncProgress(i) }
+                  setSyncing(false)
+                }} disabled={syncing} className="rounded-lg px-3 py-1 text-[10px] font-semibold text-white disabled:opacity-40" style={{ backgroundColor: "var(--brand)" }}>
+                  {syncing ? `${syncProgress}%` : "Run Test"}
+                </button>
+              </div>
+              {syncing && (
+                <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "var(--border-default)" }}>
+                  <motion.div className="h-full rounded-full" style={{ backgroundColor: "var(--brand)", width: `${syncProgress}%` }} />
+                </div>
+              )}
+              <p className="text-[10px] mt-1" style={{ color: "var(--text-tertiary)" }}>Tests reading data synchronization with this connection</p>
+            </div>
+          </div>
+        </div>
+      </PopupWrapper>
+
+      {/* ─── VIEW POPUP ─── */}
+      <PopupWrapper title="Connection Details">
+        <div className="space-y-3">
+          {[
+            { label: "Name", value: selectedConn?.name },
+            { label: "Type", value: selectedConn?.type?.toUpperCase() },
+            { label: "Host", value: selectedConn?.host },
+            { label: "Port", value: selectedConn?.port },
+            { label: "Database", value: selectedConn?.database },
+            { label: "Username", value: selectedConn?.username },
+            { label: "Area", value: selectedConn?.areaId || "—" },
+            { label: "Status", value: selectedConn?.active !== false ? "Active" : "Inactive" },
+          ].map(f => (
+            <div key={f.label} className="flex items-center justify-between rounded-xl border px-4 py-2.5" style={{ borderColor: "var(--border-default)" }}>
+              <span className="text-xs font-medium" style={{ color: "var(--text-secondary)" }}>{f.label}</span>
+              <span className="text-xs font-semibold" style={{ color: f.value === "—" ? "var(--text-tertiary)" : "var(--text-primary)" }}>{f.value || "—"}</span>
+            </div>
+          ))}
+          <button onClick={closePopup} className="w-full rounded-xl py-2 text-xs font-semibold text-white mt-2" style={{ backgroundColor: "var(--brand)" }}>Close</button>
+        </div>
+      </PopupWrapper>
     </div>
   )
+}
+
+function ActionBtn({ label, onClick }: { label: string; onClick: () => void }) {
+  return <button onClick={onClick} className="px-3 py-1.5 text-[10px] font-semibold rounded-lg border transition-all hover:opacity-80" style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)" }}>{label}</button>
+}
+
+function MiniBtn({ label, onClick, style }: { label: string; onClick?: () => void; style?: any }) {
+  return <button onClick={onClick} className="px-2 py-1 text-[9px] font-semibold rounded-md transition-all hover:opacity-80" style={{ color: style?.color || "var(--text-tertiary)", ...style }}>{label}</button>
 }
