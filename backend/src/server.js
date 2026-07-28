@@ -43,6 +43,7 @@ import { materializedViewsRouter } from "./routes/materialized-views.js"
 import { gatewaysRouter } from "./routes/gateways.js"
 import { knowledgeArticlesRouter } from "./routes/knowledge-articles.js"
 import { aiFeedbackRouter } from "./routes/ai-feedback.js"
+import { databaseConnectionsRouter } from "./routes/database-connections.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -53,6 +54,7 @@ import { dataGateRouter } from "./routes/data-gate.js"
 import { adminSettingsRouter } from "./routes/admin-settings.js"
 import { createServer } from "http"
 import { trackRequest } from "./middleware/monitor.js"
+import { trackResponseTime } from "./services/kpi-engine.js"
 import { initWebSocket } from "./services/websocket-gateway.js"
 import { errorHandler, correlationMiddleware, notFoundHandler } from "./middleware/errorHandler.js"
 import { idempotencyMiddleware } from "./middleware/idempotency.js"
@@ -191,6 +193,13 @@ function mount(prefix, router) {
 
 app.use(trackRequest)
 
+// Response time tracking (W08-T01)
+app.use((req, res, next) => {
+  const start = Date.now()
+  res.on("finish", () => trackResponseTime(Date.now() - start))
+  next()
+})
+
 API_PREFIXES.forEach(p => app.get(p + "/health", (req, res) => res.json({ status: "ok", timestamp: new Date().toISOString(), version: "1.0.0" })))
 
 // Readiness probe (Kubernetes)
@@ -263,6 +272,7 @@ mount("/materialized-views", materializedViewsRouter)
 mount("/gateways", gatewaysRouter)
 mount("/knowledge-articles", knowledgeArticlesRouter)
 mount("/ai-feedback", aiFeedbackRouter)
+mount("/database-connections", databaseConnectionsRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
