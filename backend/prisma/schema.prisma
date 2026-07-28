@@ -576,6 +576,35 @@ model KpiSnapshot {
   @@index([kpiId, recordedAt])
 }
 
+
+
+model Incident {
+  id              String    @id @default(uuid())
+  title           String
+  description     String?
+  severity        String    @default("P3")  // P0-Critical, P1-High, P2-Medium, P3-Low, P4-Info
+  status          String    @default("detected")  // detected, classified, investigating, rca_complete, resolved, closed
+  category        String    @default("other")  // meter, communication, billing, payment, security, system, ai
+  source          String    @default("auto_detected")  // auto_detected, manual, ai, escalation
+  areaId          String?
+  projectId       String?
+  assignedTo      String?
+  detectedAt      DateTime  @default(now())
+  acknowledgedAt  DateTime?
+  resolvedAt      DateTime?
+  rcaCaseId       String?
+  resolution      String?
+  fingerprint     String?
+  correlationCount Int      @default(1)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  archivedAt      DateTime?
+
+  @@index([status, severity])
+  @@index([areaId, createdAt])
+  @@index([fingerprint])
+  @@index([assignedTo, status])
+}
 model LearnedPattern {
   id            String   @id @default(uuid())
   pattern       String

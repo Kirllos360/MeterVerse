@@ -1,5 +1,26 @@
 import { prisma } from "../db.js"
 
+// Response time tracking (replaces hardcoded 34ms)
+let responseTimes = []
+const MAX_SAMPLES = 1000
+
+export function trackResponseTime(ms) {
+  responseTimes.push(ms)
+  if (responseTimes.length > MAX_SAMPLES) responseTimes.shift()
+}
+
+export function getResponseTimeStats() {
+  if (responseTimes.length === 0) return { avg: 0, min: 0, max: 0, p95: 0, samples: 0 }
+  const sorted = [...responseTimes].sort(function(a, b) { return a - b })
+  return {
+    avg: Math.round(sorted.reduce((a, b) => a + b, 0) / sorted.length),
+    min: sorted[0],
+    max: sorted[sorted.length - 1],
+    p95: sorted[Math.floor(sorted.length * 0.95)],
+    samples: sorted.length,
+  }
+}
+
 const KPI_DEFINITIONS = [
   { name: "Total Customers", category: "growth", unit: "count", target: 10000 },
   { name: "Active Meters", category: "operations", unit: "count", target: 15000 },
@@ -29,7 +50,7 @@ export async function recordKPISnapshot() {
       case "Readings Today": value = await prisma.reading.count({ where: { createdAt: { gte: new Date(Date.now() - 86400000) } } }); break
       case "Invoices Generated": value = await prisma.invoice.count(); break
       case "Payments Collected": { const p = await prisma.payment.aggregate({ _sum: { amount: true } }); value = p._sum.amount || 0; break }
-      case "Avg Response Time": value = 34; break
+      case "Avg Response Time": { const stats = getResponseTimeStats(); value = stats.avg; break }
     }
     await prisma.kpiSnapshot.create({ data: { kpiId: def.id, value, recordedAt: new Date() } })
     await prisma.kpiDefinition.update({ where: { id: def.id }, data: { current: value } })
