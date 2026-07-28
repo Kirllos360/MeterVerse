@@ -65,13 +65,19 @@ model Permission {
 }
 
 model PermissionOnRole {
-  roleId       String
-  permissionId String
-  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
-  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  id            String     @id @default(uuid())
+  roleId        String
+  permissionId  String
+  scopeType     String?    // null=global, "area", "project"
+  scopeId       String?    // UUID of the scope entity
+  grant         Boolean    @default(true)  // true=allow, false=deny
+  override_hierarchy Int?
+  permission    Permission @relation(fields: [permissionId], references: [id])
+  role          Role       @relation(fields: [roleId], references: [id])
 
-  @@id([roleId, permissionId])
+  @@index([roleId])
   @@index([permissionId])
+  @@index([scopeType, scopeId])
 }
 
 model AuditEntry {
