@@ -1,6 +1,8 @@
 import { prisma } from "../server.js"
 import { ConnectionPool } from "./connection-pool.js"
 import { SessionManager } from "./session-manager.js"
+import { HealthMonitor } from "./health-monitor.js"
+import { DiagnosticsEngine } from "./diagnostics-engine.js"
 import { createSymbiotBridge, getSymbiotStatus } from "./symbiot-bridge.js"
 import logger from "./logger.js"
 
@@ -20,6 +22,8 @@ export class RuntimeManager {
     this.state = "stopped"
     this.pool = new ConnectionPool(options.pool)
     this.sessions = new SessionManager(options.session)
+    this.healthMonitor = new HealthMonitor(this)
+    this.diagnostics = new DiagnosticsEngine(this)
     this.symbiotBridge = null
     this._healthTimer = null
     this._activeProfiles = new Map()

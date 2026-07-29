@@ -317,6 +317,18 @@ scheduler.register(RETRY_JOB)
 app.get("/api/runtime/status", (req, res) => { res.json({ ...runtime.getStatus(), scheduler: scheduler.getStats() }) })
 app.post("/api/runtime/restart", async (req, res) => { await runtime.restart(); scheduler.start(); res.json({ status: "restarted" }) })
 app.get("/api/scheduler/stats", (req, res) => { res.json(scheduler.getStats()) })
+app.get("/api/health/scores", async (req, res) => {
+  const scores = await runtime.healthMonitor.getAllScores().catch(() => [])
+  res.json({ scores, stats: runtime.healthMonitor.getStats() })
+})
+app.get("/api/health/scores/:profileId", async (req, res) => {
+  const score = await runtime.healthMonitor.computeScore(req.params.profileId).catch(() => null)
+  res.json({ score })
+})
+app.post("/api/diagnostics/:profileId", async (req, res) => {
+  const report = await runtime.diagnostics.runFullDiagnostic(req.params.profileId).catch(e => ({ error: e.message }))
+  res.json(report)
+})
 
 const httpServer = createServer(app)
 initWebSocket(httpServer)
