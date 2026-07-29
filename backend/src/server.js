@@ -44,7 +44,7 @@ import { gatewaysRouter } from "./routes/gateways.js"
 import { knowledgeArticlesRouter } from "./routes/knowledge-articles.js"
 import { aiFeedbackRouter } from "./routes/ai-feedback.js"
 import { databaseConnectionsRouter } from "./routes/database-connections.js"
-import { connectionProfilesRouter } from "./routes/connection-profiles.js"
+import { connectionProfilesRouter as connProfRouter } from "./routes/connection-profiles.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
@@ -278,7 +278,7 @@ mount("/gateways", gatewaysRouter)
 mount("/knowledge-articles", knowledgeArticlesRouter)
 mount("/ai-feedback", aiFeedbackRouter)
 mount("/database-connections", databaseConnectionsRouter)
-mount("/connection-profiles", connectionProfilesRouter)
+mount("/connection-profiles", connProfRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
@@ -327,6 +327,19 @@ app.get("/api/health/scores/:profileId", async (req, res) => {
   const score = await runtime.healthMonitor.computeScore(req.params.profileId).catch(() => null)
   res.json({ score })
 })
+app.get("/api/health/scores/:profileId/heartbeats", async (req, res) => {
+  const { prisma } = await import("./server.js")
+  const checks = await prisma.healthCheck.findMany({
+    where: { connectionProfileId: req.params.profileId },
+    orderBy: { checkedAt: "desc" }, take: 50,
+  }).catch(() => [])
+  res.json({ heartbeats: checks })
+})
+app.get("/api/health/scores/:profileId/trend", async (req, res) => {
+  const hm = runtime.healthMonitor
+  const score = await hm.computeScore(req.params.profileId).catch(() => null)
+  res.json({ score, trend: score ? [score.score] : [] })
+})
 app.post("/api/failover/:profileId", async (req, res) => {
   const result = await runtime.failover.executeFailover(req.params.profileId, "Manual trigger").catch(e => ({ error: e.message }))
   res.json(result)
@@ -340,6 +353,14 @@ app.get("/api/observability/metrics", (req, res) => { res.json(runtime.metrics.g
 app.get("/api/observability/metrics/prometheus", (req, res) => { res.type("text/plain").send(runtime.metrics.getPrometheus()) })
 app.get("/api/observability/events", (req, res) => { res.json(runtime.eventBus.getHistory(req.query.event)) })
 app.get("/api/observability/events/stats", (req, res) => { res.json(runtime.eventBus.getStats()) })
+app.get("/api/diagnostics/:profileId/history", async (req, res) => {
+  const { prisma } = await import("./server.js")
+  const tests = await prisma.connectionTest.findMany({
+    where: { connectionProfileId: req.params.profileId },
+    orderBy: { testedAt: "desc" }, take: 20,
+  }).catch(() => [])
+  res.json({ tests })
+})
 app.post("/api/diagnostics/:profileId", async (req, res) => {
   const report = await runtime.diagnostics.runFullDiagnostic(req.params.profileId).catch(e => ({ error: e.message }))
   res.json(report)
