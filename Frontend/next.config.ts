@@ -43,6 +43,15 @@ const baseConfig: NextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: "/admin/:path+",
+        destination: "/admin",
+        permanent: false,
+      },
+    ]
+  },
   async headers() {
     return [
       {
