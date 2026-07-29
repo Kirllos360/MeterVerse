@@ -46,6 +46,7 @@ import { aiFeedbackRouter } from "./routes/ai-feedback.js"
 import { databaseConnectionsRouter } from "./routes/database-connections.js"
 import { connectionProfilesRouter } from "./routes/connection-profiles.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
+import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -303,16 +304,25 @@ app.use(notFoundHandler)
 app.use(errorHandler)
 
 const runtime = new RuntimeManager()
+const scheduler = new SchedulerEngine(runtime)
 
-// Runtime status endpoint (no auth for health)
-app.get("/api/runtime/status", (req, res) => { res.json(runtime.getStatus()) })
-app.post("/api/runtime/restart", async (req, res) => { await runtime.restart(); res.json({ status: "restarted" }) })
+// Register scheduler jobs
+scheduler.register(HEARTBEAT_JOB)
+scheduler.register(SYNC_METER_JOB)
+scheduler.register(SYNC_READING_JOB)
+scheduler.register(CLEANUP_JOB)
+scheduler.register(RETRY_JOB)
+
+// Runtime + Scheduler status endpoints
+app.get("/api/runtime/status", (req, res) => { res.json({ ...runtime.getStatus(), scheduler: scheduler.getStats() }) })
+app.post("/api/runtime/restart", async (req, res) => { await runtime.restart(); scheduler.start(); res.json({ status: "restarted" }) })
+app.get("/api/scheduler/stats", (req, res) => { res.json(scheduler.getStats()) })
 
 const httpServer = createServer(app)
 initWebSocket(httpServer)
 
 httpServer.listen(PORT, () => {
-  runtime.start().catch(err => console.error("[runtime] Startup error:", err.message))
+  runtime.start().then(() => { scheduler.start() }).catch(err => console.error("[runtime] Startup error:", err.message))
 })
 
 
