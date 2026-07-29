@@ -45,6 +45,7 @@ import { knowledgeArticlesRouter } from "./routes/knowledge-articles.js"
 import { aiFeedbackRouter } from "./routes/ai-feedback.js"
 import { databaseConnectionsRouter } from "./routes/database-connections.js"
 import { connectionProfilesRouter } from "./routes/connection-profiles.js"
+import { RuntimeManager } from "./services/runtime-manager.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -301,9 +302,17 @@ mount("/admin-settings", adminSettingsRouter)
 app.use(notFoundHandler)
 app.use(errorHandler)
 
+const runtime = new RuntimeManager()
+
+// Runtime status endpoint (no auth for health)
+app.get("/api/runtime/status", (req, res) => { res.json(runtime.getStatus()) })
+app.post("/api/runtime/restart", async (req, res) => { await runtime.restart(); res.json({ status: "restarted" }) })
+
 const httpServer = createServer(app)
 initWebSocket(httpServer)
 
-httpServer.listen(PORT, () => {})
+httpServer.listen(PORT, () => {
+  runtime.start().catch(err => console.error("[runtime] Startup error:", err.message))
+})
 
 
