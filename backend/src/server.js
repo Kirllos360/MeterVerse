@@ -336,6 +336,10 @@ app.post("/api/failover/:profileId/switchback", async (req, res) => {
   res.json(result)
 })
 app.get("/api/failover/stats", (req, res) => { res.json(runtime.failover.getStats()) })
+app.get("/api/observability/metrics", (req, res) => { res.json(runtime.metrics.getMetrics()) })
+app.get("/api/observability/metrics/prometheus", (req, res) => { res.type("text/plain").send(runtime.metrics.getPrometheus()) })
+app.get("/api/observability/events", (req, res) => { res.json(runtime.eventBus.getHistory(req.query.event)) })
+app.get("/api/observability/events/stats", (req, res) => { res.json(runtime.eventBus.getStats()) })
 app.post("/api/diagnostics/:profileId", async (req, res) => {
   const report = await runtime.diagnostics.runFullDiagnostic(req.params.profileId).catch(e => ({ error: e.message }))
   res.json(report)

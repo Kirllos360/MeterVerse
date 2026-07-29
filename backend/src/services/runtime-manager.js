@@ -4,6 +4,8 @@ import { SessionManager } from "./session-manager.js"
 import { HealthMonitor } from "./health-monitor.js"
 import { DiagnosticsEngine } from "./diagnostics-engine.js"
 import { FailoverManager } from "./failover-manager.js"
+import { EventBus } from "./event-bus.js"
+import { MetricsCollector } from "./metrics-collector.js"
 import { createSymbiotBridge, getSymbiotStatus } from "./symbiot-bridge.js"
 import logger from "./logger.js"
 
@@ -21,6 +23,8 @@ const RUNTIME_EVENTS = {
 export class RuntimeManager {
   constructor(options = {}) {
     this.state = "stopped"
+    this.eventBus = new EventBus()
+    this.metrics = new MetricsCollector()
     this.pool = new ConnectionPool(options.pool)
     this.sessions = new SessionManager(options.session)
     this.healthMonitor = new HealthMonitor(this)
@@ -39,10 +43,7 @@ export class RuntimeManager {
   }
 
   _emit(event, data) {
-    const callbacks = this.listeners.get(event) || []
-    for (const cb of callbacks) {
-      try { cb(data) } catch (e) { logger.error({ event, error: e.message, component: "runtime-manager" }, "Event handler error") }
-    }
+    this.eventBus.emit(event, { ...data, component: "runtime" })
   }
 
   async start() {
@@ -70,9 +71,13 @@ export class RuntimeManager {
 
     this.state = "running"
     this._emit(RUNTIME_EVENTS.STARTED, { activeCount: activeProfiles.length })
+    this.metrics.increment("runtime", "startedCount")
 
     // Health check loop
-    this._healthTimer = setInterval(() => this._healthCheck(), 30000)
+    this._healthTimer = setInterval(() => {
+      this._healthCheck()
+      this.metrics.snapshot(this)
+    }, 30000)
 
     logger.info({ activeCount: activeProfiles.length, component: "runtime-manager" }, "Runtime started")
   }
@@ -173,7 +178,8 @@ export class RuntimeManager {
       sessions: this.sessions.getStats(),
       symbiot,
       failover: this.failover.getStats(),
-      metrics: { ...this.metrics },
+      eventBus: this.eventBus.getStats(),
+      observability: this.metrics.getMetrics(),
       uptime: process.uptime(),
     }
   }
