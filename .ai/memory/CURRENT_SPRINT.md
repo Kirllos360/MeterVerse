@@ -1,9 +1,38 @@
 # MeterVerse — Current Sprint
 
+## C13 Planning: Enterprise Financial & Billing Intelligence Platform
+
+**Goal:** Plan the highest-value next enterprise program after C12 Identity certification  
+**Status:** 📋 PLANNING ONLY — NOT IMPLEMENTED  
+**Started:** 2026-07-29  
+**Plan File:** `C13_ENTERPRISE_FINANCIAL_PLATFORM_MASTER_PLAN.md`  
+
+### Program Summary
+
+| Field | Value |
+|-------|-------|
+| Next After | C12 Identity Program (Certified 100%) |
+| Maturity Impact | Accounting 0%→90%, Billing 30%→95%, Collections 30%→85% |
+| Duration | 12 waves, ~60 days |
+| New Models | 14 (Account, JournalEntry, GeneralLedgerEntry, FinancialPeriod, BankStatement, etc.) |
+| Enhanced Models | 6 (Invoice, Payment, Tariff, CollectionCase, BillRun, MeterReading) |
+| Total Tests | 395 |
+| AI Services | 5 (leakage detection, collection prioritization, revenue forecasting, intelligent dunning, journal auto-classification) |
+| Est. Backend Routes | ~80 new |
+| Est. Frontend Pages | ~60 new (10 workbenches) |
+
+### Why This Program
+
+1. **Accounting at 0%** — no double-entry GL is the single biggest enterprise gap
+2. **Revenue leakage 2-5% estimated** — revenue assurance directly protects P&L
+3. **Collection automation 0%** — dunning automation improves cash flow
+4. **Financial audit readiness 0%** — blocks enterprise certification
+5. **High dependency readiness** — C12 complete, basic billing exists
+
 ## Phase 38: Enterprise Completion
 
 **Goal:** Complete all enterprise administration, security, reporting, and production readiness  
-**Status:** 🟢 Complete  
+**Status:** ✅ Complete (superseded by C13 Program)  
 **Started:** 2026-07-19  
 **Completed:** 2026-07-20  
 
