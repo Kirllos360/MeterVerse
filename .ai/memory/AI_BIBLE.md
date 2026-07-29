@@ -12,7 +12,7 @@ If discovery hasn't happened → respond ONLY "CAPABILITY DISCOVERY REQUIRED".
 ### 0.2 — Pre-Flight Checklist (RUN BEFORE EVERY TASK)
 ```
 ☐ CAPABILITY DISCOVERY — Check ALL tools
-☐ MCP CHECK — 10 MCPs active
+☐ MCP CHECK — 12 MCPs active (including postgres-mcp and playwright-mcp)
 ☐ CLI CHECK — lighthouse, axe-core, puppeteer
 ☐ RUNTIME CHECK — Node, Java, Docker, PostgreSQL
 ☐ BACKEND CHECK — :3002/api/health = 200
@@ -30,11 +30,11 @@ Every tool use starts with 🧰 **tool-name** — description.
 Never say "completed/fixed/verified/tested" without tool execution evidence.
 
 ### 0.5 — Tool Registry
-**10 MCPs:** sequential-thinking, git, filesystem, postgres, playwright, memory, openapi, storybook, MCP_DOCKER, lovable
+**12 MCPs:** sequential-thinking, git, filesystem, postgres-mcp, playwright, memory, openapi, storybook, MCP_DOCKER, lovable, serena, chrome-devtools
 **60+ CLIs:** lighthouse v13.4.1, axe-core v4.12.1, puppeteer v25.3, artillery v2.0.33, snyk v1.1305.0, dependency-cruiser v18, madge v8, knip v26, typedoc v0.28, serena v0.0.1, context7 v1.0.3, and 50+ more
 **Runtimes:** Node v24.15, Java 21, Docker 29.5, PostgreSQL 16, Prisma 7.8
 **Built-in:** read, edit, write, bash, glob, grep, task, todowrite, webfetch, question, skill
-**User-provided:** Serena 🧠, Context7 📚, Chrome DevTools 🔍, Lighthouse 📊, axe-core ♿, Codebase Memory 💾, Graphical MCP 📈, deepseek-eyes 👁️ (Cloudflare AI Vision, v2.0.0)
+**User-provided:** Serena 🧠, Context7 📚, Chrome DevTools 🔍, Lighthouse 📊, axe-core ♿, Codebase Memory 💾, Graphical MCP 📈, deepseek-eyes 👁️ (Cloudflare AI Vision, v2.0.0), Postgres MCP Pro 🐘 (Crystal DBA — health, indexing, explain, SQL execution)
 
 ---
 

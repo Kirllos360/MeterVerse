@@ -299,3 +299,26 @@
         ]
     }
 ]
+,
+    {
+        "date": "2026-07-29",
+        "task": "C13 Constitution & Architecture Blueprint + Postgres MCP Pro installation",
+        "tools_activated": ["memory", "filesystem", "bash", "sequential-thinking", "serena", "read", "edit", "write", "grep", "glob", "todowrite"],
+        "tools_used": [
+            "memory (knowledge graph read + create C13 entity + add observations + relations)",
+            "sequential-thinking (C13 program design, gap analysis, domain model architecture)",
+            "filesystem/bash (discover accounting backend already built, Prisma schema scan)",
+            "serena (read memory files, list directories, search codebase)",
+            "read/edit/write (PROJECT_STATE, CURRENT_SPRINT, AI_BIBLE, opencode.json, tools-manifest)",
+            "bash (install postgres-mcp from zip, configure, verify)"
+        ],
+        "evidence": [
+            "C13_CONSTITUTION_AND_ARCHITECTURE_BLUEPRINT.md (v2.0.0, 395+ lines, 12 parts)",
+            "C13_ENTERPRISE_FINANCIAL_PLATFORM_MASTER_PLAN.md (superseded by v2)",
+            ".opencode/opencode.json (postgres-mcp added with DATABASE_URI)",
+            ".ai/memory/AI_BIBLE.md (MCP count 10?12, tool registry updated)",
+            "configs/tools-manifest.md (postgres entry replaced with postgres-mcp-pro)",
+            "git commit 79d1232f (C13 blueprint) + follow-up commit (postgres MCP + doc updates)"
+        ]
+    }
+]

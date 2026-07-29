@@ -82,6 +82,15 @@
       "command": ["spectral", "--help"],
       "enabled": false,
       "description": "OpenAPI/AsyncAPI contract validation"
+    },
+    "postgres": {
+      "type": "local",
+      "command": ["uvx", "postgres-mcp", "--access-mode=restricted"],
+      "enabled": true,
+      "description": "PostgreSQL tuning, health checks, index analysis, schema intelligence, safe SQL execution",
+      "env": {
+        "DATABASE_URI": "postgresql://meter_pulse:meter_pulse_dev@localhost:5432/meter_pulse?schema=public"
+      }
     }
   }
 }
