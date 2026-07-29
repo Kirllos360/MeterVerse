@@ -47,6 +47,8 @@ import { databaseConnectionsRouter } from "./routes/database-connections.js"
 import { connectionProfilesRouter } from "./routes/connection-profiles.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
+import { authenticate } from "./middleware/auth.js"
+import { requirePermission } from "./middleware/security.js"
 import { configRouter } from "./routes/config-center.js"
 import { locationsRouter } from "./routes/locations.js"
 import { diagnosticsRouter } from "./routes/diagnostics.js"
@@ -325,6 +327,15 @@ app.get("/api/health/scores/:profileId", async (req, res) => {
   const score = await runtime.healthMonitor.computeScore(req.params.profileId).catch(() => null)
   res.json({ score })
 })
+app.post("/api/failover/:profileId", async (req, res) => {
+  const result = await runtime.failover.executeFailover(req.params.profileId, "Manual trigger").catch(e => ({ error: e.message }))
+  res.json(result)
+})
+app.post("/api/failover/:profileId/switchback", async (req, res) => {
+  const result = await runtime.failover.switchbackToPrimary(req.params.profileId).catch(e => ({ error: e.message }))
+  res.json(result)
+})
+app.get("/api/failover/stats", (req, res) => { res.json(runtime.failover.getStats()) })
 app.post("/api/diagnostics/:profileId", async (req, res) => {
   const report = await runtime.diagnostics.runFullDiagnostic(req.params.profileId).catch(e => ({ error: e.message }))
   res.json(report)

@@ -140,15 +140,9 @@ export const HEARTBEAT_JOB = {
       await prisma.healthCheck.create({
         data: { connectionProfileId: profile.id, status, latencyMs: Date.now() - start, error },
       })
-      // If failed 3+ consecutive times, trigger reconnect
-      if (status === "failed") {
-        const recent = await prisma.healthCheck.count({
-          where: { connectionProfileId: profile.id, status: "failed", checkedAt: { gte: new Date(Date.now() - 120000) } },
-        })
-        if (recent >= 3 && runtime) {
-          runtime._emit("runtime.connection_lost", { profileId: profile.id })
-          try { await runtime._connectProfile(profile) } catch {}
-        }
+      // Route to FailoverManager for handling
+      if (status === "failed" && runtime) {
+        await runtime.failover.onHeartbeatResult(profile.id, "failed", error)
       }
     }
     logger.debug({ component: "scheduler", profilesChecked: activeProfiles.length }, "Heartbeat completed")

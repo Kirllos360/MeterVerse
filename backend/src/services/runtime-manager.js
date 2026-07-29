@@ -3,6 +3,7 @@ import { ConnectionPool } from "./connection-pool.js"
 import { SessionManager } from "./session-manager.js"
 import { HealthMonitor } from "./health-monitor.js"
 import { DiagnosticsEngine } from "./diagnostics-engine.js"
+import { FailoverManager } from "./failover-manager.js"
 import { createSymbiotBridge, getSymbiotStatus } from "./symbiot-bridge.js"
 import logger from "./logger.js"
 
@@ -24,6 +25,7 @@ export class RuntimeManager {
     this.sessions = new SessionManager(options.session)
     this.healthMonitor = new HealthMonitor(this)
     this.diagnostics = new DiagnosticsEngine(this)
+    this.failover = new FailoverManager(this)
     this.symbiotBridge = null
     this._healthTimer = null
     this._activeProfiles = new Map()
@@ -170,6 +172,7 @@ export class RuntimeManager {
       pool: this.pool.getStats(),
       sessions: this.sessions.getStats(),
       symbiot,
+      failover: this.failover.getStats(),
       metrics: { ...this.metrics },
       uptime: process.uptime(),
     }
