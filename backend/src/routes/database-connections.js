@@ -3,6 +3,7 @@ import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
+import { encrypt } from "../services/credential-vault.js"
 
 const router = Router()
 router.use(authenticate)
@@ -46,6 +47,36 @@ router.post("/", requirePermission("admin.settings"), async (req, res, next) => 
     } else {
       await prisma.systemSetting.create({ data: { key, value, category: "database_connection", type: "json" } })
       auditLog(req, "db_connection.created", { name: data.name })
+    }
+
+    // Dual-write: also save to ConnectionProfile
+    try {
+      const areaId = data.areaId || "default"
+      const profileName = data.name
+      const existingProfile = await prisma.connectionProfile.findFirst({ where: { name: profileName, areaId, archivedAt: null } })
+      if (existingProfile) {
+        await prisma.connectionProfile.update({
+          where: { id: existingProfile.id },
+          data: { host: data.host, port: data.port, dbType: data.type, dbHost: data.host, dbPort: data.port, dbName: data.database, dbUser: data.username },
+        })
+        if (data.password) {
+          const cred = await prisma.connectionCredential.findUnique({ where: { connectionProfileId: existingProfile.id } })
+          const encPw = encrypt(data.password)
+          if (cred) await prisma.connectionCredential.update({ where: { connectionProfileId: existingProfile.id }, data: { password: encPw, dbPassword: encPw } })
+          else await prisma.connectionCredential.create({ data: { connectionProfileId: existingProfile.id, password: encPw, dbPassword: encPw } })
+        }
+      } else {
+        const profile = await prisma.connectionProfile.create({
+          data: { name: profileName, host: data.host, port: data.port, dbType: data.type, dbHost: data.host, dbPort: data.port, dbName: data.database, dbUser: data.username, areaId, status: "active", active: true },
+        })
+        if (data.password) {
+          const encPw = encrypt(data.password)
+          await prisma.connectionCredential.create({ data: { connectionProfileId: profile.id, password: encPw, dbPassword: encPw } })
+        }
+      }
+    } catch (e) {
+      // Dual-write failure is non-blocking — log but don't fail the request
+      console.error("[dual-write] ConnectionProfile sync failed:", e.message)
     }
 
     res.json({ success: true, name: data.name })

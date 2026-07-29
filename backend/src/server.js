@@ -45,6 +45,7 @@ import { knowledgeArticlesRouter } from "./routes/knowledge-articles.js"
 import { aiFeedbackRouter } from "./routes/ai-feedback.js"
 import { databaseConnectionsRouter } from "./routes/database-connections.js"
 import { connectionProfilesRouter as connProfRouter } from "./routes/connection-profiles.js"
+import { migrationRouter } from "./routes/migration.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
@@ -279,6 +280,7 @@ mount("/knowledge-articles", knowledgeArticlesRouter)
 mount("/ai-feedback", aiFeedbackRouter)
 mount("/database-connections", databaseConnectionsRouter)
 mount("/connection-profiles", connProfRouter)
+mount("/migration", migrationRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
