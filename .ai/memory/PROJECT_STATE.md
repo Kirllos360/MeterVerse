@@ -16,18 +16,24 @@
 | C01-C10 | Connectivity Center — Foundation, ConnectionManager, RuntimeManager, SchedulerEngine, HealthMonitor, DiagnosticsEngine, FailoverManager, EventBus/Metrics, API Layer, Frontend, Migration | ✅ Complete |
 | C12 | Identity Program — DB Foundation, Permission Engine, Scoped RBAC, Context Engine, Zero-Trust Security, Governance Automation, Operational Intelligence | ✅ Certified 100% |
 
-## C13 Program — PLANNING ONLY
+## C13 Program — CONSTITUTION & ARCHITECTURE BLUEPRINT
 
 | Field | Value |
 |-------|-------|
 | Name | Enterprise Financial & Billing Intelligence Platform |
-| Status | **PLANNING ONLY — NOT IMPLEMENTED** |
-| Plan File | `C13_ENTERPRISE_FINANCIAL_PLATFORM_MASTER_PLAN.md` |
+| Status | **CONSTITUTION COMPLETE — NOT IMPLEMENTED** |
+| Constitution | `C13_CONSTITUTION_AND_ARCHITECTURE_BLUEPRINT.md` (v2.0.0, 395+ lines) |
+| Supersedes | `C13_ENTERPRISE_FINANCIAL_PLATFORM_MASTER_PLAN.md` (v1) |
 | Waves | 12 (W01-W12), ~60 days |
-| New Models | 14 (Account, JournalEntry, GL, FinancialPeriod, etc.) |
-| Enhanced Models | 6 (Invoice, Payment, Tariff, CollectionCase, BillRun, MeterReading) |
+| New Models | 5 (FiscalYear, BankStatement, BankReconciliation, RevenueRule, RevenueTransaction) |
+| Enhanced Models | 6 (Invoice, Payment, CollectionCase, PromiseToPay, Tariff, BillRun) |
+| AI Agents | 5 (Revenue Leakage, Collection Optimization, Financial Forecast, Invoice Anomaly, Financial Classification) |
+| Frontend Pages | 10 Financial Workbenches |
 | Estimated Tests | 395 |
-| Target | Accounting 0%→90%, Billing 30%→95%, Collections 30%→85% |
+| Target | Accounting 90%, Billing 95%, Collections 85% |
+
+### Critical Discovery
+The **accounting backend is ALREADY FULLY BUILT** — Account, JournalEntry, JournalLineItem, GeneralLedgerEntry, FinancialPeriod models + full accounting route file with Zod/RBAC/audit. C13 is a **connect-and-enhance** program, not build-from-scratch.
 
 ## Completed Phases 15-20
 
