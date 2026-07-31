@@ -314,5 +314,24 @@
             "planning/050_ENTERPRISE_DOMAIN_ARCHITECTURE/09_DOCUMENTS/document/DOMAIN.md",
             "planning/050_ENTERPRISE_DOMAIN_ARCHITECTURE/06_INTELLIGENCE/knowledge/DOMAIN.md"
         ]
+    },
+    {
+        "date": "2026-07-29",
+        "task": "C25 Enterprise Communication Notification Collaboration blueprint",
+        "tools_activated": ["filesystem", "bash", "read", "grep", "glob", "memory", "serena", "git"],
+        "tools_used": [
+            "tools-manifest read for task routing",
+            "notification/email/SMS/push/activity/webhook/queue foundations audited",
+            "C01-C24 communication event and governance integrations mapped",
+            "memory knowledge graph updated with C25 state",
+            "apply_patch used to create the read-only blueprint",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "C25_Communication_Notification_Collaboration_Platform.md",
+            "backend/prisma/schema.prisma Notification, NotificationTemplate, EmailLog, SmsLog, PushNotification, ActivityStream",
+            "backend/src/services/notification-engine.js",
+            "backend/src/services/webhook-dispatcher.js"
+        ]
     }
 ]
