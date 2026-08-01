@@ -651,5 +651,23 @@
             "backend/vitest.contract.config.ts",
             "commit 79f0f9d4"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 1 — C12 security middleware test expansion",
+        "tools_activated": ["bash", "read", "grep", "filesystem", "git", "memory", "todowrite"],
+        "tools_used": [
+            "auth.js and security.js middleware audited for C12 coverage gaps",
+            "implemented tests/unit/security-middleware.test.mjs (31 tests)",
+            "verified 131 unit tests pass (was 100)",
+            "recorded observations OBS-009/OBS-010",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "backend/tests/unit/security-middleware.test.mjs",
+            "backend/src/middleware/security.js",
+            "backend/src/middleware/auth.js",
+            "131 unit tests passing"
+        ]
     }
 ]

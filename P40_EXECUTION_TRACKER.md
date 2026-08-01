@@ -128,6 +128,8 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-006 | `backend/src/services/runtime-manager.js` | RuntimeManager starts Symbiot bridge and pools unconditionally on `start()`; no test-mode flag. | Medium | Env-based port isolation applied; consider explicit `ENABLE_SYMBIOT=0` test mode in treatment phase. |
 | OBS-007 | `backend/prisma/migrations/` | Migration history has redundant init folders (`00001_init`, `00001_initial`, `20260723000000_init_schema`). | High | Consolidate to one baseline before P40 Batch B-01 (Wave 2). |
 | OBS-008 | `backend/` | 23+ uncommitted coverage artifacts and a deleted frontend test (`permissions.test.ts`) remain in working tree. | Medium | Clean working tree per P41 blocker #4; verify whether `permissions.test.ts` deletion is intentional. |
+| OBS-009 | `backend/src/middleware/security.js` | `requireAccess(model, resourceId)` returns an async middleware via an async function; callers must `await requireAccess(...)` before invoking. Not used by any route today (dead surface). | Low | Document usage contract or convert to sync factory in treatment phase; add route coverage if adopted. |
+| OBS-010 | `backend/tests/unit/security-middleware.test.mjs` | New C12 middleware test file requires `prisma.auditEntry.create.mockResolvedValue({})` before invoking paths that call `auditLog` (returns `.catch` on create promise). | Low | Accept as test-harness convention; consider making auditLog resilient to non-promise create in treatment phase. |
 
 ---
 
@@ -142,7 +144,8 @@ Wave 1 completed in this session:
   ✅ Location contract endpoints implemented (C12/C01 data surface)
   ✅ Symbiot port isolation (C19 test infra)
   ✅ Contract/integration suites verified green (48+31)
-  ⏳ Next: C21 governance registries, C12 test expansion, coverage thresholds
+  ✅ C12 security middleware test suite (+31 tests) — 131 unit tests total
+  ⏳ Next: C21 governance registries, C12 further expansion, coverage thresholds
 
 Last updated: 2026-08-01
 Next gate: Wave 1 completion (C12/C19/C20/C21) per P40
