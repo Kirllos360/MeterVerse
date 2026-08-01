@@ -1,11 +1,17 @@
-# C13-W07 — Enterprise Financial AI, Forecasting & Decision Intelligence Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W2 | Commit: 7f1a4f3a
+====================================================================
+-->
+
+# C13-W07 â€” Enterprise Financial AI, Forecasting & Decision Intelligence Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Program:** C13 Enterprise Financial & Billing Intelligence Platform  
-**Wave:** W07 (Capstone — Financial AI & Decision Intelligence)  
+**Wave:** W07 (Capstone â€” Financial AI & Decision Intelligence)  
 
 ---
 
@@ -15,45 +21,45 @@
 
 | Component | Location | Status | Capability |
 |-----------|----------|--------|------------|
-| **aiOperator** | `services/ai-engine.js:10` | ✅ Basic | Intent detection + data query |
-| **aiBillingAssistant** | `services/ai-engine.js:56` | ✅ Basic | Invoice analysis with payment history |
-| **aiReadingValidator** | `services/ai-engine.js:83` | ✅ Basic | Spike detection in readings |
-| **aiLeakDetection** | `services/ai-engine.js:108` | ✅ Basic | Constant non-zero consumption |
-| **aiForecasting** | `services/ai-engine.js:136` | ✅ Basic | Simple consumption projection |
-| **aiRootCauseAnalysis** | `services/ai-engine.js:167` | ✅ Basic | Invoice overdue RCA |
-| **aiReportBuilder** | `services/ai-engine.js:196` | ✅ Basic | Revenue summary report |
-| **aiSqlAssistant** | `services/ai-engine.js:227` | ✅ Basic | NL→SQL pattern matching |
-| **aiWorkflowGenerator** | `services/ai-engine.js:250` | ✅ Basic | Workflow template suggestion |
-| **LearnedPattern** model | `schema.prisma:791` | ✅ Complete | Pattern, resolution, frequency, effectiveness, confidence |
-| **KpiDefinition** model | `schema.prisma:716` | ✅ Complete | Category, target, unit, trend |
-| **KpiSnapshot** model | `schema.prisma:730` | ✅ Complete | Time-series KPI values |
-| **C12-W07 OI Framework** | Designed | ✅ Complete | AIRecommendation model, governance rules, 5 AI agents |
-| **W02 Revenue Agent** | Designed | ❌ W02 | Revenue leakage detection |
-| **W04 Collection Agent** | Designed | ❌ W04 | Payment probability, next-best-action |
-| **W05 Cash Agent** | Designed | ❌ W05 | Reconciliation suggestions, cash forecast |
-| **W06 Financial Agent** | Designed | ❌ W06 | Narrative, variance explanation |
+| **aiOperator** | `services/ai-engine.js:10` | âœ… Basic | Intent detection + data query |
+| **aiBillingAssistant** | `services/ai-engine.js:56` | âœ… Basic | Invoice analysis with payment history |
+| **aiReadingValidator** | `services/ai-engine.js:83` | âœ… Basic | Spike detection in readings |
+| **aiLeakDetection** | `services/ai-engine.js:108` | âœ… Basic | Constant non-zero consumption |
+| **aiForecasting** | `services/ai-engine.js:136` | âœ… Basic | Simple consumption projection |
+| **aiRootCauseAnalysis** | `services/ai-engine.js:167` | âœ… Basic | Invoice overdue RCA |
+| **aiReportBuilder** | `services/ai-engine.js:196` | âœ… Basic | Revenue summary report |
+| **aiSqlAssistant** | `services/ai-engine.js:227` | âœ… Basic | NLâ†’SQL pattern matching |
+| **aiWorkflowGenerator** | `services/ai-engine.js:250` | âœ… Basic | Workflow template suggestion |
+| **LearnedPattern** model | `schema.prisma:791` | âœ… Complete | Pattern, resolution, frequency, effectiveness, confidence |
+| **KpiDefinition** model | `schema.prisma:716` | âœ… Complete | Category, target, unit, trend |
+| **KpiSnapshot** model | `schema.prisma:730` | âœ… Complete | Time-series KPI values |
+| **C12-W07 OI Framework** | Designed | âœ… Complete | AIRecommendation model, governance rules, 5 AI agents |
+| **W02 Revenue Agent** | Designed | âŒ W02 | Revenue leakage detection |
+| **W04 Collection Agent** | Designed | âŒ W04 | Payment probability, next-best-action |
+| **W05 Cash Agent** | Designed | âŒ W05 | Reconciliation suggestions, cash forecast |
+| **W06 Financial Agent** | Designed | âŒ W06 | Narrative, variance explanation |
 
 ### 1.2 Gap Analysis
 
 | Capability | Current | W07 Target |
 |------------|---------|------------|
-| **Revenue forecasting** | ❌ None | Short/med/long-term with ML |
-| **Cash flow forecasting** | ❌ None | Daily/weekly/monthly with scenarios |
-| **Collections forecasting** | ❌ None | Probability-weighted projection |
-| **Demand forecasting** | ❌ Basic consumption | Multi-dimensional utility demand |
-| **Expense forecasting** | ❌ None | Operating expense prediction |
-| **Profitability forecasting** | ❌ None | Margin projection |
-| **Budget prediction** | ❌ None | AI-assisted budget estimation |
-| **Scenario modeling** | ❌ None | Best/Expected/Worst case |
-| **Monte Carlo simulation** | ❌ None | 10K-run probabilistic simulation |
-| **Financial digital twin** | ❌ None | Full financial state replication |
-| **Executive recommendation** | ❌ None | AI CFO decision support |
-| **Fraud/anomaly detection** | ❌ Basic leakage | Financial fraud indicators |
-| **Business health score** | ❌ None | Composite 0-100 score |
-| **Board summaries** | ❌ None | AI-generated board packs |
-| **AI governance lifecycle** | ❌ None | Model versioning, drift detection |
-| **Explainable AI** | ❌ None | Confidence + reasoning for every output |
-| **CFO Decision Center** | ❌ None | Executive AI dashboard |
+| **Revenue forecasting** | âŒ None | Short/med/long-term with ML |
+| **Cash flow forecasting** | âŒ None | Daily/weekly/monthly with scenarios |
+| **Collections forecasting** | âŒ None | Probability-weighted projection |
+| **Demand forecasting** | âŒ Basic consumption | Multi-dimensional utility demand |
+| **Expense forecasting** | âŒ None | Operating expense prediction |
+| **Profitability forecasting** | âŒ None | Margin projection |
+| **Budget prediction** | âŒ None | AI-assisted budget estimation |
+| **Scenario modeling** | âŒ None | Best/Expected/Worst case |
+| **Monte Carlo simulation** | âŒ None | 10K-run probabilistic simulation |
+| **Financial digital twin** | âŒ None | Full financial state replication |
+| **Executive recommendation** | âŒ None | AI CFO decision support |
+| **Fraud/anomaly detection** | âŒ Basic leakage | Financial fraud indicators |
+| **Business health score** | âŒ None | Composite 0-100 score |
+| **Board summaries** | âŒ None | AI-generated board packs |
+| **AI governance lifecycle** | âŒ None | Model versioning, drift detection |
+| **Explainable AI** | âŒ None | Confidence + reasoning for every output |
+| **CFO Decision Center** | âŒ None | Executive AI dashboard |
 
 ---
 
@@ -62,89 +68,89 @@
 ### 2.1 High-Level Architecture
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│              FINANCIAL AI & DECISION INTELLIGENCE PLATFORM (C13-W07 Capstone)                            │
-│                                                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐      │
-│  │  DATA SOURCES (W01-W06 + External)                                                              │      │
-│  │                                                                                                │      │
-│  │  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ ┌────────┐        │      │
-│  │  │ GL   │ │ Rev  │ │ Tar  │ │ Coll │ │ Cash │ │ Fin  │ │ C12  │ │ Ext  │ │ Learned │        │      │
-│  │  │ W01  │ │ W02  │ │ W03  │ │ W04  │ │ W05  │ │ W06  │ │ OI   │ │ Mkt  │ │Patterns │        │      │
-│  │  └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └──────┘ └────────┘        │      │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘      │
-│                                    │                                                                   │
-│                                    ▼                                                                   │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐      │
-│  │  FORECASTING ENGINE                                                                              │      │
-│  │                                                                                                │      │
-│  │  ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐  │      │
-│  │  │ Revenue    │ │ Cash Flow  │ │ Collections│ │ Demand     │ │ Expense    │ │ Profit-    │  │      │
-│  │  │ Forecast   │ │ Forecast   │ │ Forecast   │ │ Forecast   │ │ Forecast   │ │ ability    │  │      │
-│  │  └────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘  │      │
-│  │                                                                                                │      │
-│  │  Methods: Time-series (ARIMA) | Regression | Prophet | Ensemble | ML                            │      │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘      │
-│                                    │                                                                   │
-│                                    ▼                                                                   │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐      │
-│  │  SCENARIO & SIMULATION ENGINE                                                                   │      │
-│  │                                                                                                │      │
-│  │  ┌────────────────────┐ ┌────────────────────┐ ┌────────────────────┐ ┌──────────────────┐   │      │
-│  │  │ Scenario Modeling  │ │ Monte Carlo (10K)  │ │ What-If Engine    │ │ Financial Digital │   │      │
-│  │  │ (Best/Exp/Worst)   │ │ Simulation         │ │ (parameter change) │ │ Twin              │   │      │
-│  │  └────────────────────┘ └────────────────────┘ └────────────────────┘ └──────────────────┘   │      │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘      │
-│                                    │                                                                   │
-│                                    ▼                                                                   │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐      │
-│  │  DECISION INTELLIGENCE LAYER                                                                    │      │
-│  │                                                                                                │      │
-│  │  ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────┐  │      │
-│  │  │ Executive      │ │ Anomaly &      │ │ Business       │ │ AI Board       │ │ KPI        │  │      │
-│  │  │ Recommendation │ │ Fraud Detection│ │ Health Score   │ │ Summary Gen.   │ │ Intelligence│  │      │
-│  │  └────────────────┘ └────────────────┘ └────────────────┘ └────────────────┘ └────────────┘  │      │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘      │
-│                                    │                                                                   │
-│                                    ▼                                                                   │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐      │
-│  │  AI GOVERNANCE & EXPLAINABILITY                                                                 │      │
-│  │                                                                                                │      │
-│  │  ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────┐  │      │
-│  │  │ Model Lifecycle│ │ Confidence     │ │ Explainable AI │ │ Human          │ │ Audit      │  │      │
-│  │  │ Tracking       │ │ Scoring (0-1)  │ │ (SHAP/LIME)    │ │ Approval Flow  │ │ Trail      │  │      │
-│  │  └────────────────┘ └────────────────┘ └────────────────┘ └────────────────┘ └────────────┘  │      │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘      │
-│                                                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐      │
-│  │  DASHBOARDS                                                                                     │      │
-│  │                                                                                                │      │
-│  │  ┌──────────────────────────┐ ┌──────────────────────────┐ ┌──────────────────────────┐       │      │
-│  │  │ CFO Decision Center      │ │ AI Operations Dashboard  │ │ Executive Insights       │       │      │
-│  │  │ (forecasts, scenarios,   │ │ (model health, accuracy, │ │ Timeline (AI-generated   │       │      │
-│  │  │ recommendations)         │ │ drift, governance)       │ │ insights, alerts)        │       │      │
-│  │  └──────────────────────────┘ └──────────────────────────┘ └──────────────────────────┘       │      │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘      │
-└───────────────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚              FINANCIAL AI & DECISION INTELLIGENCE PLATFORM (C13-W07 Capstone)                            â”‚
+â”‚                                                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚  DATA SOURCES (W01-W06 + External)                                                              â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”        â”‚      â”‚
+â”‚  â”‚  â”‚ GL   â”‚ â”‚ Rev  â”‚ â”‚ Tar  â”‚ â”‚ Coll â”‚ â”‚ Cash â”‚ â”‚ Fin  â”‚ â”‚ C12  â”‚ â”‚ Ext  â”‚ â”‚ Learned â”‚        â”‚      â”‚
+â”‚  â”‚  â”‚ W01  â”‚ â”‚ W02  â”‚ â”‚ W03  â”‚ â”‚ W04  â”‚ â”‚ W05  â”‚ â”‚ W06  â”‚ â”‚ OI   â”‚ â”‚ Mkt  â”‚ â”‚Patterns â”‚        â”‚      â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚                                    â”‚                                                                   â”‚
+â”‚                                    â–¼                                                                   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚  FORECASTING ENGINE                                                                              â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚      â”‚
+â”‚  â”‚  â”‚ Revenue    â”‚ â”‚ Cash Flow  â”‚ â”‚ Collectionsâ”‚ â”‚ Demand     â”‚ â”‚ Expense    â”‚ â”‚ Profit-    â”‚  â”‚      â”‚
+â”‚  â”‚  â”‚ Forecast   â”‚ â”‚ Forecast   â”‚ â”‚ Forecast   â”‚ â”‚ Forecast   â”‚ â”‚ Forecast   â”‚ â”‚ ability    â”‚  â”‚      â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  Methods: Time-series (ARIMA) | Regression | Prophet | Ensemble | ML                            â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚                                    â”‚                                                                   â”‚
+â”‚                                    â–¼                                                                   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚  SCENARIO & SIMULATION ENGINE                                                                   â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚      â”‚
+â”‚  â”‚  â”‚ Scenario Modeling  â”‚ â”‚ Monte Carlo (10K)  â”‚ â”‚ What-If Engine    â”‚ â”‚ Financial Digital â”‚   â”‚      â”‚
+â”‚  â”‚  â”‚ (Best/Exp/Worst)   â”‚ â”‚ Simulation         â”‚ â”‚ (parameter change) â”‚ â”‚ Twin              â”‚   â”‚      â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚                                    â”‚                                                                   â”‚
+â”‚                                    â–¼                                                                   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚  DECISION INTELLIGENCE LAYER                                                                    â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚      â”‚
+â”‚  â”‚  â”‚ Executive      â”‚ â”‚ Anomaly &      â”‚ â”‚ Business       â”‚ â”‚ AI Board       â”‚ â”‚ KPI        â”‚  â”‚      â”‚
+â”‚  â”‚  â”‚ Recommendation â”‚ â”‚ Fraud Detectionâ”‚ â”‚ Health Score   â”‚ â”‚ Summary Gen.   â”‚ â”‚ Intelligenceâ”‚  â”‚      â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚                                    â”‚                                                                   â”‚
+â”‚                                    â–¼                                                                   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚  AI GOVERNANCE & EXPLAINABILITY                                                                 â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚      â”‚
+â”‚  â”‚  â”‚ Model Lifecycleâ”‚ â”‚ Confidence     â”‚ â”‚ Explainable AI â”‚ â”‚ Human          â”‚ â”‚ Audit      â”‚  â”‚      â”‚
+â”‚  â”‚  â”‚ Tracking       â”‚ â”‚ Scoring (0-1)  â”‚ â”‚ (SHAP/LIME)    â”‚ â”‚ Approval Flow  â”‚ â”‚ Trail      â”‚  â”‚      â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚                                                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚  DASHBOARDS                                                                                     â”‚      â”‚
+â”‚  â”‚                                                                                                â”‚      â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚      â”‚
+â”‚  â”‚  â”‚ CFO Decision Center      â”‚ â”‚ AI Operations Dashboard  â”‚ â”‚ Executive Insights       â”‚       â”‚      â”‚
+â”‚  â”‚  â”‚ (forecasts, scenarios,   â”‚ â”‚ (model health, accuracy, â”‚ â”‚ Timeline (AI-generated   â”‚       â”‚      â”‚
+â”‚  â”‚  â”‚ recommendations)         â”‚ â”‚ drift, governance)       â”‚ â”‚ insights, alerts)        â”‚       â”‚      â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### 2.2 AI Agent Ecosystem — C13 Unified
+### 2.2 AI Agent Ecosystem â€” C13 Unified
 
 ```
 C13 AI AGENT ECOSYSTEM (all integrate via C12-W07 AIRecommendation model):
 
-┌────────────────────────────────────────────────────────────────────────────────────┐
-│ W02: Revenue Leakage Detection Agent  │ Autonomy: ⚡ Semi │ Human: Corrections      │
-│ W04: Collection Intelligence Agent    │ Autonomy: ⚡ Semi │ Human: Actions          │
-│ W05: Cash Intelligence Agent          │ Autonomy: ⚡ Semi │ Human: Auto-match       │
-│ W06: Financial Analytics Agent        │ Autonomy: ✅ Full │ Human: None (read-only) │
-│ W07: CFO Decision Agent               │ Autonomy: ⚡ Semi │ Human: Recommendations  │
-│ W07: Forecasting Agent                │ Autonomy: ✅ Full │ Human: None (read-only) │
-│ W07: Scenario Simulation Agent        │ Autonomy: ⚡ Semi │ Human: Approve actions  │
-│ W07: Anomaly & Fraud Agent            │ Autonomy: ✅ Full │ Human: Alerts           │
-│ W07: Board Summary Agent              │ Autonomy: ✅ Full │ Human: Review before    │
-│                                       │                  │        distribution      │
-└────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ W02: Revenue Leakage Detection Agent  â”‚ Autonomy: âš¡ Semi â”‚ Human: Corrections      â”‚
+â”‚ W04: Collection Intelligence Agent    â”‚ Autonomy: âš¡ Semi â”‚ Human: Actions          â”‚
+â”‚ W05: Cash Intelligence Agent          â”‚ Autonomy: âš¡ Semi â”‚ Human: Auto-match       â”‚
+â”‚ W06: Financial Analytics Agent        â”‚ Autonomy: âœ… Full â”‚ Human: None (read-only) â”‚
+â”‚ W07: CFO Decision Agent               â”‚ Autonomy: âš¡ Semi â”‚ Human: Recommendations  â”‚
+â”‚ W07: Forecasting Agent                â”‚ Autonomy: âœ… Full â”‚ Human: None (read-only) â”‚
+â”‚ W07: Scenario Simulation Agent        â”‚ Autonomy: âš¡ Semi â”‚ Human: Approve actions  â”‚
+â”‚ W07: Anomaly & Fraud Agent            â”‚ Autonomy: âœ… Full â”‚ Human: Alerts           â”‚
+â”‚ W07: Board Summary Agent              â”‚ Autonomy: âœ… Full â”‚ Human: Review before    â”‚
+â”‚                                       â”‚                  â”‚        distribution      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -157,27 +163,27 @@ C13 AI AGENT ECOSYSTEM (all integrate via C12-W07 AIRecommendation model):
 
 ```
 FinancialForecast
-├── id: String (UUID, PK)
-├── forecastType: String               ← REVENUE | CASH_FLOW | COLLECTIONS | DEMAND | EXPENSE | PROFITABILITY | BUDGET
-├── scope: String                      ← ENTERPRISE | AREA | PROJECT | CUSTOMER_SEGMENT
-├── scopeId: String?                   ← Area/project/customer segment ID
-├── periodStart: DateTime
-├── periodEnd: DateTime
-├── granularity: String                ← DAILY | WEEKLY | MONTHLY | QUARTERLY | ANNUAL
-├── horizon: String                    ← SHORT_TERM (30d) | MEDIUM_TERM (90d) | LONG_TERM (1y)
-├── method: String                     ← ARIMA | PROPHET | ENSEMBLE | REGRESSION | ML | MANUAL
-├── modelVersion: String?              ← Reference to AiModelVersion.id
-├── data: String (JSON)                ← Full forecast time-series
-├── bestCase: String (JSON)?           ← Optimistic scenario data
-├── expectedCase: String (JSON)        ← Most likely scenario data
-├── worstCase: String (JSON)?          ← Pessimistic scenario data
-├── confidence: Float @default(0.5)    ← Overall confidence 0.0-1.0
-├── accuracy: Float?                   ← Historical accuracy (if tracked)
-├── status: String @default("DRAFT")   ← DRAFT | PUBLISHED | SUPERSEDED
-├── generatedBy: String?               ← AI_AGENT | MANUAL
-├── approvedBy: String? (FK → User)
-├── approvedAt: DateTime?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ forecastType: String               â† REVENUE | CASH_FLOW | COLLECTIONS | DEMAND | EXPENSE | PROFITABILITY | BUDGET
+â”œâ”€â”€ scope: String                      â† ENTERPRISE | AREA | PROJECT | CUSTOMER_SEGMENT
+â”œâ”€â”€ scopeId: String?                   â† Area/project/customer segment ID
+â”œâ”€â”€ periodStart: DateTime
+â”œâ”€â”€ periodEnd: DateTime
+â”œâ”€â”€ granularity: String                â† DAILY | WEEKLY | MONTHLY | QUARTERLY | ANNUAL
+â”œâ”€â”€ horizon: String                    â† SHORT_TERM (30d) | MEDIUM_TERM (90d) | LONG_TERM (1y)
+â”œâ”€â”€ method: String                     â† ARIMA | PROPHET | ENSEMBLE | REGRESSION | ML | MANUAL
+â”œâ”€â”€ modelVersion: String?              â† Reference to AiModelVersion.id
+â”œâ”€â”€ data: String (JSON)                â† Full forecast time-series
+â”œâ”€â”€ bestCase: String (JSON)?           â† Optimistic scenario data
+â”œâ”€â”€ expectedCase: String (JSON)        â† Most likely scenario data
+â”œâ”€â”€ worstCase: String (JSON)?          â† Pessimistic scenario data
+â”œâ”€â”€ confidence: Float @default(0.5)    â† Overall confidence 0.0-1.0
+â”œâ”€â”€ accuracy: Float?                   â† Historical accuracy (if tracked)
+â”œâ”€â”€ status: String @default("DRAFT")   â† DRAFT | PUBLISHED | SUPERSEDED
+â”œâ”€â”€ generatedBy: String?               â† AI_AGENT | MANUAL
+â”œâ”€â”€ approvedBy: String? (FK â†’ User)
+â”œâ”€â”€ approvedAt: DateTime?
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([forecastType, scope, periodStart])
@@ -191,18 +197,18 @@ Indexes:
 
 ```
 FinancialScenario
-├── id: String (UUID, PK)
-├── name: String                       ← "Rate Increase 10%", "Customer Churn 5%"
-├── description: String
-├── type: String                       ← WHAT_IF | MONTE_CARLO | BEST_CASE | WORST_CASE | TARIFF_CHANGE | CHURN_SCENARIO
-├── parameters: String (JSON)          ← Scenario parameters (e.g., { tariffIncrease: 0.10, churnRate: 0.05 })
-├── baselineForecastId: String? (FK → FinancialForecast)
-├── results: String (JSON)             ← Computed scenario results
-├── impactSummary: String?             ← Natural language summary
-├── status: String @default("DRAFT")   ← DRAFT | RUNNING | COMPLETED | FAILED
-├── runBy: String? (FK → User)
-├── completedAt: DateTime?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String                       â† "Rate Increase 10%", "Customer Churn 5%"
+â”œâ”€â”€ description: String
+â”œâ”€â”€ type: String                       â† WHAT_IF | MONTE_CARLO | BEST_CASE | WORST_CASE | TARIFF_CHANGE | CHURN_SCENARIO
+â”œâ”€â”€ parameters: String (JSON)          â† Scenario parameters (e.g., { tariffIncrease: 0.10, churnRate: 0.05 })
+â”œâ”€â”€ baselineForecastId: String? (FK â†’ FinancialForecast)
+â”œâ”€â”€ results: String (JSON)             â† Computed scenario results
+â”œâ”€â”€ impactSummary: String?             â† Natural language summary
+â”œâ”€â”€ status: String @default("DRAFT")   â† DRAFT | RUNNING | COMPLETED | FAILED
+â”œâ”€â”€ runBy: String? (FK â†’ User)
+â”œâ”€â”€ completedAt: DateTime?
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.3 MonteCarloResult (NEW)
@@ -211,23 +217,23 @@ FinancialScenario
 
 ```
 MonteCarloResult
-├── id: String (UUID, PK)
-├── scenarioId: String (FK → FinancialScenario)
-├── iterationCount: Int                ← Number of runs (typically 10,000)
-├── meanOutcome: Float
-├── medianOutcome: Float
-├── stdDev: Float
-├── percentile5: Float                 ← 5th percentile (worst case)
-├── percentile25: Float
-├── percentile75: Float
-├── percentile95: Float                ← 95th percentile (best case)
-├── distribution: String (JSON)        ← Histogram buckets
-├── riskOfLoss: Float?                 ← Probability of negative outcome
-├── valueAtRisk95: Float?              ← VaR at 95% confidence
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ scenarioId: String (FK â†’ FinancialScenario)
+â”œâ”€â”€ iterationCount: Int                â† Number of runs (typically 10,000)
+â”œâ”€â”€ meanOutcome: Float
+â”œâ”€â”€ medianOutcome: Float
+â”œâ”€â”€ stdDev: Float
+â”œâ”€â”€ percentile5: Float                 â† 5th percentile (worst case)
+â”œâ”€â”€ percentile25: Float
+â”œâ”€â”€ percentile75: Float
+â”œâ”€â”€ percentile95: Float                â† 95th percentile (best case)
+â”œâ”€â”€ distribution: String (JSON)        â† Histogram buckets
+â”œâ”€â”€ riskOfLoss: Float?                 â† Probability of negative outcome
+â”œâ”€â”€ valueAtRisk95: Float?              â† VaR at 95% confidence
+â”œâ”€â”€ createdAt
 
 Relation:
-  scenario → FinancialScenario
+  scenario â†’ FinancialScenario
 ```
 
 ### 3.4 BusinessHealthScore (NEW)
@@ -236,21 +242,21 @@ Relation:
 
 ```
 BusinessHealthScore
-├── id: String (UUID, PK)
-├── periodId: String (FK → FinancialPeriod)
-├── overallScore: Float                ← 0-100 composite
-├── revenueHealth: Float               ← 0-100
-├── profitabilityHealth: Float          ← 0-100
-├── liquidityHealth: Float              ← 0-100
-├── efficiencyHealth: Float             ← 0-100
-├── growthHealth: Float                 ← 0-100
-├── collectionHealth: Float             ← 0-100
-├── components: String (JSON)          ← Breakdown of each score's components
-├── trend: String                      ← IMPROVING | DECLINING | STABLE
-├── priorPeriodScore: Float?
-├── variance: Float?                   ← Change vs prior period
-├── status: String @default("GREEN")   ← GREEN | YELLOW | RED
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ overallScore: Float                â† 0-100 composite
+â”œâ”€â”€ revenueHealth: Float               â† 0-100
+â”œâ”€â”€ profitabilityHealth: Float          â† 0-100
+â”œâ”€â”€ liquidityHealth: Float              â† 0-100
+â”œâ”€â”€ efficiencyHealth: Float             â† 0-100
+â”œâ”€â”€ growthHealth: Float                 â† 0-100
+â”œâ”€â”€ collectionHealth: Float             â† 0-100
+â”œâ”€â”€ components: String (JSON)          â† Breakdown of each score's components
+â”œâ”€â”€ trend: String                      â† IMPROVING | DECLINING | STABLE
+â”œâ”€â”€ priorPeriodScore: Float?
+â”œâ”€â”€ variance: Float?                   â† Change vs prior period
+â”œâ”€â”€ status: String @default("GREEN")   â† GREEN | YELLOW | RED
+â”œâ”€â”€ createdAt
 
 Index:
   @@index([periodId])
@@ -262,26 +268,26 @@ Index:
 
 ```
 ExecutiveInsight
-├── id: String (UUID, PK)
-├── type: String                       ← OPPORTUNITY | RISK | TREND | ANOMALY | RECOMMENDATION | MILESTONE
-├── title: String
-├── description: String
-├── severity: String                   ← INFO | IMPORTANT | CRITICAL
-├── category: String                   ← REVENUE | COST | CASH | COLLECTIONS | GROWTH | RISK
-├── affectedMetric: String?            ← Reference to KPI name
-├── currentValue: Float?
-├── priorValue: Float?
-├── change: Float?
-├── changePct: Float?
-├── recommendation: String?            ← AI-suggested action
-├── confidence: Float                  ← 0.0-1.0
-├── source: String                     ← AI_AGENT | MANUAL
-├── agentType: String?                 ← Which AI agent generated this
-├── status: String @default("ACTIVE")  ← ACTIVE | ACKNOWLEDGED | RESOLVED | DISMISSED
-├── acknowledgedBy: String? (FK → User)
-├── acknowledgedAt: DateTime?
-├── resolvedAt: DateTime?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ type: String                       â† OPPORTUNITY | RISK | TREND | ANOMALY | RECOMMENDATION | MILESTONE
+â”œâ”€â”€ title: String
+â”œâ”€â”€ description: String
+â”œâ”€â”€ severity: String                   â† INFO | IMPORTANT | CRITICAL
+â”œâ”€â”€ category: String                   â† REVENUE | COST | CASH | COLLECTIONS | GROWTH | RISK
+â”œâ”€â”€ affectedMetric: String?            â† Reference to KPI name
+â”œâ”€â”€ currentValue: Float?
+â”œâ”€â”€ priorValue: Float?
+â”œâ”€â”€ change: Float?
+â”œâ”€â”€ changePct: Float?
+â”œâ”€â”€ recommendation: String?            â† AI-suggested action
+â”œâ”€â”€ confidence: Float                  â† 0.0-1.0
+â”œâ”€â”€ source: String                     â† AI_AGENT | MANUAL
+â”œâ”€â”€ agentType: String?                 â† Which AI agent generated this
+â”œâ”€â”€ status: String @default("ACTIVE")  â† ACTIVE | ACKNOWLEDGED | RESOLVED | DISMISSED
+â”œâ”€â”€ acknowledgedBy: String? (FK â†’ User)
+â”œâ”€â”€ acknowledgedAt: DateTime?
+â”œâ”€â”€ resolvedAt: DateTime?
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([type, severity, status])
@@ -295,50 +301,50 @@ Indexes:
 
 ```
 AiModelVersion
-├── id: String (UUID, PK)
-├── modelName: String                  ← "revenue_forecast_v3", "payment_probability_v2"
-├── version: String                    ← Semantic version
-├── modelType: String                  ← ARIMA | PROPHET | XGBOOST | REGRESSION | ENSEMBLE
-├── hyperparameters: String (JSON)
-├── trainingDataRange: String          ← "2025-01 to 2026-06"
-├── trainingRowCount: Int
-├── accuracy: Float?                   ← Validation accuracy/R²
-├── precision: Float?                  ← For classification models
-├── recall: Float?                     ← For classification models
-├── f1Score: Float?                    ← For classification models
-├── mae: Float?                        ← Mean absolute error
-├── rmse: Float?                       ← Root mean squared error
-├── status: String @default("TRAINING")← TRAINING | ACTIVE | DEPRECATED | ARCHIVED
-├── activatedAt: DateTime?
-├── activatedBy: String? (FK → User)
-├── deprecatedAt: DateTime?
-├── driftDetectedAt: DateTime?
-├── driftMetric: Float?
-├── notes: String?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ modelName: String                  â† "revenue_forecast_v3", "payment_probability_v2"
+â”œâ”€â”€ version: String                    â† Semantic version
+â”œâ”€â”€ modelType: String                  â† ARIMA | PROPHET | XGBOOST | REGRESSION | ENSEMBLE
+â”œâ”€â”€ hyperparameters: String (JSON)
+â”œâ”€â”€ trainingDataRange: String          â† "2025-01 to 2026-06"
+â”œâ”€â”€ trainingRowCount: Int
+â”œâ”€â”€ accuracy: Float?                   â† Validation accuracy/RÂ²
+â”œâ”€â”€ precision: Float?                  â† For classification models
+â”œâ”€â”€ recall: Float?                     â† For classification models
+â”œâ”€â”€ f1Score: Float?                    â† For classification models
+â”œâ”€â”€ mae: Float?                        â† Mean absolute error
+â”œâ”€â”€ rmse: Float?                       â† Root mean squared error
+â”œâ”€â”€ status: String @default("TRAINING")â† TRAINING | ACTIVE | DEPRECATED | ARCHIVED
+â”œâ”€â”€ activatedAt: DateTime?
+â”œâ”€â”€ activatedBy: String? (FK â†’ User)
+â”œâ”€â”€ deprecatedAt: DateTime?
+â”œâ”€â”€ driftDetectedAt: DateTime?
+â”œâ”€â”€ driftMetric: Float?
+â”œâ”€â”€ notes: String?
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([modelName, status])
   @@unique([modelName, version])
 ```
 
-### 3.7 AiRecommendationLog (NEW — extends C12-W07 concept)
+### 3.7 AiRecommendationLog (NEW â€” extends C12-W07 concept)
 
 **Purpose:** Complete audit trail for every AI recommendation.
 
 ```
 AiRecommendationLog
-├── id: String (UUID, PK)
-├── agentType: String                  ← revenue_leakage | collection_intel | cash_intel | financial_analytics | cfo_decision
-├── inputSummary: String               ← What triggered the recommendation
-├── output: String (JSON)              ← Full recommendation output
-├── confidence: Float                  ← 0.0-1.0
-├── status: String @default("PENDING") ← PENDING | APPROVED | REJECTED | MODIFIED
-├── reviewedBy: String? (FK → User)
-├── reviewedAt: DateTime?
-├── humanFeedback: String?             ← Why approved/rejected
-├── effectiveness: Float?              ← Tracked after implementation
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ agentType: String                  â† revenue_leakage | collection_intel | cash_intel | financial_analytics | cfo_decision
+â”œâ”€â”€ inputSummary: String               â† What triggered the recommendation
+â”œâ”€â”€ output: String (JSON)              â† Full recommendation output
+â”œâ”€â”€ confidence: Float                  â† 0.0-1.0
+â”œâ”€â”€ status: String @default("PENDING") â† PENDING | APPROVED | REJECTED | MODIFIED
+â”œâ”€â”€ reviewedBy: String? (FK â†’ User)
+â”œâ”€â”€ reviewedAt: DateTime?
+â”œâ”€â”€ humanFeedback: String?             â† Why approved/rejected
+â”œâ”€â”€ effectiveness: Float?              â† Tracked after implementation
+â”œâ”€â”€ createdAt
 
 Indexes:
   @@index([agentType, status])
@@ -427,18 +433,18 @@ ALGORITHM: forecastCashFlow(days = 90):
   // INFLOWS:
   // 1. Expected invoice payments (weighted by payment probability)
   dueInvoices = Invoice.findWhere(dueDate IN next 90 days, status NOT paid)
-  expectedPayments = SUM(dueInvoices, amount × CustomerRiskProfile.paymentProbability)
+  expectedPayments = SUM(dueInvoices, amount Ã— CustomerRiskProfile.paymentProbability)
   
   // 2. PTP promises (weighted by 85% keep rate)
   ptps = PromiseToPay.findWhere(promisedDate IN next 90 days, status = PENDING)
-  expectedPtps = SUM(ptps, promisedAmount × 0.85)
+  expectedPtps = SUM(ptps, promisedAmount Ã— 0.85)
   
   // 3. Recurring revenue (standing charges)
-  recurring = monthlyFixedCharges × coverage
+  recurring = monthlyFixedCharges Ã— coverage
   
   // OUTFLOWS:
   // 1. Operating expenses (historical pattern)
-  avgOpEx = averageMonthlyOpEx(last 6 months) × (days/30)
+  avgOpEx = averageMonthlyOpEx(last 6 months) Ã— (days/30)
   
   // 2. Supplier payments
   supplierPayments = accountsPayableDue(days)
@@ -482,7 +488,7 @@ ALGORITHM: forecastCollections(days = 90):
   FOR each case:
     prob = case.paymentProbability || 0.5
     expectedAmount = case.totalAmount - case.paidAmount
-    weightedAmount = expectedAmount × prob
+    weightedAmount = expectedAmount Ã— prob
     
     bucket = classifyAge(case)
     byBucket[bucket] += weightedAmount
@@ -532,26 +538,26 @@ ALGORITHM: runScenario(scenario):
       FOR each month IN adjustedForecast:
         IF month.date >= param.effectiveFrom:
           month.revenue *= (1 + param.change)
-          month.netIncome *= (1 + param.change × profitMarginRatio)
+          month.netIncome *= (1 + param.change Ã— profitMarginRatio)
     
     IF param.field == "churnRate":
       customerCount = getActiveCustomerCount()
-      lostCustomers = customerCount × param.churnRate
+      lostCustomers = customerCount Ã— param.churnRate
       revenuePerCustomer = averageRevenuePerCustomer()
-      monthlyLoss = lostCustomers × revenuePerCustomer / param.periodMonths
+      monthlyLoss = lostCustomers Ã— revenuePerCustomer / param.periodMonths
       FOR each month IN adjustedForecast:
         month.revenue -= monthlyLoss
     
     IF param.field == "collectionRate":
       improvement = param.change - currentCollectionRate
-      additionalCash = totalOutstanding × improvement
+      additionalCash = totalOutstanding Ã— improvement
       // Distribute additional cash over 3 months
   
   // Compute impact summary:
   baselineTotal = SUM(baseline.expectedCase, revenue)
   scenarioTotal = SUM(adjustedForecast, revenue)
   impact = scenarioTotal - baselineTotal
-  impactPct = impact / baselineTotal × 100
+  impactPct = impact / baselineTotal Ã— 100
   
   RETURN {
     scenarioId: scenario.id,
@@ -599,13 +605,13 @@ ALGORITHM: runMonteCarlo(scenarioId, iterations = 10000):
     meanOutcome: mean,
     medianOutcome: median,
     stdDev,
-    percentile5: sorted[iterations × 0.05],
-    percentile25: sorted[iterations × 0.25],
-    percentile75: sorted[iterations × 0.75],
-    percentile95: sorted[iterations × 0.95],
+    percentile5: sorted[iterations Ã— 0.05],
+    percentile25: sorted[iterations Ã— 0.25],
+    percentile75: sorted[iterations Ã— 0.75],
+    percentile95: sorted[iterations Ã— 0.95],
     distribution: computeHistogram(sorted, 50 buckets),
     riskOfLoss: count(outcomes < 0) / iterations,
-    valueAtRisk95: sorted[iterations × 0.05],
+    valueAtRisk95: sorted[iterations Ã— 0.05],
   }
 ```
 
@@ -623,7 +629,7 @@ ALGORITHM: generateExecutiveRecommendations():
   revenueForecast = FinancialForecast.findFirst({
     forecastType: "REVENUE", status: "PUBLISHED", orderBy: { createdAt: "desc" }
   })
-  IF revenueForecast.expectedCase < revenueForecast.bestCase × 0.9:
+  IF revenueForecast.expectedCase < revenueForecast.bestCase Ã— 0.9:
     recommendations.push({
       type: "OPPORTUNITY",
       title: "Revenue Optimization Opportunity",
@@ -735,12 +741,12 @@ ALGORITHM: computeBusinessHealthScore(periodId):
   
   // Composite:
   overallScore = (
-    revenueHealth × 0.25 +
-    profitabilityHealth × 0.25 +
-    liquidityHealth × 0.20 +
-    efficiencyHealth × 0.10 +
-    growthHealth × 0.10 +
-    collectionHealth × 0.10
+    revenueHealth Ã— 0.25 +
+    profitabilityHealth Ã— 0.25 +
+    liquidityHealth Ã— 0.20 +
+    efficiencyHealth Ã— 0.10 +
+    growthHealth Ã— 0.10 +
+    collectionHealth Ã— 0.10
   )
   
   // Trend:
@@ -776,7 +782,7 @@ ALGORITHM: generateBoardSummary(periodId):
   })
   
   summary = {
-    title: `MeterVerse Board Summary — ${periodLabel}`,
+    title: `MeterVerse Board Summary â€” ${periodLabel}`,
     generatedAt: now(),
     classification: "CONFIDENTIAL",
     
@@ -834,33 +840,33 @@ ALGORITHM: generateBoardSummary(periodId):
 ### 7.1 AI Model Lifecycle
 
 ```
-┌──────────┐
-│ TRAINING  │  Model being trained on historical data
-└────┬─────┘
-     │
-     ▼
-┌──────────┐
-│ VALIDATED │  Accuracy validated against test set
-└────┬─────┘
-     │
-     ▼
-┌──────────┐
-│ ACTIVE    │  Model serving predictions in production
-└────┬─────┘
-     │
-     ├──────────────────────────────────┐
-     │                                  │
-     ▼                                  ▼
-┌──────────────┐              ┌──────────────┐
-│ DRIFT_DETECTED│              │ DEPRECATED    │  (replaced by newer version)
-│ (accuracy    │              └──────────────┘
-│  degraded)   │
-└──────┬───────┘
-       │
-       ▼
-┌──────────┐
-│ ARCHIVED  │  Retired — kept for audit trail
-└──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ TRAINING  â”‚  Model being trained on historical data
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ VALIDATED â”‚  Accuracy validated against test set
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ ACTIVE    â”‚  Model serving predictions in production
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+     â”‚                                  â”‚
+     â–¼                                  â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”              â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ DRIFT_DETECTEDâ”‚              â”‚ DEPRECATED    â”‚  (replaced by newer version)
+â”‚ (accuracy    â”‚              â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+â”‚  degraded)   â”‚
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ ARCHIVED  â”‚  Retired â€” kept for audit trail
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Drift Detection:**
@@ -868,11 +874,11 @@ ALGORITHM: generateBoardSummary(periodId):
 Every 7 days:
   FOR each ACTIVE AiModelVersion:
     recentAccuracy = evaluateAgainstRecentData(model)
-    IF recentAccuracy < model.accuracy × 0.9:
-      → status = "DRIFT_DETECTED"
-      → driftDetectedAt = now
-      → driftMetric = model.accuracy - recentAccuracy
-      → CREATE ExecutiveInsight:
+    IF recentAccuracy < model.accuracy Ã— 0.9:
+      â†’ status = "DRIFT_DETECTED"
+      â†’ driftDetectedAt = now
+      â†’ driftMetric = model.accuracy - recentAccuracy
+      â†’ CREATE ExecutiveInsight:
           type: "RISK"
           title: `Model Drift: ${model.modelName} v${model.version}`
           description: `Accuracy dropped from ${model.accuracy} to ${recentAccuracy}`
@@ -886,11 +892,11 @@ Every 7 days:
 | 0.90 - 1.00 | HIGH | Auto-execute (read-only recommendations) |
 | 0.70 - 0.89 | MEDIUM | Present to user, auto-suggest |
 | 0.50 - 0.69 | LOW | Flag for human review before any action |
-| 0.00 - 0.49 | VERY LOW | Do not present — insufficient confidence |
+| 0.00 - 0.49 | VERY LOW | Do not present â€” insufficient confidence |
 
 **Confidence factors:**
 ```
-confidence = baseConfidence × dataQuality × modelAccuracy × recencyFactor
+confidence = baseConfidence Ã— dataQuality Ã— modelAccuracy Ã— recencyFactor
 
 baseConfidence:    Inherent confidence of the model/algorithm
 dataQuality:       Completeness of input data (0.0-1.0)
@@ -935,81 +941,81 @@ Every AI output must include:
 ### 8.1 CFO Decision Center (`/admin/finance/cfo-center`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│ CFO DECISION CENTER                                                                              │
-│                                                                                                  │
-│ ┌──────────────────────────────────────────────────────────────────────────────────────────┐    │
-│ │ BUSINESS HEALTH SCORE                                                                      │    │
-│ │                                                                                            │    │
-│ │                 ┌──────────────────────────────────────────────────────────────────┐      │    │
-│ │                 │ OVERALL: 78/100 🟢 GREEN │ Prior: 74 │ Trend: 📈 IMPROVING      │      │    │
-│ │                 └──────────────────────────────────────────────────────────────────┘      │    │
-│ │                                                                                            │    │
-│ │ Revenue     ████████████████████████████████░░░ 82%  │ Growth     ██████████████░░░░░░ 55%  │    │
-│ │ Profitabil. ██████████████████████████████████ 88%  │ Collection ██████████████████░░░ 71%  │    │
-│ │ Liquidity  ██████████████████████████░░░░░░░░ 65%  │ Efficiency █████████████████████ 84%  │    │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                  │
-│ ┌─────────────────────────────────────────────┐ ┌───────────────────────────────────────────┐  │
-│ │ AI RECOMMENDATIONS (3)                       │ │ KEY FORECASTS                             │  │
-│ │                                              │ │                                           │  │
-│ │ 🟡 Liquidity Risk — Cash may drop to 2.1M   │ │ Revenue:  EGP 2.45M (+3% MoM) 📈         │  │
-│ │    by Sep 15. Consider accelerating coll.   │ │ Cash:     EGP 3.1M  (-8% MoM) 📉         │  │
-│ │    [View Details] [Dismiss]                  │ │ Recovery: EGP 1.8M  (+5% MoM) 📈         │  │
-│ │                                              │ │ Profit:   EGP 645K  (+2% MoM) 📈         │  │
-│ │ 🟢 Revenue Opportunity — Best case +EGP 250K │ │                                           │  │
-│ │    above expected. Tariff review recommended │ │ ⚡ Run Scenario: [Tariff +10%]            │  │
-│ │    [View Details] [Dismiss]                  │ │    [Churn 5%]    [Custom]                 │  │
-│ │                                              │ └───────────────────────────────────────────┘  │
-│ │ 🔴 Margin Alert — Operating margin at 26.3% │                                              │
-│ │    is below target of 30%. Cost review...    │                                              │
-│ │    [View Details] [Dismiss]                  │                                              │
-│ └─────────────────────────────────────────────┘                                              │
-│                                                                                                  │
-│ ┌──────────────────────────────────────────────────────────────────────────────────────────┐    │
-│ │ MONTE CARLO SIMULATION — Revenue Forecast (Next Quarter)                                   │    │
-│ │                                                                                            │    │
-│ │  ░░░░░░░░░░░████████████████████████████████████████████████████████░░░░░░░░░░░░░░        │    │
-│ │        P5: -2%     P25: +3%      P50: +8% (Expected)    P75: +12%    P95: +18%            │    │
-│ │                                                                                            │    │
-│ │  Probability of revenue decline: 5.2% │ VaR (95%): -EGP 45K                              │    │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘    │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ CFO DECISION CENTER                                                                              â”‚
+â”‚                                                                                                  â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚ â”‚ BUSINESS HEALTH SCORE                                                                      â”‚    â”‚
+â”‚ â”‚                                                                                            â”‚    â”‚
+â”‚ â”‚                 â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚    â”‚
+â”‚ â”‚                 â”‚ OVERALL: 78/100 ðŸŸ¢ GREEN â”‚ Prior: 74 â”‚ Trend: ðŸ“ˆ IMPROVING      â”‚      â”‚    â”‚
+â”‚ â”‚                 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚    â”‚
+â”‚ â”‚                                                                                            â”‚    â”‚
+â”‚ â”‚ Revenue     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘ 82%  â”‚ Growth     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘â–‘â–‘â–‘ 55%  â”‚    â”‚
+â”‚ â”‚ Profitabil. â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 88%  â”‚ Collection â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘ 71%  â”‚    â”‚
+â”‚ â”‚ Liquidity  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘ 65%  â”‚ Efficiency â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 84%  â”‚    â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                  â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ AI RECOMMENDATIONS (3)                       â”‚ â”‚ KEY FORECASTS                             â”‚  â”‚
+â”‚ â”‚                                              â”‚ â”‚                                           â”‚  â”‚
+â”‚ â”‚ ðŸŸ¡ Liquidity Risk â€” Cash may drop to 2.1M   â”‚ â”‚ Revenue:  EGP 2.45M (+3% MoM) ðŸ“ˆ         â”‚  â”‚
+â”‚ â”‚    by Sep 15. Consider accelerating coll.   â”‚ â”‚ Cash:     EGP 3.1M  (-8% MoM) ðŸ“‰         â”‚  â”‚
+â”‚ â”‚    [View Details] [Dismiss]                  â”‚ â”‚ Recovery: EGP 1.8M  (+5% MoM) ðŸ“ˆ         â”‚  â”‚
+â”‚ â”‚                                              â”‚ â”‚ Profit:   EGP 645K  (+2% MoM) ðŸ“ˆ         â”‚  â”‚
+â”‚ â”‚ ðŸŸ¢ Revenue Opportunity â€” Best case +EGP 250K â”‚ â”‚                                           â”‚  â”‚
+â”‚ â”‚    above expected. Tariff review recommended â”‚ â”‚ âš¡ Run Scenario: [Tariff +10%]            â”‚  â”‚
+â”‚ â”‚    [View Details] [Dismiss]                  â”‚ â”‚    [Churn 5%]    [Custom]                 â”‚  â”‚
+â”‚ â”‚                                              â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚ â”‚ ðŸ”´ Margin Alert â€” Operating margin at 26.3% â”‚                                              â”‚
+â”‚ â”‚    is below target of 30%. Cost review...    â”‚                                              â”‚
+â”‚ â”‚    [View Details] [Dismiss]                  â”‚                                              â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                              â”‚
+â”‚                                                                                                  â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚ â”‚ MONTE CARLO SIMULATION â€” Revenue Forecast (Next Quarter)                                   â”‚    â”‚
+â”‚ â”‚                                                                                            â”‚    â”‚
+â”‚ â”‚  â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘â–‘        â”‚    â”‚
+â”‚ â”‚        P5: -2%     P25: +3%      P50: +8% (Expected)    P75: +12%    P95: +18%            â”‚    â”‚
+â”‚ â”‚                                                                                            â”‚    â”‚
+â”‚ â”‚  Probability of revenue decline: 5.2% â”‚ VaR (95%): -EGP 45K                              â”‚    â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 8.2 AI Operations Dashboard (`/admin/finance/ai-ops`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│ AI OPERATIONS DASHBOARD                                                                         │
-│                                                                                                │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Active Models│ │ Total Pred.  │ │ Avg Accuracy │ │ Drift Alerts  │ │ Pending Review│        │
-│ │        12    │ │ Today: 1,250 │ │      87.3%   │ │         2     │ │          5    │        │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                                │
-│ ┌──────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ MODEL REGISTRY                                                                             │  │
-│ │ ┌──────────────┬────────┬────────┬────────┬────────┬──────────┬──────────┬──────────┐    │  │
-│ │ │ Model Name   │ Version│ Type   │ Acc    │ Status │ Activated │ Drift    │ Action   │    │  │
-│ │ │ Revenue Fest │ v3     │ ARIMA  │ 91.2%  │ ACTIVE │ Jul 01    │ —        │ ✅      │    │  │
-│ │ │ Cash Fest    │ v2     │ Prophet│ 85.7%  │ ACTIVE │ Jun 15    │ —        │ ✅      │    │  │
-│ │ │ Payment Prob │ v4     │ XGB    │ 88.4%  │ ACTIVE │ Jul 10    │ —        │ ✅      │    │  │
-│ │ │ Demand Fest  │ v1     │ ARIMA  │ 79.2%  │ ⚠ DRIFT │ May 01  │ -8.2%   │ [Review]│    │  │
-│ │ │ Revenue Fest │ v2     │ ARIMA  │ 87.5%  │ DEPREC.│ Apr 01    │ —        │ Archived│    │  │
-│ │ └──────────────┴────────┴────────┴────────┴────────┴──────────┴──────────┴──────────┘    │  │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                                │
-│ ┌──────────────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ EXECUTIVE INSIGHTS TIMELINE                                                                 │  │
-│ │                                                                                            │  │
-│ │ 📅 Jul 29 │ 🟢 AI Model Revenue Forecast v3 activated — accuracy 91.2%                    │  │
-│ │ 📅 Jul 28 │ 🟡 Insight: Revenue projected 8% above budget — favorable trend               │  │
-│ │ 📅 Jul 25 │ 🔴 Insight: Cash balance projected to drop below threshold in 45 days          │  │
-│ │ 📅 Jul 22 │ 🟢 Board Summary for June 2026 generated and published                         │  │
-│ │ 📅 Jul 20 │ ⚠ Model Drift: Demand Forecast v1 accuracy dropped 8.2% — review recommended   │  │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ AI OPERATIONS DASHBOARD                                                                         â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Active Modelsâ”‚ â”‚ Total Pred.  â”‚ â”‚ Avg Accuracy â”‚ â”‚ Drift Alerts  â”‚ â”‚ Pending Reviewâ”‚        â”‚
+â”‚ â”‚        12    â”‚ â”‚ Today: 1,250 â”‚ â”‚      87.3%   â”‚ â”‚         2     â”‚ â”‚          5    â”‚        â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ MODEL REGISTRY                                                                             â”‚  â”‚
+â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚  â”‚
+â”‚ â”‚ â”‚ Model Name   â”‚ Versionâ”‚ Type   â”‚ Acc    â”‚ Status â”‚ Activated â”‚ Drift    â”‚ Action   â”‚    â”‚  â”‚
+â”‚ â”‚ â”‚ Revenue Fest â”‚ v3     â”‚ ARIMA  â”‚ 91.2%  â”‚ ACTIVE â”‚ Jul 01    â”‚ â€”        â”‚ âœ…      â”‚    â”‚  â”‚
+â”‚ â”‚ â”‚ Cash Fest    â”‚ v2     â”‚ Prophetâ”‚ 85.7%  â”‚ ACTIVE â”‚ Jun 15    â”‚ â€”        â”‚ âœ…      â”‚    â”‚  â”‚
+â”‚ â”‚ â”‚ Payment Prob â”‚ v4     â”‚ XGB    â”‚ 88.4%  â”‚ ACTIVE â”‚ Jul 10    â”‚ â€”        â”‚ âœ…      â”‚    â”‚  â”‚
+â”‚ â”‚ â”‚ Demand Fest  â”‚ v1     â”‚ ARIMA  â”‚ 79.2%  â”‚ âš  DRIFT â”‚ May 01  â”‚ -8.2%   â”‚ [Review]â”‚    â”‚  â”‚
+â”‚ â”‚ â”‚ Revenue Fest â”‚ v2     â”‚ ARIMA  â”‚ 87.5%  â”‚ DEPREC.â”‚ Apr 01    â”‚ â€”        â”‚ Archivedâ”‚    â”‚  â”‚
+â”‚ â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ EXECUTIVE INSIGHTS TIMELINE                                                                 â”‚  â”‚
+â”‚ â”‚                                                                                            â”‚  â”‚
+â”‚ â”‚ ðŸ“… Jul 29 â”‚ ðŸŸ¢ AI Model Revenue Forecast v3 activated â€” accuracy 91.2%                    â”‚  â”‚
+â”‚ â”‚ ðŸ“… Jul 28 â”‚ ðŸŸ¡ Insight: Revenue projected 8% above budget â€” favorable trend               â”‚  â”‚
+â”‚ â”‚ ðŸ“… Jul 25 â”‚ ðŸ”´ Insight: Cash balance projected to drop below threshold in 45 days          â”‚  â”‚
+â”‚ â”‚ ðŸ“… Jul 22 â”‚ ðŸŸ¢ Board Summary for June 2026 generated and published                         â”‚  â”‚
+â”‚ â”‚ ðŸ“… Jul 20 â”‚ âš  Model Drift: Demand Forecast v1 accuracy dropped 8.2% â€” review recommended   â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -1020,15 +1026,15 @@ Every AI output must include:
 
 ```
 C12-W07 provides the AI governance framework:
-  • AIRecommendation model — reused for all C13 AI agents
-  • Governance rules (AG-1 through AG-7) — inherited by all financial AI
-  • Audit trail — every C13 AI recommendation logged to AuditEntry
+  â€¢ AIRecommendation model â€” reused for all C13 AI agents
+  â€¢ Governance rules (AG-1 through AG-7) â€” inherited by all financial AI
+  â€¢ Audit trail â€” every C13 AI recommendation logged to AuditEntry
 
 C13-W07 extends C12-W07 with:
-  • AiModelVersion — model lifecycle tracking
-  • AiRecommendationLog — detailed financial-specific audit
-  • Confidence scoring — domain-specific calibration for financial data
-  • ExecutiveInsight — new insight type specific to financial domain
+  â€¢ AiModelVersion â€” model lifecycle tracking
+  â€¢ AiRecommendationLog â€” detailed financial-specific audit
+  â€¢ Confidence scoring â€” domain-specific calibration for financial data
+  â€¢ ExecutiveInsight â€” new insight type specific to financial domain
 ```
 
 ### 9.2 Period Close Integration
@@ -1054,98 +1060,98 @@ FinancialPeriod.close() [enhanced by W07]:
 
 ---
 
-## PART 10: TESTING STRATEGY — W07 (120 Tests)
+## PART 10: TESTING STRATEGY â€” W07 (120 Tests)
 
 ### 10.1 Forecasting Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Revenue forecast → correct horizon ranges | Short/Med/Long |
-| 2 | Revenue forecast → expected = best + worst / 2 | Center |
-| 3 | Cash flow forecast → opening + inflows - outflows = closing | Balanced |
-| 4 | Collections forecast → weighted by probability | Correct weight |
-| 5 | Forecast with no historical data → error | Graceful |
-| 6 | Forecast with < 3 months data → reduced confidence | Lower confidence |
-| 7 | Forecast accuracy tracked → compared to actual | Accuracy metric |
-| 8 | Multiple forecast types → independent | Per-type |
+| 1 | Revenue forecast â†’ correct horizon ranges | Short/Med/Long |
+| 2 | Revenue forecast â†’ expected = best + worst / 2 | Center |
+| 3 | Cash flow forecast â†’ opening + inflows - outflows = closing | Balanced |
+| 4 | Collections forecast â†’ weighted by probability | Correct weight |
+| 5 | Forecast with no historical data â†’ error | Graceful |
+| 6 | Forecast with < 3 months data â†’ reduced confidence | Lower confidence |
+| 7 | Forecast accuracy tracked â†’ compared to actual | Accuracy metric |
+| 8 | Multiple forecast types â†’ independent | Per-type |
 
 ### 10.2 Scenario Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Tariff +10% → revenue increases by ~10% | Correct impact |
-| 2 | Churn 5% → revenue decreases by ~5% | Correct impact |
+| 1 | Tariff +10% â†’ revenue increases by ~10% | Correct impact |
+| 2 | Churn 5% â†’ revenue decreases by ~5% | Correct impact |
 | 3 | Best case > expected > worst case | Ordering |
-| 4 | Scenario with no baseline forecast → error | Missing baseline |
-| 5 | Scenario parameters validated → invalid rejected | Validation |
-| 6 | Scenario results persist → retrievable | Storage |
-| 7 | Multiple scenarios → independent results | Isolation |
+| 4 | Scenario with no baseline forecast â†’ error | Missing baseline |
+| 5 | Scenario parameters validated â†’ invalid rejected | Validation |
+| 6 | Scenario results persist â†’ retrievable | Storage |
+| 7 | Multiple scenarios â†’ independent results | Isolation |
 
 ### 10.3 Monte Carlo Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | 10K iterations → mean ≈ expected case | Convergence |
-| 2 | 10K iterations → P5 < P25 < P50 < P75 < P95 | Ordering |
-| 3 | Normal distribution → correct shape | Distribution |
-| 4 | Triangular distribution → correct shape | Distribution |
-| 5 | Uniform distribution → correct shape | Distribution |
+| 1 | 10K iterations â†’ mean â‰ˆ expected case | Convergence |
+| 2 | 10K iterations â†’ P5 < P25 < P50 < P75 < P95 | Ordering |
+| 3 | Normal distribution â†’ correct shape | Distribution |
+| 4 | Triangular distribution â†’ correct shape | Distribution |
+| 5 | Uniform distribution â†’ correct shape | Distribution |
 | 6 | VaR(95) = P5 value | Formula |
 | 7 | Risk of loss computed correctly | Probability |
-| 8 | Repeated run → similar results (within tolerance) | Deterministic seed |
+| 8 | Repeated run â†’ similar results (within tolerance) | Deterministic seed |
 
 ### 10.4 Business Health Score Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | All dimensions 100 → overall 100 | Perfect score |
-| 2 | All dimensions 0 → overall 0 | Zero score |
+| 1 | All dimensions 100 â†’ overall 100 | Perfect score |
+| 2 | All dimensions 0 â†’ overall 0 | Zero score |
 | 3 | Each dimension contributes correct weight | Weighting |
-| 4 | Score > 75 → GREEN status | Threshold |
-| 5 | Score 50-75 → YELLOW status | Threshold |
-| 6 | Score < 50 → RED status | Threshold |
-| 7 | Trend comparison vs prior period → correct | Trend |
-| 8 | No prior period → trend = "NEW" | First score |
-| 9 | Component breakdown → all metrics present | Completeness |
-| 10 | Health score recalculated → matches stored | Consistency |
+| 4 | Score > 75 â†’ GREEN status | Threshold |
+| 5 | Score 50-75 â†’ YELLOW status | Threshold |
+| 6 | Score < 50 â†’ RED status | Threshold |
+| 7 | Trend comparison vs prior period â†’ correct | Trend |
+| 8 | No prior period â†’ trend = "NEW" | First score |
+| 9 | Component breakdown â†’ all metrics present | Completeness |
+| 10 | Health score recalculated â†’ matches stored | Consistency |
 
 ### 10.5 Executive Recommendation Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Revenue < best case × 0.9 → recommendation generated | Threshold |
-| 2 | Cash below threshold → liquidity risk flagged | Risk detection |
-| 3 | Collections below target → efficiency recommendation | Efficiency |
-| 4 | Margin below target → profitability recommendation | Profitability |
-| 5 | All metrics healthy → no recommendations | Empty |
+| 1 | Revenue < best case Ã— 0.9 â†’ recommendation generated | Threshold |
+| 2 | Cash below threshold â†’ liquidity risk flagged | Risk detection |
+| 3 | Collections below target â†’ efficiency recommendation | Efficiency |
+| 4 | Margin below target â†’ profitability recommendation | Profitability |
+| 5 | All metrics healthy â†’ no recommendations | Empty |
 | 6 | Recommendations sorted by confidence | Ordering |
 | 7 | Each recommendation has actionable steps | Actionable |
 | 8 | Recommendation links to evidence sources | Traceable |
-| 9 | Multiple recommendations → all independent | No duplicates |
+| 9 | Multiple recommendations â†’ all independent | No duplicates |
 
 ### 10.6 Board Summary Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Summary generated → all sections present | Completeness |
+| 1 | Summary generated â†’ all sections present | Completeness |
 | 2 | Summary highlights correct revenue | Accuracy |
 | 3 | Summary includes insights from period | Timeline |
 | 4 | Summary includes forward-looking section | Future |
 | 5 | Summary classification = CONFIDENTIAL | Security |
-| 6 | Empty period → generated with zeros | Graceful |
-| 7 | Summary regenerated → new version | Versioning |
+| 6 | Empty period â†’ generated with zeros | Graceful |
+| 7 | Summary regenerated â†’ new version | Versioning |
 
 ### 10.7 AI Governance Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Model lifecycle → correct state transitions | All states |
-| 2 | Drift detection → accuracy < 90% of original → flagged | Threshold |
-| 3 | Confidence scoring → range 0.0-1.0 | Range |
-| 4 | High confidence → auto-suggest | Threshold |
-| 5 | Low confidence → requires human review | Threshold |
-| 6 | Model version tracking → all versions stored | History |
-| 7 | Model activation → only one ACTIVE per type | Singleton |
+| 1 | Model lifecycle â†’ correct state transitions | All states |
+| 2 | Drift detection â†’ accuracy < 90% of original â†’ flagged | Threshold |
+| 3 | Confidence scoring â†’ range 0.0-1.0 | Range |
+| 4 | High confidence â†’ auto-suggest | Threshold |
+| 5 | Low confidence â†’ requires human review | Threshold |
+| 6 | Model version tracking â†’ all versions stored | History |
+| 7 | Model activation â†’ only one ACTIVE per type | Singleton |
 | 8 | Every recommendation has explainability | Reasoning |
 | 9 | Every recommendation has confidence | Confidence |
 | 10 | Audit log for every recommendation | Audit trail |
@@ -1154,102 +1160,102 @@ FinancialPeriod.close() [enhanced by W07]:
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Insight created → appears in timeline | Ordered |
-| 2 | Insight acknowledged → status changes | Acknowledge |
-| 3 | Insight resolved → status changes | Resolve |
-| 4 | Insights filtered by severity → correct | Filter |
-| 5 | Insights filtered by category → correct | Filter |
+| 1 | Insight created â†’ appears in timeline | Ordered |
+| 2 | Insight acknowledged â†’ status changes | Acknowledge |
+| 3 | Insight resolved â†’ status changes | Resolve |
+| 4 | Insights filtered by severity â†’ correct | Filter |
+| 5 | Insights filtered by category â†’ correct | Filter |
 
 ---
 
 ## PART 11: W07 DEFINITION OF DONE
 
 ```
-W07 — FINANCIAL AI, FORECASTING & DECISION INTELLIGENCE
+W07 â€” FINANCIAL AI, FORECASTING & DECISION INTELLIGENCE
 CERTIFICATION CHECKLIST
 
-□ CORE DATA MODELS — 7 NEW
-   □ FinancialForecast (6 forecast types, 3 horizons, 3 scenarios)
-   □ FinancialScenario (what-if, tariff, churn, custom)
-   □ MonteCarloResult (10K-run simulation with distribution)
-   □ BusinessHealthScore (6-dimension composite 0-100)
-   □ ExecutiveInsight (insights timeline with severity)
-   □ AiModelVersion (model lifecycle TRAINING→ACTIVE→ARCHIVED)
-   □ AiRecommendationLog (full audit trail for AI)
+â–¡ CORE DATA MODELS â€” 7 NEW
+   â–¡ FinancialForecast (6 forecast types, 3 horizons, 3 scenarios)
+   â–¡ FinancialScenario (what-if, tariff, churn, custom)
+   â–¡ MonteCarloResult (10K-run simulation with distribution)
+   â–¡ BusinessHealthScore (6-dimension composite 0-100)
+   â–¡ ExecutiveInsight (insights timeline with severity)
+   â–¡ AiModelVersion (model lifecycle TRAININGâ†’ACTIVEâ†’ARCHIVED)
+   â–¡ AiRecommendationLog (full audit trail for AI)
 
-□ FORECASTING ENGINE — 6 FORECAST TYPES
-   □ Revenue forecast (short/med/long term)
-   □ Cash flow forecast (daily for 90 days)
-   □ Collections forecast (probability-weighted)
-   □ Demand forecast (multi-utility)
-   □ Expense forecast (operating cost projection)
-   □ Profitability forecast (margin projection)
-   □ Budget prediction (AI-assisted estimation)
+â–¡ FORECASTING ENGINE â€” 6 FORECAST TYPES
+   â–¡ Revenue forecast (short/med/long term)
+   â–¡ Cash flow forecast (daily for 90 days)
+   â–¡ Collections forecast (probability-weighted)
+   â–¡ Demand forecast (multi-utility)
+   â–¡ Expense forecast (operating cost projection)
+   â–¡ Profitability forecast (margin projection)
+   â–¡ Budget prediction (AI-assisted estimation)
 
-□ SCENARIO & SIMULATION
-   □ Scenario modeling (Best/Expected/Worst)
-   □ Monte Carlo simulation (10K iterations)
-   □ What-if engine (parameter changes)
-   □ Scenario impact summary
-   □ VaR(95) calculation
-   □ Probability of loss
+â–¡ SCENARIO & SIMULATION
+   â–¡ Scenario modeling (Best/Expected/Worst)
+   â–¡ Monte Carlo simulation (10K iterations)
+   â–¡ What-if engine (parameter changes)
+   â–¡ Scenario impact summary
+   â–¡ VaR(95) calculation
+   â–¡ Probability of loss
 
-□ DECISION INTELLIGENCE
-   □ Executive recommendation engine (4 rule types)
-   □ Business Health Score (6-dimension composite)
-   □ Executive Insights Timeline
-   □ AI Board Summary generation
-   □ CFO Decision Center dashboard
+â–¡ DECISION INTELLIGENCE
+   â–¡ Executive recommendation engine (4 rule types)
+   â–¡ Business Health Score (6-dimension composite)
+   â–¡ Executive Insights Timeline
+   â–¡ AI Board Summary generation
+   â–¡ CFO Decision Center dashboard
 
-□ AI GOVERNANCE
-   □ AI model lifecycle (TRAINING→ACTIVE→DRIFT→ARCHIVED)
-   □ Model versioning and activation
-   □ Drift detection (weekly accuracy check)
-   □ Confidence scoring (HIGH/MEDIUM/LOW/VERY_LOW)
-   □ Explainable AI (reasoning, evidence, limitations)
-   □ Human approval workflow
-   □ Full audit trail
+â–¡ AI GOVERNANCE
+   â–¡ AI model lifecycle (TRAININGâ†’ACTIVEâ†’DRIFTâ†’ARCHIVED)
+   â–¡ Model versioning and activation
+   â–¡ Drift detection (weekly accuracy check)
+   â–¡ Confidence scoring (HIGH/MEDIUM/LOW/VERY_LOW)
+   â–¡ Explainable AI (reasoning, evidence, limitations)
+   â–¡ Human approval workflow
+   â–¡ Full audit trail
 
-□ AI AGENT ECOSYSTEM — ALL INTEGRATED
-   □ W02 Revenue Leakage Agent
-   □ W04 Collection Intelligence Agent
-   □ W05 Cash Intelligence Agent
-   □ W06 Financial Analytics Agent
-   □ W07 CFO Decision Agent (NEW)
-   □ W07 Forecasting Agent (NEW)
-   □ W07 Scenario Simulation Agent (NEW)
-   □ W07 Anomaly & Fraud Agent (NEW)
-   □ W07 Board Summary Agent (NEW)
+â–¡ AI AGENT ECOSYSTEM â€” ALL INTEGRATED
+   â–¡ W02 Revenue Leakage Agent
+   â–¡ W04 Collection Intelligence Agent
+   â–¡ W05 Cash Intelligence Agent
+   â–¡ W06 Financial Analytics Agent
+   â–¡ W07 CFO Decision Agent (NEW)
+   â–¡ W07 Forecasting Agent (NEW)
+   â–¡ W07 Scenario Simulation Agent (NEW)
+   â–¡ W07 Anomaly & Fraud Agent (NEW)
+   â–¡ W07 Board Summary Agent (NEW)
 
-□ DASHBOARDS
-   □ CFO Decision Center (/admin/finance/cfo-center)
-   □ AI Operations Dashboard (/admin/finance/ai-ops)
-   □ Executive Insights Timeline
+â–¡ DASHBOARDS
+   â–¡ CFO Decision Center (/admin/finance/cfo-center)
+   â–¡ AI Operations Dashboard (/admin/finance/ai-ops)
+   â–¡ Executive Insights Timeline
 
-□ INTEGRATIONS
-   □ C12-W07 AIRecommendation model
-   □ W01-W06 all financial data sources
-   □ Period close pipeline (step 6-11)
-   □ Audit logging for every AI action
+â–¡ INTEGRATIONS
+   â–¡ C12-W07 AIRecommendation model
+   â–¡ W01-W06 all financial data sources
+   â–¡ Period close pipeline (step 6-11)
+   â–¡ Audit logging for every AI action
 
-□ SECURITY
-   □ RBAC: CFO, Finance Manager, AI Ops, Viewer
-   □ Model activation requires approval
-   □ Low-confidence recommendations require human review
-   □ All AI actions auditable
-   □ Board summaries classified CONFIDENTIAL
+â–¡ SECURITY
+   â–¡ RBAC: CFO, Finance Manager, AI Ops, Viewer
+   â–¡ Model activation requires approval
+   â–¡ Low-confidence recommendations require human review
+   â–¡ All AI actions auditable
+   â–¡ Board summaries classified CONFIDENTIAL
 
-□ TESTS — 120 PASSING
-   □ Forecasting: 25 tests
-   □ Scenario: 20 tests
-   □ Monte Carlo: 15 tests
-   □ Business Health Score: 15 tests
-   □ Executive recommendation: 15 tests
-   □ Board summary: 10 tests
-   □ AI governance: 15 tests
-   □ Executive insights: 5 tests
+â–¡ TESTS â€” 120 PASSING
+   â–¡ Forecasting: 25 tests
+   â–¡ Scenario: 20 tests
+   â–¡ Monte Carlo: 15 tests
+   â–¡ Business Health Score: 15 tests
+   â–¡ Executive recommendation: 15 tests
+   â–¡ Board summary: 10 tests
+   â–¡ AI governance: 15 tests
+   â–¡ Executive insights: 5 tests
 
-W07 STATUS: □ NOT IMPLEMENTED
+W07 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -1275,57 +1281,57 @@ All items above are DESIGN-COMPLETE but not executed.
 ```
 C13 PROGRAM CERTIFIED when ALL of the following are true:
 
-□ ACCOUNTING MATURITY ≥ 90%
-   □ W01: Billing-to-GL auto-posting pipeline live
-   □ W01: FinancialEvent + AccountMapping operational
-   □ W01: 85 tests passing
+â–¡ ACCOUNTING MATURITY â‰¥ 90%
+   â–¡ W01: Billing-to-GL auto-posting pipeline live
+   â–¡ W01: FinancialEvent + AccountMapping operational
+   â–¡ W01: 85 tests passing
 
-□ REVENUE ASSURANCE ≥ 95%
-   □ W02: 15 detection rules active (pre-bill/post-bill/continuous)
-   □ W02: AI Revenue Agent operational
-   □ W02: 95 tests passing
+â–¡ REVENUE ASSURANCE â‰¥ 95%
+   â–¡ W02: 15 detection rules active (pre-bill/post-bill/continuous)
+   â–¡ W02: AI Revenue Agent operational
+   â–¡ W02: 95 tests passing
 
-□ TARIFF INTELLIGENCE ≥ 95%
-   □ W03: Full tariff engine (flat/tiered/ToU/demand/tax/discount)
-   □ W03: Version lifecycle with approval workflow
-   □ W03: Simulation engine
-   □ W03: 100 tests passing
+â–¡ TARIFF INTELLIGENCE â‰¥ 95%
+   â–¡ W03: Full tariff engine (flat/tiered/ToU/demand/tax/discount)
+   â–¡ W03: Version lifecycle with approval workflow
+   â–¡ W03: Simulation engine
+   â–¡ W03: 100 tests passing
 
-□ COLLECTIONS MATURITY ≥ 85%
-   □ W04: 7-stage dunning engine
-   □ W04: PTP + installment + dispute management
-   □ W04: AI Collection Agent
-   □ W04: 105 tests passing
+â–¡ COLLECTIONS MATURITY â‰¥ 85%
+   â–¡ W04: 7-stage dunning engine
+   â–¡ W04: PTP + installment + dispute management
+   â–¡ W04: AI Collection Agent
+   â–¡ W04: 105 tests passing
 
-□ BANK RECONCILIATION ≥ 90%
-   □ W05: 5 format importers + 7-rule matching engine
-   □ W05: Statement lifecycle (UPLOADED→POSTED)
-   □ W05: Gateway reconciliation
-   □ W05: 105 tests passing
+â–¡ BANK RECONCILIATION â‰¥ 90%
+   â–¡ W05: 5 format importers + 7-rule matching engine
+   â–¡ W05: Statement lifecycle (UPLOADEDâ†’POSTED)
+   â–¡ W05: Gateway reconciliation
+   â–¡ W05: 105 tests passing
 
-□ FINANCIAL REPORTING ≥ 90%
-   □ W06: 4 financial statements auto-generated
-   □ W06: Budget vs Actual with variance analysis
-   □ W06: 15 financial KPIs
-   □ W06: 110 tests passing
+â–¡ FINANCIAL REPORTING â‰¥ 90%
+   â–¡ W06: 4 financial statements auto-generated
+   â–¡ W06: Budget vs Actual with variance analysis
+   â–¡ W06: 15 financial KPIs
+   â–¡ W06: 110 tests passing
 
-□ AI FINANCIAL INTELLIGENCE = OPERATIONAL
-   □ W07: 6 forecast types active
-   □ W07: Scenario + Monte Carlo simulation
-   □ W07: Business Health Score
-   □ W07: CFO Decision Center dashboard
-   □ W07: 120 tests passing
+â–¡ AI FINANCIAL INTELLIGENCE = OPERATIONAL
+   â–¡ W07: 6 forecast types active
+   â–¡ W07: Scenario + Monte Carlo simulation
+   â–¡ W07: Business Health Score
+   â–¡ W07: CFO Decision Center dashboard
+   â–¡ W07: 120 tests passing
 
-□ TOTAL TEST SUITE = 720 PASSING
-   □ All 7 waves independently verifiable
-   □ W01-W07 integration verified
+â–¡ TOTAL TEST SUITE = 720 PASSING
+   â–¡ All 7 waves independently verifiable
+   â–¡ W01-W07 integration verified
 
-C13 STATUS: ✅ READY FOR CERTIFICATION
-Accounting Maturity:  0% → 90%+
-Billing Intelligence: 30% → 95%+
-Collections Maturity: 30% → 85%+
-Financial Audit:      10% → 100%
-AI Financial Intel:   0% → Operational
+C13 STATUS: âœ… READY FOR CERTIFICATION
+Accounting Maturity:  0% â†’ 90%+
+Billing Intelligence: 30% â†’ 95%+
+Collections Maturity: 30% â†’ 85%+
+Financial Audit:      10% â†’ 100%
+AI Financial Intel:   0% â†’ Operational
 Total Tests:          720
 Total Blueprint:      ~16,000 lines
 Implementation est.:  ~20,000 lines of code
@@ -1334,5 +1340,6 @@ Implementation est.:  ~20,000 lines of code
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C13-W07 — Financial AI, Forecasting & Decision Intelligence. READ ONLY. GOVERNANCE PLANNING ONLY.*
-*C13 PROGRAM — 7 WAVES, 45 MODELS, 720 TESTS — FULLY DESIGNED.*
+*C13-W07 â€” Financial AI, Forecasting & Decision Intelligence. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*C13 PROGRAM â€” 7 WAVES, 45 MODELS, 720 TESTS â€” FULLY DESIGNED.*
+

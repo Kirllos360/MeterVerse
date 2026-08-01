@@ -1,6 +1,12 @@
-# MeterVerse — Enterprise Transformation Program Audit & Next Program Master Plan
+﻿<!-- Status Block
+====================================================================
+SUPERSEDED - retained for history; use C13_CONSTITUTION_AND_ARCHITECTURE_BLUEPRINT.md | Design: [x] Complete | Implementation: [ ] In Progress | Certification: [ ] Not Certified | Wave: W2 | Commit: 85815caa
+====================================================================
+-->
 
-**Post-C12 Identity Certification — July 2026**
+# MeterVerse â€” Enterprise Transformation Program Audit & Next Program Master Plan
+
+**Post-C12 Identity Certification â€” July 2026**
 
 ---
 
@@ -12,29 +18,29 @@
 
 | Domain | Maturity | Status | Business Risk |
 |--------|----------|--------|---------------|
-| **Meter Management** | 75% | Live — CRUD, lifecycle, assignments, events | Low |
-| **Connectivity Center (C01–C10)** | 92% | Live in 3 areas with full pipeline | Low |
-| **Reading Management** | 80% | Live — ingestion, validation, querying | Low |
-| **Identity & Security (C12)** | 100% | Certified — RBAC, Zero Trust, Governance, OI | None |
-| **Billing — Basic** | 65% | Live — bill runs, invoice gen, payment recording | Medium |
-| **Tariff Management** | 40% | Basic CRUD — no time-of-use, no complex tiers | Medium |
-| **Invoice Management** | 60% | Live — generation, approval, adjustments | Medium |
-| **Payment Processing** | 55% | Live — recording, allocation, refunds | Medium |
-| **Customer Management** | 60% | Live — CRUD, groups, statements | Medium |
-| **SIM Management** | 65% | Live — lifecycle, assignments | Low |
-| **Notification** | 50% | Partial — email, in-app, SMS (needs credentials) | Medium |
-| **Audit & Logging** | 85% | Live — full audit trail, correlation IDs | Low |
-| **Workflow Engine** | 35% | Basic — needs enterprise state machine | Medium |
-| **AI Intelligence (RCA)** | 70% | Live — 5 Whys, recommendations, pattern learning | Low |
-| **Incident Management** | 50% | Live — basic lifecycle, needs SLA automation | Medium |
-| **Collection Management** | 30% | Basic — needs dunning, PTP, escalation | HIGH |
+| **Meter Management** | 75% | Live â€” CRUD, lifecycle, assignments, events | Low |
+| **Connectivity Center (C01â€“C10)** | 92% | Live in 3 areas with full pipeline | Low |
+| **Reading Management** | 80% | Live â€” ingestion, validation, querying | Low |
+| **Identity & Security (C12)** | 100% | Certified â€” RBAC, Zero Trust, Governance, OI | None |
+| **Billing â€” Basic** | 65% | Live â€” bill runs, invoice gen, payment recording | Medium |
+| **Tariff Management** | 40% | Basic CRUD â€” no time-of-use, no complex tiers | Medium |
+| **Invoice Management** | 60% | Live â€” generation, approval, adjustments | Medium |
+| **Payment Processing** | 55% | Live â€” recording, allocation, refunds | Medium |
+| **Customer Management** | 60% | Live â€” CRUD, groups, statements | Medium |
+| **SIM Management** | 65% | Live â€” lifecycle, assignments | Low |
+| **Notification** | 50% | Partial â€” email, in-app, SMS (needs credentials) | Medium |
+| **Audit & Logging** | 85% | Live â€” full audit trail, correlation IDs | Low |
+| **Workflow Engine** | 35% | Basic â€” needs enterprise state machine | Medium |
+| **AI Intelligence (RCA)** | 70% | Live â€” 5 Whys, recommendations, pattern learning | Low |
+| **Incident Management** | 50% | Live â€” basic lifecycle, needs SLA automation | Medium |
+| **Collection Management** | 30% | Basic â€” needs dunning, PTP, escalation | HIGH |
 | **Accounting** | **0%** | **NOT IMPLEMENTED** | **CRITICAL** |
 | **Financial Reporting** | **0%** | **NOT IMPLEMENTED** | **CRITICAL** |
 | **Customer Portal** | **0%** | **NOT IMPLEMENTED** | HIGH |
 | **ERP Integration** | **0%** | **NOT IMPLEMENTED** | HIGH |
 | **Mobile Field Ops** | **0%** | **NOT IMPLEMENTED** | MEDIUM |
 | **Data Warehouse/BI** | 10% | Basic queries, no warehouse | HIGH |
-| **Predictive Maintenance** | 10% | Planned — no implementation | MEDIUM |
+| **Predictive Maintenance** | 10% | Planned â€” no implementation | MEDIUM |
 | **Document Management** | 20% | Basic templates, no full document lifecycle | MEDIUM |
 
 **Overall Enterprise Maturity: ~45%** (weighted by business criticality)
@@ -56,19 +62,19 @@
 ### 2. Domain-by-Domain Review
 
 #### Meter Management (75%)
-**Live:** CRUD, lifecycle (STOCK→RETIRED), assignments, events, meter types, SIM binding
+**Live:** CRUD, lifecycle (STOCKâ†’RETIRED), assignments, events, meter types, SIM binding
 **Missing:** Configuration management, AMI/MDM integration, predictive health analytics, firmware OTA, virtual meters
-**Risk:** Low — core operations stable
+**Risk:** Low â€” core operations stable
 
 #### Connectivity Center (92%)
 **Live:** Connection profiles, health monitoring, failover, diagnostics, webhooks, symbiot bridge, data ingestion pipeline
-**Missing:** None significant — gold standard implementation
+**Missing:** None significant â€” gold standard implementation
 **Risk:** None
 
 #### Billing & Finance (30% weighted)
 **LIVE (Basic):**
 - BillRun: Create, Schedule, Execute, Close
-- Invoice: Draft→Approved→Issued→Cancelled lifecycle
+- Invoice: Draftâ†’Approvedâ†’Issuedâ†’Cancelled lifecycle
 - Payment: Record, allocate, reverse, refund
 - Tariff: Flat rate CRUD
 - CollectionCase: Basic CRUD
@@ -86,16 +92,16 @@
 - Multi-currency support
 - Tax engine (withholding, VAT, sales tax)
 
-**Risk:** CRITICAL — accounting gap alone blocks enterprise certification. Revenue leakage estimated 2-5% without assurance.
+**Risk:** CRITICAL â€” accounting gap alone blocks enterprise certification. Revenue leakage estimated 2-5% without assurance.
 
 #### Customer Management (60%)
 **Live:** CRUD, groups, segmentation, statements, aging
 **Missing:** Customer portal/self-service, dispute management, full communication history, knowledge base
-**Risk:** Medium — customer experience limited
+**Risk:** Medium â€” customer experience limited
 
 #### Identity & Security (100%)
 **Live:** RBAC with scoped permissions, Zero Trust (9 validation gates), MFA enforcement, compliance automation (ISO 27001, SOC2, NIST, OWASP), operational intelligence (RCA, knowledge, AI agents)
-**Risk:** None — certified gold standard
+**Risk:** None â€” certified gold standard
 
 #### AI & Intelligence (70%)
 **Live:** RCA engine, 5 Whys, recommendation engine, resolution learner, evidence collector, pattern similarity search
@@ -105,7 +111,7 @@
 #### Workflow & Automation (35%)
 **Live:** Basic workflow engine in services/workflow-engine.js
 **Missing:** Enterprise state machine, BPMN-compatible process engine, SLA enforcement, approval chains
-**Risk:** Medium — workflow gaps limit automation of billing, collections, and field ops
+**Risk:** Medium â€” workflow gaps limit automation of billing, collections, and field ops
 
 ---
 
@@ -161,18 +167,18 @@
 
 ### Verdict
 
-**Winner: Program A — Enterprise Financial & Billing Intelligence Platform (Score: 64/70)**
+**Winner: Program A â€” Enterprise Financial & Billing Intelligence Platform (Score: 64/70)**
 
 This program is the clear successor to C12 because:
-1. **Accounting is the single biggest enterprise gap** — 0% maturity, blocks certification
-2. **Revenue assurance directly impacts P&L** — 2-5% leakage is material
-3. **Billing intelligence drives cash flow** — dunning automation, collection optimization
-4. **Financial data feeds everything** — customer experience, integration, analytics all depend on it
-5. **Dependency readiness is high** — C12 identity/security complete, basic billing exists, data flows established
+1. **Accounting is the single biggest enterprise gap** â€” 0% maturity, blocks certification
+2. **Revenue assurance directly impacts P&L** â€” 2-5% leakage is material
+3. **Billing intelligence drives cash flow** â€” dunning automation, collection optimization
+4. **Financial data feeds everything** â€” customer experience, integration, analytics all depend on it
+5. **Dependency readiness is high** â€” C12 identity/security complete, basic billing exists, data flows established
 
 ---
 
-## PART III: C13 — ENTERPRISE FINANCIAL & BILLING INTELLIGENCE PLATFORM
+## PART III: C13 â€” ENTERPRISE FINANCIAL & BILLING INTELLIGENCE PLATFORM
 
 ### Master Plan
 
@@ -181,19 +187,19 @@ This program is the clear successor to C12 because:
 ### 1. Program Constitution
 
 ```
-PROGRAM:        C13 — Enterprise Financial & Billing Intelligence Platform
-STATUS:         PLANNING ONLY — NOT IMPLEMENTED
+PROGRAM:        C13 â€” Enterprise Financial & Billing Intelligence Platform
+STATUS:         PLANNING ONLY â€” NOT IMPLEMENTED
 PRECEDED BY:    C12 Identity Program (Certified 100%)
 PRECEDES:       C14 Customer Experience Platform (recommended next)
 VERSION:        1.0.0
-CLASSIFICATION: CRITICAL — Revenue & Compliance
+CLASSIFICATION: CRITICAL â€” Revenue & Compliance
 DOMAIN:         Billing & Finance (02_BILLING_FINANCE)
 EST. DURATION:  12 waves, ~60 days
-TARGET MATURITY: Accounting 0% → 90%, Billing 65% → 95%, Collections 30% → 85%
+TARGET MATURITY: Accounting 0% â†’ 90%, Billing 65% â†’ 95%, Collections 30% â†’ 85%
 ```
 
 **Program Vision:**
-Transform MeterVerse billing from basic CRUD into a carrier-grade financial platform with double-entry accounting, revenue assurance, intelligent collection automation, and enterprise financial reporting — matching SAP/Oracle utility billing standards.
+Transform MeterVerse billing from basic CRUD into a carrier-grade financial platform with double-entry accounting, revenue assurance, intelligent collection automation, and enterprise financial reporting â€” matching SAP/Oracle utility billing standards.
 
 **Guaranteed Outcomes:**
 | Metric | Before | After |
@@ -211,53 +217,53 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 ### 2. Architecture Vision
 
 ```
-                         C13 — FINANCIAL INTELLIGENCE PLATFORM
+                         C13 â€” FINANCIAL INTELLIGENCE PLATFORM
 
      EXISTING (C01-C12)                    C13 NEW LAYER
-  ┌────────────────────┐       ┌─────────────────────────────────────┐
-  │ Identity & Security │       │  FINANCIAL CORE                      │
-  │ (C12)              │──────→│  ┌─────────────────────────────────┐ │
-  │ RBAC, Zero Trust   │       │  │ Chart of Accounts              │ │
-  │ Governance, Audit   │       │  │ Journal Entry Engine           │ │
-  └────────────────────┘       │  │ General Ledger                 │ │
-                                │  │ Financial Periods              │ │
-  ┌────────────────────┐       │  │ Trial Balance                  │ │
-  │ Billing (Basic)     │       │  └─────────────────────────────────┘ │
-  │ Bill Runs           │──────→│                                      │
-  │ Invoice Gen         │       │  REVENUE INTELLIGENCE                │
-  │ Payment Recording   │       │  ┌─────────────────────────────────┐ │
-  └────────────────────┘       │  │ Revenue Assurance Engine        │ │
-                                │  │ Leakage Detection              │ │
-  ┌────────────────────┐       │  │ Billing Analytics               │ │
-  │ Customer (Basic)    │       │  │ AR Intelligence                │ │
-  │ CRUD, Groups        │──────→│  └─────────────────────────────────┘ │
-  └────────────────────┘       │                                      │
-                                │  COLLECTION INTELLIGENCE              │
-  ┌────────────────────┐       │  ┌─────────────────────────────────┐ │
-  │ Meters / Readings   │       │  │ Dunning Automation             │ │
-  │ (Live)              │──────→│  │ PTP Engine                     │ │
-  └────────────────────┘       │  │ Collector Assignment           │ │
-                                │  │ Field Visit Optimization       │ │
-  ┌────────────────────┐       │  │ Write-off Management           │ │
-  │ AI Engine (C12-W07) │       │  └─────────────────────────────────┘ │
-  │ RCA, Knowledge      │──────→│                                      │
-  └────────────────────┘       │  FINANCIAL REPORTING                  │
-                                │  ┌─────────────────────────────────┐ │
-                                │  │ P&L, Balance Sheet, Cash Flow  │ │
-                                │  │ AR Aging, Revenue Reports      │ │
-                                │  │ Tax Reports, Audit Reports     │ │
-                                │  │ Regulatory Compliance          │ │
-                                │  └─────────────────────────────────┘ │
-                                │                                      │
-                                │  TARIFF INTELLIGENCE                  │
-                                │  ┌─────────────────────────────────┐ │
-                                │  │ Time-of-Use Engine              │ │
-                                │  │ Tiered Pricing Engine           │ │
-                                │  │ Demand Charge Engine            │ │
-                                │  │ Pro-ration Engine               │ │
-                                │  │ Tax Determination               │ │
-                                │  └─────────────────────────────────┘ │
-                                └─────────────────────────────────────┘
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+  â”‚ Identity & Security â”‚       â”‚  FINANCIAL CORE                      â”‚
+  â”‚ (C12)              â”‚â”€â”€â”€â”€â”€â”€â†’â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+  â”‚ RBAC, Zero Trust   â”‚       â”‚  â”‚ Chart of Accounts              â”‚ â”‚
+  â”‚ Governance, Audit   â”‚       â”‚  â”‚ Journal Entry Engine           â”‚ â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚  â”‚ General Ledger                 â”‚ â”‚
+                                â”‚  â”‚ Financial Periods              â”‚ â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚  â”‚ Trial Balance                  â”‚ â”‚
+  â”‚ Billing (Basic)     â”‚       â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+  â”‚ Bill Runs           â”‚â”€â”€â”€â”€â”€â”€â†’â”‚                                      â”‚
+  â”‚ Invoice Gen         â”‚       â”‚  REVENUE INTELLIGENCE                â”‚
+  â”‚ Payment Recording   â”‚       â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚  â”‚ Revenue Assurance Engine        â”‚ â”‚
+                                â”‚  â”‚ Leakage Detection              â”‚ â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚  â”‚ Billing Analytics               â”‚ â”‚
+  â”‚ Customer (Basic)    â”‚       â”‚  â”‚ AR Intelligence                â”‚ â”‚
+  â”‚ CRUD, Groups        â”‚â”€â”€â”€â”€â”€â”€â†’â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚                                      â”‚
+                                â”‚  COLLECTION INTELLIGENCE              â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+  â”‚ Meters / Readings   â”‚       â”‚  â”‚ Dunning Automation             â”‚ â”‚
+  â”‚ (Live)              â”‚â”€â”€â”€â”€â”€â”€â†’â”‚  â”‚ PTP Engine                     â”‚ â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚  â”‚ Collector Assignment           â”‚ â”‚
+                                â”‚  â”‚ Field Visit Optimization       â”‚ â”‚
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚  â”‚ Write-off Management           â”‚ â”‚
+  â”‚ AI Engine (C12-W07) â”‚       â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+  â”‚ RCA, Knowledge      â”‚â”€â”€â”€â”€â”€â”€â†’â”‚                                      â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚  FINANCIAL REPORTING                  â”‚
+                                â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+                                â”‚  â”‚ P&L, Balance Sheet, Cash Flow  â”‚ â”‚
+                                â”‚  â”‚ AR Aging, Revenue Reports      â”‚ â”‚
+                                â”‚  â”‚ Tax Reports, Audit Reports     â”‚ â”‚
+                                â”‚  â”‚ Regulatory Compliance          â”‚ â”‚
+                                â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+                                â”‚                                      â”‚
+                                â”‚  TARIFF INTELLIGENCE                  â”‚
+                                â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+                                â”‚  â”‚ Time-of-Use Engine              â”‚ â”‚
+                                â”‚  â”‚ Tiered Pricing Engine           â”‚ â”‚
+                                â”‚  â”‚ Demand Charge Engine            â”‚ â”‚
+                                â”‚  â”‚ Pro-ration Engine               â”‚ â”‚
+                                â”‚  â”‚ Tax Determination               â”‚ â”‚
+                                â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+                                â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -265,7 +271,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 ### 3. Wave Breakdown
 
 #### WAVE C13-W01: Financial Data Foundation (5 days)
-**Target:** Accounting maturity 0% → 25%
+**Target:** Accounting maturity 0% â†’ 25%
 
 **Deliverables:**
 ```prisma
@@ -282,7 +288,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Financial Period management (create, open, close, re-open)
 - Journal Entry API (draft, post, reverse)
 - General Ledger (trial balance endpoint)
-- Migration: 0 models → 7 new models
+- Migration: 0 models â†’ 7 new models
 
 **Tests:** 40
 - Account hierarchy validation (5)
@@ -291,7 +297,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - GL balance calculation (10)
 
 #### WAVE C13-W02: Revenue Assurance Engine (5 days)
-**Target:** Billing intelligence 30% → 50%
+**Target:** Billing intelligence 30% â†’ 50%
 
 **Deliverables:**
 - Revenue assurance pipeline (pre-bill validation rules)
@@ -306,7 +312,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Leakage detection (10)
 
 #### WAVE C13-W03: Enterprise Tariff Engine (6 days)
-**Target:** Tariff intelligence 40% → 80%
+**Target:** Tariff intelligence 40% â†’ 80%
 
 **Deliverables:**
 - Time-of-Use tariff (peak/shoulder/off-peak schedule)
@@ -323,15 +329,15 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Tax calculation (7)
 
 #### WAVE C13-W04: Collection Intelligence Engine (6 days)
-**Target:** Collections 30% → 60%
+**Target:** Collections 30% â†’ 60%
 
 **Deliverables:**
-- Dunning automation (auto-escalate: SMS→Email→Letter→Field Visit)
+- Dunning automation (auto-escalate: SMSâ†’Emailâ†’Letterâ†’Field Visit)
 - Promise-to-Pay engine (schedule, track, missed-pmt re-escalate)
 - Collector assignment and workload balancing
 - Field visit route optimization
 - Collection effectiveness scoring
-- Write-off workflow (recommend→approve→execute)
+- Write-off workflow (recommendâ†’approveâ†’execute)
 
 **Tests:** 35
 - Dunning escalation timing (8)
@@ -340,7 +346,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Write-off approval workflow (10)
 
 #### WAVE C13-W05: Billing Analytics & AR Intelligence (5 days)
-**Target:** Billing intelligence 50% → 75%
+**Target:** Billing intelligence 50% â†’ 75%
 
 **Deliverables:**
 - AR aging dashboard (current, 30, 60, 90, 120+)
@@ -357,7 +363,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Payment scoring validation (7)
 
 #### WAVE C13-W06: Bank Reconciliation & Settlement (5 days)
-**Target:** Financial ops maturity 0% → 50%
+**Target:** Financial ops maturity 0% â†’ 50%
 
 **Deliverables:**
 - Bank statement import (CSV, MT940, CAMT.053)
@@ -373,7 +379,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Exception scenarios (10)
 
 #### WAVE C13-W07: Financial Reporting Suite (5 days)
-**Target:** Financial reporting 0% → 70%
+**Target:** Financial reporting 0% â†’ 70%
 
 **Deliverables:**
 - Profit & Loss statement (revenue, cost, margin by period)
@@ -391,7 +397,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Drill-down integrity (4)
 
 #### WAVE C13-W08: Multi-Currency & Tax Engine (4 days)
-**Target:** Financial maturity 50% → 70%
+**Target:** Financial maturity 50% â†’ 70%
 
 **Deliverables:**
 - Multi-currency invoice support
@@ -407,7 +413,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Tax rules (9)
 
 #### WAVE C13-W09: Intelligent Dunning & Customer Financial Experience (5 days)
-**Target:** Collections 60% → 85%, Customer experience 60% → 70%
+**Target:** Collections 60% â†’ 85%, Customer experience 60% â†’ 70%
 
 **Deliverables:**
 - AI-driven dunning (intelligent timing, channel selection, messaging)
@@ -423,7 +429,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Payment arrangement scenarios (10)
 
 #### WAVE C13-W10: Audit & Compliance Integration (5 days)
-**Target:** Financial audit readiness 0% → 90%
+**Target:** Financial audit readiness 0% â†’ 90%
 
 **Deliverables:**
 - Journal entry immutability (posting locks)
@@ -440,7 +446,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 - Compliance report accuracy (6)
 
 #### WAVE C13-W11: Frontend Financial Workbench (6 days)
-**Target:** Admin UI maturity 50% → 85%
+**Target:** Admin UI maturity 50% â†’ 85%
 
 **Deliverables:**
 - Financial Dashboard (revenue KPIs, AR aging, collection rate)
@@ -465,7 +471,7 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 
 **Deliverables:**
 - Full test suite: 345 tests across all 11 waves
-- Integration testing: billing→accounting→GL→reporting
+- Integration testing: billingâ†’accountingâ†’GLâ†’reporting
 - Performance testing: 100K invoices, 500K journal entries
 - Security audit: financial data access controls
 - Documentation: user guides, admin guides, API docs
@@ -481,30 +487,30 @@ Transform MeterVerse billing from basic CRUD into a carrier-grade financial plat
 **Program Structure:**
 ```
 Program Director (CFO/Finance Lead)
-├── Wave Lead — Financial Core (W01, W06, W07, W08, W10)
-├── Wave Lead — Revenue Intelligence (W02, W03, W05)
-├── Wave Lead — Collection Intelligence (W04, W09)
-├── Wave Lead — Frontend & Integration (W11)
-└── Quality Lead — Test & Certification (W12)
+â”œâ”€â”€ Wave Lead â€” Financial Core (W01, W06, W07, W08, W10)
+â”œâ”€â”€ Wave Lead â€” Revenue Intelligence (W02, W03, W05)
+â”œâ”€â”€ Wave Lead â€” Collection Intelligence (W04, W09)
+â”œâ”€â”€ Wave Lead â€” Frontend & Integration (W11)
+â””â”€â”€ Quality Lead â€” Test & Certification (W12)
 ```
 
 **Quality Gates (per wave):**
 ```
-□ All Prisma models created/migrated
-□ All backend routes returning correct data
-□ TypeScript: 0 errors
-□ Tests: 100% of wave tests passing
-□ API verification: critical endpoints return 200
-□ Frontend pages render without errors
-□ Audit logging verified on all mutations
-□ RBAC permissions enforced
-□ No regression in existing domains
+â–¡ All Prisma models created/migrated
+â–¡ All backend routes returning correct data
+â–¡ TypeScript: 0 errors
+â–¡ Tests: 100% of wave tests passing
+â–¡ API verification: critical endpoints return 200
+â–¡ Frontend pages render without errors
+â–¡ Audit logging verified on all mutations
+â–¡ RBAC permissions enforced
+â–¡ No regression in existing domains
 ```
 
 **Escalation:**
-- Wave blocking issue → Wave Lead resolves within 24h
-- Cross-wave dependency → Program Director resolves within 48h
-- Architecture decision → Engineering Lead within 72h
+- Wave blocking issue â†’ Wave Lead resolves within 24h
+- Cross-wave dependency â†’ Program Director resolves within 48h
+- Architecture decision â†’ Engineering Lead within 72h
 
 ---
 
@@ -555,12 +561,12 @@ Program Director (CFO/Finance Lead)
 | Collection Prioritization | W04 | Score customers by payment probability, recommend channel/timing |
 | Revenue Forecasting | W05 | ARIMA-based monthly revenue projection by area/utility |
 | Intelligent Dunning | W09 | Optimization engine selects best channel, timing, messaging per customer segment |
-| Journal Auto-Classification | W08 | NLP on invoice descriptions → auto-suggest account codes |
+| Journal Auto-Classification | W08 | NLP on invoice descriptions â†’ auto-suggest account codes |
 | Anomaly Detection | W10 | Unusual journal entries flagged for review (segregation of duties violation) |
 
 **AI Integration with C12-W07:**
 C12-W07 operational intelligence agents ingest financial events for:
-- Cross-domain RCA (billing error → meter issue → SIM failure)
+- Cross-domain RCA (billing error â†’ meter issue â†’ SIM failure)
 - Compliance monitoring (revenue recognition violations)
 - Knowledge pattern learning (collection effectiveness patterns)
 
@@ -571,7 +577,7 @@ C12-W07 operational intelligence agents ingest financial events for:
 | Concern | Mitigation | Wave |
 |---------|------------|------|
 | Financial data access | Row-level RBAC per area/organization | W01 |
-| Segregation of duties | Create ≠ Approve ≠ Post roles | W10 |
+| Segregation of duties | Create â‰  Approve â‰  Post roles | W10 |
 | Journal immutability | Posted entries locked, reversal only with reason | W10 |
 | Sensitive data encryption | Account numbers, bank details encrypted at rest | W01 |
 | Audit trail | Every financial mutation logged to AuditEntry | All |
@@ -580,7 +586,7 @@ C12-W07 operational intelligence agents ingest financial events for:
 
 ---
 
-### 8. Testing Strategy — 395 Tests Total
+### 8. Testing Strategy â€” 395 Tests Total
 
 | Wave | Tests | Focus |
 |------|-------|-------|
@@ -631,19 +637,19 @@ C12-W07 operational intelligence agents ingest financial events for:
 ### 10. Dependency Chain
 
 ```
-C01-C10 (Connectivity Center) ────┐
-                                   ├──→ C12 (Identity & Security) ──→ C13 (Financial Platform)
-Existing Billing (basic) ─────────┘
-                                          │
-                                          ├──→ C14 (Customer Experience) [RECOMMENDED NEXT]
-                                          ├──→ C15 (Integration Platform)
-                                          └──→ C16 (Data Lake & Analytics)
+C01-C10 (Connectivity Center) â”€â”€â”€â”€â”
+                                   â”œâ”€â”€â†’ C12 (Identity & Security) â”€â”€â†’ C13 (Financial Platform)
+Existing Billing (basic) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                          â”‚
+                                          â”œâ”€â”€â†’ C14 (Customer Experience) [RECOMMENDED NEXT]
+                                          â”œâ”€â”€â†’ C15 (Integration Platform)
+                                          â””â”€â”€â†’ C16 (Data Lake & Analytics)
 ```
 
 C13 unblocks:
-- **C14 Customer Experience Platform** — needs billing accuracy and financial data for customer portal
-- **C15 Integration Platform** — needs accounting GL for ERP integration
-- **C16 Data Lake & Analytics** — needs financial data warehouse foundation
+- **C14 Customer Experience Platform** â€” needs billing accuracy and financial data for customer portal
+- **C15 Integration Platform** â€” needs accounting GL for ERP integration
+- **C16 Data Lake & Analytics** â€” needs financial data warehouse foundation
 
 ---
 
@@ -659,66 +665,66 @@ C13 unblocks:
 
 ---
 
-### 12. Definition of Done — C13 Program
+### 12. Definition of Done â€” C13 Program
 
 ```
 C13 PROGRAM COMPLETION GATES:
 
-W01: □ All 7 accounting models created
-     □ Account CRUD + Journal Entry API + Period management
-     □ 40 accounting tests passing
+W01: â–¡ All 7 accounting models created
+     â–¡ Account CRUD + Journal Entry API + Period management
+     â–¡ 40 accounting tests passing
 
-W02: □ Revenue assurance pipeline operational
-     □ Leakage detection running
-     □ 30 revenue tests passing
+W02: â–¡ Revenue assurance pipeline operational
+     â–¡ Leakage detection running
+     â–¡ 30 revenue tests passing
 
-W03: □ ToU, tiered, demand, pro-ration engines operational
-     □ Tax determination active
-     □ 35 tariff tests passing
+W03: â–¡ ToU, tiered, demand, pro-ration engines operational
+     â–¡ Tax determination active
+     â–¡ 35 tariff tests passing
 
-W04: □ Dunning automation live (SMS→Email→Letter→Visit)
-     □ PTP engine operational
-     □ 35 collection tests passing
+W04: â–¡ Dunning automation live (SMSâ†’Emailâ†’Letterâ†’Visit)
+     â–¡ PTP engine operational
+     â–¡ 35 collection tests passing
 
-W05: □ AR aging dashboard live
-     □ Revenue forecasting active
-     □ 25 analytics tests passing
+W05: â–¡ AR aging dashboard live
+     â–¡ Revenue forecasting active
+     â–¡ 25 analytics tests passing
 
-W06: □ Bank reconciliation operational
-     □ Auto-matching engine active
-     □ 30 reconciliation tests passing
+W06: â–¡ Bank reconciliation operational
+     â–¡ Auto-matching engine active
+     â–¡ 30 reconciliation tests passing
 
-W07: □ P&L, Balance Sheet, Cash Flow reports generating
-     □ GL drill-down operational
-     □ 25 reporting tests passing
+W07: â–¡ P&L, Balance Sheet, Cash Flow reports generating
+     â–¡ GL drill-down operational
+     â–¡ 25 reporting tests passing
 
-W08: □ Multi-currency invoices active
-     □ Tax engine operational
-     □ 25 multi-currency tests passing
+W08: â–¡ Multi-currency invoices active
+     â–¡ Tax engine operational
+     â–¡ 25 multi-currency tests passing
 
-W09: □ AI dunning optimization live
-     □ Customer financial dashboard active
-     □ 30 dunning tests passing
+W09: â–¡ AI dunning optimization live
+     â–¡ Customer financial dashboard active
+     â–¡ 30 dunning tests passing
 
-W10: □ Segregation of duties enforced
-     □ Period immutability active
-     □ 30 compliance tests passing
+W10: â–¡ Segregation of duties enforced
+     â–¡ Period immutability active
+     â–¡ 30 compliance tests passing
 
-W11: □ All 10 financial workbench pages live
-     □ Dashboard data verified accurate
-     □ 40 frontend tests passing
+W11: â–¡ All 10 financial workbench pages live
+     â–¡ Dashboard data verified accurate
+     â–¡ 40 frontend tests passing
 
-W12: □ 395 total tests passing
-     □ Integration verified (billing→accounting→GL→reporting)
-     □ Performance: 100K invoices < 30s batch
-     □ Security audit passed
-     □ Certification report published
+W12: â–¡ 395 total tests passing
+     â–¡ Integration verified (billingâ†’accountingâ†’GLâ†’reporting)
+     â–¡ Performance: 100K invoices < 30s batch
+     â–¡ Security audit passed
+     â–¡ Certification report published
 
 C13 PROGRAM STATUS: CERTIFIED
-Accounting Maturity: 0% → 90%
-Billing Intelligence: 30% → 95%
-Collections Maturity: 30% → 85%
-Financial Audit Readiness: 0% → 100%
+Accounting Maturity: 0% â†’ 90%
+Billing Intelligence: 30% â†’ 95%
+Collections Maturity: 30% â†’ 85%
+Financial Audit Readiness: 0% â†’ 100%
 ```
 
 ---
@@ -727,14 +733,15 @@ Financial Audit Readiness: 0% → 100%
 
 | After C13 | Next Program | Rationale |
 |-----------|-------------|-----------|
-| ✅ Financial data verified | **C14: Customer Experience Platform** | Customer portal needs billing accuracy and payment history |
-| ✅ GL + accounting operational | **C15: Enterprise Integration Platform** | ERP integration needs chart of accounts and GL |
-| ✅ Revenue assurance active | **C16: Data Lake & Analytics Platform** | Clean financial data feeds enterprise BI |
-| ✅ Tariff engine complete | **C17: Advanced Metering Analytics** | Complex tariffs require advanced consumption analytics |
-| ✅ Collections automated | **C18: Mobile Field Operations** | Field visits need collection case integration |
+| âœ… Financial data verified | **C14: Customer Experience Platform** | Customer portal needs billing accuracy and payment history |
+| âœ… GL + accounting operational | **C15: Enterprise Integration Platform** | ERP integration needs chart of accounts and GL |
+| âœ… Revenue assurance active | **C16: Data Lake & Analytics Platform** | Clean financial data feeds enterprise BI |
+| âœ… Tariff engine complete | **C17: Advanced Metering Analytics** | Complex tariffs require advanced consumption analytics |
+| âœ… Collections automated | **C18: Mobile Field Operations** | Field visits need collection case integration |
 
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*Enterprise Financial & Billing Intelligence Platform — C13.*
+*Enterprise Financial & Billing Intelligence Platform â€” C13.*
 *READ ONLY. GOVERNANCE PLANNING ONLY.*
+

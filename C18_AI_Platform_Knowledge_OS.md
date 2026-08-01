@@ -1,8 +1,14 @@
-# C18 — Enterprise AI Platform, Knowledge Operating System & Autonomous Enterprise
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (ai-engine/RCA exist) | Certification: [ ] Not Certified | Wave: W5 | Commit: dea2134b
+====================================================================
+-->
+
+# C18 â€” Enterprise AI Platform, Knowledge Operating System & Autonomous Enterprise
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C10, C12 Identity, C13 Financial, C14 Customer, C15 Integration, C16 Asset & Field, C17 Data Intelligence  
 
@@ -14,21 +20,21 @@
 
 | Component | Location | Status | Capability |
 |-----------|----------|--------|------------|
-| **ai-engine.js** — 9 domain functions | `services/ai-engine.js` | ✅ Basic | Operator, Billing Assistant, Reading Validator, Leak Detection, Forecasting, RCA, Report Builder, SQL Assistant, Workflow Generator |
-| **AgentRuntime** | `src/intelligence/runtime/agent-engine/AgentRuntime.js` | ✅ Basic | Agent execution engine |
-| **ModelRouter** | `src/intelligence/runtime/model-router/ModelRouter.js` | ✅ Basic | Model selection/routing |
-| **ToolRegistry** | `src/intelligence/runtime/tool-registry/ToolRegistry.js` | ✅ Basic | Tool registration |
-| **AuditService** | `src/intelligence/runtime/audit-service/AuditService.js` | ✅ Basic | AI action auditing |
-| **KnowledgeRepository** | `src/intelligence/knowledge/repository/KnowledgeRepository.js` | ✅ Basic | Multi-entity search |
-| **RCA Engine** | `src/intelligence/rca/` | ✅ Complete | Case lifecycle, evidence, 5 Whys, recommendations, learning |
-| **RCAgent** | `src/intelligence/agents/RCAgent.js` | ✅ Basic | RCA agent |
-| **LearnedPattern** model | `schema.prisma:791` | ✅ Complete | pattern, resolution, frequency, effectiveness, confidence |
-| **KnowledgeArticle** model | `schema.prisma:771` | ✅ Complete | title, content, tags, category |
-| **C12-W07 AI Governance** | Designed | ✅ Complete | AIRecommendation model, agent governance rules |
-| **C13-W07 Financial AI** | Designed | ❌ W07 | 9 AI agents, forecasting, Monte Carlo |
-| **C15-W08 AI Ops** | Designed | ❌ W08 | Integration anomaly, failure prediction |
-| **C16-W09 AI Maintenance** | Designed | ❌ W09 | Failure prediction, spare parts forecast |
-| **C17-W05 AI Analytics** | Designed | ❌ W05 | Narrative, predictive, insight agents |
+| **ai-engine.js** â€” 9 domain functions | `services/ai-engine.js` | âœ… Basic | Operator, Billing Assistant, Reading Validator, Leak Detection, Forecasting, RCA, Report Builder, SQL Assistant, Workflow Generator |
+| **AgentRuntime** | `src/intelligence/runtime/agent-engine/AgentRuntime.js` | âœ… Basic | Agent execution engine |
+| **ModelRouter** | `src/intelligence/runtime/model-router/ModelRouter.js` | âœ… Basic | Model selection/routing |
+| **ToolRegistry** | `src/intelligence/runtime/tool-registry/ToolRegistry.js` | âœ… Basic | Tool registration |
+| **AuditService** | `src/intelligence/runtime/audit-service/AuditService.js` | âœ… Basic | AI action auditing |
+| **KnowledgeRepository** | `src/intelligence/knowledge/repository/KnowledgeRepository.js` | âœ… Basic | Multi-entity search |
+| **RCA Engine** | `src/intelligence/rca/` | âœ… Complete | Case lifecycle, evidence, 5 Whys, recommendations, learning |
+| **RCAgent** | `src/intelligence/agents/RCAgent.js` | âœ… Basic | RCA agent |
+| **LearnedPattern** model | `schema.prisma:791` | âœ… Complete | pattern, resolution, frequency, effectiveness, confidence |
+| **KnowledgeArticle** model | `schema.prisma:771` | âœ… Complete | title, content, tags, category |
+| **C12-W07 AI Governance** | Designed | âœ… Complete | AIRecommendation model, agent governance rules |
+| **C13-W07 Financial AI** | Designed | âŒ W07 | 9 AI agents, forecasting, Monte Carlo |
+| **C15-W08 AI Ops** | Designed | âŒ W08 | Integration anomaly, failure prediction |
+| **C16-W09 AI Maintenance** | Designed | âŒ W09 | Failure prediction, spare parts forecast |
+| **C17-W05 AI Analytics** | Designed | âŒ W05 | Narrative, predictive, insight agents |
 
 ### 1.2 AI Maturity Assessment
 
@@ -51,15 +57,15 @@
 
 ```
 Prerequisites (all designed, some implemented):
-✅ C12 Identity — RBAC, audit, Zero Trust (implemented)
-✅ C12-W07 OI Framework — AIRecommendation, governance (designed)
-✅ C13-W07 Financial AI — 9 agents, forecasting (designed)
-✅ C15-W08 Integration AI Ops (designed)
-✅ C16-W09 Maintenance AI (designed)
-✅ C17-W05 Analytics AI (designed)
-✅ AgentRuntime, ModelRouter, ToolRegistry (implemented — basic)
-✅ RCA engine (implemented — complete)
-✅ LearnedPattern + KnowledgeArticle (implemented)
+âœ… C12 Identity â€” RBAC, audit, Zero Trust (implemented)
+âœ… C12-W07 OI Framework â€” AIRecommendation, governance (designed)
+âœ… C13-W07 Financial AI â€” 9 agents, forecasting (designed)
+âœ… C15-W08 Integration AI Ops (designed)
+âœ… C16-W09 Maintenance AI (designed)
+âœ… C17-W05 Analytics AI (designed)
+âœ… AgentRuntime, ModelRouter, ToolRegistry (implemented â€” basic)
+âœ… RCA engine (implemented â€” complete)
+âœ… LearnedPattern + KnowledgeArticle (implemented)
 
 Risk: C18 should proceed AFTER implementing C13-W07/C15/C16/C17 AI layers,
 to consolidate the 20+ agents designed across programs into the central platform.
@@ -72,72 +78,72 @@ to consolidate the 20+ agents designed across programs into the central platform
 ### 2.1 Central AI Gateway
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                              ENTERPRISE AI PLATFORM (C18)                                                        │
-│                                                                                                               │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  ENTRY POINTS                                                                                            │    │
-│  │  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐          │    │
-│  │  │ API Gateway   │ │ Admin UI      │ │ Customer      │ │ Chat / Portal  │ │ Scheduled     │          │    │
-│  │  │ (REST)        │ │ (AI Ops)      │ │ Assistant     │ │ (web)         │ │ Jobs          │          │    │
-│  │  └───────────────┘ └───────────────┘ └───────────────┘ └───────────────┘ └───────────────┘          │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  CENTRAL AI GATEWAY (Orchestration Layer)                                                               │    │
-│  │                                                                                                          │    │
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                 │    │
-│  │  │ Agent        │ │ Model Router │ │ Tool Router  │ │ Prompt Router│ │ Knowledge    │                 │    │
-│  │  │ Router       │ │ (LLM select) │ │ (permission) │ │ (versioned)  │ │ Retriever    │                 │    │
-│  │  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘                 │    │
-│  │                                                                                                          │    │
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                 │    │
-│  │  │ Guardrails   │ │ Confidence   │ │ Explain-     │ │ Audit Trail  │ │ Rate & Cost  │                 │    │
-│  │  │ (safety)     │ │ Scoring      │ │ ability      │ │ (every call) │ │ Limiting     │                 │    │
-│  │  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘                 │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  REGISTRY LAYER                                                                                           │    │
-│  │                                                                                                          │    │
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                 │    │
-│  │  │ Agent        │ │ Model        │ │ Prompt       │ │ Tool         │ │ Knowledge    │                 │    │
-│  │  │ Registry     │ │ Registry     │ │ Registry     │ │ Registry     │ │ Registry     │                 │    │
-│  │  │ (12 agents)  │ │ (models)     │ │ (versioned)  │ │ (permissions)│ │ (domains)    │                 │    │
-│  │  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘                 │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  KNOWLEDGE OS & MEMORY                                                                                    │    │
-│  │                                                                                                          │    │
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                 │    │
-│  │  │ Knowledge    │ │ Vector Store │ │ Semantic     │ │ Short-term   │ │ Long-term    │                 │    │
-│  │  │ Graph        │ │ (pgvector)   │ │ Retrieval    │ │ Memory       │ │ Memory       │                 │    │
-│  │  │ (unified)    │ │              │ │ Pipeline     │ │ (working)    │ │ (persistent) │                 │    │
-│  │  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘                 │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI GOVERNANCE LAYER                                                                                      │    │
-│  │                                                                                                          │    │
-│  │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐                 │    │
-│  │  │ Policy       │ │ Model        │ │ Risk         │ │ Human-in-    │ │ Regulatory   │                 │    │
-│  │  │ Engine       │ │ Approval     │ │ Classification│ │ the-Loop     │ │ Alignment    │                 │    │
-│  │  │              │ │ Lifecycle    │ │              │ │ Controls     │ │              │                 │    │
-│  │  └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘                 │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  MONITORING & OBSERVABILITY                                                                               │    │
-│  │                                                                                                          │    │
-│  │  Token Usage │ Cost Tracking │ Latency │ Accuracy │ Drift │ Agent Health │ Model Perf │ Freshness       │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                              ENTERPRISE AI PLATFORM (C18)                                                        â”‚
+â”‚                                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  ENTRY POINTS                                                                                            â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”‚    â”‚
+â”‚  â”‚  â”‚ API Gateway   â”‚ â”‚ Admin UI      â”‚ â”‚ Customer      â”‚ â”‚ Chat / Portal  â”‚ â”‚ Scheduled     â”‚          â”‚    â”‚
+â”‚  â”‚  â”‚ (REST)        â”‚ â”‚ (AI Ops)      â”‚ â”‚ Assistant     â”‚ â”‚ (web)         â”‚ â”‚ Jobs          â”‚          â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  CENTRAL AI GATEWAY (Orchestration Layer)                                                               â”‚    â”‚
+â”‚  â”‚                                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚    â”‚
+â”‚  â”‚  â”‚ Agent        â”‚ â”‚ Model Router â”‚ â”‚ Tool Router  â”‚ â”‚ Prompt Routerâ”‚ â”‚ Knowledge    â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ Router       â”‚ â”‚ (LLM select) â”‚ â”‚ (permission) â”‚ â”‚ (versioned)  â”‚ â”‚ Retriever    â”‚                 â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚    â”‚
+â”‚  â”‚                                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚    â”‚
+â”‚  â”‚  â”‚ Guardrails   â”‚ â”‚ Confidence   â”‚ â”‚ Explain-     â”‚ â”‚ Audit Trail  â”‚ â”‚ Rate & Cost  â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ (safety)     â”‚ â”‚ Scoring      â”‚ â”‚ ability      â”‚ â”‚ (every call) â”‚ â”‚ Limiting     â”‚                 â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  REGISTRY LAYER                                                                                           â”‚    â”‚
+â”‚  â”‚                                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚    â”‚
+â”‚  â”‚  â”‚ Agent        â”‚ â”‚ Model        â”‚ â”‚ Prompt       â”‚ â”‚ Tool         â”‚ â”‚ Knowledge    â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ Registry     â”‚ â”‚ Registry     â”‚ â”‚ Registry     â”‚ â”‚ Registry     â”‚ â”‚ Registry     â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ (12 agents)  â”‚ â”‚ (models)     â”‚ â”‚ (versioned)  â”‚ â”‚ (permissions)â”‚ â”‚ (domains)    â”‚                 â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  KNOWLEDGE OS & MEMORY                                                                                    â”‚    â”‚
+â”‚  â”‚                                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚    â”‚
+â”‚  â”‚  â”‚ Knowledge    â”‚ â”‚ Vector Store â”‚ â”‚ Semantic     â”‚ â”‚ Short-term   â”‚ â”‚ Long-term    â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ Graph        â”‚ â”‚ (pgvector)   â”‚ â”‚ Retrieval    â”‚ â”‚ Memory       â”‚ â”‚ Memory       â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ (unified)    â”‚ â”‚              â”‚ â”‚ Pipeline     â”‚ â”‚ (working)    â”‚ â”‚ (persistent) â”‚                 â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI GOVERNANCE LAYER                                                                                      â”‚    â”‚
+â”‚  â”‚                                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                 â”‚    â”‚
+â”‚  â”‚  â”‚ Policy       â”‚ â”‚ Model        â”‚ â”‚ Risk         â”‚ â”‚ Human-in-    â”‚ â”‚ Regulatory   â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚ Engine       â”‚ â”‚ Approval     â”‚ â”‚ Classificationâ”‚ â”‚ the-Loop     â”‚ â”‚ Alignment    â”‚                 â”‚    â”‚
+â”‚  â”‚  â”‚              â”‚ â”‚ Lifecycle    â”‚ â”‚              â”‚ â”‚ Controls     â”‚ â”‚              â”‚                 â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  MONITORING & OBSERVABILITY                                                                               â”‚    â”‚
+â”‚  â”‚                                                                                                          â”‚    â”‚
+â”‚  â”‚  Token Usage â”‚ Cost Tracking â”‚ Latency â”‚ Accuracy â”‚ Drift â”‚ Agent Health â”‚ Model Perf â”‚ Freshness       â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Model Registry
@@ -154,7 +160,7 @@ to consolidate the 20+ agents designed across programs into the central platform
 | costPer1KInput | USD |
 | costPer1KOutput | USD |
 | latencyP50 | ms |
-| status | DRAFT → VALIDATED → ACTIVE → DEPRECATED → RETIRED |
+| status | DRAFT â†’ VALIDATED â†’ ACTIVE â†’ DEPRECATED â†’ RETIRED |
 | capabilities | JSON (e.g., ["reasoning", "function_calling", "vision"]) |
 | limitations | JSON |
 | approvedBy, approvedAt | Model approval gate |
@@ -169,16 +175,16 @@ to consolidate the 20+ agents designed across programs into the central platform
 | version | Semantic version |
 | template | Prompt template with {{variables}} |
 | variables | JSON schema of expected variables |
-| modelId | FK → ModelRegistry |
+| modelId | FK â†’ ModelRegistry |
 | temperature | Generation temperature |
 | maxTokens | Generation limit |
 | systemPrompt | System context |
 | examples | Few-shot examples |
 | safetyTags | JSON (e.g., ["financial", "customer_pii"]) |
-| status | DRAFT → TESTED → APPROVED → ACTIVE → DEPRECATED |
+| status | DRAFT â†’ TESTED â†’ APPROVED â†’ ACTIVE â†’ DEPRECATED |
 | qualityScore | 0-100 (LLM-as-judge) |
 | approvedBy, approvedAt | Approval gate |
-| rollbackTo | FK → self (previous version) |
+| rollbackTo | FK â†’ self (previous version) |
 
 ---
 
@@ -187,118 +193,118 @@ to consolidate the 20+ agents designed across programs into the central platform
 ### 3.1 Unified Knowledge Graph
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│                        ENTERPRISE KNOWLEDGE GRAPH                                              │
-│                                                                                               │
-│  ┌────────────────────────┐  ┌────────────────────────┐  ┌────────────────────────┐          │
-│  │ OPERATIONAL KNOWLEDGE   │  │ FINANCIAL KNOWLEDGE    │  │ TECHNICAL KNOWLEDGE    │          │
-│  │ • Procedures            │  │ • Accounting policies  │  │ • Meter protocols     │          │
-│  │ • Playbooks             │  │ • Tariff rules         │  │ • DLMS/COSEM guides   │          │
-│  │ • Runbooks              │  │ • Revenue recognition  │  │ • Gateway firmware    │          │
-│  │ • SOPs                  │  │ • Tax compliance       │  │ • Communication specs │          │
-│  │ • Configurations        │  │ • Budget policies      │  │ • Device manuals      │          │
-│  └────────────────────────┘  └────────────────────────┘  └────────────────────────┘          │
-│                                                                                               │
-│  ┌────────────────────────┐  ┌────────────────────────┐  ┌────────────────────────┐          │
-│  │ CUSTOMER KNOWLEDGE      │  │ ASSET KNOWLEDGE        │  │ INCIDENT KNOWLEDGE     │          │
-│  │ • Profiles              │  │ • Asset histories      │  │ • Past incidents      │          │
-│  │ • Communication prefs   │  │ • Maintenance records  │  │ • Resolutions         │          │
-│  │ • Service history       │  │ • Failure modes        │  │ • Learned patterns    │          │
-│  │ • Billing history       │  │ • Warranty info        │  │ • RCA cases           │          │
-│  │ • Satisfaction trends   │  │ • Health scores        │  │ • Post-mortems        │          │
-│  └────────────────────────┘  └────────────────────────┘  └────────────────────────┘          │
-│                                                                                               │
-│  SEMANTIC RELATIONSHIPS:                                                                      │
-│  meter —INSTALLED_AT→ site —SERVES→ customer —HAS_CONTRACT→ contract —APPLIES_TARIFF→ tariff │
-│  customer —RAISES→ incident —LINKED_TO→ meter —HAS_PATTERN→ learnedPattern                  │
-│  invoice —BELONGS_TO→ customer —HAS_PAYMENT→ payment —POSTED_TO→ journalEntry               │
-│  workOrder —ASSIGNED_TO→ technician —CERTIFIED_FOR→ skill —REQUIRED_BY→ taskType            │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                        ENTERPRISE KNOWLEDGE GRAPH                                              â”‚
+â”‚                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”‚
+â”‚  â”‚ OPERATIONAL KNOWLEDGE   â”‚  â”‚ FINANCIAL KNOWLEDGE    â”‚  â”‚ TECHNICAL KNOWLEDGE    â”‚          â”‚
+â”‚  â”‚ â€¢ Procedures            â”‚  â”‚ â€¢ Accounting policies  â”‚  â”‚ â€¢ Meter protocols     â”‚          â”‚
+â”‚  â”‚ â€¢ Playbooks             â”‚  â”‚ â€¢ Tariff rules         â”‚  â”‚ â€¢ DLMS/COSEM guides   â”‚          â”‚
+â”‚  â”‚ â€¢ Runbooks              â”‚  â”‚ â€¢ Revenue recognition  â”‚  â”‚ â€¢ Gateway firmware    â”‚          â”‚
+â”‚  â”‚ â€¢ SOPs                  â”‚  â”‚ â€¢ Tax compliance       â”‚  â”‚ â€¢ Communication specs â”‚          â”‚
+â”‚  â”‚ â€¢ Configurations        â”‚  â”‚ â€¢ Budget policies      â”‚  â”‚ â€¢ Device manuals      â”‚          â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚
+â”‚                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”‚
+â”‚  â”‚ CUSTOMER KNOWLEDGE      â”‚  â”‚ ASSET KNOWLEDGE        â”‚  â”‚ INCIDENT KNOWLEDGE     â”‚          â”‚
+â”‚  â”‚ â€¢ Profiles              â”‚  â”‚ â€¢ Asset histories      â”‚  â”‚ â€¢ Past incidents      â”‚          â”‚
+â”‚  â”‚ â€¢ Communication prefs   â”‚  â”‚ â€¢ Maintenance records  â”‚  â”‚ â€¢ Resolutions         â”‚          â”‚
+â”‚  â”‚ â€¢ Service history       â”‚  â”‚ â€¢ Failure modes        â”‚  â”‚ â€¢ Learned patterns    â”‚          â”‚
+â”‚  â”‚ â€¢ Billing history       â”‚  â”‚ â€¢ Warranty info        â”‚  â”‚ â€¢ RCA cases           â”‚          â”‚
+â”‚  â”‚ â€¢ Satisfaction trends   â”‚  â”‚ â€¢ Health scores        â”‚  â”‚ â€¢ Post-mortems        â”‚          â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚
+â”‚                                                                                               â”‚
+â”‚  SEMANTIC RELATIONSHIPS:                                                                      â”‚
+â”‚  meter â€”INSTALLED_ATâ†’ site â€”SERVESâ†’ customer â€”HAS_CONTRACTâ†’ contract â€”APPLIES_TARIFFâ†’ tariff â”‚
+â”‚  customer â€”RAISESâ†’ incident â€”LINKED_TOâ†’ meter â€”HAS_PATTERNâ†’ learnedPattern                  â”‚
+â”‚  invoice â€”BELONGS_TOâ†’ customer â€”HAS_PAYMENTâ†’ payment â€”POSTED_TOâ†’ journalEntry               â”‚
+â”‚  workOrder â€”ASSIGNED_TOâ†’ technician â€”CERTIFIED_FORâ†’ skill â€”REQUIRED_BYâ†’ taskType            â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 3.2 Knowledge Domain Model
 
 ```
 KnowledgeNode
-├── id, domain: OPERATIONAL | FINANCIAL | TECHNICAL | CUSTOMER | ASSET | INCIDENT
-├── type: ARTICLE | PROCEDURE | PLAYBOOK | PATTERN | CASE | POLICY | REFERENCE
-├── title, content, summary
-├── tags: JSON, category, version, status: DRAFT | REVIEWED | APPROVED | ARCHIVED
-├── sourceEntityType, sourceEntityId
-├── createdBy, updatedBy, createdAt, archivedAt
-├── embeddingId (FK → VectorEmbedding)
-├── relatedNodes: JSON (graph edges)
+â”œâ”€â”€ id, domain: OPERATIONAL | FINANCIAL | TECHNICAL | CUSTOMER | ASSET | INCIDENT
+â”œâ”€â”€ type: ARTICLE | PROCEDURE | PLAYBOOK | PATTERN | CASE | POLICY | REFERENCE
+â”œâ”€â”€ title, content, summary
+â”œâ”€â”€ tags: JSON, category, version, status: DRAFT | REVIEWED | APPROVED | ARCHIVED
+â”œâ”€â”€ sourceEntityType, sourceEntityId
+â”œâ”€â”€ createdBy, updatedBy, createdAt, archivedAt
+â”œâ”€â”€ embeddingId (FK â†’ VectorEmbedding)
+â”œâ”€â”€ relatedNodes: JSON (graph edges)
 
 VectorEmbedding
-├── id, nodeId (FK), model: String (embedding model)
-├── vector: Unsupported("vector") (pgvector)
-├── textChunk, chunkIndex, createdAt
+â”œâ”€â”€ id, nodeId (FK), model: String (embedding model)
+â”œâ”€â”€ vector: Unsupported("vector") (pgvector)
+â”œâ”€â”€ textChunk, chunkIndex, createdAt
 
 KnowledgeRelation
-├── id, fromNodeId, toNodeId, relationType
-├── weight: Float (0-1), createdAt
+â”œâ”€â”€ id, fromNodeId, toNodeId, relationType
+â”œâ”€â”€ weight: Float (0-1), createdAt
 ```
 
 ### 3.3 Knowledge Lifecycle
 
 ```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  DRAFT    │───→│ REVIEWED │───→│ APPROVED │───→│ ACTIVE   │───→│ ARCHIVED │
-│ (created) │    │ (peer)   │    │ (steward)│    │ (live)   │    │ (retired)│
-└──────────┘    └──────────┘    └──────────┘    └────┬─────┘    └──────────┘
-                                                      │
-                                                      ▼
-                                               ┌──────────┐
-                                               │ SUPERSEDED│
-                                               │ (new ver) │
-                                               └──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  DRAFT    â”‚â”€â”€â”€â†’â”‚ REVIEWED â”‚â”€â”€â”€â†’â”‚ APPROVED â”‚â”€â”€â”€â†’â”‚ ACTIVE   â”‚â”€â”€â”€â†’â”‚ ARCHIVED â”‚
+â”‚ (created) â”‚    â”‚ (peer)   â”‚    â”‚ (steward)â”‚    â”‚ (live)   â”‚    â”‚ (retired)â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                                      â”‚
+                                                      â–¼
+                                               â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                               â”‚ SUPERSEDEDâ”‚
+                                               â”‚ (new ver) â”‚
+                                               â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
 
 ## PART 4: ENTERPRISE AGENT FRAMEWORK
 
-### 4.1 Agent Registry — 12 Enterprise Agents
+### 4.1 Agent Registry â€” 12 Enterprise Agents
 
 | # | Agent | Domain | Responsibilities | Autonomy | Human Approval |
 |---|-------|--------|------------------|----------|----------------|
-| 1 | **Operations Agent** | C01-C10 | Monitor connectivity, health, failover, diagnostics | ✅ Auto (read) / ⚡ (actions) | Config changes |
-| 2 | **RCA Agent** | C12-W07 | Root cause analysis, evidence, 5 Whys, patterns | ⚡ Semi | Corrections |
-| 3 | **Finance Agent** | C13 | GL analysis, budget, reporting, reconciliation | ⚡ Semi | Journals, corrections |
-| 4 | **Billing Agent** | C13 | Invoice validation, tariff application, revenue | ⚡ Semi | Re-billing |
-| 5 | **Collection Agent** | C13-W04 | Dunning, PTP, prioritization, write-off rec | ⚡ Semi | Actions, write-offs |
-| 6 | **Customer Agent** | C14 | Assistant, service requests, disputes, satisfaction | ✅ Auto (read) | Account changes |
-| 7 | **Asset Agent** | C16 | Health scoring, maintenance prediction, inventory | ⚡ Semi | Work orders |
-| 8 | **Integration Agent** | C15 | Health, mapping, failure prediction, DLQ | ⚡ Semi | Reprocessing |
-| 9 | **Analytics Agent** | C17 | Narrative, insights, forecasts, reports | ✅ Auto (read) | None |
-| 10 | **Compliance Agent** | C12-W06 | Policy checks, evidence, audit reports | ✅ Auto (read) | Findings review |
-| 11 | **Executive Advisor** | C18 | Board summaries, strategic recommendations | ⚡ Semi | Publications |
-| 12 | **Security Agent** | C12-W05 | Threat detection, access anomalies, secrets | ⚡ Semi | Blocking actions |
+| 1 | **Operations Agent** | C01-C10 | Monitor connectivity, health, failover, diagnostics | âœ… Auto (read) / âš¡ (actions) | Config changes |
+| 2 | **RCA Agent** | C12-W07 | Root cause analysis, evidence, 5 Whys, patterns | âš¡ Semi | Corrections |
+| 3 | **Finance Agent** | C13 | GL analysis, budget, reporting, reconciliation | âš¡ Semi | Journals, corrections |
+| 4 | **Billing Agent** | C13 | Invoice validation, tariff application, revenue | âš¡ Semi | Re-billing |
+| 5 | **Collection Agent** | C13-W04 | Dunning, PTP, prioritization, write-off rec | âš¡ Semi | Actions, write-offs |
+| 6 | **Customer Agent** | C14 | Assistant, service requests, disputes, satisfaction | âœ… Auto (read) | Account changes |
+| 7 | **Asset Agent** | C16 | Health scoring, maintenance prediction, inventory | âš¡ Semi | Work orders |
+| 8 | **Integration Agent** | C15 | Health, mapping, failure prediction, DLQ | âš¡ Semi | Reprocessing |
+| 9 | **Analytics Agent** | C17 | Narrative, insights, forecasts, reports | âœ… Auto (read) | None |
+| 10 | **Compliance Agent** | C12-W06 | Policy checks, evidence, audit reports | âœ… Auto (read) | Findings review |
+| 11 | **Executive Advisor** | C18 | Board summaries, strategic recommendations | âš¡ Semi | Publications |
+| 12 | **Security Agent** | C12-W05 | Threat detection, access anomalies, secrets | âš¡ Semi | Blocking actions |
 
 ### 4.2 Agent Definition Schema
 
 ```
 AgentDefinition
-├── id, name, code (UNIQUE), description
-├── version, status: DRAFT | ACTIVE | PAUSED | RETIRED
-├── role: String                       ← Primary responsibility
-├── capabilities: JSON                 ← [capability names]
-├── tools: JSON                        ← [tool registry ids with permissions]
-├── models: JSON                       ← [model registry ids]
-├── prompts: JSON                      ← [prompt registry ids]
-├── autonomyLevel: String              ← FULL_READ | SEMI_ACTION | FULL_ACTION
-├── permissions: JSON                  ← Scoped RBAC permissions
-├── escalationRuleId: String?          ← FK → EscalationPolicy
-├── approvalWorkflowId: String?        ← FK → ApprovalWorkflow
-├── auditLevel: String                 ← EVERY_ACTION | SUMMARY | EXCEPTION
-├── memoryAccess: JSON                 ← [memory types accessible]
-├── knowledgeDomains: JSON             ← [knowledge domains accessible]
-├── maxTokensPerRun: Int?
-├── maxToolsPerRun: Int @default(10)
-├── rateLimit: Int?                    ← Calls per hour
-├── confidenceThreshold: Float @default(0.7)
-├── humanOverride: Boolean @default(true)
-├── createdBy, approvedBy, approvedAt, createdAt, archivedAt
+â”œâ”€â”€ id, name, code (UNIQUE), description
+â”œâ”€â”€ version, status: DRAFT | ACTIVE | PAUSED | RETIRED
+â”œâ”€â”€ role: String                       â† Primary responsibility
+â”œâ”€â”€ capabilities: JSON                 â† [capability names]
+â”œâ”€â”€ tools: JSON                        â† [tool registry ids with permissions]
+â”œâ”€â”€ models: JSON                       â† [model registry ids]
+â”œâ”€â”€ prompts: JSON                      â† [prompt registry ids]
+â”œâ”€â”€ autonomyLevel: String              â† FULL_READ | SEMI_ACTION | FULL_ACTION
+â”œâ”€â”€ permissions: JSON                  â† Scoped RBAC permissions
+â”œâ”€â”€ escalationRuleId: String?          â† FK â†’ EscalationPolicy
+â”œâ”€â”€ approvalWorkflowId: String?        â† FK â†’ ApprovalWorkflow
+â”œâ”€â”€ auditLevel: String                 â† EVERY_ACTION | SUMMARY | EXCEPTION
+â”œâ”€â”€ memoryAccess: JSON                 â† [memory types accessible]
+â”œâ”€â”€ knowledgeDomains: JSON             â† [knowledge domains accessible]
+â”œâ”€â”€ maxTokensPerRun: Int?
+â”œâ”€â”€ maxToolsPerRun: Int @default(10)
+â”œâ”€â”€ rateLimit: Int?                    â† Calls per hour
+â”œâ”€â”€ confidenceThreshold: Float @default(0.7)
+â”œâ”€â”€ humanOverride: Boolean @default(true)
+â”œâ”€â”€ createdBy, approvedBy, approvedAt, createdAt, archivedAt
 ```
 
 ### 4.3 Agent Execution Flow
@@ -318,7 +324,7 @@ AgentInvocationEngine.run(agentCode, input, context):
      - Read tools (auto)
      - Action tools (require approval if autonomy = SEMI)
   8. EVALUATE confidence:
-     - If below threshold → request clarification / human review
+     - If below threshold â†’ request clarification / human review
   9. GENERATE explainability:
      - reasoning, evidence links, alternatives
   10. AUDIT: AuditService.log(agent, input, output, cost, duration)
@@ -333,16 +339,16 @@ AgentInvocationEngine.run(agentCode, input, context):
 ```
 For each agent:
   IF agent confidence < agent.confidenceThreshold:
-    → Escalate to human reviewer (queue)
-    → Do NOT execute action tools
+    â†’ Escalate to human reviewer (queue)
+    â†’ Do NOT execute action tools
   IF agent encounters unknown situation:
-    → Escalate to human with full context
+    â†’ Escalate to human with full context
   IF action requires approval:
-    → Create approval request
-    → Notify approver (in-app + email)
+    â†’ Create approval request
+    â†’ Notify approver (in-app + email)
   IF agent fails 3 consecutive runs:
-    → Pause agent
-    → Alert AI Operations
+    â†’ Pause agent
+    â†’ Alert AI Operations
 ```
 
 ---
@@ -365,24 +371,24 @@ For each agent:
 
 ```
 MemoryEntry
-├── id, memoryType: SHORT_TERM | LONG_TERM | ORGANIZATIONAL | PROJECT | INCIDENT | FINANCIAL | PREFERENCE
-├── scope: String                      ← ENTERPRISE | AREA | PROJECT | CUSTOMER | AGENT | USER
-├── scopeId: String?
-├── agentId: String? (FK → AgentDefinition)
-├── key: String?                       ← Memory lookup key
-├── content: String
-├── embeddingId: String? (FK → VectorEmbedding)
-├── importance: Float (0-1)            ← Memory retention weight
-├── accessCount: Int @default(0)
-├── lastAccessedAt: DateTime?
-├── expiresAt: DateTime?               ← Short-term TTL
-├── createdAt, archivedAt
+â”œâ”€â”€ id, memoryType: SHORT_TERM | LONG_TERM | ORGANIZATIONAL | PROJECT | INCIDENT | FINANCIAL | PREFERENCE
+â”œâ”€â”€ scope: String                      â† ENTERPRISE | AREA | PROJECT | CUSTOMER | AGENT | USER
+â”œâ”€â”€ scopeId: String?
+â”œâ”€â”€ agentId: String? (FK â†’ AgentDefinition)
+â”œâ”€â”€ key: String?                       â† Memory lookup key
+â”œâ”€â”€ content: String
+â”œâ”€â”€ embeddingId: String? (FK â†’ VectorEmbedding)
+â”œâ”€â”€ importance: Float (0-1)            â† Memory retention weight
+â”œâ”€â”€ accessCount: Int @default(0)
+â”œâ”€â”€ lastAccessedAt: DateTime?
+â”œâ”€â”€ expiresAt: DateTime?               â† Short-term TTL
+â”œâ”€â”€ createdAt, archivedAt
 
 ForgetPolicy:
   - Short-term: expires after session (8h default)
-  - Low importance (< 0.3) + not accessed > 90 days → consolidate
-  - High importance → never forget (configurable)
-  - PII memory → masked after 1 year
+  - Low importance (< 0.3) + not accessed > 90 days â†’ consolidate
+  - High importance â†’ never forget (configurable)
+  - PII memory â†’ masked after 1 year
 ```
 
 ### 5.3 Memory Retrieval
@@ -392,7 +398,7 @@ MemoryService.retrieve(query, scope, type):
   1. Embed query via embedding model
   2. Vector similarity search (pgvector) over MemoryEntry
   3. Filter by scope + type + not expired
-  4. Rank by similarity × importance × recency
+  4. Rank by similarity Ã— importance Ã— recency
   5. Assemble context with source references
   6. Return top-K entries (default 5)
 ```
@@ -404,16 +410,16 @@ MemoryService.retrieve(query, scope, type):
 ### 6.1 Prompt Lifecycle
 
 ```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  DRAFT    │───→│  TESTED   │───→│ APPROVED │───→│  ACTIVE  │───→│DEPRECATED│
-│ (created) │    │ (eval)    │    │ (steward)│    │ (live)   │    │ (retired)│
-└──────────┘    └──────────┘    └──────────┘    └────┬─────┘    └────┬─────┘
-                                                     │                │
-                                                     ▼                ▼
-                                              ┌────────────┐   ┌────────────┐
-                                              │ ROLLBACK   │   │ REJECTED   │
-                                              │ (to prev)  │   │ (with note)│
-                                              └────────────┘   └────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  DRAFT    â”‚â”€â”€â”€â†’â”‚  TESTED   â”‚â”€â”€â”€â†’â”‚ APPROVED â”‚â”€â”€â”€â†’â”‚  ACTIVE  â”‚â”€â”€â”€â†’â”‚DEPRECATEDâ”‚
+â”‚ (created) â”‚    â”‚ (eval)    â”‚    â”‚ (steward)â”‚    â”‚ (live)   â”‚    â”‚ (retired)â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+                                                     â”‚                â”‚
+                                                     â–¼                â–¼
+                                              â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                              â”‚ ROLLBACK   â”‚   â”‚ REJECTED   â”‚
+                                              â”‚ (to prev)  â”‚   â”‚ (with note)â”‚
+                                              â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 6.2 Prompt Quality Scoring
@@ -446,7 +452,7 @@ ALGORITHM: scorePrompt(promptId):
 DecisionService.recommend(agent, situation, options):
   1. GATHER context (memory + knowledge + real-time data)
   2. EVALUATE each option:
-     score = feasibility × risk × cost × alignment × confidence
+     score = feasibility Ã— risk Ã— cost Ã— alignment Ã— confidence
   3. RANK options
   4. GENERATE recommendation:
      {
@@ -460,8 +466,8 @@ DecisionService.recommend(agent, situation, options):
        requiresApproval: true|false,
        approvalLevel: role required,
      }
-  5. If requiresApproval → route to human
-  6. If auto-approve → execute (agent autonomy)
+  5. If requiresApproval â†’ route to human
+  6. If auto-approve â†’ execute (agent autonomy)
   7. AUDIT full decision
 ```
 
@@ -471,8 +477,8 @@ DecisionService.recommend(agent, situation, options):
 HumanOverride:
   1. Human reviews AI recommendation
   2. Options: APPROVE | REJECT | MODIFY | OVERRIDE
-  3. MODIFY → adjust parameters and re-execute
-  4. OVERRIDE → replace AI decision with human decision
+  3. MODIFY â†’ adjust parameters and re-execute
+  4. OVERRIDE â†’ replace AI decision with human decision
   5. All overrides logged with reason
   6. Override feeds back to agent learning (update effectiveness)
 ```
@@ -505,22 +511,22 @@ QueryProcessor.handle(query, scope):
      - Extract filters (time, area, type)
   
   2. PARALLEL SEARCH:
-     ┌────────────────────────────────────────────────────────────┐
-     │ STRUCTURED SEARCH (SQL)                                    │
-     │   Query Prisma/OLAP with extracted entities + filters      │
-     │   → structured facts (balances, counts, records)          │
-     ├────────────────────────────────────────────────────────────┤
-     │ SEMANTIC SEARCH (pgvector)                                 │
-     │   Embed query → similarity search over KnowledgeNode       │
-     │   → relevant articles, patterns, procedures               │
-     ├────────────────────────────────────────────────────────────┤
-     │ KEYWORD SEARCH (FTS)                                       │
-     │   PostgreSQL full-text search over content + tags         │
-     │   → quick matches, fallback                               │
-     └────────────────────────────────────────────────────────────┘
+     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+     â”‚ STRUCTURED SEARCH (SQL)                                    â”‚
+     â”‚   Query Prisma/OLAP with extracted entities + filters      â”‚
+     â”‚   â†’ structured facts (balances, counts, records)          â”‚
+     â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+     â”‚ SEMANTIC SEARCH (pgvector)                                 â”‚
+     â”‚   Embed query â†’ similarity search over KnowledgeNode       â”‚
+     â”‚   â†’ relevant articles, patterns, procedures               â”‚
+     â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+     â”‚ KEYWORD SEARCH (FTS)                                       â”‚
+     â”‚   PostgreSQL full-text search over content + tags         â”‚
+     â”‚   â†’ quick matches, fallback                               â”‚
+     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
   
   3. MERGE + RANK:
-     score = semanticScore × 0.4 + keywordScore × 0.2 + structuredRelevance × 0.4
+     score = semanticScore Ã— 0.4 + keywordScore Ã— 0.2 + structuredRelevance Ã— 0.4
      deduplicate + rerank by source quality
   
   4. ASSEMBLE CONTEXT:
@@ -532,7 +538,7 @@ QueryProcessor.handle(query, scope):
   
   5. CITE sources in response
   
-  6. If total confidence < threshold → ask for clarification
+  6. If total confidence < threshold â†’ ask for clarification
 ```
 
 ### 8.2 Source Ranking
@@ -560,10 +566,10 @@ ApprovalIntelligence.evaluate(request):
   3. Recommend: AUTO_APPROVE | FAST_TRACK | STANDARD_REVIEW | ESCALATE
   
   Thresholds:
-  - Amount < 1,000 EGP + standard type + requester trusted → AUTO_APPROVE (90%+)
-  - Amount 1K-10K + matches pattern → FAST_TRACK (manager in 4h)
-  - Amount > 10K or new pattern → STANDARD_REVIEW
-  - Amount > 100K or compliance sensitive → ESCALATE (CFO/legal)
+  - Amount < 1,000 EGP + standard type + requester trusted â†’ AUTO_APPROVE (90%+)
+  - Amount 1K-10K + matches pattern â†’ FAST_TRACK (manager in 4h)
+  - Amount > 10K or new pattern â†’ STANDARD_REVIEW
+  - Amount > 100K or compliance sensitive â†’ ESCALATE (CFO/legal)
   
   4. All recommendations require final human confirmation unless AUTO_APPROVE policy active
 ```
@@ -580,7 +586,7 @@ Orchestrator.runWorkflow(workflowId, context):
      - Route next state (success/failure/exception)
   3. INJECT AI decisions at decision points
   4. TRACK SLA per step
-  5. ON exception → exception handling (retry, alternative, human)
+  5. ON exception â†’ exception handling (retry, alternative, human)
 ```
 
 ### 9.3 SLA Prediction
@@ -592,8 +598,8 @@ SLAPredictor.predict(task):
   riskOfBreach = P(duration > SLA) via distribution
   
   IF riskOfBreach > 0.7:
-    → Reassign to faster resource
-    → Alert supervisor
+    â†’ Reassign to faster resource
+    â†’ Alert supervisor
   RETURN { predictedDuration, riskOfBreach, recommendation }
 ```
 
@@ -619,9 +625,9 @@ SLAPredictor.predict(task):
 ### 10.2 Model Approval Lifecycle
 
 ```
-REQUEST (propose model) → ASSESS (risk, cost, capability) → PILOT (limited scope)
-    → VALIDATE (evaluation suite) → APPROVE → ACTIVE → MONITOR
-    → DRIFT DETECTED → DEPRECATE → RETIRE
+REQUEST (propose model) â†’ ASSESS (risk, cost, capability) â†’ PILOT (limited scope)
+    â†’ VALIDATE (evaluation suite) â†’ APPROVE â†’ ACTIVE â†’ MONITOR
+    â†’ DRIFT DETECTED â†’ DEPRECATE â†’ RETIRE
 ```
 
 ### 10.3 Risk Classification
@@ -638,8 +644,8 @@ REQUEST (propose model) → ASSESS (risk, cost, capability) → PILOT (limited s
 ```
 1. GROUNDING: All responses anchored to retrieved knowledge/sources
 2. SOURCE CITATION: Every claim cites a source (or marked "unverified")
-3. CONFIDENCE: Low confidence → "I'm not sure" rather than guessing
-4. UNKNOWN HANDLING: "I don't have information on that" → escalate
+3. CONFIDENCE: Low confidence â†’ "I'm not sure" rather than guessing
+4. UNKNOWN HANDLING: "I don't have information on that" â†’ escalate
 5. CONSISTENCY CHECK: Verify numbers against structured data
 6. ADVERSARIAL TESTING: Prompt injection test suite
 7. PERIODIC AUDIT: Sample 5% of AI outputs reviewed by humans
@@ -700,87 +706,87 @@ Layer 3: OUTPUT VALIDATION
 ### 12.2 AI Ops Dashboard (`/admin/ai-ops`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│  AI OPERATIONS DASHBOARD                                                                        │
-│                                                                                               │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Active Agents│ │ AI Calls     │ │ Token Usage  │ │ Monthly Cost │ │ Avg Latency  │         │
-│ │        12    │ │ Today: 3,450 │ │ 4.2M today  │ │ EGP 12,500   │ │ 1.2s P50     │         │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                               │
-│ ┌─── AGENT HEALTH ────────────────────────────────────────────────────────────────────────┐   │
-│ │ ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────────┐     │   │
-│ │ │ Agent    │ Calls    │ Success  │ Avg Lat  │ Tokens   │ Cost    │ Status       │     │   │
-│ │ │ Operations│ 1,200    │ 98.2%    │ 0.8s     │ 1.1M     │ EGP 3K  │ ✅ HEALTHY   │     │   │
-│ │ │ RCA      │ 450      │ 96.5%    │ 1.5s     │ 0.8M     │ EGP 2.5K│ ✅ HEALTHY   │     │   │
-│ │ │ Finance  │ 300      │ 94.8%    │ 1.2s     │ 0.6M     │ EGP 2K  │ ✅ HEALTHY   │     │   │
-│ │ │ Customer │ 800      │ 97.0%    │ 1.0s     │ 0.9M     │ EGP 2.8K│ ⚠ LATENCY    │     │   │
-│ │ │ Security │ 150      │ 91.0%    │ 1.8s     │ 0.3M     │ EGP 1K  │ ⚠ REVIEW     │     │   │
-│ │ └──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────────┘     │   │
-│ └────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                               │
-│ ┌─── MODEL PERFORMANCE ──────────────────────────────┐ ┌─── KNOWLEDGE FRESHNESS ─────────┐   │
-│ │ deepseek-v4-flash:  acc 91%  │ lat 1.2s │ $1.2K  │ │ ✅ Active articles:  1,245       │   │
-│ │ embedding-v3:       acc 94%  │ lat 0.3s │ $0.4K  │ │ ⚠ Stale > 90d:        87        │   │
-│ │ reranker-v2:        acc 96%  │ lat 0.5s │ $0.2K  │ │ 🔴 Expired procedures: 5        │   │
-│ └───────────────────────────────────────────────────┘ └────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  AI OPERATIONS DASHBOARD                                                                        â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Active Agentsâ”‚ â”‚ AI Calls     â”‚ â”‚ Token Usage  â”‚ â”‚ Monthly Cost â”‚ â”‚ Avg Latency  â”‚         â”‚
+â”‚ â”‚        12    â”‚ â”‚ Today: 3,450 â”‚ â”‚ 4.2M today  â”‚ â”‚ EGP 12,500   â”‚ â”‚ 1.2s P50     â”‚         â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ AGENT HEALTH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”     â”‚   â”‚
+â”‚ â”‚ â”‚ Agent    â”‚ Calls    â”‚ Success  â”‚ Avg Lat  â”‚ Tokens   â”‚ Cost    â”‚ Status       â”‚     â”‚   â”‚
+â”‚ â”‚ â”‚ Operationsâ”‚ 1,200    â”‚ 98.2%    â”‚ 0.8s     â”‚ 1.1M     â”‚ EGP 3K  â”‚ âœ… HEALTHY   â”‚     â”‚   â”‚
+â”‚ â”‚ â”‚ RCA      â”‚ 450      â”‚ 96.5%    â”‚ 1.5s     â”‚ 0.8M     â”‚ EGP 2.5Kâ”‚ âœ… HEALTHY   â”‚     â”‚   â”‚
+â”‚ â”‚ â”‚ Finance  â”‚ 300      â”‚ 94.8%    â”‚ 1.2s     â”‚ 0.6M     â”‚ EGP 2K  â”‚ âœ… HEALTHY   â”‚     â”‚   â”‚
+â”‚ â”‚ â”‚ Customer â”‚ 800      â”‚ 97.0%    â”‚ 1.0s     â”‚ 0.9M     â”‚ EGP 2.8Kâ”‚ âš  LATENCY    â”‚     â”‚   â”‚
+â”‚ â”‚ â”‚ Security â”‚ 150      â”‚ 91.0%    â”‚ 1.8s     â”‚ 0.3M     â”‚ EGP 1K  â”‚ âš  REVIEW     â”‚     â”‚   â”‚
+â”‚ â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜     â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ MODEL PERFORMANCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€ KNOWLEDGE FRESHNESS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ deepseek-v4-flash:  acc 91%  â”‚ lat 1.2s â”‚ $1.2K  â”‚ â”‚ âœ… Active articles:  1,245       â”‚   â”‚
+â”‚ â”‚ embedding-v3:       acc 94%  â”‚ lat 0.3s â”‚ $0.4K  â”‚ â”‚ âš  Stale > 90d:        87        â”‚   â”‚
+â”‚ â”‚ reranker-v2:        acc 96%  â”‚ lat 0.5s â”‚ $0.2K  â”‚ â”‚ ðŸ”´ Expired procedures: 5        â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
 
-## PART 13: TESTING STRATEGY — 180 TESTS
+## PART 13: TESTING STRATEGY â€” 180 TESTS
 
 ### 13.1 Agent Correctness (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Operations agent — health query → correct response | Accurate |
-| 2 | RCA agent — incident → evidence collected | Complete |
-| 3 | Finance agent — GL query → correct balances | Accurate |
-| 4 | Billing agent — invoice validation → correct flags | Accurate |
-| 5 | Collection agent — priority scoring → correct order | Correct |
-| 6 | Customer agent — bill query → accurate response | Accurate |
-| 7 | Asset agent — health score → correct computation | Correct |
-| 8 | Integration agent — status → correct health | Accurate |
-| 9 | Analytics agent — narrative → complete | Complete |
-| 10 | Compliance agent — check → correct findings | Accurate |
-| 11 | Executive advisor — summary → all sections | Complete |
-| 12 | Security agent — anomaly → correctly detected | Accurate |
-| 13 | Agent with insufficient data → graceful | No hallucination |
-| 14 | Agent with conflicting data → flags uncertainty | Honest |
+| 1 | Operations agent â€” health query â†’ correct response | Accurate |
+| 2 | RCA agent â€” incident â†’ evidence collected | Complete |
+| 3 | Finance agent â€” GL query â†’ correct balances | Accurate |
+| 4 | Billing agent â€” invoice validation â†’ correct flags | Accurate |
+| 5 | Collection agent â€” priority scoring â†’ correct order | Correct |
+| 6 | Customer agent â€” bill query â†’ accurate response | Accurate |
+| 7 | Asset agent â€” health score â†’ correct computation | Correct |
+| 8 | Integration agent â€” status â†’ correct health | Accurate |
+| 9 | Analytics agent â€” narrative â†’ complete | Complete |
+| 10 | Compliance agent â€” check â†’ correct findings | Accurate |
+| 11 | Executive advisor â€” summary â†’ all sections | Complete |
+| 12 | Security agent â€” anomaly â†’ correctly detected | Accurate |
+| 13 | Agent with insufficient data â†’ graceful | No hallucination |
+| 14 | Agent with conflicting data â†’ flags uncertainty | Honest |
 | 15 | Agent respects scope (area isolation) | Isolated |
-| 16 | Agent tool use → correct tool selected | Correct routing |
+| 16 | Agent tool use â†’ correct tool selected | Correct routing |
 
 ### 13.2 Memory Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Store short-term → retrievable in session | Working |
-| 2 | Store long-term → retrievable across sessions | Persistent |
-| 3 | Importance weighting → high retained longer | Weighted |
-| 4 | Forget policy → low importance expired | Expired |
-| 5 | PII memory → masked after retention | Masked |
-| 6 | Vector search → semantic match | Relevant |
-| 7 | Scope filter → only scoped memories | Isolated |
-| 8 | Memory consolidation → compressed summaries | Consolidated |
-| 9 | Memory versioning → history preserved | Versioned |
-| 10 | Memory corruption → recovery | Resilient |
+| 1 | Store short-term â†’ retrievable in session | Working |
+| 2 | Store long-term â†’ retrievable across sessions | Persistent |
+| 3 | Importance weighting â†’ high retained longer | Weighted |
+| 4 | Forget policy â†’ low importance expired | Expired |
+| 5 | PII memory â†’ masked after retention | Masked |
+| 6 | Vector search â†’ semantic match | Relevant |
+| 7 | Scope filter â†’ only scoped memories | Isolated |
+| 8 | Memory consolidation â†’ compressed summaries | Consolidated |
+| 9 | Memory versioning â†’ history preserved | Versioned |
+| 10 | Memory corruption â†’ recovery | Resilient |
 
 ### 13.3 Retrieval Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Hybrid search → correct facts | Structured + semantic |
-| 2 | Semantic search → relevant article | Top-ranked |
-| 3 | Structured search → exact record | Precise |
-| 4 | Keyword fallback → matches | No empty |
-| 5 | Source ranking → approved first | Ranked |
-| 6 | Citation → every claim sourced | Citable |
-| 7 | Confidence threshold → low filtered | Filtered |
-| 8 | Multi-entity query → assembled context | Combined |
-| 9 | Empty corpus → graceful message | Honest |
-| 10 | Injection attempt in query → blocked | Secure |
+| 1 | Hybrid search â†’ correct facts | Structured + semantic |
+| 2 | Semantic search â†’ relevant article | Top-ranked |
+| 3 | Structured search â†’ exact record | Precise |
+| 4 | Keyword fallback â†’ matches | No empty |
+| 5 | Source ranking â†’ approved first | Ranked |
+| 6 | Citation â†’ every claim sourced | Citable |
+| 7 | Confidence threshold â†’ low filtered | Filtered |
+| 8 | Multi-entity query â†’ assembled context | Combined |
+| 9 | Empty corpus â†’ graceful message | Honest |
+| 10 | Injection attempt in query â†’ blocked | Secure |
 
 ### 13.4 Governance Tests (20)
 
@@ -793,7 +799,7 @@ Layer 3: OUTPUT VALIDATION
 | 5 | Action tool requires approval (semi) | Approval flow |
 | 6 | Read-only agent cannot write | Guard |
 | 7 | Compliance check blocks unapproved model | Guard |
-| 8 | Policy violation → incident created | Detected |
+| 8 | Policy violation â†’ incident created | Detected |
 | 9 | Override logged with reason | Auditable |
 | 10 | Quarterly review tracked | Scheduled |
 
@@ -807,51 +813,51 @@ Layer 3: OUTPUT VALIDATION
 | 4 | Alternatives provided for recommendations | Alternatives |
 | 5 | Limitations disclosed | Honest |
 | 6 | Confidence matches actual accuracy | Calibrated |
-| 7 | Unknown → says unknown | No hallucination |
+| 7 | Unknown â†’ says unknown | No hallucination |
 | 8 | Numbers verified against source data | Accurate |
 
 ### 13.6 Approval Workflow Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Low-risk action → auto-approve (policy) | Auto |
-| 2 | Medium-risk → human review | Review |
-| 3 | High-risk → mandatory approval | Blocked |
-| 4 | Approver approve → action executed | Executed |
-| 5 | Approver reject → action skipped | Skipped |
-| 6 | Approver modify → modified params used | Modified |
-| 7 | Override → human decision wins | Overridden |
-| 8 | Approval timeout → escalate | Escalated |
-| 9 | Dual control (two approvers) → both required | Dual |
-| 10 | Approval audit trail → complete | Audited |
+| 1 | Low-risk action â†’ auto-approve (policy) | Auto |
+| 2 | Medium-risk â†’ human review | Review |
+| 3 | High-risk â†’ mandatory approval | Blocked |
+| 4 | Approver approve â†’ action executed | Executed |
+| 5 | Approver reject â†’ action skipped | Skipped |
+| 6 | Approver modify â†’ modified params used | Modified |
+| 7 | Override â†’ human decision wins | Overridden |
+| 8 | Approval timeout â†’ escalate | Escalated |
+| 9 | Dual control (two approvers) â†’ both required | Dual |
+| 10 | Approval audit trail â†’ complete | Audited |
 
 ### 13.7 Security Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Prompt injection → neutralized | Blocked |
-| 2 | PII leakage → masked in output | Masked |
-| 3 | Secret exposure → never in logs | Isolated |
-| 4 | Tenant A agent → cannot access tenant B | Isolated |
-| 5 | Tool permission → denied for unauthorized | Denied |
-| 6 | Token leakage in error → sanitized | Sanitized |
-| 7 | Malicious tool call → blocked | Blocked |
-| 8 | Output schema violation → rejected | Validated |
-| 9 | Rate limit exceeded → throttled | Throttled |
-| 10 | Audit bypass attempt → blocked | Guarded |
+| 1 | Prompt injection â†’ neutralized | Blocked |
+| 2 | PII leakage â†’ masked in output | Masked |
+| 3 | Secret exposure â†’ never in logs | Isolated |
+| 4 | Tenant A agent â†’ cannot access tenant B | Isolated |
+| 5 | Tool permission â†’ denied for unauthorized | Denied |
+| 6 | Token leakage in error â†’ sanitized | Sanitized |
+| 7 | Malicious tool call â†’ blocked | Blocked |
+| 8 | Output schema violation â†’ rejected | Validated |
+| 9 | Rate limit exceeded â†’ throttled | Throttled |
+| 10 | Audit bypass attempt â†’ blocked | Guarded |
 
 ### 13.8 Failure Recovery (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Model timeout → retry with fallback | Fallback |
-| 2 | Model unavailable → alternate model | Failover |
-| 3 | Tool failure → retry logic | Retry |
-| 4 | Token limit → truncation strategy | Truncated |
-| 5 | Agent crash → restart safe | Restart |
-| 6 | Partial output → validation | Validated |
-| 7 | Queue backlog → prioritization | Prioritized |
-| 8 | DLQ processing → reprocess | Recovered |
+| 1 | Model timeout â†’ retry with fallback | Fallback |
+| 2 | Model unavailable â†’ alternate model | Failover |
+| 3 | Tool failure â†’ retry logic | Retry |
+| 4 | Token limit â†’ truncation strategy | Truncated |
+| 5 | Agent crash â†’ restart safe | Restart |
+| 6 | Partial output â†’ validation | Validated |
+| 7 | Queue backlog â†’ prioritization | Prioritized |
+| 8 | DLQ processing â†’ reprocess | Recovered |
 | 9 | State recovery after restart | Consistent |
 | 10 | Circuit breaker opens on repeated failures | Protected |
 
@@ -859,13 +865,13 @@ Layer 3: OUTPUT VALIDATION
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Area A agent → sees only area A data | Isolated |
-| 2 | Customer agent → sees only own customer | Isolated |
-| 3 | Cross-area query → blocked | Guarded |
-| 4 | Shared knowledge → domain-scoped | Scoped |
-| 5 | Memory isolation → no cross-tenant leakage | Isolated |
-| 6 | Vector search → tenant-filtered | Filtered |
-| 7 | Prompt injection → no cross-tenant | Blocked |
+| 1 | Area A agent â†’ sees only area A data | Isolated |
+| 2 | Customer agent â†’ sees only own customer | Isolated |
+| 3 | Cross-area query â†’ blocked | Guarded |
+| 4 | Shared knowledge â†’ domain-scoped | Scoped |
+| 5 | Memory isolation â†’ no cross-tenant leakage | Isolated |
+| 6 | Vector search â†’ tenant-filtered | Filtered |
+| 7 | Prompt injection â†’ no cross-tenant | Blocked |
 
 ### 13.10 Performance Tests (10)
 
@@ -873,14 +879,14 @@ Layer 3: OUTPUT VALIDATION
 |---|------|--------|
 | 1 | Agent invocation < 2s P95 | Performance |
 | 2 | Knowledge retrieval < 500ms | Performance |
-| 3 | 100 concurrent agent calls → stable | Concurrency |
+| 3 | 100 concurrent agent calls â†’ stable | Concurrency |
 | 4 | Token budget enforced | Budget |
 | 5 | Cost per call tracked | Tracked |
 | 6 | Cache hit rate > 40% | Cache |
 
 ---
 
-## PART 14: IMPLEMENTATION ROADMAP — W01–W08
+## PART 14: IMPLEMENTATION ROADMAP â€” W01â€“W08
 
 | Wave | Days | Dependencies | Deliverables | Governance Gate | Rollback |
 |------|------|-------------|--------------|-----------------|----------|
@@ -890,7 +896,7 @@ Layer 3: OUTPUT VALIDATION
 | **W04** | 5 | W01, W03 | Memory framework (6 types), Forgetting policy | Memory retrieval accurate, PII masked | Clear memory cache |
 | **W05** | 4 | W02 | Prompt governance, Decision intelligence, Explainability | Prompt quality > 85, confidence calibrated | Prompt rollback |
 | **W06** | 4 | W02, W05 | Autonomous workflow, Approval intelligence, SLA prediction | Orchestration passes 50 test workflows | Disable orchestration |
-| **W07** | 4 | W01-W06 | Security hardening, Monitoring, AI Ops dashboard | Security audit clean, observability live | — |
+| **W07** | 4 | W01-W06 | Security hardening, Monitoring, AI Ops dashboard | Security audit clean, observability live | â€” |
 | **W08** | 3 | W01-W07 | Certification, 180 tests, Documentation | All tests pass, maturity verified | Full program feature flag |
 | **Total** | **35 days** | | | | |
 
@@ -899,80 +905,80 @@ Layer 3: OUTPUT VALIDATION
 ## PART 15: DEFINITION OF DONE
 
 ```
-C18 — AI PLATFORM, KNOWLEDGE OS & AUTONOMOUS ENTERPRISE
+C18 â€” AI PLATFORM, KNOWLEDGE OS & AUTONOMOUS ENTERPRISE
 CERTIFICATION CHECKLIST
 
-□ CENTRAL AI GATEWAY
-   □ Agent/Model/Prompt/Tool/Knowledge registries operational
-   □ Guardrails, confidence, explainability, audit, rate limiting
-   □ 12 enterprise agents registered with permissions
+â–¡ CENTRAL AI GATEWAY
+   â–¡ Agent/Model/Prompt/Tool/Knowledge registries operational
+   â–¡ Guardrails, confidence, explainability, audit, rate limiting
+   â–¡ 12 enterprise agents registered with permissions
 
-□ KNOWLEDGE OS
-   □ Unified knowledge graph (6 domains)
-   □ Vector search (pgvector) + hybrid retrieval
-   □ Knowledge lifecycle (DRAFT→APPROVED→ARCHIVED)
-   □ Semantic relationships + versioning
+â–¡ KNOWLEDGE OS
+   â–¡ Unified knowledge graph (6 domains)
+   â–¡ Vector search (pgvector) + hybrid retrieval
+   â–¡ Knowledge lifecycle (DRAFTâ†’APPROVEDâ†’ARCHIVED)
+   â–¡ Semantic relationships + versioning
 
-□ MEMORY FRAMEWORK
-   □ 6 memory types operational
-   □ Short-term TTL + long-term persistence
-   □ Forgetting policy + PII masking
-   □ Memory versioning + consolidation
+â–¡ MEMORY FRAMEWORK
+   â–¡ 6 memory types operational
+   â–¡ Short-term TTL + long-term persistence
+   â–¡ Forgetting policy + PII masking
+   â–¡ Memory versioning + consolidation
 
-□ PROMPT GOVERNANCE
-   □ Prompt registry with versioning
-   □ Approval workflow (DRAFT→ACTIVE)
-   □ Quality scoring (LLM-as-judge)
-   □ Rollback + security review
+â–¡ PROMPT GOVERNANCE
+   â–¡ Prompt registry with versioning
+   â–¡ Approval workflow (DRAFTâ†’ACTIVE)
+   â–¡ Quality scoring (LLM-as-judge)
+   â–¡ Rollback + security review
 
-□ DECISION INTELLIGENCE
-   □ Recommendation engine with alternatives
-   □ Confidence scoring + calibration
-   □ Human override (approve/reject/modify/override)
-   □ Full decision audit trail
+â–¡ DECISION INTELLIGENCE
+   â–¡ Recommendation engine with alternatives
+   â–¡ Confidence scoring + calibration
+   â–¡ Human override (approve/reject/modify/override)
+   â–¡ Full decision audit trail
 
-□ AUTONOMOUS WORKFLOW
-   □ AI-assisted approvals (tiered)
-   □ Task orchestration across agents
-   □ SLA prediction + proactive reallocation
-   □ Exception handling + DLQ
+â–¡ AUTONOMOUS WORKFLOW
+   â–¡ AI-assisted approvals (tiered)
+   â–¡ Task orchestration across agents
+   â–¡ SLA prediction + proactive reallocation
+   â–¡ Exception handling + DLQ
 
-□ GOVERNANCE
-   □ 10 AI policies enforced
-   □ Model approval lifecycle
-   □ Risk classification (4 levels)
-   □ Hallucination mitigation (7 controls)
-   □ Bias monitoring + quarterly review
+â–¡ GOVERNANCE
+   â–¡ 10 AI policies enforced
+   â–¡ Model approval lifecycle
+   â–¡ Risk classification (4 levels)
+   â–¡ Hallucination mitigation (7 controls)
+   â–¡ Bias monitoring + quarterly review
 
-□ SECURITY
-   □ AI identity + secret isolation
-   □ Tenant isolation
-   □ Prompt injection defense (3 layers)
-   □ Data leakage prevention
-   □ Tool permission boundaries
-   □ Full audit trail
+â–¡ SECURITY
+   â–¡ AI identity + secret isolation
+   â–¡ Tenant isolation
+   â–¡ Prompt injection defense (3 layers)
+   â–¡ Data leakage prevention
+   â–¡ Tool permission boundaries
+   â–¡ Full audit trail
 
-□ OBSERVABILITY
-   □ Token usage + cost tracking
-   □ Latency (P50/P95/P99)
-   □ Accuracy + drift detection
-   □ Agent health + model performance
-   □ Knowledge freshness
-   □ AI Ops dashboard
+â–¡ OBSERVABILITY
+   â–¡ Token usage + cost tracking
+   â–¡ Latency (P50/P95/P99)
+   â–¡ Accuracy + drift detection
+   â–¡ Agent health + model performance
+   â–¡ Knowledge freshness
+   â–¡ AI Ops dashboard
 
-□ TESTS — 180 PASSING
-   □ Agent correctness: 30
-   □ Memory: 15
-   □ Retrieval: 20
-   □ Governance: 20
-   □ Explainability: 15
-   □ Approval workflows: 20
-   □ Security: 25
-   □ Failure recovery: 15
-   □ Multi-tenant isolation: 10
-   □ Performance: 10
+â–¡ TESTS â€” 180 PASSING
+   â–¡ Agent correctness: 30
+   â–¡ Memory: 15
+   â–¡ Retrieval: 20
+   â–¡ Governance: 20
+   â–¡ Explainability: 15
+   â–¡ Approval workflows: 20
+   â–¡ Security: 25
+   â–¡ Failure recovery: 15
+   â–¡ Multi-tenant isolation: 10
+   â–¡ Performance: 10
 
-C18 STATUS: □ NOT IMPLEMENTED
+C18 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -1005,7 +1011,7 @@ All items above are DESIGN-COMPLETE but not executed.
 | W05 Prompt Governance + Decisions | ~600 | 25 |
 | W06 Autonomous Workflow | ~800 | 20 |
 | W07 Security + Observability | ~800 | 15 |
-| W08 Certification | — | — |
+| W08 Certification | â€” | â€” |
 | **Total** | **~5,900 lines** | **180 tests** |
 
 ## APPENDIX C: TOTAL MODEL ADDITIONS (C18)
@@ -1043,19 +1049,19 @@ All items above are DESIGN-COMPLETE but not executed.
 
 ```
 C18 CERTIFICATION GATES:
-  G1: W01 — Gateway routes live, registries seeded → CERTIFIED
-  G2: W02 — 12 agents registered, permissions tested → CERTIFIED
-  G3: W03 — Retrieval accuracy ≥ 85% → CERTIFIED
-  G4: W04 — Memory + forgetting policy verified → CERTIFIED
-  G5: W05 — Prompt quality ≥ 85, confidence calibrated → CERTIFIED
-  G6: W06 — Orchestration passes 50 workflows → CERTIFIED
-  G7: W07 — Security audit clean, observability live → CERTIFIED
-  G8: W08 — 180 tests pass, AI maturity ≥ 88% → PROGRAM CERTIFIED
+  G1: W01 â€” Gateway routes live, registries seeded â†’ CERTIFIED
+  G2: W02 â€” 12 agents registered, permissions tested â†’ CERTIFIED
+  G3: W03 â€” Retrieval accuracy â‰¥ 85% â†’ CERTIFIED
+  G4: W04 â€” Memory + forgetting policy verified â†’ CERTIFIED
+  G5: W05 â€” Prompt quality â‰¥ 85, confidence calibrated â†’ CERTIFIED
+  G6: W06 â€” Orchestration passes 50 workflows â†’ CERTIFIED
+  G7: W07 â€” Security audit clean, observability live â†’ CERTIFIED
+  G8: W08 â€” 180 tests pass, AI maturity â‰¥ 88% â†’ PROGRAM CERTIFIED
 ```
 
 ---
 
-## C18 — PROGRAM SUMMARY
+## C18 â€” PROGRAM SUMMARY
 
 **Enterprise AI Platform, Knowledge Operating System & Autonomous Enterprise**
 
@@ -1068,12 +1074,13 @@ C18 CERTIFICATION GATES:
 | Estimated Code | ~5,900 lines |
 | Estimated Tests | 180 |
 | AI Agents | 12 (consolidating 20+ across C12-C17) |
-| AI Maturity | 19% → 88% |
+| AI Maturity | 19% â†’ 88% |
 | Documentation | ~4,900 lines |
 | Certification Gates | 8 (G1-G8) |
 
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C18 — Enterprise AI Platform & Knowledge OS. READ ONLY. GOVERNANCE PLANNING ONLY.*
-*MeterVerse Autonomous Enterprise — FULLY DESIGNED.*
+*C18 â€” Enterprise AI Platform & Knowledge OS. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*MeterVerse Autonomous Enterprise â€” FULLY DESIGNED.*
+

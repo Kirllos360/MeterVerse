@@ -1,15 +1,21 @@
-# C25 — Enterprise Communication, Notification & Collaboration Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (Notification/Email/SMS/Webhook exist) | Certification: [ ] Not Certified | Wave: W3 | Commit: 6f946513
+====================================================================
+-->
+
+# C25 â€” Enterprise Communication, Notification & Collaboration Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C24  
 **Constraint:** Web-first platform; browser push only; no native mobile application.
 
 ---
 
-## Part 1 — Enterprise Communication Audit
+## Part 1 â€” Enterprise Communication Audit
 
 ### Existing foundation
 
@@ -50,37 +56,37 @@ MeterVerse already contains:
 
 ---
 
-## Part 2 — Enterprise Communication Architecture
+## Part 2 â€” Enterprise Communication Architecture
 
 ```text
-┌──────────────────────────────────────────────────────────────────────────────┐
-│ C25 COMMUNICATION HUB                                                        │
-│                                                                              │
-│ Domain Events → Message Bus → Routing/Policy → Priority Queue               │
-│       │              │             │                │                       │
-│       ▼              ▼             ▼                ▼                       │
-│ Source context   Conversation   Preferences    Delivery orchestration       │
-│                                                                              │
-│ Channel adapters governed by C15:                                           │
-│ Email | SMS | WhatsApp | Teams | Slack | Web Push | In-App | Voice | Webhook│
-│                                                                              │
-│ DeliveryAttempt → Receipt → Read state → Retry/DLQ → Audit/Records           │
-│                                                                              │
-│ C12 security | C18 AI | C21 governance | C22 tenancy | C23 workflow          │
-│ C24 retention | C13-C17 domain events                                       │
-└──────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ C25 COMMUNICATION HUB                                                        â”‚
+â”‚                                                                              â”‚
+â”‚ Domain Events â†’ Message Bus â†’ Routing/Policy â†’ Priority Queue               â”‚
+â”‚       â”‚              â”‚             â”‚                â”‚                       â”‚
+â”‚       â–¼              â–¼             â–¼                â–¼                       â”‚
+â”‚ Source context   Conversation   Preferences    Delivery orchestration       â”‚
+â”‚                                                                              â”‚
+â”‚ Channel adapters governed by C15:                                           â”‚
+â”‚ Email | SMS | WhatsApp | Teams | Slack | Web Push | In-App | Voice | Webhookâ”‚
+â”‚                                                                              â”‚
+â”‚ DeliveryAttempt â†’ Receipt â†’ Read state â†’ Retry/DLQ â†’ Audit/Records           â”‚
+â”‚                                                                              â”‚
+â”‚ C12 security | C18 AI | C21 governance | C22 tenancy | C23 workflow          â”‚
+â”‚ C24 retention | C13-C17 domain events                                       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### Message lifecycle
 
 ```text
-CREATED → CLASSIFIED → ROUTED → QUEUED → DISPATCHING → DELIVERED
-                                      │                 │
-                                      ▼                 ▼
+CREATED â†’ CLASSIFIED â†’ ROUTED â†’ QUEUED â†’ DISPATCHING â†’ DELIVERED
+                                      â”‚                 â”‚
+                                      â–¼                 â–¼
                                    RETRYING          READ/ACKNOWLEDGED
-                                      │
-                                      ▼
-                                  FAILED → DLQ → REPLAYED | EXHAUSTED
+                                      â”‚
+                                      â–¼
+                                  FAILED â†’ DLQ â†’ REPLAYED | EXHAUSTED
 ```
 
 Rules:
@@ -93,7 +99,7 @@ Rules:
 
 ---
 
-## Part 3 — Communication Channels
+## Part 3 â€” Communication Channels
 
 | Channel | Adapter | Typical use | Delivery evidence |
 |---|---|---|---|
@@ -111,12 +117,12 @@ Every adapter must support timeout, retry/backoff, idempotency, provider correla
 
 ---
 
-## Part 4 — Notification Intelligence
+## Part 4 â€” Notification Intelligence
 
 ### Preference resolution
 
 ```text
-GLOBAL policy → TENANT policy → ROLE policy → USER preference → MESSAGE override
+GLOBAL policy â†’ TENANT policy â†’ ROLE policy â†’ USER preference â†’ MESSAGE override
 ```
 
 Most restrictive privacy/security rule wins. Critical safety/security messages may bypass quiet hours only when the policy explicitly permits it and the bypass is audited.
@@ -135,15 +141,15 @@ Capabilities:
 ### Escalation example
 
 ```text
-P1 integration failure → In-App + Teams immediately
-  → no acknowledgement in 10 min → SMS
-  → no acknowledgement in 20 min → Voice Gateway
-  → no acknowledgement in 30 min → on-call manager + incident
+P1 integration failure â†’ In-App + Teams immediately
+  â†’ no acknowledgement in 10 min â†’ SMS
+  â†’ no acknowledgement in 20 min â†’ Voice Gateway
+  â†’ no acknowledgement in 30 min â†’ on-call manager + incident
 ```
 
 ---
 
-## Part 5 — Enterprise Inbox
+## Part 5 â€” Enterprise Inbox
 
 The web-only inbox unifies:
 
@@ -163,7 +169,7 @@ Inbox behavior:
 
 ---
 
-## Part 6 — Collaboration Platform
+## Part 6 â€” Collaboration Platform
 
 - Threaded comments on workflows, incidents, documents, assets, invoices, and decisions.
 - Mentions resolve users through C12 identity and obey tenant scope.
@@ -175,7 +181,7 @@ Inbox behavior:
 
 ---
 
-## Part 7 — AI Communication Assistant
+## Part 7 â€” AI Communication Assistant
 
 | Capability | Output | Autonomy |
 |---|---|---|
@@ -196,7 +202,7 @@ Governance:
 
 ---
 
-## Part 8 — Communication Governance
+## Part 8 â€” Communication Governance
 
 | Control | Design |
 |---|---|
@@ -212,7 +218,7 @@ Governance:
 
 ---
 
-## Part 9 — Enterprise Event Communication
+## Part 9 â€” Enterprise Event Communication
 
 | Source event | Default audience | Default communication |
 |---|---|---|
@@ -231,7 +237,7 @@ Governance:
 
 ---
 
-## Part 10 — Enterprise Models
+## Part 10 â€” Enterprise Models
 
 The target design adds approximately 21 models:
 
@@ -277,7 +283,7 @@ DeliveryAttempt
 
 ---
 
-## Part 11 — Security & Governance
+## Part 11 â€” Security & Governance
 
 - C12 authenticates senders, recipients, approvers, delegates, and channel administrators.
 - C15 owns channel connectors, OAuth/API keys, mTLS, retries, throttling, webhook signing, and DLQ.
@@ -291,7 +297,7 @@ DeliveryAttempt
 
 ---
 
-## Part 12 — Testing Strategy — 320 Tests
+## Part 12 â€” Testing Strategy â€” 320 Tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
@@ -314,7 +320,7 @@ Critical acceptance: no unauthorized outbound message, no cross-tenant inbox vis
 
 ---
 
-## Part 13 — Implementation Roadmap
+## Part 13 â€” Implementation Roadmap
 
 | Wave | Duration | Dependencies | Deliverables | Certification gate | Rollback |
 |---|---:|---|---|---|---|
@@ -339,7 +345,7 @@ Critical acceptance: no unauthorized outbound message, no cross-tenant inbox vis
 
 ---
 
-## Part 14 — Executive Command Center
+## Part 14 â€” Executive Command Center
 
 | Dashboard | Audience | Key content |
 |---|---|---|
@@ -354,27 +360,27 @@ Core metrics: messages created, delivered, failed, read, acknowledged, response 
 
 ---
 
-## Part 15 — Definition of Done
+## Part 15 â€” Definition of Done
 
 ```text
-□ Canonical Notification Hub and Message Bus unify existing events without replacing them.
-□ Conversations and threads link human messages, alerts, workflows, AI, incidents,
+â–¡ Canonical Notification Hub and Message Bus unify existing events without replacing them.
+â–¡ Conversations and threads link human messages, alerts, workflows, AI, incidents,
   financial events, asset events, compliance tasks, customer communications, and reports.
-□ Email, SMS, WhatsApp, Teams, Slack, Web Push, In-App, Voice, and Webhook channels
+â–¡ Email, SMS, WhatsApp, Teams, Slack, Web Push, In-App, Voice, and Webhook channels
   use governed C15 adapters with receipts, retries, throttling, and DLQ.
-□ Preferences, quiet hours, digests, suppression, grouping, routing, and escalation are tenant-aware.
-□ Unified inbox supports assignment, acknowledgement, snooze, escalation, and resolution.
-□ Collaboration supports comments, mentions, attachments, approvals, decisions, and linked records.
-□ AI communication assistant is cited, confidence-gated, sensitive-data-aware, and human-approved before outbound business communication.
-□ Retention, legal hold, classification, encryption, signatures, watermarks, and audit integrate with C24/C21.
-□ All C01-C24 event sources have documented communication mappings.
-□ 320 certification tests pass, including security, isolation, failover, DR, and compliance.
-□ Production rollout is reversible channel by channel.
+â–¡ Preferences, quiet hours, digests, suppression, grouping, routing, and escalation are tenant-aware.
+â–¡ Unified inbox supports assignment, acknowledgement, snooze, escalation, and resolution.
+â–¡ Collaboration supports comments, mentions, attachments, approvals, decisions, and linked records.
+â–¡ AI communication assistant is cited, confidence-gated, sensitive-data-aware, and human-approved before outbound business communication.
+â–¡ Retention, legal hold, classification, encryption, signatures, watermarks, and audit integrate with C24/C21.
+â–¡ All C01-C24 event sources have documented communication mappings.
+â–¡ 320 certification tests pass, including security, isolation, failover, DR, and compliance.
+â–¡ Production rollout is reversible channel by channel.
 ```
 
 ---
 
-## Appendix A — Maturity Improvement
+## Appendix A â€” Maturity Improvement
 
 | Dimension | Before C25 | Target After C25 |
 |---|---:|---:|
@@ -388,7 +394,7 @@ Core metrics: messages created, delivered, failed, read, acknowledged, response 
 | Delivery observability | 25% | 90% |
 | **Overall communication maturity** | **32%** | **89%** |
 
-## Appendix B — Complete Integration Map
+## Appendix B â€” Complete Integration Map
 
 | Program | C25 integration |
 |---|---|
@@ -407,7 +413,7 @@ Core metrics: messages created, delivered, failed, read, acknowledged, response 
 | C23 | approvals, escalations, reminders, broadcasts, SLA timers |
 | C24 | attachments, retention, legal hold, classification, records |
 
-## Appendix C — Estimated Size
+## Appendix C â€” Estimated Size
 
 | Artifact | Estimate |
 |---|---:|
@@ -422,4 +428,5 @@ Core metrics: messages created, delivered, failed, read, acknowledged, response 
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C25 — Enterprise Communication, Notification & Collaboration Platform.*
+*C25 â€” Enterprise Communication, Notification & Collaboration Platform.*
+

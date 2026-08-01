@@ -1,8 +1,14 @@
-# C21 — Enterprise Governance, Portfolio Management & Digital Transformation Office (DTO)
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (10 models, 31 routes) | Certification: [~] Conditional (P41) | Wave: W1 | Commit: 74b585d5
+====================================================================
+-->
+
+# C21 â€” Enterprise Governance, Portfolio Management & Digital Transformation Office (DTO)
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C10, C12-C20 (all programs designed)  
 
@@ -55,36 +61,36 @@
 ### 2.1 DTO Organization
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│                         DIGITAL TRANSFORMATION OFFICE (DTO)                                     │
-│                                                                                                │
-│  ┌────────────────────────────────────────────────────────────────────────────────────┐       │
-│  │  STRATEGY OFFICE                                                                      │       │
-│  │  • Enterprise strategy alignment                                                    │       │
-│  │  • Business capability mapping                                                       │       │
-│  │  • Innovation portfolio                                                              │       │
-│  │  • Digital maturity tracking                                                         │       │
-│  └────────────────────────────────────────────────────────────────────────────────────┘       │
-│                                                                                                │
-│  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐         │
-│  │ ENTERPRISE PMO    │ │ ENTERPRISE       │ │ SECURITY REVIEW  │ │ DATA GOVERNANCE  │         │
-│  │ • Program mgmt    │ │ ARCHITECTURE     │ │ BOARD (SRB)      │ │ COUNCIL (DGC)    │         │
-│  │ • Project mgmt    │ │ BOARD (EAB)      │ │ • Security       │ │ • Data policies  │         │
-│  │ • Roadmap mgmt    │ │ • Reference arch │ │   architecture   │ │ • Data catalog   │         │
-│  │ • Resource mgmt   │ │ • Design reviews │ │ • Threat review  │ │ • Data quality    │         │
-│  │ • Benefits track  │ │ • ADR approvals  │ │ • Risk approval  │ │ • Data lineage    │         │
-│  └──────────────────┘ └──────────────────┘ └──────────────────┘ └──────────────────┘         │
-│                                                                                                │
-│  ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐         │
-│  │ AI GOVERNANCE    │ │ CHANGE ADVISORY  │ │ QUALITY &        │ │ INNOVATION        │         │
-│  │ COUNCIL (AIGC)   │ │ BOARD (CAB)      │ │ CERTIFICATION    │ │ OFFICE           │         │
-│  │ • AI policy      │ │ • Release        │ │ OFFICE (QCO)     │ │ • Innovation     │         │
-│  │ • Model approval │ │   approvals      │ │ • Quality gates  │ │   pipeline        │         │
-│  │ • Prompt approval│ │ • Deployment     │ │ • Certification  │ │ • Experimentation │         │
-│  │ • Agent approval │ │   windows        │ │ • Test strategy  │ │ • Prototyping     │         │
-│  │ • AI ethics      │ │ • Emergency      │ │ • Defect mgmt    │ │ • New ideas       │         │
-│  └──────────────────┘ └──────────────────┘ └──────────────────┘ └──────────────────┘         │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                         DIGITAL TRANSFORMATION OFFICE (DTO)                                     â”‚
+â”‚                                                                                                â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚
+â”‚  â”‚  STRATEGY OFFICE                                                                      â”‚       â”‚
+â”‚  â”‚  â€¢ Enterprise strategy alignment                                                    â”‚       â”‚
+â”‚  â”‚  â€¢ Business capability mapping                                                       â”‚       â”‚
+â”‚  â”‚  â€¢ Innovation portfolio                                                              â”‚       â”‚
+â”‚  â”‚  â€¢ Digital maturity tracking                                                         â”‚       â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚
+â”‚                                                                                                â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚  â”‚ ENTERPRISE PMO    â”‚ â”‚ ENTERPRISE       â”‚ â”‚ SECURITY REVIEW  â”‚ â”‚ DATA GOVERNANCE  â”‚         â”‚
+â”‚  â”‚ â€¢ Program mgmt    â”‚ â”‚ ARCHITECTURE     â”‚ â”‚ BOARD (SRB)      â”‚ â”‚ COUNCIL (DGC)    â”‚         â”‚
+â”‚  â”‚ â€¢ Project mgmt    â”‚ â”‚ BOARD (EAB)      â”‚ â”‚ â€¢ Security       â”‚ â”‚ â€¢ Data policies  â”‚         â”‚
+â”‚  â”‚ â€¢ Roadmap mgmt    â”‚ â”‚ â€¢ Reference arch â”‚ â”‚   architecture   â”‚ â”‚ â€¢ Data catalog   â”‚         â”‚
+â”‚  â”‚ â€¢ Resource mgmt   â”‚ â”‚ â€¢ Design reviews â”‚ â”‚ â€¢ Threat review  â”‚ â”‚ â€¢ Data quality    â”‚         â”‚
+â”‚  â”‚ â€¢ Benefits track  â”‚ â”‚ â€¢ ADR approvals  â”‚ â”‚ â€¢ Risk approval  â”‚ â”‚ â€¢ Data lineage    â”‚         â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                                â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚  â”‚ AI GOVERNANCE    â”‚ â”‚ CHANGE ADVISORY  â”‚ â”‚ QUALITY &        â”‚ â”‚ INNOVATION        â”‚         â”‚
+â”‚  â”‚ COUNCIL (AIGC)   â”‚ â”‚ BOARD (CAB)      â”‚ â”‚ CERTIFICATION    â”‚ â”‚ OFFICE           â”‚         â”‚
+â”‚  â”‚ â€¢ AI policy      â”‚ â”‚ â€¢ Release        â”‚ â”‚ OFFICE (QCO)     â”‚ â”‚ â€¢ Innovation     â”‚         â”‚
+â”‚  â”‚ â€¢ Model approval â”‚ â”‚   approvals      â”‚ â”‚ â€¢ Quality gates  â”‚ â”‚   pipeline        â”‚         â”‚
+â”‚  â”‚ â€¢ Prompt approvalâ”‚ â”‚ â€¢ Deployment     â”‚ â”‚ â€¢ Certification  â”‚ â”‚ â€¢ Experimentation â”‚         â”‚
+â”‚  â”‚ â€¢ Agent approval â”‚ â”‚   windows        â”‚ â”‚ â€¢ Test strategy  â”‚ â”‚ â€¢ Prototyping     â”‚         â”‚
+â”‚  â”‚ â€¢ AI ethics      â”‚ â”‚ â€¢ Emergency      â”‚ â”‚ â€¢ Defect mgmt    â”‚ â”‚ â€¢ New ideas       â”‚         â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Governance Board Definitions
@@ -109,71 +115,71 @@
 
 ```
 PORTFOLIO: MeterVerse Enterprise Platform
-  └── PROGRAM: C12 Identity & Security
-        ├── PROJECT: W01 Identity Database Foundation
-        │     ├── EPIC: User model enhancement
-        │     ├── FEATURE: MFA setup
-        │     └── WORK PACKAGE: Task, story
-        ├── PROJECT: W02 Permission Engine
-        └── PROJECT: W03-W07 ...
-  └── PROGRAM: C13 Financial Intelligence
-        ├── PROJECT: W01 Billing-to-GL
-        └── PROJECT: W02-W07 ...
-  └── PROGRAM: C14-C21 ...
+  â””â”€â”€ PROGRAM: C12 Identity & Security
+        â”œâ”€â”€ PROJECT: W01 Identity Database Foundation
+        â”‚     â”œâ”€â”€ EPIC: User model enhancement
+        â”‚     â”œâ”€â”€ FEATURE: MFA setup
+        â”‚     â””â”€â”€ WORK PACKAGE: Task, story
+        â”œâ”€â”€ PROJECT: W02 Permission Engine
+        â””â”€â”€ PROJECT: W03-W07 ...
+  â””â”€â”€ PROGRAM: C13 Financial Intelligence
+        â”œâ”€â”€ PROJECT: W01 Billing-to-GL
+        â””â”€â”€ PROJECT: W02-W07 ...
+  â””â”€â”€ PROGRAM: C14-C21 ...
 ```
 
 ### 3.2 Portfolio Models (NEW)
 
 ```
 Portfolio
-├── id, name, description, status (ACTIVE|PAUSED|ARCHIVED)
-├── strategicAlignment: String (JSON)   ← Linked enterprise objectives
-├── investment: Float?, currency
-├── expectedROI: Float?
-├── owner: String (executive sponsor)
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id, name, description, status (ACTIVE|PAUSED|ARCHIVED)
+â”œâ”€â”€ strategicAlignment: String (JSON)   â† Linked enterprise objectives
+â”œâ”€â”€ investment: Float?, currency
+â”œâ”€â”€ expectedROI: Float?
+â”œâ”€â”€ owner: String (executive sponsor)
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Program
-├── id, portfolioId (FK), name, code (C12-C21)
-├── description, status
-├── objectives: String (JSON)
-├── benefits: String (JSON)             ← Expected benefits
-├── budget: Float?, actualCost: Float?
-├── startDate, endDate?
-├── sponsor: String, director: String
-├── maturityScore: Float?               ← 0-100 (from certification)
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id, portfolioId (FK), name, code (C12-C21)
+â”œâ”€â”€ description, status
+â”œâ”€â”€ objectives: String (JSON)
+â”œâ”€â”€ benefits: String (JSON)             â† Expected benefits
+â”œâ”€â”€ budget: Float?, actualCost: Float?
+â”œâ”€â”€ startDate, endDate?
+â”œâ”€â”€ sponsor: String, director: String
+â”œâ”€â”€ maturityScore: Float?               â† 0-100 (from certification)
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Project
-├── id, programId (FK), name, code (W01-W08)
-├── status, priority
-├── plannedStart, plannedEnd, actualStart, actualEnd
-├── scope: String, deliverables: String (JSON)
-├── owner, team: String (JSON)
-├── budget, actualCost
-├── riskScore: Float?
-├── health: GREEN|YELLOW|RED
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id, programId (FK), name, code (W01-W08)
+â”œâ”€â”€ status, priority
+â”œâ”€â”€ plannedStart, plannedEnd, actualStart, actualEnd
+â”œâ”€â”€ scope: String, deliverables: String (JSON)
+â”œâ”€â”€ owner, team: String (JSON)
+â”œâ”€â”€ budget, actualCost
+â”œâ”€â”€ riskScore: Float?
+â”œâ”€â”€ health: GREEN|YELLOW|RED
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Epic
-├── id, projectId (FK), name, description
-├── status, priority, acceptanceCriteria: String (JSON)
-├── storyPoints: Int?, progress: Float?
-├── createdAt, archivedAt
+â”œâ”€â”€ id, projectId (FK), name, description
+â”œâ”€â”€ status, priority, acceptanceCriteria: String (JSON)
+â”œâ”€â”€ storyPoints: Int?, progress: Float?
+â”œâ”€â”€ createdAt, archivedAt
 
 Roadmap
-├── id, name, horizon (QUARTERLY|ANNUAL|3YEAR)
-├── periodStart, periodEnd
-├── items: String (JSON)                ← [{ program, milestone, date, status }]
-├── createdAt, archivedAt
+â”œâ”€â”€ id, name, horizon (QUARTERLY|ANNUAL|3YEAR)
+â”œâ”€â”€ periodStart, periodEnd
+â”œâ”€â”€ items: String (JSON)                â† [{ program, milestone, date, status }]
+â”œâ”€â”€ createdAt, archivedAt
 
 Benefit
-├── id, programId (FK), name, description
-├── benefitType: FINANCIAL|OPERATIONAL|STRATEGIC|COMPLIANCE
-├── targetValue: Float?, actualValue: Float?
-├── targetDate, measuredAt
-├── status: PLANNED|TRACKING|REALIZED|NOT_REALIZED
-├── createdAt, archivedAt
+â”œâ”€â”€ id, programId (FK), name, description
+â”œâ”€â”€ benefitType: FINANCIAL|OPERATIONAL|STRATEGIC|COMPLIANCE
+â”œâ”€â”€ targetValue: Float?, actualValue: Float?
+â”œâ”€â”€ targetDate, measuredAt
+â”œâ”€â”€ status: PLANNED|TRACKING|REALIZED|NOT_REALIZED
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.3 Benefits Realization
@@ -184,11 +190,11 @@ BenefitService.track(programId):
     actualValue = computeBenefit(benefit)
     realization = actualValue / targetValue
     
-    IF realization >= 1.0 → status = REALIZED
-    IF realization >= 0.7 → status = TRACKING (on track)
-    IF realization < 0.7 AND targetDate passed → status = NOT_REALIZED
+    IF realization >= 1.0 â†’ status = REALIZED
+    IF realization >= 0.7 â†’ status = TRACKING (on track)
+    IF realization < 0.7 AND targetDate passed â†’ status = NOT_REALIZED
     
-  BenefitScore per program = AVG(realization × weight)
+  BenefitScore per program = AVG(realization Ã— weight)
 
   Dashboard: Benefits realization by program, by type
 ```
@@ -201,97 +207,97 @@ BenefitService.track(programId):
 
 ```
 Standard
-├── id, code, name, version
-├── category: ARCHITECTURE|SECURITY|DATA|AI|QUALITY|OPERATIONS|FINANCE
-├── status: DRAFT|REVIEW|APPROVED|DEPRECATED
-├── content: String, approvedBy, approvedAt
-├── effectiveFrom, effectiveTo?
-├── supersedesId: String?, createdAt, archivedAt
+â”œâ”€â”€ id, code, name, version
+â”œâ”€â”€ category: ARCHITECTURE|SECURITY|DATA|AI|QUALITY|OPERATIONS|FINANCE
+â”œâ”€â”€ status: DRAFT|REVIEW|APPROVED|DEPRECATED
+â”œâ”€â”€ content: String, approvedBy, approvedAt
+â”œâ”€â”€ effectiveFrom, effectiveTo?
+â”œâ”€â”€ supersedesId: String?, createdAt, archivedAt
 
 Policy
-├── id, code, name, version
-├── category, description
-├── applicability: String (JSON)       ← Scope/audience
-├── rules: String (JSON)               ← Policy rules
-├── status: DRAFT|REVIEW|APPROVED|ENFORCED|DEPRECATED
-├── enforcementLevel: MANDATORY|RECOMMENDED|INFORMATIONAL
-├── approvedBy, approvedAt, reviewedAt, nextReviewAt
-├── supersedesId: String?, createdAt, archivedAt
+â”œâ”€â”€ id, code, name, version
+â”œâ”€â”€ category, description
+â”œâ”€â”€ applicability: String (JSON)       â† Scope/audience
+â”œâ”€â”€ rules: String (JSON)               â† Policy rules
+â”œâ”€â”€ status: DRAFT|REVIEW|APPROVED|ENFORCED|DEPRECATED
+â”œâ”€â”€ enforcementLevel: MANDATORY|RECOMMENDED|INFORMATIONAL
+â”œâ”€â”€ approvedBy, approvedAt, reviewedAt, nextReviewAt
+â”œâ”€â”€ supersedesId: String?, createdAt, archivedAt
 
 Decision
-├── id, reference (UNIQUE), title, description
-├── decisionType: STRATEGIC|ARCHITECTURAL|FINANCIAL|OPERATIONAL|TACTICAL
-├── status: PROPOSED|REVIEWED|APPROVED|REJECTED|SUPERSEDED
-├── options: String (JSON)             ← Considered alternatives
-├── rationale: String
-├── impactAnalysis: String (JSON)
-├── decidedBy, decidedAt
-├── relatedDecisions: String (JSON)
-├── linkedRequirements: String (JSON)
-├── createdAt, archivedAt
+â”œâ”€â”€ id, reference (UNIQUE), title, description
+â”œâ”€â”€ decisionType: STRATEGIC|ARCHITECTURAL|FINANCIAL|OPERATIONAL|TACTICAL
+â”œâ”€â”€ status: PROPOSED|REVIEWED|APPROVED|REJECTED|SUPERSEDED
+â”œâ”€â”€ options: String (JSON)             â† Considered alternatives
+â”œâ”€â”€ rationale: String
+â”œâ”€â”€ impactAnalysis: String (JSON)
+â”œâ”€â”€ decidedBy, decidedAt
+â”œâ”€â”€ relatedDecisions: String (JSON)
+â”œâ”€â”€ linkedRequirements: String (JSON)
+â”œâ”€â”€ createdAt, archivedAt
 
 ArchitectureDecisionRecord (ADR)
-├── id, adrNumber (UNIQUE), title
-├── status: PROPOSED|ACCEPTED|SUPERSEDED|DEPRECATED
-├── context: String, decision: String, consequences: String
-├── alternatives: String (JSON)
-├── relatedPrograms: String (JSON)
-├── approvedBy (EAB), approvedAt
-├── supersededBy (ADR number), createdAt, archivedAt
+â”œâ”€â”€ id, adrNumber (UNIQUE), title
+â”œâ”€â”€ status: PROPOSED|ACCEPTED|SUPERSEDED|DEPRECATED
+â”œâ”€â”€ context: String, decision: String, consequences: String
+â”œâ”€â”€ alternatives: String (JSON)
+â”œâ”€â”€ relatedPrograms: String (JSON)
+â”œâ”€â”€ approvedBy (EAB), approvedAt
+â”œâ”€â”€ supersededBy (ADR number), createdAt, archivedAt
 
 Exception
-├── id, standardId (FK) or policyId (FK)
-├── title, description, justification
-├── scope: String, duration: String (JSON)
-├── riskAssessment: String (JSON)
-├── status: REQUESTED|REVIEWED|APPROVED|REJECTED|EXPIRED
-├── requestedBy, approvedBy, approvedAt, expiresAt
-├── mitigationPlan: String?
-├── createdAt, archivedAt
+â”œâ”€â”€ id, standardId (FK) or policyId (FK)
+â”œâ”€â”€ title, description, justification
+â”œâ”€â”€ scope: String, duration: String (JSON)
+â”œâ”€â”€ riskAssessment: String (JSON)
+â”œâ”€â”€ status: REQUESTED|REVIEWED|APPROVED|REJECTED|EXPIRED
+â”œâ”€â”€ requestedBy, approvedBy, approvedAt, expiresAt
+â”œâ”€â”€ mitigationPlan: String?
+â”œâ”€â”€ createdAt, archivedAt
 
 Waiver
-├── id, policyId (FK), title, description
-├── waiverType: TEMPORARY|PERMANENT
-├── justification, expiresAt
-├── status: REQUESTED|APPROVED|REJECTED|EXPIRED
-├── approvedBy, approvedAt, createdAt, archivedAt
+â”œâ”€â”€ id, policyId (FK), title, description
+â”œâ”€â”€ waiverType: TEMPORARY|PERMANENT
+â”œâ”€â”€ justification, expiresAt
+â”œâ”€â”€ status: REQUESTED|APPROVED|REJECTED|EXPIRED
+â”œâ”€â”€ approvedBy, approvedAt, createdAt, archivedAt
 
 TechnicalDebtItem
-├── id, source (ADR, Code review, Architecture review), description
-├── category: ARCHITECTURE|CODE|DATA|SECURITY|PERFORMANCE|TEST
-├── severity: LOW|MEDIUM|HIGH|CRITICAL
-├── estimatedEffort: Int (hours)
-├── interestRate: Float?               ← Debt accrual
-├── status: OPEN|IN_PROGRESS|RESOLVED|WAIVED
-├── linkedProgram, owner, createdAt, resolvedAt
-├── archivedAt
+â”œâ”€â”€ id, source (ADR, Code review, Architecture review), description
+â”œâ”€â”€ category: ARCHITECTURE|CODE|DATA|SECURITY|PERFORMANCE|TEST
+â”œâ”€â”€ severity: LOW|MEDIUM|HIGH|CRITICAL
+â”œâ”€â”€ estimatedEffort: Int (hours)
+â”œâ”€â”€ interestRate: Float?               â† Debt accrual
+â”œâ”€â”€ status: OPEN|IN_PROGRESS|RESOLVED|WAIVED
+â”œâ”€â”€ linkedProgram, owner, createdAt, resolvedAt
+â”œâ”€â”€ archivedAt
 
 BusinessRisk
-├── id, title, description
-├── category: STRATEGIC|OPERATIONAL|FINANCIAL|CYBER|VENDOR|AI|COMPLIANCE
-├── likelihood: 1-5, impact: 1-5
-├── inherentRisk: Int (computed)
-├── residualRisk: Int?
-├── mitigation: String, contingency: String
-├── owner, status: IDENTIFIED|ASSESSED|MITIGATING|ACCEPTED|CLOSED
-├── lastReviewAt, nextReviewAt, createdAt, archivedAt
+â”œâ”€â”€ id, title, description
+â”œâ”€â”€ category: STRATEGIC|OPERATIONAL|FINANCIAL|CYBER|VENDOR|AI|COMPLIANCE
+â”œâ”€â”€ likelihood: 1-5, impact: 1-5
+â”œâ”€â”€ inherentRisk: Int (computed)
+â”œâ”€â”€ residualRisk: Int?
+â”œâ”€â”€ mitigation: String, contingency: String
+â”œâ”€â”€ owner, status: IDENTIFIED|ASSESSED|MITIGATING|ACCEPTED|CLOSED
+â”œâ”€â”€ lastReviewAt, nextReviewAt, createdAt, archivedAt
 
 ComplianceObligation
-├── id, framework (ISO27001|SOC2|NIST|OWASP|GDPR|FINANCIAL)
-├── controlId, controlName, description
-├── status: NOT_APPLICABLE|COMPLIANT|PARTIAL|NON_COMPLIANT|NOT_ASSESSED
-├── evidence: String (JSON), assessor, assessedAt
-├── remediationPlan: String?
-├── dueDate?, createdAt, archivedAt
+â”œâ”€â”€ id, framework (ISO27001|SOC2|NIST|OWASP|GDPR|FINANCIAL)
+â”œâ”€â”€ controlId, controlName, description
+â”œâ”€â”€ status: NOT_APPLICABLE|COMPLIANT|PARTIAL|NON_COMPLIANT|NOT_ASSESSED
+â”œâ”€â”€ evidence: String (JSON), assessor, assessedAt
+â”œâ”€â”€ remediationPlan: String?
+â”œâ”€â”€ dueDate?, createdAt, archivedAt
 
 AuditFinding
-├── id, auditType: INTERNAL|EXTERNAL|REGULATORY|PENETRATION
-├── title, description, severity
-├── findingType: CONTROL|COMPLIANCE|SECURITY|DATA|PROCESS
-├── status: OPEN|IN_PROGRESS|REMEDIATED|ACCEPTED|CLOSED
-├── remediationPlan, dueDate, owner
-├── evidence: String (JSON), createdAt, closedAt
-├── archivedAt
+â”œâ”€â”€ id, auditType: INTERNAL|EXTERNAL|REGULATORY|PENETRATION
+â”œâ”€â”€ title, description, severity
+â”œâ”€â”€ findingType: CONTROL|COMPLIANCE|SECURITY|DATA|PROCESS
+â”œâ”€â”€ status: OPEN|IN_PROGRESS|REMEDIATED|ACCEPTED|CLOSED
+â”œâ”€â”€ remediationPlan, dueDate, owner
+â”œâ”€â”€ evidence: String (JSON), createdAt, closedAt
+â”œâ”€â”€ archivedAt
 ```
 
 ### 4.2 Governance Registry Summary
@@ -335,53 +341,53 @@ AuditFinding
 ### 5.2 Risk Scoring
 
 ```
-riskScore = likelihood × impact (1-5 each → 1-25)
+riskScore = likelihood Ã— impact (1-5 each â†’ 1-25)
 
 Risk Matrix:
-  ┌─────────┬───┬───┬───┬───┬───┐
-  │ Impact\ │ 1 │ 2 │ 3 │ 4 │ 5 │
-  │ Likelihood│  │   │   │   │   │
-  ├─────────┼───┼───┼───┼───┼───┤
-  │ 5 (High)│ 5 │ 10│ 15│ 20│ 25│ ← CRITICAL (20-25)
-  │ 4       │ 4 │ 8 │ 12│ 16│ 20│ ← HIGH (12-19)
-  │ 3       │ 3 │ 6 │ 9 │ 12│ 15│ ← MEDIUM (6-11)
-  │ 2       │ 2 │ 4 │ 6 │ 8 │ 10│ ← LOW (2-5)
-  │ 1 (Low) │ 1 │ 2 │ 3 │ 4 │ 5 │ ← MINIMAL (1)
-  └─────────┴───┴───┴───┴───┴───┘
+  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”¬â”€â”€â”€â”¬â”€â”€â”€â”¬â”€â”€â”€â”¬â”€â”€â”€â”
+  â”‚ Impact\ â”‚ 1 â”‚ 2 â”‚ 3 â”‚ 4 â”‚ 5 â”‚
+  â”‚ Likelihoodâ”‚  â”‚   â”‚   â”‚   â”‚   â”‚
+  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”¼â”€â”€â”€â”¼â”€â”€â”€â”¼â”€â”€â”€â”¼â”€â”€â”€â”¤
+  â”‚ 5 (High)â”‚ 5 â”‚ 10â”‚ 15â”‚ 20â”‚ 25â”‚ â† CRITICAL (20-25)
+  â”‚ 4       â”‚ 4 â”‚ 8 â”‚ 12â”‚ 16â”‚ 20â”‚ â† HIGH (12-19)
+  â”‚ 3       â”‚ 3 â”‚ 6 â”‚ 9 â”‚ 12â”‚ 15â”‚ â† MEDIUM (6-11)
+  â”‚ 2       â”‚ 2 â”‚ 4 â”‚ 6 â”‚ 8 â”‚ 10â”‚ â† LOW (2-5)
+  â”‚ 1 (Low) â”‚ 1 â”‚ 2 â”‚ 3 â”‚ 4 â”‚ 5 â”‚ â† MINIMAL (1)
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”´â”€â”€â”€â”´â”€â”€â”€â”´â”€â”€â”€â”´â”€â”€â”€â”˜
 
-Residual risk = inherent risk × (1 - mitigation effectiveness)
+Residual risk = inherent risk Ã— (1 - mitigation effectiveness)
 ```
 
 ### 5.3 Risk Heat Map
 
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                    ENTERPRISE RISK HEAT MAP                      │
-│                                                                │
-│  Impact          │  CYBER: Ransomware (4,4)=16 HIGH            │
-│    5 │  █       │  FIN: Revenue Leakage (3,4)=12 HIGH          │
-│    4 │  █ █     │  AI: Model Drift (3,3)=9 MEDIUM              │
-│    3 │    █ █   │  OPS: Outage (4,3)=12 HIGH                   │
-│    2 │      █   │  VENDOR: Supplier (2,3)=6 MEDIUM             │
-│    1 │          │  STRAT: Competition (3,2)=6 MEDIUM           │
-│    0 └──────────│  COMP: GDPR (2,4)=8 MEDIUM                   │
-│       1  2  3  4  5                                            │
-│            Likelihood                                          │
-│                                                                │
-│  Legend: 🟢 LOW (1-5)  🟡 MEDIUM (6-11)  🟠 HIGH (12-19)  🔴 CRITICAL (20+)│
-└──────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    ENTERPRISE RISK HEAT MAP                      â”‚
+â”‚                                                                â”‚
+â”‚  Impact          â”‚  CYBER: Ransomware (4,4)=16 HIGH            â”‚
+â”‚    5 â”‚  â–ˆ       â”‚  FIN: Revenue Leakage (3,4)=12 HIGH          â”‚
+â”‚    4 â”‚  â–ˆ â–ˆ     â”‚  AI: Model Drift (3,3)=9 MEDIUM              â”‚
+â”‚    3 â”‚    â–ˆ â–ˆ   â”‚  OPS: Outage (4,3)=12 HIGH                   â”‚
+â”‚    2 â”‚      â–ˆ   â”‚  VENDOR: Supplier (2,3)=6 MEDIUM             â”‚
+â”‚    1 â”‚          â”‚  STRAT: Competition (3,2)=6 MEDIUM           â”‚
+â”‚    0 â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”‚  COMP: GDPR (2,4)=8 MEDIUM                   â”‚
+â”‚       1  2  3  4  5                                            â”‚
+â”‚            Likelihood                                          â”‚
+â”‚                                                                â”‚
+â”‚  Legend: ðŸŸ¢ LOW (1-5)  ðŸŸ¡ MEDIUM (6-11)  ðŸŸ  HIGH (12-19)  ðŸ”´ CRITICAL (20+)â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 5.4 Mitigation Tracking
 
 ```
 RiskService.mitigationCycle():
-  1. RISK REGISTER — all risks listed with score
-  2. MITIGATION PLAN — per risk: controls, actions, owner, due date
-  3. TRACKING — status updates, evidence, effectiveness
-  4. REVIEW — quarterly risk review by risk committee
-  5. ESCALATION — CRITICAL risks escalated to executive
-  6. REPORTING — risk posture in command center
+  1. RISK REGISTER â€” all risks listed with score
+  2. MITIGATION PLAN â€” per risk: controls, actions, owner, due date
+  3. TRACKING â€” status updates, evidence, effectiveness
+  4. REVIEW â€” quarterly risk review by risk committee
+  5. ESCALATION â€” CRITICAL risks escalated to executive
+  6. REPORTING â€” risk posture in command center
 ```
 
 ---
@@ -391,30 +397,30 @@ RiskService.mitigationCycle():
 ### 6.1 Architecture Review Workflow
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ARCHITECTURE REVIEW WORKFLOW                                                 │
-│                                                                              │
-│  SUBMIT (Architect/Team)                                                     │
-│    → Design proposal / ADR draft                                             │
-│    → Classification: New capability | Change | Refactor | Retirement         │
-│    → Impact assessment: programs affected                                    │
-│       │                                                                      │
-│       ▼                                                                      │
-│  PRE-REVIEW (Architecture Reviewer)                                          │
-│    → Check completeness, standards alignment                                 │
-│    → Return for fixes if incomplete                                          │
-│       │                                                                      │
-│       ▼                                                                      │
-│  EAB REVIEW (Enterprise Architecture Board)                                  │
-│    → Evaluate: reference architecture fit, standards, tech catalog           │
-│    → Risk assessment, integration impact                                     │
-│    → Decision: APPROVE | APPROVE_WITH_CONDITIONS | REJECT                   │
-│       │                                                                      │
-│       ▼                                                                      │
-│  APPROVED → ADR accepted → Registered with compliance score                  │
-│  CONDITIONS → Remediation plan tracked                                       │
-│  REJECTED → Return with feedback, resubmit                                   │
-└──────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  ARCHITECTURE REVIEW WORKFLOW                                                 â”‚
+â”‚                                                                              â”‚
+â”‚  SUBMIT (Architect/Team)                                                     â”‚
+â”‚    â†’ Design proposal / ADR draft                                             â”‚
+â”‚    â†’ Classification: New capability | Change | Refactor | Retirement         â”‚
+â”‚    â†’ Impact assessment: programs affected                                    â”‚
+â”‚       â”‚                                                                      â”‚
+â”‚       â–¼                                                                      â”‚
+â”‚  PRE-REVIEW (Architecture Reviewer)                                          â”‚
+â”‚    â†’ Check completeness, standards alignment                                 â”‚
+â”‚    â†’ Return for fixes if incomplete                                          â”‚
+â”‚       â”‚                                                                      â”‚
+â”‚       â–¼                                                                      â”‚
+â”‚  EAB REVIEW (Enterprise Architecture Board)                                  â”‚
+â”‚    â†’ Evaluate: reference architecture fit, standards, tech catalog           â”‚
+â”‚    â†’ Risk assessment, integration impact                                     â”‚
+â”‚    â†’ Decision: APPROVE | APPROVE_WITH_CONDITIONS | REJECT                   â”‚
+â”‚       â”‚                                                                      â”‚
+â”‚       â–¼                                                                      â”‚
+â”‚  APPROVED â†’ ADR accepted â†’ Registered with compliance score                  â”‚
+â”‚  CONDITIONS â†’ Remediation plan tracked                                       â”‚
+â”‚  REJECTED â†’ Return with feedback, resubmit                                   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 6.2 Architecture Compliance Scoring
@@ -431,20 +437,20 @@ ArchitectureCompliance:
     - Deprecated tech in use: -20 per instance
     - Security non-compliance: -25 per finding
     
-    Score → Status:
-      90-100: COMPLIANT 🟢
-      70-89:  MINOR_DEVIATION 🟡
-      50-69:  MAJOR_DEVIATION 🟠
-      < 50:   NON_COMPLIANT 🔴
+    Score â†’ Status:
+      90-100: COMPLIANT ðŸŸ¢
+      70-89:  MINOR_DEVIATION ðŸŸ¡
+      50-69:  MAJOR_DEVIATION ðŸŸ 
+      < 50:   NON_COMPLIANT ðŸ”´
 ```
 
 ### 6.3 Technology Lifecycle
 
 ```
-┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
-│ RESEARCH  │→│ ADOPTED  │→│ STANDARD │→│ MAINTAIN │→│ RETIRE   │
-│ (trial)   │ │ (new)    │ │ (preferred)│ │ (legacy) │ │ (remove) │
-└──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ RESEARCH  â”‚â†’â”‚ ADOPTED  â”‚â†’â”‚ STANDARD â”‚â†’â”‚ MAINTAIN â”‚â†’â”‚ RETIRE   â”‚
+â”‚ (trial)   â”‚ â”‚ (new)    â”‚ â”‚ (preferred)â”‚ â”‚ (legacy) â”‚ â”‚ (remove) â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 
 Approved Technology Catalog:
   { name, category, version, lifecycleState, owner, reviewDate,
@@ -475,8 +481,8 @@ ComplianceService.runCheck(obligationId):
   3. EVALUATE: PASS | PARTIAL | FAIL | NOT_APPLICABLE
   4. STORE result with evidence snapshot + timestamp
   5. UPDATE ComplianceObligation.status
-  6. IF FAIL → create remediation plan + notify owner
-  7. IF CRITICAL FAIL → alert compliance office + executive
+  6. IF FAIL â†’ create remediation plan + notify owner
+  7. IF CRITICAL FAIL â†’ alert compliance office + executive
 ```
 
 ### 7.3 Audit Coordination
@@ -496,10 +502,10 @@ AuditPreparation:
 ### 8.1 Decision Workflow
 
 ```
-┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
-│ PROPOSED │→│ REVIEWED │→│ APPROVED │→│ TRACKED  │→│ SUPERSEDED│
-│ (creator)│ │ (reviewer)│ │ (owner)  │ │ (impact) │ │ (new dec)│
-└──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ PROPOSED â”‚â†’â”‚ REVIEWED â”‚â†’â”‚ APPROVED â”‚â†’â”‚ TRACKED  â”‚â†’â”‚ SUPERSEDEDâ”‚
+â”‚ (creator)â”‚ â”‚ (reviewer)â”‚ â”‚ (owner)  â”‚ â”‚ (impact) â”‚ â”‚ (new dec)â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 8.2 Decision Traceability
@@ -514,7 +520,7 @@ Every decision records:
   - Linked requirements/programs
   - Version history (amendments)
 
-Decision → ADR → Architecture → Implementation → Test → Certification
+Decision â†’ ADR â†’ Architecture â†’ Implementation â†’ Test â†’ Certification
 Full chain traceable from strategic decision to operational evidence.
 ```
 
@@ -535,36 +541,36 @@ Full chain traceable from strategic decision to operational evidence.
 ### 9.1 DTO Director Dashboard (`/governance/dto`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│  DTO DIRECTOR — ENTERPRISE GOVERNANCE COMMAND CENTER                                            │
-│                                                                                               │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Portfolio    │ │ Delivery     │ │ Architecture │ │ Risk         │ │ Compliance   │         │
-│ │ Health       │ │ Confidence   │ │ Compliance   │ │ Posture      │ │ Readiness    │         │
-│ │ 82/100 🟢   │ │ 78%          │ │ 88%          │ │ 24 risks     │ │ 86%          │         │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                               │
-│ ┌─── PROGRAM HEALTH ─────────────────────────────────────────────────────────────────────┐   │
-│ │ Program       │ Status │ Maturity │ Benefits │ Budget │ Risk  │ Owner                  │   │
-│ │ C12 Identity  │ ✅ LIVE │ 100%    │ 95%     │ 92%    │ LOW   │ CTO                    │   │
-│ │ C13 Finance   │ 📋 PLAN │ 85%     │ 70%     │ 88%    │ MED   │ CFO                    │   │
-│ │ C14 Customer  │ 📋 PLAN │ 80%     │ 65%     │ 90%    │ MED   │ CMO                    │   │
-│ │ C18 AI        │ 📋 PLAN │ 75%     │ 60%     │ 85%    │ HIGH  │ AI Lead                │   │
-│ │ ...           │        │         │         │        │       │                        │   │
-│ └────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                               │
-│ ┌─── OPEN DECISIONS ──────────────────┐ ┌─── RISK SUMMARY ─────────────────────────────┐   │
-│ │ 5 decisions awaiting approval       │ │ CRITICAL: 2 │ HIGH: 6 │ MEDIUM: 11 │ LOW: 5  │   │
-│ │ • C18 model upgrade — EAB (2d)      │ │                                             │   │
-│ │ • C13 tariff policy — CFO (1d)      │ │ 🔴 Ransomware exposure — mitigation 40%     │   │
-│ │ • C15 ERP connector — SRB (3d)      │ │ 🔴 Revenue leakage — controls 65%            │   │
-│ └─────────────────────────────────────┘ └─────────────────────────────────────────────┘   │
-│                                                                                               │
-│ ┌─── COMPLIANCE TRACKER ────────────────────────────────────────────────────────────────┐   │
-│ │ ISO 27001: 88% │ SOC2: 82% │ NIST: 90% │ ASVS L2: 85% │ GDPR: 80% │ Financial: 92%   │   │
-│ │ 12 open audit findings: 2 high, 10 medium                                             │   │
-│ └────────────────────────────────────────────────────────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  DTO DIRECTOR â€” ENTERPRISE GOVERNANCE COMMAND CENTER                                            â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Portfolio    â”‚ â”‚ Delivery     â”‚ â”‚ Architecture â”‚ â”‚ Risk         â”‚ â”‚ Compliance   â”‚         â”‚
+â”‚ â”‚ Health       â”‚ â”‚ Confidence   â”‚ â”‚ Compliance   â”‚ â”‚ Posture      â”‚ â”‚ Readiness    â”‚         â”‚
+â”‚ â”‚ 82/100 ðŸŸ¢   â”‚ â”‚ 78%          â”‚ â”‚ 88%          â”‚ â”‚ 24 risks     â”‚ â”‚ 86%          â”‚         â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ PROGRAM HEALTH â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ Program       â”‚ Status â”‚ Maturity â”‚ Benefits â”‚ Budget â”‚ Risk  â”‚ Owner                  â”‚   â”‚
+â”‚ â”‚ C12 Identity  â”‚ âœ… LIVE â”‚ 100%    â”‚ 95%     â”‚ 92%    â”‚ LOW   â”‚ CTO                    â”‚   â”‚
+â”‚ â”‚ C13 Finance   â”‚ ðŸ“‹ PLAN â”‚ 85%     â”‚ 70%     â”‚ 88%    â”‚ MED   â”‚ CFO                    â”‚   â”‚
+â”‚ â”‚ C14 Customer  â”‚ ðŸ“‹ PLAN â”‚ 80%     â”‚ 65%     â”‚ 90%    â”‚ MED   â”‚ CMO                    â”‚   â”‚
+â”‚ â”‚ C18 AI        â”‚ ðŸ“‹ PLAN â”‚ 75%     â”‚ 60%     â”‚ 85%    â”‚ HIGH  â”‚ AI Lead                â”‚   â”‚
+â”‚ â”‚ ...           â”‚        â”‚         â”‚         â”‚        â”‚       â”‚                        â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ OPEN DECISIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€ RISK SUMMARY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ 5 decisions awaiting approval       â”‚ â”‚ CRITICAL: 2 â”‚ HIGH: 6 â”‚ MEDIUM: 11 â”‚ LOW: 5  â”‚   â”‚
+â”‚ â”‚ â€¢ C18 model upgrade â€” EAB (2d)      â”‚ â”‚                                             â”‚   â”‚
+â”‚ â”‚ â€¢ C13 tariff policy â€” CFO (1d)      â”‚ â”‚ ðŸ”´ Ransomware exposure â€” mitigation 40%     â”‚   â”‚
+â”‚ â”‚ â€¢ C15 ERP connector â€” SRB (3d)      â”‚ â”‚ ðŸ”´ Revenue leakage â€” controls 65%            â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ COMPLIANCE TRACKER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ ISO 27001: 88% â”‚ SOC2: 82% â”‚ NIST: 90% â”‚ ASVS L2: 85% â”‚ GDPR: 80% â”‚ Financial: 92%   â”‚   â”‚
+â”‚ â”‚ 12 open audit findings: 2 high, 10 medium                                             â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 9.2 Additional Command Center Dashboards
@@ -587,30 +593,30 @@ Full chain traceable from strategic decision to operational evidence.
 
 ```
 AI POLICY LIFECYCLE:
-  DRAFT → REVIEW (AIGC) → APPROVED → ENFORCED → MONITORED → UPDATED (annual)
+  DRAFT â†’ REVIEW (AIGC) â†’ APPROVED â†’ ENFORCED â†’ MONITORED â†’ UPDATED (annual)
 
 MODEL APPROVAL:
-  PROPOSE → ASSESS (risk) → PILOT → VALIDATE → AIGC APPROVE → ACTIVE → MONITOR
+  PROPOSE â†’ ASSESS (risk) â†’ PILOT â†’ VALIDATE â†’ AIGC APPROVE â†’ ACTIVE â†’ MONITOR
 
 PROMPT APPROVAL:
-  DRAFT → TEST → AIGC REVIEW → APPROVED → ACTIVE → DEPRECATED
+  DRAFT â†’ TEST â†’ AIGC REVIEW â†’ APPROVED â†’ ACTIVE â†’ DEPRECATED
 
 AGENT APPROVAL:
-  PROPOSE → CAPABILITY REVIEW → TOOL PERMISSION REVIEW → AIGC APPROVE → ACTIVE
+  PROPOSE â†’ CAPABILITY REVIEW â†’ TOOL PERMISSION REVIEW â†’ AIGC APPROVE â†’ ACTIVE
 ```
 
 ### 10.2 AI Ethics & Explainability
 
 ```
 AI Ethics checklist (per AI feature):
-  □ Bias assessment (data + model)
-  □ Fairness metrics
-  □ Transparency (explainability available)
-  □ Accountability (human oversight)
-  □ Privacy (data minimization, masking)
-  □ Safety (guardrails, failure handling)
-  □ Reversibility (every AI action reversible)
-  □ Auditability (full decision trail)
+  â–¡ Bias assessment (data + model)
+  â–¡ Fairness metrics
+  â–¡ Transparency (explainability available)
+  â–¡ Accountability (human oversight)
+  â–¡ Privacy (data minimization, masking)
+  â–¡ Safety (guardrails, failure handling)
+  â–¡ Reversibility (every AI action reversible)
+  â–¡ Auditability (full decision trail)
 
 AI Governance register:
   All models, prompts, agents registered in AIGC
@@ -658,175 +664,175 @@ Human oversight controls:
 ```
 GovernanceScorecard.compute():
   score = 
-    portfolioHealth × 0.15 +
-    architectureCompliance × 0.15 +
-    deliveryPredictability × 0.15 +
-    riskManagement × 0.15 +
-    complianceReadiness × 0.15 +
-    decisionEffectiveness × 0.10 +
-    benefitsRealization × 0.10 +
-    auditClosure × 0.05
+    portfolioHealth Ã— 0.15 +
+    architectureCompliance Ã— 0.15 +
+    deliveryPredictability Ã— 0.15 +
+    riskManagement Ã— 0.15 +
+    complianceReadiness Ã— 0.15 +
+    decisionEffectiveness Ã— 0.10 +
+    benefitsRealization Ã— 0.10 +
+    auditClosure Ã— 0.05
 
   Status: GREEN (> 80) | YELLOW (60-80) | RED (< 60)
 ```
 
 ---
 
-## PART 12: TESTING STRATEGY — 250 TESTS
+## PART 12: TESTING STRATEGY â€” 250 TESTS
 
 ### 12.1 Portfolio Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create portfolio → active | Correct |
-| 2 | Create program under portfolio → linked | Linked |
-| 3 | Create project under program → linked | Linked |
-| 4 | Roadmap item → scheduled correctly | Scheduled |
-| 5 | Benefits realization → computed correctly | Realized % |
-| 6 | Budget tracking → actual vs planned | Tracked |
-| 7 | Portfolio health → composite score | Scored |
-| 8 | Orphan program → flagged | Flagged |
-| 9 | Duplicate program code → rejected | Unique |
-| 10 | Program maturity from certification → linked | Linked |
+| 1 | Create portfolio â†’ active | Correct |
+| 2 | Create program under portfolio â†’ linked | Linked |
+| 3 | Create project under program â†’ linked | Linked |
+| 4 | Roadmap item â†’ scheduled correctly | Scheduled |
+| 5 | Benefits realization â†’ computed correctly | Realized % |
+| 6 | Budget tracking â†’ actual vs planned | Tracked |
+| 7 | Portfolio health â†’ composite score | Scored |
+| 8 | Orphan program â†’ flagged | Flagged |
+| 9 | Duplicate program code â†’ rejected | Unique |
+| 10 | Program maturity from certification â†’ linked | Linked |
 
 ### 12.2 Governance Registry Tests (40)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create standard → DRAFT | Initial |
-| 2 | Approve standard → APPROVED | Transition |
-| 3 | Standard versioning → history | Versioned |
-| 4 | Create policy → DRAFT | Initial |
-| 5 | Enforce policy → ENFORCED | Enforced |
-| 6 | Policy review cycle → nextReviewAt | Scheduled |
-| 7 | Create decision → PROPOSED | Initial |
-| 8 | Approve decision → APPROVED | Approved |
-| 9 | Decision traceability → linked | Traceable |
-| 10 | Create ADR → PROPOSED | Initial |
-| 11 | EAB approve ADR → ACCEPTED | Accepted |
-| 12 | ADR superseded → new version | Superseded |
-| 13 | Create exception → REQUESTED | Initial |
-| 14 | Approve exception → APPROVED | Approved |
-| 15 | Exception expiry → EXPIRED | Expired |
-| 16 | Create waiver → REQUESTED | Initial |
-| 17 | Duplicate ADR number → rejected | Unique |
-| 18 | Decision impact analysis → linked programs | Traceable |
+| 1 | Create standard â†’ DRAFT | Initial |
+| 2 | Approve standard â†’ APPROVED | Transition |
+| 3 | Standard versioning â†’ history | Versioned |
+| 4 | Create policy â†’ DRAFT | Initial |
+| 5 | Enforce policy â†’ ENFORCED | Enforced |
+| 6 | Policy review cycle â†’ nextReviewAt | Scheduled |
+| 7 | Create decision â†’ PROPOSED | Initial |
+| 8 | Approve decision â†’ APPROVED | Approved |
+| 9 | Decision traceability â†’ linked | Traceable |
+| 10 | Create ADR â†’ PROPOSED | Initial |
+| 11 | EAB approve ADR â†’ ACCEPTED | Accepted |
+| 12 | ADR superseded â†’ new version | Superseded |
+| 13 | Create exception â†’ REQUESTED | Initial |
+| 14 | Approve exception â†’ APPROVED | Approved |
+| 15 | Exception expiry â†’ EXPIRED | Expired |
+| 16 | Create waiver â†’ REQUESTED | Initial |
+| 17 | Duplicate ADR number â†’ rejected | Unique |
+| 18 | Decision impact analysis â†’ linked programs | Traceable |
 
 ### 12.3 Risk Management Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create risk → IDENTIFIED | Initial |
-| 2 | Risk score = likelihood × impact | Correct |
-| 3 | Risk heat map position → correct cell | Correct |
-| 4 | Mitigation plan → created | Planned |
-| 5 | Mitigation effectiveness → residual risk reduced | Reduced |
-| 6 | Risk review → nextReviewAt updated | Reviewed |
-| 7 | CRITICAL risk → executive alert | Alerted |
-| 8 | Accept risk → status ACCEPTED | Accepted |
-| 9 | Risk closed → CLOSED | Closed |
-| 10 | Risk report → heat map rendered | Rendered |
+| 1 | Create risk â†’ IDENTIFIED | Initial |
+| 2 | Risk score = likelihood Ã— impact | Correct |
+| 3 | Risk heat map position â†’ correct cell | Correct |
+| 4 | Mitigation plan â†’ created | Planned |
+| 5 | Mitigation effectiveness â†’ residual risk reduced | Reduced |
+| 6 | Risk review â†’ nextReviewAt updated | Reviewed |
+| 7 | CRITICAL risk â†’ executive alert | Alerted |
+| 8 | Accept risk â†’ status ACCEPTED | Accepted |
+| 9 | Risk closed â†’ CLOSED | Closed |
+| 10 | Risk report â†’ heat map rendered | Rendered |
 
 ### 12.4 Architecture Governance Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Submit architecture proposal → PRE-REVIEW | Initial |
-| 2 | EAB approve → ADR accepted | Accepted |
-| 3 | EAB reject → returned with feedback | Rejected |
-| 4 | Compliance score → computed | Scored |
-| 5 | Standard violation → deduction | Deducted |
-| 6 | Unapproved technology → flagged | Flagged |
-| 7 | Technology catalog → lifecycle tracked | Tracked |
-| 8 | Exception granted → compliance adjusted | Adjusted |
-| 9 | Architecture debt item → registered | Registered |
-| 10 | Debt resolved → removed | Resolved |
+| 1 | Submit architecture proposal â†’ PRE-REVIEW | Initial |
+| 2 | EAB approve â†’ ADR accepted | Accepted |
+| 3 | EAB reject â†’ returned with feedback | Rejected |
+| 4 | Compliance score â†’ computed | Scored |
+| 5 | Standard violation â†’ deduction | Deducted |
+| 6 | Unapproved technology â†’ flagged | Flagged |
+| 7 | Technology catalog â†’ lifecycle tracked | Tracked |
+| 8 | Exception granted â†’ compliance adjusted | Adjusted |
+| 9 | Architecture debt item â†’ registered | Registered |
+| 10 | Debt resolved â†’ removed | Resolved |
 
 ### 12.5 Compliance Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Compliance obligation → registered | Registered |
-| 2 | ISO 27001 check → PASS/FAIL | Assessed |
-| 3 | SOC2 check → evidence collected | Evidenced |
-| 4 | NIST CSF check → mapped | Mapped |
-| 5 | ASVS check → verified | Verified |
-| 6 | GDPR readiness → assessed | Assessed |
-| 7 | Financial controls → verified | Verified |
-| 8 | Failed control → remediation created | Created |
-| 9 | Audit finding → registered | Registered |
-| 10 | Finding closed → evidence verified | Closed |
+| 1 | Compliance obligation â†’ registered | Registered |
+| 2 | ISO 27001 check â†’ PASS/FAIL | Assessed |
+| 3 | SOC2 check â†’ evidence collected | Evidenced |
+| 4 | NIST CSF check â†’ mapped | Mapped |
+| 5 | ASVS check â†’ verified | Verified |
+| 6 | GDPR readiness â†’ assessed | Assessed |
+| 7 | Financial controls â†’ verified | Verified |
+| 8 | Failed control â†’ remediation created | Created |
+| 9 | Audit finding â†’ registered | Registered |
+| 10 | Finding closed â†’ evidence verified | Closed |
 
 ### 12.6 Decision Management Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Decision proposal → PROPOSED | Initial |
-| 2 | Decision review → REVIEWED | Reviewed |
-| 3 | Decision approve → APPROVED | Approved |
-| 4 | Decision reject → REJECTED | Rejected |
-| 5 | Decision supersede → SUPERSEDED | Superseded |
-| 6 | Decision traceability → complete chain | Traceable |
-| 7 | Options recorded → alternatives present | Recorded |
-| 8 | Impact analysis → affected programs listed | Analyzed |
-| 9 | Review cycle → scheduled | Scheduled |
-| 10 | Governance KPI → updated | Updated |
+| 1 | Decision proposal â†’ PROPOSED | Initial |
+| 2 | Decision review â†’ REVIEWED | Reviewed |
+| 3 | Decision approve â†’ APPROVED | Approved |
+| 4 | Decision reject â†’ REJECTED | Rejected |
+| 5 | Decision supersede â†’ SUPERSEDED | Superseded |
+| 6 | Decision traceability â†’ complete chain | Traceable |
+| 7 | Options recorded â†’ alternatives present | Recorded |
+| 8 | Impact analysis â†’ affected programs listed | Analyzed |
+| 9 | Review cycle â†’ scheduled | Scheduled |
+| 10 | Governance KPI â†’ updated | Updated |
 
 ### 12.7 AI Governance Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Model proposal → assessed | Assessed |
-| 2 | AIGC approve model → ACTIVE | Active |
-| 3 | Prompt approval → gated | Gated |
-| 4 | Agent approval → permission reviewed | Reviewed |
-| 5 | AI ethics checklist → completed | Completed |
-| 6 | Bias assessment → documented | Documented |
-| 7 | Explainability → available | Available |
-| 8 | Human oversight → enforced | Enforced |
-| 9 | AI incident → logged + post-mortem | Logged |
-| 10 | AI governance maturity → scored | Scored |
+| 1 | Model proposal â†’ assessed | Assessed |
+| 2 | AIGC approve model â†’ ACTIVE | Active |
+| 3 | Prompt approval â†’ gated | Gated |
+| 4 | Agent approval â†’ permission reviewed | Reviewed |
+| 5 | AI ethics checklist â†’ completed | Completed |
+| 6 | Bias assessment â†’ documented | Documented |
+| 7 | Explainability â†’ available | Available |
+| 8 | Human oversight â†’ enforced | Enforced |
+| 9 | AI incident â†’ logged + post-mortem | Logged |
+| 10 | AI governance maturity â†’ scored | Scored |
 
 ### 12.8 Executive Command Center Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | DTO dashboard → all widgets render | Rendered |
-| 2 | CEO dashboard → strategic view | Rendered |
-| 3 | Risk posture → heat map correct | Correct |
-| 4 | Compliance tracker → accurate | Accurate |
-| 5 | Program health → correct status | Correct |
-| 6 | Decision queue → pending decisions listed | Listed |
-| 7 | Benefits realization → displayed | Displayed |
-| 8 | Governance scorecard → computed | Computed |
+| 1 | DTO dashboard â†’ all widgets render | Rendered |
+| 2 | CEO dashboard â†’ strategic view | Rendered |
+| 3 | Risk posture â†’ heat map correct | Correct |
+| 4 | Compliance tracker â†’ accurate | Accurate |
+| 5 | Program health â†’ correct status | Correct |
+| 6 | Decision queue â†’ pending decisions listed | Listed |
+| 7 | Benefits realization â†’ displayed | Displayed |
+| 8 | Governance scorecard â†’ computed | Computed |
 
 ### 12.9 Integration & Traceability Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Program → project → epic → feature → test → cert (full trace) | Traceable |
-| 2 | Decision → ADR → architecture → implementation → test | Traceable |
-| 3 | Standard → policy → exception → waiver → audit | Traceable |
-| 4 | Risk → mitigation → compliance → audit finding | Traceable |
-| 5 | C20 certification → program maturity → portfolio health | Linked |
-| 6 | C19 release → CAB decision → governance audit | Linked |
-| 7 | C18 AI approval → AIGC decision → model registry | Linked |
-| 8 | C17 analytics → compliance obligation → audit | Linked |
+| 1 | Program â†’ project â†’ epic â†’ feature â†’ test â†’ cert (full trace) | Traceable |
+| 2 | Decision â†’ ADR â†’ architecture â†’ implementation â†’ test | Traceable |
+| 3 | Standard â†’ policy â†’ exception â†’ waiver â†’ audit | Traceable |
+| 4 | Risk â†’ mitigation â†’ compliance â†’ audit finding | Traceable |
+| 5 | C20 certification â†’ program maturity â†’ portfolio health | Linked |
+| 6 | C19 release â†’ CAB decision â†’ governance audit | Linked |
+| 7 | C18 AI approval â†’ AIGC decision â†’ model registry | Linked |
+| 8 | C17 analytics â†’ compliance obligation â†’ audit | Linked |
 
 ---
 
-## PART 13: IMPLEMENTATION ROADMAP — W01–W08
+## PART 13: IMPLEMENTATION ROADMAP â€” W01â€“W08
 
 | Wave | Days | Dependencies | Deliverables | Gate | Rollback |
 |------|------|-------------|--------------|------|----------|
-| **W01** | 5 | — | Governance registries (16 models), DTO structure | Registries operational | Feature-flag off |
+| **W01** | 5 | â€” | Governance registries (16 models), DTO structure | Registries operational | Feature-flag off |
 | **W02** | 5 | W01 | Portfolio hierarchy, roadmap, benefits tracking | Portfolio mapped (C01-C21) | Read-only mode |
 | **W03** | 4 | W01 | Risk management (register, scoring, heat map) | Risk scoring verified | Report-only |
 | **W04** | 5 | W01 | Architecture governance (EAB workflow, ADRs, compliance scoring) | EAB workflow live | Manual fallback |
 | **W05** | 5 | W01 | Compliance office (frameworks, obligations, audit coordination) | ISO/SOC2 tracked | Report-only |
 | **W06** | 4 | W01 | Decision management (workflow, traceability, review cycles) | Decision registry live | Read-only |
 | **W07** | 5 | W01-W06 | AI governance integration (AIGC, ethics, oversight) | AIGC approvals live | Manual approvals |
-| **W08** | 3 | W01-W07 | Command center dashboards, certification, 250 tests | All tests pass, maturity verified | — |
+| **W08** | 3 | W01-W07 | Command center dashboards, certification, 250 tests | All tests pass, maturity verified | â€” |
 | **Total** | **36 days** | | | | |
 
 ---
@@ -834,88 +840,88 @@ GovernanceScorecard.compute():
 ## PART 14: DEFINITION OF DONE
 
 ```
-C21 — GOVERNANCE, PORTFOLIO MANAGEMENT & DIGITAL TRANSFORMATION OFFICE
+C21 â€” GOVERNANCE, PORTFOLIO MANAGEMENT & DIGITAL TRANSFORMATION OFFICE
 CERTIFICATION CHECKLIST
 
-□ DTO ORGANIZATION — 9 BOARDS
-   □ Strategy Office
-   □ Enterprise PMO
-   □ Enterprise Architecture Board (EAB)
-   □ Security Review Board (SRB)
-   □ Data Governance Council (DGC)
-   □ AI Governance Council (AIGC)
-   □ Change Advisory Board (CAB)
-   □ Quality & Certification Office (QCO)
-   □ Innovation Office
+â–¡ DTO ORGANIZATION â€” 9 BOARDS
+   â–¡ Strategy Office
+   â–¡ Enterprise PMO
+   â–¡ Enterprise Architecture Board (EAB)
+   â–¡ Security Review Board (SRB)
+   â–¡ Data Governance Council (DGC)
+   â–¡ AI Governance Council (AIGC)
+   â–¡ Change Advisory Board (CAB)
+   â–¡ Quality & Certification Office (QCO)
+   â–¡ Innovation Office
 
-□ PORTFOLIO MANAGEMENT — FULL HIERARCHY
-   □ Portfolio → Program → Project → Epic → Feature → Work Package
-   □ Roadmaps (quarterly/annual/3-year)
-   □ Benefits realization tracking
-   □ Budget + ROI tracking
-   □ Program maturity linked to certification
+â–¡ PORTFOLIO MANAGEMENT â€” FULL HIERARCHY
+   â–¡ Portfolio â†’ Program â†’ Project â†’ Epic â†’ Feature â†’ Work Package
+   â–¡ Roadmaps (quarterly/annual/3-year)
+   â–¡ Benefits realization tracking
+   â–¡ Budget + ROI tracking
+   â–¡ Program maturity linked to certification
 
-□ GOVERNANCE REGISTRIES — 16 MODELS
-   □ Portfolio, Program, Project, Epic, Roadmap, Benefit
-   □ Standard, Policy, Decision, ADR, Exception, Waiver
-   □ TechnicalDebtItem, BusinessRisk, ComplianceObligation, AuditFinding
+â–¡ GOVERNANCE REGISTRIES â€” 16 MODELS
+   â–¡ Portfolio, Program, Project, Epic, Roadmap, Benefit
+   â–¡ Standard, Policy, Decision, ADR, Exception, Waiver
+   â–¡ TechnicalDebtItem, BusinessRisk, ComplianceObligation, AuditFinding
 
-□ RISK MANAGEMENT
-   □ 7 risk categories
-   □ Risk scoring (likelihood × impact)
-   □ Heat map visualization
-   □ Mitigation + contingency tracking
-   □ Quarterly review cycles
+â–¡ RISK MANAGEMENT
+   â–¡ 7 risk categories
+   â–¡ Risk scoring (likelihood Ã— impact)
+   â–¡ Heat map visualization
+   â–¡ Mitigation + contingency tracking
+   â–¡ Quarterly review cycles
 
-□ ARCHITECTURE GOVERNANCE
-   □ EAB review workflow (submit → pre-review → EAB → decision)
-   □ Architecture compliance scoring
-   □ Approved technology catalog
-   □ Technology lifecycle (RESEARCH→STANDARD→RETIRE)
-   □ Exception/waiver management
+â–¡ ARCHITECTURE GOVERNANCE
+   â–¡ EAB review workflow (submit â†’ pre-review â†’ EAB â†’ decision)
+   â–¡ Architecture compliance scoring
+   â–¡ Approved technology catalog
+   â–¡ Technology lifecycle (RESEARCHâ†’STANDARDâ†’RETIRE)
+   â–¡ Exception/waiver management
 
-□ COMPLIANCE OFFICE
-   □ 6 frameworks: ISO 27001, SOC2, NIST CSF, OWASP ASVS, GDPR, Financial
-   □ Compliance obligation registry
-   □ Evidence collection + assessment
-   □ Audit coordination (internal/external)
-   □ Audit finding lifecycle
+â–¡ COMPLIANCE OFFICE
+   â–¡ 6 frameworks: ISO 27001, SOC2, NIST CSF, OWASP ASVS, GDPR, Financial
+   â–¡ Compliance obligation registry
+   â–¡ Evidence collection + assessment
+   â–¡ Audit coordination (internal/external)
+   â–¡ Audit finding lifecycle
 
-□ DECISION MANAGEMENT
-   □ Decision workflow (PROPOSED→SUPERSEDED)
-   □ Options + rationale + impact analysis
-   □ Full traceability
-   □ Review cycles
-   □ Governance KPIs
+â–¡ DECISION MANAGEMENT
+   â–¡ Decision workflow (PROPOSEDâ†’SUPERSEDED)
+   â–¡ Options + rationale + impact analysis
+   â–¡ Full traceability
+   â–¡ Review cycles
+   â–¡ Governance KPIs
 
-□ AI GOVERNANCE
-   □ AI policy lifecycle
-   □ Model/prompt/agent approval workflows
-   □ AI ethics checklist
-   □ Explainability compliance
-   □ Human oversight (A/B/C classification)
-   □ Continuous monitoring
+â–¡ AI GOVERNANCE
+   â–¡ AI policy lifecycle
+   â–¡ Model/prompt/agent approval workflows
+   â–¡ AI ethics checklist
+   â–¡ Explainability compliance
+   â–¡ Human oversight (A/B/C classification)
+   â–¡ Continuous monitoring
 
-□ GOVERNANCE METRICS — 10 KPIs
-   □ Portfolio success, architecture compliance, delivery predictability
-   □ Technical debt, risk exposure, governance effectiveness
-   □ Audit closure, AI governance maturity, benefits realization, compliance score
+â–¡ GOVERNANCE METRICS â€” 10 KPIs
+   â–¡ Portfolio success, architecture compliance, delivery predictability
+   â–¡ Technical debt, risk exposure, governance effectiveness
+   â–¡ Audit closure, AI governance maturity, benefits realization, compliance score
 
-□ EXECUTIVE COMMAND CENTER — 9 DASHBOARDS
-   □ CEO, CIO, CTO, COO, CFO, CISO, EAB, DTO Director, Governance scorecard
+â–¡ EXECUTIVE COMMAND CENTER â€” 9 DASHBOARDS
+   â–¡ CEO, CIO, CTO, COO, CFO, CISO, EAB, DTO Director, Governance scorecard
 
-□ TESTS — 250 PASSING
-   □ Portfolio: 30
-   □ Governance registry: 40
-   □ Risk management: 30
-   □ Architecture governance: 30
-   □ Compliance: 30
-   □ Decision management: 25
-   □ AI governance: 25
-   □ Executive command center: 20
-   □ Integration & traceability: 20
+â–¡ TESTS â€” 250 PASSING
+   â–¡ Portfolio: 30
+   â–¡ Governance registry: 40
+   â–¡ Risk management: 30
+   â–¡ Architecture governance: 30
+   â–¡ Compliance: 30
+   â–¡ Decision management: 25
+   â–¡ AI governance: 25
+   â–¡ Executive command center: 20
+   â–¡ Integration & traceability: 20
 
-C21 STATUS: □ NOT IMPLEMENTED
+C21 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -965,15 +971,15 @@ All items above are DESIGN-COMPLETE but not executed.
 
 ```
 C21 EXECUTIVE ACCEPTANCE CHECKLIST:
-  □ Governance maturity ≥ 87%
-  □ Portfolio maturity ≥ 85%
-  □ All programs (C01-C21) mapped in portfolio
-  □ 250 governance certification tests passing
-  □ Every governance artifact versioned, auditable, traceable
-  □ Compliance readiness across 6 frameworks
-  □ Audit readiness (evidence continuously collected)
-  □ Executive command center live (9 dashboards)
-  □ Strategic improvements:
+  â–¡ Governance maturity â‰¥ 87%
+  â–¡ Portfolio maturity â‰¥ 85%
+  â–¡ All programs (C01-C21) mapped in portfolio
+  â–¡ 250 governance certification tests passing
+  â–¡ Every governance artifact versioned, auditable, traceable
+  â–¡ Compliance readiness across 6 frameworks
+  â–¡ Audit readiness (evidence continuously collected)
+  â–¡ Executive command center live (9 dashboards)
+  â–¡ Strategic improvements:
     - Decision velocity: +40% (governed, not blocked)
     - Risk visibility: full enterprise heat map
     - Compliance: continuous evidence vs point-in-time
@@ -983,7 +989,7 @@ C21 EXECUTIVE ACCEPTANCE CHECKLIST:
 
 ---
 
-## C21 — PROGRAM SUMMARY
+## C21 â€” PROGRAM SUMMARY
 
 **Enterprise Governance, Portfolio Management & Digital Transformation Office**
 
@@ -995,13 +1001,14 @@ C21 EXECUTIVE ACCEPTANCE CHECKLIST:
 | Frontend Pages | ~9 command center dashboards |
 | Estimated Code | ~4,600 lines |
 | Estimated Tests | 250 |
-| Governance Maturity | 22% → 87% |
-| Portfolio Maturity | 20% → 85% |
+| Governance Maturity | 22% â†’ 87% |
+| Portfolio Maturity | 20% â†’ 85% |
 | Documentation | ~3,200 lines |
 | Certification Milestones | W01-W08 with per-wave gates |
 
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C21 — Governance, Portfolio Management & DTO. READ ONLY. GOVERNANCE PLANNING ONLY.*
-*MeterVerse Enterprise — GOVERNANCE-COMPLETE.*
+*C21 â€” Governance, Portfolio Management & DTO. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*MeterVerse Enterprise â€” GOVERNANCE-COMPLETE.*
+

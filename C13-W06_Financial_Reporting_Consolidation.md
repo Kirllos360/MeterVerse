@@ -1,11 +1,17 @@
-# C13-W06 — Enterprise Financial Reporting, Consolidation & Executive Analytics Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W2 | Commit: 15a9c2a6
+====================================================================
+-->
+
+# C13-W06 â€” Enterprise Financial Reporting, Consolidation & Executive Analytics Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Program:** C13 Enterprise Financial & Billing Intelligence Platform  
-**Wave:** W06 (Financial Reporting & Analytics — builds on W01-W05 complete financial infrastructure)  
+**Wave:** W06 (Financial Reporting & Analytics â€” builds on W01-W05 complete financial infrastructure)  
 
 ---
 
@@ -15,40 +21,40 @@
 
 | Component | Location | Status | Capability |
 |-----------|----------|--------|------------|
-| **ReportDefinition** model | `schema.prisma:702` | ✅ Complete | name, type, config (JSON), schedule, recipients |
-| **KpiDefinition** model | `schema.prisma:716` | ✅ Complete | category, target, unit, current, trend |
-| **KpiSnapshot** model | `schema.prisma:730` | ✅ Complete | value, recordedAt (time-series) |
-| **ExportLog** model | `schema.prisma:828` | ✅ Complete | type, format, totalRows, status |
-| **Report routes** | `routes/reports.js` | ✅ Basic | CSV/JSON export of raw data (invoices, payments, customers, meters, readings, aging) |
-| **Trial Balance** | `routes/accounting.js:534` | ✅ Complete | Period-level TB with balancing check |
-| **GL Listing** | `routes/accounting.js:476` | ✅ Complete | Per-account, per-period GL entries |
-| **GL Summary** | `routes/accounting.js:496` | ✅ Complete | Aggregated account balances per period |
-| **AI Report Builder** | `services/ai-engine.js:196` | ✅ Basic | Revenue summary generation |
-| **W01 Account Mapping** | Planned | ❌ W01 | Account categorization for financial statements |
-| **W01 GL Posting** | Planned | ❌ W01 | Source data for all financial reports |
-| **W02 Revenue Assurance** | Planned | ❌ W02 | Revenue validation for P&L accuracy |
-| **W04 Collection Intel** | Planned | ❌ W04 | AR aging data for Balance Sheet |
-| **W05 Cash Management** | Planned | ❌ W05 | Cash/bank data for Cash Flow Statement |
+| **ReportDefinition** model | `schema.prisma:702` | âœ… Complete | name, type, config (JSON), schedule, recipients |
+| **KpiDefinition** model | `schema.prisma:716` | âœ… Complete | category, target, unit, current, trend |
+| **KpiSnapshot** model | `schema.prisma:730` | âœ… Complete | value, recordedAt (time-series) |
+| **ExportLog** model | `schema.prisma:828` | âœ… Complete | type, format, totalRows, status |
+| **Report routes** | `routes/reports.js` | âœ… Basic | CSV/JSON export of raw data (invoices, payments, customers, meters, readings, aging) |
+| **Trial Balance** | `routes/accounting.js:534` | âœ… Complete | Period-level TB with balancing check |
+| **GL Listing** | `routes/accounting.js:476` | âœ… Complete | Per-account, per-period GL entries |
+| **GL Summary** | `routes/accounting.js:496` | âœ… Complete | Aggregated account balances per period |
+| **AI Report Builder** | `services/ai-engine.js:196` | âœ… Basic | Revenue summary generation |
+| **W01 Account Mapping** | Planned | âŒ W01 | Account categorization for financial statements |
+| **W01 GL Posting** | Planned | âŒ W01 | Source data for all financial reports |
+| **W02 Revenue Assurance** | Planned | âŒ W02 | Revenue validation for P&L accuracy |
+| **W04 Collection Intel** | Planned | âŒ W04 | AR aging data for Balance Sheet |
+| **W05 Cash Management** | Planned | âŒ W05 | Cash/bank data for Cash Flow Statement |
 
 ### 1.2 Gap Analysis
 
 | Capability | Current | W06 Target |
 |------------|---------|------------|
-| **P&L Statement** | ❌ None | Multi-period with drill-down |
-| **Balance Sheet** | ❌ None | Classified with ratio analysis |
-| **Cash Flow Statement** | ❌ None | Direct + Indirect methods |
-| **Equity Changes** | ❌ None | Statement of changes in equity |
-| **Budget vs Actual** | ❌ None | Full variance analysis |
-| **Financial Consolidation** | ❌ None | Multi-area, multi-project |
-| **Segment Reporting** | ❌ None | By area, customer type, utility |
-| **Cost Center Reporting** | ❌ None | Cost allocation and analysis |
-| **Report Scheduling** | ❌ None | Cron-based with distribution |
-| **Report Versioning** | ❌ None | Snapshot-based |
-| **PDF/Excel Export** | ❌ None | Professional formatting |
-| **Executive Dashboard** | ❌ None | CFO analytics |
-| **Budget Management** | ❌ None | Budget creation, tracking |
-| **AI Financial Analytics** | ❌ Basic | Narrative, variance explanation, forecasting |
-| **Regulatory Reporting** | ❌ None | IFRS/GAAP mapping |
+| **P&L Statement** | âŒ None | Multi-period with drill-down |
+| **Balance Sheet** | âŒ None | Classified with ratio analysis |
+| **Cash Flow Statement** | âŒ None | Direct + Indirect methods |
+| **Equity Changes** | âŒ None | Statement of changes in equity |
+| **Budget vs Actual** | âŒ None | Full variance analysis |
+| **Financial Consolidation** | âŒ None | Multi-area, multi-project |
+| **Segment Reporting** | âŒ None | By area, customer type, utility |
+| **Cost Center Reporting** | âŒ None | Cost allocation and analysis |
+| **Report Scheduling** | âŒ None | Cron-based with distribution |
+| **Report Versioning** | âŒ None | Snapshot-based |
+| **PDF/Excel Export** | âŒ None | Professional formatting |
+| **Executive Dashboard** | âŒ None | CFO analytics |
+| **Budget Management** | âŒ None | Budget creation, tracking |
+| **AI Financial Analytics** | âŒ Basic | Narrative, variance explanation, forecasting |
+| **Regulatory Reporting** | âŒ None | IFRS/GAAP mapping |
 
 ---
 
@@ -57,72 +63,72 @@
 ### 2.1 High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                FINANCIAL REPORTING & CONSOLIDATION PLATFORM                                           │
-│                                                                                                       │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  DATA SOURCE LAYER                                                                              │    │
-│  │                                                                                                │    │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐         │    │
-│  │  │ W01 GL   │  │ W02 Rev  │  │ W03 Tar  │  │ W04 Coll │  │ W05 Cash │  │ Budget   │         │    │
-│  │  │ Ledger   │  │ Assur.   │  │ iff      │  │ AR Aging │  │ Bank Rec │  │ Data     │         │    │
-│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘         │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                  │
-│                                    ▼                                                                  │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  FINANCIAL STATEMENT ENGINE                                                                     │    │
-│  │                                                                                                │    │
-│  │  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────┐   │    │
-│  │  │ Trial Balance      │  │ P&L / Income       │  │ Balance Sheet      │  │ Cash Flow      │   │    │
-│  │  │ Processor          │──│ Statement Engine   │──│ Engine             │──│ Statement      │   │    │
-│  │  │ (GL→TB)           │  │ (Revenue + Expense) │  │ (Assets+Liabs+Eq)  │  │ (Direct+Indir) │   │    │
-│  │  └────────────────────┘  └────────────────────┘  └────────────────────┘  └────────────────┘   │    │
-│  │                                                                                                │    │
-│  │  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────┐   │    │
-│  │  │ Statement of       │  │ Budget vs Actual   │  │ Consolidation      │  │ Segment        │   │    │
-│  │  │ Changes in Equity  │──│ Engine             │──│ Engine             │──│ Reporting      │   │    │
-│  │  └────────────────────┘  └────────────────────┘  └────────────────────┘  └────────────────┘   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                  │
-│                                    ▼                                                                  │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  ANALYTICS & INTELLIGENCE LAYER                                                                  │    │
-│  │                                                                                                │    │
-│  │  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────┐   │    │
-│  │  │ KPI Engine         │  │ Variance Analysis  │  │ Ratio Analysis     │  │ Trend Analysis │   │    │
-│  │  │ (15+ financial KPI)│──│ Engine             │──│ Engine             │──│ Engine         │   │    │
-│  │  └────────────────────┘  └────────────────────┘  └────────────────────┘  └────────────────┘   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                  │
-│                                    ▼                                                                  │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI FINANCIAL ANALYTICS AGENT                                                                   │    │
-│  │                                                                                                │    │
-│  │  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────┐   │    │
-│  │  │ Executive          │  │ Variance           │  │ Financial Trend    │  │ Cash Flow      │   │    │
-│  │  │ Narrative Agent    │──│ Explanation Agent  │──│ Forecasting Agent  │──│ Intelligence   │   │    │
-│  │  └────────────────────┘  └────────────────────┘  └────────────────────┘  └────────────────┘   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                       │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  REPORT OUTPUT LAYER                                                                             │    │
-│  │                                                                                                │    │
-│  │  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐  ┌────────────┐             │    │
-│  │  │ Screen     │  │ PDF        │  │ Excel      │  │ CSV        │  │ Scheduled  │             │    │
-│  │  │ (Dashboard)│  │ (Formatted)│  │ (Pivot)    │  │ (Raw Data) │  │ (Email)    │             │    │
-│  │  └────────────┘  └────────────┘  └────────────┘  └────────────┘  └────────────┘             │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                       │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  DASHBOARDS                                                                                      │    │
-│  │                                                                                                │    │
-│  │  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────┐                │    │
-│  │  │ Executive Dashboard  │  │ CFO Analytics        │  │ Finance Operations   │                │    │
-│  │  │ (CEO/Board view)     │  │ (CFO/Finance Mgr)    │  │ (Daily ops view)     │                │    │
-│  │  └──────────────────────┘  └──────────────────────┘  └──────────────────────┘                │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                FINANCIAL REPORTING & CONSOLIDATION PLATFORM                                           â”‚
+â”‚                                                                                                       â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  DATA SOURCE LAYER                                                                              â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚    â”‚
+â”‚  â”‚  â”‚ W01 GL   â”‚  â”‚ W02 Rev  â”‚  â”‚ W03 Tar  â”‚  â”‚ W04 Coll â”‚  â”‚ W05 Cash â”‚  â”‚ Budget   â”‚         â”‚    â”‚
+â”‚  â”‚  â”‚ Ledger   â”‚  â”‚ Assur.   â”‚  â”‚ iff      â”‚  â”‚ AR Aging â”‚  â”‚ Bank Rec â”‚  â”‚ Data     â”‚         â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                  â”‚
+â”‚                                    â–¼                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  FINANCIAL STATEMENT ENGINE                                                                     â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Trial Balance      â”‚  â”‚ P&L / Income       â”‚  â”‚ Balance Sheet      â”‚  â”‚ Cash Flow      â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ Processor          â”‚â”€â”€â”‚ Statement Engine   â”‚â”€â”€â”‚ Engine             â”‚â”€â”€â”‚ Statement      â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ (GLâ†’TB)           â”‚  â”‚ (Revenue + Expense) â”‚  â”‚ (Assets+Liabs+Eq)  â”‚  â”‚ (Direct+Indir) â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Statement of       â”‚  â”‚ Budget vs Actual   â”‚  â”‚ Consolidation      â”‚  â”‚ Segment        â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ Changes in Equity  â”‚â”€â”€â”‚ Engine             â”‚â”€â”€â”‚ Engine             â”‚â”€â”€â”‚ Reporting      â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                  â”‚
+â”‚                                    â–¼                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  ANALYTICS & INTELLIGENCE LAYER                                                                  â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ KPI Engine         â”‚  â”‚ Variance Analysis  â”‚  â”‚ Ratio Analysis     â”‚  â”‚ Trend Analysis â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ (15+ financial KPI)â”‚â”€â”€â”‚ Engine             â”‚â”€â”€â”‚ Engine             â”‚â”€â”€â”‚ Engine         â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                  â”‚
+â”‚                                    â–¼                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI FINANCIAL ANALYTICS AGENT                                                                   â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Executive          â”‚  â”‚ Variance           â”‚  â”‚ Financial Trend    â”‚  â”‚ Cash Flow      â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ Narrative Agent    â”‚â”€â”€â”‚ Explanation Agent  â”‚â”€â”€â”‚ Forecasting Agent  â”‚â”€â”€â”‚ Intelligence   â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                       â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  REPORT OUTPUT LAYER                                                                             â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”             â”‚    â”‚
+â”‚  â”‚  â”‚ Screen     â”‚  â”‚ PDF        â”‚  â”‚ Excel      â”‚  â”‚ CSV        â”‚  â”‚ Scheduled  â”‚             â”‚    â”‚
+â”‚  â”‚  â”‚ (Dashboard)â”‚  â”‚ (Formatted)â”‚  â”‚ (Pivot)    â”‚  â”‚ (Raw Data) â”‚  â”‚ (Email)    â”‚             â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜             â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                       â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  DASHBOARDS                                                                                      â”‚    â”‚
+â”‚  â”‚                                                                                                â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                â”‚    â”‚
+â”‚  â”‚  â”‚ Executive Dashboard  â”‚  â”‚ CFO Analytics        â”‚  â”‚ Finance Operations   â”‚                â”‚    â”‚
+â”‚  â”‚  â”‚ (CEO/Board view)     â”‚  â”‚ (CFO/Finance Mgr)    â”‚  â”‚ (Daily ops view)     â”‚                â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Financial Statement Generation Pipeline
@@ -135,14 +141,14 @@ FinancialStatementEngine.generate(periodId, statementType):
   
   3. CLASSIFY accounts by statement type:
      BALANCE_SHEET:
-       ASSET accounts   → Balance Sheet (Assets section)
-       LIABILITY acc.   → Balance Sheet (Liabilities section)
-       EQUITY accounts  → Balance Sheet (Equity section)
+       ASSET accounts   â†’ Balance Sheet (Assets section)
+       LIABILITY acc.   â†’ Balance Sheet (Liabilities section)
+       EQUITY accounts  â†’ Balance Sheet (Equity section)
      
      INCOME_STATEMENT:
-       REVENUE accounts → P&L (Revenue section)
-       EXPENSE accounts → P&L (Expense section)
-       → Net Income = Revenue - Expense
+       REVENUE accounts â†’ P&L (Revenue section)
+       EXPENSE accounts â†’ P&L (Expense section)
+       â†’ Net Income = Revenue - Expense
      
      CASH_FLOW:
        Analyze GL changes between periods
@@ -173,28 +179,28 @@ FinancialStatementEngine.generate(periodId, statementType):
 
 ```
 PERIOD END INITIATED (via FinancialPeriod.close)
-    │
-    ▼
-┌─────────────┐
-│  GENERATED   │  System generates all financial statements
-│  (DRAFT)     │  P&L, Balance Sheet, Cash Flow, Equity
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  REVIEWED    │  Finance team reviews for accuracy
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  APPROVED    │  Controller/CFO approves
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  PUBLISHED   │  Distributed to stakeholders
-│  (FINAL)     │  Snapshot locked for audit
-└─────────────┘
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  GENERATED   â”‚  System generates all financial statements
+â”‚  (DRAFT)     â”‚  P&L, Balance Sheet, Cash Flow, Equity
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  REVIEWED    â”‚  Finance team reviews for accuracy
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  APPROVED    â”‚  Controller/CFO approves
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  PUBLISHED   â”‚  Distributed to stakeholders
+â”‚  (FINAL)     â”‚  Snapshot locked for audit
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -207,29 +213,29 @@ PERIOD END INITIATED (via FinancialPeriod.close)
 
 ```
 FinancialSnapshot
-├── id: String (UUID, PK)
-├── periodId: String (FK → FinancialPeriod)
-├── period: FinancialPeriod
-├── type: String                     ← BALANCE_SHEET | INCOME_STATEMENT | CASH_FLOW | EQUITY_CHANGES
-├── version: Int @default(1)
-├── status: String @default("DRAFT") ← DRAFT | REVIEWED | APPROVED | PUBLISHED
-├── data: String (JSON)              ← Full report structure with all sections, accounts, totals
-├── subtotals: String (JSON)         ← Key subtotals for quick access
-├── totalAssets: Float?
-├── totalLiabilities: Float?
-├── totalEquity: Float?
-├── netIncome: Float?
-├── totalRevenue: Float?
-├── totalExpenses: Float?
-├── currency: String @default("EGP")
-├── generatedBy: String? (FK → User)
-├── reviewedBy: String? (FK → User)
-├── reviewedAt: DateTime?
-├── approvedBy: String? (FK → User)
-├── approvedAt: DateTime?
-├── publishedAt: DateTime?
-├── notes: String?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ period: FinancialPeriod
+â”œâ”€â”€ type: String                     â† BALANCE_SHEET | INCOME_STATEMENT | CASH_FLOW | EQUITY_CHANGES
+â”œâ”€â”€ version: Int @default(1)
+â”œâ”€â”€ status: String @default("DRAFT") â† DRAFT | REVIEWED | APPROVED | PUBLISHED
+â”œâ”€â”€ data: String (JSON)              â† Full report structure with all sections, accounts, totals
+â”œâ”€â”€ subtotals: String (JSON)         â† Key subtotals for quick access
+â”œâ”€â”€ totalAssets: Float?
+â”œâ”€â”€ totalLiabilities: Float?
+â”œâ”€â”€ totalEquity: Float?
+â”œâ”€â”€ netIncome: Float?
+â”œâ”€â”€ totalRevenue: Float?
+â”œâ”€â”€ totalExpenses: Float?
+â”œâ”€â”€ currency: String @default("EGP")
+â”œâ”€â”€ generatedBy: String? (FK â†’ User)
+â”œâ”€â”€ reviewedBy: String? (FK â†’ User)
+â”œâ”€â”€ reviewedAt: DateTime?
+â”œâ”€â”€ approvedBy: String? (FK â†’ User)
+â”œâ”€â”€ approvedAt: DateTime?
+â”œâ”€â”€ publishedAt: DateTime?
+â”œâ”€â”€ notes: String?
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@unique([periodId, type, version])
@@ -242,42 +248,42 @@ Indexes:
 
 ```
 Budget
-├── id: String (UUID, PK)
-├── fiscalYearId: String (FK → FiscalYear)
-├── accountId: String (FK → Account)
-├── areaId: String?                   ← Area-scoped (null = enterprise)
-├── projectId: String?                ← Project-scoped (null = enterprise)
-├── periodType: String @default("MONTHLY")  ← MONTHLY | QUARTERLY | ANNUAL
-├── amount: Float
-├── version: Int @default(1)
-├── status: String @default("DRAFT")  ← DRAFT | APPROVED | LOCKED
-├── approvedBy: String?
-├── approvedAt: DateTime?
-├── notes: String?
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ fiscalYearId: String (FK â†’ FiscalYear)
+â”œâ”€â”€ accountId: String (FK â†’ Account)
+â”œâ”€â”€ areaId: String?                   â† Area-scoped (null = enterprise)
+â”œâ”€â”€ projectId: String?                â† Project-scoped (null = enterprise)
+â”œâ”€â”€ periodType: String @default("MONTHLY")  â† MONTHLY | QUARTERLY | ANNUAL
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ version: Int @default(1)
+â”œâ”€â”€ status: String @default("DRAFT")  â† DRAFT | APPROVED | LOCKED
+â”œâ”€â”€ approvedBy: String?
+â”œâ”€â”€ approvedAt: DateTime?
+â”œâ”€â”€ notes: String?
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Indexes:
   @@index([fiscalYearId, accountId])
   @@index([fiscalYearId, areaId])
 ```
 
-### 3.3 Budget vs Actual Entry (NEW — materialized view concept)
+### 3.3 Budget vs Actual Entry (NEW â€” materialized view concept)
 
 **Purpose:** Pre-computed budget vs actual comparison for reporting performance.
 
 ```
 BudgetVsActual
-├── id: String (UUID, PK)
-├── fiscalYearId: String
-├── periodId: String (FK → FinancialPeriod)
-├── accountId: String (FK → Account)
-├── areaId: String?
-├── budgetAmount: Float @default(0)
-├── actualAmount: Float @default(0)
-├── variance: Float @default(0)      ← actual - budget
-├── variancePct: Float @default(0)   ← (actual - budget) / budget × 100
-├── computedAt: DateTime
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ fiscalYearId: String
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ accountId: String (FK â†’ Account)
+â”œâ”€â”€ areaId: String?
+â”œâ”€â”€ budgetAmount: Float @default(0)
+â”œâ”€â”€ actualAmount: Float @default(0)
+â”œâ”€â”€ variance: Float @default(0)      â† actual - budget
+â”œâ”€â”€ variancePct: Float @default(0)   â† (actual - budget) / budget Ã— 100
+â”œâ”€â”€ computedAt: DateTime
+â”œâ”€â”€ createdAt
 
 Index:
   @@index([periodId, accountId])
@@ -290,15 +296,15 @@ Index:
 
 ```
 FinancialRatio
-├── id: String (UUID, PK)
-├── periodId: String (FK → FinancialPeriod)
-├── name: String                     ← current_ratio | debt_to_equity | profit_margin | etc.
-├── value: Float
-├── target: Float?
-├── priorPeriodValue: Float?
-├── variance: Float?                 ← vs prior period
-├── trend: String?                   ← IMPROVING | DECLINING | STABLE | NEW
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ name: String                     â† current_ratio | debt_to_equity | profit_margin | etc.
+â”œâ”€â”€ value: Float
+â”œâ”€â”€ target: Float?
+â”œâ”€â”€ priorPeriodValue: Float?
+â”œâ”€â”€ variance: Float?                 â† vs prior period
+â”œâ”€â”€ trend: String?                   â† IMPROVING | DECLINING | STABLE | NEW
+â”œâ”€â”€ createdAt
 
 Index:
   @@index([periodId, name])
@@ -310,17 +316,17 @@ Index:
 
 ```
 ReportSchedule
-├── id: String (UUID, PK)
-├── name: String
-├── reportType: String               ← PNL | BALANCE_SHEET | CASH_FLOW | BUDGET_VS_ACTUAL | CUSTOM
-├── frequency: String                ← DAILY | WEEKLY | MONTHLY | QUARTERLY | ANNUAL
-├── format: String @default("PDF")   ← PDF | EXCEL | CSV | ALL
-├── recipients: String (JSON)        ← Email addresses
-├── includeComparison: Boolean @default(false)  ← Include prior period
-├── active: Boolean @default(true)
-├── lastRunAt: DateTime?
-├── nextRunAt: DateTime?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String
+â”œâ”€â”€ reportType: String               â† PNL | BALANCE_SHEET | CASH_FLOW | BUDGET_VS_ACTUAL | CUSTOM
+â”œâ”€â”€ frequency: String                â† DAILY | WEEKLY | MONTHLY | QUARTERLY | ANNUAL
+â”œâ”€â”€ format: String @default("PDF")   â† PDF | EXCEL | CSV | ALL
+â”œâ”€â”€ recipients: String (JSON)        â† Email addresses
+â”œâ”€â”€ includeComparison: Boolean @default(false)  â† Include prior period
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ lastRunAt: DateTime?
+â”œâ”€â”€ nextRunAt: DateTime?
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.6 FinancialNote (NEW)
@@ -329,13 +335,13 @@ ReportSchedule
 
 ```
 FinancialNote
-├── id: String (UUID, PK)
-├── snapshotId: String (FK → FinancialSnapshot)
-├── section: String                  ← Note reference (e.g., "1. Revenue Recognition")
-├── content: String
-├── order: Int @default(0)
-├── createdBy: String?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ snapshotId: String (FK â†’ FinancialSnapshot)
+â”œâ”€â”€ section: String                  â† Note reference (e.g., "1. Revenue Recognition")
+â”œâ”€â”€ content: String
+â”œâ”€â”€ order: Int @default(0)
+â”œâ”€â”€ createdBy: String?
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.7 IFRSMapping (NEW)
@@ -344,35 +350,35 @@ FinancialNote
 
 ```
 IFRSMapping
-├── id: String (UUID, PK)
-├── accountId: String (FK → Account)
-├── standard: String                 ← IFRS | GAAP | LOCAL_TAX
-├── categoryCode: String             ← IFRS category code
-├── categoryName: String             ← IFRS category name
-├── effectiveFrom: DateTime
-├── effectiveTo: DateTime?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ accountId: String (FK â†’ Account)
+â”œâ”€â”€ standard: String                 â† IFRS | GAAP | LOCAL_TAX
+â”œâ”€â”€ categoryCode: String             â† IFRS category code
+â”œâ”€â”€ categoryName: String             â† IFRS category name
+â”œâ”€â”€ effectiveFrom: DateTime
+â”œâ”€â”€ effectiveTo: DateTime?
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
-### 3.8 SegmentPerformance (NEW — materialized view)
+### 3.8 SegmentPerformance (NEW â€” materialized view)
 
 **Purpose:** Pre-computed segment performance data for reporting.
 
 ```
 SegmentPerformance
-├── id: String (UUID, PK)
-├── periodId: String (FK → FinancialPeriod)
-├── segmentType: String              ← AREA | PROJECT | CUSTOMER_GROUP | UTILITY_TYPE
-├── segmentId: String
-├── segmentName: String
-├── revenue: Float @default(0)
-├── expenses: Float @default(0)
-├── profit: Float @default(0)
-├── margin: Float @default(0)        ← profit / revenue
-├── customerCount: Int @default(0)
-├── invoiceCount: Int @default(0)
-├── computedAt: DateTime
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ segmentType: String              â† AREA | PROJECT | CUSTOMER_GROUP | UTILITY_TYPE
+â”œâ”€â”€ segmentId: String
+â”œâ”€â”€ segmentName: String
+â”œâ”€â”€ revenue: Float @default(0)
+â”œâ”€â”€ expenses: Float @default(0)
+â”œâ”€â”€ profit: Float @default(0)
+â”œâ”€â”€ margin: Float @default(0)        â† profit / revenue
+â”œâ”€â”€ customerCount: Int @default(0)
+â”œâ”€â”€ invoiceCount: Int @default(0)
+â”œâ”€â”€ computedAt: DateTime
+â”œâ”€â”€ createdAt
 
 Indexes:
   @@index([periodId, segmentType])
@@ -398,38 +404,38 @@ Indexes:
 
 ## PART 4: FINANCIAL STATEMENT ENGINE
 
-### 4.1 Trial Balance → Financial Statements
+### 4.1 Trial Balance â†’ Financial Statements
 
 ```
 GL Data (Journal Entries)
-    │
-    ▼
+    â”‚
+    â–¼
 GeneralLedgerEntry (per-account, per-period balances)
-    │
-    ▼
+    â”‚
+    â–¼
 Trial Balance (all accounts with debit/credit totals)
-    │
-    ├──→ BALANCE SHEET
-    │     Classify accounts by type:
-    │       ASSET (1000-1999):
-    │         Current: Cash (1001), Bank (1002), AR (1201)
-    │         Non-Current: Fixed Assets (1500), Depreciation (1600)
-    │       LIABILITY (2000-2999):
-    │         Current: AP (2001), Tax Payable (2101), Accrued (2200)
-    │         Non-Current: Loans (2500), Deferred Tax (2600)
-    │       EQUITY (3000-3999):
-    │         Share Capital (3000), Retained Earnings (3001), Reserves (3100)
-    │
-    ├──→ INCOME STATEMENT
-    │     Classify accounts by type:
-    │       REVENUE (4000-4999):
-    │         Water Revenue (4001-01), Electric Revenue (4001-02), Gas Revenue (4001-03)
-    │       EXPENSE (5000-6999):
-    │         Cost of Sales (5000), Operating Exp (5100), Admin Exp (5200)
-    │         Depreciation (5300), Bank Charges (5105), Bad Debt (6101)
-    │       → Net Income = Revenue - Expense
-    │
-    └──→ CASH FLOW STATEMENT
+    â”‚
+    â”œâ”€â”€â†’ BALANCE SHEET
+    â”‚     Classify accounts by type:
+    â”‚       ASSET (1000-1999):
+    â”‚         Current: Cash (1001), Bank (1002), AR (1201)
+    â”‚         Non-Current: Fixed Assets (1500), Depreciation (1600)
+    â”‚       LIABILITY (2000-2999):
+    â”‚         Current: AP (2001), Tax Payable (2101), Accrued (2200)
+    â”‚         Non-Current: Loans (2500), Deferred Tax (2600)
+    â”‚       EQUITY (3000-3999):
+    â”‚         Share Capital (3000), Retained Earnings (3001), Reserves (3100)
+    â”‚
+    â”œâ”€â”€â†’ INCOME STATEMENT
+    â”‚     Classify accounts by type:
+    â”‚       REVENUE (4000-4999):
+    â”‚         Water Revenue (4001-01), Electric Revenue (4001-02), Gas Revenue (4001-03)
+    â”‚       EXPENSE (5000-6999):
+    â”‚         Cost of Sales (5000), Operating Exp (5100), Admin Exp (5200)
+    â”‚         Depreciation (5300), Bank Charges (5105), Bad Debt (6101)
+    â”‚       â†’ Net Income = Revenue - Expense
+    â”‚
+    â””â”€â”€â†’ CASH FLOW STATEMENT
           Compare GL between two periods:
           OPERATING:
             Net Income (from P&L)
@@ -451,7 +457,7 @@ Trial Balance (all accounts with debit/credit totals)
 ```
 BALANCE SHEET
 As at: July 31, 2026
-═══════════════════════════════════════
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 ASSETS
   Current Assets
@@ -489,8 +495,8 @@ LIABILITIES & EQUITY
     Total Equity                           EGP 4,125,500
 
 TOTAL LIABILITIES & EQUITY                 EGP 6,470,500
-═══════════════════════════════════════
-✅ BALANCED: Assets = Liabilities + Equity
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+âœ… BALANCED: Assets = Liabilities + Equity
 ```
 
 ### 4.3 P&L Structure
@@ -498,7 +504,7 @@ TOTAL LIABILITIES & EQUITY                 EGP 6,470,500
 ```
 PROFIT & LOSS STATEMENT
 For the period: July 1 - July 31, 2026
-═══════════════════════════════════════
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 REVENUE
   Water Service Revenue                    EGP 850,000
@@ -537,7 +543,7 @@ PROFIT BEFORE TAX                          EGP 729,000   (30.6%)
 INCOME TAX                                 -EGP 102,060  (14%)
 
 NET PROFIT                                 EGP 626,940   (26.3%)
-═══════════════════════════════════════
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 ```
 
 ### 4.4 Cash Flow Statement Structure
@@ -545,7 +551,7 @@ NET PROFIT                                 EGP 626,940   (26.3%)
 ```
 CASH FLOW STATEMENT
 For the period: July 1 - July 31, 2026
-═══════════════════════════════════════
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 CASH FLOWS FROM OPERATING ACTIVITIES
   Net Profit                               EGP 626,940
@@ -573,7 +579,7 @@ NET INCREASE IN CASH                      EGP 401,940
 
 Opening Cash Balance                       EGP 2,848,060
 Closing Cash Balance                       EGP 3,250,000
-═══════════════════════════════════════
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 ```
 
 ---
@@ -584,7 +590,7 @@ Closing Cash Balance                       EGP 3,250,000
 
 ```
 Budget lifecycle:
-  DRAFT → PENDING_APPROVAL → APPROVED → LOCKED
+  DRAFT â†’ PENDING_APPROVAL â†’ APPROVED â†’ LOCKED
 
 CREATE BUDGET:
   BudgetService.create(fiscalYear, accountId, areaId, monthlyAmounts):
@@ -615,7 +621,7 @@ VarianceEngine.analyze(periodId):
     
     actualAmount = actual ? actual.closingBalance : 0
     variance = actualAmount - budget.amount
-    variancePct = (variance / budget.amount) × 100
+    variancePct = (variance / budget.amount) Ã— 100
     
     // Classify variance:
     IF abs(variancePct) <= 5:
@@ -670,8 +676,8 @@ VarianceEngine.analyze(periodId):
 KPIEngine.refresh(periodId):
   1. LOAD all FinancialSnapshots for period
   2. COMPUTE each KPI from snapshot data
-  3. COMPARE with target → status (ON_TRACK | AT_RISK | OFF_TRACK)
-  4. COMPARE with prior period → trend (IMPROVING | DECLINING | STABLE)
+  3. COMPARE with target â†’ status (ON_TRACK | AT_RISK | OFF_TRACK)
+  4. COMPARE with prior period â†’ trend (IMPROVING | DECLINING | STABLE)
   5. SAVE to KpiSnapshot (time-series)
   6. UPDATE KpiDefinition.current + trend
 ```
@@ -684,15 +690,15 @@ KPIEngine.refresh(periodId):
 
 **Agent Name:** Financial Analytics Agent  
 **Framework:** C12-W07 Operational Intelligence  
-**Autonomy:** ⚡ Semi-autonomous  
+**Autonomy:** âš¡ Semi-autonomous  
 
 | Capability | Autonomy | Approval |
 |------------|----------|----------|
-| Executive narrative generation | ✅ Full (read-only narrative) | None |
-| Variance explanation | ✅ Full (read-only analysis) | None |
-| Financial trend forecasting | ✅ Full (read-only forecast) | None |
-| Cash flow intelligence | ✅ Full (read-only) | None |
-| Revenue & profitability analytics | ✅ Full (read-only) | None |
+| Executive narrative generation | âœ… Full (read-only narrative) | None |
+| Variance explanation | âœ… Full (read-only analysis) | None |
+| Financial trend forecasting | âœ… Full (read-only forecast) | None |
+| Cash flow intelligence | âœ… Full (read-only) | None |
+| Revenue & profitability analytics | âœ… Full (read-only) | None |
 
 ### 7.2 Executive Narrative Generation
 
@@ -703,7 +709,7 @@ ALGORITHM: generateExecutiveNarrative(periodId):
   ratios = FinancialRatio.findMany({ periodId })
   
   narrative = {
-    title: `Executive Summary — ${period.year}-${period.month}`,
+    title: `Executive Summary â€” ${period.year}-${period.month}`,
     generatedAt: now(),
     
     overview: `In ${periodLabel}, MeterVerse generated EGP ${format(totalRevenue)}
@@ -730,9 +736,9 @@ ALGORITHM: generateExecutiveNarrative(periodId):
     
     recommendations: [
       revenueGrowth < 10%
-        ? `Revenue growth of ${revenueGrowth}% is below target — review tariff strategy`,
+        ? `Revenue growth of ${revenueGrowth}% is below target â€” review tariff strategy`,
       dso > 45
-        ? `DSO of ${dso} days indicates collection delays — focus on W04 collections`,
+        ? `DSO of ${dso} days indicates collection delays â€” focus on W04 collections`,
       null,
     ].filter(Boolean),
     
@@ -793,94 +799,94 @@ ALGORITHM: explainVariance(periodId):
 ### 8.1 Executive Dashboard (`/admin/finance/executive`)
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ EXECUTIVE FINANCIAL DASHBOARD                                                                   │
-│                                                                                                │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Revenue      │ │ Net Profit   │ │ Gross Margin │ │ EBITDA       │ │ Op. Cash     │         │
-│ │ EGP 2.38M    │ │ EGP 627K     │ │    53.8%     │ │ EGP 780K     │ │ EGP 599K     │         │
-│ │ ↑ 12% YoY   │ │ ↑ 8% MoM    │ │  ▲ 2.1pp     │ │ ↑ 5% MoM    │ │ ↑ 15% MoM   │         │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                                │
-│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ REVENUE & PROFIT TREND (12 months)                                                        │   │
-│ │  Revenue ████████████████████████████████████  2.5M ─                                    │   │
-│ │  Profit  ██████████████                            ─ 1.0M                                │   │
-│ │  Margin  ────◆───◆───◆───◆───◆───◆───◆───◆───◆──────────                                │   │
-│ │          Jul  Aug  Sep  Oct  Nov  Dec  Jan  Feb  Mar  Apr  May  Jun                      │   │
-│ └─────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                │
-│ ┌──────────────────────────┐ ┌──────────────────────────┐ ┌──────────────────────────────┐   │
-│ │ KEY RATIOS                │ │ BUDGET vs ACTUAL         │ │ EXECUTIVE NARRATIVE           │   │
-│ │                           │ │                          │ │                               │   │
-│ │ Current Ratio:     2.1 ✅│ │ Revenue:  +5.2% ✅      │ │ 📋 July performance strong   │   │
-│ │ Quick Ratio:       1.8 ✅│ │ Expenses: -2.1% ✅      │ │ Revenue grew 12% YoY driven │   │
-│ │ Debt to Equity:    0.4 ✅│ │ Net Profit: +8.3% ✅    │ │ by tariff update in Q2...   │   │
-│ │ DSO:               42d ⚠│ │ Capex:  -15% ⚠           │ │ [ Full Narrative → ]         │   │
-│ │ Collection Eff:    82% ✅│ │                          │ │                               │   │
-│ └──────────────────────────┘ └──────────────────────────┘ └──────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ EXECUTIVE FINANCIAL DASHBOARD                                                                   â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Revenue      â”‚ â”‚ Net Profit   â”‚ â”‚ Gross Margin â”‚ â”‚ EBITDA       â”‚ â”‚ Op. Cash     â”‚         â”‚
+â”‚ â”‚ EGP 2.38M    â”‚ â”‚ EGP 627K     â”‚ â”‚    53.8%     â”‚ â”‚ EGP 780K     â”‚ â”‚ EGP 599K     â”‚         â”‚
+â”‚ â”‚ â†‘ 12% YoY   â”‚ â”‚ â†‘ 8% MoM    â”‚ â”‚  â–² 2.1pp     â”‚ â”‚ â†‘ 5% MoM    â”‚ â”‚ â†‘ 15% MoM   â”‚         â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ REVENUE & PROFIT TREND (12 months)                                                        â”‚   â”‚
+â”‚ â”‚  Revenue â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  2.5M â”€                                    â”‚   â”‚
+â”‚ â”‚  Profit  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ                            â”€ 1.0M                                â”‚   â”‚
+â”‚ â”‚  Margin  â”€â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â—†â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€                                â”‚   â”‚
+â”‚ â”‚          Jul  Aug  Sep  Oct  Nov  Dec  Jan  Feb  Mar  Apr  May  Jun                      â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ KEY RATIOS                â”‚ â”‚ BUDGET vs ACTUAL         â”‚ â”‚ EXECUTIVE NARRATIVE           â”‚   â”‚
+â”‚ â”‚                           â”‚ â”‚                          â”‚ â”‚                               â”‚   â”‚
+â”‚ â”‚ Current Ratio:     2.1 âœ…â”‚ â”‚ Revenue:  +5.2% âœ…      â”‚ â”‚ ðŸ“‹ July performance strong   â”‚   â”‚
+â”‚ â”‚ Quick Ratio:       1.8 âœ…â”‚ â”‚ Expenses: -2.1% âœ…      â”‚ â”‚ Revenue grew 12% YoY driven â”‚   â”‚
+â”‚ â”‚ Debt to Equity:    0.4 âœ…â”‚ â”‚ Net Profit: +8.3% âœ…    â”‚ â”‚ by tariff update in Q2...   â”‚   â”‚
+â”‚ â”‚ DSO:               42d âš â”‚ â”‚ Capex:  -15% âš            â”‚ â”‚ [ Full Narrative â†’ ]         â”‚   â”‚
+â”‚ â”‚ Collection Eff:    82% âœ…â”‚ â”‚                          â”‚ â”‚                               â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 8.2 CFO Analytics Dashboard (`/admin/finance/cfo`)
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ CFO ANALYTICS DASHBOARD                                                                        │
-│                                                                                                │
-│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ BALANCE SHEET HIGHLIGHTS           │ INCOME STATEMENT HIGHLIGHTS                        │   │
-│ │                                    │                                                     │   │
-│ │ Assets:            EGP 6.47M       │ Revenue:            EGP 2.38M                      │   │
-│ │ Liabilities:       EGP 2.35M       │ COGS:               EGP 1.10M                      │   │
-│ │ Equity:            EGP 4.13M       │ Gross Profit:        EGP 1.28M                      │   │
-│ │                                    │ Operating Exp:       EGP 528K                       │   │
-│ │ ✅ BALANCED                        │ Net Profit:          EGP 627K                       │   │
-│ └─────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                │
-│ ┌────────────────────────────────────┐ ┌──────────────────────────────────────────────────┐   │
-│ │ CASH FLOW SUMMARY                   │ │ SEGMENT PERFORMANCE                              │   │
-│ │                                     │ │                                                  │   │
-│ │ Operating:        +EGP 599K        │ │ ┌──────────┬─────────┬─────────┬────────┐       │   │
-│ │ Investing:        -EGP 150K        │ │ │ Segment  │ Revenue │ Expense │ Margin │       │   │
-│ │ Financing:        -EGP 47K         │ │ │ October  │ EGP 1.1M│ EGP 450K│  59%   │       │   │
-│ │ Net Change:       +EGP 402K        │ │ │ New Cairo│ EGP 850K│ EGP 380K│  55%   │       │   │
-│ │ Closing Balance:  EGP 3.25M        │ │ │ SODIC    │ EGP 430K│ EGP 180K│  58%   │       │   │
-│ └────────────────────────────────────┘ └──────────┴─────────┴─────────┴────────┘       │   │
-│                                                                                                │
-│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ VARIANCE ANALYSIS — SIGNIFICANT VARIANCES                                                 │   │
-│ │ 🔴 Electric Revenue: +EGP 85K (+7.6%) vs budget — higher consumption due to heat wave     │   │
-│ │ 🟢 Water Purchases: -EGP 22K (-6.1%) vs budget — lower than expected                      │   │
-│ │ 🔴 Salaries: +EGP 18K (+5.5%) vs budget — new hires in customer service                  │   │
-│ └─────────────────────────────────────────────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ CFO ANALYTICS DASHBOARD                                                                        â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ BALANCE SHEET HIGHLIGHTS           â”‚ INCOME STATEMENT HIGHLIGHTS                        â”‚   â”‚
+â”‚ â”‚                                    â”‚                                                     â”‚   â”‚
+â”‚ â”‚ Assets:            EGP 6.47M       â”‚ Revenue:            EGP 2.38M                      â”‚   â”‚
+â”‚ â”‚ Liabilities:       EGP 2.35M       â”‚ COGS:               EGP 1.10M                      â”‚   â”‚
+â”‚ â”‚ Equity:            EGP 4.13M       â”‚ Gross Profit:        EGP 1.28M                      â”‚   â”‚
+â”‚ â”‚                                    â”‚ Operating Exp:       EGP 528K                       â”‚   â”‚
+â”‚ â”‚ âœ… BALANCED                        â”‚ Net Profit:          EGP 627K                       â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ CASH FLOW SUMMARY                   â”‚ â”‚ SEGMENT PERFORMANCE                              â”‚   â”‚
+â”‚ â”‚                                     â”‚ â”‚                                                  â”‚   â”‚
+â”‚ â”‚ Operating:        +EGP 599K        â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”       â”‚   â”‚
+â”‚ â”‚ Investing:        -EGP 150K        â”‚ â”‚ â”‚ Segment  â”‚ Revenue â”‚ Expense â”‚ Margin â”‚       â”‚   â”‚
+â”‚ â”‚ Financing:        -EGP 47K         â”‚ â”‚ â”‚ October  â”‚ EGP 1.1Mâ”‚ EGP 450Kâ”‚  59%   â”‚       â”‚   â”‚
+â”‚ â”‚ Net Change:       +EGP 402K        â”‚ â”‚ â”‚ New Cairoâ”‚ EGP 850Kâ”‚ EGP 380Kâ”‚  55%   â”‚       â”‚   â”‚
+â”‚ â”‚ Closing Balance:  EGP 3.25M        â”‚ â”‚ â”‚ SODIC    â”‚ EGP 430Kâ”‚ EGP 180Kâ”‚  58%   â”‚       â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚   â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ VARIANCE ANALYSIS â€” SIGNIFICANT VARIANCES                                                 â”‚   â”‚
+â”‚ â”‚ ðŸ”´ Electric Revenue: +EGP 85K (+7.6%) vs budget â€” higher consumption due to heat wave     â”‚   â”‚
+â”‚ â”‚ ðŸŸ¢ Water Purchases: -EGP 22K (-6.1%) vs budget â€” lower than expected                      â”‚   â”‚
+â”‚ â”‚ ðŸ”´ Salaries: +EGP 18K (+5.5%) vs budget â€” new hires in customer service                  â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 8.3 Finance Operations Dashboard (`/admin/finance/operations`)
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ FINANCE OPERATIONS DASHBOARD                                                                   │
-│                                                                                                │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Unreconciled │ │ Draft JEs    │ │ Period Status│ │ Pending       │ │ Days to      │         │
-│ │ Statements  5 │ │           12 │ │ Jul 2026     │ │ Approvals  3  │ │ Close        │         │
-│ │              │ │              │ │ OPEN         │ │              │ │       4      │         │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                                │
-│ ┌─────────────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ PERIOD CLOSE CHECKLIST (July 2026)                                                        │   │
-│ │ ☐ All bank statements reconciled?         5 remaining of 12                              │   │
-│ │ ☐ All journal entries posted?             3 DRAFT entries                                │   │
-│ │ ☐ Revenue assurance complete?             No open findings                               │   │
-│ │ ☐ Bad debt provision calculated?          Pending                                       │   │
-│ │ ☐ Intercompany reconciled?                N/A                                           │   │
-│ │ ☐ Trial Balance verified?                  ✅ Balanced                                   │   │
-│ │ ☐ Financial statements generated?          ❌ Pending — run now                         │   │
-│ │ ☐ Budget vs Actual computed?               ❌ Pending                                   │   │
-│ └─────────────────────────────────────────────────────────────────────────────────────────┘   │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ FINANCE OPERATIONS DASHBOARD                                                                   â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Unreconciled â”‚ â”‚ Draft JEs    â”‚ â”‚ Period Statusâ”‚ â”‚ Pending       â”‚ â”‚ Days to      â”‚         â”‚
+â”‚ â”‚ Statements  5 â”‚ â”‚           12 â”‚ â”‚ Jul 2026     â”‚ â”‚ Approvals  3  â”‚ â”‚ Close        â”‚         â”‚
+â”‚ â”‚              â”‚ â”‚              â”‚ â”‚ OPEN         â”‚ â”‚              â”‚ â”‚       4      â”‚         â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                                â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ PERIOD CLOSE CHECKLIST (July 2026)                                                        â”‚   â”‚
+â”‚ â”‚ â˜ All bank statements reconciled?         5 remaining of 12                              â”‚   â”‚
+â”‚ â”‚ â˜ All journal entries posted?             3 DRAFT entries                                â”‚   â”‚
+â”‚ â”‚ â˜ Revenue assurance complete?             No open findings                               â”‚   â”‚
+â”‚ â”‚ â˜ Bad debt provision calculated?          Pending                                       â”‚   â”‚
+â”‚ â”‚ â˜ Intercompany reconciled?                N/A                                           â”‚   â”‚
+â”‚ â”‚ â˜ Trial Balance verified?                  âœ… Balanced                                   â”‚   â”‚
+â”‚ â”‚ â˜ Financial statements generated?          âŒ Pending â€” run now                         â”‚   â”‚
+â”‚ â”‚ â˜ Budget vs Actual computed?               âŒ Pending                                   â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -903,7 +909,7 @@ ALGORITHM: explainVariance(periodId):
 ### 9.2 Period Close Integration
 
 ```
-FinancialPeriod.close() (existing accounting.js → enhanced by W06):
+FinancialPeriod.close() (existing accounting.js â†’ enhanced by W06):
   1. RUN Revenue Assurance checks (W02)
   2. RECONCILE all bank statements (W05)
   3. CALCULATE bad debt provision (W04)
@@ -919,51 +925,51 @@ FinancialPeriod.close() (existing accounting.js → enhanced by W06):
 
 ---
 
-## PART 10: TESTING STRATEGY — W06 (110 Tests)
+## PART 10: TESTING STRATEGY â€” W06 (110 Tests)
 
 ### 10.1 Financial Statement Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | P&L generated → correct revenue total | Sum of revenue accounts |
-| 2 | P&L generated → correct expense total | Sum of expense accounts |
-| 3 | P&L → net income = revenue - expense | Equation holds |
-| 4 | Balance Sheet → total assets = total liabilities + equity | Balanced |
-| 5 | Balance Sheet → current assets correct | Classification right |
-| 6 | Balance Sheet → non-current correct | Classification right |
-| 7 | Cash Flow (direct) → operating section correct | Method matches |
-| 8 | Cash Flow (indirect) → operating section correct | Method matches |
-| 9 | Cash Flow → closing balance matches bank GL | Consistent |
-| 10 | Equity statement → retained earnings change = net income | Consistent |
-| 11 | Multi-period P&L → correct period comparison | Period filter |
-| 12 | Empty period → zero balances | No crash |
+| 1 | P&L generated â†’ correct revenue total | Sum of revenue accounts |
+| 2 | P&L generated â†’ correct expense total | Sum of expense accounts |
+| 3 | P&L â†’ net income = revenue - expense | Equation holds |
+| 4 | Balance Sheet â†’ total assets = total liabilities + equity | Balanced |
+| 5 | Balance Sheet â†’ current assets correct | Classification right |
+| 6 | Balance Sheet â†’ non-current correct | Classification right |
+| 7 | Cash Flow (direct) â†’ operating section correct | Method matches |
+| 8 | Cash Flow (indirect) â†’ operating section correct | Method matches |
+| 9 | Cash Flow â†’ closing balance matches bank GL | Consistent |
+| 10 | Equity statement â†’ retained earnings change = net income | Consistent |
+| 11 | Multi-period P&L â†’ correct period comparison | Period filter |
+| 12 | Empty period â†’ zero balances | No crash |
 
 ### 10.2 Financial Snapshot Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create snapshot → status DRAFT | Initial state |
-| 2 | Review snapshot → status REVIEWED | Status change |
-| 3 | Approve snapshot → status APPROVED | Status change |
-| 4 | Publish snapshot → status PUBLISHED | Status change |
+| 1 | Create snapshot â†’ status DRAFT | Initial state |
+| 2 | Review snapshot â†’ status REVIEWED | Status change |
+| 3 | Approve snapshot â†’ status APPROVED | Status change |
+| 4 | Publish snapshot â†’ status PUBLISHED | Status change |
 | 5 | Cannot edit PUBLISHED snapshot | Immutability |
-| 6 | Version increment → version 2 created | Versioning |
+| 6 | Version increment â†’ version 2 created | Versioning |
 | 7 | Snapshot data matches TB query | Data accuracy |
-| 8 | Multiple periods → independent snapshots | Per-period |
+| 8 | Multiple periods â†’ independent snapshots | Per-period |
 
 ### 10.3 Budget vs Actual Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create budget → DRAFT | Initial state |
-| 2 | Approve budget → APPROVED | Status change |
-| 3 | BvA computed → variance correct | Formula |
-| 4 | Revenue > budget → FAVORABLE variance | Classification |
-| 5 | Expense > budget → UNFAVORABLE variance | Classification |
-| 6 | Variance < 5% → within threshold | Threshold |
-| 7 | Budget locked → cannot edit | Immutability |
-| 8 | Multi-area budget → area filter | Filter |
-| 9 | Year to date budget → cumulative | YTD |
+| 1 | Create budget â†’ DRAFT | Initial state |
+| 2 | Approve budget â†’ APPROVED | Status change |
+| 3 | BvA computed â†’ variance correct | Formula |
+| 4 | Revenue > budget â†’ FAVORABLE variance | Classification |
+| 5 | Expense > budget â†’ UNFAVORABLE variance | Classification |
+| 6 | Variance < 5% â†’ within threshold | Threshold |
+| 7 | Budget locked â†’ cannot edit | Immutability |
+| 8 | Multi-area budget â†’ area filter | Filter |
+| 9 | Year to date budget â†’ cumulative | YTD |
 
 ### 10.4 Financial Ratio Tests (15)
 
@@ -984,21 +990,21 @@ FinancialPeriod.close() (existing accounting.js → enhanced by W06):
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Segment by area → correct totals | Area filter |
-| 2 | Segment by utility → correct totals | Utility filter |
-| 3 | Segment by customer group → correct | Group filter |
-| 4 | Cross-segment report → all dimensions | Multi-dimension |
-| 5 | Segment with zero activity → zero | Empty |
+| 1 | Segment by area â†’ correct totals | Area filter |
+| 2 | Segment by utility â†’ correct totals | Utility filter |
+| 3 | Segment by customer group â†’ correct | Group filter |
+| 4 | Cross-segment report â†’ all dimensions | Multi-dimension |
+| 5 | Segment with zero activity â†’ zero | Empty |
 
 ### 10.6 IFRS/GAAP Mapping Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Map account to IFRS → category assigned | Correct code |
-| 2 | Map account to GAAP → category assigned | Correct code |
-| 3 | IFRS report → all accounts mapped | Complete |
-| 4 | Unmapped account → flag for review | Warning |
-| 5 | Multiple standards → independent maps | Per standard |
+| 1 | Map account to IFRS â†’ category assigned | Correct code |
+| 2 | Map account to GAAP â†’ category assigned | Correct code |
+| 3 | IFRS report â†’ all accounts mapped | Complete |
+| 4 | Unmapped account â†’ flag for review | Warning |
+| 5 | Multiple standards â†’ independent maps | Per standard |
 
 ### 10.7 AI Agent Tests (10)
 
@@ -1014,107 +1020,107 @@ FinancialPeriod.close() (existing accounting.js → enhanced by W06):
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Schedule monthly report → fires monthly | Cron |
-| 2 | PDF export → formatted output | Formatting |
-| 3 | Excel export → pivot-ready | Formatting |
-| 4 | CSV export → raw data | Formatting |
-| 5 | Email distribution → recipients notified | Delivery |
-| 6 | Schedule with error → notification sent | Error handling |
+| 1 | Schedule monthly report â†’ fires monthly | Cron |
+| 2 | PDF export â†’ formatted output | Formatting |
+| 3 | Excel export â†’ pivot-ready | Formatting |
+| 4 | CSV export â†’ raw data | Formatting |
+| 5 | Email distribution â†’ recipients notified | Delivery |
+| 6 | Schedule with error â†’ notification sent | Error handling |
 
 ---
 
 ## PART 11: W06 DEFINITION OF DONE
 
 ```
-W06 — FINANCIAL REPORTING, CONSOLIDATION & EXECUTIVE ANALYTICS
+W06 â€” FINANCIAL REPORTING, CONSOLIDATION & EXECUTIVE ANALYTICS
 CERTIFICATION CHECKLIST
 
-□ CORE DATA MODELS — 8 NEW
-   □ FinancialSnapshot (versioned, immutable statements)
-   □ Budget (per-account, per-period budgets)
-   □ BudgetVsActual (pre-computed comparison)
-   □ FinancialRatio (15 KPIs)
-   □ ReportSchedule (scheduled distribution)
-   □ FinancialNote (statement annotations)
-   □ IFRSMapping (standard mapping)
-   □ SegmentPerformance (pre-computed segment data)
+â–¡ CORE DATA MODELS â€” 8 NEW
+   â–¡ FinancialSnapshot (versioned, immutable statements)
+   â–¡ Budget (per-account, per-period budgets)
+   â–¡ BudgetVsActual (pre-computed comparison)
+   â–¡ FinancialRatio (15 KPIs)
+   â–¡ ReportSchedule (scheduled distribution)
+   â–¡ FinancialNote (statement annotations)
+   â–¡ IFRSMapping (standard mapping)
+   â–¡ SegmentPerformance (pre-computed segment data)
 
-□ FINANCIAL STATEMENTS — ALL GENERATED
-   □ Profit & Loss (multi-period, with drill-down)
-   □ Balance Sheet (classified, with ratio analysis)
-   □ Cash Flow Statement (direct + indirect)
-   □ Statement of Changes in Equity
-   □ Trial Balance (existing — enhanced)
+â–¡ FINANCIAL STATEMENTS â€” ALL GENERATED
+   â–¡ Profit & Loss (multi-period, with drill-down)
+   â–¡ Balance Sheet (classified, with ratio analysis)
+   â–¡ Cash Flow Statement (direct + indirect)
+   â–¡ Statement of Changes in Equity
+   â–¡ Trial Balance (existing â€” enhanced)
 
-□ BUDGET vs ACTUAL
-   □ Budget creation and approval workflow
-   □ Auto-computed BvA per period
-   □ Variance classification (FAVORABLE / UNFAVORABLE / THRESHOLD)
-   □ YTD cumulative comparison
+â–¡ BUDGET vs ACTUAL
+   â–¡ Budget creation and approval workflow
+   â–¡ Auto-computed BvA per period
+   â–¡ Variance classification (FAVORABLE / UNFAVORABLE / THRESHOLD)
+   â–¡ YTD cumulative comparison
 
-□ FINANCIAL KPIs — 15 COMPUTED
-   □ Liquidity ratios (current, quick, cash)
-   □ Leverage ratio (debt to equity)
-   □ Profitability ratios (gross, operating, net, EBITDA)
-   □ Efficiency ratios (AR turnover, DSO)
-   □ Growth metrics (revenue, expense)
-   □ KPI time-series via existing KpiSnapshot
+â–¡ FINANCIAL KPIs â€” 15 COMPUTED
+   â–¡ Liquidity ratios (current, quick, cash)
+   â–¡ Leverage ratio (debt to equity)
+   â–¡ Profitability ratios (gross, operating, net, EBITDA)
+   â–¡ Efficiency ratios (AR turnover, DSO)
+   â–¡ Growth metrics (revenue, expense)
+   â–¡ KPI time-series via existing KpiSnapshot
 
-□ SEGMENT REPORTING
-   □ By area (October, New Cairo, SODIC)
-   □ By utility type (Electric, Water, Gas)
-   □ By customer group
-   □ By project
-   □ Cross-segment drill-down
+â–¡ SEGMENT REPORTING
+   â–¡ By area (October, New Cairo, SODIC)
+   â–¡ By utility type (Electric, Water, Gas)
+   â–¡ By customer group
+   â–¡ By project
+   â–¡ Cross-segment drill-down
 
-□ IFRS/GAAP MAPPING
-   □ Account→IFRS category mapping
-   □ Account→GAAP category mapping
-   □ IFRS-compliant report generation
-   □ Unmapped account detection
+â–¡ IFRS/GAAP MAPPING
+   â–¡ Accountâ†’IFRS category mapping
+   â–¡ Accountâ†’GAAP category mapping
+   â–¡ IFRS-compliant report generation
+   â–¡ Unmapped account detection
 
-□ AI FINANCIAL ANALYTICS AGENT
-   □ Executive narrative generation
-   □ Variance explanation (threshold-gated)
-   □ Financial trend forecasting
-   □ Cash flow intelligence
-   □ C12 AIRecommendation integration
+â–¡ AI FINANCIAL ANALYTICS AGENT
+   â–¡ Executive narrative generation
+   â–¡ Variance explanation (threshold-gated)
+   â–¡ Financial trend forecasting
+   â–¡ Cash flow intelligence
+   â–¡ C12 AIRecommendation integration
 
-□ DASHBOARDS
-   □ Executive Dashboard (/admin/finance/executive)
-   □ CFO Analytics Dashboard (/admin/finance/cfo)
-   □ Finance Operations Dashboard (/admin/finance/operations)
+â–¡ DASHBOARDS
+   â–¡ Executive Dashboard (/admin/finance/executive)
+   â–¡ CFO Analytics Dashboard (/admin/finance/cfo)
+   â–¡ Finance Operations Dashboard (/admin/finance/operations)
 
-□ PERIOD CLOSE INTEGRATION
-   □ All statements generated on close
-   □ AI narrative generated on close
-   □ KPIs refreshed on close
-   □ BvA computed on close
+â–¡ PERIOD CLOSE INTEGRATION
+   â–¡ All statements generated on close
+   â–¡ AI narrative generated on close
+   â–¡ KPIs refreshed on close
+   â–¡ BvA computed on close
 
-□ EXPORT & DISTRIBUTION
-   □ PDF report generation with formatting
-   □ Excel export with pivot structure
-   □ CSV raw data export
-   □ Scheduled email distribution
-   □ Report versioning via snapshots
+â–¡ EXPORT & DISTRIBUTION
+   â–¡ PDF report generation with formatting
+   â–¡ Excel export with pivot structure
+   â–¡ CSV raw data export
+   â–¡ Scheduled email distribution
+   â–¡ Report versioning via snapshots
 
-□ SECURITY
-   □ RBAC: Viewer, Analyst, Manager, CFO, Executive
-   □ Snapshot immutability after PUBLISHED
-   □ Budget approval workflow
-   □ All mutations audited
+â–¡ SECURITY
+   â–¡ RBAC: Viewer, Analyst, Manager, CFO, Executive
+   â–¡ Snapshot immutability after PUBLISHED
+   â–¡ Budget approval workflow
+   â–¡ All mutations audited
 
-□ TESTS — 110 PASSING
-   □ Financial statements: 25 tests
-   □ Financial snapshots: 15 tests
-   □ Budget vs Actual: 15 tests
-   □ Financial ratios: 15 tests
-   □ Segment reporting: 10 tests
-   □ IFRS/GAAP mapping: 10 tests
-   □ AI agent: 10 tests
-   □ Schedule & distribution: 10 tests
+â–¡ TESTS â€” 110 PASSING
+   â–¡ Financial statements: 25 tests
+   â–¡ Financial snapshots: 15 tests
+   â–¡ Budget vs Actual: 15 tests
+   â–¡ Financial ratios: 15 tests
+   â–¡ Segment reporting: 10 tests
+   â–¡ IFRS/GAAP mapping: 10 tests
+   â–¡ AI agent: 10 tests
+   â–¡ Schedule & distribution: 10 tests
 
-W06 STATUS: □ NOT IMPLEMENTED
+W06 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -1150,4 +1156,5 @@ All items above are DESIGN-COMPLETE but not executed.
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C13-W06 — Financial Reporting & Consolidation. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*C13-W06 â€” Financial Reporting & Consolidation. READ ONLY. GOVERNANCE PLANNING ONLY.*
+

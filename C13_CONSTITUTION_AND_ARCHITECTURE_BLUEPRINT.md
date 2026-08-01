@@ -1,15 +1,21 @@
-# C13 — Enterprise Financial & Billing Intelligence Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress | Certification: [ ] Not Certified | Wave: W2 | Commit: 79d1232f
+====================================================================
+-->
+
+# C13 â€” Enterprise Financial & Billing Intelligence Platform
 ## Constitution & Architecture Blueprint
 
 **Version:** 2.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C12 Identity Program (Certified 100%)  
-**Supersedes:** C13_ENTERPRISE_FINANCIAL_PLATFORM_MASTER_PLAN.md (v1 — corrected after backend accounting discovery)
+**Supersedes:** C13_ENTERPRISE_FINANCIAL_PLATFORM_MASTER_PLAN.md (v1 â€” corrected after backend accounting discovery)
 
 ---
 
-**IMPORTANT DISCOVERY:** The accounting backend (Account, JournalEntry, JournalLineItem, GeneralLedgerEntry, FinancialPeriod) is **already fully implemented** — all Prisma models, route files, Zod validation, RBAC authorization, audit logging, business rules (debit=credit enforcement, period validation, auto-closing entries with retained earnings transfer, trial balance). The frontend has an `accounting/` admin directory but the UI is incomplete. C13 is therefore a **connect-and-enhance** program, not a build-from-scratch program.
+**IMPORTANT DISCOVERY:** The accounting backend (Account, JournalEntry, JournalLineItem, GeneralLedgerEntry, FinancialPeriod) is **already fully implemented** â€” all Prisma models, route files, Zod validation, RBAC authorization, audit logging, business rules (debit=credit enforcement, period validation, auto-closing entries with retained earnings transfer, trial balance). The frontend has an `accounting/` admin directory but the UI is incomplete. C13 is therefore a **connect-and-enhance** program, not a build-from-scratch program.
 
 ---
 
@@ -19,11 +25,11 @@
 
 MeterVerse currently processes billing, invoices, and payments as isolated CRUD operations. Each invoice and payment exists as a standalone record with no connection to a double-entry accounting system. This means:
 
-- **No audit trail** from meter reading → invoice → payment → ledger
+- **No audit trail** from meter reading â†’ invoice â†’ payment â†’ ledger
 - **No financial statements** (P&L, Balance Sheet, Cash Flow)  
-- **No revenue recognition** — revenue is recognized on payment, not on accrual
-- **No collections intelligence** — dunning is manual, PTP tracking is basic
-- **No revenue assurance** — billing errors go undetected
+- **No revenue recognition** â€” revenue is recognized on payment, not on accrual
+- **No collections intelligence** â€” dunning is manual, PTP tracking is basic
+- **No revenue assurance** â€” billing errors go undetected
 
 C13 transforms MeterVerse billing into a **carrier-grade financial platform** with GAAP-compliant accounting, intelligent revenue management, automated collections, and AI-powered financial intelligence.
 
@@ -31,7 +37,7 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 | # | Objective | Measured By | Target |
 |---|-----------|-------------|--------|
-| 1 | Connect billing → GL with auto-journal posting | Invoices auto-post to GL within 60s of issue | 100% |
+| 1 | Connect billing â†’ GL with auto-journal posting | Invoices auto-post to GL within 60s of issue | 100% |
 | 2 | Enable financial reporting | P&L, Balance Sheet, Cash Flow available | Real-time |
 | 3 | Implement revenue assurance | Leakage detection rules active | < 0.5% leakage |
 | 4 | Automate collections dunning | Dunning cases auto-escalated | 90% automation |
@@ -45,9 +51,9 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 | Maturity Domain | Before C13 | After C13 |
 |-----------------|-----------|-----------|
 | Accounting | **Backend built, no frontend** | Fully operational with 10 workbenches |
-| Billing-GL Integration | **None (billing isolated)** | Auto-posting pipeline: invoice → journal → GL |
+| Billing-GL Integration | **None (billing isolated)** | Auto-posting pipeline: invoice â†’ journal â†’ GL |
 | Revenue Assurance | **0% (no detection)** | 15+ leakage rules, AI anomaly detection |
-| Collection Intelligence | **30% (basic CRUD)** | 85% — auto-dunning, PTP, scoring |
+| Collection Intelligence | **30% (basic CRUD)** | 85% â€” auto-dunning, PTP, scoring |
 | Financial Reporting | **0% (no reports)** | P&L, Balance Sheet, Cash Flow, AR Aging |
 | Bank Reconciliation | **0% (manual)** | Auto-match engine with 85%+ rate |
 | Multi-Currency | **0% (EGP only)** | Full multi-currency with FX auto-calculation |
@@ -58,7 +64,7 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 | Standard | Alignment | C13 Coverage |
 |----------|-----------|--------------|
-| SAP IS-U (Utility Billing) | Bill → GL integration, revenue recognition | W02, W05 |
+| SAP IS-U (Utility Billing) | Bill â†’ GL integration, revenue recognition | W02, W05 |
 | Oracle Utilities Customer Care & Billing | Tariff engine, collection lifecycle | W03, W04 |
 | Siemens EnergyIP | Meter-to-cash traceability | W02, W10 |
 | IEEE C37.118 (Utility Data) | Reading validation before billing | W02 |
@@ -71,13 +77,13 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 | Outcome | Impact | Timeline |
 |---------|--------|----------|
-| Revenue leakage detected and prevented | 2-5% revenue protection | W02 → ongoing |
-| Collection cycle time reduced | 30-50% faster cash collection | W04 → ongoing |
-| Financial close cycle reduced | 10+ days → 2 days | W07 → monthly |
-| Bank reconciliation automated | 5 person-days → 30 minutes/month | W06 → ongoing |
-| Billing errors caught before invoice | Reduced disputes, customer satisfaction | W02 → ongoing |
-| Audit-ready financials | Zero audit findings | W10 → quarterly |
-| AI-driven financial intelligence | Proactive risk detection | W09 → ongoing |
+| Revenue leakage detected and prevented | 2-5% revenue protection | W02 â†’ ongoing |
+| Collection cycle time reduced | 30-50% faster cash collection | W04 â†’ ongoing |
+| Financial close cycle reduced | 10+ days â†’ 2 days | W07 â†’ monthly |
+| Bank reconciliation automated | 5 person-days â†’ 30 minutes/month | W06 â†’ ongoing |
+| Billing errors caught before invoice | Reduced disputes, customer satisfaction | W02 â†’ ongoing |
+| Audit-ready financials | Zero audit findings | W10 â†’ quarterly |
+| AI-driven financial intelligence | Proactive risk detection | W09 â†’ ongoing |
 
 ### 1.6 Success Metrics
 
@@ -101,23 +107,23 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 | Capability | Status | Notes |
 |------------|--------|-------|
-| Bill Run (create, schedule, execute, close) | ✅ Live | Routes in billing.js |
-| Bill Run History (action log) | ✅ Live | BillRunHistory model |
-| Bill Cycle management | ✅ Live | BillCycle model exists |
-| Consumption calculation | ✅ Live | Reading diff in billing engine |
-| Basic tariff rates | ✅ Live | Tariff + TariffRate models |
-| Flat rate calculation | ✅ Live | Single rate per unit |
-| Invoice generation | ✅ Live | POST /api/invoices/generate |
-| Invoice lifecycle (DRAFT→ISSUED) | ✅ Live | InvoiceStatus enum |
-| Invoice items and taxes | ✅ Live | InvoiceItem, InvoiceTax models |
-| Invoice cancellation + credit notes | ✅ Live | POST /api/invoices/:id/cancel |
-| Invoice adjustments | ✅ Live | POST /api/invoices/:id/adjustments |
+| Bill Run (create, schedule, execute, close) | âœ… Live | Routes in billing.js |
+| Bill Run History (action log) | âœ… Live | BillRunHistory model |
+| Bill Cycle management | âœ… Live | BillCycle model exists |
+| Consumption calculation | âœ… Live | Reading diff in billing engine |
+| Basic tariff rates | âœ… Live | Tariff + TariffRate models |
+| Flat rate calculation | âœ… Live | Single rate per unit |
+| Invoice generation | âœ… Live | POST /api/invoices/generate |
+| Invoice lifecycle (DRAFTâ†’ISSUED) | âœ… Live | InvoiceStatus enum |
+| Invoice items and taxes | âœ… Live | InvoiceItem, InvoiceTax models |
+| Invoice cancellation + credit notes | âœ… Live | POST /api/invoices/:id/cancel |
+| Invoice adjustments | âœ… Live | POST /api/invoices/:id/adjustments |
 
 ### 2.2 Current Invoice Lifecycle
 
-**Status:** Live with DRAFT → APPROVED → ISSUED → PAID → CANCELLED  
+**Status:** Live with DRAFT â†’ APPROVED â†’ ISSUED â†’ PAID â†’ CANCELLED  
 **Gaps:**
-- No invoice → journal auto-posting
+- No invoice â†’ journal auto-posting
 - No revenue recognition on invoice issue
 - No e-invoice format compliance
 - No multi-currency invoices
@@ -126,9 +132,9 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 ### 2.3 Current Payment Lifecycle
 
-**Status:** Live with PENDING → COMPLETED → ALLOCATED → REVERSED → REFUNDED  
+**Status:** Live with PENDING â†’ COMPLETED â†’ ALLOCATED â†’ REVERSED â†’ REFUNDED  
 **Gaps:**
-- No payment → journal auto-posting
+- No payment â†’ journal auto-posting
 - No auto-allocation rules (oldest invoice first exists, but no configurable strategy)
 - No payment gateway reconciliation
 - No bank statement import
@@ -139,39 +145,39 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 **Status:** Basic CRUD with CollectionCase, CollectionAction, PromiseToPay models  
 **Gaps:**
-- **No dunning automation** — cases must be manually escalated
-- **No aging-based auto-escalation** — no rules engine for 30/60/90/120+ day triggers
-- **No collector assignment optimization** — assignment is manual
+- **No dunning automation** â€” cases must be manually escalated
+- **No aging-based auto-escalation** â€” no rules engine for 30/60/90/120+ day triggers
+- **No collector assignment optimization** â€” assignment is manual
 - **No field visit route planning**
-- **No payment probability scoring** — can't prioritize high-risk cases
-- **No intelligent dunning** — all customers get the same treatment
-- **No write-off automation** — manual workflow only
+- **No payment probability scoring** â€” can't prioritize high-risk cases
+- **No intelligent dunning** â€” all customers get the same treatment
+- **No write-off automation** â€” manual workflow only
 
 ### 2.5 Missing Accounting Capabilities (Backend exists, no frontend)
 
 | Capability | Backend | Frontend | Integration |
 |------------|---------|----------|-------------|
-| Chart of Accounts | ✅ Full CRUD + hierarchy | ❌ No UI | ❌ Not connected to billing |
-| Journal Entries | ✅ Full CRUD + post + reverse | ❌ No UI | ❌ Manual entry only |
-| General Ledger | ✅ Period balances per account | ❌ No UI | ❌ Not auto-populated |
-| Trial Balance | ✅ Complete with balancing check | ❌ No UI | ❌ Manual only |
-| Financial Periods | ✅ Create, close, auto-closing entries | ❌ No UI | ❌ Not integrated |
-| Bank Reconciliation | ❌ Not built | ❌ | ❌ |
-| Financial Reports | ❌ Not built | ❌ | ❌ |
-| Revenue Assurance | ❌ Not built | ❌ | ❌ |
+| Chart of Accounts | âœ… Full CRUD + hierarchy | âŒ No UI | âŒ Not connected to billing |
+| Journal Entries | âœ… Full CRUD + post + reverse | âŒ No UI | âŒ Manual entry only |
+| General Ledger | âœ… Period balances per account | âŒ No UI | âŒ Not auto-populated |
+| Trial Balance | âœ… Complete with balancing check | âŒ No UI | âŒ Manual only |
+| Financial Periods | âœ… Create, close, auto-closing entries | âŒ No UI | âŒ Not integrated |
+| Bank Reconciliation | âŒ Not built | âŒ | âŒ |
+| Financial Reports | âŒ Not built | âŒ | âŒ |
+| Revenue Assurance | âŒ Not built | âŒ | âŒ |
 
 ### 2.6 Gap Summary
 
 | Gap | Severity | Backend | Frontend | Integration |
 |-----|----------|---------|----------|-------------|
-| Accounting UI missing | HIGH | ✅ Built | ❌ No UI | ❌ Not integrated |
-| Billing→GL posting | CRITICAL | ❌ Not built | N/A | ❌ |
-| Revenue assurance | CRITICAL | ❌ Not built | ❌ | ❌ |
-| Collection intelligence | HIGH | ❌ Partial | ❌ | ❌ |
-| Financial reporting | HIGH | ❌ Not built | ❌ | ❌ |
-| Bank reconciliation | MEDIUM | ❌ Not built | ❌ | ❌ |
-| Multi-currency billing | MEDIUM | ❌ Not built | ❌ | ❌ |
-| AI financial agents | MEDIUM | ❌ Not built | ❌ | ❌ |
+| Accounting UI missing | HIGH | âœ… Built | âŒ No UI | âŒ Not integrated |
+| Billingâ†’GL posting | CRITICAL | âŒ Not built | N/A | âŒ |
+| Revenue assurance | CRITICAL | âŒ Not built | âŒ | âŒ |
+| Collection intelligence | HIGH | âŒ Partial | âŒ | âŒ |
+| Financial reporting | HIGH | âŒ Not built | âŒ | âŒ |
+| Bank reconciliation | MEDIUM | âŒ Not built | âŒ | âŒ |
+| Multi-currency billing | MEDIUM | âŒ Not built | âŒ | âŒ |
+| AI financial agents | MEDIUM | âŒ Not built | âŒ | âŒ |
 
 ---
 
@@ -180,153 +186,153 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 ### 3.1 Architecture Diagram
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────┐
-│                        C13 FINANCIAL INTELLIGENCE PLATFORM                          │
-│                                                                                      │
-│  ┌─────────────┐  ┌─────────────┐  ┌──────────────┐  ┌───────────────────────┐    │
-│  │  Meter       │  │  Reading     │  │  Customer     │  │  External Systems     │    │
-│  │  Management  │  │  Pipeline   │  │  Management   │  │  Banks / ERP / Tax    │    │
-│  └──────┬──────┘  └──────┬──────┘  └───────┬───────┘  └───────────┬───────────┘    │
-│         │                │                  │                     │                 │
-│         ▼                ▼                  ▼                     ▼                 │
-│  ┌────────────────────────────────────────────────────────────────────────────┐    │
-│  │                        EXISTING BILLING LAYER                               │    │
-│  │  ┌──────────┐  ┌───────────┐  ┌──────────┐  ┌──────────┐  ┌───────────┐   │    │
-│  │  │ Bill Run │  │  Tariff   │  │  Invoice │  │ Payment  │  │Collection │   │    │
-│  │  │  Engine  │  │  Engine   │  │  Engine  │  │  Engine  │  │   Cases   │   │    │
-│  │  └────┬─────┘  └─────┬─────┘  └────┬─────┘  └────┬─────┘  └─────┬─────┘   │    │
-│  └───────┼──────────────┼──────────────┼──────────────┼──────────────┼────────┘    │
-│          │              │              │              │              │             │
-│          ▼              ▼              ▼              ▼              ▼             │
-│  ┌────────────────────────────────────────────────────────────────────────────┐    │
-│  │                       C13 FINANCIAL ENGINE                                  │    │
-│  │                                                                              │    │
-│  │  ┌──────────────────────────────────────────────────────────────────────┐   │    │
-│  │  │  ACCOUNTING ENGINE (Backend Complete)                                 │   │    │
-│  │  │  ┌───────────┐  ┌─────────────┐  ┌──────────────┐  ┌────────────┐  │   │    │
-│  │  │  │  Account  │  │ JournalEntry│  │GeneralLedger │  │ Financial  │  │   │    │
-│  │  │  │  (CoA)    │──│  (Journal)  │──│   (Period)   │──│  Period    │  │   │    │
-│  │  │  └───────────┘  └─────────────┘  └──────────────┘  └────────────┘  │   │    │
-│  │  └──────────────────────────────────────────────────────────────────────┘   │    │
-│  │                                                                              │    │
-│  │  ┌──────────────────────────────────────────────────────────────────────┐   │    │
-│  │  │  REVENUE INTELLIGENCE (NEW)                                           │   │    │
-│  │  │  ┌─────────────────┐  ┌──────────────────┐  ┌────────────────────┐  │   │    │
-│  │  │  │ Revenue         │  │ Invoice          │  │ Billing Analytics  │  │   │    │
-│  │  │  │ Assurance Engine│──│ Validation Rules │──│ & Leakage Detection│  │   │    │
-│  │  │  └─────────────────┘  └──────────────────┘  └────────────────────┘  │   │    │
-│  │  └──────────────────────────────────────────────────────────────────────┘   │    │
-│  │                                                                              │    │
-│  │  ┌──────────────────────────────────────────────────────────────────────┐   │    │
-│  │  │  COLLECTION INTELLIGENCE (NEW)                                        │   │    │
-│  │  │  ┌──────────────┐  ┌──────────────┐  ┌────────────┐  ┌───────────┐  │   │    │
-│  │  │  │ Dunning      │  │ Promise-to-  │  │ Collector  │  │ Write-off │  │   │    │
-│  │  │  │ Automation   │──│ Pay Engine   │──│ Assignment │──│ Workflow  │  │   │    │
-│  │  │  └──────────────┘  └──────────────┘  └────────────┘  └───────────┘  │   │    │
-│  │  └──────────────────────────────────────────────────────────────────────┘   │    │
-│  │                                                                              │    │
-│  │  ┌──────────────────────────────────────────────────────────────────────┐   │    │
-│  │  │  FINANCIAL REPORTING (NEW)                                            │   │    │
-│  │  │  ┌─────────┐  ┌───────────┐  ┌──────────────┐  ┌───────────────┐   │   │    │
-│  │  │  │ P&L     │  │ Balance   │  │ Cash Flow    │  │ AR Aging /    │   │   │    │
-│  │  │  │ Report  │──│ Sheet     │──│ Statement    │──│ Tax Summary   │   │   │    │
-│  │  │  └─────────┘  └───────────┘  └──────────────┘  └───────────────┘   │   │    │
-│  │  └──────────────────────────────────────────────────────────────────────┘   │    │
-│  │                                                                              │    │
-│  │  ┌──────────────────────────────────────────────────────────────────────┐   │    │
-│  │  │  BANK RECONCILIATION (NEW)                                            │   │    │
-│  │  │  ┌──────────────┐  ┌────────────┐  ┌──────────────┐  ┌───────────┐  │   │    │
-│  │  │  │ Statement   │──│ Auto-Match │──│ Exception    │──│ Settlement│  │   │    │
-│  │  │  │ Import      │  │ Engine     │  │ Handler      │  │ Engine    │  │   │    │
-│  │  │  └────────────┘  └────────────┘  └──────────────┘  └───────────┘  │   │    │
-│  │  └──────────────────────────────────────────────────────────────────────┘   │    │
-│  └────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                      │
-│  ┌────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI FINANCIAL INTELLIGENCE LAYER (NEW — 5 Agents)                           │    │
-│  │  ┌─────────────────┐  ┌──────────────────┐  ┌──────────────────────────┐  │    │
-│  │  │ Revenue Leakage │  │ Collection       │  │ Financial Forecast       │  │    │
-│  │  │ Detection Agent │──│ Optimization     │──│ Agent (ARIMA projection) │  │    │
-│  │  └─────────────────┘  │ Agent (scoring)  │  └──────────────────────────┘  │    │
-│  │                       └──────────────────┘                                 │    │
-│  │  ┌─────────────────┐  ┌──────────────────┐                                 │    │
-│  │  │ Invoice Anomaly │  │ Financial        │                                 │    │
-│  │  │ Agent (NLP)     │──│ Classification   │                                 │    │
-│  │  └─────────────────┘  │ Agent (auto-tag) │                                 │    │
-│  │                       └──────────────────┘                                 │    │
-│  └────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                      │
-│  ┌────────────────────────────────────────────────────────────────────────────┐    │
-│  │  FINANCIAL WORKBENCH (NEW — 10 Frontend Pages)                              │    │
-│  │  ┌────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │    │
-│  │  │ Financial  │ │ Chart of │ │ Journal  │ │ Trial    │ │ Bank Recon   │  │    │
-│  │  │ Dashboard  │ │ Accounts │ │ Workbench│ │ Balance  │ │ Workbench    │  │    │
-│  │  └────────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────────┘  │    │
-│  │  ┌────────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐  │    │
-│  │  │ Collection │ │ Revenue  │ │ Financial│ │ Tariff   │ │ Dunning      │  │    │
-│  │  │ Workbench  │ │ Assurance│ │ Reports  │ │ Manager  │ │ Config       │  │    │
-│  │  └────────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────────┘  │    │
-│  └────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                      │
-│  ┌────────────────────────────────────────────────────────────────────────────┐    │
-│  │  GOVERNANCE & COMPLIANCE LAYER                                               │    │
-│  │  SeD (Create≠Approve≠Post) — Period Locking — Immutability — Audit Trail    │    │
-│  └────────────────────────────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                        C13 FINANCIAL INTELLIGENCE PLATFORM                          â”‚
+â”‚                                                                                      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  Meter       â”‚  â”‚  Reading     â”‚  â”‚  Customer     â”‚  â”‚  External Systems     â”‚    â”‚
+â”‚  â”‚  Management  â”‚  â”‚  Pipeline   â”‚  â”‚  Management   â”‚  â”‚  Banks / ERP / Tax    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚         â”‚                â”‚                  â”‚                     â”‚                 â”‚
+â”‚         â–¼                â–¼                  â–¼                     â–¼                 â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚                        EXISTING BILLING LAYER                               â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Bill Run â”‚  â”‚  Tariff   â”‚  â”‚  Invoice â”‚  â”‚ Payment  â”‚  â”‚Collection â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  Engine  â”‚  â”‚  Engine   â”‚  â”‚  Engine  â”‚  â”‚  Engine  â”‚  â”‚   Cases   â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚          â”‚              â”‚              â”‚              â”‚              â”‚             â”‚
+â”‚          â–¼              â–¼              â–¼              â–¼              â–¼             â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚                       C13 FINANCIAL ENGINE                                  â”‚    â”‚
+â”‚  â”‚                                                                              â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚  ACCOUNTING ENGINE (Backend Complete)                                 â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚  Account  â”‚  â”‚ JournalEntryâ”‚  â”‚GeneralLedger â”‚  â”‚ Financial  â”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚  (CoA)    â”‚â”€â”€â”‚  (Journal)  â”‚â”€â”€â”‚   (Period)   â”‚â”€â”€â”‚  Period    â”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â”‚                                                                              â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚  REVENUE INTELLIGENCE (NEW)                                           â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Revenue         â”‚  â”‚ Invoice          â”‚  â”‚ Billing Analytics  â”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Assurance Engineâ”‚â”€â”€â”‚ Validation Rules â”‚â”€â”€â”‚ & Leakage Detectionâ”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â”‚                                                                              â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚  COLLECTION INTELLIGENCE (NEW)                                        â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Dunning      â”‚  â”‚ Promise-to-  â”‚  â”‚ Collector  â”‚  â”‚ Write-off â”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Automation   â”‚â”€â”€â”‚ Pay Engine   â”‚â”€â”€â”‚ Assignment â”‚â”€â”€â”‚ Workflow  â”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â”‚                                                                              â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚  FINANCIAL REPORTING (NEW)                                            â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ P&L     â”‚  â”‚ Balance   â”‚  â”‚ Cash Flow    â”‚  â”‚ AR Aging /    â”‚   â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Report  â”‚â”€â”€â”‚ Sheet     â”‚â”€â”€â”‚ Statement    â”‚â”€â”€â”‚ Tax Summary   â”‚   â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â”‚                                                                              â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚  BANK RECONCILIATION (NEW)                                            â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Statement   â”‚â”€â”€â”‚ Auto-Match â”‚â”€â”€â”‚ Exception    â”‚â”€â”€â”‚ Settlementâ”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â”‚ Import      â”‚  â”‚ Engine     â”‚  â”‚ Handler      â”‚  â”‚ Engine    â”‚  â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI FINANCIAL INTELLIGENCE LAYER (NEW â€” 5 Agents)                           â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚    â”‚
+â”‚  â”‚  â”‚ Revenue Leakage â”‚  â”‚ Collection       â”‚  â”‚ Financial Forecast       â”‚  â”‚    â”‚
+â”‚  â”‚  â”‚ Detection Agent â”‚â”€â”€â”‚ Optimization     â”‚â”€â”€â”‚ Agent (ARIMA projection) â”‚  â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚ Agent (scoring)  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚    â”‚
+â”‚  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                 â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                 â”‚    â”‚
+â”‚  â”‚  â”‚ Invoice Anomaly â”‚  â”‚ Financial        â”‚                                 â”‚    â”‚
+â”‚  â”‚  â”‚ Agent (NLP)     â”‚â”€â”€â”‚ Classification   â”‚                                 â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚ Agent (auto-tag) â”‚                                 â”‚    â”‚
+â”‚  â”‚                       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                 â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  FINANCIAL WORKBENCH (NEW â€” 10 Frontend Pages)                              â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚    â”‚
+â”‚  â”‚  â”‚ Financial  â”‚ â”‚ Chart of â”‚ â”‚ Journal  â”‚ â”‚ Trial    â”‚ â”‚ Bank Recon   â”‚  â”‚    â”‚
+â”‚  â”‚  â”‚ Dashboard  â”‚ â”‚ Accounts â”‚ â”‚ Workbenchâ”‚ â”‚ Balance  â”‚ â”‚ Workbench    â”‚  â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚    â”‚
+â”‚  â”‚  â”‚ Collection â”‚ â”‚ Revenue  â”‚ â”‚ Financialâ”‚ â”‚ Tariff   â”‚ â”‚ Dunning      â”‚  â”‚    â”‚
+â”‚  â”‚  â”‚ Workbench  â”‚ â”‚ Assuranceâ”‚ â”‚ Reports  â”‚ â”‚ Manager  â”‚ â”‚ Config       â”‚  â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  GOVERNANCE & COMPLIANCE LAYER                                               â”‚    â”‚
+â”‚  â”‚  SeD (Createâ‰ Approveâ‰ Post) â€” Period Locking â€” Immutability â€” Audit Trail    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 3.2 Layer Descriptions
 
-**Layer 1 — Accounting Engine** (Backend Complete)
+**Layer 1 â€” Accounting Engine** (Backend Complete)
 - Hierarchical Chart of Accounts (parent/child, types: ASSET, LIABILITY, EQUITY, REVENUE, EXPENSE)
 - Double-entry journal with automated balancing (debits = credits enforced)
 - General Ledger with period-based balance tracking (opening, activity, closing)
-- Financial Period management (create, open, close with auto-closing entries → retained earnings)
+- Financial Period management (create, open, close with auto-closing entries â†’ retained earnings)
 - Trial Balance with balancing verification
 - Soft-delete with business rule guards
 
-**Layer 2 — Revenue Intelligence** (New)
+**Layer 2 â€” Revenue Intelligence** (New)
 - Pre-bill validation rules (negative consumption, usage spikes, missing readings)
 - Invoice validation (pricing accuracy, tax calculation, customer eligibility)
 - Revenue leakage detection (tariff misapplication, unbilled consumption, meter errors)
 - Billing analytics (trend analysis, collection effectiveness, aging)
 
-**Layer 3 — Collection Intelligence** (New)
-- Dunning automation (SMS→Email→Call→Letter→Field Visit escalation chain)
+**Layer 3 â€” Collection Intelligence** (New)
+- Dunning automation (SMSâ†’Emailâ†’Callâ†’Letterâ†’Field Visit escalation chain)
 - Promise-to-Pay engine (schedule creation, payment tracking, missed-pmt re-escalation)
 - Collector assignment with workload balancing
 - Field visit route optimization
-- Write-off workflow (recommend → approve → execute)
+- Write-off workflow (recommend â†’ approve â†’ execute)
 - Payment behavior scoring (predict payment probability per customer)
 
-**Layer 4 — Financial Reporting** (New)
+**Layer 4 â€” Financial Reporting** (New)
 - Profit & Loss statement (revenue, COS, gross margin, opex, net income)
 - Balance Sheet (assets, liabilities, equity with period comparison)
 - Cash Flow statement (direct/indirect method)
 - AR Aging report (current, 30, 60, 90, 120+ with drill-down)
 - Tax summary report
 - Revenue by area/project/utility
-- GL drill-down (account → period → journal → invoice)
+- GL drill-down (account â†’ period â†’ journal â†’ invoice)
 
-**Layer 5 — Bank Reconciliation** (New)
+**Layer 5 â€” Bank Reconciliation** (New)
 - Bank statement import (CSV, MT940, CAMT.053)
 - Auto-matching engine (reference, amount, date)
 - Exception handling (unmatched, partial, duplicate)
 - Manual reconciliation workbench
 - Gateway settlement reconciliation
 
-**Layer 6 — AI Financial Intelligence** (New — 5 Agents)
+**Layer 6 â€” AI Financial Intelligence** (New â€” 5 Agents)
 - Revenue Leakage Detection Agent
 - Collection Optimization Agent
 - Financial Forecast Agent
 - Invoice Anomaly Agent
 - Financial Classification Agent
 
-**Layer 7 — Financial Workbench** (New — 10 Pages)
+**Layer 7 â€” Financial Workbench** (New â€” 10 Pages)
 - Complete UI for all financial operations
 
-**Layer 8 — Governance & Compliance** (Existing + Enhanced)
-- Segregation of duties enforced (create ≠ approve ≠ post)
+**Layer 8 â€” Governance & Compliance** (Existing + Enhanced)
+- Segregation of duties enforced (create â‰  approve â‰  post)
 - Period locking prevents modification of closed periods
 - Journal immutability (posted entries cannot be edited)
 - Full audit trail with correlation IDs
@@ -340,28 +346,28 @@ C13 transforms MeterVerse billing into a **carrier-grade financial platform** wi
 
 **Purpose:** Hierarchical account structure defining the complete Chart of Accounts for the enterprise.
 
-**Status:** ✅ Backend complete — model, routes, Zod, RBAC, audit
+**Status:** âœ… Backend complete â€” model, routes, Zod, RBAC, audit
 
 ```
 Account
-├── id: String (UUID, PK)
-├── code: String (UNIQUE) — e.g. "1001", "2001-01"
-├── name: String — e.g. "Cash & Cash Equivalents"
-├── type: String — ASSET | LIABILITY | EQUITY | REVENUE | EXPENSE
-├── category: String? — CURRENT | NON_CURRENT | OPERATING | etc.
-├── parentId: String? (self-referencing hierarchy)
-├── parent: Account? (FK → Account)
-├── children: Account[] (FK ← Account)
-├── currency: String (default "EGP")
-├── active: Boolean (default true)
-├── description: String?
-└── audit: createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ code: String (UNIQUE) â€” e.g. "1001", "2001-01"
+â”œâ”€â”€ name: String â€” e.g. "Cash & Cash Equivalents"
+â”œâ”€â”€ type: String â€” ASSET | LIABILITY | EQUITY | REVENUE | EXPENSE
+â”œâ”€â”€ category: String? â€” CURRENT | NON_CURRENT | OPERATING | etc.
+â”œâ”€â”€ parentId: String? (self-referencing hierarchy)
+â”œâ”€â”€ parent: Account? (FK â†’ Account)
+â”œâ”€â”€ children: Account[] (FK â† Account)
+â”œâ”€â”€ currency: String (default "EGP")
+â”œâ”€â”€ active: Boolean (default true)
+â”œâ”€â”€ description: String?
+â””â”€â”€ audit: createdAt, archivedAt, updatedAt
 ```
 
 **Relationships:**
-- `Account` → `JournalLineItem` (one account has many journal lines)
-- `Account` → `GeneralLedgerEntry` (one account has period balances)
-- `Account` → `Account` (self-referencing parent/child hierarchy)
+- `Account` â†’ `JournalLineItem` (one account has many journal lines)
+- `Account` â†’ `GeneralLedgerEntry` (one account has period balances)
+- `Account` â†’ `Account` (self-referencing parent/child hierarchy)
 
 **Business Rules:**
 - Account code must be unique globally
@@ -382,33 +388,33 @@ Account
 
 **Purpose:** Double-entry journal entries recording all financial transactions.
 
-**Status:** ✅ Backend complete — model, routes, Zod, RBAC, audit, post/reverse
+**Status:** âœ… Backend complete â€” model, routes, Zod, RBAC, audit, post/reverse
 
 ```
 JournalEntry
-├── id: String (UUID, PK)
-├── entryNumber: String (UNIQUE) — auto-generated "JE-YYYYMM-NNNN"
-├── description: String
-├── entryDate: DateTime
-├── periodId: String (FK → FinancialPeriod)
-├── period: FinancialPeriod
-├── status: String — DRAFT | POSTED | REVERSED
-├── source: String — MANUAL | BILLING | PAYMENT | CLOSING | REVERSAL
-├── referenceId: String? — links to source invoice/payment ID
-├── referenceType: String? — INVOICE | PAYMENT | MANUAL
-├── totalDebit: Float (computed from lines)
-├── totalCredit: Float (computed from lines)
-├── createdBy: String? (user email)
-├── postedAt: DateTime?
-├── reversedAt: DateTime?
-├── lines: JournalLineItem[]
-└── audit: createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ entryNumber: String (UNIQUE) â€” auto-generated "JE-YYYYMM-NNNN"
+â”œâ”€â”€ description: String
+â”œâ”€â”€ entryDate: DateTime
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ period: FinancialPeriod
+â”œâ”€â”€ status: String â€” DRAFT | POSTED | REVERSED
+â”œâ”€â”€ source: String â€” MANUAL | BILLING | PAYMENT | CLOSING | REVERSAL
+â”œâ”€â”€ referenceId: String? â€” links to source invoice/payment ID
+â”œâ”€â”€ referenceType: String? â€” INVOICE | PAYMENT | MANUAL
+â”œâ”€â”€ totalDebit: Float (computed from lines)
+â”œâ”€â”€ totalCredit: Float (computed from lines)
+â”œâ”€â”€ createdBy: String? (user email)
+â”œâ”€â”€ postedAt: DateTime?
+â”œâ”€â”€ reversedAt: DateTime?
+â”œâ”€â”€ lines: JournalLineItem[]
+â””â”€â”€ audit: createdAt, archivedAt
 ```
 
 **Relationships:**
-- `JournalEntry` → `FinancialPeriod` (every entry belongs to a period)
-- `JournalEntry` → `JournalLineItem` (one entry has 1-500 lines)
-- `JournalEntry` → referenceId (links to Invoice/Payment source)
+- `JournalEntry` â†’ `FinancialPeriod` (every entry belongs to a period)
+- `JournalEntry` â†’ `JournalLineItem` (one entry has 1-500 lines)
+- `JournalEntry` â†’ referenceId (links to Invoice/Payment source)
 
 **Business Rules:**
 - Total debits MUST equal total credits (enforced at API level with 0.001 tolerance)
@@ -421,7 +427,7 @@ JournalEntry
 **Ownership:** Accounting Team (create), Controller (post)
 
 **Audit Requirements:**
-- DRAFT → POSTED status change requires audit
+- DRAFT â†’ POSTED status change requires audit
 - Every reversal creates audit trail with reason
 - Entry cannot be hard-deleted (soft delete only)
 - All mutations logged to AuditEntry
@@ -430,21 +436,21 @@ JournalEntry
 
 **Purpose:** Individual debit/credit lines within a journal entry.
 
-**Status:** ✅ Backend complete
+**Status:** âœ… Backend complete
 
 ```
 JournalLineItem
-├── id: String (UUID, PK)
-├── journalId: String (FK → JournalEntry, cascade delete)
-├── journal: JournalEntry
-├── accountId: String (FK → Account)
-├── account: Account
-├── description: String?
-├── debitAmount: Float (default 0)
-├── creditAmount: Float (default 0)
-├── currency: String (default "EGP")
-├── exchangeRate: Float (default 1)
-└── audit: createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ journalId: String (FK â†’ JournalEntry, cascade delete)
+â”œâ”€â”€ journal: JournalEntry
+â”œâ”€â”€ accountId: String (FK â†’ Account)
+â”œâ”€â”€ account: Account
+â”œâ”€â”€ description: String?
+â”œâ”€â”€ debitAmount: Float (default 0)
+â”œâ”€â”€ creditAmount: Float (default 0)
+â”œâ”€â”€ currency: String (default "EGP")
+â”œâ”€â”€ exchangeRate: Float (default 1)
+â””â”€â”€ audit: createdAt
 ```
 
 **Business Rules:**
@@ -458,23 +464,23 @@ JournalLineItem
 
 **Purpose:** Period-end account balance summary, enabling financial reporting.
 
-**Status:** ✅ Backend complete
+**Status:** âœ… Backend complete
 
 ```
 GeneralLedgerEntry
-├── id: String (UUID, PK)
-├── accountId: String (FK → Account)
-├── account: Account
-├── periodId: String (FK → FinancialPeriod)
-├── period: FinancialPeriod
-├── openingBalance: Float
-├── totalDebit: Float
-├── totalCredit: Float
-├── closingBalance: Float (= opening + debit - credit)
-└── audit: createdAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ accountId: String (FK â†’ Account)
+â”œâ”€â”€ account: Account
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ period: FinancialPeriod
+â”œâ”€â”€ openingBalance: Float
+â”œâ”€â”€ totalDebit: Float
+â”œâ”€â”€ totalCredit: Float
+â”œâ”€â”€ closingBalance: Float (= opening + debit - credit)
+â””â”€â”€ audit: createdAt, updatedAt
 ```
 
-**Unique Constraint:** (accountId, periodId) — one balance per account per period
+**Unique Constraint:** (accountId, periodId) â€” one balance per account per period
 
 **Business Rules:**
 - openingBalance = closingBalance from previous period
@@ -487,52 +493,52 @@ GeneralLedgerEntry
 
 **Purpose:** Monthly accounting periods controlling when entries can be posted.
 
-**Status:** ✅ Backend complete
+**Status:** âœ… Backend complete
 
 ```
 FinancialPeriod
-├── id: String (UUID, PK)
-├── year: Int
-├── month: Int (1-12)
-├── quarter: Int (computed from month)
-├── startDate: DateTime
-├── endDate: DateTime
-├── status: String — OPEN | CLOSED
-├── openedAt: DateTime
-├── closedAt: DateTime?
-├── closedBy: String?
-└── audit: createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ year: Int
+â”œâ”€â”€ month: Int (1-12)
+â”œâ”€â”€ quarter: Int (computed from month)
+â”œâ”€â”€ startDate: DateTime
+â”œâ”€â”€ endDate: DateTime
+â”œâ”€â”€ status: String â€” OPEN | CLOSED
+â”œâ”€â”€ openedAt: DateTime
+â”œâ”€â”€ closedAt: DateTime?
+â”œâ”€â”€ closedBy: String?
+â””â”€â”€ audit: createdAt, archivedAt
 ```
 
 **Unique Constraint:** (year, month)
 
 **Relationships:**
-- `FinancialPeriod` → `JournalEntry` (one period has many entries)
-- `FinancialPeriod` → `GeneralLedgerEntry` (one period has many GL entries)
+- `FinancialPeriod` â†’ `JournalEntry` (one period has many entries)
+- `FinancialPeriod` â†’ `GeneralLedgerEntry` (one period has many GL entries)
 
 **Business Rules:**
 - Only OPEN periods accept journal entries
-- CLOSED periods are immutable — exception requires authorized re-open
-- Closing generates auto-closing entries for REVENUE/EXPENSE → Retained Earnings
+- CLOSED periods are immutable â€” exception requires authorized re-open
+- Closing generates auto-closing entries for REVENUE/EXPENSE â†’ Retained Earnings
 - Periods are created in advance (typically 12 months)
 - Prior period adjustments go to current period with disclosure
 
-### 4.6 FiscalYear (New — Enhanced)
+### 4.6 FiscalYear (New â€” Enhanced)
 
 **Purpose:** Annual financial reporting period, spanning multiple FinancialPeriods.
 
-**Status:** ❌ Not built — new model needed
+**Status:** âŒ Not built â€” new model needed
 
 ```
 FiscalYear
-├── id: String (UUID, PK)
-├── year: Int (UNIQUE)
-├── startDate: DateTime
-├── endDate: DateTime
-├── status: String — OPEN | CLOSED | LOCKED
-├── openedAt: DateTime
-├── closedAt: DateTime?
-└── audit: createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ year: Int (UNIQUE)
+â”œâ”€â”€ startDate: DateTime
+â”œâ”€â”€ endDate: DateTime
+â”œâ”€â”€ status: String â€” OPEN | CLOSED | LOCKED
+â”œâ”€â”€ openedAt: DateTime
+â”œâ”€â”€ closedAt: DateTime?
+â””â”€â”€ audit: createdAt, archivedAt
 ```
 
 **Business Rules:**
@@ -544,34 +550,34 @@ FiscalYear
 
 **Purpose:** Import and manage bank statements for reconciliation.
 
-**Status:** ❌ Not built
+**Status:** âŒ Not built
 
 ```
 BankStatement
-├── id: String (UUID, PK)
-├── bankAccountId: String
-├── statementDate: DateTime
-├── reference: String
-├── description: String?
-├── amount: Float
-├── type: String — CREDIT | DEBIT
-├── matched: Boolean (default false)
-├── matchedTo: String? (FK → PaymentTransaction)
-├── matchedAt: DateTime?
-└── audit: createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ bankAccountId: String
+â”œâ”€â”€ statementDate: DateTime
+â”œâ”€â”€ reference: String
+â”œâ”€â”€ description: String?
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ type: String â€” CREDIT | DEBIT
+â”œâ”€â”€ matched: Boolean (default false)
+â”œâ”€â”€ matchedTo: String? (FK â†’ PaymentTransaction)
+â”œâ”€â”€ matchedAt: DateTime?
+â””â”€â”€ audit: createdAt, archivedAt
 
 BankReconciliation
-├── id: String (UUID, PK)
-├── bankAccountId: String
-├── periodId: String (FK → FinancialPeriod)
-├── periodStart: DateTime
-├── periodEnd: DateTime
-├── openingBalance: Float
-├── closingBalance: Float
-├── totalMatched: Float
-├── totalUnmatched: Float
-├── status: String — DRAFT | RECONCILED | VERIFIED
-└── audit: createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ bankAccountId: String
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ periodStart: DateTime
+â”œâ”€â”€ periodEnd: DateTime
+â”œâ”€â”€ openingBalance: Float
+â”œâ”€â”€ closingBalance: Float
+â”œâ”€â”€ totalMatched: Float
+â”œâ”€â”€ totalUnmatched: Float
+â”œâ”€â”€ status: String â€” DRAFT | RECONCILED | VERIFIED
+â””â”€â”€ audit: createdAt, archivedAt
 ```
 
 **Business Rules:**
@@ -585,13 +591,13 @@ BankReconciliation
 
 **Purpose:** Enhanced invoice model supporting accounting integration.
 
-**Status:** ✅ Existing model — needs new fields
+**Status:** âœ… Existing model â€” needs new fields
 
 **Enhancements:**
 | New Field | Type | Purpose |
 |-----------|------|---------|
-| `periodId` | String? | FK → FinancialPeriod for revenue recognition |
-| `journalEntryId` | String? | FK → JournalEntry (auto-posted billing journal) |
+| `periodId` | String? | FK â†’ FinancialPeriod for revenue recognition |
+| `journalEntryId` | String? | FK â†’ JournalEntry (auto-posted billing journal) |
 | `taxAmount` | Float | Total tax amount (computed from items) |
 | `taxRate` | Float | Effective tax rate |
 | `currency` | String | Base currency (default EGP) |
@@ -599,33 +605,33 @@ BankReconciliation
 | `baseCurrencyAmount` | Float | Amount in base currency |
 | `revenueRecognitionDate` | DateTime? | Accrual date |
 
-**Integration:** When invoice status changes to ISSUED → auto-create journal entry posting to Accounts Receivable (DR) and Revenue (CR).
+**Integration:** When invoice status changes to ISSUED â†’ auto-create journal entry posting to Accounts Receivable (DR) and Revenue (CR).
 
 ### 4.9 Payment Enhancement
 
 **Purpose:** Enhanced payment model supporting accounting and reconciliation.
 
-**Status:** ✅ Existing model — needs new fields
+**Status:** âœ… Existing model â€” needs new fields
 
 **Enhancements:**
 | New Field | Type | Purpose |
 |-----------|------|---------|
-| `periodId` | String? | FK → FinancialPeriod |
-| `journalEntryId` | String? | FK → JournalEntry (auto-posted payment journal) |
+| `periodId` | String? | FK â†’ FinancialPeriod |
+| `journalEntryId` | String? | FK â†’ JournalEntry (auto-posted payment journal) |
 | `bankReference` | String? | Bank transaction reference |
-| `bankStatementId` | String? | FK → BankStatement |
+| `bankStatementId` | String? | FK â†’ BankStatement |
 | `settlementStatus` | String? | PENDING | SETTLED | FAILED |
 | `settlementDate` | DateTime? | When payment cleared bank |
 | `gatewayFee` | Float | Payment gateway processing fee |
 | `netAmount` | Float | Amount after gateway fee |
 
-**Integration:** When payment is COMPLETED → auto-create journal entry posting to Cash (DR) and Accounts Receivable (CR).
+**Integration:** When payment is COMPLETED â†’ auto-create journal entry posting to Cash (DR) and Accounts Receivable (CR).
 
 ### 4.10 CollectionCase & PromiseToPay Enhancement
 
 **Purpose:** Enhanced collection and PTP models supporting intelligent dunning.
 
-**Status:** ✅ Existing models — needs new fields
+**Status:** âœ… Existing models â€” needs new fields
 
 **CollectionCase Enhancements:**
 | New Field | Type | Purpose |
@@ -635,7 +641,7 @@ BankReconciliation
 | `nextDunningAt` | DateTime? | Next scheduled dunning |
 | `paymentProbability` | Float? | AI-calculated payment likelihood (0-1) |
 | `priorityScore` | Float? | Collection priority ranking |
-| `collectorId` | String? | FK → User (assigned collector) |
+| `collectorId` | String? | FK â†’ User (assigned collector) |
 | `expectedResolutionDate` | DateTime? | Target resolution date |
 | `writeOffReason` | String? | Reason if written off |
 
@@ -652,26 +658,26 @@ BankReconciliation
 
 **Purpose:** Record individual revenue recognition events with full traceability.
 
-**Status:** ❌ Not built
+**Status:** âŒ Not built
 
 ```
 RevenueTransaction
-├── id: String (UUID, PK)
-├── invoiceId: String (FK → Invoice)
-├── journalEntryId: String (FK → JournalEntry)
-├── periodId: String (FK → FinancialPeriod)
-├── amount: Float
-├── type: String — SERVICE | PENALTY | ADJUSTMENT | DISCOUNT
-├── recognitionDate: DateTime
-├── deferredUntil: DateTime? (for deferred revenue)
-├── status: String — RECOGNIZED | DEFERRED | REVERSED
-└── audit: createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ invoiceId: String (FK â†’ Invoice)
+â”œâ”€â”€ journalEntryId: String (FK â†’ JournalEntry)
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ type: String â€” SERVICE | PENALTY | ADJUSTMENT | DISCOUNT
+â”œâ”€â”€ recognitionDate: DateTime
+â”œâ”€â”€ deferredUntil: DateTime? (for deferred revenue)
+â”œâ”€â”€ status: String â€” RECOGNIZED | DEFERRED | REVERSED
+â””â”€â”€ audit: createdAt, archivedAt
 ```
 
 **Business Rules:**
 - Revenue recognized on invoice ISSUE date (accrual basis)
 - Deferred revenue tracked separately until recognition criteria met
-- Audit trail from meter reading → invoice → revenue → GL
+- Audit trail from meter reading â†’ invoice â†’ revenue â†’ GL
 
 ---
 
@@ -685,18 +691,18 @@ RevenueTransaction
 
 ```
 Bill Run Workflow:
-┌──────────┐    ┌───────────┐    ┌───────────┐    ┌──────────┐    ┌──────────┐
-│ 1. PRE-  │───→│ 2.        │───→│ 3.        │───→│ 4.       │───→│ 5.       │
-│ FLIGHT   │    │ EXECUTE   │    │ VALIDATE  │    │ ANALYZE  │    │ APPROVE  │
-│ CHECKS   │    │           │    │           │    │          │    │          │
-└──────────┘    └───────────┘    └───────────┘    └──────────┘    └──────────┘
-     │               │               │                │               │
-     ├─ Readings OK  ├─ Calc billed  ├─ Errors > X?   ├─ Revenue vs   ├─ Publish
-     ├─ Tariff valid │   consumption ├─ Spike > Y%?   │   prior period├─ Post to GL
-     ├─ Customers    │   consumption ├─ Negatives?    ├─ Collection   │
-     │   active      │   apply tariff├─ Zero usage?   │   forecast    │
-     └─ Period       │   gen invoice ├─ Rounding?     └─ Anomaly flag │
-       open          └───────────┘   └───────────┘    └──────────────┘ └──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 1. PRE-  â”‚â”€â”€â”€â†’â”‚ 2.        â”‚â”€â”€â”€â†’â”‚ 3.        â”‚â”€â”€â”€â†’â”‚ 4.       â”‚â”€â”€â”€â†’â”‚ 5.       â”‚
+â”‚ FLIGHT   â”‚    â”‚ EXECUTE   â”‚    â”‚ VALIDATE  â”‚    â”‚ ANALYZE  â”‚    â”‚ APPROVE  â”‚
+â”‚ CHECKS   â”‚    â”‚           â”‚    â”‚           â”‚    â”‚          â”‚    â”‚          â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+     â”‚               â”‚               â”‚                â”‚               â”‚
+     â”œâ”€ Readings OK  â”œâ”€ Calc billed  â”œâ”€ Errors > X?   â”œâ”€ Revenue vs   â”œâ”€ Publish
+     â”œâ”€ Tariff valid â”‚   consumption â”œâ”€ Spike > Y%?   â”‚   prior periodâ”œâ”€ Post to GL
+     â”œâ”€ Customers    â”‚   consumption â”œâ”€ Negatives?    â”œâ”€ Collection   â”‚
+     â”‚   active      â”‚   apply tariffâ”œâ”€ Zero usage?   â”‚   forecast    â”‚
+     â””â”€ Period       â”‚   gen invoice â”œâ”€ Rounding?     â””â”€ Anomaly flag â”‚
+       open          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Validation Rules (built as RevenueRule model):**
@@ -706,7 +712,7 @@ Bill Run Workflow:
 | REV-002 | Negative consumption detected | ERROR | Block billing |
 | REV-003 | Zero consumption (active meter) | WARNING | Flag for review |
 | REV-004 | Missing reading (estimated instead) | WARNING | Flag for review |
-| REV-005 | Tariff mismatch (customer type ≠ tariff type) | ERROR | Block billing |
+| REV-005 | Tariff mismatch (customer type â‰  tariff type) | ERROR | Block billing |
 | REV-006 | Bill total > 2x previous period | WARNING | Flag for review |
 | REV-007 | Customer has no active meter | ERROR | Block billing |
 | REV-008 | Period already billed | ERROR | Block billing |
@@ -717,59 +723,59 @@ Bill Run Workflow:
 
 **Current:** Flat-rate only with basic TariffRate and TariffTier models.
 
-**C13 Target — New capabilities:**
+**C13 Target â€” New capabilities:**
 - **Time-of-Use:** Peak (4-8 PM), Shoulder (8-11 AM, 8-11 PM), Off-Peak (11 PM-4 AM) rates
 - **Tiered Pricing:** Volume-based brackets (0-100 kWh @ rate1, 101-300 @ rate2, 300+ @ rate3)
 - **Demand Charge:** kW/kVA demand-based charges with rolling windows
 - **Pro-ration:** Mid-period move-in/move-out, mid-period tariff change
 - **Seasonal Rates:** Summer vs winter rate schedules
 - **Tax Determination:** Auto-apply VAT, sales tax, withholding tax based on customer type
-- **Tariff Versioning:** Effective dating with draft → active → superseded lifecycle
+- **Tariff Versioning:** Effective dating with draft â†’ active â†’ superseded lifecycle
 
 ### 5.3 Revenue-to-GL Posting Pipeline
 
 ```
 Invoice ISSUE
-    │
-    ▼
-┌──────────────────────────────────────────┐
-│ Auto-Create Journal Entry (Source: BILLING)│
-│                                          │
-│  DR: Accounts Receivable (1201-01)       │
-│  CR: Revenue - Service (4001-01)         │
-│  [If tax: CR: Tax Payable (2101-01)]     │
-└──────────────────┬───────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────┐
-│ Auto-Post Journal Entry                  │
-│ (Status: POSTED, postedAt: now)          │
-│                                          │
-│ → Updates GeneralLedgerEntry for both    │
-│   accounts in current period            │
-└──────────────────┬───────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────┐
-│ RevenueTransaction Created               │
-│  - invoiceId, journalEntryId, periodId   │
-│  - type: SERVICE                         │
-│  - status: RECOGNIZED                    │
-└──────────────────────────────────────────┘
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ Auto-Create Journal Entry (Source: BILLING)â”‚
+â”‚                                          â”‚
+â”‚  DR: Accounts Receivable (1201-01)       â”‚
+â”‚  CR: Revenue - Service (4001-01)         â”‚
+â”‚  [If tax: CR: Tax Payable (2101-01)]     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                   â”‚
+                   â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ Auto-Post Journal Entry                  â”‚
+â”‚ (Status: POSTED, postedAt: now)          â”‚
+â”‚                                          â”‚
+â”‚ â†’ Updates GeneralLedgerEntry for both    â”‚
+â”‚   accounts in current period            â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                   â”‚
+                   â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ RevenueTransaction Created               â”‚
+â”‚  - invoiceId, journalEntryId, periodId   â”‚
+â”‚  - type: SERVICE                         â”‚
+â”‚  - status: RECOGNIZED                    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 When payment arrives:
 ```
 Payment COMPLETED
-    │
-    ▼
-┌──────────────────────────────────────────┐
-│ Auto-Create Journal Entry (Source: PAYMENT)│
-│                                          │
-│  DR: Cash (1001-01)                      │
-│  CR: Accounts Receivable (1201-01)       │
-│  [If gateway fee: DR: Bank Charges]      │
-└──────────────────────────────────────────┘
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ Auto-Create Journal Entry (Source: PAYMENT)â”‚
+â”‚                                          â”‚
+â”‚  DR: Cash (1001-01)                      â”‚
+â”‚  CR: Accounts Receivable (1201-01)       â”‚
+â”‚  [If gateway fee: DR: Bank Charges]      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 5.4 Consumption Analysis
@@ -813,10 +819,10 @@ Payment COMPLETED
 ### 6.2 Collection Priority Model
 
 ```
-Priority Score = (Overdue Amount × 0.4) + 
-                 ((120 - Days Overdue) × 0.3) +  // older = higher priority
-                 ((1 - Payment Probability) × 0.2) + 
-                 (Business Impact × 0.1)
+Priority Score = (Overdue Amount Ã— 0.4) + 
+                 ((120 - Days Overdue) Ã— 0.3) +  // older = higher priority
+                 ((1 - Payment Probability) Ã— 0.2) + 
+                 (Business Impact Ã— 0.1)
 
 Business Impact: 
   GOVERNMENT = 5
@@ -839,11 +845,11 @@ Priority Buckets:
 ```
 Stage 0: Invoice issued (Day 0)
 Stage 1: Due date reminder (Day -3 before due)
-Stage 2: Payment overdue — SMS + Email (Day +1)
-Stage 3: First escalation — Call + Formal Letter (Day +15)
-Stage 4: Second escalation — Letter + PTP required (Day +30)
-Stage 5: Field visit — Collector dispatched (Day +45)
-Stage 6: Final notice — Pre-disconnection (Day +60)
+Stage 2: Payment overdue â€” SMS + Email (Day +1)
+Stage 3: First escalation â€” Call + Formal Letter (Day +15)
+Stage 4: Second escalation â€” Letter + PTP required (Day +30)
+Stage 5: Field visit â€” Collector dispatched (Day +45)
+Stage 6: Final notice â€” Pre-disconnection (Day +60)
 Stage 7: Write-off or Legal (Day +90+)
 ```
 
@@ -863,75 +869,75 @@ Stage 7: Write-off or Legal (Day +90+)
 
 ```
 AR Aging Report:
-┌─────────────────────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
-│ Customer Group          │ Current  │ 1-30     │ 31-60    │ 61-90    │ 90+      │
-├─────────────────────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-│ Government              │  50,000  │ 120,000  │  80,000  │  30,000  │  15,000  │
-│ Corporate Large         │  30,000  │  80,000  │  50,000  │  20,000  │  10,000  │
-│ Corporate Small         │  20,000  │  40,000  │  25,000  │  12,000  │   8,000  │
-│ Residential High Value  │  15,000  │  25,000  │  15,000  │   8,000  │   5,000  │
-│ Residential             │  10,000  │  15,000  │  10,000  │   5,000  │   3,000  │
-├─────────────────────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
-│ **TOTAL**               │ **125K** │ **280K** │ **180K** │ **75K**  │ **41K**  │
-│ **% of Total**          │ **18%**  │ **40%**  │ **26%**  │ **11%**  │ **6%**   │
-└─────────────────────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ Customer Group          â”‚ Current  â”‚ 1-30     â”‚ 31-60    â”‚ 61-90    â”‚ 90+      â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚ Government              â”‚  50,000  â”‚ 120,000  â”‚  80,000  â”‚  30,000  â”‚  15,000  â”‚
+â”‚ Corporate Large         â”‚  30,000  â”‚  80,000  â”‚  50,000  â”‚  20,000  â”‚  10,000  â”‚
+â”‚ Corporate Small         â”‚  20,000  â”‚  40,000  â”‚  25,000  â”‚  12,000  â”‚   8,000  â”‚
+â”‚ Residential High Value  â”‚  15,000  â”‚  25,000  â”‚  15,000  â”‚   8,000  â”‚   5,000  â”‚
+â”‚ Residential             â”‚  10,000  â”‚  15,000  â”‚  10,000  â”‚   5,000  â”‚   3,000  â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚ **TOTAL**               â”‚ **125K** â”‚ **280K** â”‚ **180K** â”‚ **75K**  â”‚ **41K**  â”‚
+â”‚ **% of Total**          â”‚ **18%**  â”‚ **40%**  â”‚ **26%**  â”‚ **11%**  â”‚ **6%**   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 6.5 Collection Workflow
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                          COLLECTION WORKFLOW                                   │
-│                                                                                │
-│  Invoice OVERDUE (by 1 day)                                                    │
-│       │                                                                        │
-│       ▼                                                                        │
-│  ┌─────────────────────────────┐                                              │
-│  │ Auto-Create CollectionCase   │                                              │
-│  │ Calculate Priority Score    │                                              │
-│  │ Calculate Payment Prob.     │                                              │
-│  │ → Stage 1 triggered         │                                              │
-│  └─────────────────────────────┘                                              │
-│       │                                                                        │
-│       ▼                                                                        │
-│  ┌─────────────────────────────┐                                              │
-│  │ Auto-Send Reminder (SMS)    │← ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─       │
-│  └─────────────────────────────┘                 Repeat for each stage        │
-│       │                                                                        │
-│       ▼ (Stage advances per DunningRule)                                       │
-│  ┌─────────────────────────────┐                                              │
-│  │ Next Dunning Action         │──→ PTP Created? ──YES──→ Track PTP            │
-│  └─────────────────────────────┘       │                        │             │
-│       │                                NO                       │             │
-│       ▼                                ▼                        ▼             │
-│  ┌─────────────────────────────┐  ┌──────────┐          ┌──────────────┐      │
-│  │ PTP Required (Stage 4+)     │  │ Continue │          │ Paid? ─YES──→│      │
-│  │ Promised? ──YES──→ Track    │  │ Escalate │          │ Close Case   │      │
-│  │ NO ──→ Escalate to Field    │  └──────────┘          └──────────────┘      │
-│  └─────────────────────────────┘        │                     │               │
-│       │                                 │                     NO              │
-│       ▼                                 ▼                     ▼               │
-│  ┌─────────────────────────────┐  ┌──────────────┐    ┌──────────────┐        │
-│  │ Field Visit Assigned        │  │ Missed PTP   │    │ Re-escalate  │        │
-│  │ Collector Dispatched        │  │ Auto-Escalate│    │ + Penalty    │        │
-│  │ Resolution Attempted        │  └──────────────┘    └──────────────┘        │
-│  └─────────────────────────────┘                                              │
-│       │                                                                        │
-│       ▼ (Final stages)                                                        │
-│  ┌──────────────┐  ┌───────────────┐  ┌───────────────┐                      │
-│  │ Pre-Discon   │  │ Write-Off     │  │ Legal Action  │                      │
-│  │ Notice Sent  │──→│ Recommended   │──→│ (if applicable)│                     │
-│  │ 10-day final │  │ → Approved?   │  └───────────────┘                      │
-│  └──────────────┘  └───────────────┘                                          │
-│                           │                                                    │
-│                    ┌──────┴──────┐                                            │
-│                    │ YES         │ NO                                          │
-│                    ▼             ▼                                             │
-│              ┌──────────┐  ┌──────────┐                                      │
-│              │ Write Off │  │ Continue │                                      │
-│              │ Close Case│  │ Dunning  │                                      │
-│              └──────────┘  └──────────┘                                      │
-└──────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                          COLLECTION WORKFLOW                                   â”‚
+â”‚                                                                                â”‚
+â”‚  Invoice OVERDUE (by 1 day)                                                    â”‚
+â”‚       â”‚                                                                        â”‚
+â”‚       â–¼                                                                        â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                              â”‚
+â”‚  â”‚ Auto-Create CollectionCase   â”‚                                              â”‚
+â”‚  â”‚ Calculate Priority Score    â”‚                                              â”‚
+â”‚  â”‚ Calculate Payment Prob.     â”‚                                              â”‚
+â”‚  â”‚ â†’ Stage 1 triggered         â”‚                                              â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                              â”‚
+â”‚       â”‚                                                                        â”‚
+â”‚       â–¼                                                                        â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                              â”‚
+â”‚  â”‚ Auto-Send Reminder (SMS)    â”‚â† â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€ â”€       â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                 Repeat for each stage        â”‚
+â”‚       â”‚                                                                        â”‚
+â”‚       â–¼ (Stage advances per DunningRule)                                       â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                              â”‚
+â”‚  â”‚ Next Dunning Action         â”‚â”€â”€â†’ PTP Created? â”€â”€YESâ”€â”€â†’ Track PTP            â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜       â”‚                        â”‚             â”‚
+â”‚       â”‚                                NO                       â”‚             â”‚
+â”‚       â–¼                                â–¼                        â–¼             â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚ PTP Required (Stage 4+)     â”‚  â”‚ Continue â”‚          â”‚ Paid? â”€YESâ”€â”€â†’â”‚      â”‚
+â”‚  â”‚ Promised? â”€â”€YESâ”€â”€â†’ Track    â”‚  â”‚ Escalate â”‚          â”‚ Close Case   â”‚      â”‚
+â”‚  â”‚ NO â”€â”€â†’ Escalate to Field    â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â”‚                     â”‚               â”‚
+â”‚       â”‚                                 â”‚                     NO              â”‚
+â”‚       â–¼                                 â–¼                     â–¼               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”        â”‚
+â”‚  â”‚ Field Visit Assigned        â”‚  â”‚ Missed PTP   â”‚    â”‚ Re-escalate  â”‚        â”‚
+â”‚  â”‚ Collector Dispatched        â”‚  â”‚ Auto-Escalateâ”‚    â”‚ + Penalty    â”‚        â”‚
+â”‚  â”‚ Resolution Attempted        â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                              â”‚
+â”‚       â”‚                                                                        â”‚
+â”‚       â–¼ (Final stages)                                                        â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                      â”‚
+â”‚  â”‚ Pre-Discon   â”‚  â”‚ Write-Off     â”‚  â”‚ Legal Action  â”‚                      â”‚
+â”‚  â”‚ Notice Sent  â”‚â”€â”€â†’â”‚ Recommended   â”‚â”€â”€â†’â”‚ (if applicable)â”‚                     â”‚
+â”‚  â”‚ 10-day final â”‚  â”‚ â†’ Approved?   â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                          â”‚
+â”‚                           â”‚                                                    â”‚
+â”‚                    â”Œâ”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”                                            â”‚
+â”‚                    â”‚ YES         â”‚ NO                                          â”‚
+â”‚                    â–¼             â–¼                                             â”‚
+â”‚              â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                                      â”‚
+â”‚              â”‚ Write Off â”‚  â”‚ Continue â”‚                                      â”‚
+â”‚              â”‚ Close Caseâ”‚  â”‚ Dunning  â”‚                                      â”‚
+â”‚              â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -958,7 +964,7 @@ All 5 AI agents integrate with the C12-W07 Operational Intelligence framework (A
 | Field | Value |
 |-------|-------|
 | **Purpose** | Detect billing errors, tariff misapplication, unbilled consumption, meter-to-bill discrepancies |
-| **Autonomy** | ⚡ Semi-autonomous (detects + recommends, human approves correction) |
+| **Autonomy** | âš¡ Semi-autonomous (detects + recommends, human approves correction) |
 | **Human Approval** | Required for corrective journal entries |
 | **Audit** | All findings logged to AIRecommendation + AuditEntry |
 
@@ -977,15 +983,15 @@ RULE 2: Tariff Misapplication
 RULE 3: Consumption Anomaly
   IF current period consumption < 50% of 6-month average
   OR current period consumption > 300% of 6-month average
-  THEN FLAG: Consumption anomaly — possible meter error
+  THEN FLAG: Consumption anomaly â€” possible meter error
 
 RULE 4: Zero Consumption Active Meter
   IF meter status = ACTIVE AND period consumption = 0
   AND meter has no maintenance event in period
-  THEN FLAG: Zero consumption — possible communication failure
+  THEN FLAG: Zero consumption â€” possible communication failure
 
 RULE 5: Billing vs Reading Discrepancy
-  IF billed amount differs from calculated (tariff × consumption) by > 1%
+  IF billed amount differs from calculated (tariff Ã— consumption) by > 1%
   THEN FLAG: Billing calculation discrepancy
 
 RULE 6: Late Billing
@@ -994,7 +1000,7 @@ RULE 6: Late Billing
 
 RULE 7: Missing Payment Reconciliation
   IF payment recorded AND no bank settlement within 7 days
-  THEN FLAG: Payment not settled — possible reconciliation issue
+  THEN FLAG: Payment not settled â€” possible reconciliation issue
 
 RULE 8: Invoice Adjustment Without Reason
   IF invoice cancelled/adjusted AND no reason recorded
@@ -1008,7 +1014,7 @@ RULE 8: Invoice Adjustment Without Reason
 | Field | Value |
 |-------|-------|
 | **Purpose** | Score customers by payment probability, recommend optimal dunning strategy, prioritize cases |
-| **Autonomy** | ⚡ Fully autonomous (scoring + recommendation, no execution) |
+| **Autonomy** | âš¡ Fully autonomous (scoring + recommendation, no execution) |
 | **Human Approval** | None (read-only recommendations) |
 | **Audit** | All scores logged |
 
@@ -1028,7 +1034,7 @@ RULE 8: Invoice Adjustment Without Reason
 | Field | Value |
 |-------|-------|
 | **Purpose** | Forecast revenue, AR, cash flow, and collection effectiveness for next 3-6 months |
-| **Autonomy** | ⚡ Fully autonomous (read-only forecasts) |
+| **Autonomy** | âš¡ Fully autonomous (read-only forecasts) |
 | **Human Approval** | None |
 | **Audit** | Forecast accuracy tracked monthly |
 
@@ -1047,14 +1053,14 @@ RULE 8: Invoice Adjustment Without Reason
 | Field | Value |
 |-------|-------|
 | **Purpose** | Detect anomalous invoices before they are sent to customers |
-| **Autonomy** | ⚡ Semi-autonomous (flags anomalies, human reviews) |
+| **Autonomy** | âš¡ Semi-autonomous (flags anomalies, human reviews) |
 | **Human Approval** | Required to block invoice from being issued |
 | **Audit** | All anomalies logged |
 
 **Anomaly Detection:**
 ```
 ANOMALY 1: Amount Deviation
-  IF invoice total > mean + 3σ of customer's historical invoices
+  IF invoice total > mean + 3Ïƒ of customer's historical invoices
   THEN FLAG: Amount unusually high
 
 ANOMALY 2: Zero Amount Invoice
@@ -1070,7 +1076,7 @@ ANOMALY 4: Missing Items
   THEN FLAG: Invoice without line items
 
 ANOMALY 5: Rounding Error
-  IF sum(item amounts) ≠ invoice total (tolerance > 0.01)
+  IF sum(item amounts) â‰  invoice total (tolerance > 0.01)
   THEN FLAG: Rounding discrepancy
 
 ANOMALY 6: Negative Charge
@@ -1078,7 +1084,7 @@ ANOMALY 6: Negative Charge
   THEN FLAG: Unexpected negative charge
 
 ANOMALY 7: Tax Mismatch
-  IF tax rate ≠ customer's applicable tax rate
+  IF tax rate â‰  customer's applicable tax rate
   THEN FLAG: Possible tax misapplication
 ```
 
@@ -1089,22 +1095,22 @@ ANOMALY 7: Tax Mismatch
 | Field | Value |
 |-------|-------|
 | **Purpose** | Auto-classify journal entries to correct account codes based on transaction description |
-| **Autonomy** | ⚡ Semi-autonomous (suggests account code, human approves) |
+| **Autonomy** | âš¡ Semi-autonomous (suggests account code, human approves) |
 | **Human Approval** | Required for first use, agent learns from corrections |
 | **Audit** | All classification decisions logged |
 
 **Classification Model:**
-- NLP on transaction description → suggest account code
+- NLP on transaction description â†’ suggest account code
 - Learns from human corrections (supervised learning)
 - Confidence threshold: > 0.9 auto-suggest, 0.7-0.9 flag for review, < 0.7 require manual
 
 **Examples:**
 ```
-"Electricity bill for October" → 5101 (Utilities Expense)
-"Office rent payment" → 5201 (Rent Expense)
-"Customer payment INV-2024-001" → 1201 (Accounts Receivable)
-"Meter purchase 100 units" → 1401 (Inventory - Meters)
-"Salaries for July" → 5103 (Salary Expense)
+"Electricity bill for October" â†’ 5101 (Utilities Expense)
+"Office rent payment" â†’ 5201 (Rent Expense)
+"Customer payment INV-2024-001" â†’ 1201 (Accounts Receivable)
+"Meter purchase 100 units" â†’ 1401 (Inventory - Meters)
+"Salaries for July" â†’ 5103 (Salary Expense)
 ```
 
 **Output:** `{ description, suggestedAccountId, confidence, alternatives: [{ accountId, confidence }] }`
@@ -1118,9 +1124,9 @@ ANOMALY 7: Tax Mismatch
 | Action | Creator | Approver | Max Amount | Escalation |
 |--------|---------|----------|------------|------------|
 | Journal Entry (DRAFT) | Accounting Clerk | N/A (self) | N/A | N/A |
-| Journal Entry → POST | Accounting Clerk | Controller | < 100K EGP | Finance Manager |
-| Journal Entry → POST | Accounting Clerk | Finance Manager | 100K - 1M EGP | CFO |
-| Journal Entry → POST | Accounting Clerk | CFO | > 1M EGP | Board |
+| Journal Entry â†’ POST | Accounting Clerk | Controller | < 100K EGP | Finance Manager |
+| Journal Entry â†’ POST | Accounting Clerk | Finance Manager | 100K - 1M EGP | CFO |
+| Journal Entry â†’ POST | Accounting Clerk | CFO | > 1M EGP | Board |
 | Period Close | Controller | CFO | N/A | Audit Committee |
 | Write-off < 10K | Collector | Collections Manager | N/A | N/A |
 | Write-off 10K-100K | Collector | Finance Manager | N/A | CFO |
@@ -1133,16 +1139,16 @@ ANOMALY 7: Tax Mismatch
 
 | Role | Can Create | Can Approve | Can Post | Can Close Period |
 |------|-----------|-------------|----------|-----------------|
-| Accounting Clerk | ✅ | ❌ | ❌ | ❌ |
-| Controller | ❌ | ✅ | ✅ | ❌ |
-| Finance Manager | ❌ | ✅ | ✅ | ✅ |
-| CFO | ❌ | ✅ | ❌ | ✅ (override) |
+| Accounting Clerk | âœ… | âŒ | âŒ | âŒ |
+| Controller | âŒ | âœ… | âœ… | âŒ |
+| Finance Manager | âŒ | âœ… | âœ… | âœ… |
+| CFO | âŒ | âœ… | âŒ | âœ… (override) |
 
 **SoD Enforcement:**
 - Same user cannot create AND post a journal entry
 - Period close requires separate approval
-- Write-off requester ≠ write-off approver
-- Account creation ≠ account activation
+- Write-off requester â‰  write-off approver
+- Account creation â‰  account activation
 
 ### 8.3 Audit Controls
 
@@ -1160,32 +1166,32 @@ ANOMALY 7: Tax Mismatch
 
 ```
 DISCOVER ERROR
-    │
-    ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│ 1. IDENTIFY                                                          │
-│   - Which entry/period/account affected?                            │
-│   - What was the error (wrong account, wrong amount, duplicate)?    │
-│   - What is the correct entry?                                      │
-└──────────────────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│ 2. CURRENT PERIOD (OPEN)                                             │
-│   - If DRAFT: Edit directly                                         │
-│   - If POSTED: Reverse original, create corrected entry             │
-│   - Reversal includes reference back to original                    │
-└──────────────────────────────────────────────────────────────────────┘
-    │
-    ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│ 3. PRIOR PERIOD (CLOSED)                                             │
-│   - Create correcting entry in CURRENT period                       │
-│   - Clearly labeled "Prior period correction: [description]"        │
-│   - Reference original entry number                                 │
-│   - CFO approval required                                           │
-│   - No re-opening of closed periods allowed                         │
-└──────────────────────────────────────────────────────────────────────┘
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 1. IDENTIFY                                                          â”‚
+â”‚   - Which entry/period/account affected?                            â”‚
+â”‚   - What was the error (wrong account, wrong amount, duplicate)?    â”‚
+â”‚   - What is the correct entry?                                      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 2. CURRENT PERIOD (OPEN)                                             â”‚
+â”‚   - If DRAFT: Edit directly                                         â”‚
+â”‚   - If POSTED: Reverse original, create corrected entry             â”‚
+â”‚   - Reversal includes reference back to original                    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 3. PRIOR PERIOD (CLOSED)                                             â”‚
+â”‚   - Create correcting entry in CURRENT period                       â”‚
+â”‚   - Clearly labeled "Prior period correction: [description]"        â”‚
+â”‚   - Reference original entry number                                 â”‚
+â”‚   - CFO approval required                                           â”‚
+â”‚   - No re-opening of closed periods allowed                         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -1196,21 +1202,21 @@ DISCOVER ERROR
 
 | Integration | Method | Wave | Priority |
 |-------------|--------|------|----------|
-| Invoice → Journal | Auto-create JE on invoice ISSUE | W02 | P0 |
-| Payment → Journal | Auto-create JE on payment COMPLETE | W02 | P0 |
-| CollectionCase → Dunning | Auto-escalate by rules | W04 | P0 |
-| BillRun → Revenue | Validate consumption before billing | W02 | P0 |
-| Tariff → Pricing | ToU/tiered/demand engine | W03 | P0 |
-| Customer → Payment Score | Payment behavior analysis | W04 | P0 |
-| MeterReading → Bill Val | Reading validation before billing | W02 | P0 |
+| Invoice â†’ Journal | Auto-create JE on invoice ISSUE | W02 | P0 |
+| Payment â†’ Journal | Auto-create JE on payment COMPLETE | W02 | P0 |
+| CollectionCase â†’ Dunning | Auto-escalate by rules | W04 | P0 |
+| BillRun â†’ Revenue | Validate consumption before billing | W02 | P0 |
+| Tariff â†’ Pricing | ToU/tiered/demand engine | W03 | P0 |
+| Customer â†’ Payment Score | Payment behavior analysis | W04 | P0 |
+| MeterReading â†’ Bill Val | Reading validation before billing | W02 | P0 |
 
 ### 9.2 External Integration
 
 | System | Integration Type | Standard | Wave | Priority |
 |--------|-----------------|----------|------|----------|
 | Banks (statement import) | File upload (CSV, MT940, CAMT.053) | ISO 20022 | W06 | P0 |
-| Payment Gateways (Paymob, Fawry) | API → settlement reconciliation | REST | W06 | P1 |
-| ERP (Oracle, SAP, Odoo) | GL export → ERP import | CSV/API | Post-C13 | P2 |
+| Payment Gateways (Paymob, Fawry) | API â†’ settlement reconciliation | REST | W06 | P1 |
+| ERP (Oracle, SAP, Odoo) | GL export â†’ ERP import | CSV/API | Post-C13 | P2 |
 | Tax Authority (e-invoice) | E-invoice format compliance | Local standard | W08 | P1 |
 | Collection Agencies | Case export | CSV/API | W09 | P2 |
 
@@ -1219,13 +1225,13 @@ DISCOVER ERROR
 ## PART 10: C13 WAVE BREAKDOWN
 
 ### WAVE C13-W01: Billing-to-GL Integration (5 days)
-**Objective:** Connect existing billing → accounting engine with auto-posting pipeline
+**Objective:** Connect existing billing â†’ accounting engine with auto-posting pipeline
 
 | Aspect | Detail |
 |--------|--------|
 | **Dependencies** | C12 Identity (complete), accounting backend (complete) |
-| **Deliverables** | Invoice→Journal auto-post on ISSUE, Payment→Journal auto-post on COMPLETE, RevenueTransaction model + service, Reconciliation validation (invoice sum = journal total) |
-| **Governance Gate** | Pipeline posts 10 test invoices → verify GL updated correctly |
+| **Deliverables** | Invoiceâ†’Journal auto-post on ISSUE, Paymentâ†’Journal auto-post on COMPLETE, RevenueTransaction model + service, Reconciliation validation (invoice sum = journal total) |
+| **Governance Gate** | Pipeline posts 10 test invoices â†’ verify GL updated correctly |
 | **Certification** | Every ISSUED invoice has matching JournalEntry. Trial Balance includes billing transactions. |
 
 ### WAVE C13-W02: Revenue Assurance Engine (5 days)
@@ -1244,7 +1250,7 @@ DISCOVER ERROR
 | Aspect | Detail |
 |--------|--------|
 | **Dependencies** | W01 |
-| **Deliverables** | TariffSchedule model (ToU windows), Time-of-Use tariff calculator (peak/shoulder/off-peak), Tiered pricing calculator (volume brackets), Demand charge calculator (kW/kVA), Pro-ration engine (mid-period changes), Seasonal rates engine, Tax determination engine, Tariff versioning (draft→active→superseded) |
+| **Deliverables** | TariffSchedule model (ToU windows), Time-of-Use tariff calculator (peak/shoulder/off-peak), Tiered pricing calculator (volume brackets), Demand charge calculator (kW/kVA), Pro-ration engine (mid-period changes), Seasonal rates engine, Tax determination engine, Tariff versioning (draftâ†’activeâ†’superseded) |
 | **Governance Gate** | All tariff types tested with 50+ scenarios |
 | **Certification** | Complex tariffs calculate correctly. Pro-ration matches manual calculation. |
 
@@ -1255,7 +1261,7 @@ DISCOVER ERROR
 |--------|--------|
 | **Dependencies** | W01 |
 | **Deliverables** | DunningRule model + CRUD, Dunning escalation engine (7 stages), Promise-to-Pay enhancement (reminder, auto-escalate on miss), Collector assignment service (workload-balanced), CollectionCase enhancement (priority, probability, stage), Write-off workflow, Payment behavior scoring service, Collection dashboard |
-| **Governance Gate** | Dunning automation test: 100 cases → 90% auto-escalated correctly |
+| **Governance Gate** | Dunning automation test: 100 cases â†’ 90% auto-escalated correctly |
 | **Certification** | Collections automated end-to-end. Write-off requires approval. |
 
 ### WAVE C13-W05: Billing Analytics & AR Intelligence (5 days)
@@ -1284,7 +1290,7 @@ DISCOVER ERROR
 | Aspect | Detail |
 |--------|--------|
 | **Dependencies** | W01, W05, W06 |
-| **Deliverables** | P&L statement (revenue, COS, gross margin, opex, net income by period), Balance Sheet (assets, liabilities, equity, period comparison), Cash Flow statement (direct/indirect method), Multi-period comparison (month, quarter, YTD, YoY), GL drill-down (account → period → journal → invoice), Audit report (all journal activity in period) |
+| **Deliverables** | P&L statement (revenue, COS, gross margin, opex, net income by period), Balance Sheet (assets, liabilities, equity, period comparison), Cash Flow statement (direct/indirect method), Multi-period comparison (month, quarter, YTD, YoY), GL drill-down (account â†’ period â†’ journal â†’ invoice), Audit report (all journal activity in period) |
 | **Governance Gate** | P&L net income = Balance Sheet equity change for same period |
 | **Certification** | P&L balances with retained earnings change. Balance Sheet balances. Cash Flow reconciles. |
 
@@ -1305,7 +1311,7 @@ DISCOVER ERROR
 |--------|--------|
 | **Dependencies** | W04 |
 | **Deliverables** | AI-driven dunning optimization (channel/timing/message selection), Customer financial dashboard (bills, payments, balance, usage), Self-service payment arrangement, Dispute management workflow, Auto-payment enrollment, Smart SMS/Email payment reminders |
-| **Governance Gate** | AI dunning test: 50 customers → recommendation within 10% of optimal |
+| **Governance Gate** | AI dunning test: 50 customers â†’ recommendation within 10% of optimal |
 | **Certification** | AI dunning operational. Customer self-service available. Disputes trackable. |
 
 ### WAVE C13-W10: Audit & Compliance Integration (5 days)
@@ -1314,7 +1320,7 @@ DISCOVER ERROR
 | Aspect | Detail |
 |--------|--------|
 | **Dependencies** | W01, W07 |
-| **Deliverables** | Segregation of duties (SoD) enforcement (create≠approve≠post), Period close checklist automation, Immutability hardening (posted entries fully locked), Compliance reporting (GAAP, IFRS, local), Audit trail enhancement (financial-specific), Data retention policy enforcement, SoD violation alerts |
+| **Deliverables** | Segregation of duties (SoD) enforcement (createâ‰ approveâ‰ post), Period close checklist automation, Immutability hardening (posted entries fully locked), Compliance reporting (GAAP, IFRS, local), Audit trail enhancement (financial-specific), Data retention policy enforcement, SoD violation alerts |
 | **Governance Gate** | SoD test: same user cannot create+post. Period close blocks new entries. |
 | **Certification** | SoD enforced. Periods immutable. Compliance reports accurate. Audit trail complete. |
 
@@ -1334,13 +1340,13 @@ DISCOVER ERROR
 | Aspect | Detail |
 |--------|--------|
 | **Dependencies** | W01-W11 |
-| **Deliverables** | Full test suite execution (395 tests), Integration test: billing→GL→reporting complete flow, Performance test: 100K invoices, 500K journal entries under 30s batch, Security audit: SoD, immutability, access control, Documentation: user guides, admin guides, API docs, Certification report: maturity before/after, coverage, risks, Rollback plan verification |
+| **Deliverables** | Full test suite execution (395 tests), Integration test: billingâ†’GLâ†’reporting complete flow, Performance test: 100K invoices, 500K journal entries under 30s batch, Security audit: SoD, immutability, access control, Documentation: user guides, admin guides, API docs, Certification report: maturity before/after, coverage, risks, Rollback plan verification |
 | **Governance Gate** | All 395 tests pass. Performance within SLA. Security audit clean. |
 | **Certification** | C13 certified. Accounting 90%. Billing 95%. Collections 85%. |
 
 ---
 
-## PART 11: TESTING STRATEGY — 395 TESTS
+## PART 11: TESTING STRATEGY â€” 395 TESTS
 
 ### 11.1 Accounting Correctness Tests (80)
 
@@ -1348,7 +1354,7 @@ DISCOVER ERROR
 |----------|-------|-------|
 | Account hierarchy | 10 | Parent/child CRUD, type validation, code uniqueness |
 | Journal entry balancing | 20 | Debit=credit enforcement, partial line, multi-line |
-| Journal lifecycle | 15 | DRAFT→POSTED→REVERSED, edit guard, period validation |
+| Journal lifecycle | 15 | DRAFTâ†’POSTEDâ†’REVERSED, edit guard, period validation |
 | Journal reversal | 10 | Full reversal, partial reversal, reversed entry immutability |
 | Period close | 15 | Close with/without closing entries, guard against DRAFT entries |
 | Trial balance | 10 | Account grouping, balancing verification, drill-down accuracy |
@@ -1359,7 +1365,7 @@ DISCOVER ERROR
 |----------|-------|-------|
 | Bill run lifecycle | 10 | Create, schedule, execute, close, cancel |
 | Invoice generation | 15 | Single meter, multi-meter, multi-utility, bulk |
-| Invoice lifecycle | 10 | DRAFT→APPROVED→ISSUED→CANCELLED |
+| Invoice lifecycle | 10 | DRAFTâ†’APPROVEDâ†’ISSUEDâ†’CANCELLED |
 | Invoice adjustments | 10 | Credit note, debit note, correction |
 | Invoice cancellation | 5 | Before/after issue, with/without payment |
 | Invoice-GL integration | 10 | Auto-post on issue, verify GL impact |
@@ -1368,7 +1374,7 @@ DISCOVER ERROR
 
 | Category | Tests | Focus |
 |----------|-------|-------|
-| Segregation of duties | 10 | Create≠approve≠post enforcement |
+| Segregation of duties | 10 | Createâ‰ approveâ‰ post enforcement |
 | Period immutability | 10 | Closed period rejects, locked year rejects |
 | Journal immutability | 10 | POSTED cannot edit, REVERSED cannot reverse |
 | Audit trail | 10 | Every mutation logged, correlation IDs present |
@@ -1391,7 +1397,7 @@ DISCOVER ERROR
 | Collection Optimization Agent | 10 | Scoring accuracy, priority ranking, recommendation relevance |
 | Financial Forecast Agent | 10 | Forecast vs actual accuracy tracking |
 | Invoice Anomaly Agent | 10 | All 7 anomaly types tested |
-| Financial Classification Agent | 5 | Description→account mapping accuracy |
+| Financial Classification Agent | 5 | Descriptionâ†’account mapping accuracy |
 
 ### 11.6 Data Integrity Tests (40)
 
@@ -1430,70 +1436,70 @@ DISCOVER ERROR
 ```
 C13 PROGRAM CERTIFIED when ALL of the following are true:
 
-□ ACCOUNTING MATURITY ≥ 90%
-   □ Account CRUD operational with hierarchy (backend ✅)
-   □ Journal entry CRUD with balancing (backend ✅)
-   □ General Ledger with period balances (backend ✅)
-   □ Financial Periods with open/close (backend ✅)
-   □ Trial Balance with balancing check (backend ✅)
-   ✅ 6 of 6 — Backend complete. Frontend needed.
+â–¡ ACCOUNTING MATURITY â‰¥ 90%
+   â–¡ Account CRUD operational with hierarchy (backend âœ…)
+   â–¡ Journal entry CRUD with balancing (backend âœ…)
+   â–¡ General Ledger with period balances (backend âœ…)
+   â–¡ Financial Periods with open/close (backend âœ…)
+   â–¡ Trial Balance with balancing check (backend âœ…)
+   âœ… 6 of 6 â€” Backend complete. Frontend needed.
 
-□ BILLING MATURITY ≥ 95%
-   □ Invoice → GL auto-posting pipeline live
-   □ Revenue assurance engine with 10+ rules active
-   □ ToU, tiered, demand tariff engines operational
-   □ Pro-ration engine tested and accurate
-   □ Tax determination engine active
-   □ Multi-currency invoices and posting
-   □ Revenue leakage detection active
+â–¡ BILLING MATURITY â‰¥ 95%
+   â–¡ Invoice â†’ GL auto-posting pipeline live
+   â–¡ Revenue assurance engine with 10+ rules active
+   â–¡ ToU, tiered, demand tariff engines operational
+   â–¡ Pro-ration engine tested and accurate
+   â–¡ Tax determination engine active
+   â–¡ Multi-currency invoices and posting
+   â–¡ Revenue leakage detection active
 
-□ COLLECTIONS MATURITY ≥ 85%
-   □ Dunning automation live (7-stage escalation chain)
-   □ Promise-to-Pay engine with reminder + auto-escalate
-   □ Collector assignment with workload balancing
-   □ Write-off workflow (recommend→approve→execute)
-   □ Payment behavior scoring active
-   □ Priority scoring active
+â–¡ COLLECTIONS MATURITY â‰¥ 85%
+   â–¡ Dunning automation live (7-stage escalation chain)
+   â–¡ Promise-to-Pay engine with reminder + auto-escalate
+   â–¡ Collector assignment with workload balancing
+   â–¡ Write-off workflow (recommendâ†’approveâ†’execute)
+   â–¡ Payment behavior scoring active
+   â–¡ Priority scoring active
 
-□ FINANCIAL AUDIT READINESS = 100%
-   □ Segregation of duties enforced
-   □ Period immutability (closed = locked)
-   □ Journal immutability (posted = locked)
-   □ Full audit trail for every financial mutation
-   □ GAAP/IFRS compliance reports available
-   □ P&L, Balance Sheet, Cash Flow generating correctly
-   □ Trial Balance balances (always)
-   □ Every invoice traceable to GL entry
+â–¡ FINANCIAL AUDIT READINESS = 100%
+   â–¡ Segregation of duties enforced
+   â–¡ Period immutability (closed = locked)
+   â–¡ Journal immutability (posted = locked)
+   â–¡ Full audit trail for every financial mutation
+   â–¡ GAAP/IFRS compliance reports available
+   â–¡ P&L, Balance Sheet, Cash Flow generating correctly
+   â–¡ Trial Balance balances (always)
+   â–¡ Every invoice traceable to GL entry
 
-□ AI FINANCIAL INTELLIGENCE = OPERATIONAL
-   □ Revenue Leakage Detection Agent — 8 rules active
-   □ Collection Optimization Agent — scoring daily
-   □ Financial Forecast Agent — monthly projections
-   □ Invoice Anomaly Agent — pre-issue validation
-   □ Financial Classification Agent — description→account
+â–¡ AI FINANCIAL INTELLIGENCE = OPERATIONAL
+   â–¡ Revenue Leakage Detection Agent â€” 8 rules active
+   â–¡ Collection Optimization Agent â€” scoring daily
+   â–¡ Financial Forecast Agent â€” monthly projections
+   â–¡ Invoice Anomaly Agent â€” pre-issue validation
+   â–¡ Financial Classification Agent â€” descriptionâ†’account
 
-□ FULL TRACEABILITY
-   □ Meter reading → Invoice → Journal → GL — complete chain
-   □ Payment → Journal → GL — complete chain
-   □ Bank statement → Reconciliation → GL — complete chain
-   □ Every financial event has correlation ID
+â–¡ FULL TRACEABILITY
+   â–¡ Meter reading â†’ Invoice â†’ Journal â†’ GL â€” complete chain
+   â–¡ Payment â†’ Journal â†’ GL â€” complete chain
+   â–¡ Bank statement â†’ Reconciliation â†’ GL â€” complete chain
+   â–¡ Every financial event has correlation ID
 
-□ TEST SUITE = 395 PASSING
-   □ Accounting correctness: 80 tests
-   □ Billing regression: 60 tests
-   □ Financial audit: 50 tests
-   □ Security: 40 tests
-   □ AI accuracy: 50 tests
-   □ Data integrity: 40 tests
-   □ Reconciliation: 40 tests
-   □ Tariff engine: 35 tests
+â–¡ TEST SUITE = 395 PASSING
+   â–¡ Accounting correctness: 80 tests
+   â–¡ Billing regression: 60 tests
+   â–¡ Financial audit: 50 tests
+   â–¡ Security: 40 tests
+   â–¡ AI accuracy: 50 tests
+   â–¡ Data integrity: 40 tests
+   â–¡ Reconciliation: 40 tests
+   â–¡ Tariff engine: 35 tests
 
-C13 STATUS: ✅ CERTIFIED
-Accounting Maturity:  0% → 90%
-Billing Maturity:    30% → 95%
-Collections Maturity: 30% → 85%
-Audit Readiness:     10% → 100%
-Financial UI:         0% → 10 workbenches
+C13 STATUS: âœ… CERTIFIED
+Accounting Maturity:  0% â†’ 90%
+Billing Maturity:    30% â†’ 95%
+Collections Maturity: 30% â†’ 85%
+Audit Readiness:     10% â†’ 100%
+Financial UI:         0% â†’ 10 workbenches
 Total Tests:          395
 ```
 
@@ -1503,32 +1509,32 @@ Total Tests:          395
 
 | Metric | Current | Target | Waves |
 |--------|---------|--------|-------|
-| New Prisma models | — | 5 (FiscalYear, BankStatement, BankReconciliation, RevenueRule, RevenueTransaction) | W01-W06 |
-| Enhanced models | — | 6 (Invoice, Payment, CollectionCase, PromiseToPay, Tariff, BillRun) | W01-W04 |
-| New backend routes | — | ~80 | W01-W11 |
-| New frontend pages | — | 10 workbenches | W11 |
-| AI agents | — | 5 | W09 |
+| New Prisma models | â€” | 5 (FiscalYear, BankStatement, BankReconciliation, RevenueRule, RevenueTransaction) | W01-W06 |
+| Enhanced models | â€” | 6 (Invoice, Payment, CollectionCase, PromiseToPay, Tariff, BillRun) | W01-W04 |
+| New backend routes | â€” | ~80 | W01-W11 |
+| New frontend pages | â€” | 10 workbenches | W11 |
+| AI agents | â€” | 5 | W09 |
 | Test count | < 10 | 395 | W12 |
-| Implementation days | — | ~60 | W01-W12 |
+| Implementation days | â€” | ~60 | W01-W12 |
 
 ## APPENDIX B: C13 POST-PROGRAM ROADMAP
 
 ```
 C13 Complete (Financial Intelligence)
-    │
-    ├──→ C14: Customer Experience Platform
-    │     Customer portal, self-service, dispute management
-    │     Dependencies: C13 (billing accuracy, financial data)
-    │
-    ├──→ C15: Enterprise Integration Platform
-    │     ERP, CRM, GIS, SCADA integration
-    │     Dependencies: C13 (GL/accounting for ERP)
-    │
-    ├──→ C16: Data Lake & Analytics Platform
-    │     Data warehouse, BI, enterprise reporting
-    │     Dependencies: C13 (clean financial data for BI)
-    │
-    └──→ C17: Mobile Field Operations
+    â”‚
+    â”œâ”€â”€â†’ C14: Customer Experience Platform
+    â”‚     Customer portal, self-service, dispute management
+    â”‚     Dependencies: C13 (billing accuracy, financial data)
+    â”‚
+    â”œâ”€â”€â†’ C15: Enterprise Integration Platform
+    â”‚     ERP, CRM, GIS, SCADA integration
+    â”‚     Dependencies: C13 (GL/accounting for ERP)
+    â”‚
+    â”œâ”€â”€â†’ C16: Data Lake & Analytics Platform
+    â”‚     Data warehouse, BI, enterprise reporting
+    â”‚     Dependencies: C13 (clean financial data for BI)
+    â”‚
+    â””â”€â”€â†’ C17: Mobile Field Operations
         Field technician mobile app
         Dependencies: C13-W04 (collection field visits)
 ```
@@ -1536,5 +1542,6 @@ C13 Complete (Financial Intelligence)
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C13 — Enterprise Financial & Billing Intelligence Platform Constitution & Architecture Blueprint.*
+*C13 â€” Enterprise Financial & Billing Intelligence Platform Constitution & Architecture Blueprint.*
 *READ ONLY. GOVERNANCE PLANNING ONLY. NOT IMPLEMENTED.*
+

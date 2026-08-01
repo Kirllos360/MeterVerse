@@ -1,8 +1,14 @@
-# C28 — Enterprise Digital Twin & Operational Simulation Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W6 | Commit: 20bf9860
+====================================================================
+-->
+
+# C28 â€” Enterprise Digital Twin & Operational Simulation Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C27  
 **Constraint:** Web-first simulation control plane; no native mobile application.
@@ -53,27 +59,27 @@ The audit confirms C28 must orchestrate existing capabilities, not duplicate the
 ### 2.1 Layers
 
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ C28 DIGITAL TWIN & SIMULATION PLATFORM                                 │
-│                                                                        │
-│ Twin Registry → Scenario Engine → Simulation Timeline → Event Playback │
-│       │              │                 │                    │          │
-│       ▼              ▼                 ▼                    ▼          │
-│ State Engine   Dependency Graph   Time Acceleration   Snapshot/Rollback│
-│       │                                                              │
-│       └──────────────┬───────────────────────────────────────────────┘
-│                      ▼
-│ Simulation Memory → Result Repository → Prediction Engine → What-if Engine
-│                                              │
-│                                    Risk Engine / Capacity / Optimization
-│                                              │
-│                                    Decision Replay / Rollback Engine
-│                                                                        │
-│ Existing capabilities orchestrated:                                    │
-│ C23 workflow | C27 scheduler | C18 AI | C17 analytics | C13 finance   │
-│ C16 assets | C01-C10 network | C15 integration | C20 quality          │
-│ C21 governance | C22 tenancy | C25 comms | C26 MDM | C24 records      │
-└────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ C28 DIGITAL TWIN & SIMULATION PLATFORM                                 â”‚
+â”‚                                                                        â”‚
+â”‚ Twin Registry â†’ Scenario Engine â†’ Simulation Timeline â†’ Event Playback â”‚
+â”‚       â”‚              â”‚                 â”‚                    â”‚          â”‚
+â”‚       â–¼              â–¼                 â–¼                    â–¼          â”‚
+â”‚ State Engine   Dependency Graph   Time Acceleration   Snapshot/Rollbackâ”‚
+â”‚       â”‚                                                              â”‚
+â”‚       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+â”‚                      â–¼
+â”‚ Simulation Memory â†’ Result Repository â†’ Prediction Engine â†’ What-if Engine
+â”‚                                              â”‚
+â”‚                                    Risk Engine / Capacity / Optimization
+â”‚                                              â”‚
+â”‚                                    Decision Replay / Rollback Engine
+â”‚                                                                        â”‚
+â”‚ Existing capabilities orchestrated:                                    â”‚
+â”‚ C23 workflow | C27 scheduler | C18 AI | C17 analytics | C13 finance   â”‚
+â”‚ C16 assets | C01-C10 network | C15 integration | C20 quality          â”‚
+â”‚ C21 governance | C22 tenancy | C25 comms | C26 MDM | C24 records      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Core principles
@@ -102,8 +108,8 @@ The engine coordinates:
 ### 2.4 Scenario Engine
 
 ```text
-Scenario template → parameters (distributions, ranges, seeds)
-  → twin snapshot → dependency graph → run → results → compare → recommend
+Scenario template â†’ parameters (distributions, ranges, seeds)
+  â†’ twin snapshot â†’ dependency graph â†’ run â†’ results â†’ compare â†’ recommend
 ```
 
 Supported scenario categories: Normal Operations, Peak Load, Mass Meter Failure, Communication Loss, Gateway Failure, Database Failure, Cloud Outage, Supplier Delay, Inventory Shortage, Cash Crisis, Mass Customer Migration, Large Payment Delay, Cyber Attack, AI Failure, Billing Error, Tariff Change, Collection Drop, Natural Disaster, Regional Failure, Multi-tenant Expansion.
@@ -119,7 +125,7 @@ Supported scenario categories: Normal Operations, Peak Load, Mass Meter Failure,
 ### 2.6 Dependency Graph
 
 - Graph of twin entities and the services they depend on.
-- Identifies cascade paths (e.g., gateway → meter → reading → billing → finance).
+- Identifies cascade paths (e.g., gateway â†’ meter â†’ reading â†’ billing â†’ finance).
 - Used for impact-radius analysis, bottleneck detection, and failure propagation.
 - Built from C26 canonical relationships + C23 process dependencies.
 
@@ -194,15 +200,15 @@ Result repository stores metrics, charts, decision traces, rollback points, and 
 ## 6. Runtime Flow
 
 ```text
-Authorize (C12) → select scenario (C21 approval if sensitive)
-  → snapshot twins (C26/C15 sync) → build dependency graph
-  → configure parameters/seed → start run
-  → execute time steps (fast-forward supported)
-  → inject events (failure/load) → collect metrics (C17 KPI)
-  → optionally run Monte Carlo / sensitivity
-  → persist results (C24 records) → generate AI summary
-  → human approval for any proposed production change
-  → decision replay or rollback if needed
+Authorize (C12) â†’ select scenario (C21 approval if sensitive)
+  â†’ snapshot twins (C26/C15 sync) â†’ build dependency graph
+  â†’ configure parameters/seed â†’ start run
+  â†’ execute time steps (fast-forward supported)
+  â†’ inject events (failure/load) â†’ collect metrics (C17 KPI)
+  â†’ optionally run Monte Carlo / sensitivity
+  â†’ persist results (C24 records) â†’ generate AI summary
+  â†’ human approval for any proposed production change
+  â†’ decision replay or rollback if needed
 ```
 
 ---
@@ -249,7 +255,7 @@ All AI outputs include confidence, evidence, alternatives, limitations, and requ
 
 ## 10. Certification
 
-### Testing strategy — 380 tests
+### Testing strategy â€” 380 tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
@@ -334,7 +340,7 @@ Timeline, event playback, time acceleration, state engine, snapshot, rollback, M
 Versioned scenario definitions and runs with parameters and results.
 
 ### 7. Runtime Flow
-Authorize → snapshot → dependency graph → run → inject events → collect → persist → AI summary → approve → replay/rollback.
+Authorize â†’ snapshot â†’ dependency graph â†’ run â†’ inject events â†’ collect â†’ persist â†’ AI summary â†’ approve â†’ replay/rollback.
 
 ### 8. AI Layer
 Root cause prediction, failure forecast, operational/financial recommendations, capacity planning, scenario comparison, risk ranking, optimization.
@@ -369,19 +375,20 @@ W01-W08, 34 days, phased rollout, rollback strategy.
 ## Definition of Done
 
 ```text
-□ Twin Registry projects 25+ entity types with deterministic, isolated state.
-□ Scenario Engine supports all 20 scenario categories without production mutation.
-□ Simulation Timeline supports fast-forward, pause, resume, fork, replay, checkpoint, rollback.
-□ Dependency graph enables impact radius and bottleneck analysis.
-□ Monte Carlo and sensitivity reuse C13-W07 financial designs.
-□ AI layer provides predictions and recommendations with confidence, evidence, and human approval.
-□ C12/C18/C19/C21/C22 controls enforced; all runs immutable-audited.
-□ C24 records and C25 notifications integrate; C20 certification passes 380 tests.
-□ No production data is ever mutated by a simulation.
-□ Decision replay and rollback are deterministic and auditable.
+â–¡ Twin Registry projects 25+ entity types with deterministic, isolated state.
+â–¡ Scenario Engine supports all 20 scenario categories without production mutation.
+â–¡ Simulation Timeline supports fast-forward, pause, resume, fork, replay, checkpoint, rollback.
+â–¡ Dependency graph enables impact radius and bottleneck analysis.
+â–¡ Monte Carlo and sensitivity reuse C13-W07 financial designs.
+â–¡ AI layer provides predictions and recommendations with confidence, evidence, and human approval.
+â–¡ C12/C18/C19/C21/C22 controls enforced; all runs immutable-audited.
+â–¡ C24 records and C25 notifications integrate; C20 certification passes 380 tests.
+â–¡ No production data is ever mutated by a simulation.
+â–¡ Decision replay and rollback are deterministic and auditable.
 ```
 
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C28 — Enterprise Digital Twin & Operational Simulation Platform.*
+*C28 â€” Enterprise Digital Twin & Operational Simulation Platform.*
+

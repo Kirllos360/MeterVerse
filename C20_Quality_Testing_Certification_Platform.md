@@ -1,8 +1,14 @@
-# C20 — Enterprise Quality, Testing, Validation & Certification Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (vitest/playwright/CI) | Certification: [~] Conditional (P41) | Wave: W1 | Commit: 162e1163
+====================================================================
+-->
+
+# C20 â€” Enterprise Quality, Testing, Validation & Certification Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C10, C12-C19 (all programs designed)  
 
@@ -77,105 +83,105 @@
 ### 2.1 QA Platform Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                          ENTERPRISE QUALITY, TESTING, VALIDATION & CERTIFICATION PLATFORM                          │
-│                                                                                                                  │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  TEST INVENTORY LAYER                                                                                  │    │
-│  │                                                                                                        │    │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────┐    │    │
-│  │  │ Test     │ │ Test     │ │ Test     │ │ Test     │ │ Test     │ │ Test     │ │ Test         │    │    │
-│  │  │ Registry │ │ Catalog  │ │ Suites   │ │ Packages │ │ Plans    │ │ Matrix   │ │ Data Library │    │    │
-│  │  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────────┘    │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  TEST EXECUTION LAYER (Pyramid)                                                                        │    │
-│  │                                                                                                        │    │
-│  │  Unit (60%) → Integration (20%) → API (10%) → UI/E2E (5%) → Perf/Security (3%) → AI/DR (2%)          │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  CERTIFICATION LAYER                                                                                    │    │
-│  │                                                                                                        │    │
-│  │  Bronze → Silver → Gold → Platinum → Enterprise Certified (per program C01-C19)                        │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│                                    ▼                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  CONTINUOUS VALIDATION LAYER                                                                            │    │
-│  │                                                                                                        │    │
-│  │  CI Validation → Nightly → Weekly Regression → Monthly Certification → Release → Upgrade → Migration  │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                                  │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI QUALITY INTELLIGENCE                                                                                 │    │
-│  │                                                                                                        │    │
-│  │  Test Generation → Regression Prioritization → Failure Clustering → RCA → Risk Prediction              │    │
-│  │  → Coverage Analysis → Test Optimization → Executive Quality Summaries                                 │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                                  │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  EXECUTIVE QUALITY DASHBOARDS                                                                             │    │
-│  │                                                                                                        │    │
-│  │  CTO → CIO → QA Director → Engineering → DevOps → Security → Executive Board                            │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                          ENTERPRISE QUALITY, TESTING, VALIDATION & CERTIFICATION PLATFORM                          â”‚
+â”‚                                                                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  TEST INVENTORY LAYER                                                                                  â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚    â”‚
+â”‚  â”‚  â”‚ Test     â”‚ â”‚ Test     â”‚ â”‚ Test     â”‚ â”‚ Test     â”‚ â”‚ Test     â”‚ â”‚ Test     â”‚ â”‚ Test         â”‚    â”‚    â”‚
+â”‚  â”‚  â”‚ Registry â”‚ â”‚ Catalog  â”‚ â”‚ Suites   â”‚ â”‚ Packages â”‚ â”‚ Plans    â”‚ â”‚ Matrix   â”‚ â”‚ Data Library â”‚    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  TEST EXECUTION LAYER (Pyramid)                                                                        â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  Unit (60%) â†’ Integration (20%) â†’ API (10%) â†’ UI/E2E (5%) â†’ Perf/Security (3%) â†’ AI/DR (2%)          â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  CERTIFICATION LAYER                                                                                    â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  Bronze â†’ Silver â†’ Gold â†’ Platinum â†’ Enterprise Certified (per program C01-C19)                        â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚                                    â–¼                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  CONTINUOUS VALIDATION LAYER                                                                            â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  CI Validation â†’ Nightly â†’ Weekly Regression â†’ Monthly Certification â†’ Release â†’ Upgrade â†’ Migration  â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI QUALITY INTELLIGENCE                                                                                 â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  Test Generation â†’ Regression Prioritization â†’ Failure Clustering â†’ RCA â†’ Risk Prediction              â”‚    â”‚
+â”‚  â”‚  â†’ Coverage Analysis â†’ Test Optimization â†’ Executive Quality Summaries                                 â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  EXECUTIVE QUALITY DASHBOARDS                                                                             â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  CTO â†’ CIO â†’ QA Director â†’ Engineering â†’ DevOps â†’ Security â†’ Executive Board                            â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Test Registry (NEW model)
 
 ```
 TestRegistry
-├── id, name, code (UNIQUE), description
-├── category: String                    ← UNIT | INTEGRATION | CONTRACT | API | UI | E2E | PERF | SECURITY | A11Y | L10N | AI | DR
-├── program: String                     ← Which C-program this validates (C01-C19)
-├── module: String?                     ← Specific module within program
-├── severity: String                    ← CRITICAL | HIGH | MEDIUM | LOW
-├── owner: String?                      ← Test owner
-├── location: String                    ← File path or test identifier
-├── tags: String (JSON)
-├── status: String                      ← ACTIVE | DISABLED | FLAKY | DEPRECATED
-├── lastRunAt, lastRunStatus, lastDurationMs
-├── coverageTarget: Float?
-├── linkedRequirements: String (JSON)   ← Requirement IDs traced
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id, name, code (UNIQUE), description
+â”œâ”€â”€ category: String                    â† UNIT | INTEGRATION | CONTRACT | API | UI | E2E | PERF | SECURITY | A11Y | L10N | AI | DR
+â”œâ”€â”€ program: String                     â† Which C-program this validates (C01-C19)
+â”œâ”€â”€ module: String?                     â† Specific module within program
+â”œâ”€â”€ severity: String                    â† CRITICAL | HIGH | MEDIUM | LOW
+â”œâ”€â”€ owner: String?                      â† Test owner
+â”œâ”€â”€ location: String                    â† File path or test identifier
+â”œâ”€â”€ tags: String (JSON)
+â”œâ”€â”€ status: String                      â† ACTIVE | DISABLED | FLAKY | DEPRECATED
+â”œâ”€â”€ lastRunAt, lastRunStatus, lastDurationMs
+â”œâ”€â”€ coverageTarget: Float?
+â”œâ”€â”€ linkedRequirements: String (JSON)   â† Requirement IDs traced
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 ```
 
 ### 2.3 Test Suite (NEW model)
 
 ```
 TestSuite
-├── id, name, code (UNIQUE), description
-├── category, program
-├── testCount: Int
-├── executionMode: String               ← PARALLEL | SEQUENTIAL
-├── environment: String                 ← DEV | TEST | STAGING | PROD_SMOKE
-├── schedule: String?                   ← Cron for nightly/weekly
-├── passes: Int, failures: Int, skipped: Int
-├── durationMs: Int
-├── lastRunAt, lastRunStatus
-├── avgExecutionTimeMs: Float
-├── flakyRate: Float?                   ← Failures / runs
-├── status: String                      ← READY | RUNNING | FAILED | SUCCEEDED
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id, name, code (UNIQUE), description
+â”œâ”€â”€ category, program
+â”œâ”€â”€ testCount: Int
+â”œâ”€â”€ executionMode: String               â† PARALLEL | SEQUENTIAL
+â”œâ”€â”€ environment: String                 â† DEV | TEST | STAGING | PROD_SMOKE
+â”œâ”€â”€ schedule: String?                   â† Cron for nightly/weekly
+â”œâ”€â”€ passes: Int, failures: Int, skipped: Int
+â”œâ”€â”€ durationMs: Int
+â”œâ”€â”€ lastRunAt, lastRunStatus
+â”œâ”€â”€ avgExecutionTimeMs: Float
+â”œâ”€â”€ flakyRate: Float?                   â† Failures / runs
+â”œâ”€â”€ status: String                      â† READY | RUNNING | FAILED | SUCCEEDED
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 ```
 
 ### 2.4 Certification Registry (NEW model)
 
 ```
 CertificationRegistry
-├── id, program (C01-C19), level (BRONZE|SILVER|GOLD|PLATINUM|ENTERPRISE)
-├── status: String                      ← NOT_STARTED | IN_PROGRESS | PASSED | FAILED | RENEWED
-├── criteria: String (JSON)             ← Certification criteria met
-├── evidence: String (JSON)             ← Evidence references
-├── score: Float?                       ← 0-100 certification score
-├── certifiedAt, certifiedBy
-├── expiresAt?                          ← Re-certification date
-├── version: String                     ← Platform version certified
-├── notes, createdAt, archivedAt
+â”œâ”€â”€ id, program (C01-C19), level (BRONZE|SILVER|GOLD|PLATINUM|ENTERPRISE)
+â”œâ”€â”€ status: String                      â† NOT_STARTED | IN_PROGRESS | PASSED | FAILED | RENEWED
+â”œâ”€â”€ criteria: String (JSON)             â† Certification criteria met
+â”œâ”€â”€ evidence: String (JSON)             â† Evidence references
+â”œâ”€â”€ score: Float?                       â† 0-100 certification score
+â”œâ”€â”€ certifiedAt, certifiedBy
+â”œâ”€â”€ expiresAt?                          â† Re-certification date
+â”œâ”€â”€ version: String                     â† Platform version certified
+â”œâ”€â”€ notes, createdAt, archivedAt
 ```
 
 ---
@@ -238,24 +244,24 @@ CertificationRegistry
 
 ```
 TestDataset
-├── id, name, type (SYNTHETIC|MASKED|SEED|GOLDEN|SCENARIO|PERF)
-├── program, description
-├── size: Int?, format: String (JSON|CSV|SQL|FIXTURES)
-├── version, status (ACTIVE|DEPRECATED)
-├── dataConfig: String (JSON)
-├── createdAt, archivedAt
+â”œâ”€â”€ id, name, type (SYNTHETIC|MASKED|SEED|GOLDEN|SCENARIO|PERF)
+â”œâ”€â”€ program, description
+â”œâ”€â”€ size: Int?, format: String (JSON|CSV|SQL|FIXTURES)
+â”œâ”€â”€ version, status (ACTIVE|DEPRECATED)
+â”œâ”€â”€ dataConfig: String (JSON)
+â”œâ”€â”€ createdAt, archivedAt
 
 TestEnvironment
-├── id, name, type (DEV|TEST|STAGING|PERF|CHAOS|DR)
-├── backendUrl, frontendUrl, databaseUrl (masked)
-├── featureFlags: String (JSON)
-├── datasetVersion, status
-├── createdBy, createdAt, archivedAt
+â”œâ”€â”€ id, name, type (DEV|TEST|STAGING|PERF|CHAOS|DR)
+â”œâ”€â”€ backendUrl, frontendUrl, databaseUrl (masked)
+â”œâ”€â”€ featureFlags: String (JSON)
+â”œâ”€â”€ datasetVersion, status
+â”œâ”€â”€ createdBy, createdAt, archivedAt
 
 GoldenDataVersion
-├── id, datasetId, version, data: String (JSON)
-├── expectedResults: String (JSON)
-├── validatedAt, validatedBy, createdAt
+â”œâ”€â”€ id, datasetId, version, data: String (JSON)
+â”œâ”€â”€ expectedResults: String (JSON)
+â”œâ”€â”€ validatedAt, validatedBy, createdAt
 ```
 
 ### 4.3 Data Masking Rules
@@ -288,17 +294,17 @@ GoldenDataVersion
 
 ```
 certificationScore = 
-  unitPassRate × 0.15 +
-  integrationPassRate × 0.15 +
-  apiPassRate × 0.10 +
-  e2ePassRate × 0.15 +
-  securityScore × 0.10 +
-  performanceScore × 0.10 +
-  a11yScore × 0.05 +
-  coverageScore × 0.10 +
-  defectSeverityScore × 0.10
+  unitPassRate Ã— 0.15 +
+  integrationPassRate Ã— 0.15 +
+  apiPassRate Ã— 0.10 +
+  e2ePassRate Ã— 0.15 +
+  securityScore Ã— 0.10 +
+  performanceScore Ã— 0.10 +
+  a11yScore Ã— 0.05 +
+  coverageScore Ã— 0.10 +
+  defectSeverityScore Ã— 0.10
 
-Score → Level:
+Score â†’ Level:
   90-100: Platinum / Enterprise (if all programs)
   80-89:  Gold
   70-79:  Silver
@@ -310,15 +316,15 @@ Score → Level:
 
 | Program | Bronze | Silver | Gold | Platinum |
 |---------|--------|--------|------|----------|
-| C01-C10 Connectivity | ✅ Base tests | ✅ Integration | ✅ E2E + perf | ✅ Full |
-| C12 Identity | ✅ Auth tests | ✅ RBAC tests | ✅ Security ASVS | ✅ Full |
-| C13 Finance | ✅ Accounting tests | ✅ Billing→GL | ✅ Financial E2E | ✅ Full |
-| C14 Customer | ✅ Portal render | ✅ Payment flows | ✅ Multi-lang + a11y | ✅ Full |
-| C15 Integration | ✅ Connector tests | ✅ Schema registry | ✅ Cross-integration | ✅ Full |
-| C16 Assets | ✅ Model CRUD | ✅ Work order flows | ✅ Field E2E | ✅ Full |
-| C17 Analytics | ✅ KPI tests | ✅ Dashboard render | ✅ Self-service | ✅ Full |
-| C18 AI | ✅ Agent tests | ✅ Retrieval | ✅ Governance + security | ✅ Full |
-| C19 DevSecOps | ✅ Config tests | ✅ Deploy tests | ✅ DR + security | ✅ Full |
+| C01-C10 Connectivity | âœ… Base tests | âœ… Integration | âœ… E2E + perf | âœ… Full |
+| C12 Identity | âœ… Auth tests | âœ… RBAC tests | âœ… Security ASVS | âœ… Full |
+| C13 Finance | âœ… Accounting tests | âœ… Billingâ†’GL | âœ… Financial E2E | âœ… Full |
+| C14 Customer | âœ… Portal render | âœ… Payment flows | âœ… Multi-lang + a11y | âœ… Full |
+| C15 Integration | âœ… Connector tests | âœ… Schema registry | âœ… Cross-integration | âœ… Full |
+| C16 Assets | âœ… Model CRUD | âœ… Work order flows | âœ… Field E2E | âœ… Full |
+| C17 Analytics | âœ… KPI tests | âœ… Dashboard render | âœ… Self-service | âœ… Full |
+| C18 AI | âœ… Agent tests | âœ… Retrieval | âœ… Governance + security | âœ… Full |
+| C19 DevSecOps | âœ… Config tests | âœ… Deploy tests | âœ… DR + security | âœ… Full |
 
 ---
 
@@ -347,7 +353,7 @@ CI VALIDATION (per PR):
   5. Contract validation (OpenAPI)
   6. Security scan (CodeQL, npm audit, snyk)
   7. Dependency check
-  GATE: All pass → merge allowed
+  GATE: All pass â†’ merge allowed
 
 RELEASE VALIDATION:
   1. All CI checks
@@ -357,7 +363,7 @@ RELEASE VALIDATION:
   5. Security (DAST + ASVS)
   6. Accessibility (axe)
   7. Localization (EN/AR)
-  GATE: All pass → release approved
+  GATE: All pass â†’ release approved
 ```
 
 ---
@@ -384,10 +390,10 @@ RELEASE VALIDATION:
 ```
 PerfScenario:
   - Baseline: normal traffic, 100 concurrent users, 15 min
-  - Load: expected peak × 2, 30 min
-  - Stress: peak × 5, 15 min (find breaking point)
+  - Load: expected peak Ã— 2, 30 min
+  - Stress: peak Ã— 5, 15 min (find breaking point)
   - Soak: expected load, 24 hours (memory leak detection)
-  - Spike: sudden 10× for 5 min (auto-scaling validation)
+  - Spike: sudden 10Ã— for 5 min (auto-scaling validation)
   - Endurance: sustained 8 hours (long-term stability)
 
 Each scenario records:
@@ -437,45 +443,45 @@ Release security gate:
 ### 9.1 Production Readiness Checklist
 
 ```
-□ DEPLOYMENT VERIFICATION
-   □ Backend started (health endpoint 200)
-   □ Frontend started (page loads)
-   □ Database migrations applied
-   □ Feature flags correct
-   □ Version displayed correctly
+â–¡ DEPLOYMENT VERIFICATION
+   â–¡ Backend started (health endpoint 200)
+   â–¡ Frontend started (page loads)
+   â–¡ Database migrations applied
+   â–¡ Feature flags correct
+   â–¡ Version displayed correctly
 
-□ SMOKE TESTS
-   □ Login (admin + operator)
-   □ List customers/meters/invoices
-   □ Create a test record
-   □ Read a record
-   □ Audit entry created
+â–¡ SMOKE TESTS
+   â–¡ Login (admin + operator)
+   â–¡ List customers/meters/invoices
+   â–¡ Create a test record
+   â–¡ Read a record
+   â–¡ Audit entry created
 
-□ HEALTH VALIDATION
-   □ /health returns ok
-   □ Database connectivity
-   □ Integration health (all active)
-   □ AI models available
-   □ Queue workers healthy
+â–¡ HEALTH VALIDATION
+   â–¡ /health returns ok
+   â–¡ Database connectivity
+   â–¡ Integration health (all active)
+   â–¡ AI models available
+   â–¡ Queue workers healthy
 
-□ ROLLBACK VERIFICATION
-   □ Previous version deployable
-   □ Config rollback works
-   □ Data rollback verified (no corruption)
+â–¡ ROLLBACK VERIFICATION
+   â–¡ Previous version deployable
+   â–¡ Config rollback works
+   â–¡ Data rollback verified (no corruption)
 
-□ BACKUP VERIFICATION
-   □ Backup ran after release
-   □ Backup integrity verified
+â–¡ BACKUP VERIFICATION
+   â–¡ Backup ran after release
+   â–¡ Backup integrity verified
 
-□ DR VERIFICATION
-   □ Restore tested on staging
-   □ RPO/RTO within targets
+â–¡ DR VERIFICATION
+   â–¡ Restore tested on staging
+   â–¡ RPO/RTO within targets
 
-□ MONITORING VERIFICATION
-   □ Metrics flowing
-   □ Alerts configured
-   □ Logs flowing to central store
-   □ Dashboards rendering
+â–¡ MONITORING VERIFICATION
+   â–¡ Metrics flowing
+   â–¡ Alerts configured
+   â–¡ Logs flowing to central store
+   â–¡ Dashboards rendering
 ```
 
 ---
@@ -485,32 +491,32 @@ Release security gate:
 ### 10.1 QA Director Dashboard (`/admin/quality/director`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│  QA DIRECTOR — ENTERPRISE QUALITY                                                               │
-│                                                                                               │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Overall      │ │ Test         │ │ Coverage     │ │ Open         │ │ Certification │        │
-│ │ Quality      │ │ Pass Rate    │ │ (avg)        │ │ Defects      │ │ (all programs)│        │
-│ │ Score        │ │ 92.4%        │ │ 78.5%        │ │ 12 (2 high)  │ │ 6/19 Gold+   │        │
-│ │ 82/100 🟢   │ │              │ │              │ │              │ │              │        │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                               │
-│ ┌─── CERTIFICATION STATUS ────────────────────────────────────────────────────────────────┐  │
-│ │ Program       │ Unit  │ API  │ E2E  │ Sec  │ Perf │ Level   │ Score │ Status           │  │
-│ │ C01-C10       │ 92%   │ 90%  │ 85%  │ 88%  │ 82%  │ GOLD    │ 84    │ ✅ Valid          │  │
-│ │ C12 Identity  │ 95%   │ 93%  │ 90%  │ 94%  │ 88%  │ PLATINUM│ 91    │ ✅ Valid          │  │
-│ │ C13 Finance   │ 90%   │ 89%  │ 84%  │ 86%  │ 80%  │ GOLD    │ 83    │ ⚠ Renew Q4       │  │
-│ │ C14 Customer  │ 88%   │ 87%  │ 82%  │ 85%  │ 78%  │ SILVER  │ 74    │ ⚠ Needs E2E      │  │
-│ │ ...           │       │      │      │      │      │         │       │                   │  │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                               │
-│ ┌─── DEFECT TRENDS (30 days) ────────────────────┐ ┌─── RISK HEAT MAP ──────────────────┐    │
-│ │ Critical  ██ (2)      │ Fixed     █████ (18)  │ │          │ Low Risk │ High Risk    │    │
-│ │ High      ████ (10)   │ Found     ████ (12)   │ │ Financial │    ██    │    █████    │    │
-│ │ Medium    ████████ (22)│ Open      ███ (8)    │ │ Security  │    ████  │    ██████   │    │
-│ │ Low       █████████ (25)│ MTTR 2.1d │         │ │ AI        │    ██    │    ████     │    │
-│ └───────────────────────────────────────────────┘ └─────────────────────────────────────┘    │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  QA DIRECTOR â€” ENTERPRISE QUALITY                                                               â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Overall      â”‚ â”‚ Test         â”‚ â”‚ Coverage     â”‚ â”‚ Open         â”‚ â”‚ Certification â”‚        â”‚
+â”‚ â”‚ Quality      â”‚ â”‚ Pass Rate    â”‚ â”‚ (avg)        â”‚ â”‚ Defects      â”‚ â”‚ (all programs)â”‚        â”‚
+â”‚ â”‚ Score        â”‚ â”‚ 92.4%        â”‚ â”‚ 78.5%        â”‚ â”‚ 12 (2 high)  â”‚ â”‚ 6/19 Gold+   â”‚        â”‚
+â”‚ â”‚ 82/100 ðŸŸ¢   â”‚ â”‚              â”‚ â”‚              â”‚ â”‚              â”‚ â”‚              â”‚        â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ CERTIFICATION STATUS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ Program       â”‚ Unit  â”‚ API  â”‚ E2E  â”‚ Sec  â”‚ Perf â”‚ Level   â”‚ Score â”‚ Status           â”‚  â”‚
+â”‚ â”‚ C01-C10       â”‚ 92%   â”‚ 90%  â”‚ 85%  â”‚ 88%  â”‚ 82%  â”‚ GOLD    â”‚ 84    â”‚ âœ… Valid          â”‚  â”‚
+â”‚ â”‚ C12 Identity  â”‚ 95%   â”‚ 93%  â”‚ 90%  â”‚ 94%  â”‚ 88%  â”‚ PLATINUMâ”‚ 91    â”‚ âœ… Valid          â”‚  â”‚
+â”‚ â”‚ C13 Finance   â”‚ 90%   â”‚ 89%  â”‚ 84%  â”‚ 86%  â”‚ 80%  â”‚ GOLD    â”‚ 83    â”‚ âš  Renew Q4       â”‚  â”‚
+â”‚ â”‚ C14 Customer  â”‚ 88%   â”‚ 87%  â”‚ 82%  â”‚ 85%  â”‚ 78%  â”‚ SILVER  â”‚ 74    â”‚ âš  Needs E2E      â”‚  â”‚
+â”‚ â”‚ ...           â”‚       â”‚      â”‚      â”‚      â”‚      â”‚         â”‚       â”‚                   â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ DEFECT TRENDS (30 days) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€ RISK HEAT MAP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚ â”‚ Critical  â–ˆâ–ˆ (2)      â”‚ Fixed     â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ (18)  â”‚ â”‚          â”‚ Low Risk â”‚ High Risk    â”‚    â”‚
+â”‚ â”‚ High      â–ˆâ–ˆâ–ˆâ–ˆ (10)   â”‚ Found     â–ˆâ–ˆâ–ˆâ–ˆ (12)   â”‚ â”‚ Financial â”‚    â–ˆâ–ˆ    â”‚    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â”‚    â”‚
+â”‚ â”‚ Medium    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ (22)â”‚ Open      â–ˆâ–ˆâ–ˆ (8)    â”‚ â”‚ Security  â”‚    â–ˆâ–ˆâ–ˆâ–ˆ  â”‚    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ   â”‚    â”‚
+â”‚ â”‚ Low       â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ (25)â”‚ MTTR 2.1d â”‚         â”‚ â”‚ AI        â”‚    â–ˆâ–ˆ    â”‚    â–ˆâ–ˆâ–ˆâ–ˆ     â”‚    â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 10.2 Additional Dashboards
@@ -545,11 +551,11 @@ Release security gate:
 
 ```
 REQUIREMENT (PRD/Domain doc) 
-    → DESIGN (Architecture/Blueprint) 
-    → IMPLEMENTATION (Code) 
-    → TEST (TestRegistry) 
-    → CERTIFICATION (CertificationRegistry) 
-    → OPERATIONAL EVIDENCE (Audit, Monitoring)
+    â†’ DESIGN (Architecture/Blueprint) 
+    â†’ IMPLEMENTATION (Code) 
+    â†’ TEST (TestRegistry) 
+    â†’ CERTIFICATION (CertificationRegistry) 
+    â†’ OPERATIONAL EVIDENCE (Audit, Monitoring)
 
 TraceabilityMatrix model:
   id, requirementId, designRef, implementationRef, testId, certificationId
@@ -576,14 +582,14 @@ TraceabilityMatrix model:
 
 | Agent | Purpose | Autonomy | Human Approval |
 |-------|---------|----------|----------------|
-| **Test Generation Agent** | Suggest new test cases from code changes | ⚡ Semi | Review before add |
-| **Regression Prioritization** | Order tests by risk for fast feedback | ✅ Full (read-only) | None |
-| **Failure Clustering** | Group similar test failures | ✅ Full (read-only) | None |
-| **Root Cause Analysis** | Propose failure causes | ⚡ Semi | Confirmation |
-| **Risk Prediction** | Predict release risk from changes | ✅ Full (read-only) | None |
-| **Coverage Analysis** | Identify uncovered code paths | ✅ Full (read-only) | None |
-| **Test Optimization** | Suggest flaky/duplicate test removal | ⚡ Semi | Review before change |
-| **Executive Quality Summary** | Generate quality narratives | ✅ Full (read-only) | None |
+| **Test Generation Agent** | Suggest new test cases from code changes | âš¡ Semi | Review before add |
+| **Regression Prioritization** | Order tests by risk for fast feedback | âœ… Full (read-only) | None |
+| **Failure Clustering** | Group similar test failures | âœ… Full (read-only) | None |
+| **Root Cause Analysis** | Propose failure causes | âš¡ Semi | Confirmation |
+| **Risk Prediction** | Predict release risk from changes | âœ… Full (read-only) | None |
+| **Coverage Analysis** | Identify uncovered code paths | âœ… Full (read-only) | None |
+| **Test Optimization** | Suggest flaky/duplicate test removal | âš¡ Semi | Review before change |
+| **Executive Quality Summary** | Generate quality narratives | âœ… Full (read-only) | None |
 
 ### 12.2 Agent Governance
 
@@ -593,7 +599,7 @@ AI Quality Agent rules:
   - Regression prioritization: reorders execution, never skips
   - Failure clustering: groups; human confirms clusters
   - RCA: proposes; human confirms root cause
-  - Risk prediction: confidence-gated; > 0.7 → flag to QA lead
+  - Risk prediction: confidence-gated; > 0.7 â†’ flag to QA lead
   - Coverage analysis: read-only; identifies gaps only
   - Test optimization: flags candidates; human approves removal
   - Executive summary: generated; QA director reviews before publish
@@ -607,21 +613,21 @@ Every AI quality action:
 
 ---
 
-## PART 13: TESTING STRATEGY — 220 TESTS
+## PART 13: TESTING STRATEGY â€” 220 TESTS
 
 ### 13.1 Cross-Program Certification Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | C01-C10 connectivity → meter reading → billing → GL → report (full chain) | Complete |
-| 2 | C12 RBAC → portal access → area isolation | Isolated |
-| 3 | C13 invoice → FinancialEvent → JournalEntry → GL | Traceable |
-| 4 | C14 portal → payment → gateway → GL | Complete |
-| 5 | C15 integration → webhook → event bus → notification | Delivered |
-| 6 | C16 work order → asset health → maintenance | Updated |
-| 7 | C17 KPI → data warehouse → executive dashboard | Accurate |
-| 8 | C18 agent → memory → retrieval → recommendation | Governed |
-| 9 | C19 config change → deploy → monitor | Audited |
+| 1 | C01-C10 connectivity â†’ meter reading â†’ billing â†’ GL â†’ report (full chain) | Complete |
+| 2 | C12 RBAC â†’ portal access â†’ area isolation | Isolated |
+| 3 | C13 invoice â†’ FinancialEvent â†’ JournalEntry â†’ GL | Traceable |
+| 4 | C14 portal â†’ payment â†’ gateway â†’ GL | Complete |
+| 5 | C15 integration â†’ webhook â†’ event bus â†’ notification | Delivered |
+| 6 | C16 work order â†’ asset health â†’ maintenance | Updated |
+| 7 | C17 KPI â†’ data warehouse â†’ executive dashboard | Accurate |
+| 8 | C18 agent â†’ memory â†’ retrieval â†’ recommendation | Governed |
+| 9 | C19 config change â†’ deploy â†’ monitor | Audited |
 | 10 | Full regression: all programs core paths | No regression |
 
 ### 13.2 Regression Tests (30)
@@ -649,16 +655,16 @@ Every AI quality action:
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | DB restart → recovery | Restored |
-| 2 | Backend crash → auto-restart | Restarted |
-| 3 | Network partition → failover | Failover |
-| 4 | Queue backlog → prioritization | Prioritized |
-| 5 | Event bus failure → retry | Retried |
-| 6 | Chaos: kill random service → recovery | Recovered |
-| 7 | DR: restore from backup → RTO met | Restored |
-| 8 | Load spike → auto-scaling | Scaled |
-| 9 | Certificate expiry → renewal | Renewed |
-| 10 | Config corruption → rollback | Restored |
+| 1 | DB restart â†’ recovery | Restored |
+| 2 | Backend crash â†’ auto-restart | Restarted |
+| 3 | Network partition â†’ failover | Failover |
+| 4 | Queue backlog â†’ prioritization | Prioritized |
+| 5 | Event bus failure â†’ retry | Retried |
+| 6 | Chaos: kill random service â†’ recovery | Recovered |
+| 7 | DR: restore from backup â†’ RTO met | Restored |
+| 8 | Load spike â†’ auto-scaling | Scaled |
+| 9 | Certificate expiry â†’ renewal | Renewed |
+| 10 | Config corruption â†’ rollback | Restored |
 
 ### 13.5 AI Governance Tests (25)
 
@@ -667,7 +673,7 @@ Every AI quality action:
 | 1 | AI agent respects permissions | Guarded |
 | 2 | AI recommendation has confidence | Present |
 | 3 | AI recommendation has explainability | Present |
-| 4 | AI low confidence → human review | Routed |
+| 4 | AI low confidence â†’ human review | Routed |
 | 5 | AI action requires approval (semi) | Approval |
 | 6 | AI audit trail complete | Audited |
 | 7 | Model drift detected | Detected |
@@ -680,9 +686,9 @@ Every AI quality action:
 | # | Test | Expect |
 |---|------|--------|
 | 1 | API P95 < 500ms baseline | Met |
-| 2 | Load at 2× peak → stable | Stable |
-| 3 | Stress at 5× peak → no crash | Recovers |
-| 4 | Soak 24h → no memory leak | Stable |
+| 2 | Load at 2Ã— peak â†’ stable | Stable |
+| 3 | Stress at 5Ã— peak â†’ no crash | Recovers |
+| 4 | Soak 24h â†’ no memory leak | Stable |
 | 5 | Dashboard < 2s | Fast |
 | 6 | Report 100K rows < 10s | Fast |
 | 7 | DB query P95 < 100ms (indexed) | Fast |
@@ -713,7 +719,7 @@ Every AI quality action:
 
 ---
 
-## PART 14: IMPLEMENTATION ROADMAP — W01–W08
+## PART 14: IMPLEMENTATION ROADMAP â€” W01â€“W08
 
 | Wave | Days | Dependencies | Deliverables | Gate | Rollback |
 |------|------|-------------|--------------|------|----------|
@@ -732,85 +738,85 @@ Every AI quality action:
 ## PART 15: DEFINITION OF DONE
 
 ```
-C20 — QUALITY, TESTING, VALIDATION & CERTIFICATION PLATFORM
+C20 â€” QUALITY, TESTING, VALIDATION & CERTIFICATION PLATFORM
 CERTIFICATION CHECKLIST
 
-□ TEST INVENTORY
-   □ TestRegistry with all programs (C01-C19) mapped
-   □ TestCatalog, TestSuites, TestPlans
-   □ TestMatrix (env × program × test type)
-   □ TestDataLibrary
+â–¡ TEST INVENTORY
+   â–¡ TestRegistry with all programs (C01-C19) mapped
+   â–¡ TestCatalog, TestSuites, TestPlans
+   â–¡ TestMatrix (env Ã— program Ã— test type)
+   â–¡ TestDataLibrary
 
-□ TESTING PYRAMID — ALL LAYERS OPERATIONAL
-   □ Unit (60%, coverage > 85%)
-   □ Integration (20%)
-   □ Contract (10%, 100% contracts)
-   □ API (10%)
-   □ UI (5%)
-   □ E2E (100% critical flows)
-   □ Performance/Load/Stress/Soak/Chaos/DR
-   □ Security (OWASP ASVS L2, Top 10, API)
-   □ Accessibility (WCAG AA)
-   □ Localization (EN/AR RTL)
-   □ AI validation (accuracy, drift, bias)
+â–¡ TESTING PYRAMID â€” ALL LAYERS OPERATIONAL
+   â–¡ Unit (60%, coverage > 85%)
+   â–¡ Integration (20%)
+   â–¡ Contract (10%, 100% contracts)
+   â–¡ API (10%)
+   â–¡ UI (5%)
+   â–¡ E2E (100% critical flows)
+   â–¡ Performance/Load/Stress/Soak/Chaos/DR
+   â–¡ Security (OWASP ASVS L2, Top 10, API)
+   â–¡ Accessibility (WCAG AA)
+   â–¡ Localization (EN/AR RTL)
+   â–¡ AI validation (accuracy, drift, bias)
 
-□ TEST DATA MANAGEMENT
-   □ Synthetic, masked, seed, golden, scenario, perf datasets
-   □ Data masking rules (7 field types)
-   □ Data versioning + refresh
-   □ Privacy controls
+â–¡ TEST DATA MANAGEMENT
+   â–¡ Synthetic, masked, seed, golden, scenario, perf datasets
+   â–¡ Data masking rules (7 field types)
+   â–¡ Data versioning + refresh
+   â–¡ Privacy controls
 
-□ CERTIFICATION FRAMEWORK — 5 LEVELS
-   □ Bronze, Silver, Gold, Platinum, Enterprise Certified
-   □ Scoring (0-100) with 8 weighted dimensions
-   □ Evidence-based (reports, logs)
-   □ Per-program certification (C01-C19)
+â–¡ CERTIFICATION FRAMEWORK â€” 5 LEVELS
+   â–¡ Bronze, Silver, Gold, Platinum, Enterprise Certified
+   â–¡ Scoring (0-100) with 8 weighted dimensions
+   â–¡ Evidence-based (reports, logs)
+   â–¡ Per-program certification (C01-C19)
 
-□ CONTINUOUS VALIDATION
-   □ CI (per PR) → Nightly → Weekly → Monthly → Release → Upgrade → Migration
-   □ All gates enforced
+â–¡ CONTINUOUS VALIDATION
+   â–¡ CI (per PR) â†’ Nightly â†’ Weekly â†’ Monthly â†’ Release â†’ Upgrade â†’ Migration
+   â–¡ All gates enforced
 
-□ PERFORMANCE ENGINEERING
-   □ 10 validation areas with targets
-   □ Baseline, load, stress, soak, spike, endurance scenarios
-   □ Release gates
+â–¡ PERFORMANCE ENGINEERING
+   â–¡ 10 validation areas with targets
+   â–¡ Baseline, load, stress, soak, spike, endurance scenarios
+   â–¡ Release gates
 
-□ SECURITY VALIDATION
-   □ OWASP ASVS L2, Top 10
-   □ API security, multi-tenant isolation
-   □ Secrets, dependency, supply chain
-   □ AI security
+â–¡ SECURITY VALIDATION
+   â–¡ OWASP ASVS L2, Top 10
+   â–¡ API security, multi-tenant isolation
+   â–¡ Secrets, dependency, supply chain
+   â–¡ AI security
 
-□ OPERATIONAL ACCEPTANCE
-   □ Production readiness checklist (9 categories)
-   □ Deployment verification + smoke + health
-   □ Rollback + backup + DR + monitoring verification
+â–¡ OPERATIONAL ACCEPTANCE
+   â–¡ Production readiness checklist (9 categories)
+   â–¡ Deployment verification + smoke + health
+   â–¡ Rollback + backup + DR + monitoring verification
 
-□ EXECUTIVE DASHBOARDS — 7 PAGES
-   □ CTO, CIO, QA Director, Engineering, DevOps, Security, Executive Board
+â–¡ EXECUTIVE DASHBOARDS â€” 7 PAGES
+   â–¡ CTO, CIO, QA Director, Engineering, DevOps, Security, Executive Board
 
-□ GOVERNANCE
-   □ 8 quality policies
-   □ Traceability matrix (requirement→test→certification)
-   □ Evidence retention
-   □ Audit requirements
+â–¡ GOVERNANCE
+   â–¡ 8 quality policies
+   â–¡ Traceability matrix (requirementâ†’testâ†’certification)
+   â–¡ Evidence retention
+   â–¡ Audit requirements
 
-□ AI QUALITY INTELLIGENCE — 8 AGENTS
-   □ Test generation, regression prioritization, failure clustering
-   □ RCA, risk prediction, coverage, optimization, executive summary
-   □ Governance: confidence, explainability, human approval
+â–¡ AI QUALITY INTELLIGENCE â€” 8 AGENTS
+   â–¡ Test generation, regression prioritization, failure clustering
+   â–¡ RCA, risk prediction, coverage, optimization, executive summary
+   â–¡ Governance: confidence, explainability, human approval
 
-□ TESTS — 220 PASSING
-   □ Cross-program: 30
-   □ Regression: 30
-   □ Security: 30
-   □ Resilience: 25
-   □ AI governance: 25
-   □ Performance: 30
-   □ Production readiness: 30
-   □ Multi-tenant: 20
+â–¡ TESTS â€” 220 PASSING
+   â–¡ Cross-program: 30
+   â–¡ Regression: 30
+   â–¡ Security: 30
+   â–¡ Resilience: 25
+   â–¡ AI governance: 25
+   â–¡ Performance: 30
+   â–¡ Production readiness: 30
+   â–¡ Multi-tenant: 20
 
-C20 STATUS: □ NOT IMPLEMENTED
+C20 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -859,7 +865,7 @@ All items above are DESIGN-COMPLETE but not executed.
 | TestEnvironment | Environment registry |
 | GoldenDataVersion | Known-good expected data |
 | DefectRegistry | Defect tracking with traceability |
-| TraceabilityMatrix | Requirement→test→certification |
+| TraceabilityMatrix | Requirementâ†’testâ†’certification |
 | QualitySnapshot | Periodic quality score |
 | **Total** | **10 new models** |
 
@@ -880,20 +886,21 @@ All items above are DESIGN-COMPLETE but not executed.
 
 ```
 C20 EXECUTIVE ACCEPTANCE CHECKLIST:
-  □ Enterprise quality maturity ≥ 85%
-  □ All 19 programs (C01-C19) certification-mapped
-  □ 220 certification tests passing
-  □ Production readiness checklist validated
-  □ Coverage targets raised (40% → 85% lines)
-  □ Estimated reduction in production defects: 60-80%
-  □ Estimated automation coverage: 85%+ of testable surface
-  □ Every certification result auditable, reproducible, versioned, traceable
-  □ Release gates enforced (no bypass)
-  □ Executive quality dashboards live (7 pages)
+  â–¡ Enterprise quality maturity â‰¥ 85%
+  â–¡ All 19 programs (C01-C19) certification-mapped
+  â–¡ 220 certification tests passing
+  â–¡ Production readiness checklist validated
+  â–¡ Coverage targets raised (40% â†’ 85% lines)
+  â–¡ Estimated reduction in production defects: 60-80%
+  â–¡ Estimated automation coverage: 85%+ of testable surface
+  â–¡ Every certification result auditable, reproducible, versioned, traceable
+  â–¡ Release gates enforced (no bypass)
+  â–¡ Executive quality dashboards live (7 pages)
 ```
 
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C20 — Quality, Testing, Validation & Certification Platform. READ ONLY. GOVERNANCE PLANNING ONLY.*
-*MeterVerse Enterprise — QUALITY-CERTIFIED DESIGN COMPLETE.*
+*C20 â€” Quality, Testing, Validation & Certification Platform. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*MeterVerse Enterprise â€” QUALITY-CERTIFIED DESIGN COMPLETE.*
+

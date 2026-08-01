@@ -1,15 +1,21 @@
-# C26 — Enterprise Master Data Management, Data Quality & Reference Data Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W4 | Commit: f355f54b
+====================================================================
+-->
+
+# C26 â€” Enterprise Master Data Management, Data Quality & Reference Data Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C25  
 **Constraint:** Web-first governance platform; no native mobile application.
 
 ---
 
-## Part 1 — Enterprise Master Data Audit
+## Part 1 â€” Enterprise Master Data Audit
 
 ### Existing master domains
 
@@ -45,23 +51,23 @@ MeterVerse has source records for User/Role, Organization, Country/Governorate, 
 
 ---
 
-## Part 2 — Enterprise MDM Architecture
+## Part 2 â€” Enterprise MDM Architecture
 
 ```text
-┌──────────────────────────────────────────────────────────────────────────┐
-│ MASTER DATA HUB                                                         │
-│                                                                        │
-│ Sources C01-C25 → Ingestion/Mapping → Identity Resolution              │
-│                                      → Match/Merge                       │
-│                                      → Golden Record Engine              │
-│                                      → Steward Approval                 │
-│                                      → Canonical Master                  │
-│                                                                        │
-│ Golden records → C15 sync → ERP/CRM/GIS/SCADA/identity                  │
-│ Golden records → C17 analytics → facts/dimensions                        │
-│ Golden records → C18 AI → approved context                               │
-│ Quality/issues → C21 governance + C23 workflow + C25 communication      │
-└──────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ MASTER DATA HUB                                                         â”‚
+â”‚                                                                        â”‚
+â”‚ Sources C01-C25 â†’ Ingestion/Mapping â†’ Identity Resolution              â”‚
+â”‚                                      â†’ Match/Merge                       â”‚
+â”‚                                      â†’ Golden Record Engine              â”‚
+â”‚                                      â†’ Steward Approval                 â”‚
+â”‚                                      â†’ Canonical Master                  â”‚
+â”‚                                                                        â”‚
+â”‚ Golden records â†’ C15 sync â†’ ERP/CRM/GIS/SCADA/identity                  â”‚
+â”‚ Golden records â†’ C17 analytics â†’ facts/dimensions                        â”‚
+â”‚ Golden records â†’ C18 AI â†’ approved context                               â”‚
+â”‚ Quality/issues â†’ C21 governance + C23 workflow + C25 communication      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 Design principles:
@@ -75,16 +81,16 @@ Design principles:
 ### Source prioritization
 
 ```text
-Regulatory authority / approved reference → enterprise governance registry
-Contract/customer authority → Customer/Finance owner
-Meter/asset authority → Asset Operations
-Identity authority → C12 Identity
-External integration source → C15 connector, never direct overwrite
+Regulatory authority / approved reference â†’ enterprise governance registry
+Contract/customer authority â†’ Customer/Finance owner
+Meter/asset authority â†’ Asset Operations
+Identity authority â†’ C12 Identity
+External integration source â†’ C15 connector, never direct overwrite
 ```
 
 ---
 
-## Part 3 — Reference Data Management
+## Part 3 â€” Reference Data Management
 
 Central reference datasets include:
 
@@ -97,40 +103,40 @@ Each dataset has owner, steward, version, effective dates, parent/inheritance, s
 
 ```text
 ReferenceDataset
-  └── ReferenceValue (code, label, locale labels, parent, effective dates)
-        └── ReferenceValueVersion (history and status)
+  â””â”€â”€ ReferenceValue (code, label, locale labels, parent, effective dates)
+        â””â”€â”€ ReferenceValueVersion (history and status)
 ```
 
-Inheritance follows `GLOBAL → REGION → COUNTRY → TENANT → BUSINESS UNIT`, with the most specific approved value winning.
+Inheritance follows `GLOBAL â†’ REGION â†’ COUNTRY â†’ TENANT â†’ BUSINESS UNIT`, with the most specific approved value winning.
 
 ---
 
-## Part 4 — Golden Record Engine
+## Part 4 â€” Golden Record Engine
 
 ### Matching stages
 
 ```text
 Incoming source record
-  → normalize (case, whitespace, phone, email, serial, address)
-  → deterministic keys (tax ID, serial, email, external ID)
-  → probabilistic scoring (name, address, phone, date, relationships)
-  → candidate cluster
-  → merge proposal
-  → steward approval for merge
-  → golden record publication
-  → source-system reconciliation and audit
+  â†’ normalize (case, whitespace, phone, email, serial, address)
+  â†’ deterministic keys (tax ID, serial, email, external ID)
+  â†’ probabilistic scoring (name, address, phone, date, relationships)
+  â†’ candidate cluster
+  â†’ merge proposal
+  â†’ steward approval for merge
+  â†’ golden record publication
+  â†’ source-system reconciliation and audit
 ```
 
 ### Match score
 
 ```text
-matchScore = deterministicMatch × 0.50
-           + identityAttributes × 0.25
-           + relationshipEvidence × 0.15
-           + sourceReliability × 0.10
+matchScore = deterministicMatch Ã— 0.50
+           + identityAttributes Ã— 0.25
+           + relationshipEvidence Ã— 0.15
+           + sourceReliability Ã— 0.10
 
-≥ 0.95: deterministic auto-link, no destructive merge
-0.75–0.94: steward review required
+â‰¥ 0.95: deterministic auto-link, no destructive merge
+0.75â€“0.94: steward review required
 < 0.75: retain separate records and monitor
 ```
 
@@ -140,7 +146,7 @@ Merge rollback restores previous attribute values and relationships using the im
 
 ---
 
-## Part 5 — Data Quality Framework
+## Part 5 â€” Data Quality Framework
 
 | Dimension | Example rule | Failure action |
 |---|---|---|
@@ -156,22 +162,22 @@ Merge rollback restores previous attribute values and relationships using the im
 ### Quality score
 
 ```text
-domainScore = completeness × .15 + uniqueness × .15 + validity × .15
-            + consistency × .15 + timeliness × .10 + conformity × .10
-            + referentialIntegrity × .15 + businessRules × .15
+domainScore = completeness Ã— .15 + uniqueness Ã— .15 + validity Ã— .15
+            + consistency Ã— .15 + timeliness Ã— .10 + conformity Ã— .10
+            + referentialIntegrity Ã— .15 + businessRules Ã— .15
 ```
 
 Scores are stored by domain, tenant, source, and period. Red domains create C23 stewardship workflows and C25 notifications.
 
 ---
 
-## Part 6 — Data Stewardship
+## Part 6 â€” Data Stewardship
 
 ### Stewardship workflow
 
 ```text
-QUALITY ISSUE → assigned to domain steward → investigate → propose correction
-  → approval (if sensitive) → apply/propagate → verify → close
+QUALITY ISSUE â†’ assigned to domain steward â†’ investigate â†’ propose correction
+  â†’ approval (if sensitive) â†’ apply/propagate â†’ verify â†’ close
 ```
 
 Steward responsibilities:
@@ -186,7 +192,7 @@ Assignments are tenant, domain, region, and classification scoped. C21 governanc
 
 ---
 
-## Part 7 — AI Data Intelligence
+## Part 7 â€” AI Data Intelligence
 
 | Capability | Output | Governance |
 |---|---|---|
@@ -202,11 +208,11 @@ All AI output includes confidence, evidence, source ranking, alternatives, limit
 
 ---
 
-## Part 8 — Data Lineage & Impact Analysis
+## Part 8 â€” Data Lineage & Impact Analysis
 
 ```text
-SOURCE → C15 connector → mapping/transformation → MasterRecord
-  → GoldenRecord → downstream workflow/report/AI/document
+SOURCE â†’ C15 connector â†’ mapping/transformation â†’ MasterRecord
+  â†’ GoldenRecord â†’ downstream workflow/report/AI/document
 ```
 
 Lineage tracks source system, source ID, field transformation, mapping version, sync attempt, target record, workflow consumers, reports, C17 facts, C18 retrieval use, and C24 document references.
@@ -220,7 +226,7 @@ Impact analysis answers:
 
 ---
 
-## Part 9 — Enterprise Synchronization
+## Part 9 â€” Enterprise Synchronization
 
 Sync adapters use C15 connectors and canonical mappings:
 
@@ -233,11 +239,11 @@ Sync adapters use C15 connectors and canonical mappings:
 | External APIs | reference/customer/asset extensions | mapping + source reliability |
 | Identity systems | users, roles, groups | C12 identity authority wins |
 
-Conflict states: `DETECTED → CLASSIFIED → ASSIGNED → RESOLVED → PROPAGATED`. Every conflict has both values, source timestamps, authority scores, resolution reason, and rollback reference.
+Conflict states: `DETECTED â†’ CLASSIFIED â†’ ASSIGNED â†’ RESOLVED â†’ PROPAGATED`. Every conflict has both values, source timestamps, authority scores, resolution reason, and rollback reference.
 
 ---
 
-## Part 10 — Enterprise Models
+## Part 10 â€” Enterprise Models
 
 The target design adds approximately 22 models:
 
@@ -285,7 +291,7 @@ MergeDecision
 
 ---
 
-## Part 11 — Security & Governance
+## Part 11 â€” Security & Governance
 
 - C12 Zero Trust authenticates stewards, source operators, and service identities.
 - C15 controls ingestion, connectors, mapping, retries, idempotency, and propagation.
@@ -300,7 +306,7 @@ MergeDecision
 
 ---
 
-## Part 12 — Testing Strategy — 340 Tests
+## Part 12 â€” Testing Strategy â€” 340 Tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
@@ -310,7 +316,7 @@ MergeDecision
 | Reference data | 25 | inheritance, versioning, deprecation, locale |
 | Quality rules | 40 | eight quality dimensions and scoring |
 | Stewardship workflow | 25 | assignment, SLA, approval, exception, certification |
-| Lineage/impact | 25 | source→transform→master→consumer chains |
+| Lineage/impact | 25 | sourceâ†’transformâ†’masterâ†’consumer chains |
 | AI recommendations | 25 | confidence, evidence, human merge approval |
 | Tenant isolation | 30 | cross-tenant matching, search, sync, AI, exports |
 | Performance | 20 | million-record match, batch sync, quality scans |
@@ -322,7 +328,7 @@ Critical acceptance: zero unauthorized cross-tenant matches, no destructive merg
 
 ---
 
-## Part 13 — Implementation Roadmap
+## Part 13 â€” Implementation Roadmap
 
 | Wave | Duration | Dependencies | Deliverables | Gate | Rollback |
 |---|---:|---|---|---|---|
@@ -347,7 +353,7 @@ Critical acceptance: zero unauthorized cross-tenant matches, no destructive merg
 
 ---
 
-## Part 14 — Executive Command Center
+## Part 14 â€” Executive Command Center
 
 | Dashboard | Audience | Key content |
 |---|---|---|
@@ -361,30 +367,30 @@ Core metrics: golden-record coverage, duplicate rate, merge precision, quality s
 
 ---
 
-## Part 15 — Definition of Done
+## Part 15 â€” Definition of Done
 
 ```text
-□ Master Data Hub covers customer, organization, location, meter, asset, SIM,
+â–¡ Master Data Hub covers customer, organization, location, meter, asset, SIM,
   supplier, warehouse, employee, role, tariff, account, country, region, utility,
   product, service, document, and knowledge domains.
-□ Golden Record Engine supports deterministic and probabilistic matching,
+â–¡ Golden Record Engine supports deterministic and probabilistic matching,
   candidate scoring, human-approved merge, rollback, and lineage.
-□ Reference datasets are versioned, inherited, owned, and deprecable.
-□ Eight data-quality dimensions are measured with domain/source/tenant scores.
-□ Stewardship assignments, issue workflow, approvals, exceptions, escalation,
+â–¡ Reference datasets are versioned, inherited, owned, and deprecable.
+â–¡ Eight data-quality dimensions are measured with domain/source/tenant scores.
+â–¡ Stewardship assignments, issue workflow, approvals, exceptions, escalation,
   and certification are operational.
-□ C15 synchronization supports conflict detection and reconciliation.
-□ C17 lineage and dimensions consume certified master records.
-□ C18 AI uses quality/classification context; merges always require humans.
-□ C21 governance owns standards, ownership, exceptions, risks, and audits.
-□ C22 tenant isolation and residency apply to all MDM records and indexes.
-□ C23 routes stewardship and merge workflows; C24 preserves evidence; C25 notifies.
-□ 340 certification tests pass across matching, quality, sync, security, DR, and compliance.
+â–¡ C15 synchronization supports conflict detection and reconciliation.
+â–¡ C17 lineage and dimensions consume certified master records.
+â–¡ C18 AI uses quality/classification context; merges always require humans.
+â–¡ C21 governance owns standards, ownership, exceptions, risks, and audits.
+â–¡ C22 tenant isolation and residency apply to all MDM records and indexes.
+â–¡ C23 routes stewardship and merge workflows; C24 preserves evidence; C25 notifies.
+â–¡ 340 certification tests pass across matching, quality, sync, security, DR, and compliance.
 ```
 
 ---
 
-## Appendix A — Maturity Improvement
+## Appendix A â€” Maturity Improvement
 
 | Dimension | Before C26 | Target After C26 |
 |---|---:|---:|
@@ -398,7 +404,7 @@ Core metrics: golden-record coverage, duplicate rate, merge precision, quality s
 | AI data intelligence | 15% | 85% |
 | **Overall MDM maturity** | **32%** | **90%** |
 
-## Appendix B — Integration Map
+## Appendix B â€” Integration Map
 
 | Program | C26 integration |
 |---|---|
@@ -418,7 +424,7 @@ Core metrics: golden-record coverage, duplicate rate, merge precision, quality s
 | C24 | document/knowledge masters, retention, legal holds |
 | C25 | steward notifications, conflict alerts, approval communications |
 
-## Appendix C — Estimated Size
+## Appendix C â€” Estimated Size
 
 | Artifact | Estimate |
 |---|---:|
@@ -433,4 +439,5 @@ Core metrics: golden-record coverage, duplicate rate, merge precision, quality s
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C26 — Enterprise Master Data Management, Data Quality & Reference Data Platform.*
+*C26 â€” Enterprise Master Data Management, Data Quality & Reference Data Platform.*
+

@@ -1,15 +1,21 @@
-# P40 — Enterprise Implementation Master Program
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [x] Complete (program plan) | Certification: [~] Conditional (P41) | Wave: All | Commit: 2adee966
+====================================================================
+-->
+
+# P40 â€” Enterprise Implementation Master Program
 ## Implementation Constitution & Wave 01 Roadmap
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C38 (all approved as designed)  
 **Constraint:** Web-first platform; no native mobile application.
 
 ---
 
-## Part 0 — Enterprise Implementation Constitution
+## Part 0 â€” Enterprise Implementation Constitution
 
 ### 0.1 Purpose
 
@@ -40,102 +46,102 @@ C01-C38 is architecturally complete. P40 is the official transition from enterpr
 
 ---
 
-## Part 1 — Dependency Graph
+## Part 1 â€” Dependency Graph
 
 ### 1.1 Program-level dependency graph
 
 ```text
-C01-C10 (Connectivity — LIVE, no dependency)
-     │
-     ▼
-C12 (Identity & Zero Trust) ─── base for everything
-     │
-     ├──► C19 (DevSecOps) ─────────── horizontal infra
-     ├──► C21 (Governance/DTO) ────── horizontal governance
-     ├──► C20 (Quality/Cert) ──────── horizontal QA (needs C19 CI)
-     │
-     ▼
-C22 (SaaS/Tenancy) ──► C23 (Workflow/BPM)
-     │                        │
-     ├──► C13 (Financial)      └──► C24 (Records/Knowledge Gov)
-     │                                │
-     ▼                                ▼
-C14 (Customer) ──► C25 (Communication) ──► C26 (MDM)
-     │                                      │
-     │                                      ▼
-     └──────────► C15 (Integration) ──► C27 (Scheduling)
-                                                  │
-     ┌────────────────────────────────────────────┤
-     ▼                                            ▼
-C17 (Analytics) ──► C16 (Assets/Field)    C28 (Digital Twin/Simulation)
-     │                    │                      │
-     │                    ▼                      ▼
-     └──────────► C18 (AI Platform) ──► C29 (Resilience/BC)
-                          │                      │
-                          ▼                      ▼
-                    C31 (Knowledge) ──► C30 (Compliance/Audit)
-                          │                      │
-                          └──────────┬───────────┘
-                                     ▼
+C01-C10 (Connectivity â€” LIVE, no dependency)
+     â”‚
+     â–¼
+C12 (Identity & Zero Trust) â”€â”€â”€ base for everything
+     â”‚
+     â”œâ”€â”€â–º C19 (DevSecOps) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ horizontal infra
+     â”œâ”€â”€â–º C21 (Governance/DTO) â”€â”€â”€â”€â”€â”€ horizontal governance
+     â”œâ”€â”€â–º C20 (Quality/Cert) â”€â”€â”€â”€â”€â”€â”€â”€ horizontal QA (needs C19 CI)
+     â”‚
+     â–¼
+C22 (SaaS/Tenancy) â”€â”€â–º C23 (Workflow/BPM)
+     â”‚                        â”‚
+     â”œâ”€â”€â–º C13 (Financial)      â””â”€â”€â–º C24 (Records/Knowledge Gov)
+     â”‚                                â”‚
+     â–¼                                â–¼
+C14 (Customer) â”€â”€â–º C25 (Communication) â”€â”€â–º C26 (MDM)
+     â”‚                                      â”‚
+     â”‚                                      â–¼
+     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º C15 (Integration) â”€â”€â–º C27 (Scheduling)
+                                                  â”‚
+     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+     â–¼                                            â–¼
+C17 (Analytics) â”€â”€â–º C16 (Assets/Field)    C28 (Digital Twin/Simulation)
+     â”‚                    â”‚                      â”‚
+     â”‚                    â–¼                      â–¼
+     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–º C18 (AI Platform) â”€â”€â–º C29 (Resilience/BC)
+                          â”‚                      â”‚
+                          â–¼                      â–¼
+                    C31 (Knowledge) â”€â”€â–º C30 (Compliance/Audit)
+                          â”‚                      â”‚
+                          â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                     â–¼
                         C32 (Product/Innovation)
-                                     │
-                        ┌────────────┼────────────┐
-                        ▼            ▼            ▼
+                                     â”‚
+                        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                        â–¼            â–¼            â–¼
                    C33 (Engagement)  C34 (Utility)  C36 (Ecosystem)
-                        │            │
-                        │            ▼
-                        │        C35 (ESG/Carbon)
-                        │
-                        └────► C37 (Privacy) ──► C38 (Workforce/HR)
+                        â”‚            â”‚
+                        â”‚            â–¼
+                        â”‚        C35 (ESG/Carbon)
+                        â”‚
+                        â””â”€â”€â”€â”€â–º C37 (Privacy) â”€â”€â–º C38 (Workforce/HR)
 ```
 
 ### 1.2 Detailed dependency list (edges)
 
 | # | Dependency | Reason |
 |---|---|---|
-| 1 | C12 ← C01-C10 | Identity runtime needs connectivity/infra |
-| 2 | C19 ← C12 | CI/CD needs identity for secrets/agents |
-| 3 | C20 ← C19 | Quality gates run on CI pipeline |
-| 4 | C21 ← C12, C19 | Governance needs identity + infra |
-| 5 | C22 ← C12, C19, C21 | Tenancy needs identity, ops, governance |
-| 6 | C23 ← C22 | Workflow needs tenant scope |
-| 7 | C13 ← C12, C22, C23 | Finance needs identity, tenancy, workflow |
-| 8 | C14 ← C12, C13, C23 | Customer portal needs identity, billing, workflow |
-| 9 | C24 ← C23, C22, C12 | Records needs workflow, tenancy, identity |
-| 10 | C25 ← C22, C23, C24 | Communication needs tenancy, workflow, records |
-| 11 | C26 ← C15, C17, C22, C23 | MDM needs integration, analytics, tenancy, workflow |
-| 12 | C15 ← C12, C22, C19 | Integration needs identity, tenancy, ops |
-| 13 | C16 ← C15, C26 | Assets needs integration + canonical master data |
-| 14 | C17 ← C13, C14, C15, C16 | Analytics consumes all data programs |
-| 15 | C18 ← C12, C17 | AI needs identity + data |
-| 16 | C27 ← C16, C23, C25, C26 | Scheduling needs assets, workflow, comms, MDM |
-| 17 | C28 ← C13, C16, C17, C18, C23, C26, C27 | Simulation needs all domain twins |
-| 18 | C29 ← C19, C23, C25, C27, C28 | Resilience needs ops, workflow, comms, schedule, sim |
-| 19 | C30 ← C12, C15, C17, C18, C19-C22, C24, C28, C29 | Compliance consumes all controls |
-| 20 | C31 ← C18, C24, C25, C26, C28-C30 | Knowledge needs AI, records, comms, MDM, sim/resilience/compliance |
-| 21 | C32 ← C17, C18, C20, C21, C22, C23, C24, C26, C28, C30, C31 | Product needs analytics, AI, quality, governance, etc. |
-| 22 | C33 ← C14, C17, C18, C21, C22, C25, C26, C31, C32 | Engagement needs customer, analytics, AI, comms, MDM, knowledge, product |
-| 23 | C34 ← C01-C10, C13, C17, C18, C26-C31, C33 | Utility needs metering, finance, analytics, AI, MDM, scheduling, sim, knowledge |
-| 24 | C35 ← C34, C13, C17, C18, C22, C26, C30, C31, C33 | ESG needs energy, finance, analytics, AI, tenancy, MDM, compliance |
-| 25 | C36 ← C12, C15, C18, C20-C22, C24, C25, C26, C32 | Ecosystem needs identity, integration, AI, quality, tenancy, records, product |
-| 26 | C37 ← C12, C18, C22, C23, C24, C25, C26, C30, C33, C36 | Privacy needs identity, AI, tenancy, workflow, records, compliance, data |
-| 27 | C38 ← C12, C13, C16, C18, C21, C22, C23, C24, C25, C26, C27, C30, C31, C33, C37 | HR needs identity, finance, field, AI, governance, workflow, records, scheduling, privacy |
+| 1 | C12 â† C01-C10 | Identity runtime needs connectivity/infra |
+| 2 | C19 â† C12 | CI/CD needs identity for secrets/agents |
+| 3 | C20 â† C19 | Quality gates run on CI pipeline |
+| 4 | C21 â† C12, C19 | Governance needs identity + infra |
+| 5 | C22 â† C12, C19, C21 | Tenancy needs identity, ops, governance |
+| 6 | C23 â† C22 | Workflow needs tenant scope |
+| 7 | C13 â† C12, C22, C23 | Finance needs identity, tenancy, workflow |
+| 8 | C14 â† C12, C13, C23 | Customer portal needs identity, billing, workflow |
+| 9 | C24 â† C23, C22, C12 | Records needs workflow, tenancy, identity |
+| 10 | C25 â† C22, C23, C24 | Communication needs tenancy, workflow, records |
+| 11 | C26 â† C15, C17, C22, C23 | MDM needs integration, analytics, tenancy, workflow |
+| 12 | C15 â† C12, C22, C19 | Integration needs identity, tenancy, ops |
+| 13 | C16 â† C15, C26 | Assets needs integration + canonical master data |
+| 14 | C17 â† C13, C14, C15, C16 | Analytics consumes all data programs |
+| 15 | C18 â† C12, C17 | AI needs identity + data |
+| 16 | C27 â† C16, C23, C25, C26 | Scheduling needs assets, workflow, comms, MDM |
+| 17 | C28 â† C13, C16, C17, C18, C23, C26, C27 | Simulation needs all domain twins |
+| 18 | C29 â† C19, C23, C25, C27, C28 | Resilience needs ops, workflow, comms, schedule, sim |
+| 19 | C30 â† C12, C15, C17, C18, C19-C22, C24, C28, C29 | Compliance consumes all controls |
+| 20 | C31 â† C18, C24, C25, C26, C28-C30 | Knowledge needs AI, records, comms, MDM, sim/resilience/compliance |
+| 21 | C32 â† C17, C18, C20, C21, C22, C23, C24, C26, C28, C30, C31 | Product needs analytics, AI, quality, governance, etc. |
+| 22 | C33 â† C14, C17, C18, C21, C22, C25, C26, C31, C32 | Engagement needs customer, analytics, AI, comms, MDM, knowledge, product |
+| 23 | C34 â† C01-C10, C13, C17, C18, C26-C31, C33 | Utility needs metering, finance, analytics, AI, MDM, scheduling, sim, knowledge |
+| 24 | C35 â† C34, C13, C17, C18, C22, C26, C30, C31, C33 | ESG needs energy, finance, analytics, AI, tenancy, MDM, compliance |
+| 25 | C36 â† C12, C15, C18, C20-C22, C24, C25, C26, C32 | Ecosystem needs identity, integration, AI, quality, tenancy, records, product |
+| 26 | C37 â† C12, C18, C22, C23, C24, C25, C26, C30, C33, C36 | Privacy needs identity, AI, tenancy, workflow, records, compliance, data |
+| 27 | C38 â† C12, C13, C16, C18, C21, C22, C23, C24, C25, C26, C27, C30, C31, C33, C37 | HR needs identity, finance, field, AI, governance, workflow, records, scheduling, privacy |
 
 ---
 
-## Part 2 — Critical Path Analysis
+## Part 2 â€” Critical Path Analysis
 
 ### 2.1 Blocking programs (critical path)
 
 ```text
-C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
-                                        └→ C24 → C25 → C26 → C27 → C28 → C29 → C30
-                                                              └→ C17 → C18 → C31 → C32 → C33
-                                                                    └→ C34 → C35
-                                                                    └→ C36 → C37 → C38
+C01-C10 (done) â†’ C12 â†’ C19 â†’ C22 â†’ C23 â†’ C13 â†’ C14
+                                        â””â†’ C24 â†’ C25 â†’ C26 â†’ C27 â†’ C28 â†’ C29 â†’ C30
+                                                              â””â†’ C17 â†’ C18 â†’ C31 â†’ C32 â†’ C33
+                                                                    â””â†’ C34 â†’ C35
+                                                                    â””â†’ C36 â†’ C37 â†’ C38
 ```
 
-**Critical path (longest chain):** C01-C10 → C12 → C19 → C22 → C23 → C24 → C25 → C26 → C27 → C28 → C29 → C30 → C31 → C32 → C33 → C37 → C38
+**Critical path (longest chain):** C01-C10 â†’ C12 â†’ C19 â†’ C22 â†’ C23 â†’ C24 â†’ C25 â†’ C26 â†’ C27 â†’ C28 â†’ C29 â†’ C30 â†’ C31 â†’ C32 â†’ C33 â†’ C37 â†’ C38
 
 ### 2.2 Blocking vs optional
 
@@ -149,13 +155,13 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 | Lane | Programs | Parallel with |
 |---|---|---|
-| **Lane A — Financial/Customer** | C13, C14, C33 | Lane B |
-| **Lane B — Data/Integration/MDM** | C15, C26, C17, C16 | Lane A |
-| **Lane C — Workflow/Comms/Records** | C23, C24, C25 | Lane A/B |
-| **Lane D — AI/Knowledge** | C18, C31 | Lane E |
-| **Lane E — Sim/Resilience/Compliance** | C28, C29, C30 | Lane D |
-| **Lane F — Product/Engagement/Privacy/HR** | C32, C33, C37, C38 | Lane G |
-| **Lane G — Utility/ESG/Ecosystem** | C34, C35, C36 | Lane F |
+| **Lane A â€” Financial/Customer** | C13, C14, C33 | Lane B |
+| **Lane B â€” Data/Integration/MDM** | C15, C26, C17, C16 | Lane A |
+| **Lane C â€” Workflow/Comms/Records** | C23, C24, C25 | Lane A/B |
+| **Lane D â€” AI/Knowledge** | C18, C31 | Lane E |
+| **Lane E â€” Sim/Resilience/Compliance** | C28, C29, C30 | Lane D |
+| **Lane F â€” Product/Engagement/Privacy/HR** | C32, C33, C37, C38 | Lane G |
+| **Lane G â€” Utility/ESG/Ecosystem** | C34, C35, C36 | Lane F |
 
 ### 2.4 Implementation bottlenecks
 
@@ -168,9 +174,9 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 ---
 
-## Part 3 — Wave Planning
+## Part 3 â€” Wave Planning
 
-### 3.1 Wave 1 — Foundation (C12, C19, C20, C21)
+### 3.1 Wave 1 â€” Foundation (C12, C19, C20, C21)
 
 | Aspect | Detail |
 |---|---|
@@ -180,17 +186,17 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | CI/CD disruption, identity migration |
 | **Completion criteria** | Zero Trust auth live; CI/CD with all 5 workflows green; quality gates enforced; governance registries seeded |
 
-### 3.2 Wave 2 — Core Billing & Financial Foundation (C22, C23, C13)
+### 3.2 Wave 2 â€” Core Billing & Financial Foundation (C22, C23, C13)
 
 | Aspect | Detail |
 |---|---|
-| **Objective** | SaaS tenancy, workflow engine, billing→GL core |
+| **Objective** | SaaS tenancy, workflow engine, billingâ†’GL core |
 | **Duration** | ~45 days |
 | **Dependencies** | Wave 1 |
 | **Risks** | Billing regression on live connectivity data |
-| **Completion criteria** | Tenant isolation verified; workflow runtime live; invoice→journal→GL pipeline tested |
+| **Completion criteria** | Tenant isolation verified; workflow runtime live; invoiceâ†’journalâ†’GL pipeline tested |
 
-### 3.3 Wave 3 — Records, Communications, Customer (C24, C25, C14)
+### 3.3 Wave 3 â€” Records, Communications, Customer (C24, C25, C14)
 
 | Aspect | Detail |
 |---|---|
@@ -200,7 +206,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | Portal exposure of financial data |
 | **Completion criteria** | Document retention live; unified inbox live; portal launched web-only |
 
-### 3.4 Wave 4 — Integration, MDM, Analytics (C15, C26, C17)
+### 3.4 Wave 4 â€” Integration, MDM, Analytics (C15, C26, C17)
 
 | Aspect | Detail |
 |---|---|
@@ -210,7 +216,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | Data quality across sources |
 | **Completion criteria** | Connector framework live; golden records certified; warehouse + KPIs live |
 
-### 3.5 Wave 5 — Assets, AI, Knowledge (C16, C18, C31)
+### 3.5 Wave 5 â€” Assets, AI, Knowledge (C16, C18, C31)
 
 | Aspect | Detail |
 |---|---|
@@ -220,7 +226,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | AI governance violations |
 | **Completion criteria** | Asset twins live; AI agents with human approval; knowledge graph live |
 
-### 3.6 Wave 6 — Scheduling, Simulation, Resilience (C27, C28, C29)
+### 3.6 Wave 6 â€” Scheduling, Simulation, Resilience (C27, C28, C29)
 
 | Aspect | Detail |
 |---|---|
@@ -230,7 +236,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | Simulation affecting production |
 | **Completion criteria** | Scheduler orchestration live; simulation isolated; DR validated |
 
-### 3.7 Wave 7 — Compliance, Product, Engagement (C30, C32, C33)
+### 3.7 Wave 7 â€” Compliance, Product, Engagement (C30, C32, C33)
 
 | Aspect | Detail |
 |---|---|
@@ -240,7 +246,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | Compliance evidence gaps |
 | **Completion criteria** | Control framework live; product roadmap live; engagement dashboards live |
 
-### 3.8 Wave 8 — Utility, ESG, Ecosystem (C34, C35, C36)
+### 3.8 Wave 8 â€” Utility, ESG, Ecosystem (C34, C35, C36)
 
 | Aspect | Detail |
 |---|---|
@@ -250,7 +256,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | Energy data sensitivity, ecosystem API abuse |
 | **Completion criteria** | Utility dashboards live; ESG reporting live; developer portal live |
 
-### 3.9 Wave 9 — Privacy, Workforce (C37, C38)
+### 3.9 Wave 9 â€” Privacy, Workforce (C37, C38)
 
 | Aspect | Detail |
 |---|---|
@@ -260,7 +266,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 | **Risks** | PII handling, payroll accuracy |
 | **Completion criteria** | DSAR automation live; HR lifecycle live |
 
-### 3.10 Wave 10 — Enterprise Certification
+### 3.10 Wave 10 â€” Enterprise Certification
 
 | Aspect | Detail |
 |---|---|
@@ -274,7 +280,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 ---
 
-## Part 4 — Resource Planning
+## Part 4 â€” Resource Planning
 
 | Wave | Backend | Frontend | Database | QA | DevOps | Documentation |
 |---|---|---:|---:|---:|---:|---:|
@@ -293,7 +299,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 ---
 
-## Part 5 — Repository Strategy
+## Part 5 â€” Repository Strategy
 
 ### 5.1 Branch strategy
 
@@ -331,7 +337,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 ---
 
-## Part 6 — Database Migration Strategy
+## Part 6 â€” Database Migration Strategy
 
 ### 6.1 Batch model
 
@@ -366,7 +372,7 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 ---
 
-## Part 7 — API Strategy
+## Part 7 â€” API Strategy
 
 ### 7.1 Versioning
 
@@ -377,18 +383,18 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 ### 7.2 Backward compatibility
 
 - New fields are optional; old clients ignore them.
-- Deprecation notices ≥ 6 months before removal.
+- Deprecation notices â‰¥ 6 months before removal.
 - Every release validates that no consumer breaks (C20 contract tests).
 
 ### 7.3 Rollout
 
-- Canary 5% → 25% → 100% for new API versions (C19).
+- Canary 5% â†’ 25% â†’ 100% for new API versions (C19).
 - API docs generated from OpenAPI (existing `openapi` MCP + C20).
 - Rate limits and quotas per tenant (C22).
 
 ---
 
-## Part 8 — UI Strategy
+## Part 8 â€” UI Strategy
 
 ### 8.1 Platform
 
@@ -412,51 +418,51 @@ C01-C10 (done) → C12 → C19 → C22 → C23 → C13 → C14
 
 ---
 
-## Part 9 — Quality Gates (C20 reuse)
+## Part 9 â€” Quality Gates (C20 reuse)
 
 Every wave is complete only when:
 
 ```
-□ TypeScript: 0 errors
-□ Backend vitest: all pass
-□ Coverage ≥ wave threshold (raise toward 85% lines over time)
-□ Contract tests pass (OpenAPI)
-□ E2E critical flows pass (Playwright)
-□ Accessibility (axe) passes WCAG AA
-□ Security scan: 0 critical/high (snyk, trivy, CodeQL)
-□ Visual regression: no unintended changes
-□ Performance baselines met (API P95, dashboard < 2s)
-□ Feature flags verified (tenant-scoped rollout)
-□ Audit trail verified for all new mutations
-□ RBAC/SoD verified for new roles
-□ Privacy (C37) checks on new personal-data handling
-□ Documentation updated (API, admin, ops)
+â–¡ TypeScript: 0 errors
+â–¡ Backend vitest: all pass
+â–¡ Coverage â‰¥ wave threshold (raise toward 85% lines over time)
+â–¡ Contract tests pass (OpenAPI)
+â–¡ E2E critical flows pass (Playwright)
+â–¡ Accessibility (axe) passes WCAG AA
+â–¡ Security scan: 0 critical/high (snyk, trivy, CodeQL)
+â–¡ Visual regression: no unintended changes
+â–¡ Performance baselines met (API P95, dashboard < 2s)
+â–¡ Feature flags verified (tenant-scoped rollout)
+â–¡ Audit trail verified for all new mutations
+â–¡ RBAC/SoD verified for new roles
+â–¡ Privacy (C37) checks on new personal-data handling
+â–¡ Documentation updated (API, admin, ops)
 ```
 
 ---
 
-## Part 10 — Final Roadmap
+## Part 10 â€” Final Roadmap
 
 ```text
-Wave 1  Foundation (C12,C19,C20,C21)         ████████████████████████████ 30d
-Wave 2  Billing/Finance (C22,C23,C13)        ██████████████████████████████████████████ 45d
-Wave 3  Records/Comms/Customer (C24,C25,C14) ████████████████████████████████████████ 40d
-Wave 4  Integration/MDM/Analytics (C15,C26,C17) ██████████████████████████████████████████████████ 50d
-Wave 5  Assets/AI/Knowledge (C16,C18,C31)    ██████████████████████████████████████████ 45d
-Wave 6  Scheduling/Sim/Resilience (C27,C28,C29) ████████████████████████████████████████ 40d
-Wave 7  Compliance/Product/Engagement (C30,C32,C33) ████████████████████████████████████████ 40d
-Wave 8  Utility/ESG/Ecosystem (C34,C35,C36)  ██████████████████████████████████████████████████ 45d
-Wave 9  Privacy/Workforce (C37,C38)          ███████████████████████████████████ 35d
-Wave 10 Enterprise Certification             ████████████████████ 20d
-                                                    ───────────────────────────────
-                                          Total ≈ 390 days (18-20 months)
-                                          ▼
+Wave 1  Foundation (C12,C19,C20,C21)         â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 30d
+Wave 2  Billing/Finance (C22,C23,C13)        â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 45d
+Wave 3  Records/Comms/Customer (C24,C25,C14) â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 40d
+Wave 4  Integration/MDM/Analytics (C15,C26,C17) â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 50d
+Wave 5  Assets/AI/Knowledge (C16,C18,C31)    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 45d
+Wave 6  Scheduling/Sim/Resilience (C27,C28,C29) â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 40d
+Wave 7  Compliance/Product/Engagement (C30,C32,C33) â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 40d
+Wave 8  Utility/ESG/Ecosystem (C34,C35,C36)  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 45d
+Wave 9  Privacy/Workforce (C37,C38)          â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 35d
+Wave 10 Enterprise Certification             â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 20d
+                                                    â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+                                          Total â‰ˆ 390 days (18-20 months)
+                                          â–¼
                                         PRODUCTION
 ```
 
 ---
 
-## Part 11 — Risk Register
+## Part 11 â€” Risk Register
 
 | Risk | Likelihood | Impact | Mitigation |
 |---|---|---|---|
@@ -472,11 +478,11 @@ Wave 10 Enterprise Certification             ███████████�
 
 ---
 
-## Part 12 — Executive Summary
+## Part 12 â€” Executive Summary
 
 - **C01-C38 is architecturally complete.** P40 defines the transition to execution.
 - **10 waves, ~390 days, 18-20 months** to full production.
-- **Critical path** runs Identity → Tenancy → BPM → Records → MDM → Scheduling → Simulation → Resilience → Compliance → Knowledge → Product → Privacy.
+- **Critical path** runs Identity â†’ Tenancy â†’ BPM â†’ Records â†’ MDM â†’ Scheduling â†’ Simulation â†’ Resilience â†’ Compliance â†’ Knowledge â†’ Product â†’ Privacy.
 - **Parallel lanes** compress the schedule: financial/customer, data/integration, AI/knowledge, and utility/ESG can proceed in parallel after foundations.
 - **Horizontal programs** (DevSecOps, Quality, Governance) run continuously and gate every wave.
 - **Web-only** UI, no native mobile.
@@ -484,19 +490,20 @@ Wave 10 Enterprise Certification             ███████████�
 
 ---
 
-## Part 13 — Success Criteria (Program)
+## Part 13 â€” Success Criteria (Program)
 
 ```
-□ All approved C13-C38 model sets migrated (B-01..B-13) and certified.
-□ All approved dashboards implemented and signed off per program.
-□ Every C20 quality gate and C21 governance checkpoint passed.
-□ C01-C10 live connectivity center has zero regression.
-□ Full enterprise audit, security, privacy, and compliance posture intact.
-□ Single source of truth: this document + approved C01-C38 blueprints.
-□ Official transition: enterprise planning → enterprise execution complete.
+â–¡ All approved C13-C38 model sets migrated (B-01..B-13) and certified.
+â–¡ All approved dashboards implemented and signed off per program.
+â–¡ Every C20 quality gate and C21 governance checkpoint passed.
+â–¡ C01-C10 live connectivity center has zero regression.
+â–¡ Full enterprise audit, security, privacy, and compliance posture intact.
+â–¡ Single source of truth: this document + approved C01-C38 blueprints.
+â–¡ Official transition: enterprise planning â†’ enterprise execution complete.
 ```
 
 ---
 
 *This is an implementation planning artifact only. No code, migration, or implementation is included.*
-*P40 — Enterprise Implementation Master Program. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*P40 â€” Enterprise Implementation Master Program. READ ONLY. GOVERNANCE PLANNING ONLY.*
+

@@ -1,8 +1,14 @@
-# C31 — Enterprise Knowledge Marketplace & Organizational Intelligence Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (KnowledgeArticle/LearnedPattern exist) | Certification: [ ] Not Certified | Wave: W5 | Commit: 88472982
+====================================================================
+-->
+
+# C31 â€” Enterprise Knowledge Marketplace & Organizational Intelligence Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C30  
 **Constraint:** Web-first knowledge and learning platform; no native mobile application.
@@ -47,14 +53,14 @@
 ### Integration dependencies
 
 ```text
-C18 Knowledge OS/vector/AI memory → graph, retrieval, embedding
-C24 documents/records/retention → sources, evidence, lifecycle
-C25 communication hub → contribution notifications, expert discovery
-C26 MDM → canonical entities for knowledge relations
-C28 simulation → rehearsal of procedures/playbooks
-C29 resilience → incident lessons and playbook knowledge
-C30 compliance → policy/control knowledge and audit evidence
-C12/C21/C22 → identity, governance, tenant isolation, classification
+C18 Knowledge OS/vector/AI memory â†’ graph, retrieval, embedding
+C24 documents/records/retention â†’ sources, evidence, lifecycle
+C25 communication hub â†’ contribution notifications, expert discovery
+C26 MDM â†’ canonical entities for knowledge relations
+C28 simulation â†’ rehearsal of procedures/playbooks
+C29 resilience â†’ incident lessons and playbook knowledge
+C30 compliance â†’ policy/control knowledge and audit evidence
+C12/C21/C22 â†’ identity, governance, tenant isolation, classification
 ```
 
 ---
@@ -80,32 +86,32 @@ C12/C21/C22 → identity, governance, tenant isolation, classification
 ## 3. Enterprise Architecture
 
 ```text
-┌────────────────────────────────────────────────────────────────────────┐
-│ C31 KNOWLEDGE MARKETPLACE & ORGANIZATIONAL INTELLIGENCE               │
-│                                                                        │
-│ Knowledge Spaces/Domains → Knowledge Items (typed, versioned)          │
-│        │                      │                                          │
-│        ▼                      ▼                                          │
-│ Contribution Workflow → Validation → Approval → Publish → Lifecycle    │
-│        │                                                               │
-│        ▼                                                               │
-│ Knowledge Graph (C18) → Semantic Search → Expertise Directory         │
-│        │                                                               │
-│        ▼                                                               │
-│ Organizational Memory Layer → Experience Capture → Learning Engine    │
-│        │                                                               │
-│        ▼                                                               │
-│ AI Knowledge Agent (confidence, citations, human validation)          │
-│                                                                        │
-│ Existing capabilities orchestrated:                                    │
-│ KnowledgeArticle | LearnedPattern | KnowledgeRepository | RCA          │
-│ C18 vector/memory | C24 records | C25 comms | C26 MDM | C28-C30       │
-└────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ C31 KNOWLEDGE MARKETPLACE & ORGANIZATIONAL INTELLIGENCE               â”‚
+â”‚                                                                        â”‚
+â”‚ Knowledge Spaces/Domains â†’ Knowledge Items (typed, versioned)          â”‚
+â”‚        â”‚                      â”‚                                          â”‚
+â”‚        â–¼                      â–¼                                          â”‚
+â”‚ Contribution Workflow â†’ Validation â†’ Approval â†’ Publish â†’ Lifecycle    â”‚
+â”‚        â”‚                                                               â”‚
+â”‚        â–¼                                                               â”‚
+â”‚ Knowledge Graph (C18) â†’ Semantic Search â†’ Expertise Directory         â”‚
+â”‚        â”‚                                                               â”‚
+â”‚        â–¼                                                               â”‚
+â”‚ Organizational Memory Layer â†’ Experience Capture â†’ Learning Engine    â”‚
+â”‚        â”‚                                                               â”‚
+â”‚        â–¼                                                               â”‚
+â”‚ AI Knowledge Agent (confidence, citations, human validation)          â”‚
+â”‚                                                                        â”‚
+â”‚ Existing capabilities orchestrated:                                    â”‚
+â”‚ KnowledgeArticle | LearnedPattern | KnowledgeRepository | RCA          â”‚
+â”‚ C18 vector/memory | C24 records | C25 comms | C26 MDM | C28-C30       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
 
-## 4. Knowledge Model — 27 Models
+## 4. Knowledge Model â€” 27 Models
 
 1. `KnowledgeSpace`
 2. `KnowledgeDomain`
@@ -162,13 +168,13 @@ All models are tenant/region scoped, versioned, status-tracked, and audit-linked
 ### Lifecycle
 
 ```text
-DRAFT → REVIEW → APPROVED → PUBLISHED → ACTIVE → DEPRECATED → ARCHIVED
+DRAFT â†’ REVIEW â†’ APPROVED â†’ PUBLISHED â†’ ACTIVE â†’ DEPRECATED â†’ ARCHIVED
 ```
 
 ### Contribution workflow
 
 ```text
-Create → Review → Validate → Approve → Publish
+Create â†’ Review â†’ Validate â†’ Approve â†’ Publish
 ```
 
 ### Quality scores
@@ -196,11 +202,11 @@ Composite knowledge quality = weighted blend; low-quality items are flagged for 
 - Solution discovery (previous resolutions + best practices).
 - Expert discovery (expertise directory).
 
-Hybrid retrieval: security filter → parallel (metadata, full text, vector, relationship) → rerank → cite.
+Hybrid retrieval: security filter â†’ parallel (metadata, full text, vector, relationship) â†’ rerank â†’ cite.
 
 ---
 
-## 8. AI Knowledge Intelligence — Enterprise Knowledge Agent
+## 8. AI Knowledge Intelligence â€” Enterprise Knowledge Agent
 
 | Capability | Source | Autonomy |
 |---|---|---|
@@ -260,12 +266,12 @@ Controls: retention rules, privacy controls, tenant isolation, knowledge expirat
 
 ---
 
-## 12. Certification Strategy — 430 Tests
+## 12. Certification Strategy â€” 430 Tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
 | Search | 50 | keyword, semantic, Arabic/English, relationship, document, incident, expert |
-| Knowledge lifecycle | 45 | draft→archive, versioning, deprecation, expiration |
+| Knowledge lifecycle | 45 | draftâ†’archive, versioning, deprecation, expiration |
 | AI answers | 45 | citations, confidence, no unsupported, human validation |
 | Security | 40 | RBAC, classification, PII, tenant isolation, audit |
 | Governance | 40 | approvals, exceptions, contribution workflow, retention |
@@ -300,7 +306,7 @@ Controls: retention rules, privacy controls, tenant isolation, knowledge expirat
 Completed above.
 
 ### 2. Knowledge maturity assessment
-18% → 89% target.
+18% â†’ 89% target.
 
 ### 3. Gap analysis
 Marketplace model, contribution workflow, validation, expertise, learning, quality scoring, gap detection, and organizational memory missing.
@@ -350,19 +356,20 @@ W01-W08, 34 days.
 ## Definition of Done
 
 ```text
-□ Knowledge marketplace supports spaces, domains, items, versions, relations, sources, and subscriptions.
-□ Contribution workflow supports create→review→validate→approve→publish.
-□ Knowledge lifecycle supports DRAFT→REVIEW→APPROVED→PUBLISHED→ACTIVE→DEPRECATED→ARCHIVED.
-□ Quality scoring measures accuracy, freshness, usage, trust, and completeness.
-□ Search supports keyword, semantic, Arabic/English, relationship, document, incident, and expert discovery.
-□ Enterprise Knowledge Agent cites sources, scores confidence, rejects unsupported answers, and requires human validation.
-□ Organizational memory covers nine memory types with retention, privacy, isolation, and expiration.
-□ C12/C18/C21/C22/C24/C30 controls enforced with tenant isolation and immutable history.
-□ 430 certification tests pass; C20 gates satisfied.
-□ No knowledge is published without approval; no AI answer without citation.
+â–¡ Knowledge marketplace supports spaces, domains, items, versions, relations, sources, and subscriptions.
+â–¡ Contribution workflow supports createâ†’reviewâ†’validateâ†’approveâ†’publish.
+â–¡ Knowledge lifecycle supports DRAFTâ†’REVIEWâ†’APPROVEDâ†’PUBLISHEDâ†’ACTIVEâ†’DEPRECATEDâ†’ARCHIVED.
+â–¡ Quality scoring measures accuracy, freshness, usage, trust, and completeness.
+â–¡ Search supports keyword, semantic, Arabic/English, relationship, document, incident, and expert discovery.
+â–¡ Enterprise Knowledge Agent cites sources, scores confidence, rejects unsupported answers, and requires human validation.
+â–¡ Organizational memory covers nine memory types with retention, privacy, isolation, and expiration.
+â–¡ C12/C18/C21/C22/C24/C30 controls enforced with tenant isolation and immutable history.
+â–¡ 430 certification tests pass; C20 gates satisfied.
+â–¡ No knowledge is published without approval; no AI answer without citation.
 ```
 
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C31 — Enterprise Knowledge Marketplace & Organizational Intelligence Platform.*
+*C31 â€” Enterprise Knowledge Marketplace & Organizational Intelligence Platform.*
+

@@ -1,15 +1,21 @@
-# C24 — Enterprise Document, Records & Knowledge Governance Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (StoredFile/OCR exist) | Certification: [ ] Not Certified | Wave: W3 | Commit: dcf76264
+====================================================================
+-->
+
+# C24 â€” Enterprise Document, Records & Knowledge Governance Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C23  
 **Constraint:** Web-first platform; no native mobile application.
 
 ---
 
-## Part 1 — Enterprise Information Governance Audit
+## Part 1 â€” Enterprise Information Governance Audit
 
 ### Current foundation
 
@@ -47,24 +53,24 @@ MeterVerse already contains:
 
 ---
 
-## Part 2 — Enterprise Document Architecture
+## Part 2 â€” Enterprise Document Architecture
 
 ```text
-┌─────────────────────────────────────────────────────────────────────────┐
-│ C24 INFORMATION GOVERNANCE PLATFORM                                     │
-│                                                                         │
-│ Document Repository → Metadata → Classification → Version Control       │
-│        │                 │             │              │                 │
-│        ▼                 ▼             ▼              ▼                 │
-│ Folders/Tags       OCR/Search      Security      Check-in/Check-out     │
-│                                                                         │
-│ Records Lifecycle: Draft → Review → Approved → Published → Archived    │
-│                                      │                                  │
-│                         Legal Hold / Retention / Disposition            │
-│                                      │                                  │
-│ C18 Knowledge OS ← semantic index ← approved documents only             │
-│ C12/C22 security ← tenant, role, classification, residency             │
-└─────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ C24 INFORMATION GOVERNANCE PLATFORM                                     â”‚
+â”‚                                                                         â”‚
+â”‚ Document Repository â†’ Metadata â†’ Classification â†’ Version Control       â”‚
+â”‚        â”‚                 â”‚             â”‚              â”‚                 â”‚
+â”‚        â–¼                 â–¼             â–¼              â–¼                 â”‚
+â”‚ Folders/Tags       OCR/Search      Security      Check-in/Check-out     â”‚
+â”‚                                                                         â”‚
+â”‚ Records Lifecycle: Draft â†’ Review â†’ Approved â†’ Published â†’ Archived    â”‚
+â”‚                                      â”‚                                  â”‚
+â”‚                         Legal Hold / Retention / Disposition            â”‚
+â”‚                                      â”‚                                  â”‚
+â”‚ C18 Knowledge OS â† semantic index â† approved documents only             â”‚
+â”‚ C12/C22 security â† tenant, role, classification, residency             â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 Repository capabilities:
@@ -79,14 +85,14 @@ Repository capabilities:
 
 ---
 
-## Part 3 — Records Management
+## Part 3 â€” Records Management
 
 ### Lifecycle
 
 ```text
-DRAFT → REVIEW → APPROVED → PUBLISHED → ARCHIVED → DISPOSED
-  │        │          │           │          │
-  └────────┴──────────┴───────────┴──────────┴── Legal Hold blocks disposition
+DRAFT â†’ REVIEW â†’ APPROVED â†’ PUBLISHED â†’ ARCHIVED â†’ DISPOSED
+  â”‚        â”‚          â”‚           â”‚          â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€ Legal Hold blocks disposition
 ```
 
 Rules:
@@ -99,7 +105,7 @@ Rules:
 
 ---
 
-## Part 4 — Document Classification
+## Part 4 â€” Document Classification
 
 | Classification | Examples | Default Controls |
 |---|---|---|
@@ -116,25 +122,25 @@ Rules:
 Classification inheritance:
 
 ```text
-GLOBAL → TENANT → DEPARTMENT → FOLDER → DOCUMENT → VERSION
+GLOBAL â†’ TENANT â†’ DEPARTMENT â†’ FOLDER â†’ DOCUMENT â†’ VERSION
 ```
 
 The most restrictive applicable classification wins unless an authorized data steward records an approved downgrade.
 
 ---
 
-## Part 5 — Enterprise Search
+## Part 5 â€” Enterprise Search
 
 ### Hybrid retrieval pipeline
 
 ```text
-Query → Tenant/security filter → parallel retrieval
-  ├── Metadata search (category, owner, date, classification, tags)
-  ├── Full-text search (OCR + extracted text)
-  ├── Semantic vector search (C18 pgvector Knowledge OS)
-  └── Structured relationship search (invoice, asset, customer, project)
-       ↓
-  Security filter → reranker → multilingual result list → citations
+Query â†’ Tenant/security filter â†’ parallel retrieval
+  â”œâ”€â”€ Metadata search (category, owner, date, classification, tags)
+  â”œâ”€â”€ Full-text search (OCR + extracted text)
+  â”œâ”€â”€ Semantic vector search (C18 pgvector Knowledge OS)
+  â””â”€â”€ Structured relationship search (invoice, asset, customer, project)
+       â†“
+  Security filter â†’ reranker â†’ multilingual result list â†’ citations
 ```
 
 Capabilities:
@@ -148,7 +154,7 @@ Capabilities:
 
 ---
 
-## Part 6 — Knowledge Governance
+## Part 6 â€” Knowledge Governance
 
 C24 supplies authoritative knowledge artifacts to C18:
 
@@ -165,7 +171,7 @@ Only approved and classification-authorized documents enter the active C18 retri
 
 ---
 
-## Part 7 — AI Knowledge Assistant
+## Part 7 â€” AI Knowledge Assistant
 
 | Capability | Output | Autonomy |
 |---|---|---|
@@ -186,16 +192,16 @@ Governance:
 
 ---
 
-## Part 8 — Retention & Compliance
+## Part 8 â€” Retention & Compliance
 
 ### Retention schedule examples
 
 | Record | Retention | Trigger |
 |---|---:|---|
-| Invoice/financial evidence | 7–10 years | Period close/issue |
+| Invoice/financial evidence | 7â€“10 years | Period close/issue |
 | Tax/e-invoice record | Jurisdiction-specific | Tax submission |
 | Contract | Contract end + 7 years | Termination |
-| Audit evidence | 5–7 years | Audit closure |
+| Audit evidence | 5â€“7 years | Audit closure |
 | Operational work order | 5 years | Completion |
 | Calibration certificate | Asset life + 5 years | Certificate date |
 | Customer correspondence | 3 years | Case closure |
@@ -206,13 +212,13 @@ Retention is resolved by jurisdiction, tenant policy, record category, and legal
 ### Legal hold
 
 ```text
-LegalHold created → identify scope → freeze records/versions → notify owners
-  → preserve exports and hashes → review hold → release or extend
+LegalHold created â†’ identify scope â†’ freeze records/versions â†’ notify owners
+  â†’ preserve exports and hashes â†’ review hold â†’ release or extend
 ```
 
 ---
 
-## Part 9 — Collaboration
+## Part 9 â€” Collaboration
 
 - Comments, mentions, threaded discussion, and annotations on non-immutable drafts.
 - Review requests routed through C23 approval workflows.
@@ -223,7 +229,7 @@ LegalHold created → identify scope → freeze records/versions → notify owne
 
 ---
 
-## Part 10 — Enterprise Models
+## Part 10 â€” Enterprise Models
 
 The target design adds approximately 21 models:
 
@@ -268,7 +274,7 @@ DocumentVersion
 
 ---
 
-## Part 11 — Security & Governance
+## Part 11 â€” Security & Governance
 
 - C12 Zero Trust authenticates every action and resolves tenant/department scope.
 - C22 tenant isolation applies to binary storage, metadata, OCR, embeddings, search, shares, and audit.
@@ -284,7 +290,7 @@ DocumentVersion
 
 ---
 
-## Part 12 — Testing Strategy — 300 Tests
+## Part 12 â€” Testing Strategy â€” 300 Tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
@@ -307,7 +313,7 @@ Critical acceptance: zero unauthorized document reads, zero deletion during lega
 
 ---
 
-## Part 13 — Implementation Roadmap
+## Part 13 â€” Implementation Roadmap
 
 | Wave | Duration | Dependencies | Deliverables | Gate | Rollback |
 |---|---:|---|---|---|---|
@@ -332,7 +338,7 @@ Critical acceptance: zero unauthorized document reads, zero deletion during lega
 
 ---
 
-## Part 14 — Executive Command Center
+## Part 14 â€” Executive Command Center
 
 | Dashboard | Audience | Key content |
 |---|---|---|
@@ -346,28 +352,28 @@ Core metrics: total documents, published records, unclassified items, stale cont
 
 ---
 
-## Part 15 — Definition of Done
+## Part 15 â€” Definition of Done
 
 ```text
-□ Governed repository covers documents, attachments, reports, invoices, SOPs,
+â–¡ Governed repository covers documents, attachments, reports, invoices, SOPs,
   contracts, certificates, manuals, calibration records, policies, templates,
   audit evidence, and knowledge articles.
-□ Existing StoredFile/OCR/PDF/report capabilities remain supported through adapters.
-□ Document versions are immutable after publication and content-hashed.
-□ Records lifecycle supports Draft→Review→Approved→Published→Archived→Disposed.
-□ Retention policies, jurisdiction rules, legal holds, destruction approvals, and certificates work.
-□ Classification inherits GLOBAL→TENANT→DEPARTMENT→FOLDER→DOCUMENT and never weakens silently.
-□ Hybrid search supports metadata, OCR, full text, semantic, multilingual, filters, and citations.
-□ C18 Knowledge OS receives approved, authorized knowledge with version/source links.
-□ AI assistant is read-only by default, confidence-gated, cited, explainable, and auditable.
-□ Collaboration and approvals use C23 workflow and C12/C21 governance.
-□ C20 quality gates pass all 300 certification tests.
-□ C01-C23 integration map is validated and C24 production rollout is reversible.
+â–¡ Existing StoredFile/OCR/PDF/report capabilities remain supported through adapters.
+â–¡ Document versions are immutable after publication and content-hashed.
+â–¡ Records lifecycle supports Draftâ†’Reviewâ†’Approvedâ†’Publishedâ†’Archivedâ†’Disposed.
+â–¡ Retention policies, jurisdiction rules, legal holds, destruction approvals, and certificates work.
+â–¡ Classification inherits GLOBALâ†’TENANTâ†’DEPARTMENTâ†’FOLDERâ†’DOCUMENT and never weakens silently.
+â–¡ Hybrid search supports metadata, OCR, full text, semantic, multilingual, filters, and citations.
+â–¡ C18 Knowledge OS receives approved, authorized knowledge with version/source links.
+â–¡ AI assistant is read-only by default, confidence-gated, cited, explainable, and auditable.
+â–¡ Collaboration and approvals use C23 workflow and C12/C21 governance.
+â–¡ C20 quality gates pass all 300 certification tests.
+â–¡ C01-C23 integration map is validated and C24 production rollout is reversible.
 ```
 
 ---
 
-## Appendix A — Maturity Improvement
+## Appendix A â€” Maturity Improvement
 
 | Dimension | Before C24 | Target After C24 |
 |---|---:|---:|
@@ -381,7 +387,7 @@ Core metrics: total documents, published records, unclassified items, stale cont
 | AI knowledge assistance | 10% | 85% |
 | **Overall information governance** | **23%** | **88%** |
 
-## Appendix B — Integration Map
+## Appendix B â€” Integration Map
 
 | Program | C24 integration |
 |---|---|
@@ -399,7 +405,7 @@ Core metrics: total documents, published records, unclassified items, stale cont
 | C22 | Tenant storage/isolation, residency, branding, quotas |
 | C23 | Review, approval, publishing, disposition workflows |
 
-## Appendix C — Estimated Size
+## Appendix C â€” Estimated Size
 
 | Artifact | Estimate |
 |---|---:|
@@ -414,4 +420,5 @@ Core metrics: total documents, published records, unclassified items, stale cont
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C24 — Enterprise Document, Records & Knowledge Governance Platform.*
+*C24 â€” Enterprise Document, Records & Knowledge Governance Platform.*
+

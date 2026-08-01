@@ -1,11 +1,17 @@
-# C13-W04 — Enterprise Collection Intelligence & Receivables Management Engine
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (CollectionCase/PTP exist) | Certification: [ ] Not Certified | Wave: W2 | Commit: d2439752
+====================================================================
+-->
+
+# C13-W04 â€” Enterprise Collection Intelligence & Receivables Management Engine
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Program:** C13 Enterprise Financial & Billing Intelligence Platform  
-**Wave:** W04 (Collection Intelligence — builds on W01-W03 billing, revenue, and tariff foundation)  
+**Wave:** W04 (Collection Intelligence â€” builds on W01-W03 billing, revenue, and tariff foundation)  
 
 ---
 
@@ -15,26 +21,26 @@
 
 | Component | Location | Status | Capability |
 |-----------|----------|--------|------------|
-| **CollectionCase** model | `schema.prisma:1386` | ✅ Complete | customerId, invoiceId, status, priority, totalAmount, paidAmount, assignedTo |
-| **CollectionAction** model | `schema.prisma:1412` | ✅ Complete | type, result, notes, actedBy |
-| **PromiseToPay** model | `schema.prisma:1427` | ✅ Complete | promisedDate, promisedAmount, status (pending/kept) |
-| **CustomerLedgerEntry** model | `schema.prisma:1493` | ✅ Complete | Overpayments, credits, refunds |
-| **SLA** model | `schema.prisma:1549` | ✅ Complete | responseTime, resolutionTime |
-| **SLABreach** model | `schema.prisma:1566` | ✅ Complete | Breach tracking |
-| **SLAEscalation** model | `schema.prisma:1582` | ✅ Complete | Escalation levels |
-| **EscalationPolicy** + **EscalationStep** | `schema.prisma:1646-1675` | ✅ Complete | Policy + step definitions |
-| **collection-cases CRUD** | `routes/domain.js:139` | ✅ Complete | Generic CRUD via factory |
-| **customer aging** | `routes/payments.js:101-108` | ✅ Basic | Per-customer invoice-level aging |
-| **aging report** | `routes/reports.js:41-49` | ✅ Basic | Top-level outstanding per customer |
-| **W01 FinancialEvent** | Planned | ❌ W01 | Revenue event for collection linking |
-| **W02 Revenue Rules** | Planned | ❌ W02 | Scoring for collection priority |
-| **W03 Tariff Intelligence** | Planned | ❌ W03 | Usage data for customer profiling |
+| **CollectionCase** model | `schema.prisma:1386` | âœ… Complete | customerId, invoiceId, status, priority, totalAmount, paidAmount, assignedTo |
+| **CollectionAction** model | `schema.prisma:1412` | âœ… Complete | type, result, notes, actedBy |
+| **PromiseToPay** model | `schema.prisma:1427` | âœ… Complete | promisedDate, promisedAmount, status (pending/kept) |
+| **CustomerLedgerEntry** model | `schema.prisma:1493` | âœ… Complete | Overpayments, credits, refunds |
+| **SLA** model | `schema.prisma:1549` | âœ… Complete | responseTime, resolutionTime |
+| **SLABreach** model | `schema.prisma:1566` | âœ… Complete | Breach tracking |
+| **SLAEscalation** model | `schema.prisma:1582` | âœ… Complete | Escalation levels |
+| **EscalationPolicy** + **EscalationStep** | `schema.prisma:1646-1675` | âœ… Complete | Policy + step definitions |
+| **collection-cases CRUD** | `routes/domain.js:139` | âœ… Complete | Generic CRUD via factory |
+| **customer aging** | `routes/payments.js:101-108` | âœ… Basic | Per-customer invoice-level aging |
+| **aging report** | `routes/reports.js:41-49` | âœ… Basic | Top-level outstanding per customer |
+| **W01 FinancialEvent** | Planned | âŒ W01 | Revenue event for collection linking |
+| **W02 Revenue Rules** | Planned | âŒ W02 | Scoring for collection priority |
+| **W03 Tariff Intelligence** | Planned | âŒ W03 | Usage data for customer profiling |
 
 ### 1.2 Current Collection Case Lifecycle
 
 ```
 CollectionCase (status field):
-  "open" → "in_progress" → "resolved" → "closed"
+  "open" â†’ "in_progress" â†’ "resolved" â†’ "closed"
 ```
 
 **Current:** Simple status-based lifecycle with no stages, no escalation automation, no AI.
@@ -42,12 +48,12 @@ CollectionCase (status field):
 ### 1.3 Current Aging Capability
 
 ```javascript
-// payments.js:101 — GET /customers/:id/aging
+// payments.js:101 â€” GET /customers/:id/aging
 // Returns per-invoice: daysOverdue, outstanding, dueDate
-→ No aggregation by aging bucket
-→ No portfolio-level view
-→ No trend analysis
-→ No segmentation
+â†’ No aggregation by aging bucket
+â†’ No portfolio-level view
+â†’ No trend analysis
+â†’ No segmentation
 ```
 
 ### 1.4 Current Dunning Capability
@@ -60,17 +66,17 @@ CollectionCase (status field):
 |------------|---------|------------|
 | Case lifecycle | 4 states | 12-state lifecycle with stages |
 | Aging engine | Per-customer basic | Multi-dimensional, real-time |
-| Dunning automation | ❌ None | 7-stage multi-channel engine |
-| Payment probability | ❌ None | AI scoring 0-100 |
+| Dunning automation | âŒ None | 7-stage multi-channel engine |
+| Payment probability | âŒ None | AI scoring 0-100 |
 | Collection priority | Manual priority field | AI-driven priority score |
 | Promise-to-Pay | Basic create/track | Full lifecycle with reminders |
-| Installment plans | ❌ None | Full plan management |
-| Dispute management | ❌ None | Full dispute workflow |
-| Bad debt provisioning | ❌ None | Automated provision calculation |
-| Write-off governance | ❌ None | Approval workflow |
-| Collector workbench | ❌ None | Full frontend workbench |
-| AI Collection Agent | ❌ None | Next-best-action recommendations |
-| Performance KPIs | ❌ None | Collector + portfolio metrics |
+| Installment plans | âŒ None | Full plan management |
+| Dispute management | âŒ None | Full dispute workflow |
+| Bad debt provisioning | âŒ None | Automated provision calculation |
+| Write-off governance | âŒ None | Approval workflow |
+| Collector workbench | âŒ None | Full frontend workbench |
+| AI Collection Agent | âŒ None | Next-best-action recommendations |
+| Performance KPIs | âŒ None | Collector + portfolio metrics |
 
 ---
 
@@ -79,151 +85,151 @@ CollectionCase (status field):
 ### 2.1 High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────────────────┐
-│                    COLLECTION INTELLIGENCE PLATFORM                                            │
-│                                                                                               │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  RECEIVABLES INTELLIGENCE LAYER                                                         │    │
-│  │                                                                                        │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────────┐   │    │
-│  │  │ Aging Engine │  │ Risk Scoring │  │ Payment      │  │ Collection Strategy       │   │    │
-│  │  │ (real-time)  │  │ (AI-driven)  │  │ Probability  │  │ Engine (segment-based)   │   │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────────────────┘   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  COLLECTION OPERATIONS LAYER                                                            │    │
-│  │                                                                                        │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────┐ │    │
-│  │  │ Dunning      │  │ Promise-to-  │  │ Installment  │  │ Payment      │  │ Dispute  │ │    │
-│  │  │ Engine       │  │ Pay Engine   │  │ Plan Engine  │  │ Arrangement  │  │ Workflow │ │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘  └──────────┘ │    │
-│  │                                                                                        │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐               │    │
-│  │  │ Escalation   │  │ Campaign     │  │ Bad Debt     │  │ Write-off    │               │    │
-│  │  │ Engine       │  │ Management   │  │ Provisioning │  │ Governance   │               │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘               │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  COLLECTOR WORKBENCH & DASHBOARDS                                                      │    │
-│  │                                                                                        │    │
-│  │  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────────┐    │    │
-│  │  │ Collector Workbench  │  │ Supervisor Dashboard │  │ Executive Dashboard       │    │    │
-│  │  │ (my cases, actions)  │  │ (team perf, queue)   │  │ (portfolio, trends, KPIs) │    │    │
-│  │  └──────────────────────┘  └──────────────────────┘  └──────────────────────────┘    │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI COLLECTION INTELLIGENCE AGENT                                                        │    │
-│  │                                                                                        │    │
-│  │  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────────┐    │    │
-│  │  │ Next-Best-Action     │  │ Payment Probability  │  │ Churn Prediction         │    │    │
-│  │  │ Recommendation       │  │ Scoring              │  │ (collection-related)     │    │    │
-│  │  └──────────────────────┘  └──────────────────────┘  └──────────────────────────┘    │    │
-│  │                                                                                        │    │
-│  │  ┌──────────────────────┐  ┌──────────────────────┐  ┌──────────────────────────┐    │    │
-│  │  │ Revenue Recovery     │  │ Collection Strategy  │  │ Performance               │    │    │
-│  │  │ Forecasting          │  │ Optimization         │  │ Analytics                 │    │    │
-│  │  └──────────────────────┘  └──────────────────────┘  └──────────────────────────┘    │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                               │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  INTEGRATION LAYER                                                                      │    │
-│  │                                                                                        │    │
-│  │  Invoice ──→ Auto-create collection case when overdue                                  │    │
-│  │  Payment ──→ Update collection case when payment received                             │    │
-│  │  W01 GL ───→ Bad debt provision journal entries                                       │    │
-│  │  W02 Rev ──→ Revenue assurance flags priority cases                                   │    │
-│  │  W03 Tariff─→ Usage data for customer profiling                                       │    │
-│  │  C12-W07 ──→ AIRecommendation + LearnedPattern integration                           │    │
-│  │  Notifications → Multi-channel reminders (Email/SMS/WhatsApp/Push)                   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    COLLECTION INTELLIGENCE PLATFORM                                            â”‚
+â”‚                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  RECEIVABLES INTELLIGENCE LAYER                                                         â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Aging Engine â”‚  â”‚ Risk Scoring â”‚  â”‚ Payment      â”‚  â”‚ Collection Strategy       â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ (real-time)  â”‚  â”‚ (AI-driven)  â”‚  â”‚ Probability  â”‚  â”‚ Engine (segment-based)   â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  COLLECTION OPERATIONS LAYER                                                            â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚    â”‚
+â”‚  â”‚  â”‚ Dunning      â”‚  â”‚ Promise-to-  â”‚  â”‚ Installment  â”‚  â”‚ Payment      â”‚  â”‚ Dispute  â”‚ â”‚    â”‚
+â”‚  â”‚  â”‚ Engine       â”‚  â”‚ Pay Engine   â”‚  â”‚ Plan Engine  â”‚  â”‚ Arrangement  â”‚  â”‚ Workflow â”‚ â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”               â”‚    â”‚
+â”‚  â”‚  â”‚ Escalation   â”‚  â”‚ Campaign     â”‚  â”‚ Bad Debt     â”‚  â”‚ Write-off    â”‚               â”‚    â”‚
+â”‚  â”‚  â”‚ Engine       â”‚  â”‚ Management   â”‚  â”‚ Provisioning â”‚  â”‚ Governance   â”‚               â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜               â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  COLLECTOR WORKBENCH & DASHBOARDS                                                      â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚    â”‚
+â”‚  â”‚  â”‚ Collector Workbench  â”‚  â”‚ Supervisor Dashboard â”‚  â”‚ Executive Dashboard       â”‚    â”‚    â”‚
+â”‚  â”‚  â”‚ (my cases, actions)  â”‚  â”‚ (team perf, queue)   â”‚  â”‚ (portfolio, trends, KPIs) â”‚    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI COLLECTION INTELLIGENCE AGENT                                                        â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚    â”‚
+â”‚  â”‚  â”‚ Next-Best-Action     â”‚  â”‚ Payment Probability  â”‚  â”‚ Churn Prediction         â”‚    â”‚    â”‚
+â”‚  â”‚  â”‚ Recommendation       â”‚  â”‚ Scoring              â”‚  â”‚ (collection-related)     â”‚    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚    â”‚
+â”‚  â”‚  â”‚ Revenue Recovery     â”‚  â”‚ Collection Strategy  â”‚  â”‚ Performance               â”‚    â”‚    â”‚
+â”‚  â”‚  â”‚ Forecasting          â”‚  â”‚ Optimization         â”‚  â”‚ Analytics                 â”‚    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  INTEGRATION LAYER                                                                      â”‚    â”‚
+â”‚  â”‚                                                                                        â”‚    â”‚
+â”‚  â”‚  Invoice â”€â”€â†’ Auto-create collection case when overdue                                  â”‚    â”‚
+â”‚  â”‚  Payment â”€â”€â†’ Update collection case when payment received                             â”‚    â”‚
+â”‚  â”‚  W01 GL â”€â”€â”€â†’ Bad debt provision journal entries                                       â”‚    â”‚
+â”‚  â”‚  W02 Rev â”€â”€â†’ Revenue assurance flags priority cases                                   â”‚    â”‚
+â”‚  â”‚  W03 Tariffâ”€â†’ Usage data for customer profiling                                       â”‚    â”‚
+â”‚  â”‚  C12-W07 â”€â”€â†’ AIRecommendation + LearnedPattern integration                           â”‚    â”‚
+â”‚  â”‚  Notifications â†’ Multi-channel reminders (Email/SMS/WhatsApp/Push)                   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### 2.2 Collection Case Lifecycle — 12 States
+### 2.2 Collection Case Lifecycle â€” 12 States
 
 ```
 INVOICE OVERDUE (by 1 day past dueDate)
-    │
-    ▼
-┌──────────────┐
-│  AUTO_CREATED  │  System creates CollectionCase automatically
-│  (Stage 0)    │  Priority assigned, risk scored
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│  OPEN         │  Case ready for assignment
-│  (Stage 1)    │  Can be self-assigned or auto-assigned
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│  IN_PROGRESS  │  Collector actively working the case
-│  (Stage 2)    │  Actions logged, PTP may be created
-└──────┬───────┘
-       │
-       ▼
-┌──────────────┐
-│  CONTACTED    │  Customer reached — discussing resolution
-│  (Stage 3)    │  Outcome: PTP | Arrangement | Dispute | No response
-└──────┬───────┘
-       │
-  ┌────┴──────────────────────────────────────────┐
-  │                    │                           │
-  ▼                    ▼                           ▼
-┌──────────┐   ┌──────────────┐           ┌──────────────┐
-│ PTP_SET  │   │ ARRANGEMENT  │           │  DISPUTED    │
-│ (Stage 4)│   │ (Stage 4)    │           │ (Stage 4)    │
-│ Promise  │   │ Installment  │           │ Customer     │
-│ to pay   │   │ plan created │           │ disputes inv │
-└────┬─────┘   └──────┬───────┘           └──────┬───────┘
-     │                │                          │
-     ▼                ▼                          │
-┌──────────┐    ┌──────────┐                     │
-│ PTP_KEPT │    │ PLAN_ACT │                     │
-│ (Stage 5)│    │ (Stage 5)│                     │
-│ Paid!    │    │ Paying   │                     │
-└────┬─────┘    └────┬─────┘                     │
-     │                │                          │
-     ▼                ▼                          │
-┌──────────┐    ┌──────────┐                     │
-│ RESOLVED │    │ RESOLVED │                     │
-│ (Stage 6)│    │ (Stage 6)│                     │
-└──────────┘    └──────────┘                     │
-                                                  │
-             ┌────────────────────────────────────┘
-             │              │               │
-             ▼              ▼               ▼
-      ┌──────────┐   ┌──────────┐    ┌──────────────┐
-      │ PTP_MISS │   │ PLAN_DEF │    │ DISPUTE_DONE │
-      │ (Escalate)│  │ (Escalate)│   │ (resolve)    │
-      └──────────┘   └──────────┘    └──────┬───────┘
-             │              │               │
-             └──────┬───────┘               │
-                    ▼                       │
-             ┌──────────────┐               │
-             │ AUTO_ESCALATE │              │
-             │ (Stage +1)   │              │
-             │ Dunning fires │              │
-             └──────┬───────┘              │
-                    │                       │
-                    ▼                       ▼
-             ┌──────────────┐        ┌──────────────┐
-             │ More stages... │        │  RESOLVED    │
-             │ (up to 6)    │        └──────────────┘
-             └──────┬───────┘
-                    │
-               ┌────┴────┐
-               │         │
-               ▼         ▼
-        ┌──────────┐ ┌──────────┐
-        │ WRITE_OFF│ │ RECOVERY │
-        │ (Stage 7)│ │ (Stage 7)│
-        │ Approved │ │ Post-WO  │
-        └──────────┘ └──────────┘
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  AUTO_CREATED  â”‚  System creates CollectionCase automatically
+â”‚  (Stage 0)    â”‚  Priority assigned, risk scored
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  OPEN         â”‚  Case ready for assignment
+â”‚  (Stage 1)    â”‚  Can be self-assigned or auto-assigned
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  IN_PROGRESS  â”‚  Collector actively working the case
+â”‚  (Stage 2)    â”‚  Actions logged, PTP may be created
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+       â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  CONTACTED    â”‚  Customer reached â€” discussing resolution
+â”‚  (Stage 3)    â”‚  Outcome: PTP | Arrangement | Dispute | No response
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+  â”Œâ”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+  â”‚                    â”‚                           â”‚
+  â–¼                    â–¼                           â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ PTP_SET  â”‚   â”‚ ARRANGEMENT  â”‚           â”‚  DISPUTED    â”‚
+â”‚ (Stage 4)â”‚   â”‚ (Stage 4)    â”‚           â”‚ (Stage 4)    â”‚
+â”‚ Promise  â”‚   â”‚ Installment  â”‚           â”‚ Customer     â”‚
+â”‚ to pay   â”‚   â”‚ plan created â”‚           â”‚ disputes inv â”‚
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜           â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+     â”‚                â”‚                          â”‚
+     â–¼                â–¼                          â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                     â”‚
+â”‚ PTP_KEPT â”‚    â”‚ PLAN_ACT â”‚                     â”‚
+â”‚ (Stage 5)â”‚    â”‚ (Stage 5)â”‚                     â”‚
+â”‚ Paid!    â”‚    â”‚ Paying   â”‚                     â”‚
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜                     â”‚
+     â”‚                â”‚                          â”‚
+     â–¼                â–¼                          â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                     â”‚
+â”‚ RESOLVED â”‚    â”‚ RESOLVED â”‚                     â”‚
+â”‚ (Stage 6)â”‚    â”‚ (Stage 6)â”‚                     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                     â”‚
+                                                  â”‚
+             â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+             â”‚              â”‚               â”‚
+             â–¼              â–¼               â–¼
+      â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+      â”‚ PTP_MISS â”‚   â”‚ PLAN_DEF â”‚    â”‚ DISPUTE_DONE â”‚
+      â”‚ (Escalate)â”‚  â”‚ (Escalate)â”‚   â”‚ (resolve)    â”‚
+      â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+             â”‚              â”‚               â”‚
+             â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜               â”‚
+                    â–¼                       â”‚
+             â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”               â”‚
+             â”‚ AUTO_ESCALATE â”‚              â”‚
+             â”‚ (Stage +1)   â”‚              â”‚
+             â”‚ Dunning fires â”‚              â”‚
+             â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜              â”‚
+                    â”‚                       â”‚
+                    â–¼                       â–¼
+             â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+             â”‚ More stages... â”‚        â”‚  RESOLVED    â”‚
+             â”‚ (up to 6)    â”‚        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+             â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+                    â”‚
+               â”Œâ”€â”€â”€â”€â”´â”€â”€â”€â”€â”
+               â”‚         â”‚
+               â–¼         â–¼
+        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+        â”‚ WRITE_OFFâ”‚ â”‚ RECOVERY â”‚
+        â”‚ (Stage 7)â”‚ â”‚ (Stage 7)â”‚
+        â”‚ Approved â”‚ â”‚ Post-WO  â”‚
+        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.3 Aging Engine Design
@@ -251,14 +257,14 @@ AgingEngine.getAging(customerId):
 
   4. COMPUTE metrics:
      totalOutstanding = SUM(all buckets)
-     agingPercentByBucket = bucketAmount / totalOutstanding × 100
-     weightedAvgDays = SUM(daysOverdue × outstanding) / totalOutstanding
-     collectionEffectiveness = totalPaidLastMonth / totalDueLastMonth × 100
+     agingPercentByBucket = bucketAmount / totalOutstanding Ã— 100
+     weightedAvgDays = SUM(daysOverdue Ã— outstanding) / totalOutstanding
+     collectionEffectiveness = totalPaidLastMonth / totalDueLastMonth Ã— 100
 
 AgingEngine.portfolioAging(filters):
-  → Same logic but aggregated across all customers
-  → Supports filters: areaId, projectId, customerGroup, collectorId
-  → Returns: portfolio summary + per-bucket breakdown + trend data
+  â†’ Same logic but aggregated across all customers
+  â†’ Supports filters: areaId, projectId, customerGroup, collectorId
+  â†’ Returns: portfolio summary + per-bucket breakdown + trend data
 ```
 
 ### 2.4 Aging Bucket Classification
@@ -288,7 +294,7 @@ function classify(daysOverdue) {
 | `paymentProbability` | Float? | AI score 0.0-1.0 |
 | `priorityScore` | Float? | AI score 0-100 |
 | `riskBucket` | String? | LOW | MEDIUM | HIGH | CRITICAL |
-| `collectorId` | String? | FK → User (assigned collector) |
+| `collectorId` | String? | FK â†’ User (assigned collector) |
 | `collectionStrategy` | String? | SOFT | STANDARD | AGGRESSIVE | LEGAL |
 | `expectedResolutionDate` | DateTime? | Target resolution |
 | `lastContactAt` | DateTime? | Last customer contact |
@@ -299,7 +305,7 @@ function classify(daysOverdue) {
 | `disputeStatus` | String? | OPEN | INVESTIGATING | RESOLVED |
 | `writeOffAmount` | Float? | Amount written off |
 | `writeOffReason` | String? | Reason for write-off |
-| `writeOffApprovedBy` | String? | FK → User |
+| `writeOffApprovedBy` | String? | FK â†’ User |
 | `writeOffApprovedAt` | DateTime? | |
 
 ### 3.2 CustomerRiskProfile (NEW)
@@ -308,43 +314,43 @@ function classify(daysOverdue) {
 
 ```
 CustomerRiskProfile
-├── id: String (UUID, PK)
-├── customerId: String (FK, UNIQUE)
-├── paymentProbability: Float?          ← AI score 0.0-1.0
-├── riskScore: Float?                   ← 0-100
-├── riskBucket: String?                 ← LOW | MEDIUM | HIGH | CRITICAL
-├── avgPaymentDays: Int?                ← Avg days to pay after due date
-├── onTimePaymentRate: Float?           ← % of payments made on time
-├── totalPaidLast12Months: Float?
-├── totalBilledLast12Months: Float?
-├── missedPtpCount: Int @default(0)     ← Lifetime missed PTPs
-├── keptPtpCount: Int @default(0)       ← Lifetime kept PTPs
-├── ptpReliability: Float?              ← kept / (kept + missed)  [0-1]
-├── lastRiskCalculatedAt: DateTime?
-├── lastPaymentAt: DateTime?
-├── createdAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ customerId: String (FK, UNIQUE)
+â”œâ”€â”€ paymentProbability: Float?          â† AI score 0.0-1.0
+â”œâ”€â”€ riskScore: Float?                   â† 0-100
+â”œâ”€â”€ riskBucket: String?                 â† LOW | MEDIUM | HIGH | CRITICAL
+â”œâ”€â”€ avgPaymentDays: Int?                â† Avg days to pay after due date
+â”œâ”€â”€ onTimePaymentRate: Float?           â† % of payments made on time
+â”œâ”€â”€ totalPaidLast12Months: Float?
+â”œâ”€â”€ totalBilledLast12Months: Float?
+â”œâ”€â”€ missedPtpCount: Int @default(0)     â† Lifetime missed PTPs
+â”œâ”€â”€ keptPtpCount: Int @default(0)       â† Lifetime kept PTPs
+â”œâ”€â”€ ptpReliability: Float?              â† kept / (kept + missed)  [0-1]
+â”œâ”€â”€ lastRiskCalculatedAt: DateTime?
+â”œâ”€â”€ lastPaymentAt: DateTime?
+â”œâ”€â”€ createdAt, updatedAt
 
 Relations:
-  customer → Customer
+  customer â†’ Customer
 ```
 
-### 3.3 DunningRule (NEW — or reuse existing EscalationStep)
+### 3.3 DunningRule (NEW â€” or reuse existing EscalationStep)
 
 **Purpose:** Define dunning escalation rules by customer segment and overdue stage.
 
 ```
 DunningRule
-├── id: String (UUID, PK)
-├── name: String
-├── customerSegment: String             ← ALL | RESIDENTIAL | COMMERCIAL | GOVERNMENT
-├── triggerDaysOverdue: Int             ← Days past due to trigger this stage
-├── stage: Int                          ← 0-7
-├── action: String                      ← SEND_NOTIFICATION | ASSIGN_COLLECTOR | ESCALATE
-├── channel: String                     ← EMAIL | SMS | WHATSAPP | PUSH | CALL | LETTER | VISIT
-├── templateId: String?                 ← FK → NotificationTemplate
-├── priority: Int @default(0)           ← Lower = higher priority
-├── active: Boolean @default(true)
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String
+â”œâ”€â”€ customerSegment: String             â† ALL | RESIDENTIAL | COMMERCIAL | GOVERNMENT
+â”œâ”€â”€ triggerDaysOverdue: Int             â† Days past due to trigger this stage
+â”œâ”€â”€ stage: Int                          â† 0-7
+â”œâ”€â”€ action: String                      â† SEND_NOTIFICATION | ASSIGN_COLLECTOR | ESCALATE
+â”œâ”€â”€ channel: String                     â† EMAIL | SMS | WHATSAPP | PUSH | CALL | LETTER | VISIT
+â”œâ”€â”€ templateId: String?                 â† FK â†’ NotificationTemplate
+â”œâ”€â”€ priority: Int @default(0)           â† Lower = higher priority
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.4 InstallmentPlan (NEW)
@@ -353,35 +359,35 @@ DunningRule
 
 ```
 InstallmentPlan
-├── id: String (UUID, PK)
-├── collectionCaseId: String (FK)
-├── customerId: String (FK)
-├── totalAmount: Float
-├── downPayment: Float @default(0)
-├── installmentCount: Int
-├── installmentAmount: Float            ← (totalAmount - downPayment) / installmentCount
-├── frequency: String                   ← WEEKLY | BIWEEKLY | MONTHLY
-├── firstDueDate: DateTime
-├── status: String                      ← PENDING | ACTIVE | COMPLETED | DEFAULTED
-├── missedInstallments: Int @default(0)
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ collectionCaseId: String (FK)
+â”œâ”€â”€ customerId: String (FK)
+â”œâ”€â”€ totalAmount: Float
+â”œâ”€â”€ downPayment: Float @default(0)
+â”œâ”€â”€ installmentCount: Int
+â”œâ”€â”€ installmentAmount: Float            â† (totalAmount - downPayment) / installmentCount
+â”œâ”€â”€ frequency: String                   â† WEEKLY | BIWEEKLY | MONTHLY
+â”œâ”€â”€ firstDueDate: DateTime
+â”œâ”€â”€ status: String                      â† PENDING | ACTIVE | COMPLETED | DEFAULTED
+â”œâ”€â”€ missedInstallments: Int @default(0)
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Relations:
-  collectionCase → CollectionCase
-  customer → Customer
-  installments → PlanInstallment[]
+  collectionCase â†’ CollectionCase
+  customer â†’ Customer
+  installments â†’ PlanInstallment[]
 ```
 
 ### 3.5 PlanInstallment (NEW)
 
 ```
 PlanInstallment
-├── id, planId (FK), dueDate: DateTime, amount: Float
-├── status: String                      ← PENDING | PAID | MISSED | WAIVED
-├── paidAt: DateTime?
-├── paidAmount: Float?
-├── paymentId: String?                  ← FK → Payment (when paid)
-├── createdAt
+â”œâ”€â”€ id, planId (FK), dueDate: DateTime, amount: Float
+â”œâ”€â”€ status: String                      â† PENDING | PAID | MISSED | WAIVED
+â”œâ”€â”€ paidAt: DateTime?
+â”œâ”€â”€ paidAmount: Float?
+â”œâ”€â”€ paymentId: String?                  â† FK â†’ Payment (when paid)
+â”œâ”€â”€ createdAt
 
 Unique: [planId, dueDate]
 ```
@@ -390,19 +396,19 @@ Unique: [planId, dueDate]
 
 ```
 Dispute
-├── id: String (UUID, PK)
-├── collectionCaseId: String? (FK)
-├── invoiceId: String (FK)
-├── customerId: String (FK)
-├── reason: String                      ← BILLING_ERROR | METER_ERROR | TARIFF_DISPUTE |
-│                                           SERVICE_QUALITY | FINANCIAL_HARDSHIP | OTHER
-├── description: String
-├── status: String                      ← OPEN | INVESTIGATING | RESOLVED | REJECTED
-├── evidence: String? (JSON)
-├── resolution: String?
-├── resolvedAt: DateTime?
-├── resolvedBy: String?
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ collectionCaseId: String? (FK)
+â”œâ”€â”€ invoiceId: String (FK)
+â”œâ”€â”€ customerId: String (FK)
+â”œâ”€â”€ reason: String                      â† BILLING_ERROR | METER_ERROR | TARIFF_DISPUTE |
+â”‚                                           SERVICE_QUALITY | FINANCIAL_HARDSHIP | OTHER
+â”œâ”€â”€ description: String
+â”œâ”€â”€ status: String                      â† OPEN | INVESTIGATING | RESOLVED | REJECTED
+â”œâ”€â”€ evidence: String? (JSON)
+â”œâ”€â”€ resolution: String?
+â”œâ”€â”€ resolvedAt: DateTime?
+â”œâ”€â”€ resolvedBy: String?
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 ```
 
 ### 3.7 ProvisionRule (NEW)
@@ -411,30 +417,30 @@ Dispute
 
 ```
 ProvisionRule
-├── id: String (UUID, PK)
-├── name: String
-├── agingBucket: String                 ← current | bucket_30 | bucket_60 | bucket_90 | bucket_120 | bucket_120plus
-├── provisionRate: Float                ← 0.02 for 2%
-├── active: Boolean @default(true)
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String
+â”œâ”€â”€ agingBucket: String                 â† current | bucket_30 | bucket_60 | bucket_90 | bucket_120 | bucket_120plus
+â”œâ”€â”€ provisionRate: Float                â† 0.02 for 2%
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.8 BadDebtProvision (NEW)
 
 ```
 BadDebtProvision
-├── id: String (UUID, PK)
-├── periodId: String (FK → FinancialPeriod)
-├── totalOutstanding: Float
-├── totalProvision: Float
-├── provisions: String (JSON)           ← [{ bucket, outstanding, rate, provision }]
-├── journalEntryId: String? (FK → JournalEntry)
-├── status: String                      ← DRAFT | POSTED
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ periodId: String (FK â†’ FinancialPeriod)
+â”œâ”€â”€ totalOutstanding: Float
+â”œâ”€â”€ totalProvision: Float
+â”œâ”€â”€ provisions: String (JSON)           â† [{ bucket, outstanding, rate, provision }]
+â”œâ”€â”€ journalEntryId: String? (FK â†’ JournalEntry)
+â”œâ”€â”€ status: String                      â† DRAFT | POSTED
+â”œâ”€â”€ createdAt, archivedAt
 
 Relations:
-  period → FinancialPeriod
-  journalEntry → JournalEntry
+  period â†’ FinancialPeriod
+  journalEntry â†’ JournalEntry
 ```
 
 ### 3.9 WriteOffRequest (NEW)
@@ -443,18 +449,18 @@ Relations:
 
 ```
 WriteOffRequest
-├── id: String (UUID, PK)
-├── collectionCaseId: String (FK)
-├── customerId: String (FK)
-├── amount: Float
-├── reason: String
-├── status: String                      ← PENDING | APPROVED | REJECTED
-├── requestedBy: String (FK → User)
-├── reviewedBy: String? (FK → User)
-├── reviewedAt: DateTime?
-├── rejectReason: String?
-├── journalEntryId: String? (FK → JournalEntry)  ← Write-off JE posted on approval
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ collectionCaseId: String (FK)
+â”œâ”€â”€ customerId: String (FK)
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ reason: String
+â”œâ”€â”€ status: String                      â† PENDING | APPROVED | REJECTED
+â”œâ”€â”€ requestedBy: String (FK â†’ User)
+â”œâ”€â”€ reviewedBy: String? (FK â†’ User)
+â”œâ”€â”€ reviewedAt: DateTime?
+â”œâ”€â”€ rejectReason: String?
+â”œâ”€â”€ journalEntryId: String? (FK â†’ JournalEntry)  â† Write-off JE posted on approval
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.10 New Models Summary
@@ -481,11 +487,11 @@ WriteOffRequest
 
 | Segment | Criteria | Strategy | Dunning Tone |
 |---------|----------|----------|-------------|
-| **Premium** | Government, Corporate Large, High-value residential | SOFT — personalized outreach, relationship management | Polite reminder, account manager CC'd |
-| **Standard** | Corporate Small, Residential standard | STANDARD — automated dunning, self-service options | Firm but professional |
-| **At Risk** | Low payment probability (< 0.4), missed PTPs | AGGRESSIVE — intensive dunning, field visit, escalation | Urgent, escalating |
-| **Hardship** | Disputed invoice, financial hardship case | SOFT — payment arrangement, installment plan | Supportive, flexible |
-| **Legal** | High amount (> 100K), 120+ days, no contact | LEGAL — final notice, legal proceedings | Legal warning |
+| **Premium** | Government, Corporate Large, High-value residential | SOFT â€” personalized outreach, relationship management | Polite reminder, account manager CC'd |
+| **Standard** | Corporate Small, Residential standard | STANDARD â€” automated dunning, self-service options | Firm but professional |
+| **At Risk** | Low payment probability (< 0.4), missed PTPs | AGGRESSIVE â€” intensive dunning, field visit, escalation | Urgent, escalating |
+| **Hardship** | Disputed invoice, financial hardship case | SOFT â€” payment arrangement, installment plan | Supportive, flexible |
+| **Legal** | High amount (> 100K), 120+ days, no contact | LEGAL â€” final notice, legal proceedings | Legal warning |
 
 ### 4.2 Strategy Engine
 
@@ -493,41 +499,41 @@ WriteOffRequest
 CollectionStrategyEngine.getStrategy(customer, case):
   1. LOAD CustomerRiskProfile for customer
   2. CHECK paymentProbability:
-     IF probability < 0.2 → "AGGRESSIVE"
-     IF probability < 0.4 → "STANDARD"
+     IF probability < 0.2 â†’ "AGGRESSIVE"
+     IF probability < 0.4 â†’ "STANDARD"
   
   3. CHECK dispute status:
-     IF case.disputeStatus == "OPEN" → "HARDSHIP"
+     IF case.disputeStatus == "OPEN" â†’ "HARDSHIP"
   
   4. CHECK amount + aging:
-     IF case.totalAmount > 100000 AND stage >= 5 → "LEGAL"
+     IF case.totalAmount > 100000 AND stage >= 5 â†’ "LEGAL"
   
   5. CHECK customer segment:
-     IF segment == "GOVERNMENT" AND probability > 0.6 → "SOFT"
+     IF segment == "GOVERNMENT" AND probability > 0.6 â†’ "SOFT"
   
   6. DEFAULT: "STANDARD"
   
   7. RETURN strategy name + dunning rules for that segment
 ```
 
-### 4.3 Dunning Escalation — 7 Stages
+### 4.3 Dunning Escalation â€” 7 Stages
 
 ```
 STAGE 0: DAY 1 (overdue by 1 day)
   Channel: Email
-  Template: Payment reminder — polite
+  Template: Payment reminder â€” polite
   Action: Auto-send
   PTP: Optional
 
 STAGE 1: DAY 7
   Channel: SMS + Email
-  Template: Overdue notice — firm
+  Template: Overdue notice â€” firm
   Action: Auto-send
   PTP: Encouraged
 
 STAGE 2: DAY 15
   Channel: SMS + Email + WhatsApp
-  Template: Second notice — urgent
+  Template: Second notice â€” urgent
   Action: Auto-send
   PTP: Requested
 
@@ -542,7 +548,7 @@ STAGE 4: DAY 45
   Channel: Letter (registered mail) + Call
   Template: Pre-disconnection warning
   Action: Collector dispatches field visit
-  PTP: Required — missed PTP → escalate
+  PTP: Required â€” missed PTP â†’ escalate
   Escalation: Supervisor notified
 
 STAGE 5: DAY 60
@@ -601,16 +607,16 @@ DunningEngine.evaluate():
 
 **Agent Name:** Collection Intelligence Agent  
 **Framework:** C12-W07 Operational Intelligence (AIRecommendation model)  
-**Autonomy Level:** ⚡ Semi-autonomous  
+**Autonomy Level:** âš¡ Semi-autonomous  
 
 | Capability | Autonomy | Human Approval |
 |------------|----------|----------------|
-| Payment probability scoring | ✅ Full | None (read-only score) |
-| Next-best-action recommendation | ⚡ Semi | Required for execution |
-| Collection priority scoring | ✅ Full | None (read-only score) |
-| Churn prediction | ✅ Full | None (alert only) |
-| Strategy optimization | ⚡ Semi | Recommended strategies |
-| Revenue recovery forecasting | ✅ Full | None (forecast only) |
+| Payment probability scoring | âœ… Full | None (read-only score) |
+| Next-best-action recommendation | âš¡ Semi | Required for execution |
+| Collection priority scoring | âœ… Full | None (read-only score) |
+| Churn prediction | âœ… Full | None (alert only) |
+| Strategy optimization | âš¡ Semi | Recommended strategies |
+| Revenue recovery forecasting | âœ… Full | None (forecast only) |
 
 ### 5.2 Payment Probability Scoring
 
@@ -672,35 +678,35 @@ ALGORITHM: recommendNextAction(case):
   
   IF probability > 0.7:
     RETURN { action: "SEND_REMINDER", channel: "EMAIL", urgency: "LOW",
-             reason: "High probability — simple reminder sufficient" }
+             reason: "High probability â€” simple reminder sufficient" }
   
   IF probability > 0.5 AND probability <= 0.7:
     IF stage < 2:
       RETURN { action: "SEND_REMINDER", channel: "SMS+EMAIL", urgency: "MEDIUM",
-               reason: "Moderate probability — standard dunning" }
+               reason: "Moderate probability â€” standard dunning" }
     ELSE:
       RETURN { action: "REQUEST_PTP", channel: "CALL", urgency: "MEDIUM",
-               reason: "Moderate probability — PTP may resolve" }
+               reason: "Moderate probability â€” PTP may resolve" }
   
   IF probability > 0.3 AND probability <= 0.5:
     IF !case.assignedTo:
       RETURN { action: "ASSIGN_COLLECTOR", urgency: "HIGH",
-               reason: "Low probability — needs collector intervention" }
+               reason: "Low probability â€” needs collector intervention" }
     ELSE:
       RETURN { action: "FIELD_VISIT", urgency: "HIGH",
-               reason: "Low probability — field visit recommended" }
+               reason: "Low probability â€” field visit recommended" }
   
   IF probability <= 0.3:
     IF amount > 10000:
       RETURN { action: "ESCALATE_TO_MANAGER", urgency: "CRITICAL",
-               reason: "Very low probability + high amount — escalate" }
+               reason: "Very low probability + high amount â€” escalate" }
     ELSE:
       RETURN { action: "PREPARE_WRITE_OFF", urgency: "HIGH",
-               reason: "Very low probability — consider write-off" }
+               reason: "Very low probability â€” consider write-off" }
   
   IF disputeStatus == "OPEN":
     RETURN { action: "REVIEW_DISPUTE", urgency: "HIGH",
-             reason: "Active dispute — resolve before collection" }
+             reason: "Active dispute â€” resolve before collection" }
 ```
 
 ### 5.4 Churn Prediction
@@ -748,28 +754,28 @@ ALGORITHM: predictChurnRisk(customerId):
 
 ```
 DISPUTE CREATED (by customer via portal/phone/email)
-    │
-    ▼
-┌─────────┐
-│  OPEN    │  Initial state
-└────┬─────┘
-     │
-     │ ASSIGN
-     ▼
-┌──────────────┐
-│ INVESTIGATING │  Collector/analyst reviews
-└──────┬───────┘
-       │
-   ┌───┴───────────────┐
-   │                   │
-   ▼                   ▼
-┌────────┐       ┌──────────┐
-│RESOLVED│       │ REJECTED │  (if no merit)
-└───┬────┘       └──────────┘
-    │
-    ├──→ Correction applied if billing error
-    ├──→ Collection case updated
-    └──→ Customer notified
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  OPEN    â”‚  Initial state
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â”‚ ASSIGN
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ INVESTIGATING â”‚  Collector/analyst reviews
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+   â”Œâ”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+   â”‚                   â”‚
+   â–¼                   â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”       â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚RESOLVEDâ”‚       â”‚ REJECTED â”‚  (if no merit)
+â””â”€â”€â”€â”¬â”€â”€â”€â”€â”˜       â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+    â”‚
+    â”œâ”€â”€â†’ Correction applied if billing error
+    â”œâ”€â”€â†’ Collection case updated
+    â””â”€â”€â†’ Customer notified
 ```
 
 ### 6.2 Dispute Types and Resolution
@@ -792,13 +798,13 @@ DISPUTE CREATED (by customer via portal/phone/email)
 ```
 ProvisionEngine.calculate(periodId):
   1. LOAD all outstanding invoices by aging bucket
-     current:     EGP 500,000   × 0.5%  = EGP 2,500
-     bucket_30:   EGP 350,000   × 2%    = EGP 7,000
-     bucket_60:   EGP 200,000   × 10%   = EGP 20,000
-     bucket_90:   EGP 100,000   × 25%   = EGP 25,000
-     bucket_120:  EGP 50,000    × 50%   = EGP 25,000
-     bucket_120+: EGP 25,000    × 80%   = EGP 20,000
-     ─────────────────────────────────────────────
+     current:     EGP 500,000   Ã— 0.5%  = EGP 2,500
+     bucket_30:   EGP 350,000   Ã— 2%    = EGP 7,000
+     bucket_60:   EGP 200,000   Ã— 10%   = EGP 20,000
+     bucket_90:   EGP 100,000   Ã— 25%   = EGP 25,000
+     bucket_120:  EGP 50,000    Ã— 50%   = EGP 25,000
+     bucket_120+: EGP 25,000    Ã— 80%   = EGP 20,000
+     â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
      TOTAL:                     EGP 99,500
   
   2. CREATE BadDebtProvision:
@@ -817,28 +823,28 @@ ProvisionEngine.calculate(periodId):
 
 ```
 Write-off Initiated (Collector recommends)
-    │
-    ▼
-┌─────────────┐
-│  PENDING    │  Request created — awaiting review
-└──────┬──────┘
-       │
-   ┌───┴───────────┐
-   │               │
-   ▼               ▼
-┌──────────┐  ┌──────────┐
-│ APPROVED │  │ REJECTED │  ← Back to collection
-└────┬─────┘  └──────────┘
-     │
-     ▼
-┌──────────┐
-│  EXECUTE │  Post journals, close case, update customer
-└────┬─────┘
-     │
-     ▼
-┌───────────┐
-│  RECOVERY │  (if payment received after write-off)
-└───────────┘
+    â”‚
+    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  PENDING    â”‚  Request created â€” awaiting review
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+   â”Œâ”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+   â”‚               â”‚
+   â–¼               â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ APPROVED â”‚  â”‚ REJECTED â”‚  â† Back to collection
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  EXECUTE â”‚  Post journals, close case, update customer
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  RECOVERY â”‚  (if payment received after write-off)
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 **Approval Rules:**
@@ -856,95 +862,95 @@ Write-off Initiated (Collector recommends)
 ### 8.1 Collector Workbench (`/admin/collections/my-cases`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ MY COLLECTION CASES (24)                               FILTER: All │ Priority v    │
-│                                                                                       │
-│ ┌────┬─────────────────┬──────────┬──────┬────────┬─────────┬──────────┬──────────┐  │
-│ │ #  │ Customer        │ Amount   │ Days │ Stage  │ Prob.   │ Last Act │ Action   │  │
-│ │ 1  │ EgyptAir Tower  │ EGP 45K  │ 78   │ ██ 5   │ 0.25 🔴 │ 2d ago   │ [Visit]  │  │
-│ │ 2  │ Nile Corp       │ EGP 12K  │ 34   │ ██ 3   │ 0.45 🟡 │ 1d ago   │ [Call]   │  │
-│ │ 3  │ Mohamed Ali     │ EGP 3.2K │ 12   │ ██ 1   │ 0.72 🟢 │ Auto     │ [Remind] │  │
-│ │ 4  │ Heliopolis Co   │ EGP 28K  │ 56   │ ██ 4   │ 0.31 🔴 │ 5d ago   │ [PTP]    │  │
-│ └────┴─────────────────┴──────────┴──────┴────────┴─────────┴──────────┴──────────┘  │
-│                                                                                       │
-│ ┌──────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ TODAY'S ACTIONS (5)                                                                │  │
-│ │ ☐ Call EgyptAir Tower — Stage 5 overdue for field visit                          │  │
-│ │ ☐ Send PTP reminder to Heliopolis Co — promised yesterday                       │  │
-│ │ ☐ Review dispute — Nile Corp invoice INV-2026-0712                               │  │
-│ │ ☐ Approve write-off — Small Customer #C-451 (EGP 1,200)                         │  │
-│ │ ☐ Close case — Mohamed Ali (paid in full)                                        │  │
-│ └──────────────────────────────────────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ MY COLLECTION CASES (24)                               FILTER: All â”‚ Priority v    â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ #  â”‚ Customer        â”‚ Amount   â”‚ Days â”‚ Stage  â”‚ Prob.   â”‚ Last Act â”‚ Action   â”‚  â”‚
+â”‚ â”‚ 1  â”‚ EgyptAir Tower  â”‚ EGP 45K  â”‚ 78   â”‚ â–ˆâ–ˆ 5   â”‚ 0.25 ðŸ”´ â”‚ 2d ago   â”‚ [Visit]  â”‚  â”‚
+â”‚ â”‚ 2  â”‚ Nile Corp       â”‚ EGP 12K  â”‚ 34   â”‚ â–ˆâ–ˆ 3   â”‚ 0.45 ðŸŸ¡ â”‚ 1d ago   â”‚ [Call]   â”‚  â”‚
+â”‚ â”‚ 3  â”‚ Mohamed Ali     â”‚ EGP 3.2K â”‚ 12   â”‚ â–ˆâ–ˆ 1   â”‚ 0.72 ðŸŸ¢ â”‚ Auto     â”‚ [Remind] â”‚  â”‚
+â”‚ â”‚ 4  â”‚ Heliopolis Co   â”‚ EGP 28K  â”‚ 56   â”‚ â–ˆâ–ˆ 4   â”‚ 0.31 ðŸ”´ â”‚ 5d ago   â”‚ [PTP]    â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ TODAY'S ACTIONS (5)                                                                â”‚  â”‚
+â”‚ â”‚ â˜ Call EgyptAir Tower â€” Stage 5 overdue for field visit                          â”‚  â”‚
+â”‚ â”‚ â˜ Send PTP reminder to Heliopolis Co â€” promised yesterday                       â”‚  â”‚
+â”‚ â”‚ â˜ Review dispute â€” Nile Corp invoice INV-2026-0712                               â”‚  â”‚
+â”‚ â”‚ â˜ Approve write-off â€” Small Customer #C-451 (EGP 1,200)                         â”‚  â”‚
+â”‚ â”‚ â˜ Close case â€” Mohamed Ali (paid in full)                                        â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 8.2 Supervisor Dashboard (`/admin/collections/supervisor`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ COLLECTION SUPERVISOR DASHBOARD                                                         │
-│                                                                                       │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ │
-│ │ Open Cases   │ │ Assigned     │ │ Unassigned   │ │ Avg Age      │ │ Collector    │ │
-│ │       312    │ │       245    │ │        67    │ │      34d     │ │ Eff: 78%    │ │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ │
-│                                                                                       │
-│ ┌──────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ TEAM PERFORMANCE                                                                   │  │
-│ │ ┌──────────┬────────┬────────┬────────┬────────┬────────┬────────┐               │  │
-│ │ │ Collector│ Cases  │ Resolv │ PTP    │ Field  │ Avg    │ Eff.   │               │  │
-│ │ │          │ Assignd│ /Month │ Kept%  │ Visits │ Resp.  │ Rate   │               │  │
-│ │ │ Sarah    │ 42     │ 28     │ 74%    │ 12     │ 2.1d   │ 82%    │               │  │
-│ │ │ Ahmed    │ 38     │ 31     │ 81%    │ 8      │ 1.8d   │ 89%    │ ▲              │  │
-│ │ │ Mariam   │ 36     │ 22     │ 65%    │ 15     │ 3.2d   │ 71%    │ ▼              │  │
-│ │ └──────────┴────────┴────────┴────────┴────────┴────────┴────────┘               │  │
-│ └──────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                       │
-│ ┌──────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ UNASSIGNED CASES (67) — Prioritized by AI Score                                    │  │
-│ │ ⚠ EgyptAir Tower    EGP 45K  Score: 89    Days: 78    [Assign]                   │  │
-│ │ ⚠ Industrial Zone 3 EGP 28K  Score: 76    Days: 45    [Assign]                   │  │
-│ │ ⚠ New Cairo School  EGP 12K  Score: 64    Days: 34    [Assign]                   │  │
-│ └──────────────────────────────────────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ COLLECTION SUPERVISOR DASHBOARD                                                         â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+â”‚ â”‚ Open Cases   â”‚ â”‚ Assigned     â”‚ â”‚ Unassigned   â”‚ â”‚ Avg Age      â”‚ â”‚ Collector    â”‚ â”‚
+â”‚ â”‚       312    â”‚ â”‚       245    â”‚ â”‚        67    â”‚ â”‚      34d     â”‚ â”‚ Eff: 78%    â”‚ â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ TEAM PERFORMANCE                                                                   â”‚  â”‚
+â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”               â”‚  â”‚
+â”‚ â”‚ â”‚ Collectorâ”‚ Cases  â”‚ Resolv â”‚ PTP    â”‚ Field  â”‚ Avg    â”‚ Eff.   â”‚               â”‚  â”‚
+â”‚ â”‚ â”‚          â”‚ Assigndâ”‚ /Month â”‚ Kept%  â”‚ Visits â”‚ Resp.  â”‚ Rate   â”‚               â”‚  â”‚
+â”‚ â”‚ â”‚ Sarah    â”‚ 42     â”‚ 28     â”‚ 74%    â”‚ 12     â”‚ 2.1d   â”‚ 82%    â”‚               â”‚  â”‚
+â”‚ â”‚ â”‚ Ahmed    â”‚ 38     â”‚ 31     â”‚ 81%    â”‚ 8      â”‚ 1.8d   â”‚ 89%    â”‚ â–²              â”‚  â”‚
+â”‚ â”‚ â”‚ Mariam   â”‚ 36     â”‚ 22     â”‚ 65%    â”‚ 15     â”‚ 3.2d   â”‚ 71%    â”‚ â–¼              â”‚  â”‚
+â”‚ â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”˜               â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ UNASSIGNED CASES (67) â€” Prioritized by AI Score                                    â”‚  â”‚
+â”‚ â”‚ âš  EgyptAir Tower    EGP 45K  Score: 89    Days: 78    [Assign]                   â”‚  â”‚
+â”‚ â”‚ âš  Industrial Zone 3 EGP 28K  Score: 76    Days: 45    [Assign]                   â”‚  â”‚
+â”‚ â”‚ âš  New Cairo School  EGP 12K  Score: 64    Days: 34    [Assign]                   â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 8.3 Executive Dashboard (`/admin/collections/executive`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ EXECUTIVE COLLECTIONS DASHBOARD                                                         │
-│                                                                                       │
-│ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐ ┌──────────────────┐  │
-│ │ Total AR         │ │ Overdue AR       │ │ Collection       │ │ Avg Days to     │  │
-│ │ EGP 8.2M         │ │ EGP 3.1M (38%)   │ │ Effectiveness    │ │ Pay             │  │
-│ │                  │ │                  │ │       76%        │ │       42 days   │  │
-│ └──────────────────┘ └──────────────────┘ └──────────────────┘ └──────────────────┘  │
-│                                                                                       │
-│ ┌──────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ AGING BUCKETS (EGP)                                                                │  │
-│ │                                                                                   │  │
-│ │ Current    ████████████████████████████████████████████            EGP 5.1M (62%) │  │
-│ │ 1-30       ████████████████                                     EGP 1.2M (15%) │  │
-│ │ 31-60      ███████████                                           EGP 0.8M (10%) │  │
-│ │ 61-90      ██████                                                EGP 0.5M (6%)  │  │
-│ │ 91-120     ████                                                  EGP 0.3M (4%)  │  │
-│ │ 120+       ███                                                   EGP 0.3M (3%)  │  │
-│ │                                                                                   │  │
-│ │ Provision Required: EGP 245K │ Already Provided: EGP 200K │ Gap: EGP 45K        │  │
-│ └──────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                       │
-│ ┌──────────────────────────────┐ ┌──────────────────────────────────────────────┐    │
-│ │ COLLECTION TREND (12 months) │ │ RECOVERY FORECAST (Next Quarter)              │    │
-│ │                              │ │                                                 │    │
-│ │  Jan ████████ 78%            │ │ Expected Recovery:     EGP 1.8M                │    │
-│ │  Feb █████████ 82%           │ │ At Risk:               EGP 0.6M                │    │
-│ │  Mar ████████ 76%            │ │ Write-off Forecast:    EGP 0.2M                │    │
-│ │  Apr ████████ 79%            │ │ Best Case:             EGP 2.1M                │    │
-│ │  May █████████ 84% ▲         │ │ Worst Case:            EGP 1.4M                │    │
-│ │  Jun ████████ 80%            │ └──────────────────────────────────────────────┘    │
-│ └──────────────────────────────┘                                                      │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ EXECUTIVE COLLECTIONS DASHBOARD                                                         â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ Total AR         â”‚ â”‚ Overdue AR       â”‚ â”‚ Collection       â”‚ â”‚ Avg Days to     â”‚  â”‚
+â”‚ â”‚ EGP 8.2M         â”‚ â”‚ EGP 3.1M (38%)   â”‚ â”‚ Effectiveness    â”‚ â”‚ Pay             â”‚  â”‚
+â”‚ â”‚                  â”‚ â”‚                  â”‚ â”‚       76%        â”‚ â”‚       42 days   â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ AGING BUCKETS (EGP)                                                                â”‚  â”‚
+â”‚ â”‚                                                                                   â”‚  â”‚
+â”‚ â”‚ Current    â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ            EGP 5.1M (62%) â”‚  â”‚
+â”‚ â”‚ 1-30       â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ                                     EGP 1.2M (15%) â”‚  â”‚
+â”‚ â”‚ 31-60      â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ                                           EGP 0.8M (10%) â”‚  â”‚
+â”‚ â”‚ 61-90      â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ                                                EGP 0.5M (6%)  â”‚  â”‚
+â”‚ â”‚ 91-120     â–ˆâ–ˆâ–ˆâ–ˆ                                                  EGP 0.3M (4%)  â”‚  â”‚
+â”‚ â”‚ 120+       â–ˆâ–ˆâ–ˆ                                                   EGP 0.3M (3%)  â”‚  â”‚
+â”‚ â”‚                                                                                   â”‚  â”‚
+â”‚ â”‚ Provision Required: EGP 245K â”‚ Already Provided: EGP 200K â”‚ Gap: EGP 45K        â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚ â”‚ COLLECTION TREND (12 months) â”‚ â”‚ RECOVERY FORECAST (Next Quarter)              â”‚    â”‚
+â”‚ â”‚                              â”‚ â”‚                                                 â”‚    â”‚
+â”‚ â”‚  Jan â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 78%            â”‚ â”‚ Expected Recovery:     EGP 1.8M                â”‚    â”‚
+â”‚ â”‚  Feb â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 82%           â”‚ â”‚ At Risk:               EGP 0.6M                â”‚    â”‚
+â”‚ â”‚  Mar â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 76%            â”‚ â”‚ Write-off Forecast:    EGP 0.2M                â”‚    â”‚
+â”‚ â”‚  Apr â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 79%            â”‚ â”‚ Best Case:             EGP 2.1M                â”‚    â”‚
+â”‚ â”‚  May â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 84% â–²         â”‚ â”‚ Worst Case:            EGP 1.4M                â”‚    â”‚
+â”‚ â”‚  Jun â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ 80%            â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                                                      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -955,11 +961,11 @@ Write-off Initiated (Collector recommends)
 
 | Source | Trigger | W04 Action | Timing |
 |--------|---------|------------|--------|
-| **Invoice** | Status → "overdue" (dueDate passed) | Auto-create CollectionCase | Daily job |
-| **Payment** | Status → "completed" | Update case paidAmount, close if fully paid | Immediate |
+| **Invoice** | Status â†’ "overdue" (dueDate passed) | Auto-create CollectionCase | Daily job |
+| **Payment** | Status â†’ "completed" | Update case paidAmount, close if fully paid | Immediate |
 | **Payment** | Payment allocated to case invoice | Reduce case outstanding | Immediate |
 | **W01 GL** | Period-end close | Trigger BadDebtProvision calculation | Monthly |
-| **W02 Revenue** | Revenue finding on customer | Flag case — increase priority | Immediate |
+| **W02 Revenue** | Revenue finding on customer | Flag case â€” increase priority | Immediate |
 | **W03 Tariff** | Tariff change | Recalculate customer risk profile | On change |
 | **C12-W07 AI** | AIRecommendation approved | Execute recommended action | On approval |
 | **Notifications** | DunningEngine send | Send via Email/SMS/WhatsApp/Push | Per schedule |
@@ -968,7 +974,7 @@ Write-off Initiated (Collector recommends)
 ### 9.2 Auto-Creation of Collection Cases
 
 ```
-Daily job — CollectionCaseAutoCreator.run():
+Daily job â€” CollectionCaseAutoCreator.run():
   1. FIND overdue invoices
      WHERE dueDate < TODAY
      AND status IN ("issued", "partial")
@@ -1000,104 +1006,104 @@ Daily job — CollectionCaseAutoCreator.run():
 
 ---
 
-## PART 10: TESTING STRATEGY — W04 (105 Tests)
+## PART 10: TESTING STRATEGY â€” W04 (105 Tests)
 
 ### 10.1 Aging Engine Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Invoice due today → bucket "current" | Current bucket |
-| 2 | Invoice due 15 days ago → bucket "30" | Correct bucket |
-| 3 | Invoice due 45 days ago → bucket "60" | Correct bucket |
-| 4 | Invoice due 90 days ago → bucket "120" | Maximum boundary |
-| 5 | Invoice due 150 days ago → bucket "120+" | Beyond maximum |
-| 6 | Multi-invoice aging → correct aggregation | Sum across buckets |
-| 7 | Partially paid invoice → outstanding only | Correct remaining |
-| 8 | Paid invoice → excluded from aging | Filtered |
-| 9 | Cancelled invoice → excluded | Filtered |
-| 10 | Portfolio aging for area → correct bucket sums | Area filter |
+| 1 | Invoice due today â†’ bucket "current" | Current bucket |
+| 2 | Invoice due 15 days ago â†’ bucket "30" | Correct bucket |
+| 3 | Invoice due 45 days ago â†’ bucket "60" | Correct bucket |
+| 4 | Invoice due 90 days ago â†’ bucket "120" | Maximum boundary |
+| 5 | Invoice due 150 days ago â†’ bucket "120+" | Beyond maximum |
+| 6 | Multi-invoice aging â†’ correct aggregation | Sum across buckets |
+| 7 | Partially paid invoice â†’ outstanding only | Correct remaining |
+| 8 | Paid invoice â†’ excluded from aging | Filtered |
+| 9 | Cancelled invoice â†’ excluded | Filtered |
+| 10 | Portfolio aging for area â†’ correct bucket sums | Area filter |
 
 ### 10.2 Collection Strategy Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | High probability → SOFT strategy | Correct strategy |
-| 2 | Low probability → AGGRESSIVE strategy | Correct strategy |
-| 3 | Medium probability → STANDARD strategy | Correct strategy |
-| 4 | Open dispute → HARDSHIP strategy | Override |
-| 5 | High amount + deep aging → LEGAL strategy | Override |
-| 6 | Government customer → SOFT (if high prob) | Segment override |
+| 1 | High probability â†’ SOFT strategy | Correct strategy |
+| 2 | Low probability â†’ AGGRESSIVE strategy | Correct strategy |
+| 3 | Medium probability â†’ STANDARD strategy | Correct strategy |
+| 4 | Open dispute â†’ HARDSHIP strategy | Override |
+| 5 | High amount + deep aging â†’ LEGAL strategy | Override |
+| 6 | Government customer â†’ SOFT (if high prob) | Segment override |
 | 7 | Strategy changes when probability changes | Re-evaluation |
-| 8 | No CustomerRiskProfile → default STANDARD | Fallback |
+| 8 | No CustomerRiskProfile â†’ default STANDARD | Fallback |
 
 ### 10.3 Dunning Engine Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Stage 0 trigger (day 1) → email sent | Auto-dunning fires |
-| 2 | Stage 1 trigger (day 7) → SMS+Email sent | Multi-channel |
-| 3 | Stage 3 trigger (day 30) → collector assigned | Auto-assignment |
-| 4 | Stage 5 trigger (day 60) → field visit | Visit scheduled |
-| 5 | Case resolved → no further dunning | Stops |
-| 6 | Active installment plan → no dunning | Paused |
-| 7 | PTP kept → stage resets | Reset |
-| 8 | PTP missed → stage escalates | Escalate |
-| 9 | No matching rule for segment → skip | Graceful |
-| 10 | Dunning runs on schedule → all evaluated | Batch processing |
+| 1 | Stage 0 trigger (day 1) â†’ email sent | Auto-dunning fires |
+| 2 | Stage 1 trigger (day 7) â†’ SMS+Email sent | Multi-channel |
+| 3 | Stage 3 trigger (day 30) â†’ collector assigned | Auto-assignment |
+| 4 | Stage 5 trigger (day 60) â†’ field visit | Visit scheduled |
+| 5 | Case resolved â†’ no further dunning | Stops |
+| 6 | Active installment plan â†’ no dunning | Paused |
+| 7 | PTP kept â†’ stage resets | Reset |
+| 8 | PTP missed â†’ stage escalates | Escalate |
+| 9 | No matching rule for segment â†’ skip | Graceful |
+| 10 | Dunning runs on schedule â†’ all evaluated | Batch processing |
 
 ### 10.4 PTP Engine Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create PTP → status "pending" | Correct initial |
-| 2 | Fulfill PTP → status "kept", case updated | Success path |
-| 3 | Miss PTP → status "missed", case escalates | Failure path |
-| 4 | Multiple PTPs on same case → all tracked | History |
+| 1 | Create PTP â†’ status "pending" | Correct initial |
+| 2 | Fulfill PTP â†’ status "kept", case updated | Success path |
+| 3 | Miss PTP â†’ status "missed", case escalates | Failure path |
+| 4 | Multiple PTPs on same case â†’ all tracked | History |
 | 5 | PTP reminder fires before promisedDate | Auto-reminder |
-| 6 | PTP after write-off → rejected | State guard |
-| 7 | PTP amount > outstanding → rejected | Validation |
+| 6 | PTP after write-off â†’ rejected | State guard |
+| 7 | PTP amount > outstanding â†’ rejected | Validation |
 
 ### 10.5 Installment Plan Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create plan → installments generated | Correct count |
-| 2 | Down payment → first installment reduced | Correct split |
-| 3 | Installment paid → status "paid" | Success path |
-| 4 | Installment missed → plan "defaulted" | Failure path |
-| 5 | All installments paid → plan "completed" | Completion |
-| 6 | Early payment → remaining installments closed | Early closure |
-| 7 | Plan during dispute → allowed | Compatibility |
+| 1 | Create plan â†’ installments generated | Correct count |
+| 2 | Down payment â†’ first installment reduced | Correct split |
+| 3 | Installment paid â†’ status "paid" | Success path |
+| 4 | Installment missed â†’ plan "defaulted" | Failure path |
+| 5 | All installments paid â†’ plan "completed" | Completion |
+| 6 | Early payment â†’ remaining installments closed | Early closure |
+| 7 | Plan during dispute â†’ allowed | Compatibility |
 
 ### 10.6 Dispute Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create dispute → status "open" | Correct initial |
-| 2 | Resolve dispute → dunning resumes | Integration |
-| 3 | Reject dispute → dunning continues | Integration |
-| 4 | Multiple disputes same invoice → all tracked | History |
-| 5 | Dispute with billing error → correction flow | Correction |
+| 1 | Create dispute â†’ status "open" | Correct initial |
+| 2 | Resolve dispute â†’ dunning resumes | Integration |
+| 3 | Reject dispute â†’ dunning continues | Integration |
+| 4 | Multiple disputes same invoice â†’ all tracked | History |
+| 5 | Dispute with billing error â†’ correction flow | Correction |
 
 ### 10.7 Bad Debt Provision Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Calculate provision → correct rates applied | Rate match |
-| 2 | Provision journal entry posted → GL updated | Integration with W01 |
-| 3 | Multiple periods → separate provisions | Per-period |
-| 4 | Zero outstanding → zero provision | Empty state |
-| 5 | Provision rule changes → recalculated | On change |
+| 1 | Calculate provision â†’ correct rates applied | Rate match |
+| 2 | Provision journal entry posted â†’ GL updated | Integration with W01 |
+| 3 | Multiple periods â†’ separate provisions | Per-period |
+| 4 | Zero outstanding â†’ zero provision | Empty state |
+| 5 | Provision rule changes â†’ recalculated | On change |
 
 ### 10.8 Write-Off Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Request write-off → status "pending" | Initial state |
-| 2 | Approve write-off → case closed | Success path |
-| 3 | Reject write-off → case continues | Failure path |
-| 4 | Approve write-off → journal entry posted | GL integration |
-| 5 | Write-off amount > outstanding → rejected | Validation |
+| 1 | Request write-off â†’ status "pending" | Initial state |
+| 2 | Approve write-off â†’ case closed | Success path |
+| 3 | Reject write-off â†’ case continues | Failure path |
+| 4 | Approve write-off â†’ journal entry posted | GL integration |
+| 5 | Write-off amount > outstanding â†’ rejected | Validation |
 
 ### 10.9 AI Agent Tests (5)
 
@@ -1114,105 +1120,105 @@ Daily job — CollectionCaseAutoCreator.run():
 ## PART 11: W04 DEFINITION OF DONE
 
 ```
-W04 — COLLECTION INTELLIGENCE & RECEIVABLES MANAGEMENT ENGINE
+W04 â€” COLLECTION INTELLIGENCE & RECEIVABLES MANAGEMENT ENGINE
 CERTIFICATION CHECKLIST
 
-□ CORE DATA MODELS — 8 NEW
-   □ CustomerRiskProfile (AI payment behavior)
-   □ DunningRule (escalation rules per segment)
-   □ InstallmentPlan (payment installment plans)
-   □ PlanInstallment (individual installments)
-   □ Dispute (invoice/case disputes)
-   □ ProvisionRule (bad debt provision rates)
-   □ BadDebtProvision (period-end provisions)
-   □ WriteOffRequest (write-off approval)
-   □ CollectionCase enhanced (+20 new fields)
-   □ PromiseToPay enhanced (+5 new fields)
+â–¡ CORE DATA MODELS â€” 8 NEW
+   â–¡ CustomerRiskProfile (AI payment behavior)
+   â–¡ DunningRule (escalation rules per segment)
+   â–¡ InstallmentPlan (payment installment plans)
+   â–¡ PlanInstallment (individual installments)
+   â–¡ Dispute (invoice/case disputes)
+   â–¡ ProvisionRule (bad debt provision rates)
+   â–¡ BadDebtProvision (period-end provisions)
+   â–¡ WriteOffRequest (write-off approval)
+   â–¡ CollectionCase enhanced (+20 new fields)
+   â–¡ PromiseToPay enhanced (+5 new fields)
 
-□ AGING ENGINE
-   □ Per-customer aging (current, 30, 60, 90, 120, 120+)
-   □ Portfolio aging with filters (area, segment, collector)
-   □ Aging trend (month-over-month comparison)
-   □ Weighted average days overdue
+â–¡ AGING ENGINE
+   â–¡ Per-customer aging (current, 30, 60, 90, 120, 120+)
+   â–¡ Portfolio aging with filters (area, segment, collector)
+   â–¡ Aging trend (month-over-month comparison)
+   â–¡ Weighted average days overdue
 
-□ COLLECTION STRATEGY
-   □ 5 strategies: SOFT, STANDARD, AGGRESSIVE, HARDSHIP, LEGAL
-   □ Segment-based strategy selection
-   □ Strategy override for disputes/hardship
-   □ DunningRule engine (7 escalation stages)
+â–¡ COLLECTION STRATEGY
+   â–¡ 5 strategies: SOFT, STANDARD, AGGRESSIVE, HARDSHIP, LEGAL
+   â–¡ Segment-based strategy selection
+   â–¡ Strategy override for disputes/hardship
+   â–¡ DunningRule engine (7 escalation stages)
 
-□ AUTOMATED DUNNING
-   □ 7-stage escalation pipeline
-   □ Multi-channel: Email, SMS, WhatsApp, Push, Call, Letter, Field Visit
-   □ Auto-assignment of collectors at stage 3+
-   □ PTP creation and tracking
-   □ PTP reminders (before promised date)
-   □ PTP missed escalation
-   □ Configurable per customer segment
+â–¡ AUTOMATED DUNNING
+   â–¡ 7-stage escalation pipeline
+   â–¡ Multi-channel: Email, SMS, WhatsApp, Push, Call, Letter, Field Visit
+   â–¡ Auto-assignment of collectors at stage 3+
+   â–¡ PTP creation and tracking
+   â–¡ PTP reminders (before promised date)
+   â–¡ PTP missed escalation
+   â–¡ Configurable per customer segment
 
-□ INSTALLMENT PLANS
-   □ Plan creation with down payment
-   □ Auto-generated installment schedule
-   □ Payment tracking per installment
-   □ Default detection and escalation
+â–¡ INSTALLMENT PLANS
+   â–¡ Plan creation with down payment
+   â–¡ Auto-generated installment schedule
+   â–¡ Payment tracking per installment
+   â–¡ Default detection and escalation
 
-□ DISPUTE MANAGEMENT
-   □ 5 dispute types
-   □ Full lifecycle: OPEN → INVESTIGATING → RESOLVED | REJECTED
-   □ Evidence collection
-   □ Pause dunning during active dispute
+â–¡ DISPUTE MANAGEMENT
+   â–¡ 5 dispute types
+   â–¡ Full lifecycle: OPEN â†’ INVESTIGATING â†’ RESOLVED | REJECTED
+   â–¡ Evidence collection
+   â–¡ Pause dunning during active dispute
 
-□ BAD DEBT PROVISIONING
-   ✅ Provision rates per aging bucket
-   ✅ Auto-calculation at period end
-   ✅ Journal entry creation (via W01 PostingEngine)
+â–¡ BAD DEBT PROVISIONING
+   âœ… Provision rates per aging bucket
+   âœ… Auto-calculation at period end
+   âœ… Journal entry creation (via W01 PostingEngine)
 
-□ WRITE-OFF GOVERNANCE
-   □ 4-level approval threshold
-   □ Write-off journal entry on approval
-   □ Recovery tracking post write-off
+â–¡ WRITE-OFF GOVERNANCE
+   â–¡ 4-level approval threshold
+   â–¡ Write-off journal entry on approval
+   â–¡ Recovery tracking post write-off
 
-□ AI COLLECTION INTELLIGENCE AGENT
-   □ Payment probability scoring (0.0-1.0)
-   □ Next-best-action recommendation
-   □ Churn prediction
-   □ Revenue recovery forecasting
-   □ C12 AIRecommendation integration
+â–¡ AI COLLECTION INTELLIGENCE AGENT
+   â–¡ Payment probability scoring (0.0-1.0)
+   â–¡ Next-best-action recommendation
+   â–¡ Churn prediction
+   â–¡ Revenue recovery forecasting
+   â–¡ C12 AIRecommendation integration
 
-□ DASHBOARDS
-   □ Collector Workbench (/admin/collections/my-cases)
-   □ Supervisor Dashboard (/admin/collections/supervisor)
-   □ Executive Dashboard (/admin/collections/executive)
+â–¡ DASHBOARDS
+   â–¡ Collector Workbench (/admin/collections/my-cases)
+   â–¡ Supervisor Dashboard (/admin/collections/supervisor)
+   â–¡ Executive Dashboard (/admin/collections/executive)
 
-□ INTEGRATIONS
-   □ Invoice overdue → auto-create CollectionCase
-   □ Payment received → update case
-   □ W01 GL → provision journal entry
-   □ W02 Revenue → priority flagging
-   □ W03 Tariff → risk profile
-   □ C12-W07 AI → recommendations + patterns
-   □ Notification Center → multi-channel dunning
-   □ Audit → every mutation logged
+â–¡ INTEGRATIONS
+   â–¡ Invoice overdue â†’ auto-create CollectionCase
+   â–¡ Payment received â†’ update case
+   â–¡ W01 GL â†’ provision journal entry
+   â–¡ W02 Revenue â†’ priority flagging
+   â–¡ W03 Tariff â†’ risk profile
+   â–¡ C12-W07 AI â†’ recommendations + patterns
+   â–¡ Notification Center â†’ multi-channel dunning
+   â–¡ Audit â†’ every mutation logged
 
-□ SECURITY
-   □ RBAC: Collector, Supervisor, Manager, Executive, Auditor
-   □ Segregation: collector ≠ supervisor ≠ approver
-   □ Write-off multi-level approval
-   □ Investigation log append-only
-   □ All mutations audited
+â–¡ SECURITY
+   â–¡ RBAC: Collector, Supervisor, Manager, Executive, Auditor
+   â–¡ Segregation: collector â‰  supervisor â‰  approver
+   â–¡ Write-off multi-level approval
+   â–¡ Investigation log append-only
+   â–¡ All mutations audited
 
-□ TESTS — 105 PASSING
-   □ Aging engine: 15 tests
-   □ Collection strategy: 15 tests
-   □ Dunning engine: 20 tests
-   □ PTP engine: 15 tests
-   □ Installment plan: 10 tests
-   □ Dispute: 10 tests
-   □ Bad debt provision: 10 tests
-   □ Write-off: 10 tests
-   □ AI agent: 5 tests
+â–¡ TESTS â€” 105 PASSING
+   â–¡ Aging engine: 15 tests
+   â–¡ Collection strategy: 15 tests
+   â–¡ Dunning engine: 20 tests
+   â–¡ PTP engine: 15 tests
+   â–¡ Installment plan: 10 tests
+   â–¡ Dispute: 10 tests
+   â–¡ Bad debt provision: 10 tests
+   â–¡ Write-off: 10 tests
+   â–¡ AI agent: 5 tests
 
-W04 STATUS: □ NOT IMPLEMENTED
+W04 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -1221,31 +1227,31 @@ All items above are DESIGN-COMPLETE but not executed.
 ## APPENDIX A: W04 DEPENDENCY GRAPH
 
 ```
-W01 (Billing-to-GL) ──────────┐
-W02 (Revenue Assurance) ──────┤
-W03 (Tariff Intelligence) ────┤
-Invoice + Payment (existing) ─┤
-CollectionCase (existing) ────┤
-PromiseToPay (existing) ──────┤
-SLA/Escalation (existing) ────┤
-Notification Center (exist) ──┤
-C12-W07 AI Framework ─────────┤
-                               ▼
-                    ┌──────────────────────┐
-                    │  W04 COLLECTION       │
-                    │  INTELLIGENCE ENGINE  │
-                    └──────────────────────┘
-                          │
-                          ├──→ AgingEngine
-                          ├──→ DunningEngine
-                          ├──→ StrategyEngine
-                          ├──→ PTPEngine
-                          ├──→ InstallmentEngine
-                          ├──→ ProvisionEngine
-                          ├──→ WriteOffEngine
-                          ├──→ AI Collection Agent
-                          ├──→ 3 frontend dashboards
-                          └──→ Integration hooks
+W01 (Billing-to-GL) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+W02 (Revenue Assurance) â”€â”€â”€â”€â”€â”€â”¤
+W03 (Tariff Intelligence) â”€â”€â”€â”€â”¤
+Invoice + Payment (existing) â”€â”¤
+CollectionCase (existing) â”€â”€â”€â”€â”¤
+PromiseToPay (existing) â”€â”€â”€â”€â”€â”€â”¤
+SLA/Escalation (existing) â”€â”€â”€â”€â”¤
+Notification Center (exist) â”€â”€â”¤
+C12-W07 AI Framework â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+                               â–¼
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â”‚  W04 COLLECTION       â”‚
+                    â”‚  INTELLIGENCE ENGINE  â”‚
+                    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                          â”‚
+                          â”œâ”€â”€â†’ AgingEngine
+                          â”œâ”€â”€â†’ DunningEngine
+                          â”œâ”€â”€â†’ StrategyEngine
+                          â”œâ”€â”€â†’ PTPEngine
+                          â”œâ”€â”€â†’ InstallmentEngine
+                          â”œâ”€â”€â†’ ProvisionEngine
+                          â”œâ”€â”€â†’ WriteOffEngine
+                          â”œâ”€â”€â†’ AI Collection Agent
+                          â”œâ”€â”€â†’ 3 frontend dashboards
+                          â””â”€â”€â†’ Integration hooks
 ```
 
 ## APPENDIX B: W04 FILE MANIFEST
@@ -1278,4 +1284,5 @@ C12-W07 AI Framework ─────────┤
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C13-W04 — Collection Intelligence & Receivables Management Engine. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*C13-W04 â€” Collection Intelligence & Receivables Management Engine. READ ONLY. GOVERNANCE PLANNING ONLY.*
+

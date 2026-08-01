@@ -1,15 +1,21 @@
-# C27 — Enterprise Scheduling, Resource Planning & Optimization Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (scheduler-engine exists) | Certification: [ ] Not Certified | Wave: W6 | Commit: 834daaec
+====================================================================
+-->
+
+# C27 â€” Enterprise Scheduling, Resource Planning & Optimization Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C26  
 **Constraint:** Web-first control planes; no native mobile application.
 
 ---
 
-## Part 1 — Enterprise Scheduling Audit
+## Part 1 â€” Enterprise Scheduling Audit
 
 ### Existing schedulers and job mechanisms
 
@@ -53,25 +59,25 @@
 
 ---
 
-## Part 2 — Enterprise Scheduling Architecture
+## Part 2 â€” Enterprise Scheduling Architecture
 
 ```text
-┌────────────────────────────────────────────────────────────────────────────┐
-│ C27 CENTRAL SCHEDULING HUB                                                 │
-│                                                                            │
-│ Schedule Registry → Dependency Graph → Calendar/Capacity checks             │
-│        │                 │                       │                         │
-│        ▼                 ▼                       ▼                         │
-│ Queue Prioritization → Reservation Manager → Dispatch Engine                │
-│                                                   │                         │
-│        ┌──────────────────────────────────────────┴────────────────────┐   │
-│        │ Runtime Optimizer                                             │   │
-│        │ priority | SLA | skills | proximity | cost | tenant quota     │   │
-│        └───────────────┬────────────────────────────────────────────────┘   │
-│                        ▼                                                    │
-│ Existing scheduler-engine / QueueJob / ScheduledTask / C23 Runtime          │
-│ C16 workforce | C15 connectors | C18 AI | C19 operations | C22 tenancy     │
-└────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ C27 CENTRAL SCHEDULING HUB                                                 â”‚
+â”‚                                                                            â”‚
+â”‚ Schedule Registry â†’ Dependency Graph â†’ Calendar/Capacity checks             â”‚
+â”‚        â”‚                 â”‚                       â”‚                         â”‚
+â”‚        â–¼                 â–¼                       â–¼                         â”‚
+â”‚ Queue Prioritization â†’ Reservation Manager â†’ Dispatch Engine                â”‚
+â”‚                                                   â”‚                         â”‚
+â”‚        â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚        â”‚ Runtime Optimizer                                             â”‚   â”‚
+â”‚        â”‚ priority | SLA | skills | proximity | cost | tenant quota     â”‚   â”‚
+â”‚        â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                        â–¼                                                    â”‚
+â”‚ Existing scheduler-engine / QueueJob / ScheduledTask / C23 Runtime          â”‚
+â”‚ C16 workforce | C15 connectors | C18 AI | C19 operations | C22 tenancy     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 Rules:
@@ -84,17 +90,17 @@ Rules:
 
 ---
 
-## Part 3 — Enterprise Calendar Framework
+## Part 3 â€” Enterprise Calendar Framework
 
 Calendar layers:
 
 ```text
 GLOBAL business calendar
-  → REGION calendar
-    → COUNTRY holidays
-      → TENANT calendar
-        → TEAM/TECHNICIAN calendar
-          → ASSET maintenance window / blackout exception
+  â†’ REGION calendar
+    â†’ COUNTRY holidays
+      â†’ TENANT calendar
+        â†’ TEAM/TECHNICIAN calendar
+          â†’ ASSET maintenance window / blackout exception
 ```
 
 Supported rules:
@@ -111,7 +117,7 @@ All calendar calculations use UTC storage and local display/resolution using C22
 
 ---
 
-## Part 4 — Resource Planning
+## Part 4 â€” Resource Planning
 
 Resource pools include:
 
@@ -123,27 +129,27 @@ Resource pools include:
 ### Reservation semantics
 
 ```text
-REQUESTED → HELD → CONFIRMED → IN_USE → RELEASED
-                         │
-                         ├── EXPIRED
-                         └── CANCELLED
+REQUESTED â†’ HELD â†’ CONFIRMED â†’ IN_USE â†’ RELEASED
+                         â”‚
+                         â”œâ”€â”€ EXPIRED
+                         â””â”€â”€ CANCELLED
 ```
 
 Reservations have owner, tenant, resource, time window, quantity, priority, dependency, expiry, and audit. Double booking is rejected or routed to conflict resolution.
 
 ---
 
-## Part 5 — Dispatch Optimization
+## Part 5 â€” Dispatch Optimization
 
 ### Assignment score
 
 ```text
-assignmentScore = skillMatch × .25
-                + SLA urgency × .25
-                + proximity × .15
-                + workload balance × .15
-                + availability × .10
-                + cost/contract fit × .10
+assignmentScore = skillMatch Ã— .25
+                + SLA urgency Ã— .25
+                + proximity Ã— .15
+                + workload balance Ã— .15
+                + availability Ã— .10
+                + cost/contract fit Ã— .10
 ```
 
 Capabilities:
@@ -168,7 +174,7 @@ Conflicts never disappear silently; the winning and displaced schedules are reco
 
 ---
 
-## Part 6 — Capacity Management
+## Part 6 â€” Capacity Management
 
 The capacity planner forecasts:
 
@@ -180,8 +186,8 @@ The capacity planner forecasts:
 capacityUtilization = reserved + active workload / available capacity
 
 < 70%: available
-70–85%: healthy utilization
-85–95%: capacity warning
+70â€“85%: healthy utilization
+85â€“95%: capacity warning
 > 95%: critical; scale/rebalance recommendation
 ```
 
@@ -189,7 +195,7 @@ Tenant quotas and C22 plan limits are included in capacity allocation. C18 AI re
 
 ---
 
-## Part 7 — AI Scheduling Intelligence
+## Part 7 â€” AI Scheduling Intelligence
 
 | Capability | Output | Autonomy |
 |---|---|---|
@@ -205,7 +211,7 @@ Every AI result contains confidence, constraints considered, alternatives, estim
 
 ---
 
-## Part 8 — Enterprise Job Orchestration
+## Part 8 â€” Enterprise Job Orchestration
 
 The hub coordinates:
 
@@ -227,14 +233,14 @@ DependencyGraph:
   state = BLOCKED | READY | RUNNING | SUCCEEDED | FAILED | COMPENSATING
 
 Failure:
-  retry → fallback → compensation → DLQ/incident → manual recovery
+  retry â†’ fallback â†’ compensation â†’ DLQ/incident â†’ manual recovery
 ```
 
 No dependent job starts until required predecessors succeed or an authorized override is recorded.
 
 ---
 
-## Part 9 — Optimization Analytics
+## Part 9 â€” Optimization Analytics
 
 | Metric | Definition |
 |---|---|
@@ -253,7 +259,7 @@ Process and schedule events feed C17 analytics and C20 certification evidence.
 
 ---
 
-## Part 10 — Enterprise Models
+## Part 10 â€” Enterprise Models
 
 The target design adds approximately 22 models:
 
@@ -300,7 +306,7 @@ ResourceReservation
 
 ---
 
-## Part 11 — Security & Governance
+## Part 11 â€” Security & Governance
 
 - C12 authenticates schedulers, dispatchers, operators, approvers, and service identities.
 - C19 protects runtime configuration, jobs, deployment windows, capacity, and operational remediation.
@@ -314,7 +320,7 @@ ResourceReservation
 
 ---
 
-## Part 12 — Testing Strategy — 360 Tests
+## Part 12 â€” Testing Strategy â€” 360 Tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
@@ -336,7 +342,7 @@ Critical acceptance: no unauthorized cross-tenant reservation, no duplicate exec
 
 ---
 
-## Part 13 — Implementation Roadmap
+## Part 13 â€” Implementation Roadmap
 
 | Wave | Duration | Dependencies | Deliverables | Gate | Rollback |
 |---|---:|---|---|---|---|
@@ -361,7 +367,7 @@ Critical acceptance: no unauthorized cross-tenant reservation, no duplicate exec
 
 ---
 
-## Part 14 — Executive Command Center
+## Part 14 â€” Executive Command Center
 
 | Dashboard | Audience | Key content |
 |---|---|---|
@@ -375,30 +381,30 @@ Core metrics: utilization, idle time, scheduling efficiency, resource allocation
 
 ---
 
-## Part 15 — Definition of Done
+## Part 15 â€” Definition of Done
 
 ```text
-□ Existing scheduler-engine, ScheduledTask, QueueJob, workflow timers, health checks,
+â–¡ Existing scheduler-engine, ScheduledTask, QueueJob, workflow timers, health checks,
   polling, backups, reports, synchronization, AI jobs, and maintenance schedules are registered,
   not replaced.
-□ Central Scheduling Hub supports definitions, instances, dependencies, calendars,
+â–¡ Central Scheduling Hub supports definitions, instances, dependencies, calendars,
   resources, reservations, queues, dispatch, conflicts, and recovery.
-□ Calendar framework supports global, regional, country, tenant, technician,
+â–¡ Calendar framework supports global, regional, country, tenant, technician,
   maintenance, blackout, recurring, and exception calendars.
-□ Dispatch supports skills, proximity, workload, SLA, dependencies, emergency override,
+â–¡ Dispatch supports skills, proximity, workload, SLA, dependencies, emergency override,
   rerouting, reassignment, and queue optimization.
-□ Capacity planning forecasts workload, bottlenecks, peak demand, scaling, and tenant allocation.
-□ AI recommendations are explainable, confidence-gated, auditable, reversible, and human-approved for high-impact reallocations.
-□ C12/C19/C21/C22/C23/C25/C26 controls are enforced.
-□ Process/schedule analytics feed C17 and certification evidence feeds C20.
-□ 360 certification tests pass across scheduling, dispatch, optimization, security, performance,
+â–¡ Capacity planning forecasts workload, bottlenecks, peak demand, scaling, and tenant allocation.
+â–¡ AI recommendations are explainable, confidence-gated, auditable, reversible, and human-approved for high-impact reallocations.
+â–¡ C12/C19/C21/C22/C23/C25/C26 controls are enforced.
+â–¡ Process/schedule analytics feed C17 and certification evidence feeds C20.
+â–¡ 360 certification tests pass across scheduling, dispatch, optimization, security, performance,
   failover, tenancy, compliance, and disaster recovery.
-□ Web-only rollout is reversible and uses shadow/planning/controlled phases.
+â–¡ Web-only rollout is reversible and uses shadow/planning/controlled phases.
 ```
 
 ---
 
-## Appendix A — Maturity Improvement
+## Appendix A â€” Maturity Improvement
 
 | Dimension | Before C27 | Target After C27 |
 |---|---:|---:|
@@ -412,7 +418,7 @@ Core metrics: utilization, idle time, scheduling efficiency, resource allocation
 | Capacity forecasting | 10% | 85% |
 | **Overall scheduling maturity** | **23%** | **89%** |
 
-## Appendix B — Integration Map
+## Appendix B â€” Integration Map
 
 | Program | C27 integration |
 |---|---|
@@ -433,7 +439,7 @@ Core metrics: utilization, idle time, scheduling efficiency, resource allocation
 | C25 | assignments, reminders, breach alerts, approvals |
 | C26 | canonical resources, skills, locations, assets, reference values |
 
-## Appendix C — Estimated Size
+## Appendix C â€” Estimated Size
 
 | Artifact | Estimate |
 |---|---:|
@@ -448,4 +454,5 @@ Core metrics: utilization, idle time, scheduling efficiency, resource allocation
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C27 — Enterprise Scheduling, Resource Planning & Optimization Platform.*
+*C27 â€” Enterprise Scheduling, Resource Planning & Optimization Platform.*
+

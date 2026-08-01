@@ -1,15 +1,21 @@
-# C23 — Enterprise Workflow, BPM & Business Process Automation Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (state machines exist) | Certification: [ ] Not Certified | Wave: W2 | Commit: 8773fefa
+====================================================================
+-->
+
+# C23 â€” Enterprise Workflow, BPM & Business Process Automation Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C22  
 **Constraint:** Web-first enterprise platform; no native mobile architecture.
 
 ---
 
-## Part 1 — Enterprise Process Architecture Audit
+## Part 1 â€” Enterprise Process Architecture Audit
 
 ### Current foundation
 
@@ -49,28 +55,28 @@ MeterVerse already has:
 
 ---
 
-## Part 2 — BPM Architecture
+## Part 2 â€” BPM Architecture
 
 ### 2.1 Layered architecture
 
 ```text
-┌──────────────────────────────────────────────────────────────────────┐
-│ C23 BUSINESS PROCESS PLATFORM                                       │
-│                                                                      │
-│ Process Catalog → Designer → Version Approval → Runtime             │
-│        │              │                │             │                │
-│        ▼              ▼                ▼             ▼                │
-│ Templates      Node Registry     Governance    Process Instances     │
-│                                                     │                │
-│           ┌─────────────────────────────────────────┴────────────┐   │
-│           │ Execution Kernel                                      │   │
-│           │ state machine | tasks | timers | gateways | events    │   │
-│           │ retries | compensation | escalations | variables      │   │
-│           └───────────────┬───────────────────────────────────────┘   │
-│                           ▼                                           │
-│ C12 RBAC/Audit | C15 EventBus/Connectors | C19 Ops | C20 Quality     │
-│ C21 Governance | C22 Tenancy | C13-C18 Domain Services              │
-└──────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ C23 BUSINESS PROCESS PLATFORM                                       â”‚
+â”‚                                                                      â”‚
+â”‚ Process Catalog â†’ Designer â†’ Version Approval â†’ Runtime             â”‚
+â”‚        â”‚              â”‚                â”‚             â”‚                â”‚
+â”‚        â–¼              â–¼                â–¼             â–¼                â”‚
+â”‚ Templates      Node Registry     Governance    Process Instances     â”‚
+â”‚                                                     â”‚                â”‚
+â”‚           â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚           â”‚ Execution Kernel                                      â”‚   â”‚
+â”‚           â”‚ state machine | tasks | timers | gateways | events    â”‚   â”‚
+â”‚           â”‚ retries | compensation | escalations | variables      â”‚   â”‚
+â”‚           â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                           â–¼                                           â”‚
+â”‚ C12 RBAC/Audit | C15 EventBus/Connectors | C19 Ops | C20 Quality     â”‚
+â”‚ C21 Governance | C22 Tenancy | C13-C18 Domain Services              â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Runtime semantics
@@ -105,7 +111,7 @@ MeterVerse already has:
 
 ---
 
-## Part 3 — Workflow Designer
+## Part 3 â€” Workflow Designer
 
 The web-only designer provides:
 
@@ -115,20 +121,20 @@ The web-only designer provides:
 - Tenant-safe variables and secret references, never embedded credentials.
 - Simulation mode using golden datasets from C20.
 - Version diff showing nodes, transitions, permissions, timers, and rules changed.
-- Draft → review → approved → published lifecycle.
+- Draft â†’ review â†’ approved â†’ published lifecycle.
 - Process templates for recurring MeterVerse patterns.
 
 ### Definition contract
 
 ```text
 WorkflowDefinition
-  ├── metadata: name, code, owner, domain, tenant scope
-  ├── trigger: API | event | schedule | manual | subprocess
-  ├── variables: typed input/output schema
-  ├── nodes: visual graph
-  ├── policies: timeout, retry, approval, compensation
-  ├── permissions: roles and scopes
-  └── versions: immutable WorkflowVersion records
+  â”œâ”€â”€ metadata: name, code, owner, domain, tenant scope
+  â”œâ”€â”€ trigger: API | event | schedule | manual | subprocess
+  â”œâ”€â”€ variables: typed input/output schema
+  â”œâ”€â”€ nodes: visual graph
+  â”œâ”€â”€ policies: timeout, retry, approval, compensation
+  â”œâ”€â”€ permissions: roles and scopes
+  â””â”€â”€ versions: immutable WorkflowVersion records
 ```
 
 ### Governance gates
@@ -140,7 +146,7 @@ WorkflowDefinition
 
 ---
 
-## Part 4 — Universal Approval Engine
+## Part 4 â€” Universal Approval Engine
 
 | Mode | Rule |
 |---|---|
@@ -154,17 +160,17 @@ WorkflowDefinition
 | Conditional | Rules select approvers based on amount, risk, tenant, or domain |
 
 ```text
-DRAFT → SUBMITTED → IN_REVIEW → APPROVED | REJECTED | MODIFIED | EXPIRED
-                                      │
-                                      ▼
-                               EXECUTED → VERIFIED
+DRAFT â†’ SUBMITTED â†’ IN_REVIEW â†’ APPROVED | REJECTED | MODIFIED | EXPIRED
+                                      â”‚
+                                      â–¼
+                               EXECUTED â†’ VERIFIED
 ```
 
 Approval history is append-only. A rejection or modification records reason, actor, timestamp, evidence, and correlation ID. Segregation of duties is inherited from C12/C13/C21: requester cannot approve their own sensitive action.
 
 ---
 
-## Part 5 — Rules Engine
+## Part 5 â€” Rules Engine
 
 ### Capabilities
 
@@ -187,28 +193,28 @@ Approval history is append-only. A rejection or modification records reason, act
 
 ---
 
-## Part 6 — Process Automation Catalog
+## Part 6 â€” Process Automation Catalog
 
 | Process | Trigger | Core orchestration |
 |---|---|---|
-| Meter installation | Approved assignment | Reserve stock → schedule technician → checklist → commission → activate |
-| Meter replacement | Health/failure/customer request | Diagnose → warranty check → reserve replacement → permit → install → retire old meter |
-| SIM replacement | Connectivity failure | Diagnose → reserve SIM → assign → test → update connection |
-| Reading validation | Reading event | Validate → anomaly decision → accept/reject/review → notify |
-| Billing approval | Bill run completion | Validate → revenue assurance → approval → invoice issue → GL event |
-| Payment review | Payment exception | Match → fraud/risk decision → approve/review → post |
-| Refund approval | Refund request | Validate → SoD approval → payment gateway → GL reversal → notify |
-| Procurement | Reorder threshold | Forecast → requisition → approval → PO → receiving → inventory |
-| Purchase approval | PO submitted | Threshold rules → sequential/parallel approvals → release |
-| Asset disposal | Retirement | Inspection → residual value → approval → disposal → GL/inventory |
-| Leave request | Employee request | Policy rules → manager approval → HR record |
-| User provisioning | Tenant onboarding | Identity → role assignment → scope → audit |
-| Tenant onboarding | SaaS signup | Verify → provision → configure → license → activate |
-| Compliance approval | Finding/control | Evidence → assessor → remediation → reviewer → close |
+| Meter installation | Approved assignment | Reserve stock â†’ schedule technician â†’ checklist â†’ commission â†’ activate |
+| Meter replacement | Health/failure/customer request | Diagnose â†’ warranty check â†’ reserve replacement â†’ permit â†’ install â†’ retire old meter |
+| SIM replacement | Connectivity failure | Diagnose â†’ reserve SIM â†’ assign â†’ test â†’ update connection |
+| Reading validation | Reading event | Validate â†’ anomaly decision â†’ accept/reject/review â†’ notify |
+| Billing approval | Bill run completion | Validate â†’ revenue assurance â†’ approval â†’ invoice issue â†’ GL event |
+| Payment review | Payment exception | Match â†’ fraud/risk decision â†’ approve/review â†’ post |
+| Refund approval | Refund request | Validate â†’ SoD approval â†’ payment gateway â†’ GL reversal â†’ notify |
+| Procurement | Reorder threshold | Forecast â†’ requisition â†’ approval â†’ PO â†’ receiving â†’ inventory |
+| Purchase approval | PO submitted | Threshold rules â†’ sequential/parallel approvals â†’ release |
+| Asset disposal | Retirement | Inspection â†’ residual value â†’ approval â†’ disposal â†’ GL/inventory |
+| Leave request | Employee request | Policy rules â†’ manager approval â†’ HR record |
+| User provisioning | Tenant onboarding | Identity â†’ role assignment â†’ scope â†’ audit |
+| Tenant onboarding | SaaS signup | Verify â†’ provision â†’ configure â†’ license â†’ activate |
+| Compliance approval | Finding/control | Evidence â†’ assessor â†’ remediation â†’ reviewer â†’ close |
 
 ---
 
-## Part 7 — AI Workflow Assistant
+## Part 7 â€” AI Workflow Assistant
 
 | Capability | Output | Autonomy |
 |---|---|---|
@@ -223,7 +229,7 @@ AI is never the sole decision-maker for financial, access, safety, customer-acco
 
 ---
 
-## Part 8 — SLA Engine
+## Part 8 â€” SLA Engine
 
 - Response and resolution SLA per process, task type, priority, tenant, and contract.
 - Business calendars, holidays, and timezone-aware timers.
@@ -233,14 +239,14 @@ AI is never the sole decision-maker for financial, access, safety, customer-acco
 
 ```text
 SLA clock:
-  start → active time → pause(reason) → resume → breach warning → breached → resolved
+  start â†’ active time â†’ pause(reason) â†’ resume â†’ breach warning â†’ breached â†’ resolved
 ```
 
 SLA metrics: compliance %, mean response, mean resolution, breach count, paused duration, predicted breach rate.
 
 ---
 
-## Part 9 — Process Analytics
+## Part 9 â€” Process Analytics
 
 | Metric | Definition |
 |---|---|
@@ -259,7 +265,7 @@ C23 records event logs with instance ID, task, actor, timestamp, state, and outc
 
 ---
 
-## Part 10 — Enterprise Process Models
+## Part 10 â€” Enterprise Process Models
 
 The target design adds approximately 19 models:
 
@@ -287,7 +293,7 @@ All records require tenant scope, lifecycle status, timestamps, and audit linkag
 
 ---
 
-## Part 11 — Security & Governance
+## Part 11 â€” Security & Governance
 
 - C12 Zero Trust authenticates actor and resolves tenant, organization, area, and role scope.
 - C22 tenant isolation applies to definitions, instances, tasks, variables, metrics, and audit records.
@@ -296,13 +302,13 @@ All records require tenant scope, lifecycle status, timestamps, and audit linkag
 - C18 AI agents can recommend but cannot bypass approval, SoD, or policy gates.
 - C15 integrations execute through registered connectors with idempotency, retries, DLQ, and audit.
 - C19 release/config governance controls publication and production promotion.
-- Financial workflows enforce creator ≠ approver ≠ poster where required.
+- Financial workflows enforce creator â‰  approver â‰  poster where required.
 - Safety workflows require valid permits and dual authorization.
 - Every action records actor, tenant, workflow version, instance, node, before/after, reason, timestamp, and correlation ID.
 
 ---
 
-## Part 12 — Testing Strategy — 280 Tests
+## Part 12 â€” Testing Strategy â€” 280 Tests
 
 | Category | Tests | Coverage |
 |---|---:|---|
@@ -324,7 +330,7 @@ Critical acceptance: zero unauthorized cross-tenant access, zero unbalanced fina
 
 ---
 
-## Part 13 — Implementation Roadmap
+## Part 13 â€” Implementation Roadmap
 
 | Wave | Duration | Dependencies | Deliverables | Gate | Rollback |
 |---|---:|---|---|---|---|
@@ -349,7 +355,7 @@ Critical acceptance: zero unauthorized cross-tenant access, zero unbalanced fina
 
 ---
 
-## Part 14 — Executive Command Center
+## Part 14 â€” Executive Command Center
 
 | Dashboard | Audience | Key content |
 |---|---|---|
@@ -363,30 +369,30 @@ Core widgets: running instances, overdue tasks, SLA compliance, approval latency
 
 ---
 
-## Part 15 — Definition of Done
+## Part 15 â€” Definition of Done
 
 ```text
-□ Process catalog covers meter, billing, payment, procurement, asset, customer,
+â–¡ Process catalog covers meter, billing, payment, procurement, asset, customer,
   tenant, compliance, identity, integration, and financial workflows.
-□ Workflow definitions and versions are immutable after publication.
-□ Runtime supports human/service/AI/decision/timer/event/parallel/subprocess nodes.
-□ Existing workflow-engine.js state machines remain supported during migration.
-□ Universal approvals support sequential, parallel, unanimous, majority, weighted,
+â–¡ Workflow definitions and versions are immutable after publication.
+â–¡ Runtime supports human/service/AI/decision/timer/event/parallel/subprocess nodes.
+â–¡ Existing workflow-engine.js state machines remain supported during migration.
+â–¡ Universal approvals support sequential, parallel, unanimous, majority, weighted,
   delegated, emergency, and conditional modes.
-□ Rules engine supports decision tables, expressions, simulation, conflict resolution,
+â–¡ Rules engine supports decision tables, expressions, simulation, conflict resolution,
   effective dates, and rollback.
-□ SLA engine supports calendars, pause/resume, escalation, and breach prediction.
-□ Every workflow action is tenant-scoped, RBAC-protected, auditable, and replayable.
-□ AI assistance is explainable, confidence-gated, reversible, and human-controlled.
-□ Process analytics and process mining are available to owners and DTO.
-□ 280 certification tests pass across all required categories.
-□ C20 quality gates and C21 governance approvals are satisfied.
-□ Production rollout passes shadow, read-only, low-risk, gated, and controlled phases.
+â–¡ SLA engine supports calendars, pause/resume, escalation, and breach prediction.
+â–¡ Every workflow action is tenant-scoped, RBAC-protected, auditable, and replayable.
+â–¡ AI assistance is explainable, confidence-gated, reversible, and human-controlled.
+â–¡ Process analytics and process mining are available to owners and DTO.
+â–¡ 280 certification tests pass across all required categories.
+â–¡ C20 quality gates and C21 governance approvals are satisfied.
+â–¡ Production rollout passes shadow, read-only, low-risk, gated, and controlled phases.
 ```
 
 ---
 
-## Appendix A — Maturity Improvement
+## Appendix A â€” Maturity Improvement
 
 | Dimension | Before C23 | Target After C23 |
 |---|---:|---:|
@@ -400,7 +406,7 @@ Core widgets: running instances, overdue tasks, SLA compliance, approval latency
 | Governance traceability | 30% | 95% |
 | **Overall BPM maturity** | **22%** | **87%** |
 
-## Appendix B — Estimated Size
+## Appendix B â€” Estimated Size
 
 | Artifact | Estimate |
 |---|---:|
@@ -413,7 +419,7 @@ Core widgets: running instances, overdue tasks, SLA compliance, approval latency
 | Certification tests | 280 |
 | Initial rollout | 34 implementation days |
 
-## Appendix C — Risk Analysis
+## Appendix C â€” Risk Analysis
 
 | Risk | Impact | Mitigation |
 |---|---|---|
@@ -428,4 +434,5 @@ Core widgets: running instances, overdue tasks, SLA compliance, approval latency
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C23 — Enterprise Workflow, BPM & Business Process Automation Platform.*
+*C23 â€” Enterprise Workflow, BPM & Business Process Automation Platform.*
+

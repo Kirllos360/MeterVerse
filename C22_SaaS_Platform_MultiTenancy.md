@@ -1,8 +1,14 @@
-# C22 — Enterprise SaaS Platform, Multi-Tenancy & Global Scale Architecture
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W2 | Commit: d9ff79fe
+====================================================================
+-->
+
+# C22 â€” Enterprise SaaS Platform, Multi-Tenancy & Global Scale Architecture
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C10, C12-C21 (all programs designed)  
 
@@ -42,49 +48,49 @@
 
 ```
 PLATFORM (MeterVerse SaaS)
-  ├── REGION (North Africa | GCC | Europe | ...)
-  │     ├── COUNTRY (Egypt | UAE | Saudi | ...)
-  │     │     ├── ORGANIZATION (Tenant: EOX, ABC Utility, ...)
-  │     │     │     ├── BUSINESS UNIT (Residential | Commercial | Government)
-  │     │     │     ├── PROJECT
-  │     │     │     │     ├── AREA
-  │     │     │     │     │     └── SITE/ZONE → METERS, CUSTOMERS
-  │     │     │     └── SUBSCRIPTION (Plan + add-ons)
-  │     │     └── REGULATORY PROFILE (tax, compliance)
-  │     └── REGIONAL CONFIG (currency, timezone, language)
-  └── GLOBAL CONFIG (shared reference data)
+  â”œâ”€â”€ REGION (North Africa | GCC | Europe | ...)
+  â”‚     â”œâ”€â”€ COUNTRY (Egypt | UAE | Saudi | ...)
+  â”‚     â”‚     â”œâ”€â”€ ORGANIZATION (Tenant: EOX, ABC Utility, ...)
+  â”‚     â”‚     â”‚     â”œâ”€â”€ BUSINESS UNIT (Residential | Commercial | Government)
+  â”‚     â”‚     â”‚     â”œâ”€â”€ PROJECT
+  â”‚     â”‚     â”‚     â”‚     â”œâ”€â”€ AREA
+  â”‚     â”‚     â”‚     â”‚     â”‚     â””â”€â”€ SITE/ZONE â†’ METERS, CUSTOMERS
+  â”‚     â”‚     â”‚     â””â”€â”€ SUBSCRIPTION (Plan + add-ons)
+  â”‚     â”‚     â””â”€â”€ REGULATORY PROFILE (tax, compliance)
+  â”‚     â””â”€â”€ REGIONAL CONFIG (currency, timezone, language)
+  â””â”€â”€ GLOBAL CONFIG (shared reference data)
 ```
 
 ### 2.2 Tenant Hierarchy Model (NEW)
 
 ```
 Tenant (extends Organization concept)
-├── id, name, slug (UNIQUE), type: ENTERPRISE | UTILITY | SMALL_BUSINESS
-├── countryId (FK → Country), regionId (FK → Region)
-├── timezone: String
-├── currency: String (default from country)
-├── defaultLanguage: String
-├── status: TRIAL | ACTIVE | SUSPENDED | ARCHIVED
-├── lifecycleStatus: ONBOARDING | PROVISIONED | ACTIVE | ARCHIVING | ARCHIVED
-├── planId (FK → SubscriptionPlan)
-├── tier: STARTER | GROWTH | ENTERPRISE
-├── isolationStrategy: ROW_LEVEL | SCHEMA | HYBRID
-├── dataResidency: String (region constraint)
-├── maxMeters, maxUsers, maxStorage
-├── settings: String (JSON), branding: String (JSON)
-├── createdBy, createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id, name, slug (UNIQUE), type: ENTERPRISE | UTILITY | SMALL_BUSINESS
+â”œâ”€â”€ countryId (FK â†’ Country), regionId (FK â†’ Region)
+â”œâ”€â”€ timezone: String
+â”œâ”€â”€ currency: String (default from country)
+â”œâ”€â”€ defaultLanguage: String
+â”œâ”€â”€ status: TRIAL | ACTIVE | SUSPENDED | ARCHIVED
+â”œâ”€â”€ lifecycleStatus: ONBOARDING | PROVISIONED | ACTIVE | ARCHIVING | ARCHIVED
+â”œâ”€â”€ planId (FK â†’ SubscriptionPlan)
+â”œâ”€â”€ tier: STARTER | GROWTH | ENTERPRISE
+â”œâ”€â”€ isolationStrategy: ROW_LEVEL | SCHEMA | HYBRID
+â”œâ”€â”€ dataResidency: String (region constraint)
+â”œâ”€â”€ maxMeters, maxUsers, maxStorage
+â”œâ”€â”€ settings: String (JSON), branding: String (JSON)
+â”œâ”€â”€ createdBy, createdAt, archivedAt, updatedAt
 
 Region
-├── id, name, code (UNIQUE)
-├── deploymentRegion: String (AWS/GCP region)
-├── active, createdAt
+â”œâ”€â”€ id, name, code (UNIQUE)
+â”œâ”€â”€ deploymentRegion: String (AWS/GCP region)
+â”œâ”€â”€ active, createdAt
 
 Country
-├── id, name, code (UNIQUE), currency, locale
-├── regionId (FK → Region)
-├── taxProfile: String (JSON)
-├── dataResidency: String
-├── active, createdAt
+â”œâ”€â”€ id, name, code (UNIQUE), currency, locale
+â”œâ”€â”€ regionId (FK â†’ Region)
+â”œâ”€â”€ taxProfile: String (JSON)
+â”œâ”€â”€ dataResidency: String
+â”œâ”€â”€ active, createdAt
 ```
 
 ### 2.3 Shared vs Isolated Resources
@@ -103,14 +109,14 @@ Country
 ### 2.4 Tenant Lifecycle
 
 ```
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│  ONBOARDING   │→│ PROVISIONED   │→│    ACTIVE    │→│  ARCHIVING   │→│   ARCHIVED    │
-│ (registration)│ │ (resources)   │ │ (operational)│ │ (data export)│ │ (read-only)   │
-└──────────────┘  └──────────────┘  └──────┬───────┘  └──────────────┘  └──────────────┘
-                                           │
-                                     ┌─────┴─────┐
-                                     │ SUSPENDED │  (non-payment, compliance)
-                                     └───────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  ONBOARDING   â”‚â†’â”‚ PROVISIONED   â”‚â†’â”‚    ACTIVE    â”‚â†’â”‚  ARCHIVING   â”‚â†’â”‚   ARCHIVED    â”‚
+â”‚ (registration)â”‚ â”‚ (resources)   â”‚ â”‚ (operational)â”‚ â”‚ (data export)â”‚ â”‚ (read-only)   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                           â”‚
+                                     â”Œâ”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”
+                                     â”‚ SUSPENDED â”‚  (non-payment, compliance)
+                                     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.5 Tenant Onboarding / Offboarding / Cloning / Archival
@@ -153,25 +159,25 @@ ARCHIVAL:
 ### 3.1 Multi-Region Deployment
 
 ```
-┌────────────────────────────────────────────────────────────────────────────┐
-│  GLOBAL PLATFORM                                                            │
-│                                                                            │
-│  REGION A (primary — Egypt)     REGION B (secondary — UAE/GCC)            │
-│  ┌──────────────────────────┐   ┌──────────────────────────┐              │
-│  │ Backend + Frontend       │   │ Backend + Frontend       │              │
-│  │ PostgreSQL (primary)     │←──│ PostgreSQL (replica)     │              │
-│  │ Object Storage           │   │ Object Storage           │              │
-│  │ AI Models                │   │ AI Models                │              │
-│  └──────────────────────────┘   └──────────────────────────┘              │
-│           │  ▲                            │  ▲                             │
-│           ▼  │                            ▼  │                             │
-│  ┌──────────────────────────┐   ┌──────────────────────────┐              │
-│  │ Global DNS / Load Balancer│──│ Regional routing by tenant│              │
-│  └──────────────────────────┘   └──────────────────────────┘              │
-│                                                                            │
-│  Tenant → Region affinity (data residency)                                │
-│  Region failover: A down → B serves (with RPO from replication)           │
-└────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  GLOBAL PLATFORM                                                            â”‚
+â”‚                                                                            â”‚
+â”‚  REGION A (primary â€” Egypt)     REGION B (secondary â€” UAE/GCC)            â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”              â”‚
+â”‚  â”‚ Backend + Frontend       â”‚   â”‚ Backend + Frontend       â”‚              â”‚
+â”‚  â”‚ PostgreSQL (primary)     â”‚â†â”€â”€â”‚ PostgreSQL (replica)     â”‚              â”‚
+â”‚  â”‚ Object Storage           â”‚   â”‚ Object Storage           â”‚              â”‚
+â”‚  â”‚ AI Models                â”‚   â”‚ AI Models                â”‚              â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜              â”‚
+â”‚           â”‚  â–²                            â”‚  â–²                             â”‚
+â”‚           â–¼  â”‚                            â–¼  â”‚                             â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”              â”‚
+â”‚  â”‚ Global DNS / Load Balancerâ”‚â”€â”€â”‚ Regional routing by tenantâ”‚              â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜              â”‚
+â”‚                                                                            â”‚
+â”‚  Tenant â†’ Region affinity (data residency)                                â”‚
+â”‚  Region failover: A down â†’ B serves (with RPO from replication)           â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 3.2 Multi-Country Support
@@ -190,13 +196,13 @@ ARCHIVAL:
 
 ```
 GLOBAL (shared defaults)
-  └── REGION (region overrides)
-        └── COUNTRY (country overrides)
-              └── TENANT (tenant overrides)
-                    └── BUSINESS UNIT (unit overrides)
+  â””â”€â”€ REGION (region overrides)
+        â””â”€â”€ COUNTRY (country overrides)
+              â””â”€â”€ TENANT (tenant overrides)
+                    â””â”€â”€ BUSINESS UNIT (unit overrides)
 
 Resolution: most specific wins
-Example: Global currency=EGP → Region GCC=USD → Tenant ABC=USD
+Example: Global currency=EGP â†’ Region GCC=USD â†’ Tenant ABC=USD
 ```
 
 ---
@@ -243,44 +249,44 @@ TenantProvisioningService.onboard(request):
 
 ```
 SubscriptionPlan
-├── id, name, code (UNIQUE), tier: STARTER|GROWTH|ENTERPRISE
-├── priceMonthly, priceAnnual, currency
-├── features: String (JSON)             ← Feature entitlements
-├── limits: String (JSON)               ← { maxMeters, maxUsers, maxStorage, apiCallsPerDay }
-├── supportLevel: STANDARD|PRIORITY|DEDICATED
-├── slaLevel: Float                     ← 99.5 | 99.9
-├── active, createdAt, archivedAt
+â”œâ”€â”€ id, name, code (UNIQUE), tier: STARTER|GROWTH|ENTERPRISE
+â”œâ”€â”€ priceMonthly, priceAnnual, currency
+â”œâ”€â”€ features: String (JSON)             â† Feature entitlements
+â”œâ”€â”€ limits: String (JSON)               â† { maxMeters, maxUsers, maxStorage, apiCallsPerDay }
+â”œâ”€â”€ supportLevel: STANDARD|PRIORITY|DEDICATED
+â”œâ”€â”€ slaLevel: Float                     â† 99.5 | 99.9
+â”œâ”€â”€ active, createdAt, archivedAt
 
 TenantSubscription
-├── id, tenantId (FK), planId (FK)
-├── status: TRIAL|ACTIVE|SUSPENDED|CANCELLED|EXPIRED
-├── startDate, trialEndsAt, renewsAt
-├── billingCycle: MONTHLY|ANNUAL
-├── seats: Int, addOns: String (JSON)
-├── price, currency
-├── discountPercent: Float?, promoCode: String?
-├── paymentMethodId: String?
-├── createdAt, updatedAt, archivedAt
+â”œâ”€â”€ id, tenantId (FK), planId (FK)
+â”œâ”€â”€ status: TRIAL|ACTIVE|SUSPENDED|CANCELLED|EXPIRED
+â”œâ”€â”€ startDate, trialEndsAt, renewsAt
+â”œâ”€â”€ billingCycle: MONTHLY|ANNUAL
+â”œâ”€â”€ seats: Int, addOns: String (JSON)
+â”œâ”€â”€ price, currency
+â”œâ”€â”€ discountPercent: Float?, promoCode: String?
+â”œâ”€â”€ paymentMethodId: String?
+â”œâ”€â”€ createdAt, updatedAt, archivedAt
 
 UsageMeter
-├── id, tenantId (FK), metric (API_CALLS|STORAGE_GB|AI_TOKENS|METER_READINGS|USERS)
-├── periodStart, periodEnd, quantity, unit
-├── createdAt
+â”œâ”€â”€ id, tenantId (FK), metric (API_CALLS|STORAGE_GB|AI_TOKENS|METER_READINGS|USERS)
+â”œâ”€â”€ periodStart, periodEnd, quantity, unit
+â”œâ”€â”€ createdAt
 
 UsageRecord
-├── id, tenantId, subscriptionId, metric
-├── quantity, cost, recordedAt
-├── createdAt
+â”œâ”€â”€ id, tenantId, subscriptionId, metric
+â”œâ”€â”€ quantity, cost, recordedAt
+â”œâ”€â”€ createdAt
 ```
 
 ### 5.2 Subscription Lifecycle
 
 ```
-TRIAL (14/30 days) → ACTIVE (paid) → RENEWAL (monthly/annual)
-     │                    │
-     ├── EXPIRED          ├── UPGRADE (plan change)
-     ├── CANCEL           ├── DOWNGRADE
-     └── SUSPENDED        └── CANCELLED
+TRIAL (14/30 days) â†’ ACTIVE (paid) â†’ RENEWAL (monthly/annual)
+     â”‚                    â”‚
+     â”œâ”€â”€ EXPIRED          â”œâ”€â”€ UPGRADE (plan change)
+     â”œâ”€â”€ CANCEL           â”œâ”€â”€ DOWNGRADE
+     â””â”€â”€ SUSPENDED        â””â”€â”€ CANCELLED
 ```
 
 ### 5.3 Usage Metering & Billing
@@ -340,7 +346,7 @@ TenantGuard (middleware):
   3. FOR every query:
      - Auto-inject tenantId filter
      - Verify resource.tenantId == caller.tenantId
-  4. IF mismatch → 403 Forbidden + audit log
+  4. IF mismatch â†’ 403 Forbidden + audit log
   5. Super-admin can bypass (with audit)
 
 Cross-tenant test suite (C20/C22):
@@ -374,7 +380,7 @@ FleetMonitor:
   - Fleet-wide incidents
 
 TenantHealthScore:
-  0-100 composite = availability × latency × errorRate × quotaUsage
+  0-100 composite = availability Ã— latency Ã— errorRate Ã— quotaUsage
 
 Tiers:
   HEALTHY (> 90) | DEGRADED (70-90) | AT_RISK (50-70) | CRITICAL (< 50)
@@ -412,40 +418,40 @@ Ops Center:
 
 ```
 CountryProfile
-├── id, countryId (FK), code
-├── currency, locale, timezone
-├── taxRules: String (JSON)
-├── regulatoryRefs: String (JSON)
-├── defaults: String (JSON)             ← Tariff defaults, bill cycles
-├── active, createdAt, archivedAt
+â”œâ”€â”€ id, countryId (FK), code
+â”œâ”€â”€ currency, locale, timezone
+â”œâ”€â”€ taxRules: String (JSON)
+â”œâ”€â”€ regulatoryRefs: String (JSON)
+â”œâ”€â”€ defaults: String (JSON)             â† Tariff defaults, bill cycles
+â”œâ”€â”€ active, createdAt, archivedAt
 
 RegulatoryProfile
-├── id, countryId (FK), framework (ISO|GDPR|LOCAL)
-├── requirements: String (JSON)
-├── retentionDays: Int
-├── active, createdAt
+â”œâ”€â”€ id, countryId (FK), framework (ISO|GDPR|LOCAL)
+â”œâ”€â”€ requirements: String (JSON)
+â”œâ”€â”€ retentionDays: Int
+â”œâ”€â”€ active, createdAt
 
 UtilityTemplate
-├── id, name, utilityType (ELECTRIC|WATER|GAS)
-├── config: String (JSON)               ← Meter types, tariffs, units
-├── active, createdAt
+â”œâ”€â”€ id, name, utilityType (ELECTRIC|WATER|GAS)
+â”œâ”€â”€ config: String (JSON)               â† Meter types, tariffs, units
+â”œâ”€â”€ active, createdAt
 
 LocalizationPack
-├── id, locale (en|ar|fr|de), countryId
-├── translations: String (JSON)
-├── rtl: Boolean, numberFormat: String, currencyFormat: String
-├── active, createdAt
+â”œâ”€â”€ id, locale (en|ar|fr|de), countryId
+â”œâ”€â”€ translations: String (JSON)
+â”œâ”€â”€ rtl: Boolean, numberFormat: String, currencyFormat: String
+â”œâ”€â”€ active, createdAt
 
 FeaturePack
-├── id, name, planTier
-├── features: String (JSON)             ← Enabled features for tier
-├── active, createdAt
+â”œâ”€â”€ id, name, planTier
+â”œâ”€â”€ features: String (JSON)             â† Enabled features for tier
+â”œâ”€â”€ active, createdAt
 ```
 
 ### 8.2 Configuration Inheritance (recap)
 
 ```
-GLOBAL → REGION → COUNTRY → TENANT → BUSINESS UNIT
+GLOBAL â†’ REGION â†’ COUNTRY â†’ TENANT â†’ BUSINESS UNIT
   Each level can override or inherit
   Versioned per level (C19 ConfigRegistry)
   Tenant-specific overrides always win
@@ -459,29 +465,29 @@ GLOBAL → REGION → COUNTRY → TENANT → BUSINESS UNIT
 ### 9.1 Platform Operations Dashboard (`/saas/platform-ops`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│  SAAS PLATFORM OPERATIONS                                                                       │
-│                                                                                               │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐         │
-│ │ Active       │ │ Regions      │ │ Countries    │ │ Avg Tenant   │ │ Fleet        │         │
-│ │ Tenants      │ │              │ │              │ │ Health       │ │ Availability │         │
-│ │       247    │ │         3    │ │         5    │ │ 88/100 🟢   │ │ 99.92%      │         │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘         │
-│                                                                                               │
-│ ┌─── TENANT HEALTH DISTRIBUTION ────────────────────────────┐ ┌─── REGION STATUS ─────────┐  │
-│ │ HEALTHY: 218 │ DEGRADED: 22 │ AT_RISK: 5 │ CRITICAL: 2  │ │ North Africa: 🟢 OK        │  │
-│ │                                                          │ │ GCC:          🟢 OK        │  │
-│ │ 🔴 Tenant #201 — High error rate — Escalated             │ │ Europe:       🟡 DEGRADED │  │
-│ │ 🟠 Tenant #156 — Quota 95% — Upgrade prompt              │ └────────────────────────────┘  │
-│ └──────────────────────────────────────────────────────────┘                               │
-│                                                                                               │
-│ ┌─── REGIONAL CAPACITY ──────────────────────────────────────────────────────────────────┐   │
-│ │ Region        │ CPU  │ Memory │ Storage │ Tenants │ Growth │ Scaling                    │   │
-│ │ North Africa  │ 42%  │ 55%    │ 48%     │ 145     │ +8/mo  │ ✅ Auto                      │   │
-│ │ GCC           │ 38%  │ 50%    │ 40%     │ 82      │ +5/mo  │ ✅ Auto                      │   │
-│ │ Europe        │ 61%  │ 68%    │ 58%     │ 20      │ +3/mo  │ ⚠ Manual review             │   │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  SAAS PLATFORM OPERATIONS                                                                       â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”         â”‚
+â”‚ â”‚ Active       â”‚ â”‚ Regions      â”‚ â”‚ Countries    â”‚ â”‚ Avg Tenant   â”‚ â”‚ Fleet        â”‚         â”‚
+â”‚ â”‚ Tenants      â”‚ â”‚              â”‚ â”‚              â”‚ â”‚ Health       â”‚ â”‚ Availability â”‚         â”‚
+â”‚ â”‚       247    â”‚ â”‚         3    â”‚ â”‚         5    â”‚ â”‚ 88/100 ðŸŸ¢   â”‚ â”‚ 99.92%      â”‚         â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜         â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ TENANT HEALTH DISTRIBUTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€ REGION STATUS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ HEALTHY: 218 â”‚ DEGRADED: 22 â”‚ AT_RISK: 5 â”‚ CRITICAL: 2  â”‚ â”‚ North Africa: ðŸŸ¢ OK        â”‚  â”‚
+â”‚ â”‚                                                          â”‚ â”‚ GCC:          ðŸŸ¢ OK        â”‚  â”‚
+â”‚ â”‚ ðŸ”´ Tenant #201 â€” High error rate â€” Escalated             â”‚ â”‚ Europe:       ðŸŸ¡ DEGRADED â”‚  â”‚
+â”‚ â”‚ ðŸŸ  Tenant #156 â€” Quota 95% â€” Upgrade prompt              â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                               â”‚
+â”‚                                                                                               â”‚
+â”‚ â”Œâ”€â”€â”€ REGIONAL CAPACITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ Region        â”‚ CPU  â”‚ Memory â”‚ Storage â”‚ Tenants â”‚ Growth â”‚ Scaling                    â”‚   â”‚
+â”‚ â”‚ North Africa  â”‚ 42%  â”‚ 55%    â”‚ 48%     â”‚ 145     â”‚ +8/mo  â”‚ âœ… Auto                      â”‚   â”‚
+â”‚ â”‚ GCC           â”‚ 38%  â”‚ 50%    â”‚ 40%     â”‚ 82      â”‚ +5/mo  â”‚ âœ… Auto                      â”‚   â”‚
+â”‚ â”‚ Europe        â”‚ 61%  â”‚ 68%    â”‚ 58%     â”‚ 20      â”‚ +3/mo  â”‚ âš  Manual review             â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 9.2 Additional SaaS Dashboards
@@ -504,7 +510,7 @@ GLOBAL → REGION → COUNTRY → TENANT → BUSINESS UNIT
 | **NRR** | Net revenue retention | > 110% |
 | **GRR** | Gross revenue retention | > 90% |
 | **Churn rate** | Canceled / active | < 5% |
-| **Trial→Paid** | Conversion rate | > 25% |
+| **Trialâ†’Paid** | Conversion rate | > 25% |
 | **Cost per tenant** | Total cost / tenants | Declining |
 | **Profitability** | Revenue - cost per tenant | Positive |
 | **Adoption** | Active users / seats | > 60% |
@@ -517,14 +523,14 @@ GLOBAL → REGION → COUNTRY → TENANT → BUSINESS UNIT
 
 | Capability | Purpose | Autonomy |
 |------------|---------|----------|
-| **Tenant health prediction** | Predict tenant degradation before it occurs | ✅ Full (alert) |
-| **Capacity forecasting** | Predict regional capacity needs | ✅ Full (forecast) |
-| **Cost optimization** | Recommend cost reductions per tenant | ⚡ Semi (recommend) |
-| **Churn prediction** | Identify tenants at risk of churn | ✅ Full (alert) |
-| **Adoption analysis** | Analyze feature adoption patterns | ✅ Full (report) |
-| **Intelligent onboarding** | Auto-configure best defaults for tenant | ⚡ Semi (apply) |
-| **Expansion recommendations** | Suggest upsell/add-ons based on usage | ⚡ Semi (recommend) |
-| **Global anomaly detection** | Detect anomalies across all tenants | ✅ Full (alert) |
+| **Tenant health prediction** | Predict tenant degradation before it occurs | âœ… Full (alert) |
+| **Capacity forecasting** | Predict regional capacity needs | âœ… Full (forecast) |
+| **Cost optimization** | Recommend cost reductions per tenant | âš¡ Semi (recommend) |
+| **Churn prediction** | Identify tenants at risk of churn | âœ… Full (alert) |
+| **Adoption analysis** | Analyze feature adoption patterns | âœ… Full (report) |
+| **Intelligent onboarding** | Auto-configure best defaults for tenant | âš¡ Semi (apply) |
+| **Expansion recommendations** | Suggest upsell/add-ons based on usage | âš¡ Semi (recommend) |
+| **Global anomaly detection** | Detect anomalies across all tenants | âœ… Full (alert) |
 
 ### 10.2 Churn Prediction
 
@@ -543,10 +549,10 @@ ALGORITHM: predictChurn(tenantId):
   churnScore = model.predict(features)  // 0-1
   
   IF churnScore > 0.7:
-    → Alert Customer Success Manager
-    → Recommend: [engagement campaign, support outreach, plan adjustment]
+    â†’ Alert Customer Success Manager
+    â†’ Recommend: [engagement campaign, support outreach, plan adjustment]
   IF churnScore > 0.5:
-    → Flag for monitoring
+    â†’ Flag for monitoring
 ```
 
 ### 10.3 Tenant Health Prediction
@@ -555,9 +561,9 @@ ALGORITHM: predictChurn(tenantId):
 ALGORITHM: predictTenantHealth(tenantId):
   trend = analyze(healthScore, 30 days)
   IF declining > 15 points in 14 days:
-    → Predict AT_RISK
-    → Recommend proactive intervention
-    → Alert platform ops
+    â†’ Predict AT_RISK
+    â†’ Recommend proactive intervention
+    â†’ Alert platform ops
 ```
 
 ---
@@ -576,29 +582,29 @@ ALGORITHM: predictTenantHealth(tenantId):
 
 ---
 
-## PART 12: TESTING STRATEGY — 260 TESTS
+## PART 12: TESTING STRATEGY â€” 260 TESTS
 
 ### 12.1 Tenant Isolation Tests (40)
 
 | # | Test | Expect |
 |---|------|--------|
 | 1 | Tenant A reads own data | Allowed |
-| 2 | Tenant A reads tenant B data → 403 | Blocked |
-| 3 | Tenant A writes tenant B data → 403 | Blocked |
+| 2 | Tenant A reads tenant B data â†’ 403 | Blocked |
+| 3 | Tenant A writes tenant B data â†’ 403 | Blocked |
 | 4 | Row-level filter injected on all queries | Present |
 | 5 | Schema-per-tenant isolation | Separate schemas |
-| 6 | Cross-tenant API access → 403 | Blocked |
-| 7 | Cross-tenant file access → 403 | Blocked |
-| 8 | Cross-tenant AI context → isolated | Isolated |
-| 9 | Super-admin cross-tenant → allowed + audited | Audited |
-| 10 | Tenant ID tampering → rejected | Rejected |
+| 6 | Cross-tenant API access â†’ 403 | Blocked |
+| 7 | Cross-tenant file access â†’ 403 | Blocked |
+| 8 | Cross-tenant AI context â†’ isolated | Isolated |
+| 9 | Super-admin cross-tenant â†’ allowed + audited | Audited |
+| 10 | Tenant ID tampering â†’ rejected | Rejected |
 
 ### 12.2 Provisioning Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Onboard new tenant → PROVISIONED | Correct |
-| 2 | Onboard with invalid country → rejected | Validated |
+| 1 | Onboard new tenant â†’ PROVISIONED | Correct |
+| 2 | Onboard with invalid country â†’ rejected | Validated |
 | 3 | Default config from country profile | Correct |
 | 4 | Workspace + admin user created | Created |
 | 5 | License assigned per plan | Assigned |
@@ -606,28 +612,28 @@ ALGORITHM: predictTenantHealth(tenantId):
 | 7 | Branding applied | Branded |
 | 8 | Identity federation configured | Federated |
 | 9 | Seed data loaded | Loaded |
-| 10 | Duplicate tenant slug → rejected | Unique |
-| 11 | Clone tenant → masked data | Masked |
-| 12 | Archive tenant → read-only | Archived |
-| 13 | Offboard → data export + delete | Exported |
+| 10 | Duplicate tenant slug â†’ rejected | Unique |
+| 11 | Clone tenant â†’ masked data | Masked |
+| 12 | Archive tenant â†’ read-only | Archived |
+| 13 | Offboard â†’ data export + delete | Exported |
 
 ### 12.3 Licensing & Commercial Tests (30)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Create plan → active | Created |
-| 2 | Trial subscription → TRIAL | Trial |
-| 3 | Trial expiry → EXPIRED → prompt | Prompted |
-| 4 | Upgrade plan → new features enabled | Upgraded |
-| 5 | Downgrade → features disabled | Downgraded |
-| 6 | Quota metering → recorded | Metered |
-| 7 | Over-limit STARTER → throttled | Throttled |
-| 8 | Over-limit GROWTH → overage billed | Billed |
-| 9 | Renewal → subscription extended | Renewed |
-| 10 | Cancel → expiry scheduled | Cancelled |
-| 11 | Suspend → access blocked | Suspended |
-| 12 | MRR calculation → correct | Correct |
-| 13 | Churn rate → correct | Correct |
+| 1 | Create plan â†’ active | Created |
+| 2 | Trial subscription â†’ TRIAL | Trial |
+| 3 | Trial expiry â†’ EXPIRED â†’ prompt | Prompted |
+| 4 | Upgrade plan â†’ new features enabled | Upgraded |
+| 5 | Downgrade â†’ features disabled | Downgraded |
+| 6 | Quota metering â†’ recorded | Metered |
+| 7 | Over-limit STARTER â†’ throttled | Throttled |
+| 8 | Over-limit GROWTH â†’ overage billed | Billed |
+| 9 | Renewal â†’ subscription extended | Renewed |
+| 10 | Cancel â†’ expiry scheduled | Cancelled |
+| 11 | Suspend â†’ access blocked | Suspended |
+| 12 | MRR calculation â†’ correct | Correct |
+| 13 | Churn rate â†’ correct | Correct |
 
 ### 12.4 Multi-Region Tests (25)
 
@@ -635,13 +641,13 @@ ALGORITHM: predictTenantHealth(tenantId):
 |---|------|--------|
 | 1 | Tenant pinned to region | Pinned |
 | 2 | Data residency enforced | Resided |
-| 3 | Replica replication → current | Current |
-| 4 | Regional failover → serves | Served |
-| 5 | Timezone rendering → tenant-local | Local |
-| 6 | Currency conversion → correct | Converted |
+| 3 | Replica replication â†’ current | Current |
+| 4 | Regional failover â†’ serves | Served |
+| 5 | Timezone rendering â†’ tenant-local | Local |
+| 6 | Currency conversion â†’ correct | Converted |
 | 7 | Locale applied | Applied |
 | 8 | Regional SLA tracked | Tracked |
-| 9 | Region down → failover RTO | Met |
+| 9 | Region down â†’ failover RTO | Met |
 | 10 | Global config inheritance | Inherited |
 
 ### 12.5 Localization Tests (20)
@@ -654,11 +660,11 @@ ALGORITHM: predictTenantHealth(tenantId):
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Signup → trial → payment → active (full flow) | Complete |
-| 2 | Upgrade mid-cycle → prorated | Prorated |
-| 3 | Downgrade → effective next cycle | Effective |
+| 1 | Signup â†’ trial â†’ payment â†’ active (full flow) | Complete |
+| 2 | Upgrade mid-cycle â†’ prorated | Prorated |
+| 3 | Downgrade â†’ effective next cycle | Effective |
 | 4 | Invoice generation per tenant | Generated |
-| 5 | Payment failure → retry + suspend | Handled |
+| 5 | Payment failure â†’ retry + suspend | Handled |
 | 6 | Marketplace add-on install | Installed |
 | 7 | Contract renewal | Renewed |
 | 8 | Contract management (terms, signatories) | Managed |
@@ -667,22 +673,22 @@ ALGORITHM: predictTenantHealth(tenantId):
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Cross-tenant token → rejected | Rejected |
+| 1 | Cross-tenant token â†’ rejected | Rejected |
 | 2 | Tenant-scoped encryption keys | Scoped |
 | 3 | Data at rest encrypted per tenant | Encrypted |
 | 4 | Data in transit TLS | Secured |
 | 5 | Backup isolation | Isolated |
 | 6 | AI prompt isolation | Isolated |
 | 7 | Cross-tenant log leakage | None |
-| 8 | Tenant quota bypass → blocked | Blocked |
-| 9 | Isolation upgrade (row→schema) migration | Migrated |
+| 8 | Tenant quota bypass â†’ blocked | Blocked |
+| 9 | Isolation upgrade (rowâ†’schema) migration | Migrated |
 | 10 | Compliance controls per tenant | Enforced |
 
 ### 12.8 Performance Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | 1000 tenants → queries still fast | Fast |
+| 1 | 1000 tenants â†’ queries still fast | Fast |
 | 2 | Tenant metadata query < 50ms | Fast |
 | 3 | Multi-tenant API P95 < 500ms | Fast |
 | 4 | Provisioning < 2 min | Fast |
@@ -694,7 +700,7 @@ ALGORITHM: predictTenantHealth(tenantId):
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Region loss → other region serves | Served |
+| 1 | Region loss â†’ other region serves | Served |
 | 2 | Tenant restore from backup | Restored |
 | 3 | Cross-region replication | Current |
 | 4 | Data residency preserved on failover | Preserved |
@@ -705,7 +711,7 @@ ALGORITHM: predictTenantHealth(tenantId):
 | # | Test | Expect |
 |---|------|--------|
 | 1 | Tenant health prediction | Accurate |
-| 2 | Churn prediction → CSM alert | Alerted |
+| 2 | Churn prediction â†’ CSM alert | Alerted |
 | 3 | Capacity forecast | Reasonable |
 | 4 | AI tenant scoping | Scoped |
 | 5 | AI recommendation approval | Approved |
@@ -720,7 +726,7 @@ ALGORITHM: predictTenantHealth(tenantId):
 
 ---
 
-## PART 13: IMPLEMENTATION ROADMAP — W01–W08
+## PART 13: IMPLEMENTATION ROADMAP â€” W01â€“W08
 
 | Wave | Days | Dependencies | Deliverables | Gate | Rollback |
 |------|------|-------------|--------------|------|----------|
@@ -734,13 +740,13 @@ ALGORITHM: predictTenantHealth(tenantId):
 | **W08** | 3 | W01-W07 | SaaS AI intelligence, command center, certification, 260 tests | All tests pass | Feature-flag AI |
 | **Total** | **36 days** | | | | |
 
-**Migration Phases (existing tenants → SaaS):**
+**Migration Phases (existing tenants â†’ SaaS):**
 ```
-Phase 1: Tenant-aware middleware (row-level) — existing data works
-Phase 2: Tenant lifecycle + provisioning — new tenants onboard
-Phase 3: Commercial platform — subscriptions enabled
-Phase 4: Multi-region — regional replication + failover
-Phase 5: Global config packs — country/region profiles
+Phase 1: Tenant-aware middleware (row-level) â€” existing data works
+Phase 2: Tenant lifecycle + provisioning â€” new tenants onboard
+Phase 3: Commercial platform â€” subscriptions enabled
+Phase 4: Multi-region â€” regional replication + failover
+Phase 5: Global config packs â€” country/region profiles
 ```
 
 ---
@@ -748,77 +754,77 @@ Phase 5: Global config packs — country/region profiles
 ## PART 14: DEFINITION OF DONE
 
 ```
-C22 — SAAS PLATFORM, MULTI-TENANCY & GLOBAL SCALE
+C22 â€” SAAS PLATFORM, MULTI-TENANCY & GLOBAL SCALE
 CERTIFICATION CHECKLIST
 
-□ MULTI-TENANT ARCHITECTURE
-   □ Tenant model + Region + Country hierarchy
-   □ Row-level / Schema / Hybrid isolation strategies
-   □ TenantGuard middleware (mandatory tenantId filter)
-   □ Tenant lifecycle (ONBOARDING→ARCHIVED)
-   □ Onboarding / offboarding / cloning / archival
+â–¡ MULTI-TENANT ARCHITECTURE
+   â–¡ Tenant model + Region + Country hierarchy
+   â–¡ Row-level / Schema / Hybrid isolation strategies
+   â–¡ TenantGuard middleware (mandatory tenantId filter)
+   â–¡ Tenant lifecycle (ONBOARDINGâ†’ARCHIVED)
+   â–¡ Onboarding / offboarding / cloning / archival
 
-□ GLOBAL PLATFORM
-   □ Multi-region deployment (3+ regions)
-   □ Multi-country operation (5+ countries)
-   □ Timezone, currency, localization, tax engines
-   □ Data residency + regional failover
+â–¡ GLOBAL PLATFORM
+   â–¡ Multi-region deployment (3+ regions)
+   â–¡ Multi-country operation (5+ countries)
+   â–¡ Timezone, currency, localization, tax engines
+   â–¡ Data residency + regional failover
 
-□ PROVISIONING PLATFORM
-   □ Automated onboarding (10 steps)
-   □ Workspace, default config, feature provisioning
-   □ License assignment, branding, domain mapping
-   □ Identity federation, initial data seeding
+â–¡ PROVISIONING PLATFORM
+   â–¡ Automated onboarding (10 steps)
+   â–¡ Workspace, default config, feature provisioning
+   â–¡ License assignment, branding, domain mapping
+   â–¡ Identity federation, initial data seeding
 
-□ COMMERCIAL PLATFORM
-   □ Subscription plans (STARTER/GROWTH/ENTERPRISE)
-   □ Usage metering + quota enforcement
-   □ Billing (base + overage + add-ons)
-   □ Trial lifecycle, renewal, upgrade/downgrade
-   □ Marketplace readiness
-   □ Contract management
+â–¡ COMMERCIAL PLATFORM
+   â–¡ Subscription plans (STARTER/GROWTH/ENTERPRISE)
+   â–¡ Usage metering + quota enforcement
+   â–¡ Billing (base + overage + add-ons)
+   â–¡ Trial lifecycle, renewal, upgrade/downgrade
+   â–¡ Marketplace readiness
+   â–¡ Contract management
 
-□ ISOLATION & SECURITY
-   □ Tenant data isolation (all levels)
-   □ Compute + AI + backup isolation
-   □ Encryption (AES-256, tenant-scoped keys)
-   □ Cross-tenant validation (0 leaks)
-   □ Per-tenant compliance controls
+â–¡ ISOLATION & SECURITY
+   â–¡ Tenant data isolation (all levels)
+   â–¡ Compute + AI + backup isolation
+   â–¡ Encryption (AES-256, tenant-scoped keys)
+   â–¡ Cross-tenant validation (0 leaks)
+   â–¡ Per-tenant compliance controls
 
-□ OPERATIONS AT SCALE
-   □ Fleet monitoring (tenant + regional health)
-   □ Capacity management + auto-scaling
-   □ Cost optimization per tenant
-   □ Tenant lifecycle operations
+â–¡ OPERATIONS AT SCALE
+   â–¡ Fleet monitoring (tenant + regional health)
+   â–¡ Capacity management + auto-scaling
+   â–¡ Cost optimization per tenant
+   â–¡ Tenant lifecycle operations
 
-□ GLOBAL CONFIGURATION
-   □ Country, regulatory, utility, localization, feature packs
-   □ Configuration inheritance (GLOBAL→TENANT)
-   □ Version governance + drift detection
+â–¡ GLOBAL CONFIGURATION
+   â–¡ Country, regulatory, utility, localization, feature packs
+   â–¡ Configuration inheritance (GLOBALâ†’TENANT)
+   â–¡ Version governance + drift detection
 
-□ SAAS EXECUTIVE COMMAND CENTER — 7 DASHBOARDS
-   □ Platform Ops, Customer Success, Commercial, Engineering,
+â–¡ SAAS EXECUTIVE COMMAND CENTER â€” 7 DASHBOARDS
+   â–¡ Platform Ops, Customer Success, Commercial, Engineering,
      Security, Finance, Executive Leadership
 
-□ AI SAAS INTELLIGENCE — 8 CAPABILITIES
-   □ Tenant health prediction, capacity forecasting, cost optimization
-   □ Churn prediction, adoption analysis, intelligent onboarding
-   □ Expansion recommendations, global anomaly detection
+â–¡ AI SAAS INTELLIGENCE â€” 8 CAPABILITIES
+   â–¡ Tenant health prediction, capacity forecasting, cost optimization
+   â–¡ Churn prediction, adoption analysis, intelligent onboarding
+   â–¡ Expansion recommendations, global anomaly detection
 
-□ TESTS — 260 PASSING
-   □ Tenant isolation: 40
-   □ Provisioning: 30
-   □ Licensing/commercial: 30
-   □ Multi-region: 25
-   □ Localization: 20
-   □ Commercial workflow: 20
-   □ Security: 30
-   □ Performance: 20
-   □ DR: 15
-   □ AI governance: 15
-   □ Cross-tenant protection: 15
+â–¡ TESTS â€” 260 PASSING
+   â–¡ Tenant isolation: 40
+   â–¡ Provisioning: 30
+   â–¡ Licensing/commercial: 30
+   â–¡ Multi-region: 25
+   â–¡ Localization: 20
+   â–¡ Commercial workflow: 20
+   â–¡ Security: 30
+   â–¡ Performance: 20
+   â–¡ DR: 15
+   â–¡ AI governance: 15
+   â–¡ Cross-tenant protection: 15
 
-C22 STATUS: □ NOT IMPLEMENTED
+C22 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -885,37 +891,38 @@ All items above are DESIGN-COMPLETE but not executed.
 
 ```
 Capacity projection:
-  Phase 1: 250 tenants → 1 region → OK
-  Phase 2: 1,000 tenants → 2 regions → OK
-  Phase 3: 5,000 tenants → 4 regions → OK (partitioning by region)
-  Phase 4: 25,000 tenants → 8 regions → OK (schema-per-tenant for large)
-  Phase 5: 100,000+ tenants → global → requires sharding + advanced partitioning
+  Phase 1: 250 tenants â†’ 1 region â†’ OK
+  Phase 2: 1,000 tenants â†’ 2 regions â†’ OK
+  Phase 3: 5,000 tenants â†’ 4 regions â†’ OK (partitioning by region)
+  Phase 4: 25,000 tenants â†’ 8 regions â†’ OK (schema-per-tenant for large)
+  Phase 5: 100,000+ tenants â†’ global â†’ requires sharding + advanced partitioning
 
 Scaling levers:
-  - Regional sharding (tenant→region affinity)
+  - Regional sharding (tenantâ†’region affinity)
   - Schema-per-tenant for large tenants
   - Read replicas per region
   - AI model routing per region
-  - Cache hierarchy (global → regional → tenant)
+  - Cache hierarchy (global â†’ regional â†’ tenant)
 ```
 
 ## APPENDIX F: EXECUTIVE ACCEPTANCE
 
 ```
 C22 EXECUTIVE ACCEPTANCE CHECKLIST:
-  □ SaaS maturity ≥ 84%
-  □ Global readiness score ≥ 80%
-  □ Multi-region readiness (3+ regions)
-  □ Commercial readiness (plans, metering, billing)
-  □ 260 SaaS certification tests passing
-  □ Tenant isolation proven (0 cross-tenant leaks)
-  □ Multi-region failover within RTO
-  □ SaaS command center live (7 dashboards)
-  □ Every SaaS capability secure, tenant-aware, auditable
+  â–¡ SaaS maturity â‰¥ 84%
+  â–¡ Global readiness score â‰¥ 80%
+  â–¡ Multi-region readiness (3+ regions)
+  â–¡ Commercial readiness (plans, metering, billing)
+  â–¡ 260 SaaS certification tests passing
+  â–¡ Tenant isolation proven (0 cross-tenant leaks)
+  â–¡ Multi-region failover within RTO
+  â–¡ SaaS command center live (7 dashboards)
+  â–¡ Every SaaS capability secure, tenant-aware, auditable
 ```
 
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C22 — SaaS Platform, Multi-Tenancy & Global Scale. READ ONLY. GOVERNANCE PLANNING ONLY.*
-*MeterVerse Enterprise — GLOBAL SAAS DESIGN COMPLETE.*
+*C22 â€” SaaS Platform, Multi-Tenancy & Global Scale. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*MeterVerse Enterprise â€” GLOBAL SAAS DESIGN COMPLETE.*
+

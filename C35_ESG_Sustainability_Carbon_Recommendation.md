@@ -1,15 +1,21 @@
-# C35 — Enterprise ESG, Sustainability & Carbon Intelligence Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete (recommendation) | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W8 | Commit: 2aaaf367
+====================================================================
+-->
+
+# C35 â€” Enterprise ESG, Sustainability & Carbon Intelligence Platform
 ## Program Recommendation Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C34 (all designed; C34 recommended)  
 **Constraint:** Web-first platform; no native mobile application.
 
 ---
 
-## 1. Enterprise Capability Audit — C01-C34 Coverage
+## 1. Enterprise Capability Audit â€” C01-C34 Coverage
 
 | Program | Domain covered |
 |---|---|
@@ -42,10 +48,10 @@
 
 | Candidate gap | Business value | Revenue impact | Risk reduction | Dependency readiness | Maturity gain | Score |
 |---|---|---:|---:|---:|---:|---:|
-| **ESG, Sustainability & Carbon** | Very high | High | Very high | High (uses C34 energy) | 8% → 85% | **Highest** |
-| Open Developer Ecosystem | High | High | Medium | Medium | 15% → 80% | High |
-| Privacy/Data Protection Program | High | Medium | High | Medium (overlaps C30/C24/C33) | 30% → 80% | Medium |
-| Workforce Experience / HR | Medium | Medium | Medium | Medium (C16 partial) | 25% → 75% | Medium |
+| **ESG, Sustainability & Carbon** | Very high | High | Very high | High (uses C34 energy) | 8% â†’ 85% | **Highest** |
+| Open Developer Ecosystem | High | High | Medium | Medium | 15% â†’ 80% | High |
+| Privacy/Data Protection Program | High | Medium | High | Medium (overlaps C30/C24/C33) | 30% â†’ 80% | Medium |
+| Workforce Experience / HR | Medium | Medium | Medium | Medium (C16 partial) | 25% â†’ 75% | Medium |
 
 ### Conclusion
 
@@ -53,11 +59,11 @@ After C34, the **ESG, Sustainability & Carbon Intelligence** domain is the highe
 
 ---
 
-## 2. Recommended Program — C35
+## 2. Recommended Program â€” C35
 
 ### 2.1 Program name
 
-**C35 — Enterprise ESG, Sustainability & Carbon Intelligence Platform**
+**C35 â€” Enterprise ESG, Sustainability & Carbon Intelligence Platform**
 
 ### 2.2 Business objective
 
@@ -161,22 +167,22 @@ Human approval required for program changes, offset/credit decisions, and regula
 | Timeline | ~36 implementation days (W01-W08) |
 | Complexity | High |
 | Risk | Emission-factor accuracy, disclosure compliance, data attribution |
-| Maturity improvement | 8% → 86% |
+| Maturity improvement | 8% â†’ 86% |
 
 ### 2.11 Dependency map with C01-C34
 
 ```text
-C34 energy consumption/loss/DER → emissions and Net Zero inputs
-C13 tariffs/cost → green tariffs and carbon cost allocation
-C17 analytics → ESG metrics and BI
-C18 AI → forecasting, anomalies, efficiency, narratives
-C22 tenancy → per-tenant ESG scope and green tariffs
-C26 MDM → canonical meters, assets, locations, suppliers
-C30 compliance → ESG regulatory evidence and audit
-C31 knowledge → sustainability knowledge
-C33 engagement → efficiency program participation
-C24 records → ESG report retention and legal hold
-C21 governance → ESG policy and disclosure approval
+C34 energy consumption/loss/DER â†’ emissions and Net Zero inputs
+C13 tariffs/cost â†’ green tariffs and carbon cost allocation
+C17 analytics â†’ ESG metrics and BI
+C18 AI â†’ forecasting, anomalies, efficiency, narratives
+C22 tenancy â†’ per-tenant ESG scope and green tariffs
+C26 MDM â†’ canonical meters, assets, locations, suppliers
+C30 compliance â†’ ESG regulatory evidence and audit
+C31 knowledge â†’ sustainability knowledge
+C33 engagement â†’ efficiency program participation
+C24 records â†’ ESG report retention and legal hold
+C21 governance â†’ ESG policy and disclosure approval
 ```
 
 ---
@@ -191,4 +197,5 @@ C21 governance → ESG policy and disclosure approval
 ---
 
 *This is an architecture and governance planning artifact only. No code, migration, or implementation is included.*
-*C35 — Enterprise ESG, Sustainability & Carbon Intelligence Platform (recommendation).*
+*C35 â€” Enterprise ESG, Sustainability & Carbon Intelligence Platform (recommendation).*
+

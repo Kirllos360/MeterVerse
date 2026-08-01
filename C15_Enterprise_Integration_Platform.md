@@ -1,8 +1,14 @@
-# C15 — Enterprise Integration Platform & External Ecosystem Hub
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] In Progress (Webhook/EventBus exist) | Certification: [ ] Not Certified | Wave: W4 | Commit: dc7983b3
+====================================================================
+-->
+
+# C15 â€” Enterprise Integration Platform & External Ecosystem Hub
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Preceded by:** C01-C10 Connectivity, C12 Identity, C13 Financial, C14 Customer Experience  
 
@@ -14,40 +20,40 @@
 
 | Component | Location | Status | Capability |
 |-----------|----------|--------|------------|
-| **EventBus** (in-memory pub/sub) | `services/event-bus.js` | ✅ Complete | emit/on/off, history, stats, wildcard listeners |
-| **Webhook** model | `schema.prisma:435` | ✅ Complete | name, url, events, secret, active, lastTriggeredAt |
-| **WebhookDispatcher** | `services/webhook-dispatcher.js` | ✅ Complete | HMAC signing, 3-retry exponential backoff, 512KB limit |
-| **QueueJob** model | `schema.prisma:485` | ✅ Complete | type, payload, status, priority, attempts, maxAttempts |
-| **ApiKey** model | `schema.prisma:128` | ✅ Complete | name, key, prefix, permissions, expiresAt |
-| **correlationMiddleware** | `middleware/errorHandler.js:20` | ✅ Complete | X-Correlation-ID propagation |
-| **rate-limit middleware** | Express config | ✅ Complete | 100 req/15min per IP |
-| **CORS middleware** | Express config | ✅ Complete | Cross-origin configured |
-| **C12 Governance** | Complete | ✅ Full | RBAC, audit, Zero Trust, compliance |
-| **GatewayLog** model | `schema.prisma:1480` | ✅ Complete | Webhook delivery logging |
+| **EventBus** (in-memory pub/sub) | `services/event-bus.js` | âœ… Complete | emit/on/off, history, stats, wildcard listeners |
+| **Webhook** model | `schema.prisma:435` | âœ… Complete | name, url, events, secret, active, lastTriggeredAt |
+| **WebhookDispatcher** | `services/webhook-dispatcher.js` | âœ… Complete | HMAC signing, 3-retry exponential backoff, 512KB limit |
+| **QueueJob** model | `schema.prisma:485` | âœ… Complete | type, payload, status, priority, attempts, maxAttempts |
+| **ApiKey** model | `schema.prisma:128` | âœ… Complete | name, key, prefix, permissions, expiresAt |
+| **correlationMiddleware** | `middleware/errorHandler.js:20` | âœ… Complete | X-Correlation-ID propagation |
+| **rate-limit middleware** | Express config | âœ… Complete | 100 req/15min per IP |
+| **CORS middleware** | Express config | âœ… Complete | Cross-origin configured |
+| **C12 Governance** | Complete | âœ… Full | RBAC, audit, Zero Trust, compliance |
+| **GatewayLog** model | `schema.prisma:1480` | âœ… Complete | Webhook delivery logging |
 
 ### 1.2 Gap Analysis
 
 | Capability | Current | C15 Target |
 |------------|---------|------------|
-| **Integration Registry** | ❌ None | Catalog of all integrations with status |
-| **API Lifecycle Management** | ❌ None | Version, deprecate, retire |
-| **Canonical Data Model** | ❌ None | Standardized event/entity schemas |
-| **Data Transformation Engine** | ❌ None | Map between internal↔external formats |
-| **Connector Framework** | ❌ None | Pluggable connector architecture |
-| **ERP Integration** | ❌ None | Oracle, SAP, Odoo connectors |
-| **CRM Integration** | ❌ None | Salesforce, HubSpot connectors |
-| **GIS Integration** | ❌ None | ArcGIS, QGIS connectors |
-| **SCADA Integration** | ❌ None | OSIsoft, Ignition connectors |
-| **AMI/MDM Integration** | ❌ None | Meter data management sync |
+| **Integration Registry** | âŒ None | Catalog of all integrations with status |
+| **API Lifecycle Management** | âŒ None | Version, deprecate, retire |
+| **Canonical Data Model** | âŒ None | Standardized event/entity schemas |
+| **Data Transformation Engine** | âŒ None | Map between internalâ†”external formats |
+| **Connector Framework** | âŒ None | Pluggable connector architecture |
+| **ERP Integration** | âŒ None | Oracle, SAP, Odoo connectors |
+| **CRM Integration** | âŒ None | Salesforce, HubSpot connectors |
+| **GIS Integration** | âŒ None | ArcGIS, QGIS connectors |
+| **SCADA Integration** | âŒ None | OSIsoft, Ignition connectors |
+| **AMI/MDM Integration** | âŒ None | Meter data management sync |
 | **Payment Gateway Abstraction** | One-off stripe | Multi-gateway unified API |
-| **Banking/Government Connectors** | ❌ None | e-invoicing, tax authority |
-| **Schema Registry** | ❌ None | Versioned event/message schemas |
-| **Dead-Letter Queue** | ❌ None | Failed message handling |
+| **Banking/Government Connectors** | âŒ None | e-invoicing, tax authority |
+| **Schema Registry** | âŒ None | Versioned event/message schemas |
+| **Dead-Letter Queue** | âŒ None | Failed message handling |
 | **Secrets/Certificate Management** | Env vars only | Vault/HSM integration |
-| **Integration SLA Monitoring** | ❌ None | Uptime, latency, error rate |
+| **Integration SLA Monitoring** | âŒ None | Uptime, latency, error rate |
 | **Distributed Tracing** | Correlation ID only | Full trace spans |
-| **AI Integration Ops Agent** | ❌ None | Anomaly, mapping, failure prediction |
-| **Low-code Integration Templates** | ❌ None | Pre-built connector blueprints |
+| **AI Integration Ops Agent** | âŒ None | Anomaly, mapping, failure prediction |
+| **Low-code Integration Templates** | âŒ None | Pre-built connector blueprints |
 
 ---
 
@@ -56,64 +62,64 @@
 ### 2.1 High-Level Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                      ENTERPRISE INTEGRATION PLATFORM & ECOSYSTEM HUB                                            │
-│                                                                                                               │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  API GATEWAY LAYER                                                                                      │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────────────┐   │    │
-│  │  │ Internal API   │ │ External API   │ │ API Versioning │ │ API Deprecation│ │ Rate Limiting &    │   │    │
-│  │  │ Catalog        │ │ Catalog        │ │ & Lifecycle    │ │ Policy         │ │ Throttling         │   │    │
-│  │  └────────────────┘ └────────────────┘ └────────────────┘ └────────────────┘ └────────────────────┘   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  INTEGRATION RUNTIME                                                                                    │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────────────────┐ ┌────────────────────────┐ ┌────────────────────────┐ ┌──────────────┐    │    │
-│  │  │ Event Bus (existing)   │ │ Message Queue          │ │ Webhook Dispatcher    │ │ Callback      │    │    │
-│  │  │ In-memory → Persistent │ │ (DLQ, retry, priority) │ │ (existing → enhanced) │ │ Orchestrator  │    │    │
-│  │  └────────────────────────┘ └────────────────────────┘ └────────────────────────┘ └──────────────┘    │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────────────────┐ ┌────────────────────────┐ ┌────────────────────────┐ ┌──────────────┐    │    │
-│  │  │ Data Transformation   │ │ Schema Registry        │ │ Canonical Data Model   │ │ Idempotency   │    │    │
-│  │  │ Engine                 │ │ (versioned schemas)    │ │ (internal → external)  │ │ Engine        │    │    │
-│  │  └────────────────────────┘ └────────────────────────┘ └────────────────────────┘ └──────────────┘    │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  CONNECTOR FRAMEWORK                                                                                   │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌──────┐  │    │
-│  │  │ ERP        │ │ CRM        │ │ GIS        │ │ SCADA      │ │ AMI/MDM    │ │ Payment    │ │ Bank  │  │    │
-│  │  │ Oracle/SAP │ │Sales/HubSp │ │ArcGIS/QGIS │ │OSI/Ignition│ │ Meter Data │ │ Gateway    │ │       │  │    │
-│  │  └────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘ └──────┘  │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────┐           │    │
-│  │  │ Government │ │ Email/SMS  │ │ Document   │ │ LDAP/AD   │ │ Identity   │ │ Custom     │           │    │
-│  │  │ e-Invoice  │ │ /WhatsApp  │ │ Management │ │ Federation │ │ Provider   │ │ Connector  │           │    │
-│  │  └────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘ └────────────┘           │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                                         │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  OPERATIONS & OBSERVABILITY                                                                             │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ ┌────────────────────┐   │    │
-│  │  │ Integration    │ │ SLA Monitoring │ │ Distributed    │ │ Error          │ │ Replay &           │   │    │
-│  │  │ Health Dashboard│ │ Uptime/Latency │ │ Tracing (spans)│ │ Investigation  │ │ Reprocessing Engine│   │    │
-│  │  └────────────────┘ └────────────────┘ └────────────────┘ └────────────────┘ └────────────────────┘   │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                               │
-│  ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI INTEGRATION OPERATIONS AGENT                                                                         │    │
-│  │                                                                                                        │    │
-│  │  ┌────────────────────────┐ ┌────────────────────────┐ ┌────────────────────────┐                    │    │
-│  │  │ Anomaly Detection     │ │ Mapping                │ │ Failure Prediction    │                    │    │
-│  │  │ (integration failures) │ │ Recommendations        │ │ (proactive alerting)  │                    │    │
-│  │  └────────────────────────┘ └────────────────────────┘ └────────────────────────┘                    │    │
-│  └──────────────────────────────────────────────────────────────────────────────────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                      ENTERPRISE INTEGRATION PLATFORM & ECOSYSTEM HUB                                            â”‚
+â”‚                                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  API GATEWAY LAYER                                                                                      â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Internal API   â”‚ â”‚ External API   â”‚ â”‚ API Versioning â”‚ â”‚ API Deprecationâ”‚ â”‚ Rate Limiting &    â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ Catalog        â”‚ â”‚ Catalog        â”‚ â”‚ & Lifecycle    â”‚ â”‚ Policy         â”‚ â”‚ Throttling         â”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  INTEGRATION RUNTIME                                                                                    â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚    â”‚
+â”‚  â”‚  â”‚ Event Bus (existing)   â”‚ â”‚ Message Queue          â”‚ â”‚ Webhook Dispatcher    â”‚ â”‚ Callback      â”‚    â”‚    â”‚
+â”‚  â”‚  â”‚ In-memory â†’ Persistent â”‚ â”‚ (DLQ, retry, priority) â”‚ â”‚ (existing â†’ enhanced) â”‚ â”‚ Orchestrator  â”‚    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚    â”‚
+â”‚  â”‚  â”‚ Data Transformation   â”‚ â”‚ Schema Registry        â”‚ â”‚ Canonical Data Model   â”‚ â”‚ Idempotency   â”‚    â”‚    â”‚
+â”‚  â”‚  â”‚ Engine                 â”‚ â”‚ (versioned schemas)    â”‚ â”‚ (internal â†’ external)  â”‚ â”‚ Engine        â”‚    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  CONNECTOR FRAMEWORK                                                                                   â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”  â”‚    â”‚
+â”‚  â”‚  â”‚ ERP        â”‚ â”‚ CRM        â”‚ â”‚ GIS        â”‚ â”‚ SCADA      â”‚ â”‚ AMI/MDM    â”‚ â”‚ Payment    â”‚ â”‚ Bank  â”‚  â”‚    â”‚
+â”‚  â”‚  â”‚ Oracle/SAP â”‚ â”‚Sales/HubSp â”‚ â”‚ArcGIS/QGIS â”‚ â”‚OSI/Ignitionâ”‚ â”‚ Meter Data â”‚ â”‚ Gateway    â”‚ â”‚       â”‚  â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”˜  â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”           â”‚    â”‚
+â”‚  â”‚  â”‚ Government â”‚ â”‚ Email/SMS  â”‚ â”‚ Document   â”‚ â”‚ LDAP/AD   â”‚ â”‚ Identity   â”‚ â”‚ Custom     â”‚           â”‚    â”‚
+â”‚  â”‚  â”‚ e-Invoice  â”‚ â”‚ /WhatsApp  â”‚ â”‚ Management â”‚ â”‚ Federation â”‚ â”‚ Provider   â”‚ â”‚ Connector  â”‚           â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜           â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                                         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  OPERATIONS & OBSERVABILITY                                                                             â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚    â”‚
+â”‚  â”‚  â”‚ Integration    â”‚ â”‚ SLA Monitoring â”‚ â”‚ Distributed    â”‚ â”‚ Error          â”‚ â”‚ Replay &           â”‚   â”‚    â”‚
+â”‚  â”‚  â”‚ Health Dashboardâ”‚ â”‚ Uptime/Latency â”‚ â”‚ Tracing (spans)â”‚ â”‚ Investigation  â”‚ â”‚ Reprocessing Engineâ”‚   â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI INTEGRATION OPERATIONS AGENT                                                                         â”‚    â”‚
+â”‚  â”‚                                                                                                        â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                    â”‚    â”‚
+â”‚  â”‚  â”‚ Anomaly Detection     â”‚ â”‚ Mapping                â”‚ â”‚ Failure Prediction    â”‚                    â”‚    â”‚
+â”‚  â”‚  â”‚ (integration failures) â”‚ â”‚ Recommendations        â”‚ â”‚ (proactive alerting)  â”‚                    â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                    â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Integration Maturity Model
@@ -122,7 +128,7 @@
 Level 1: AD-HOC (Current MeterVerse)
   Point-to-point integrations, manual mapping, no registry
 
-Level 2: STANDARDIZED — C15 Target
+Level 2: STANDARDIZED â€” C15 Target
   Integration registry, canonical data model, connector framework
   API lifecycle management, schema registry, DLQ
 
@@ -141,27 +147,27 @@ Level 3: OPTIMIZED (Post-C15)
 
 ```
 IntegrationRegistry
-├── id: String (UUID, PK)
-├── name: String                          ← "Oracle ERP GL Export"
-├── code: String (UNIQUE)                 ← "ERP_ORACLE_GL"
-├── type: String                          ← API | EVENT | BATCH | WEBSOCKET | SFTP
-├── direction: String                     ← INBOUND | OUTBOUND | BIDIRECTIONAL
-├── category: String                      ← ERP | CRM | GIS | SCADA | AMI | PAYMENT | BANK | GOV | NOTIFICATION | IDENTITY | CUSTOM
-├── connectorType: String?                ← Reference to connector implementation
-├── version: String @default("1.0")
-├── status: String @default("ACTIVE")     ← ACTIVE | DEGRADED | FAILED | DEPRECATED | RETIRED
-├── endpointUrl: String?
-├── authMethod: String?                   ← API_KEY | OAUTH2 | OIDC | MTLS | BASIC
-├── authConfigId: String?                 ← FK → SecretsManager
-├── slaUptime: Float?                     ← Target 99.9
-├── slaMaxLatency: Int?                   ← Max latency in ms
-├── slaMaxErrorRate: Float?               ← Max error rate 0.01
-├── lastHealthCheckAt: DateTime?
-├── lastHealthCheckStatus: String?        ← PASS | WARN | FAIL
-├── active: Boolean @default(true)
-├── metadata: String (JSON)?              ← Connector-specific config
-├── notes: String?
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String                          â† "Oracle ERP GL Export"
+â”œâ”€â”€ code: String (UNIQUE)                 â† "ERP_ORACLE_GL"
+â”œâ”€â”€ type: String                          â† API | EVENT | BATCH | WEBSOCKET | SFTP
+â”œâ”€â”€ direction: String                     â† INBOUND | OUTBOUND | BIDIRECTIONAL
+â”œâ”€â”€ category: String                      â† ERP | CRM | GIS | SCADA | AMI | PAYMENT | BANK | GOV | NOTIFICATION | IDENTITY | CUSTOM
+â”œâ”€â”€ connectorType: String?                â† Reference to connector implementation
+â”œâ”€â”€ version: String @default("1.0")
+â”œâ”€â”€ status: String @default("ACTIVE")     â† ACTIVE | DEGRADED | FAILED | DEPRECATED | RETIRED
+â”œâ”€â”€ endpointUrl: String?
+â”œâ”€â”€ authMethod: String?                   â† API_KEY | OAUTH2 | OIDC | MTLS | BASIC
+â”œâ”€â”€ authConfigId: String?                 â† FK â†’ SecretsManager
+â”œâ”€â”€ slaUptime: Float?                     â† Target 99.9
+â”œâ”€â”€ slaMaxLatency: Int?                   â† Max latency in ms
+â”œâ”€â”€ slaMaxErrorRate: Float?               â† Max error rate 0.01
+â”œâ”€â”€ lastHealthCheckAt: DateTime?
+â”œâ”€â”€ lastHealthCheckStatus: String?        â† PASS | WARN | FAIL
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ metadata: String (JSON)?              â† Connector-specific config
+â”œâ”€â”€ notes: String?
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Indexes:
   @@index([type, category])
@@ -175,26 +181,26 @@ Indexes:
 
 ```
 IntegrationLog
-├── id: String (UUID, PK)
-├── registryId: String (FK → IntegrationRegistry)
-├── direction: String                     ← INBOUND | OUTBOUND
-├── status: String                        ← SUCCESS | FAILED | RETRY | TIMEOUT
-├── requestPayload: String (JSON)?
-├── responsePayload: String (JSON)?
-├── requestHeaders: String (JSON)?
-├── responseHeaders: String (JSON)?
-├── correlationId: String
-├── traceId: String?
-├── spanId: String?
-├── httpMethod: String?
-├── httpPath: String?
-├── httpStatus: Int?
-├── durationMs: Int
-├── errorMessage: String?
-├── errorCode: String?
-├── retryCount: Int @default(0)
-├── attemptedAt: DateTime
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ registryId: String (FK â†’ IntegrationRegistry)
+â”œâ”€â”€ direction: String                     â† INBOUND | OUTBOUND
+â”œâ”€â”€ status: String                        â† SUCCESS | FAILED | RETRY | TIMEOUT
+â”œâ”€â”€ requestPayload: String (JSON)?
+â”œâ”€â”€ responsePayload: String (JSON)?
+â”œâ”€â”€ requestHeaders: String (JSON)?
+â”œâ”€â”€ responseHeaders: String (JSON)?
+â”œâ”€â”€ correlationId: String
+â”œâ”€â”€ traceId: String?
+â”œâ”€â”€ spanId: String?
+â”œâ”€â”€ httpMethod: String?
+â”œâ”€â”€ httpPath: String?
+â”œâ”€â”€ httpStatus: Int?
+â”œâ”€â”€ durationMs: Int
+â”œâ”€â”€ errorMessage: String?
+â”œâ”€â”€ errorCode: String?
+â”œâ”€â”€ retryCount: Int @default(0)
+â”œâ”€â”€ attemptedAt: DateTime
+â”œâ”€â”€ createdAt
 
 Indexes:
   @@index([registryId, status])
@@ -209,17 +215,17 @@ Indexes:
 
 ```
 ConnectorDefinition
-├── id: String (UUID, PK)
-├── name: String                          ← "Oracle ERP GL Export"
-├── code: String (UNIQUE)
-├── type: String                          ← REST | SOAP | GRAPHQL | SFTP | JDBC | CUSTOM
-├── version: String @default("1.0")
-├── configSchema: String (JSON)           ← JSON Schema for connector config
-├── authTypes: String (JSON)              ← Supported auth types
-├── events: String (JSON)                 ← Events this connector produces/consumes
-├── entities: String (JSON)               ← Canonical entities mapped
-├── active: Boolean @default(true)
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String                          â† "Oracle ERP GL Export"
+â”œâ”€â”€ code: String (UNIQUE)
+â”œâ”€â”€ type: String                          â† REST | SOAP | GRAPHQL | SFTP | JDBC | CUSTOM
+â”œâ”€â”€ version: String @default("1.0")
+â”œâ”€â”€ configSchema: String (JSON)           â† JSON Schema for connector config
+â”œâ”€â”€ authTypes: String (JSON)              â† Supported auth types
+â”œâ”€â”€ events: String (JSON)                 â† Events this connector produces/consumes
+â”œâ”€â”€ entities: String (JSON)               â† Canonical entities mapped
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 ```
 
 ### 3.4 IntegrationMapping (NEW)
@@ -228,17 +234,17 @@ ConnectorDefinition
 
 ```
 IntegrationMapping
-├── id: String (UUID, PK)
-├── registryId: String (FK → IntegrationRegistry)
-├── sourceEntity: String                  ← Internal canonical entity name
-├── sourceField: String                   ← Internal field path
-├── targetEntity: String                  ← External entity name
-├── targetField: String                   ← External field path
-├── transformation: String?               ← Optional transformation function reference
-├── defaultValue: String?                 ← Default if source is null
-├── required: Boolean @default(false)
-├── active: Boolean @default(true)
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ registryId: String (FK â†’ IntegrationRegistry)
+â”œâ”€â”€ sourceEntity: String                  â† Internal canonical entity name
+â”œâ”€â”€ sourceField: String                   â† Internal field path
+â”œâ”€â”€ targetEntity: String                  â† External entity name
+â”œâ”€â”€ targetField: String                   â† External field path
+â”œâ”€â”€ transformation: String?               â† Optional transformation function reference
+â”œâ”€â”€ defaultValue: String?                 â† Default if source is null
+â”œâ”€â”€ required: Boolean @default(false)
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ createdAt, archivedAt
 
 Index:
   @@index([registryId, sourceEntity, targetEntity])
@@ -250,15 +256,15 @@ Index:
 
 ```
 SchemaRegistry
-├── id: String (UUID, PK)
-├── name: String                          ← "InvoiceCanonical", "MeterReadingCanonical"
-├── entityType: String                    ← INVOICE | PAYMENT | CUSTOMER | METER | READING | EVENT
-├── version: String                       ← Semantic version
-├── schema: String (JSON)                 ← JSON Schema definition
-├── compatibility: String @default("BACKWARD") ← BACKWARD | FORWARD | FULL | NONE
-├── status: String @default("ACTIVE")     ← ACTIVE | DEPRECATED | SUPERSEDED
-├── previousVersionId: String?            ← FK → self
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String                          â† "InvoiceCanonical", "MeterReadingCanonical"
+â”œâ”€â”€ entityType: String                    â† INVOICE | PAYMENT | CUSTOMER | METER | READING | EVENT
+â”œâ”€â”€ version: String                       â† Semantic version
+â”œâ”€â”€ schema: String (JSON)                 â† JSON Schema definition
+â”œâ”€â”€ compatibility: String @default("BACKWARD") â† BACKWARD | FORWARD | FULL | NONE
+â”œâ”€â”€ status: String @default("ACTIVE")     â† ACTIVE | DEPRECATED | SUPERSEDED
+â”œâ”€â”€ previousVersionId: String?            â† FK â†’ self
+â”œâ”€â”€ createdAt, archivedAt
 
 Unique: [entityType, version]
 ```
@@ -269,20 +275,20 @@ Unique: [entityType, version]
 
 ```
 DeadLetterEntry
-├── id: String (UUID, PK)
-├── source: String                        ← WEBHOOK | QUEUE | INTEGRATION | EVENT_BUS
-├── sourceId: String?                     ← Reference to source record
-├── registryId: String? (FK → IntegrationRegistry)
-├── eventType: String
-├── payload: String (JSON)
-├── errorMessage: String
-├── errorStack: String?
-├── retryCount: Int @default(0)
-├── status: String @default("PENDING")    ← PENDING | REPROCESSING | RESOLVED | IGNORED
-├── reprocessedAt: DateTime?
-├── resolvedAt: DateTime?
-├── resolvedBy: String?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ source: String                        â† WEBHOOK | QUEUE | INTEGRATION | EVENT_BUS
+â”œâ”€â”€ sourceId: String?                     â† Reference to source record
+â”œâ”€â”€ registryId: String? (FK â†’ IntegrationRegistry)
+â”œâ”€â”€ eventType: String
+â”œâ”€â”€ payload: String (JSON)
+â”œâ”€â”€ errorMessage: String
+â”œâ”€â”€ errorStack: String?
+â”œâ”€â”€ retryCount: Int @default(0)
+â”œâ”€â”€ status: String @default("PENDING")    â† PENDING | REPROCESSING | RESOLVED | IGNORED
+â”œâ”€â”€ reprocessedAt: DateTime?
+â”œâ”€â”€ resolvedAt: DateTime?
+â”œâ”€â”€ resolvedBy: String?
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([status, createdAt])
@@ -295,21 +301,21 @@ Indexes:
 
 ```
 CertificateStore
-├── id: String (UUID, PK)
-├── name: String
-├── type: String                          ← CA | CLIENT | SERVER
-├── issuer: String?
-├── subject: String?
-├── serialNumber: String?
-├── fingerprint: String?
-├── notBefore: DateTime
-├── notAfter: DateTime
-├── active: Boolean @default(true)
-├── status: String @default("VALID")      ← VALID | EXPIRING | EXPIRED | REVOKED
-├── expiresInDays: Int?                   ← Computed days until expiry
-├── autoRenew: Boolean @default(false)
-├── renewedFromId: String?                ← FK → self
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ name: String
+â”œâ”€â”€ type: String                          â† CA | CLIENT | SERVER
+â”œâ”€â”€ issuer: String?
+â”œâ”€â”€ subject: String?
+â”œâ”€â”€ serialNumber: String?
+â”œâ”€â”€ fingerprint: String?
+â”œâ”€â”€ notBefore: DateTime
+â”œâ”€â”€ notAfter: DateTime
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ status: String @default("VALID")      â† VALID | EXPIRING | EXPIRED | REVOKED
+â”œâ”€â”€ expiresInDays: Int?                   â† Computed days until expiry
+â”œâ”€â”€ autoRenew: Boolean @default(false)
+â”œâ”€â”€ renewedFromId: String?                â† FK â†’ self
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([status, notAfter])
@@ -322,19 +328,19 @@ Indexes:
 
 ```
 IntegrationSchedule
-├── id: String (UUID, PK)
-├── registryId: String (FK → IntegrationRegistry)
-├── name: String
-├── frequency: String                     ← HOURLY | DAILY | WEEKLY | MONTHLY | CRON
-├── cronExpression: String?
-├── batchSize: Int @default(1000)
-├── maxDuration: Int?                     ← Max runtime in minutes
-├── retryOnFailure: Boolean @default(true)
-├── active: Boolean @default(true)
-├── lastRunAt: DateTime?
-├── lastRunStatus: String?               ← SUCCESS | FAILED | RUNNING
-├── nextRunAt: DateTime?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ registryId: String (FK â†’ IntegrationRegistry)
+â”œâ”€â”€ name: String
+â”œâ”€â”€ frequency: String                     â† HOURLY | DAILY | WEEKLY | MONTHLY | CRON
+â”œâ”€â”€ cronExpression: String?
+â”œâ”€â”€ batchSize: Int @default(1000)
+â”œâ”€â”€ maxDuration: Int?                     â† Max runtime in minutes
+â”œâ”€â”€ retryOnFailure: Boolean @default(true)
+â”œâ”€â”€ active: Boolean @default(true)
+â”œâ”€â”€ lastRunAt: DateTime?
+â”œâ”€â”€ lastRunStatus: String?               â† SUCCESS | FAILED | RUNNING
+â”œâ”€â”€ nextRunAt: DateTime?
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.9 New Models Summary
@@ -360,30 +366,30 @@ IntegrationSchedule
 ### 4.1 Connector Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                     CONNECTOR FRAMEWORK                            │
-│                                                                    │
-│  BaseConnector (abstract)                                         │
-│  ├── initialize(config)                                           │
-│  ├── testConnection() → boolean                                   │
-│  ├── healthCheck() → { status, latency, message }                │
-│  ├── transform(data, mapping) → transformedData                  │
-│  ├── send(data) → { success, response, error }                   │
-│  ├── receive() → { data, metadata }                              │
-│  ├── validateAuth() → boolean                                     │
-│  └── close()                                                      │
-│                                                                    │
-│  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐           │
-│  │ RestConnector │ │ SoapConnector │ │ SftpConnector │  ...      │
-│  │ (extends Base)│ │ (extends Base)│ │ (extends Base)│           │
-│  └───────────────┘ └───────────────┘ └───────────────┘           │
-│                                                                    │
-│  Specific Connectors (extend base type):                          │
-│  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐              │
-│  │ OracleERP    │ │ SalesforceCRM│ │ ArcGIS       │              │
-│  │ GL Connector │ │ Connector    │ │ Connector    │              │
-│  └──────────────┘ └──────────────┘ └──────────────┘              │
-└──────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                     CONNECTOR FRAMEWORK                            â”‚
+â”‚                                                                    â”‚
+â”‚  BaseConnector (abstract)                                         â”‚
+â”‚  â”œâ”€â”€ initialize(config)                                           â”‚
+â”‚  â”œâ”€â”€ testConnection() â†’ boolean                                   â”‚
+â”‚  â”œâ”€â”€ healthCheck() â†’ { status, latency, message }                â”‚
+â”‚  â”œâ”€â”€ transform(data, mapping) â†’ transformedData                  â”‚
+â”‚  â”œâ”€â”€ send(data) â†’ { success, response, error }                   â”‚
+â”‚  â”œâ”€â”€ receive() â†’ { data, metadata }                              â”‚
+â”‚  â”œâ”€â”€ validateAuth() â†’ boolean                                     â”‚
+â”‚  â””â”€â”€ close()                                                      â”‚
+â”‚                                                                    â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”           â”‚
+â”‚  â”‚ RestConnector â”‚ â”‚ SoapConnector â”‚ â”‚ SftpConnector â”‚  ...      â”‚
+â”‚  â”‚ (extends Base)â”‚ â”‚ (extends Base)â”‚ â”‚ (extends Base)â”‚           â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜           â”‚
+â”‚                                                                    â”‚
+â”‚  Specific Connectors (extend base type):                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”              â”‚
+â”‚  â”‚ OracleERP    â”‚ â”‚ SalesforceCRMâ”‚ â”‚ ArcGIS       â”‚              â”‚
+â”‚  â”‚ GL Connector â”‚ â”‚ Connector    â”‚ â”‚ Connector    â”‚              â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜              â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 4.2 Connector Inventory (Planned)
@@ -456,15 +462,15 @@ EventCanonical:
 ### 5.1 API Lifecycle
 
 ```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│  DESIGN   │───→│  DEVELOP  │───→│  PUBLISH  │───→│  ACTIVE  │───→│ DEPRECATE│
-│ (DRAFT)   │    │ (BETA)    │    │ (STABLE)  │    │          │    │          │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘    └────┬─────┘
-                                                                     │
-                                                                     ▼
-                                                               ┌──────────┐
-                                                               │  RETIRED  │
-                                                               └──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  DESIGN   â”‚â”€â”€â”€â†’â”‚  DEVELOP  â”‚â”€â”€â”€â†’â”‚  PUBLISH  â”‚â”€â”€â”€â†’â”‚  ACTIVE  â”‚â”€â”€â”€â†’â”‚ DEPRECATEâ”‚
+â”‚ (DRAFT)   â”‚    â”‚ (BETA)    â”‚    â”‚ (STABLE)  â”‚    â”‚          â”‚    â”‚          â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+                                                                     â”‚
+                                                                     â–¼
+                                                               â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                                                               â”‚  RETIRED  â”‚
+                                                               â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 5.2 Versioning Strategy
@@ -476,8 +482,8 @@ EventCanonical:
 | **Query Param** | `?version=2` | Experimental endpoints |
 
 **Version Policy:**
-- Major version (v1→v2): Breaking schema changes
-- Minor version (v1.0→v1.1): Additive changes only
+- Major version (v1â†’v2): Breaking schema changes
+- Minor version (v1.0â†’v1.1): Additive changes only
 - Deprecation notice: Minimum 6 months before retirement
 - Sunset header: `Sunset: Sat, 01 Jan 2028 00:00:00 GMT`
 
@@ -485,7 +491,7 @@ EventCanonical:
 
 | Tier | Rate Limit | Burst | Applied To |
 |------|------------|-------|------------|
-| **Internal Service** | 10,000 req/min | 15,000 | Backend→backend |
+| **Internal Service** | 10,000 req/min | 15,000 | Backendâ†’backend |
 | **External Partner** | 1,000 req/min | 2,000 | API key holders |
 | **Customer Portal** | 500 req/min | 1,000 | Authenticated users |
 | **Public Anonymous** | 100 req/min | 150 | Unauthenticated |
@@ -498,38 +504,38 @@ EventCanonical:
 ### 6.1 Enhanced Event Bus
 
 ```
-Existing EventBus (in-memory) → Enhanced Persistent EventBus:
+Existing EventBus (in-memory) â†’ Enhanced Persistent EventBus:
 
-┌─────────────────────────────────────────────────────────────────┐
-│  ENHANCED EVENT BUS                                               │
-│                                                                   │
-│  ┌───────────────────────────────────────────────────────────┐   │
-│  │  EventBus (existing in-memory, enhanced with persistence)  │   │
-│  │                                                           │   │
-│  │  emit(event, payload) →                                   │   │
-│  │    1. Validate payload against SchemaRegistry             │   │
-│  │    2. Add correlationId + traceId + timestamp             │   │
-│  │    3. Store to EventLog (DB table) for durability         │   │
-│  │    4. Dispatch to local in-memory listeners               │   │
-│  │    5. Dispatch to matching IntegrationRegistry entries    │   │
-│  │    6. Dispatch to matching Webhooks (via WebhookDispatcher)│   │
-│  │    7. If no listener → route to DLQ after TTL             │   │
-│  └───────────────────────────────────────────────────────────┘   │
-│                                                                   │
-│  Standard Events:                                                  │
-│  ┌─────────────────────────────────────────────────────────────┐ │
-│  │ meter.reading.received      │ invoice.issued                │ │
-│  │ meter.reading.validated     │ invoice.paid                  │ │
-│  │ meter.event.raised          │ payment.received              │ │
-│  │ meter.assigned              │ payment.reversed              │ │
-│  │ meter.deactivated           │ customer.created              │ │
-│  │ meter.maintenance.scheduled │ customer.updated              │ │
-│  │ connection.status.changed   │ collection.case.created       │ │
-│  │ sync.completed              │ collection.case.resolved      │ │
-│  │ tariff.changed              │ bank.statement.reconciled     │ │
-│  │ tariff.version.activated    │ financial.period.closed       │ │
-│  └─────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  ENHANCED EVENT BUS                                               â”‚
+â”‚                                                                   â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚  â”‚  EventBus (existing in-memory, enhanced with persistence)  â”‚   â”‚
+â”‚  â”‚                                                           â”‚   â”‚
+â”‚  â”‚  emit(event, payload) â†’                                   â”‚   â”‚
+â”‚  â”‚    1. Validate payload against SchemaRegistry             â”‚   â”‚
+â”‚  â”‚    2. Add correlationId + traceId + timestamp             â”‚   â”‚
+â”‚  â”‚    3. Store to EventLog (DB table) for durability         â”‚   â”‚
+â”‚  â”‚    4. Dispatch to local in-memory listeners               â”‚   â”‚
+â”‚  â”‚    5. Dispatch to matching IntegrationRegistry entries    â”‚   â”‚
+â”‚  â”‚    6. Dispatch to matching Webhooks (via WebhookDispatcher)â”‚   â”‚
+â”‚  â”‚    7. If no listener â†’ route to DLQ after TTL             â”‚   â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                   â”‚
+â”‚  Standard Events:                                                  â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”‚
+â”‚  â”‚ meter.reading.received      â”‚ invoice.issued                â”‚ â”‚
+â”‚  â”‚ meter.reading.validated     â”‚ invoice.paid                  â”‚ â”‚
+â”‚  â”‚ meter.event.raised          â”‚ payment.received              â”‚ â”‚
+â”‚  â”‚ meter.assigned              â”‚ payment.reversed              â”‚ â”‚
+â”‚  â”‚ meter.deactivated           â”‚ customer.created              â”‚ â”‚
+â”‚  â”‚ meter.maintenance.scheduled â”‚ customer.updated              â”‚ â”‚
+â”‚  â”‚ connection.status.changed   â”‚ collection.case.created       â”‚ â”‚
+â”‚  â”‚ sync.completed              â”‚ collection.case.resolved      â”‚ â”‚
+â”‚  â”‚ tariff.changed              â”‚ bank.statement.reconciled     â”‚ â”‚
+â”‚  â”‚ tariff.version.activated    â”‚ financial.period.closed       â”‚ â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 6.2 Event Catalog
@@ -541,9 +547,9 @@ Existing EventBus (in-memory) → Enhanced Persistent EventBus:
 | `invoice.paid` | Payment | GL (W01), Collections (W04), Notifications | ERP, Customer Portal |
 | `payment.received` | Payment | GL (W01), Notification | ERP, Customer Portal |
 | `customer.created` | Customer Service | Notifications | CRM |
-| `customer.updated` | Customer Service | — | CRM |
+| `customer.updated` | Customer Service | â€” | CRM |
 | `meter.assigned` | Meter Service | Billing | AMI/MDM |
-| `tariff.changed` | Tariff Service | Revenue (W02), Billing | — |
+| `tariff.changed` | Tariff Service | Revenue (W02), Billing | â€” |
 | `financial.period.closed` | GL | Reporting (W06) | ERP |
 
 ---
@@ -553,85 +559,85 @@ Existing EventBus (in-memory) → Enhanced Persistent EventBus:
 ### 7.1 Integration Health Dashboard (`/admin/integrations`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│ INTEGRATION HEALTH DASHBOARD                                                                    │
-│                                                                                                 │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐          │
-│ │ Total        │ │ Active       │ │ Degraded     │ │ Failed       │ │ SLA          │          │
-│ │ Integrations │ │              │ │              │ │              │ │ Compliance   │          │
-│ │         32   │ │        28    │ │         3    │ │         1    │ │      96.3%   │          │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘          │
-│                                                                                                 │
-│ ┌──────────────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ INTEGRATION REGISTRY                                                    [Filter ▼] [Search]│   │
-│ │ ┌──────────┬──────────────┬──────────┬──────────┬──────────┬──────────┬──────────────┐   │   │
-│ │ │ Code     │ Name         │ Type     │ Status   │ SLA      │ Last OK  │ Actions      │   │   │
-│ │ │ ERP_GL   │ Oracle GL    │ OUTBOUND │ ✅ OK    │ 99.9%    │ 2m ago   │ [Logs] [Test]│   │   │
-│ │ │ CRM_SYNC │ Salesforce   │ BIDIR    │ ⚠ DEGRAD │ 95.2%    │ 15m ago  │ [Logs] [Test]│   │   │
-│ │ │ GOV_EINV │ Tax Auth     │ OUTBOUND │ ✅ OK    │ 99.8%    │ 5m ago   │ [Logs] [Test]│   │   │
-│ │ │ BANK_NBE │ NBE Stmts    │ INBOUND  │ ❌ FAIL  │ 88.5%    │ 2h ago   │ [Logs] [Test]│   │   │
-│ │ │ AMI_SYNC │ GridIoT MDM  │ BIDIR    │ ✅ OK    │ 99.9%    │ 1m ago   │ [Logs] [Test]│   │   │
-│ │ │ PAYMOB   │ Paymob GW    │ INBOUND  │ ✅ OK    │ 100%     │ 30s ago  │ [Logs] [Test]│   │   │
-│ │ └──────────┴──────────────┴──────────┴──────────┴──────────┴──────────┴──────────────┘   │   │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                 │
-│ ┌──────────────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ INTEGRATION ACTIVITY (Last 24 hours)                                                       │   │
-│ │                                                                                            │   │
-│ │  500 ┤    ██     ██     ██     ██     ██     ██                                            │   │
-│ │  400 ┤ ██ ██  ██ ██  ██ ██  ██ ██  ██ ██  ██ ██    ██                                    │   │
-│ │  300 ┤ ████████████████████████████████████████████ ██ ██                                 │   │
-│ │  200 ┤ ████████████████████████████████████████████████████████                           │   │
-│ │      └──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──┬──       │   │
-│ │         0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23           │   │
-│ │         Success ██  Error ██  Retry ██                                                     │   │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                 │
-│ ┌────────────── DLQ ─────────────────────────────────────────────────────────────────────┐    │
-│ │ 3 failed messages awaiting reprocessing:                                                    │    │
-│ │   • ERP_GL — Invoice INV-2026-0812 — "Timeout connecting to Oracle" — 2 retries — [Reprocess]│
-│ │   • BANK_NBE — Statement STMT-0726 — "Invalid format" — 3 retries — [Reprocess]             │    │
-│ │   • CRM_SYNC — Customer C-4521 — "Rate limit exceeded" — 1 retry — [Reprocess]             │    │
-│ └────────────────────────────────────────────────────────────────────────────────────────────┘ │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ INTEGRATION HEALTH DASHBOARD                                                                    â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”          â”‚
+â”‚ â”‚ Total        â”‚ â”‚ Active       â”‚ â”‚ Degraded     â”‚ â”‚ Failed       â”‚ â”‚ SLA          â”‚          â”‚
+â”‚ â”‚ Integrations â”‚ â”‚              â”‚ â”‚              â”‚ â”‚              â”‚ â”‚ Compliance   â”‚          â”‚
+â”‚ â”‚         32   â”‚ â”‚        28    â”‚ â”‚         3    â”‚ â”‚         1    â”‚ â”‚      96.3%   â”‚          â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜          â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ INTEGRATION REGISTRY                                                    [Filter â–¼] [Search]â”‚   â”‚
+â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚   â”‚
+â”‚ â”‚ â”‚ Code     â”‚ Name         â”‚ Type     â”‚ Status   â”‚ SLA      â”‚ Last OK  â”‚ Actions      â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ ERP_GL   â”‚ Oracle GL    â”‚ OUTBOUND â”‚ âœ… OK    â”‚ 99.9%    â”‚ 2m ago   â”‚ [Logs] [Test]â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ CRM_SYNC â”‚ Salesforce   â”‚ BIDIR    â”‚ âš  DEGRAD â”‚ 95.2%    â”‚ 15m ago  â”‚ [Logs] [Test]â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ GOV_EINV â”‚ Tax Auth     â”‚ OUTBOUND â”‚ âœ… OK    â”‚ 99.8%    â”‚ 5m ago   â”‚ [Logs] [Test]â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ BANK_NBE â”‚ NBE Stmts    â”‚ INBOUND  â”‚ âŒ FAIL  â”‚ 88.5%    â”‚ 2h ago   â”‚ [Logs] [Test]â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ AMI_SYNC â”‚ GridIoT MDM  â”‚ BIDIR    â”‚ âœ… OK    â”‚ 99.9%    â”‚ 1m ago   â”‚ [Logs] [Test]â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ PAYMOB   â”‚ Paymob GW    â”‚ INBOUND  â”‚ âœ… OK    â”‚ 100%     â”‚ 30s ago  â”‚ [Logs] [Test]â”‚   â”‚   â”‚
+â”‚ â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ INTEGRATION ACTIVITY (Last 24 hours)                                                       â”‚   â”‚
+â”‚ â”‚                                                                                            â”‚   â”‚
+â”‚ â”‚  500 â”¤    â–ˆâ–ˆ     â–ˆâ–ˆ     â–ˆâ–ˆ     â–ˆâ–ˆ     â–ˆâ–ˆ     â–ˆâ–ˆ                                            â”‚   â”‚
+â”‚ â”‚  400 â”¤ â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ  â–ˆâ–ˆ â–ˆâ–ˆ    â–ˆâ–ˆ                                    â”‚   â”‚
+â”‚ â”‚  300 â”¤ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ â–ˆâ–ˆ â–ˆâ–ˆ                                 â”‚   â”‚
+â”‚ â”‚  200 â”¤ â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ                           â”‚   â”‚
+â”‚ â”‚      â””â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€â”¬â”€â”€       â”‚   â”‚
+â”‚ â”‚         0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23           â”‚   â”‚
+â”‚ â”‚         Success â–ˆâ–ˆ  Error â–ˆâ–ˆ  Retry â–ˆâ–ˆ                                                     â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ DLQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚ â”‚ 3 failed messages awaiting reprocessing:                                                    â”‚    â”‚
+â”‚ â”‚   â€¢ ERP_GL â€” Invoice INV-2026-0812 â€” "Timeout connecting to Oracle" â€” 2 retries â€” [Reprocess]â”‚
+â”‚ â”‚   â€¢ BANK_NBE â€” Statement STMT-0726 â€” "Invalid format" â€” 3 retries â€” [Reprocess]             â”‚    â”‚
+â”‚ â”‚   â€¢ CRM_SYNC â€” Customer C-4521 â€” "Rate limit exceeded" â€” 1 retry â€” [Reprocess]             â”‚    â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 7.2 Error Investigation Workbench (`/admin/integrations/logs/:id`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-│ INTEGRATION LOG DETAIL                                                                          │
-│                                                                                                 │
-│ Integration: Oracle ERP GL Export (ERP_ORACLE_GL)                                               │
-│ Transaction: #ilog-2026-0729-00123                                                              │
-│ Timestamp: 2026-07-29 14:32:18.452Z                                                             │
-│ Status: ❌ FAILED                                                                               │
-│                                                                                                 │
-│ ┌── REQUEST ───────────────────────────────────────────────────────────────────────────────┐   │
-│ │ POST /api/v2/erp/oracle/gl/journal                                                       │   │
-│ │ Headers: { "Authorization": "Bearer ***", "X-Correlation-ID": "corr-abc-123",              │   │
-│ │           "Idempotency-Key": "idem-xyz-789" }                                             │   │
-│ │ Body: { "journalEntries": [ { "entryNumber": "JE-202607-1234", ... } ] }                 │   │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                 │
-│ ┌── RESPONSE ──────────────────────────────────────────────────────────────────────────────┐   │
-│ │ HTTP 504 Gateway Timeout                                                                    │   │
-│ │ Duration: 30,002 ms (timeout after 30s)                                                    │   │
-│ │ Retry #2 of 3                                                                              │   │
-│ │ Headers: { "X-Oracle-Request-ID": "req-456" }                                              │   │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                 │
-│ ┌── TRACE ─────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ Span 1: api-gateway → 2ms                                                                  │   │
-│ │ Span 2: integration-runtime → 5ms                                                          │   │
-│ │ Span 3: transform-engine → 12ms                                                            │   │
-│ │ Span 4: oracle-connector → 29,983ms  ← FAILURE                                            │   │
-│ │                                                                                             │   │
-│ │ [View Full Trace in Grafana]                                                                │   │
-│ └──────────────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                                 │
-│ [ Reprocess ] [ Move to DLQ ] [ Ignore ] [ Create Incident ]                                    │
-└───────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ INTEGRATION LOG DETAIL                                                                          â”‚
+â”‚                                                                                                 â”‚
+â”‚ Integration: Oracle ERP GL Export (ERP_ORACLE_GL)                                               â”‚
+â”‚ Transaction: #ilog-2026-0729-00123                                                              â”‚
+â”‚ Timestamp: 2026-07-29 14:32:18.452Z                                                             â”‚
+â”‚ Status: âŒ FAILED                                                                               â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€ REQUEST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ POST /api/v2/erp/oracle/gl/journal                                                       â”‚   â”‚
+â”‚ â”‚ Headers: { "Authorization": "Bearer ***", "X-Correlation-ID": "corr-abc-123",              â”‚   â”‚
+â”‚ â”‚           "Idempotency-Key": "idem-xyz-789" }                                             â”‚   â”‚
+â”‚ â”‚ Body: { "journalEntries": [ { "entryNumber": "JE-202607-1234", ... } ] }                 â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€ RESPONSE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ HTTP 504 Gateway Timeout                                                                    â”‚   â”‚
+â”‚ â”‚ Duration: 30,002 ms (timeout after 30s)                                                    â”‚   â”‚
+â”‚ â”‚ Retry #2 of 3                                                                              â”‚   â”‚
+â”‚ â”‚ Headers: { "X-Oracle-Request-ID": "req-456" }                                              â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                 â”‚
+â”‚ â”Œâ”€â”€ TRACE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ Span 1: api-gateway â†’ 2ms                                                                  â”‚   â”‚
+â”‚ â”‚ Span 2: integration-runtime â†’ 5ms                                                          â”‚   â”‚
+â”‚ â”‚ Span 3: transform-engine â†’ 12ms                                                            â”‚   â”‚
+â”‚ â”‚ Span 4: oracle-connector â†’ 29,983ms  â† FAILURE                                            â”‚   â”‚
+â”‚ â”‚                                                                                             â”‚   â”‚
+â”‚ â”‚ [View Full Trace in Grafana]                                                                â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                                 â”‚
+â”‚ [ Reprocess ] [ Move to DLQ ] [ Ignore ] [ Create Incident ]                                    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -642,14 +648,14 @@ Existing EventBus (in-memory) → Enhanced Persistent EventBus:
 
 **Agent Name:** Integration Operations Agent  
 **Framework:** C12-W07 Operational Intelligence  
-**Autonomy:** ⚡ Semi-autonomous  
+**Autonomy:** âš¡ Semi-autonomous  
 
 | Capability | Autonomy | Human Approval |
 |------------|----------|----------------|
-| Anomaly detection (failure spikes) | ✅ Full | None (alert only) |
-| Mapping recommendations | ⚡ Semi | Required for auto-apply |
-| Failure prediction | ✅ Full | None (alert only) |
-| Integration health scoring | ✅ Full | None (read-only) |
+| Anomaly detection (failure spikes) | âœ… Full | None (alert only) |
+| Mapping recommendations | âš¡ Semi | Required for auto-apply |
+| Failure prediction | âœ… Full | None (alert only) |
+| Integration health scoring | âœ… Full | None (read-only) |
 
 ### 8.2 Anomaly Detection
 
@@ -663,7 +669,7 @@ ALGORITHM: detectIntegrationAnomalies():
     // 1. Error rate spike
     errorRate = count(recentLogs, FAILED) / recentLogs.length
     baselineErrorRate = historicalErrorRate(registryId, 7 days)
-    IF errorRate > baselineErrorRate × 3 AND errorRate > 0.05:
+    IF errorRate > baselineErrorRate Ã— 3 AND errorRate > 0.05:
       CREATE ExecutiveInsight({
         type: "RISK",
         title: `Error spike: ${registry.name}`,
@@ -674,7 +680,7 @@ ALGORITHM: detectIntegrationAnomalies():
     // 2. Latency degradation
     avgLatency = AVG(recentLogs, durationMs)
     baselineLatency = historicalLatency(registryId, 7 days)
-    IF avgLatency > baselineLatency × 2:
+    IF avgLatency > baselineLatency Ã— 2:
       CREATE ExecutiveInsight({
         type: "WARNING",
         title: `Latency degradation: ${registry.name}`,
@@ -729,8 +735,8 @@ ALGORITHM: predictIntegrationFailures():
 | Integration Type | Auth Method | Credential Storage | Rotation |
 |-----------------|-------------|-------------------|----------|
 | Internal API | JWT (C12 Identity) | In-memory | Per session |
-| External API — Partner | API Key + HMAC | Vault/Env | 90 days |
-| External API — Cloud | OAuth2 / OIDC | Vault | Auto-refresh |
+| External API â€” Partner | API Key + HMAC | Vault/Env | 90 days |
+| External API â€” Cloud | OAuth2 / OIDC | Vault | Auto-refresh |
 | Bank / Government | mTLS + Certificate | CertificateStore | Auto-renew |
 | ERP (Oracle/SAP) | Basic Auth + mTLS | Vault | 90 days |
 | Webhook Outbound | HMAC Signature | Per-webhook secret | Manual |
@@ -741,228 +747,228 @@ ALGORITHM: predictIntegrationFailures():
 ### 9.2 Secrets Management Integration
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│  SECRETS MANAGEMENT                                                │
-│                                                                   │
-│  Integration secrets stored via:                                  │
-│  1. Environment variables (current — basic)                       │
-│  2. HashedCorp Vault / Azure Key Vault (target — enterprise)     │
-│  3. Encrypted at rest in DB (CertificateStore)                    │
-│                                                                   │
-│  Secret types:                                                     │
-│  ┌──────────────────┬──────────────┬─────────────────────────────┐│
-│  │ Type             │ Storage      │ Access Pattern               ││
-│  ├──────────────────┼──────────────┼─────────────────────────────┤│
-│  │ API Key          │ Vault → Mem  │ Loaded on connector init    ││
-│  │ OAuth2 Token     │ Vault → Mem  │ Auto-refresh on expiry      ││
-│  │ mTLS Certificate │ CertStore    │ Auto-renew before expiry    ││
-│  │ SSH Key          │ Vault → File │ Written temp, removed after ││
-│  │ Database Cred    │ Vault → Mem  │ Loaded on connection init   ││
-│  │ Webhook Secret   │ DB (encrypt) │ Loaded per dispatch         ││
-│  └──────────────────┴──────────────┴─────────────────────────────┘│
-└──────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  SECRETS MANAGEMENT                                                â”‚
+â”‚                                                                   â”‚
+â”‚  Integration secrets stored via:                                  â”‚
+â”‚  1. Environment variables (current â€” basic)                       â”‚
+â”‚  2. HashedCorp Vault / Azure Key Vault (target â€” enterprise)     â”‚
+â”‚  3. Encrypted at rest in DB (CertificateStore)                    â”‚
+â”‚                                                                   â”‚
+â”‚  Secret types:                                                     â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”â”‚
+â”‚  â”‚ Type             â”‚ Storage      â”‚ Access Pattern               â”‚â”‚
+â”‚  â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤â”‚
+â”‚  â”‚ API Key          â”‚ Vault â†’ Mem  â”‚ Loaded on connector init    â”‚â”‚
+â”‚  â”‚ OAuth2 Token     â”‚ Vault â†’ Mem  â”‚ Auto-refresh on expiry      â”‚â”‚
+â”‚  â”‚ mTLS Certificate â”‚ CertStore    â”‚ Auto-renew before expiry    â”‚â”‚
+â”‚  â”‚ SSH Key          â”‚ Vault â†’ File â”‚ Written temp, removed after â”‚â”‚
+â”‚  â”‚ Database Cred    â”‚ Vault â†’ Mem  â”‚ Loaded on connection init   â”‚â”‚
+â”‚  â”‚ Webhook Secret   â”‚ DB (encrypt) â”‚ Loaded per dispatch         â”‚â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
 
-## PART 10: TESTING STRATEGY — C15 (150 Tests)
+## PART 10: TESTING STRATEGY â€” C15 (150 Tests)
 
 ### 10.1 Integration Registry Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Register new integration → CREATED | Correct status |
-| 2 | Health check → PASS | Responds |
-| 3 | Health check → FAIL → alerts | Alert created |
-| 4 | Deactivate → stops processing | Status change |
-| 5 | Duplicate code → rejected | Unique constraint |
+| 1 | Register new integration â†’ CREATED | Correct status |
+| 2 | Health check â†’ PASS | Responds |
+| 3 | Health check â†’ FAIL â†’ alerts | Alert created |
+| 4 | Deactivate â†’ stops processing | Status change |
+| 5 | Duplicate code â†’ rejected | Unique constraint |
 
 ### 10.2 Connector Framework Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | REST connector → POST succeeds | 200 |
-| 2 | REST connector → 4xx → logged | Error logged |
-| 3 | REST connector → timeout → retry | Retry count |
-| 4 | REST connector → max retries → DLQ | DLQ entry |
-| 5 | mTLS connector → valid cert → success | Authenticated |
-| 6 | mTLS connector → expired cert → error | Rejected |
-| 7 | SFTP connector → file upload → success | Transferred |
-| 8 | OAuth2 connector → token refresh → auto | Refreshed |
-| 9 | Connector testConnection → valid → true | Connection OK |
-| 10 | Connector testConnection → invalid → false | Connection fail |
+| 1 | REST connector â†’ POST succeeds | 200 |
+| 2 | REST connector â†’ 4xx â†’ logged | Error logged |
+| 3 | REST connector â†’ timeout â†’ retry | Retry count |
+| 4 | REST connector â†’ max retries â†’ DLQ | DLQ entry |
+| 5 | mTLS connector â†’ valid cert â†’ success | Authenticated |
+| 6 | mTLS connector â†’ expired cert â†’ error | Rejected |
+| 7 | SFTP connector â†’ file upload â†’ success | Transferred |
+| 8 | OAuth2 connector â†’ token refresh â†’ auto | Refreshed |
+| 9 | Connector testConnection â†’ valid â†’ true | Connection OK |
+| 10 | Connector testConnection â†’ invalid â†’ false | Connection fail |
 
 ### 10.3 Schema Registry & Mapping Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Register schema → ACTIVE | Correct status |
-| 2 | Backward-compatible update → allowed | Compatibility |
-| 3 | Breaking change → rejected | Compatibility |
-| 4 | Deprecate schema → warning | Deprecation notice |
-| 5 | Transform using mapping → correct output | Mapping correct |
-| 6 | Missing required field → error | Validation |
-| 7 | Default value applied → correct | Fallback |
-| 8 | Unknown source field → skipped gracefully | Graceful |
+| 1 | Register schema â†’ ACTIVE | Correct status |
+| 2 | Backward-compatible update â†’ allowed | Compatibility |
+| 3 | Breaking change â†’ rejected | Compatibility |
+| 4 | Deprecate schema â†’ warning | Deprecation notice |
+| 5 | Transform using mapping â†’ correct output | Mapping correct |
+| 6 | Missing required field â†’ error | Validation |
+| 7 | Default value applied â†’ correct | Fallback |
+| 8 | Unknown source field â†’ skipped gracefully | Graceful |
 
 ### 10.4 Webhook & Event Bus Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Emit event → all listeners receive | Delivery |
-| 2 | Emit event → webhook dispatched | Webhook |
-| 3 | Webhook timeout → retry 3 times | Retry |
-| 4 | Webhook fails → DLQ after max retries | DLQ |
-| 5 | Webhook HMAC signature → verified | Security |
-| 6 | Event with no listeners → stored (persistent) | Durability |
-| 7 | Event payload > limit → rejected | Validation |
-| 8 | DLQ reprocess → retry delivery | Reprocess |
-| 9 | DLQ max retries → PERMANENTLY_FAILED | Terminal |
-| 10 | Event correlation → full trace | Tracing |
+| 1 | Emit event â†’ all listeners receive | Delivery |
+| 2 | Emit event â†’ webhook dispatched | Webhook |
+| 3 | Webhook timeout â†’ retry 3 times | Retry |
+| 4 | Webhook fails â†’ DLQ after max retries | DLQ |
+| 5 | Webhook HMAC signature â†’ verified | Security |
+| 6 | Event with no listeners â†’ stored (persistent) | Durability |
+| 7 | Event payload > limit â†’ rejected | Validation |
+| 8 | DLQ reprocess â†’ retry delivery | Reprocess |
+| 9 | DLQ max retries â†’ PERMANENTLY_FAILED | Terminal |
+| 10 | Event correlation â†’ full trace | Tracing |
 
 ### 10.5 Rate Limiting & Throttling Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Under rate limit → request succeeds | 200 |
-| 2 | At rate limit → request succeeds | 200 |
-| 3 | Over rate limit → 429 | Too Many Requests |
-| 4 | Burst allowed → succeeds | Burst |
-| 5 | Burst exceeded → 429 | Throttled |
-| 6 | Reset after window → requests succeed | Window reset |
-| 7 | Tier-based limits → correct per tier | Tiered |
+| 1 | Under rate limit â†’ request succeeds | 200 |
+| 2 | At rate limit â†’ request succeeds | 200 |
+| 3 | Over rate limit â†’ 429 | Too Many Requests |
+| 4 | Burst allowed â†’ succeeds | Burst |
+| 5 | Burst exceeded â†’ 429 | Throttled |
+| 6 | Reset after window â†’ requests succeed | Window reset |
+| 7 | Tier-based limits â†’ correct per tier | Tiered |
 | 8 | Rate limit headers returned | Standard headers |
 
 ### 10.6 Idempotency Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | First request → processed | Idempotency key stored |
-| 2 | Duplicate request (same key) → skipped | Not processed |
-| 3 | Duplicate request (same key, different body) → rejected | Conflict |
-| 4 | Expired key → new request allowed | TTL expiry |
-| 5 | Missing key → normal processing | Pass-through |
+| 1 | First request â†’ processed | Idempotency key stored |
+| 2 | Duplicate request (same key) â†’ skipped | Not processed |
+| 3 | Duplicate request (same key, different body) â†’ rejected | Conflict |
+| 4 | Expired key â†’ new request allowed | TTL expiry |
+| 5 | Missing key â†’ normal processing | Pass-through |
 
 ### 10.7 ERP/CRM/GIS Connector Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Oracle GL export → invoices transformed correctly | Mapping |
-| 2 | Salesforce customer sync → bidirectional | Sync |
-| 3 | ArcGIS meter location → coordinate mapped | GIS |
-| 4 | OSIsoft PI reading → historian format | SCADA |
-| 5 | GridIoT AMI sync → meter data aligned | AMI/MDM |
-| 6 | Connector failure → specific error message | Clarity |
-| 7 | Connector auth refresh → auto-renewed | Auth |
-| 8 | Batch sync 10K records → all transferred | Batch |
-| 9 | Sync failure → partial transfer handled | Partial |
-| 10 | Schedule → runs at correct time | Cron |
+| 1 | Oracle GL export â†’ invoices transformed correctly | Mapping |
+| 2 | Salesforce customer sync â†’ bidirectional | Sync |
+| 3 | ArcGIS meter location â†’ coordinate mapped | GIS |
+| 4 | OSIsoft PI reading â†’ historian format | SCADA |
+| 5 | GridIoT AMI sync â†’ meter data aligned | AMI/MDM |
+| 6 | Connector failure â†’ specific error message | Clarity |
+| 7 | Connector auth refresh â†’ auto-renewed | Auth |
+| 8 | Batch sync 10K records â†’ all transferred | Batch |
+| 9 | Sync failure â†’ partial transfer handled | Partial |
+| 10 | Schedule â†’ runs at correct time | Cron |
 
 ### 10.8 Payment & Banking Connector Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Paymob webhook → payment recorded | Gateway |
-| 2 | Fawry webhook → payment recorded | Gateway |
-| 3 | Bank statement (MT940) → parsed | Import |
-| 4 | Bank statement (CAMT.053) → parsed | Import |
-| 5 | Duplicate webhook → idempotent | Idempotency |
-| 6 | Invalid webhook signature → rejected | Security |
+| 1 | Paymob webhook â†’ payment recorded | Gateway |
+| 2 | Fawry webhook â†’ payment recorded | Gateway |
+| 3 | Bank statement (MT940) â†’ parsed | Import |
+| 4 | Bank statement (CAMT.053) â†’ parsed | Import |
+| 5 | Duplicate webhook â†’ idempotent | Idempotency |
+| 6 | Invalid webhook signature â†’ rejected | Security |
 
 ### 10.9 Integration SLA & Observability Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | SLA within target → PASS | Green |
-| 2 | SLA breached → alert | Alert |
-| 3 | Integration log → full request/response stored | Logging |
-| 4 | Trace spans → parent/child hierarchy | Tracing |
-| 5 | DLQ count monitored → correct | Monitoring |
+| 1 | SLA within target â†’ PASS | Green |
+| 2 | SLA breached â†’ alert | Alert |
+| 3 | Integration log â†’ full request/response stored | Logging |
+| 4 | Trace spans â†’ parent/child hierarchy | Tracing |
+| 5 | DLQ count monitored â†’ correct | Monitoring |
 
 ---
 
 ## PART 11: C15 DEFINITION OF DONE
 
 ```
-C15 — ENTERPRISE INTEGRATION PLATFORM
+C15 â€” ENTERPRISE INTEGRATION PLATFORM
 CERTIFICATION CHECKLIST
 
-□ CORE DATA MODELS — 8 NEW
-   □ IntegrationRegistry (catalog + health)
-   □ IntegrationLog (transaction audit)
-   □ ConnectorDefinition (connector metadata)
-   □ IntegrationMapping (field-level mapping)
-   □ SchemaRegistry (versioned canonical schemas)
-   □ DeadLetterEntry (failed message storage)
-   □ CertificateStore (TLS management)
-   □ IntegrationSchedule (batch sync scheduling)
+â–¡ CORE DATA MODELS â€” 8 NEW
+   â–¡ IntegrationRegistry (catalog + health)
+   â–¡ IntegrationLog (transaction audit)
+   â–¡ ConnectorDefinition (connector metadata)
+   â–¡ IntegrationMapping (field-level mapping)
+   â–¡ SchemaRegistry (versioned canonical schemas)
+   â–¡ DeadLetterEntry (failed message storage)
+   â–¡ CertificateStore (TLS management)
+   â–¡ IntegrationSchedule (batch sync scheduling)
 
-□ CONNECTOR FRAMEWORK — BASE + 8 IMPLEMENTED
-   □ BaseConnector abstract class
-   □ RestConnector, SoapConnector, SftpConnector
-   □ Oracle ERP GL Connector
-   □ Salesforce CRM Connector
-   □ ArcGIS Connector
-   □ OSIsoft/SCADA Connector
-   □ GridIoT AMI/MDM Connector
-   □ Paymob + Fawry Payment Connectors
-   □ NBE + CIB Bank Statement Connectors
-   □ Tax Authority e-Invoice Connector
-   □ Twilio/SendGrid/WhatsApp Notification Connectors
+â–¡ CONNECTOR FRAMEWORK â€” BASE + 8 IMPLEMENTED
+   â–¡ BaseConnector abstract class
+   â–¡ RestConnector, SoapConnector, SftpConnector
+   â–¡ Oracle ERP GL Connector
+   â–¡ Salesforce CRM Connector
+   â–¡ ArcGIS Connector
+   â–¡ OSIsoft/SCADA Connector
+   â–¡ GridIoT AMI/MDM Connector
+   â–¡ Paymob + Fawry Payment Connectors
+   â–¡ NBE + CIB Bank Statement Connectors
+   â–¡ Tax Authority e-Invoice Connector
+   â–¡ Twilio/SendGrid/WhatsApp Notification Connectors
 
-□ API GATEWAY GOVERNANCE
-   □ API versioning (URI + Header + Query strategies)
-   □ API lifecycle (DESIGN→ACTIVE→RETIRED)
-   □ Deprecation policy with Sunset headers
-   □ Rate limiting (4 tiers)
-   □ Throttling with burst support
+â–¡ API GATEWAY GOVERNANCE
+   â–¡ API versioning (URI + Header + Query strategies)
+   â–¡ API lifecycle (DESIGNâ†’ACTIVEâ†’RETIRED)
+   â–¡ Deprecation policy with Sunset headers
+   â–¡ Rate limiting (4 tiers)
+   â–¡ Throttling with burst support
 
-□ EVENT-DRIVEN ARCHITECTURE
-   □ Enhanced EventBus with persistence
-   □ Standard event catalog (20+ events)
-   □ Webhook dispatcher enhanced (retry config, timeout)
-   □ Dead-letter queue with reprocessing
-   □ Callback orchestration
+â–¡ EVENT-DRIVEN ARCHITECTURE
+   â–¡ Enhanced EventBus with persistence
+   â–¡ Standard event catalog (20+ events)
+   â–¡ Webhook dispatcher enhanced (retry config, timeout)
+   â–¡ Dead-letter queue with reprocessing
+   â–¡ Callback orchestration
 
-□ CANONICAL DATA MODEL
-   □ Customer, Meter, Reading, Invoice, Payment, Event
-   □ Schema registry with versioning
-   □ Compatibility checking (BACKWARD)
-   □ Data transformation engine
+â–¡ CANONICAL DATA MODEL
+   â–¡ Customer, Meter, Reading, Invoice, Payment, Event
+   â–¡ Schema registry with versioning
+   â–¡ Compatibility checking (BACKWARD)
+   â–¡ Data transformation engine
 
-□ INTEGRATION OBSERVABILITY
-   □ Integration Health Dashboard
-   □ SLA monitoring (uptime, latency, error rate)
-   □ Distributed tracing (spans)
-   □ Error investigation workbench
-   □ DLQ management with reprocess
+â–¡ INTEGRATION OBSERVABILITY
+   â–¡ Integration Health Dashboard
+   â–¡ SLA monitoring (uptime, latency, error rate)
+   â–¡ Distributed tracing (spans)
+   â–¡ Error investigation workbench
+   â–¡ DLQ management with reprocess
 
-□ AI INTEGRATION OPERATIONS AGENT
-   □ Anomaly detection (error spikes, latency, silence)
-   □ Mapping recommendations
-   □ Failure prediction (risk scoring)
-   □ C12 AIRecommendation integration
+â–¡ AI INTEGRATION OPERATIONS AGENT
+   â–¡ Anomaly detection (error spikes, latency, silence)
+   â–¡ Mapping recommendations
+   â–¡ Failure prediction (risk scoring)
+   â–¡ C12 AIRecommendation integration
 
-□ SECURITY
-   □ Multi-auth support (API Key, OAuth2, mTLS, Basic, JWT)
-   □ Certificate lifecycle management
-   □ Secrets management integration
-   □ Webhook HMAC signing + verification
-   □ Idempotency key enforcement
-   □ Payload validation against schema
+â–¡ SECURITY
+   â–¡ Multi-auth support (API Key, OAuth2, mTLS, Basic, JWT)
+   â–¡ Certificate lifecycle management
+   â–¡ Secrets management integration
+   â–¡ Webhook HMAC signing + verification
+   â–¡ Idempotency key enforcement
+   â–¡ Payload validation against schema
 
-□ TESTS — 150 PASSING
-   □ Integration registry: 15 tests
-   □ Connector framework: 25 tests
-   □ Schema registry: 20 tests
-   □ Webhook & event bus: 20 tests
-   □ Rate limiting: 15 tests
-   □ Idempotency: 10 tests
-   □ ERP/CRM/GIS connectors: 20 tests
-   □ Payment & banking: 15 tests
-   □ SLA & observability: 10 tests
+â–¡ TESTS â€” 150 PASSING
+   â–¡ Integration registry: 15 tests
+   â–¡ Connector framework: 25 tests
+   â–¡ Schema registry: 20 tests
+   â–¡ Webhook & event bus: 20 tests
+   â–¡ Rate limiting: 15 tests
+   â–¡ Idempotency: 10 tests
+   â–¡ ERP/CRM/GIS connectors: 20 tests
+   â–¡ Payment & banking: 15 tests
+   â–¡ SLA & observability: 10 tests
 
-C15 STATUS: □ NOT IMPLEMENTED
+C15 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -1004,28 +1010,29 @@ All items above are DESIGN-COMPLETE but not executed.
 ## APPENDIX B: C15 DEPENDENCY GRAPH
 
 ```
-C01 EventBus (existing) ──────┐
-C12 Identity (auth, audit) ───┤
-C13 Financial (GL posting) ───┤
-C14 Customer (portal events) ──┤
-WebhookDispatcher (exist) ────┤
-QueueJob (existing) ──────────┤
-correlationMiddleware (exist) ─┤
-                                ▼
-                     ┌──────────────────────────┐
-                     │  C15 INTEGRATION PLATFORM │
-                     └──────────────────────────┘
-                           │
-                           ├──→ Integration Registry
-                           ├──→ Connector Framework (base + 15 connectors)
-                           ├──→ Schema Registry + CDM
-                           ├──→ Enhanced EventBus
-                           ├──→ Webhook + DLQ + Idempotency
-                           ├──→ Integration Health Dashboard
-                           └──→ AI Integration Ops Agent
+C01 EventBus (existing) â”€â”€â”€â”€â”€â”€â”
+C12 Identity (auth, audit) â”€â”€â”€â”¤
+C13 Financial (GL posting) â”€â”€â”€â”¤
+C14 Customer (portal events) â”€â”€â”¤
+WebhookDispatcher (exist) â”€â”€â”€â”€â”¤
+QueueJob (existing) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+correlationMiddleware (exist) â”€â”¤
+                                â–¼
+                     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                     â”‚  C15 INTEGRATION PLATFORM â”‚
+                     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                           â”‚
+                           â”œâ”€â”€â†’ Integration Registry
+                           â”œâ”€â”€â†’ Connector Framework (base + 15 connectors)
+                           â”œâ”€â”€â†’ Schema Registry + CDM
+                           â”œâ”€â”€â†’ Enhanced EventBus
+                           â”œâ”€â”€â†’ Webhook + DLQ + Idempotency
+                           â”œâ”€â”€â†’ Integration Health Dashboard
+                           â””â”€â”€â†’ AI Integration Ops Agent
 ```
 
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C15 — Enterprise Integration Platform & External Ecosystem Hub. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*C15 â€” Enterprise Integration Platform & External Ecosystem Hub. READ ONLY. GOVERNANCE PLANNING ONLY.*
+

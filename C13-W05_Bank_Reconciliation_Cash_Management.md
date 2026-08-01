@@ -1,8 +1,14 @@
-# C13-W05 — Enterprise Bank Reconciliation & Cash Management Platform
+﻿<!-- Status Block
+====================================================================
+Design: [x] Complete | Implementation: [ ] Not Started | Certification: [ ] Not Certified | Wave: W2+ | Commit: 936be39c
+====================================================================
+-->
+
+# C13-W05 â€” Enterprise Bank Reconciliation & Cash Management Platform
 ## Blueprint
 
 **Version:** 1.0.0  
-**Status:** READ ONLY — GOVERNANCE PLANNING ONLY — NOT IMPLEMENTED  
+**Status:** READ ONLY â€” GOVERNANCE PLANNING ONLY â€” NOT IMPLEMENTED  
 **Date:** 2026-07-29  
 **Program:** C13 Enterprise Financial & Billing Intelligence Platform  
 **Wave:** W05 (Bank Reconciliation & Cash Management)  
@@ -15,35 +21,35 @@
 
 | Component | Location | Status | Capability |
 |-----------|----------|--------|------------|
-| **PaymentGateway** model | `schema.prisma:1443` | ✅ Complete | name, provider, config, active, testMode |
-| **PaymentTransaction** model | `schema.prisma:1456` | ✅ Complete | gatewayId, transactionId, amount, currency, status |
-| **GatewayLog** model | `schema.prisma:1480` | ✅ Complete | request, response, status |
-| **Payment** model | `schema.prisma:1013` | ✅ Complete | method (cash/bank/card), status, paidAt |
-| **Payment** method enum | Routes | ✅ Complete | cash, bank, card, check, wallet |
-| **CustomerLedgerEntry** | `schema.prisma:1493` | ✅ Complete | Overpayments, credits, refunds |
-| **W01 PostingEngine** | Planned | ❌ Pending | Auto-journal from payments |
-| **W02 Revenue Assurance** | Planned | ❌ Pending | Payment discrepancy detection |
-| **W04 Collection Intel** | Planned | ❌ Pending | Payment allocation tracking |
+| **PaymentGateway** model | `schema.prisma:1443` | âœ… Complete | name, provider, config, active, testMode |
+| **PaymentTransaction** model | `schema.prisma:1456` | âœ… Complete | gatewayId, transactionId, amount, currency, status |
+| **GatewayLog** model | `schema.prisma:1480` | âœ… Complete | request, response, status |
+| **Payment** model | `schema.prisma:1013` | âœ… Complete | method (cash/bank/card), status, paidAt |
+| **Payment** method enum | Routes | âœ… Complete | cash, bank, card, check, wallet |
+| **CustomerLedgerEntry** | `schema.prisma:1493` | âœ… Complete | Overpayments, credits, refunds |
+| **W01 PostingEngine** | Planned | âŒ Pending | Auto-journal from payments |
+| **W02 Revenue Assurance** | Planned | âŒ Pending | Payment discrepancy detection |
+| **W04 Collection Intel** | Planned | âŒ Pending | Payment allocation tracking |
 
 ### 1.2 Gap Analysis
 
 | Capability | Current | W05 Target |
 |------------|---------|------------|
-| Bank account management | ❌ None | Multi-bank hierarchy with balances |
-| Bank statement import | ❌ None | CSV, Excel, CAMT.053, MT940, API |
-| Statement lifecycle | ❌ None | UPLOADED → PARSED → MATCHING → RECONCILED → POSTED |
-| Auto-reconciliation engine | ❌ None | Rule-based matching with AI assistance |
-| Manual reconciliation | ❌ None | Interactive workbench |
-| Multi-currency | ❌ None | FX rates, auto-conversion, GL posting |
-| Payment gateway reconciliation | ❌ None | Gateway statement vs bank statement |
-| Duplicate payment detection | ❌ None | Fingerprint matching |
-| Unidentified payments | ❌ None | Suspense account workflow |
-| Returned payments / chargebacks | ❌ None | Full lifecycle management |
-| Bank fee accounting | ❌ None | Auto-detect and post fees |
-| Cash position dashboard | ❌ None | Real-time consolidated view |
-| Daily cash forecasting | ❌ None | AR/AP-driven forecast |
-| AI Cash Intelligence | ❌ None | Anomaly detection, liquidity forecast |
-| Exception management | ❌ None | Investigation and resolution workflow |
+| Bank account management | âŒ None | Multi-bank hierarchy with balances |
+| Bank statement import | âŒ None | CSV, Excel, CAMT.053, MT940, API |
+| Statement lifecycle | âŒ None | UPLOADED â†’ PARSED â†’ MATCHING â†’ RECONCILED â†’ POSTED |
+| Auto-reconciliation engine | âŒ None | Rule-based matching with AI assistance |
+| Manual reconciliation | âŒ None | Interactive workbench |
+| Multi-currency | âŒ None | FX rates, auto-conversion, GL posting |
+| Payment gateway reconciliation | âŒ None | Gateway statement vs bank statement |
+| Duplicate payment detection | âŒ None | Fingerprint matching |
+| Unidentified payments | âŒ None | Suspense account workflow |
+| Returned payments / chargebacks | âŒ None | Full lifecycle management |
+| Bank fee accounting | âŒ None | Auto-detect and post fees |
+| Cash position dashboard | âŒ None | Real-time consolidated view |
+| Daily cash forecasting | âŒ None | AR/AP-driven forecast |
+| AI Cash Intelligence | âŒ None | Anomaly detection, liquidity forecast |
+| Exception management | âŒ None | Investigation and resolution workflow |
 
 ---
 
@@ -52,114 +58,114 @@
 ### 2.1 High-Level Architecture
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│                   BANK RECONCILIATION & CASH MANAGEMENT PLATFORM                                │
-│                                                                                                │
-│  ┌───────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  DATA INGESTION LAYER                                                                     │    │
-│  │                                                                                          │    │
-│  │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────┐  │    │
-│  │  │ CSV/Excel    │  │ CAMT.053     │  │ MT940        │  │ Bank API     │  │ Gateway  │  │    │
-│  │  │ File Import  │  │ (XML ISO)    │  │ (SWIFT)      │  │ (REST/SFTP)  │  │ (webhook)│  │    │
-│  │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘  └──────────┘  │    │
-│  └───────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│                                    ▼                                                          │
-│  ┌───────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  RECONCILIATION ENGINE                                                                    │    │
-│  │                                                                                          │    │
-│  │  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐                │    │
-│  │  │ Rule-Based Matcher │  │ AI-Assisted Matcher │  │ Manual Matcher    │                │    │
-│  │  │                    │  │                    │  │                    │                │    │
-│  │  │ • Reference match  │  │ • Fuzzy amount     │  │ • Interactive UI  │                │    │
-│  │  │ • Amount + date    │  │ • Partial match    │  │ • Split/match     │                │    │
-│  │  │ • Exact match      │  │ • Learning from    │  │ • Override with   │                │    │
-│  │  │ • Fingerprint      │  │   manual matches   │  │   reason          │                │    │
-│  │  └────────────────────┘  └────────────────────┘  └────────────────────┘                │    │
-│  └───────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│                                    ▼                                                          │
-│  ┌───────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  EXCEPTION MANAGEMENT                                                                     │    │
-│  │                                                                                          │    │
-│  │  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐        │    │
-│  │  │ Unmatched      │  │ Partial Match  │  │ Duplicate      │  │ Unidentified   │        │    │
-│  │  │ Bank Lines     │  │ (diff > 0.01)  │  │ Detected       │  │ Payments      │        │    │
-│  │  └────────────────┘  └────────────────┘  └────────────────┘  └────────────────┘        │    │
-│  └───────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│                                    ▼                                                          │
-│  ┌───────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  ACCOUNTING INTEGRATION (via W01 PostingEngine)                                          │    │
-│  │                                                                                          │    │
-│  │  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐        │    │
-│  │  │ Bank Statement │  │ Bank Fees      │  │ FX Gain/Loss   │  │ Suspense       │        │    │
-│  │  │ GL Posting     │  │ Journal        │  │ Journal        │  │ Clearance      │        │    │
-│  │  └────────────────┘  └────────────────┘  └────────────────┘  └────────────────┘        │    │
-│  └───────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                    │                                                          │
-│  ┌───────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  TREASURY & CASH MANAGEMENT                                                               │    │
-│  │                                                                                          │    │
-│  │  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐        │    │
-│  │  │ Cash Position  │  │ Daily Cash     │  │ Liquidity      │  │ Multi-Currency │        │    │
-│  │  │ Dashboard      │  │ Forecast       │  │ Planning       │  │ Balances       │        │    │
-│  │  └────────────────┘  └────────────────┘  └────────────────┘  └────────────────┘        │    │
-│  └───────────────────────────────────────────────────────────────────────────────────────┘    │
-│                                                                                                │
-│  ┌───────────────────────────────────────────────────────────────────────────────────────┐    │
-│  │  AI CASH INTELLIGENCE AGENT                                                                │    │
-│  │                                                                                          │    │
-│  │  • Payment anomaly detection  • Cash flow prediction  • Liquidity forecasting           │    │
-│  │  • Reconciliation suggestions • Duplicate detection    • Bank fee optimization          │    │
-│  └───────────────────────────────────────────────────────────────────────────────────────┘    │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                   BANK RECONCILIATION & CASH MANAGEMENT PLATFORM                                â”‚
+â”‚                                                                                                â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  DATA INGESTION LAYER                                                                     â”‚    â”‚
+â”‚  â”‚                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚    â”‚
+â”‚  â”‚  â”‚ CSV/Excel    â”‚  â”‚ CAMT.053     â”‚  â”‚ MT940        â”‚  â”‚ Bank API     â”‚  â”‚ Gateway  â”‚  â”‚    â”‚
+â”‚  â”‚  â”‚ File Import  â”‚  â”‚ (XML ISO)    â”‚  â”‚ (SWIFT)      â”‚  â”‚ (REST/SFTP)  â”‚  â”‚ (webhook)â”‚  â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚                                    â–¼                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  RECONCILIATION ENGINE                                                                    â”‚    â”‚
+â”‚  â”‚                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                â”‚    â”‚
+â”‚  â”‚  â”‚ Rule-Based Matcher â”‚  â”‚ AI-Assisted Matcher â”‚  â”‚ Manual Matcher    â”‚                â”‚    â”‚
+â”‚  â”‚  â”‚                    â”‚  â”‚                    â”‚  â”‚                    â”‚                â”‚    â”‚
+â”‚  â”‚  â”‚ â€¢ Reference match  â”‚  â”‚ â€¢ Fuzzy amount     â”‚  â”‚ â€¢ Interactive UI  â”‚                â”‚    â”‚
+â”‚  â”‚  â”‚ â€¢ Amount + date    â”‚  â”‚ â€¢ Partial match    â”‚  â”‚ â€¢ Split/match     â”‚                â”‚    â”‚
+â”‚  â”‚  â”‚ â€¢ Exact match      â”‚  â”‚ â€¢ Learning from    â”‚  â”‚ â€¢ Override with   â”‚                â”‚    â”‚
+â”‚  â”‚  â”‚ â€¢ Fingerprint      â”‚  â”‚   manual matches   â”‚  â”‚   reason          â”‚                â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜                â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚                                    â–¼                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  EXCEPTION MANAGEMENT                                                                     â”‚    â”‚
+â”‚  â”‚                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”        â”‚    â”‚
+â”‚  â”‚  â”‚ Unmatched      â”‚  â”‚ Partial Match  â”‚  â”‚ Duplicate      â”‚  â”‚ Unidentified   â”‚        â”‚    â”‚
+â”‚  â”‚  â”‚ Bank Lines     â”‚  â”‚ (diff > 0.01)  â”‚  â”‚ Detected       â”‚  â”‚ Payments      â”‚        â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚                                    â–¼                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  ACCOUNTING INTEGRATION (via W01 PostingEngine)                                          â”‚    â”‚
+â”‚  â”‚                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”        â”‚    â”‚
+â”‚  â”‚  â”‚ Bank Statement â”‚  â”‚ Bank Fees      â”‚  â”‚ FX Gain/Loss   â”‚  â”‚ Suspense       â”‚        â”‚    â”‚
+â”‚  â”‚  â”‚ GL Posting     â”‚  â”‚ Journal        â”‚  â”‚ Journal        â”‚  â”‚ Clearance      â”‚        â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                    â”‚                                                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  TREASURY & CASH MANAGEMENT                                                               â”‚    â”‚
+â”‚  â”‚                                                                                          â”‚    â”‚
+â”‚  â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”        â”‚    â”‚
+â”‚  â”‚  â”‚ Cash Position  â”‚  â”‚ Daily Cash     â”‚  â”‚ Liquidity      â”‚  â”‚ Multi-Currency â”‚        â”‚    â”‚
+â”‚  â”‚  â”‚ Dashboard      â”‚  â”‚ Forecast       â”‚  â”‚ Planning       â”‚  â”‚ Balances       â”‚        â”‚    â”‚
+â”‚  â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜        â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚                                                                                                â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚  AI CASH INTELLIGENCE AGENT                                                                â”‚    â”‚
+â”‚  â”‚                                                                                          â”‚    â”‚
+â”‚  â”‚  â€¢ Payment anomaly detection  â€¢ Cash flow prediction  â€¢ Liquidity forecasting           â”‚    â”‚
+â”‚  â”‚  â€¢ Reconciliation suggestions â€¢ Duplicate detection    â€¢ Bank fee optimization          â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.2 Statement Lifecycle
 
 ```
-┌──────────┐
-│ UPLOADED  │  File received via upload, API, SFTP, or webhook
-└────┬─────┘
-     │
-     ▼
-┌──────────┐
-│  PARSED   │  File parsed into structured BankStatement records
-└────┬─────┘
-     │
-     ▼
-┌───────────┐
-│ MATCHING   │  Auto-reconciliation engine runs
-│   (auto)   │  Rule-based + AI-assisted matching
-└────┬──────┘
-     │
-    ┌┴──────────────┐
-    │               │
-    ▼               ▼
-┌──────────┐  ┌──────────┐
-│ RECONCILED│  │EXCEPTION │  Unmatched/partial entries
-│  (auto)   │  │          │
-└────┬─────┘  └────┬─────┘
-     │             │
-     │        ┌────┴────┐
-     │        │         │
-     │        ▼         ▼
-     │  ┌─────────┐ ┌─────────┐
-     │  │Manual   │ │Investiga│
-     │  │Matched  │ │ -tion   │
-     │  └────┬────┘ └────┬────┘
-     │       │           │
-     └───────┼───────────┘
-             ▼
-┌──────────┐
-│ VERIFIED  │  Reconciliation reviewed and approved
-└────┬─────┘
-     │
-     ▼
-┌──────────┐
-│  POSTED   │  GL entries created (bank statement = bank GL balance)
-└──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ UPLOADED  â”‚  File received via upload, API, SFTP, or webhook
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  PARSED   â”‚  File parsed into structured BankStatement records
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ MATCHING   â”‚  Auto-reconciliation engine runs
+â”‚   (auto)   â”‚  Rule-based + AI-assisted matching
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”˜
+     â”‚
+    â”Œâ”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+    â”‚               â”‚
+    â–¼               â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ RECONCILEDâ”‚  â”‚EXCEPTION â”‚  Unmatched/partial entries
+â”‚  (auto)   â”‚  â”‚          â”‚
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚             â”‚
+     â”‚        â”Œâ”€â”€â”€â”€â”´â”€â”€â”€â”€â”
+     â”‚        â”‚         â”‚
+     â”‚        â–¼         â–¼
+     â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+     â”‚  â”‚Manual   â”‚ â”‚Investigaâ”‚
+     â”‚  â”‚Matched  â”‚ â”‚ -tion   â”‚
+     â”‚  â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”˜
+     â”‚       â”‚           â”‚
+     â””â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+             â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ VERIFIED  â”‚  Reconciliation reviewed and approved
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  POSTED   â”‚  GL entries created (bank statement = bank GL balance)
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 2.3 Matching Algorithm
@@ -211,7 +217,7 @@ ReconciliationEngine.match(bankStatement, internalTransactions):
 
   STAGE 5: MANUAL
     FOR each unmatched:
-      → Add to reconciliation workbench for manual matching
+      â†’ Add to reconciliation workbench for manual matching
 
   RETURN { matched, partial, unmatched }
 ```
@@ -226,22 +232,22 @@ ReconciliationEngine.match(bankStatement, internalTransactions):
 
 ```
 BankAccount
-├── id: String (UUID, PK)
-├── bankName: String                 ← "National Bank of Egypt"
-├── accountName: String              ← "MeterVerse Operating Account"
-├── accountNumber: String            ← Masked/last-4-digits
-├── iban: String?                    ← International format
-├── swiftCode: String?               ← SWIFT/BIC
-├── currency: String @default("EGP")
-├── type: String                     ← CURRENT | SAVINGS | SETTLEMENT | COLLECTION
-├── openingBalance: Float @default(0)
-├── currentBalance: Float @default(0)
-├── availableBalance: Float @default(0)
-├── lastReconciledAt: DateTime?
-├── lastReconciledBalance: Float?
-├── status: String @default("ACTIVE")  ← ACTIVE | SUSPENDED | CLOSED
-├── metadata: String? (JSON)
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ bankName: String                 â† "National Bank of Egypt"
+â”œâ”€â”€ accountName: String              â† "MeterVerse Operating Account"
+â”œâ”€â”€ accountNumber: String            â† Masked/last-4-digits
+â”œâ”€â”€ iban: String?                    â† International format
+â”œâ”€â”€ swiftCode: String?               â† SWIFT/BIC
+â”œâ”€â”€ currency: String @default("EGP")
+â”œâ”€â”€ type: String                     â† CURRENT | SAVINGS | SETTLEMENT | COLLECTION
+â”œâ”€â”€ openingBalance: Float @default(0)
+â”œâ”€â”€ currentBalance: Float @default(0)
+â”œâ”€â”€ availableBalance: Float @default(0)
+â”œâ”€â”€ lastReconciledAt: DateTime?
+â”œâ”€â”€ lastReconciledBalance: Float?
+â”œâ”€â”€ status: String @default("ACTIVE")  â† ACTIVE | SUSPENDED | CLOSED
+â”œâ”€â”€ metadata: String? (JSON)
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Indexes:
   @@index([accountNumber])
@@ -254,33 +260,33 @@ Indexes:
 
 ```
 BankStatement
-├── id: String (UUID, PK)
-├── bankAccountId: String (FK → BankAccount)
-├── statementDate: DateTime          ← Statement date/period-end
-├── periodStart: DateTime
-├── periodEnd: DateTime
-├── importSource: String             ← UPLOAD | API | SFTP | MANUAL
-├── importFormat: String             ← CSV | XLSX | CAMT053 | MT940 | API
-├── originalFilename: String?
-├── openingBalance: Float
-├── closingBalance: Float
-├── totalCredits: Float @default(0)
-├── totalDebits: Float @default(0)
-├── transactionCount: Int @default(0)
-├── matchedCount: Int @default(0)
-├── unmatchedCount: Int @default(0)
-├── status: String @default("UPLOADED")  ← UPLOADED|PARSED|MATCHING|RECONCILED|VERIFIED|POSTED
-├── reconciledAt: DateTime?
-├── reconciledBy: String?
-├── postedAt: DateTime?
-├── glJournalEntryId: String? (FK → JournalEntry)
-├── notes: String?
-├── createdAt, archivedAt, updatedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ bankAccountId: String (FK â†’ BankAccount)
+â”œâ”€â”€ statementDate: DateTime          â† Statement date/period-end
+â”œâ”€â”€ periodStart: DateTime
+â”œâ”€â”€ periodEnd: DateTime
+â”œâ”€â”€ importSource: String             â† UPLOAD | API | SFTP | MANUAL
+â”œâ”€â”€ importFormat: String             â† CSV | XLSX | CAMT053 | MT940 | API
+â”œâ”€â”€ originalFilename: String?
+â”œâ”€â”€ openingBalance: Float
+â”œâ”€â”€ closingBalance: Float
+â”œâ”€â”€ totalCredits: Float @default(0)
+â”œâ”€â”€ totalDebits: Float @default(0)
+â”œâ”€â”€ transactionCount: Int @default(0)
+â”œâ”€â”€ matchedCount: Int @default(0)
+â”œâ”€â”€ unmatchedCount: Int @default(0)
+â”œâ”€â”€ status: String @default("UPLOADED")  â† UPLOADED|PARSED|MATCHING|RECONCILED|VERIFIED|POSTED
+â”œâ”€â”€ reconciledAt: DateTime?
+â”œâ”€â”€ reconciledBy: String?
+â”œâ”€â”€ postedAt: DateTime?
+â”œâ”€â”€ glJournalEntryId: String? (FK â†’ JournalEntry)
+â”œâ”€â”€ notes: String?
+â”œâ”€â”€ createdAt, archivedAt, updatedAt
 
 Relations:
-  bankAccount → BankAccount
-  transactions → BankTransaction[]
-  exceptions → ReconciliationException[]
+  bankAccount â†’ BankAccount
+  transactions â†’ BankTransaction[]
+  exceptions â†’ ReconciliationException[]
 
 Indexes:
   @@index([bankAccountId, status])
@@ -293,26 +299,26 @@ Indexes:
 
 ```
 BankTransaction
-├── id: String (UUID, PK)
-├── bankStatementId: String (FK → BankStatement)
-├── transactionDate: DateTime
-├── valueDate: DateTime?
-├── reference: String?               ← Bank reference/transaction ID
-├── description: String
-├── amount: Float                     ← Positive = credit, Negative = debit
-├── currency: String @default("EGP")
-├── exchangeRate: Float @default(1)
-├── baseAmount: Float?               ← Amount in account's base currency
-├── type: String                     ← CREDIT | DEBIT
-├── category: String?                ← FEE | INTEREST | TRANSFER | PAYMENT | CHARGEBACK | etc.
-├── internalMatchId: String?         ← FK → PaymentTransaction.id (when matched)
-├── matchMethod: String?             ← EXACT | AMOUNT_DATE | REFERENCE | AI_SUGGESTED | MANUAL
-├── matchConfidence: Float?          ← 0.0-1.0
-├── matchStatus: String @default("UNMATCHED")  ← UNMATCHED | MATCHED | PARTIAL | SPLIT
-├── matchedAt: DateTime?
-├── matchedBy: String?
-├── notes: String?
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ bankStatementId: String (FK â†’ BankStatement)
+â”œâ”€â”€ transactionDate: DateTime
+â”œâ”€â”€ valueDate: DateTime?
+â”œâ”€â”€ reference: String?               â† Bank reference/transaction ID
+â”œâ”€â”€ description: String
+â”œâ”€â”€ amount: Float                     â† Positive = credit, Negative = debit
+â”œâ”€â”€ currency: String @default("EGP")
+â”œâ”€â”€ exchangeRate: Float @default(1)
+â”œâ”€â”€ baseAmount: Float?               â† Amount in account's base currency
+â”œâ”€â”€ type: String                     â† CREDIT | DEBIT
+â”œâ”€â”€ category: String?                â† FEE | INTEREST | TRANSFER | PAYMENT | CHARGEBACK | etc.
+â”œâ”€â”€ internalMatchId: String?         â† FK â†’ PaymentTransaction.id (when matched)
+â”œâ”€â”€ matchMethod: String?             â† EXACT | AMOUNT_DATE | REFERENCE | AI_SUGGESTED | MANUAL
+â”œâ”€â”€ matchConfidence: Float?          â† 0.0-1.0
+â”œâ”€â”€ matchStatus: String @default("UNMATCHED")  â† UNMATCHED | MATCHED | PARTIAL | SPLIT
+â”œâ”€â”€ matchedAt: DateTime?
+â”œâ”€â”€ matchedBy: String?
+â”œâ”€â”€ notes: String?
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([bankStatementId])
@@ -328,20 +334,20 @@ Indexes:
 
 ```
 ReconciliationException
-├── id: String (UUID, PK)
-├── bankStatementId: String (FK → BankStatement)
-├── bankTransactionId: String? (FK → BankTransaction)
-├── type: String                     ← UNMATCHED_DEBIT | UNMATCHED_CREDIT | PARTIAL_MATCH |
-│                                        DUPLICATE | UNIDENTIFIED | AMOUNT_MISMATCH
-├── description: String
-├── amount: Float
-├── status: String @default("OPEN")  ← OPEN | INVESTIGATING | RESOLVED | DISMISSED
-├── resolvedMethod: String?          ← MANUAL_MATCH | WRITE_OFF | SUSPENSE | REVERSAL
-├── resolvedAt: DateTime?
-├── resolvedBy: String? (FK → User)
-├── resolutionNote: String?
-├── journalEntryId: String? (FK → JournalEntry)
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ bankStatementId: String (FK â†’ BankStatement)
+â”œâ”€â”€ bankTransactionId: String? (FK â†’ BankTransaction)
+â”œâ”€â”€ type: String                     â† UNMATCHED_DEBIT | UNMATCHED_CREDIT | PARTIAL_MATCH |
+â”‚                                        DUPLICATE | UNIDENTIFIED | AMOUNT_MISMATCH
+â”œâ”€â”€ description: String
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ status: String @default("OPEN")  â† OPEN | INVESTIGATING | RESOLVED | DISMISSED
+â”œâ”€â”€ resolvedMethod: String?          â† MANUAL_MATCH | WRITE_OFF | SUSPENSE | REVERSAL
+â”œâ”€â”€ resolvedAt: DateTime?
+â”œâ”€â”€ resolvedBy: String? (FK â†’ User)
+â”œâ”€â”€ resolutionNote: String?
+â”œâ”€â”€ journalEntryId: String? (FK â†’ JournalEntry)
+â”œâ”€â”€ createdAt, archivedAt
 
 Indexes:
   @@index([bankStatementId, status])
@@ -354,20 +360,20 @@ Indexes:
 
 ```
 PaymentGatewaySettlement
-├── id: String (UUID, PK)
-├── gatewayId: String (FK → PaymentGateway)
-├── settlementId: String             ← Gateway's settlement reference
-├── periodStart: DateTime
-├── periodEnd: DateTime
-├── settlementDate: DateTime
-├── totalAmount: Float
-├── totalFees: Float @default(0)
-├── netAmount: Float
-├── transactionCount: Int
-├── currency: String @default("EGP")
-├── status: String                   ← PENDING | SETTLED | RECONCILED
-├── bankStatementId: String? (FK → BankStatement)  ← Linked when net settlement hits bank
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ gatewayId: String (FK â†’ PaymentGateway)
+â”œâ”€â”€ settlementId: String             â† Gateway's settlement reference
+â”œâ”€â”€ periodStart: DateTime
+â”œâ”€â”€ periodEnd: DateTime
+â”œâ”€â”€ settlementDate: DateTime
+â”œâ”€â”€ totalAmount: Float
+â”œâ”€â”€ totalFees: Float @default(0)
+â”œâ”€â”€ netAmount: Float
+â”œâ”€â”€ transactionCount: Int
+â”œâ”€â”€ currency: String @default("EGP")
+â”œâ”€â”€ status: String                   â† PENDING | SETTLED | RECONCILED
+â”œâ”€â”€ bankStatementId: String? (FK â†’ BankStatement)  â† Linked when net settlement hits bank
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.6 SuspenseTransaction (NEW)
@@ -376,18 +382,18 @@ PaymentGatewaySettlement
 
 ```
 SuspenseTransaction
-├── id: String (UUID, PK)
-├── source: String                   ← BANK_STATEMENT | PAYMENT_GATEWAY | MANUAL
-├── sourceId: String                 ← FK to source record
-├── amount: Float
-├── currency: String @default("EGP")
-├── description: String
-├── status: String                   ← PENDING | INVESTIGATING | ALLOCATED | REVERSED
-├── allocatedTo: String?             ← CustomerId or InvoiceId
-├── allocatedAt: DateTime?
-├── allocatedBy: String? (FK → User)
-├── journalEntryId: String? (FK → JournalEntry)  ← Suspense GL entry
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ source: String                   â† BANK_STATEMENT | PAYMENT_GATEWAY | MANUAL
+â”œâ”€â”€ sourceId: String                 â† FK to source record
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ currency: String @default("EGP")
+â”œâ”€â”€ description: String
+â”œâ”€â”€ status: String                   â† PENDING | INVESTIGATING | ALLOCATED | REVERSED
+â”œâ”€â”€ allocatedTo: String?             â† CustomerId or InvoiceId
+â”œâ”€â”€ allocatedAt: DateTime?
+â”œâ”€â”€ allocatedBy: String? (FK â†’ User)
+â”œâ”€â”€ journalEntryId: String? (FK â†’ JournalEntry)  â† Suspense GL entry
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.7 CashForecast (NEW)
@@ -396,17 +402,17 @@ SuspenseTransaction
 
 ```
 CashForecast
-├── id: String (UUID, PK)
-├── forecastDate: DateTime           ← Date of forecast generation
-├── projectionDate: DateTime         ← Which date is being projected
-├── expectedInflows: Float @default(0)
-├── expectedOutflows: Float @default(0)
-├── netFlow: Float @default(0)
-├── openingBalance: Float
-├── closingBalance: Float
-├── confidence: Float?               ← 0.0-1.0
-├── source: String                   ← AI_MODEL | MANUAL | SYSTEM
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ forecastDate: DateTime           â† Date of forecast generation
+â”œâ”€â”€ projectionDate: DateTime         â† Which date is being projected
+â”œâ”€â”€ expectedInflows: Float @default(0)
+â”œâ”€â”€ expectedOutflows: Float @default(0)
+â”œâ”€â”€ netFlow: Float @default(0)
+â”œâ”€â”€ openingBalance: Float
+â”œâ”€â”€ closingBalance: Float
+â”œâ”€â”€ confidence: Float?               â† 0.0-1.0
+â”œâ”€â”€ source: String                   â† AI_MODEL | MANUAL | SYSTEM
+â”œâ”€â”€ createdAt
 
 Index:
   @@index([projectionDate])
@@ -418,15 +424,15 @@ Index:
 
 ```
 ExchangeRate
-├── id: String (UUID, PK)
-├── fromCurrency: String
-├── toCurrency: String
-├── rate: Float
-├── date: DateTime
-├── source: String                   ← CENTRAL_BANK | MANUAL | MARKET
-├── approvedBy: String? (FK → User)
-├── approvedAt: DateTime?
-├── createdAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ fromCurrency: String
+â”œâ”€â”€ toCurrency: String
+â”œâ”€â”€ rate: Float
+â”œâ”€â”€ date: DateTime
+â”œâ”€â”€ source: String                   â† CENTRAL_BANK | MANUAL | MARKET
+â”œâ”€â”€ approvedBy: String? (FK â†’ User)
+â”œâ”€â”€ approvedAt: DateTime?
+â”œâ”€â”€ createdAt
 
 Unique: [fromCurrency, toCurrency, date]
 ```
@@ -437,18 +443,18 @@ Unique: [fromCurrency, toCurrency, date]
 
 ```
 ReturnedPayment
-├── id: String (UUID, PK)
-├── paymentId: String (FK → Payment)
-├── bankTransactionId: String? (FK → BankTransaction)
-├── type: String                     ← RETURNED | CHARGEBACK | REVERSAL | STOPPED
-├── reason: String
-├── amount: Float
-├── fees: Float @default(0)
-├── status: String                   ← PENDING | PROCESSED | DISPUTED | RESOLVED
-├── resolvedAt: DateTime?
-├── resolvedBy: String? (FK → User)
-├── journalEntryId: String? (FK → JournalEntry)
-├── createdAt, archivedAt
+â”œâ”€â”€ id: String (UUID, PK)
+â”œâ”€â”€ paymentId: String (FK â†’ Payment)
+â”œâ”€â”€ bankTransactionId: String? (FK â†’ BankTransaction)
+â”œâ”€â”€ type: String                     â† RETURNED | CHARGEBACK | REVERSAL | STOPPED
+â”œâ”€â”€ reason: String
+â”œâ”€â”€ amount: Float
+â”œâ”€â”€ fees: Float @default(0)
+â”œâ”€â”€ status: String                   â† PENDING | PROCESSED | DISPUTED | RESOLVED
+â”œâ”€â”€ resolvedAt: DateTime?
+â”œâ”€â”€ resolvedBy: String? (FK â†’ User)
+â”œâ”€â”€ journalEntryId: String? (FK â†’ JournalEntry)
+â”œâ”€â”€ createdAt, archivedAt
 ```
 
 ### 3.10 New Models Summary
@@ -474,12 +480,12 @@ ReturnedPayment
 
 | Format | Type | Parser Complexity | Coverage |
 |--------|------|-------------------|----------|
-| **CSV** | File | Low — column mapping | Most banks |
-| **Excel (XLSX)** | File | Low — sheet/column mapping | Common |
-| **CAMT.053** | XML (ISO 20022) | Medium — standard XML structure | EU/international banks |
-| **MT940** | SWIFT | Medium — structured text | Global banks |
-| **REST API** | JSON | Medium — bank-specific format | Banks with APIs |
-| **Manual entry** | Form | Low — user input | Any bank |
+| **CSV** | File | Low â€” column mapping | Most banks |
+| **Excel (XLSX)** | File | Low â€” sheet/column mapping | Common |
+| **CAMT.053** | XML (ISO 20022) | Medium â€” standard XML structure | EU/international banks |
+| **MT940** | SWIFT | Medium â€” structured text | Global banks |
+| **REST API** | JSON | Medium â€” bank-specific format | Banks with APIs |
+| **Manual entry** | Form | Low â€” user input | Any bank |
 
 ### 4.2 Import Pipeline
 
@@ -566,42 +572,42 @@ function extractRef(description) {
 | **FUZZY_REFERENCE** | 3 | Reference fuzzy match + amount within 0.01 | 0.90 | INV202600123 vs INV-2026-00123 |
 | **CUSTOMER_NAME** | 4 | Customer name in description + amount match | 0.85 | "EgyptAir" in desc + EGP 5K |
 | **AMOUNT_ONLY** | 5 | Amount matches + no other candidates | 0.70 | Only one EGP 1,250.00 payment |
-| **SPLIT_MATCH** | 6 | Amount = sum of 2+ payments | 0.60 | Bank line EGP 5K = 2 × EGP 2.5K |
+| **SPLIT_MATCH** | 6 | Amount = sum of 2+ payments | 0.60 | Bank line EGP 5K = 2 Ã— EGP 2.5K |
 | **AI_SUGGESTED** | 7 | ML model recommends match | 0.50-0.95 | Based on historical patterns |
 
 ### 5.2 Reconciliation Workflow
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ RECONCILIATION WORKBENCH                                                      │
-│                                                                              │
-│ Statement: NBE Current Account  ·  Period: 2026-07-01 → 2026-07-31          │
-│ Opening: EGP 1,250,000  ·  Closing: EGP 1,380,000  ·  Match Rate: 92%     │
-│                                                                              │
-│ ┌─── MATCHED (45/50) ────────────────────────────────────────────────────┐  │
-│ │ Date       │ Ref          │ Description      │ Amount  │ Match │ Conf  │  │
-│ │ 2026-07-15 │ INV-2026-123 │ EgyptAir payment  │ +45,200 │ EXACT │ 1.0   │  │
-│ │ 2026-07-18 │ INV-2026-131 │ Nile Corp payment │ +12,000 │ REF   │ 0.95  │  │
-│ │ ...        │              │                   │         │       │       │  │
-│ └──────────────────────────────────────────────────────────────────────────┘  │
-│                                                                              │
-│ ┌─── UNMATCHED (5/50) ────────────────────────────────────────────────────┐  │
-│ │ Date       │ Description               │ Amount  │ Suggested │ Action   │  │
-│ │ 2026-07-20 │ Bank fee - July           │ -250    │ Bank Fee  │ [Accept] │  │
-│ │ 2026-07-22 │ Interest credit           │ +180    │ Interest  │ [Accept] │  │
-│ │ 2026-07-25 │ EFT deposit - UNKNOWN     │ +8,500  │ Unident.  │ [Invest.]│  │
-│ │ 2026-07-28 │ Wire transfer - UNKNOWN   │ +15,000 │ Suspense  │ [Susp.]  │  │
-│ │ 2026-07-30 │ Amount diff - INV-2026-145│ +5,000  │ Partial   │ [Split]  │  │
-│ └──────────────────────────────────────────────────────────────────────────┘  │
-│                                                                              │
-│ [ RECONCILE ] [ VERIFY ] [ POST TO GL ] [ EXPORT REPORT ]                   │
-└─────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ RECONCILIATION WORKBENCH                                                      â”‚
+â”‚                                                                              â”‚
+â”‚ Statement: NBE Current Account  Â·  Period: 2026-07-01 â†’ 2026-07-31          â”‚
+â”‚ Opening: EGP 1,250,000  Â·  Closing: EGP 1,380,000  Â·  Match Rate: 92%     â”‚
+â”‚                                                                              â”‚
+â”‚ â”Œâ”€â”€â”€ MATCHED (45/50) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ Date       â”‚ Ref          â”‚ Description      â”‚ Amount  â”‚ Match â”‚ Conf  â”‚  â”‚
+â”‚ â”‚ 2026-07-15 â”‚ INV-2026-123 â”‚ EgyptAir payment  â”‚ +45,200 â”‚ EXACT â”‚ 1.0   â”‚  â”‚
+â”‚ â”‚ 2026-07-18 â”‚ INV-2026-131 â”‚ Nile Corp payment â”‚ +12,000 â”‚ REF   â”‚ 0.95  â”‚  â”‚
+â”‚ â”‚ ...        â”‚              â”‚                   â”‚         â”‚       â”‚       â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                              â”‚
+â”‚ â”Œâ”€â”€â”€ UNMATCHED (5/50) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ Date       â”‚ Description               â”‚ Amount  â”‚ Suggested â”‚ Action   â”‚  â”‚
+â”‚ â”‚ 2026-07-20 â”‚ Bank fee - July           â”‚ -250    â”‚ Bank Fee  â”‚ [Accept] â”‚  â”‚
+â”‚ â”‚ 2026-07-22 â”‚ Interest credit           â”‚ +180    â”‚ Interest  â”‚ [Accept] â”‚  â”‚
+â”‚ â”‚ 2026-07-25 â”‚ EFT deposit - UNKNOWN     â”‚ +8,500  â”‚ Unident.  â”‚ [Invest.]â”‚  â”‚
+â”‚ â”‚ 2026-07-28 â”‚ Wire transfer - UNKNOWN   â”‚ +15,000 â”‚ Suspense  â”‚ [Susp.]  â”‚  â”‚
+â”‚ â”‚ 2026-07-30 â”‚ Amount diff - INV-2026-145â”‚ +5,000  â”‚ Partial   â”‚ [Split]  â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                              â”‚
+â”‚ [ RECONCILE ] [ VERIFY ] [ POST TO GL ] [ EXPORT REPORT ]                   â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 5.3 GL Posting After Reconciliation
 
 ```
-When BankStatement status → POSTED:
+When BankStatement status â†’ POSTED:
 
   1. VERIFY bank GL account balance matches statement closingBalance:
      glBalance = GeneralLedgerEntry.findUnique({
@@ -609,7 +615,7 @@ When BankStatement status → POSTED:
        periodId: currentPeriod.id,
      })
      IF abs(glBalance.closingBalance - statement.closingBalance) > 0.01:
-       FLAG: "GL balance mismatch — manual review required"
+       FLAG: "GL balance mismatch â€” manual review required"
   
   2. CREATE summary journal entry (via W01 PostingEngine):
      // Only for unmatched/adjustment items
@@ -650,17 +656,17 @@ When BankStatement status → POSTED:
 
 ```
 PaymentGateway (Paymob, Fawry, Stripe, etc.)
-    │
-    ├──→ Gateway Settlement Statement (daily/weekly)
-    │     Total: EGP 125,000
-    │     Fees:  EGP 1,875 (1.5%)
-    │     Net:   EGP 123,125
-    │
-    └──→ Bank Statement (net settlement arrives 2-3 days later)
+    â”‚
+    â”œâ”€â”€â†’ Gateway Settlement Statement (daily/weekly)
+    â”‚     Total: EGP 125,000
+    â”‚     Fees:  EGP 1,875 (1.5%)
+    â”‚     Net:   EGP 123,125
+    â”‚
+    â””â”€â”€â†’ Bank Statement (net settlement arrives 2-3 days later)
           Deposit: EGP 123,125 on 2026-07-18
           
-GatewaySettlement.status → RECONCILED when:
-  1. BankStatement has matching deposit within ±5 days
+GatewaySettlement.status â†’ RECONCILED when:
+  1. BankStatement has matching deposit within Â±5 days
   2. Amount matches net settlement amount (within tolerance)
   3. Gateway transaction count = processed payment count in period
 ```
@@ -678,7 +684,7 @@ FOR each PaymentGatewaySettlement:
     CR: Payment Gateway Clearing       totalAmount
   
   // Individual payment allocations already handled by W01:
-  // Payment → DR: Cash, CR: AR (per payment)
+  // Payment â†’ DR: Cash, CR: AR (per payment)
 ```
 
 ---
@@ -689,38 +695,38 @@ FOR each PaymentGatewaySettlement:
 
 | Exception Type | Description | Default Action | Escalation |
 |----------------|-------------|----------------|------------|
-| **UNMATCHED_DEBIT** | Bank debit with no matching payment | Flag → investigate | 48h → supervisor |
-| **UNMATCHED_CREDIT** | Bank credit with no matching payment | Flag → suspense account | 24h → supervisor |
-| **PARTIAL_MATCH** | Amount differs by < 1% | Flag → review | 72h → manager |
-| **DUPLICATE** | Payment matched to 2+ bank lines | Flag → verify | 24h → supervisor |
-| **AMOUNT_MISMATCH** | Amount differs by > 1% | Flag → investigate | 12h → manager |
-| **UNIDENTIFIED** | No reference, no amount match | Flag → suspense | 48h → supervisor |
+| **UNMATCHED_DEBIT** | Bank debit with no matching payment | Flag â†’ investigate | 48h â†’ supervisor |
+| **UNMATCHED_CREDIT** | Bank credit with no matching payment | Flag â†’ suspense account | 24h â†’ supervisor |
+| **PARTIAL_MATCH** | Amount differs by < 1% | Flag â†’ review | 72h â†’ manager |
+| **DUPLICATE** | Payment matched to 2+ bank lines | Flag â†’ verify | 24h â†’ supervisor |
+| **AMOUNT_MISMATCH** | Amount differs by > 1% | Flag â†’ investigate | 12h â†’ manager |
+| **UNIDENTIFIED** | No reference, no amount match | Flag â†’ suspense | 48h â†’ supervisor |
 | **BANK_FEE** | Identified bank charge | Auto-post to fees | None |
 | **INTEREST** | Identified interest | Auto-post to income | None |
 
 ### 7.2 Investigation Workflow
 
 ```
-┌──────────┐
-│  OPEN     │  Exception created by reconciliation engine
-└────┬─────┘
-     │
-     ▼
-┌──────────────┐
-│ INVESTIGATING │  Assigned to reconciliation analyst
-└──────┬───────┘
-       │
-  ┌────┴────────────────────────────┐
-  │                                 │
-  ▼                                 ▼
-┌──────────┐                  ┌──────────┐
-│ RESOLVED  │                  │ DISMISSED│  (false positive)
-└────┬─────┘                  └──────────┘
-     │
-     ▼
-┌──────────┐
-│  POSTED   │  GL entry created if needed
-└──────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  OPEN     â”‚  Exception created by reconciliation engine
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ INVESTIGATING â”‚  Assigned to reconciliation analyst
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚
+  â”Œâ”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+  â”‚                                 â”‚
+  â–¼                                 â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”                  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ RESOLVED  â”‚                  â”‚ DISMISSEDâ”‚  (false positive)
+â””â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜                  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+     â”‚
+     â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚  POSTED   â”‚  GL entry created if needed
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -731,44 +737,44 @@ FOR each PaymentGatewaySettlement:
 
 **Agent Name:** Cash Intelligence Agent  
 **Framework:** C12-W07 Operational Intelligence  
-**Autonomy Level:** ⚡ Semi-autonomous  
+**Autonomy Level:** âš¡ Semi-autonomous  
 
 | Capability | Autonomy | Human Approval |
 |------------|----------|----------------|
-| Payment anomaly detection | ✅ Full | None (read-only alert) |
-| Reconciliation suggestions | ⚡ Semi | Required for auto-match |
-| Duplicate payment detection | ✅ Full | None (read-only alert) |
-| Bank fee identification | ✅ Full | Auto-classify |
-| Cash flow prediction | ✅ Full | None (forecast only) |
-| Liquidity forecasting | ✅ Full | None (forecast only) |
+| Payment anomaly detection | âœ… Full | None (read-only alert) |
+| Reconciliation suggestions | âš¡ Semi | Required for auto-match |
+| Duplicate payment detection | âœ… Full | None (read-only alert) |
+| Bank fee identification | âœ… Full | Auto-classify |
+| Cash flow prediction | âœ… Full | None (forecast only) |
+| Liquidity forecasting | âœ… Full | None (forecast only) |
 
 ### 8.2 Anomaly Detection
 
 ```
 ALGORITHM: detectPaymentAnomalies():
   1. UNUSUALLY LARGE PAYMENTS:
-     payments = Payment.findWhere(amount > 3× avg for customer)
-     → FLAG: "Unusually large payment from {customer}"
+     payments = Payment.findWhere(amount > 3Ã— avg for customer)
+     â†’ FLAG: "Unusually large payment from {customer}"
   
   2. PAYMENT FREQUENCY ANOMALY:
      payments = Payment.findWhere(customer has 2+ payments in same day)
-     → FLAG: "Multiple payments from {customer} on same day — possible duplicate"
+     â†’ FLAG: "Multiple payments from {customer} on same day â€” possible duplicate"
   
   3. GATEWAY vs BANK DELAY:
      settlements = PaymentGatewaySettlement.findWhere(
        status = "SETTLED" AND
        no matching BankTransaction within 5 days
      )
-     → FLAG: "Gateway settlement not yet reflected in bank statement"
+     â†’ FLAG: "Gateway settlement not yet reflected in bank statement"
   
   4. BANK FEE VARIANCE:
      fees = BankTransaction.findWhere(category = "FEE")
-     IF month's total fees > 1.5× average:
-       → FLAG: "Bank fees higher than normal — review fee schedule"
+     IF month's total fees > 1.5Ã— average:
+       â†’ FLAG: "Bank fees higher than normal â€” review fee schedule"
   
   5. UNEXPECTED BALANCE DROP:
-     IF bankAccount.currentBalance < 0.2 × avgBalance:
-       → FLAG: "Account balance below 20% of average — liquidity risk"
+     IF bankAccount.currentBalance < 0.2 Ã— avgBalance:
+       â†’ FLAG: "Account balance below 20% of average â€” liquidity risk"
 ```
 
 ### 8.3 Cash Flow Prediction
@@ -785,11 +791,11 @@ ALGORITHM: forecastCashFlow(days = 30):
     dueInvoices = Invoice.findWhere(dueDate = day)
     FOR each invoice:
       probability = CustomerRiskProfile.getProbability(invoice.customerId)
-      scheduledInflows += invoice.amount × probability
+      scheduledInflows += invoice.amount Ã— probability
     
     // Expected collections (from W04 PTPs)
     ptps = PromiseToPay.findWhere(promisedDate = day, status = "PENDING")
-    scheduledInflows += SUM(ptps, promisedAmount) × 0.85  // 85% PTP kept rate
+    scheduledInflows += SUM(ptps, promisedAmount) Ã— 0.85  // 85% PTP kept rate
     
     // Expected fees and outflows
     scheduledOutflows += estimatedOperatingCosts(day)
@@ -809,96 +815,96 @@ ALGORITHM: forecastCashFlow(days = 30):
 ### 9.1 Cash Position Dashboard (`/admin/cash/position`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ CASH POSITION DASHBOARD                                                                 │
-│                                                                                         │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐  │
-│ │ Total Cash   │ │ Total Inflow │ │ Total Outf.  │ │ Net Cash     │ │ Accounts     │  │
-│ │ EGP 3.2M     │ │ Today        │ │ Today        │ │ Flow Trend   │ │ Reconciled   │  │
-│ │              │ │ EGP 125K     │ │ EGP 85K      │ │ 📈 +40K      │ │ 8/12         │  │
-│ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘ └──────────────┘  │
-│                                                                                         │
-│ ┌──────────────────────────────────────────────────────────────────────────────────┐   │
-│ │ BANK ACCOUNTS                                                                      │   │
-│ │ ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐   │   │
-│ │ │ Account  │ Currency │ Balance  │ Avail    │ Last Rec │ Status   │ Recon    │   │   │
-│ │ │ NBE Curr │ EGP      │ 1,850,000│1,850,000 │ Jul 28   │ ACTIVE   │ ✅       │   │   │
-│ │ │ NBE USD  │ USD      │    45,000│   45,000 │ Jul 25   │ ACTIVE   │ ⚠ Pending│   │   │
-│ │ │ CIB Curr │ EGP      │   950,000│   945,000│ Jul 28   │ ACTIVE   │ ✅       │   │   │
-│ │ │ Paymob   │ EGP      │   385,000│   385,000│ Jul 28   │ SETTLE   │ ✅       │   │   │
-│ │ └──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘   │   │
-│ └──────────────────────────────────────────────────────────────────────────────────┘   │
-│                                                                                         │
-│ ┌──────────────────────────────────┐ ┌──────────────────────────────────────────────┐  │
-│ │ 7-DAY CASH FORECAST              │ │ RECONCILIATION STATUS                         │  │
-│ │                                  │ │                                                │  │
-│ │ Tomorrow:    +EGP 45K → 3.25M   │ │ ✅ NBE Current — Jul 2026 (45/50 matched)   │  │
-│ │ Day 2:       -EGP 20K → 3.23M   │ │ ⚠ NBE USD — Jul 2026 (42/48 matched)       │  │
-│ │ Day 3:       +EGP 120K → 3.35M  │ │ ✅ CIB Current — Jul 2026 (38/38 matched)    │  │
-│ │ Day 4:       -EGP 15K → 3.34M   │ │ ✅ Paymob — Jul 2026 (Completed)             │  │
-│ │ Day 5:       +EGP 60K → 3.40M   │ │ ⚠ Fawry — Jul 2026 (Pending)                │  │
-│ │ Day 6:       -EGP 100K → 3.30M  │ │                                                │  │
-│ │ Day 7:       +EGP 80K → 3.38M   │ │                                                │  │
-│ │ Low point: Day 2 at EGP 3.23M   │ │ Next scheduled: 2026-08-01 (period close)    │  │
-│ └──────────────────────────────────┘ └──────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ CASH POSITION DASHBOARD                                                                 â”‚
+â”‚                                                                                         â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ Total Cash   â”‚ â”‚ Total Inflow â”‚ â”‚ Total Outf.  â”‚ â”‚ Net Cash     â”‚ â”‚ Accounts     â”‚  â”‚
+â”‚ â”‚ EGP 3.2M     â”‚ â”‚ Today        â”‚ â”‚ Today        â”‚ â”‚ Flow Trend   â”‚ â”‚ Reconciled   â”‚  â”‚
+â”‚ â”‚              â”‚ â”‚ EGP 125K     â”‚ â”‚ EGP 85K      â”‚ â”‚ ðŸ“ˆ +40K      â”‚ â”‚ 8/12         â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                         â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ BANK ACCOUNTS                                                                      â”‚   â”‚
+â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚   â”‚
+â”‚ â”‚ â”‚ Account  â”‚ Currency â”‚ Balance  â”‚ Avail    â”‚ Last Rec â”‚ Status   â”‚ Recon    â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ NBE Curr â”‚ EGP      â”‚ 1,850,000â”‚1,850,000 â”‚ Jul 28   â”‚ ACTIVE   â”‚ âœ…       â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ NBE USD  â”‚ USD      â”‚    45,000â”‚   45,000 â”‚ Jul 25   â”‚ ACTIVE   â”‚ âš  Pendingâ”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ CIB Curr â”‚ EGP      â”‚   950,000â”‚   945,000â”‚ Jul 28   â”‚ ACTIVE   â”‚ âœ…       â”‚   â”‚   â”‚
+â”‚ â”‚ â”‚ Paymob   â”‚ EGP      â”‚   385,000â”‚   385,000â”‚ Jul 28   â”‚ SETTLE   â”‚ âœ…       â”‚   â”‚   â”‚
+â”‚ â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚
+â”‚                                                                                         â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ 7-DAY CASH FORECAST              â”‚ â”‚ RECONCILIATION STATUS                         â”‚  â”‚
+â”‚ â”‚                                  â”‚ â”‚                                                â”‚  â”‚
+â”‚ â”‚ Tomorrow:    +EGP 45K â†’ 3.25M   â”‚ â”‚ âœ… NBE Current â€” Jul 2026 (45/50 matched)   â”‚  â”‚
+â”‚ â”‚ Day 2:       -EGP 20K â†’ 3.23M   â”‚ â”‚ âš  NBE USD â€” Jul 2026 (42/48 matched)       â”‚  â”‚
+â”‚ â”‚ Day 3:       +EGP 120K â†’ 3.35M  â”‚ â”‚ âœ… CIB Current â€” Jul 2026 (38/38 matched)    â”‚  â”‚
+â”‚ â”‚ Day 4:       -EGP 15K â†’ 3.34M   â”‚ â”‚ âœ… Paymob â€” Jul 2026 (Completed)             â”‚  â”‚
+â”‚ â”‚ Day 5:       +EGP 60K â†’ 3.40M   â”‚ â”‚ âš  Fawry â€” Jul 2026 (Pending)                â”‚  â”‚
+â”‚ â”‚ Day 6:       -EGP 100K â†’ 3.30M  â”‚ â”‚                                                â”‚  â”‚
+â”‚ â”‚ Day 7:       +EGP 80K â†’ 3.38M   â”‚ â”‚                                                â”‚  â”‚
+â”‚ â”‚ Low point: Day 2 at EGP 3.23M   â”‚ â”‚ Next scheduled: 2026-08-01 (period close)    â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 9.2 Reconciliation Workbench (`/admin/cash/reconciliation/:statementId`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ RECONCILIATION WORKBENCH — NBE Current Account — Jul 2026                              │
-│                                                                                       │
-│ MATCH RATE: 90% │ Unmatched: 5 │ Partial: 2 │ As of: 2026-07-29 14:30                │
-│                                                                                       │
-│ ┌───── TAB: UNMATCHED (5) ────────────────────────────────────────────────────────┐  │
-│ │ ☐ │ Date       │ Desc                  │ Amount  │ Type    │ Suggested          │  │
-│ │ ☐ │ Jul 20     │ Bank Fee - July       │ -250    │ DEBIT   │ 🅐 Bank Fee → [Ok]│  │
-│ │ ☐ │ Jul 22     │ Interest Credit       │ +180    │ CREDIT  │ 🅐 Interest → [Ok] │  │
-│ │ ☐ │ Jul 25     │ EFT - UNKNOWN REF     │ +8,500  │ CREDIT  │ 🅐 Search...       │  │
-│ │ ☐ │ Jul 28     │ INV-2026-145 PARTIAL  │ +5,000  │ CREDIT  │ 🅐 Split match     │  │
-│ │ ☐ │ Jul 29     │ Wire - UNKNOWN        │ +15,000 │ CREDIT  │ 🅐 Suspense        │  │
-│ │                                                                                   │  │
-│ │ [ Match Selected ]  [ Send to Suspense ]  [ Investigate ]  [ Dismiss ]            │  │
-│ └───────────────────────────────────────────────────────────────────────────────────┘  │
-│                                                                                       │
-│ ┌───── MATCHED (45/50) ──────────────────────────────────────────────────────────┐   │
-│ │ Showing last 5 of 45 matched items                                             │   │
-│ │ INV-2026-123 │ EGP 45,200 │ Jul 15 │ EXACT Ref: INV-2026-123 │ Confidence 1.0 │   │
-│ │ INV-2026-131 │ EGP 12,000 │ Jul 18 │ EXACT Ref: INV-2026-131 │ Confidence 1.0 │   │
-│ │ PTP-2026-78  │ EGP 3,200  │ Jul 20 │ AMOUNT+DATE            │ Confidence 0.95│   │
-│ └───────────────────────────────────────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ RECONCILIATION WORKBENCH â€” NBE Current Account â€” Jul 2026                              â”‚
+â”‚                                                                                       â”‚
+â”‚ MATCH RATE: 90% â”‚ Unmatched: 5 â”‚ Partial: 2 â”‚ As of: 2026-07-29 14:30                â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€ TAB: UNMATCHED (5) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ â˜ â”‚ Date       â”‚ Desc                  â”‚ Amount  â”‚ Type    â”‚ Suggested          â”‚  â”‚
+â”‚ â”‚ â˜ â”‚ Jul 20     â”‚ Bank Fee - July       â”‚ -250    â”‚ DEBIT   â”‚ ðŸ… Bank Fee â†’ [Ok]â”‚  â”‚
+â”‚ â”‚ â˜ â”‚ Jul 22     â”‚ Interest Credit       â”‚ +180    â”‚ CREDIT  â”‚ ðŸ… Interest â†’ [Ok] â”‚  â”‚
+â”‚ â”‚ â˜ â”‚ Jul 25     â”‚ EFT - UNKNOWN REF     â”‚ +8,500  â”‚ CREDIT  â”‚ ðŸ… Search...       â”‚  â”‚
+â”‚ â”‚ â˜ â”‚ Jul 28     â”‚ INV-2026-145 PARTIAL  â”‚ +5,000  â”‚ CREDIT  â”‚ ðŸ… Split match     â”‚  â”‚
+â”‚ â”‚ â˜ â”‚ Jul 29     â”‚ Wire - UNKNOWN        â”‚ +15,000 â”‚ CREDIT  â”‚ ðŸ… Suspense        â”‚  â”‚
+â”‚ â”‚                                                                                   â”‚  â”‚
+â”‚ â”‚ [ Match Selected ]  [ Send to Suspense ]  [ Investigate ]  [ Dismiss ]            â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€ MATCHED (45/50) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚
+â”‚ â”‚ Showing last 5 of 45 matched items                                             â”‚   â”‚
+â”‚ â”‚ INV-2026-123 â”‚ EGP 45,200 â”‚ Jul 15 â”‚ EXACT Ref: INV-2026-123 â”‚ Confidence 1.0 â”‚   â”‚
+â”‚ â”‚ INV-2026-131 â”‚ EGP 12,000 â”‚ Jul 18 â”‚ EXACT Ref: INV-2026-131 â”‚ Confidence 1.0 â”‚   â”‚
+â”‚ â”‚ PTP-2026-78  â”‚ EGP 3,200  â”‚ Jul 20 â”‚ AMOUNT+DATE            â”‚ Confidence 0.95â”‚   â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### 9.3 Treasury Dashboard (`/admin/cash/treasury`)
 
 ```
-┌───────────────────────────────────────────────────────────────────────────────────────┐
-│ TREASURY DASHBOARD                                                                      │
-│                                                                                       │
-│ ┌──────────────────────────────┐ ┌──────────────────────────────────────────────────┐│
-│ │ CASH POSITION TREND (30 days) │ │ LIQUIDITY RATIOS                                ││
-│ │                              │ │                                                  ││
-│ │  3.5M  █████████████████████  │ │ Current Ratio:       2.1 (Target: > 1.5)       ││
-│ │  3.0M  ██████████████████    │ │ Quick Ratio:          1.8 (Target: > 1.0)       ││
-│ │  2.5M  █████████████████     │ │ Cash Ratio:           0.8 (Target: > 0.3)       ││
-│ │  2.0M  ████████████████      │ │ Days Cash on Hand:    45 days                    ││
-│ │  1.5M  █████████████         │ │                                                  ││
-│ │                              │ │ FX Exposure:          USD 45,000 @ 30.5         ││
-│ └──────────────────────────────┘ └──────────────────────────────────────────────────┘│
-│                                                                                       │
-│ ┌──────────────────────────────────────────────────────────────────────────────────┐  │
-│ │ FORECAST ACCURACY (Last 30 days)                                                   │  │
-│ │ ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐   │  │
-│ │ │ Metric   │ Week 1   │ Week 2   │ Week 3   │ Week 4   │ Avg      │ Trend    │   │  │
-│ │ │ Accuracy │ 92%      │ 88%      │ 94%      │ 90%      │ 91%      │ 📈       │   │  │
-│ │ │ Inflow   │ 95%      │ 90%      │ 96%      │ 91%      │ 93%      │ ✅       │   │  │
-│ │ │ Outflow  │ 88%      │ 85%      │ 91%      │ 88%      │ 88%      │ 📈       │   │  │
-│ │ └──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘   │  │
-│ └──────────────────────────────────────────────────────────────────────────────────┘  │
-└───────────────────────────────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ TREASURY DASHBOARD                                                                      â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”â”‚
+â”‚ â”‚ CASH POSITION TREND (30 days) â”‚ â”‚ LIQUIDITY RATIOS                                â”‚â”‚
+â”‚ â”‚                              â”‚ â”‚                                                  â”‚â”‚
+â”‚ â”‚  3.5M  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ  â”‚ â”‚ Current Ratio:       2.1 (Target: > 1.5)       â”‚â”‚
+â”‚ â”‚  3.0M  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ    â”‚ â”‚ Quick Ratio:          1.8 (Target: > 1.0)       â”‚â”‚
+â”‚ â”‚  2.5M  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ     â”‚ â”‚ Cash Ratio:           0.8 (Target: > 0.3)       â”‚â”‚
+â”‚ â”‚  2.0M  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ      â”‚ â”‚ Days Cash on Hand:    45 days                    â”‚â”‚
+â”‚ â”‚  1.5M  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ         â”‚ â”‚                                                  â”‚â”‚
+â”‚ â”‚                              â”‚ â”‚ FX Exposure:          USD 45,000 @ 30.5         â”‚â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜â”‚
+â”‚                                                                                       â”‚
+â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚ â”‚ FORECAST ACCURACY (Last 30 days)                                                   â”‚  â”‚
+â”‚ â”‚ â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”   â”‚  â”‚
+â”‚ â”‚ â”‚ Metric   â”‚ Week 1   â”‚ Week 2   â”‚ Week 3   â”‚ Week 4   â”‚ Avg      â”‚ Trend    â”‚   â”‚  â”‚
+â”‚ â”‚ â”‚ Accuracy â”‚ 92%      â”‚ 88%      â”‚ 94%      â”‚ 90%      â”‚ 91%      â”‚ ðŸ“ˆ       â”‚   â”‚  â”‚
+â”‚ â”‚ â”‚ Inflow   â”‚ 95%      â”‚ 90%      â”‚ 96%      â”‚ 91%      â”‚ 93%      â”‚ âœ…       â”‚   â”‚  â”‚
+â”‚ â”‚ â”‚ Outflow  â”‚ 88%      â”‚ 85%      â”‚ 91%      â”‚ 88%      â”‚ 88%      â”‚ ðŸ“ˆ       â”‚   â”‚  â”‚
+â”‚ â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â”‚  â”‚
+â”‚ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ---
@@ -913,7 +919,7 @@ ALGORITHM: forecastCashFlow(days = 30):
 | **W01 GL** | Bank GL account query | Verify statement closing = GL closing | Per statement |
 | **W01 FinancialPeriod** | Period close | All statements must be RECONCILED before close | Monthly gate |
 | **W02 Revenue Assurance** | Payment discrepancy | Flag for reconciliation investigation | On detection |
-| **W03 Tariff** | Not directly | N/A | — |
+| **W03 Tariff** | Not directly | N/A | â€” |
 | **W04 Collections** | Payment received | Update customer payment profile | Continuous |
 | **C12-W07** | AI recommendations | Reconciliation suggestions + anomaly alerts | Continuous |
 | **Notifications** | Exception created | Notify reconciliation team | On creation |
@@ -946,76 +952,76 @@ BEFORE FinancialPeriod.close():
 
 ---
 
-## PART 11: TESTING STRATEGY — W05 (105 Tests)
+## PART 11: TESTING STRATEGY â€” W05 (105 Tests)
 
 ### 11.1 Statement Import Tests (20)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Import CSV with 50 transactions → 50 BankTransactions | Correct count |
-| 2 | Import CAMT.053 XML → parsed correctly | Standard format |
-| 3 | Import MT940 → parsed correctly | SWIFT format |
-| 4 | Import duplicate statement → rejected | Duplicate check |
-| 5 | Statement with unbalanced entries → warning | Validation |
-| 6 | Empty file → rejected | Validation |
-| 7 | Unknown format → rejected | Validation |
-| 8 | Reference extraction from description → found | Extract |
+| 1 | Import CSV with 50 transactions â†’ 50 BankTransactions | Correct count |
+| 2 | Import CAMT.053 XML â†’ parsed correctly | Standard format |
+| 3 | Import MT940 â†’ parsed correctly | SWIFT format |
+| 4 | Import duplicate statement â†’ rejected | Duplicate check |
+| 5 | Statement with unbalanced entries â†’ warning | Validation |
+| 6 | Empty file â†’ rejected | Validation |
+| 7 | Unknown format â†’ rejected | Validation |
+| 8 | Reference extraction from description â†’ found | Extract |
 
 ### 11.2 Auto-Reconciliation Tests (25)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Exact reference match → MATCHED confidence 1.0 | Rule 1 |
-| 2 | Amount + date match → MATCHED confidence 0.95 | Rule 2 |
-| 3 | Fuzzy reference match → MATCHED confidence 0.90 | Rule 3 |
-| 4 | Customer name match → MATCHED confidence 0.85 | Rule 4 |
-| 5 | Amount-only match (single candidate) → MATCHED 0.70 | Rule 5 |
-| 6 | Split match (1 bank = 2 payments) → PARTIAL | Rule 6 |
-| 7 | No match → UNMATCHED | Not found |
-| 8 | Multiple candidates → UNMATCHED (ambiguous) | Ambiguous |
-| 9 | Amount differs by 0.01 → still matched within tolerance | Tolerance |
-| 10 | Amount differs by 1.00 → PARTIAL with diff | Beyond tolerance |
+| 1 | Exact reference match â†’ MATCHED confidence 1.0 | Rule 1 |
+| 2 | Amount + date match â†’ MATCHED confidence 0.95 | Rule 2 |
+| 3 | Fuzzy reference match â†’ MATCHED confidence 0.90 | Rule 3 |
+| 4 | Customer name match â†’ MATCHED confidence 0.85 | Rule 4 |
+| 5 | Amount-only match (single candidate) â†’ MATCHED 0.70 | Rule 5 |
+| 6 | Split match (1 bank = 2 payments) â†’ PARTIAL | Rule 6 |
+| 7 | No match â†’ UNMATCHED | Not found |
+| 8 | Multiple candidates â†’ UNMATCHED (ambiguous) | Ambiguous |
+| 9 | Amount differs by 0.01 â†’ still matched within tolerance | Tolerance |
+| 10 | Amount differs by 1.00 â†’ PARTIAL with diff | Beyond tolerance |
 
 ### 11.3 Gateway Reconciliation Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Gateway settlement → Bank deposit matches net | Reconciled |
-| 2 | Settlement with fees → fee journal created | Fee accounted |
-| 3 | Settlement without bank match → PENDING | Awaiting |
-| 4 | Multiple gateways → independent reconciliation | Per gateway |
+| 1 | Gateway settlement â†’ Bank deposit matches net | Reconciled |
+| 2 | Settlement with fees â†’ fee journal created | Fee accounted |
+| 3 | Settlement without bank match â†’ PENDING | Awaiting |
+| 4 | Multiple gateways â†’ independent reconciliation | Per gateway |
 
 ### 11.4 Exception Handling Tests (15)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Unmatched credit → exception created | OPEN |
-| 2 | Unmatched debit → exception created | OPEN |
-| 3 | Partial match → exception with amount diff | PARTIAL |
-| 4 | Duplicate detection → 2 exception records | DUPLICATE |
-| 5 | Investigate → status INVESTIGATING | Correct state |
-| 6 | Manual match → resolved | RESOLVED |
-| 7 | Dismiss false positive → DISMISSED | Correct state |
-| 8 | Auto-fee → posted without investigation | Auto-resolve |
+| 1 | Unmatched credit â†’ exception created | OPEN |
+| 2 | Unmatched debit â†’ exception created | OPEN |
+| 3 | Partial match â†’ exception with amount diff | PARTIAL |
+| 4 | Duplicate detection â†’ 2 exception records | DUPLICATE |
+| 5 | Investigate â†’ status INVESTIGATING | Correct state |
+| 6 | Manual match â†’ resolved | RESOLVED |
+| 7 | Dismiss false positive â†’ DISMISSED | Correct state |
+| 8 | Auto-fee â†’ posted without investigation | Auto-resolve |
 
 ### 11.5 Bank Fee & Interest Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Bank fee detected → auto-classified | Category = FEE |
-| 2 | Bank fee journal → DR: Bank Charges CR: Bank | GL correct |
-| 3 | Interest detected → auto-classified | Category = INTEREST |
-| 4 | Interest journal → DR: Bank CR: Interest Income | GL correct |
+| 1 | Bank fee detected â†’ auto-classified | Category = FEE |
+| 2 | Bank fee journal â†’ DR: Bank Charges CR: Bank | GL correct |
+| 3 | Interest detected â†’ auto-classified | Category = INTEREST |
+| 4 | Interest journal â†’ DR: Bank CR: Interest Income | GL correct |
 
 ### 11.6 Multi-Currency Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | USD transaction → uses exchange rate | FX applied |
-| 2 | USD → EGP conversion → correct baseAmount | Calculation |
-| 3 | Exchange rate update → new rate on correct date | Date-based |
-| 4 | FX gain → journal entry created | Gain posted |
-| 5 | FX loss → journal entry created | Loss posted |
+| 1 | USD transaction â†’ uses exchange rate | FX applied |
+| 2 | USD â†’ EGP conversion â†’ correct baseAmount | Calculation |
+| 3 | Exchange rate update â†’ new rate on correct date | Date-based |
+| 4 | FX gain â†’ journal entry created | Gain posted |
+| 5 | FX loss â†’ journal entry created | Loss posted |
 
 ### 11.7 Cash Forecasting Tests (10)
 
@@ -1031,18 +1037,18 @@ BEFORE FinancialPeriod.close():
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Unidentified payment → suspense account | Suspense created |
-| 2 | Suspense resolved → allocated to customer | Allocated |
-| 3 | Chargeback → ReturnedPayment + reversal | Correct flow |
+| 1 | Unidentified payment â†’ suspense account | Suspense created |
+| 2 | Suspense resolved â†’ allocated to customer | Allocated |
+| 3 | Chargeback â†’ ReturnedPayment + reversal | Correct flow |
 
 ### 11.9 GL Integration Tests (10)
 
 | # | Test | Expect |
 |---|------|--------|
-| 1 | Reconciliation → statement closing = GL balance | Match |
-| 2 | Reconciliation → statement closing ≠ GL → warning | Mismatch |
-| 3 | Bank fee journal → GL updated | Correct account |
-| 4 | Interest journal → GL updated | Correct account |
+| 1 | Reconciliation â†’ statement closing = GL balance | Match |
+| 2 | Reconciliation â†’ statement closing â‰  GL â†’ warning | Mismatch |
+| 3 | Bank fee journal â†’ GL updated | Correct account |
+| 4 | Interest journal â†’ GL updated | Correct account |
 | 5 | Period close blocked if unreconciled | Gate enforced |
 
 ---
@@ -1050,89 +1056,89 @@ BEFORE FinancialPeriod.close():
 ## PART 12: W05 DEFINITION OF DONE
 
 ```
-W05 — BANK RECONCILIATION & CASH MANAGEMENT
+W05 â€” BANK RECONCILIATION & CASH MANAGEMENT
 CERTIFICATION CHECKLIST
 
-□ CORE DATA MODELS — 9 NEW
-   □ BankAccount (multi-bank hierarchy)
-   □ BankStatement (statement lifecycle)
-   □ BankTransaction (statement line items)
-   □ ReconciliationException (unmatched items)
-   □ PaymentGatewaySettlement (gateway reconciliation)
-   □ SuspenseTransaction (unidentified payments)
-   □ CashForecast (daily forecasting)
-   □ ExchangeRate (FX management)
-   □ ReturnedPayment (chargebacks/reversals)
+â–¡ CORE DATA MODELS â€” 9 NEW
+   â–¡ BankAccount (multi-bank hierarchy)
+   â–¡ BankStatement (statement lifecycle)
+   â–¡ BankTransaction (statement line items)
+   â–¡ ReconciliationException (unmatched items)
+   â–¡ PaymentGatewaySettlement (gateway reconciliation)
+   â–¡ SuspenseTransaction (unidentified payments)
+   â–¡ CashForecast (daily forecasting)
+   â–¡ ExchangeRate (FX management)
+   â–¡ ReturnedPayment (chargebacks/reversals)
 
-□ STATEMENT IMPORT — 5 FORMATS
-   □ CSV parser
-   □ Excel (XLSX) parser
-   □ CAMT.053 (ISO 20022) parser
-   □ MT940 (SWIFT) parser
-   □ Manual entry form
+â–¡ STATEMENT IMPORT â€” 5 FORMATS
+   â–¡ CSV parser
+   â–¡ Excel (XLSX) parser
+   â–¡ CAMT.053 (ISO 20022) parser
+   â–¡ MT940 (SWIFT) parser
+   â–¡ Manual entry form
 
-□ RECONCILIATION ENGINE
-   □ Rule-based matching (7 rules, priority-ordered)
-   □ AI-assisted matching
-   □ Manual matching workbench
-   □ Split payment handling
-   □ Partial match tracking
+â–¡ RECONCILIATION ENGINE
+   â–¡ Rule-based matching (7 rules, priority-ordered)
+   â–¡ AI-assisted matching
+   â–¡ Manual matching workbench
+   â–¡ Split payment handling
+   â–¡ Partial match tracking
 
-□ GATEWAY RECONCILIATION
-   □ PaymentGatewaySettlement model
-   □ Gateway vs bank match
-   □ Fee auto-accounting
-   □ Settlement period management
+â–¡ GATEWAY RECONCILIATION
+   â–¡ PaymentGatewaySettlement model
+   â–¡ Gateway vs bank match
+   â–¡ Fee auto-accounting
+   â–¡ Settlement period management
 
-□ EXCEPTION MANAGEMENT
-   □ 8 exception types
-   □ Full investigation lifecycle
-   □ Auto-resolution for fees/interest
-   □ Manual matching workbench
+â–¡ EXCEPTION MANAGEMENT
+   â–¡ 8 exception types
+   â–¡ Full investigation lifecycle
+   â–¡ Auto-resolution for fees/interest
+   â–¡ Manual matching workbench
 
-□ GL INTEGRATION
-   □ Statement closing = GL balance verification
-   □ Bank fee journal posting (DR: Bank Charges, CR: Bank)
-   □ Interest journal posting (DR: Bank, CR: Interest Income)
-   □ Suspense account posting
-   □ Period close gate (unreconciled = blocked)
+â–¡ GL INTEGRATION
+   â–¡ Statement closing = GL balance verification
+   â–¡ Bank fee journal posting (DR: Bank Charges, CR: Bank)
+   â–¡ Interest journal posting (DR: Bank, CR: Interest Income)
+   â–¡ Suspense account posting
+   â–¡ Period close gate (unreconciled = blocked)
 
-□ CASH MANAGEMENT
-   □ Cash position dashboard (real-time)
-   □ 30-day cash flow forecast
-   □ Multi-currency support
-   □ FX rate management
-   □ Liquidity ratio tracking
+â–¡ CASH MANAGEMENT
+   â–¡ Cash position dashboard (real-time)
+   â–¡ 30-day cash flow forecast
+   â–¡ Multi-currency support
+   â–¡ FX rate management
+   â–¡ Liquidity ratio tracking
 
-□ AI CASH INTELLIGENCE AGENT
-   □ Payment anomaly detection (5 patterns)
-   □ Reconciliation suggestions
-   □ Cash flow prediction
-   □ C12 AIRecommendation integration
+â–¡ AI CASH INTELLIGENCE AGENT
+   â–¡ Payment anomaly detection (5 patterns)
+   â–¡ Reconciliation suggestions
+   â–¡ Cash flow prediction
+   â–¡ C12 AIRecommendation integration
 
-□ DASHBOARDS
-   □ Cash Position Dashboard (/admin/cash/position)
-   □ Reconciliation Workbench (/admin/cash/reconciliation/:id)
-   □ Treasury Dashboard (/admin/cash/treasury)
+â–¡ DASHBOARDS
+   â–¡ Cash Position Dashboard (/admin/cash/position)
+   â–¡ Reconciliation Workbench (/admin/cash/reconciliation/:id)
+   â–¡ Treasury Dashboard (/admin/cash/treasury)
 
-□ SECURITY
-   □ RBAC: Reconciliation Analyst, Treasury Manager, Finance Admin
-   □ Segregation: reconcile ≠ approve ≠ post
-   □ Statement immutability after POSTED
-   □ All mutations audited
+â–¡ SECURITY
+   â–¡ RBAC: Reconciliation Analyst, Treasury Manager, Finance Admin
+   â–¡ Segregation: reconcile â‰  approve â‰  post
+   â–¡ Statement immutability after POSTED
+   â–¡ All mutations audited
 
-□ TESTS — 105 PASSING
-   □ Statement import: 20 tests
-   □ Auto-reconciliation: 25 tests
-   □ Gateway reconciliation: 10 tests
-   □ Exception handling: 15 tests
-   □ Bank fee & interest: 10 tests
-   □ Multi-currency: 10 tests
-   □ Cash forecasting: 10 tests
-   □ Suspense & returns: 5 tests
-   □ GL integration: 10 tests
+â–¡ TESTS â€” 105 PASSING
+   â–¡ Statement import: 20 tests
+   â–¡ Auto-reconciliation: 25 tests
+   â–¡ Gateway reconciliation: 10 tests
+   â–¡ Exception handling: 15 tests
+   â–¡ Bank fee & interest: 10 tests
+   â–¡ Multi-currency: 10 tests
+   â–¡ Cash forecasting: 10 tests
+   â–¡ Suspense & returns: 5 tests
+   â–¡ GL integration: 10 tests
 
-W05 STATUS: □ NOT IMPLEMENTED
+W05 STATUS: â–¡ NOT IMPLEMENTED
 All items above are DESIGN-COMPLETE but not executed.
 ```
 
@@ -1167,4 +1173,5 @@ All items above are DESIGN-COMPLETE but not executed.
 ---
 
 *This document is a planning artifact only. No code, no implementation, no database migration.*
-*C13-W05 — Bank Reconciliation & Cash Management. READ ONLY. GOVERNANCE PLANNING ONLY.*
+*C13-W05 â€” Bank Reconciliation & Cash Management. READ ONLY. GOVERNANCE PLANNING ONLY.*
+
