@@ -52,7 +52,7 @@ Program-level status:
 |---------|--------|------------|----------|:--------:|
 | C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
 | C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
-| C13 Financial Intelligence | 🟨 | Tariff Engine (9 versioned models, ToU/tiered/demand/fixed/tax, simulation) | + billing-to-GL, revenue, tariff, AI | 60% |
+| C13 Financial Intelligence | 🟨 | Collections Intelligence (risk scoring, dunning, PTP, installments, provisions, write-off) | + billing-to-GL, revenue, tariff, AI | 70% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
 
@@ -150,13 +150,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-022 | `backend/prisma/migrations/20260801040000_add_revenue_intelligence` | C13 revenue intelligence migration (3 tables: RevenueRule, RevenueLeakageFinding, RevenueInvestigation) created for fresh-deploy path; applied via db push. Live run verified: 2358 checks, 50 findings detected then cleaned. | Medium | Validate migration on clean staging during B-01. |
 | OBS-023 | `backend/src/services/tariff-engine.js` | C13 Tariff Engine: versioned calculation (flat/tiered/ToU/demand/fixed/tax) + simulation. Tiered bands with null maxValue must extend to remaining consumption (`max = tier.maxValue ?? Infinity`), not clamp at min. | Low | Preserve open-ended tier semantics in all future tariff calculations. |
 | OBS-024 | `backend/prisma/migrations/20260801050000_add_tariff_engine` | C13 tariff engine migration (9 tables: TariffVersion + 7 component models + CustomerTariff) created for fresh-deploy path; applied via db push. Live verified: version create/activate, tiered+fixed+tax calculate (587.1), simulate (420). | Medium | Validate migration on clean staging during B-01. |
+| OBS-025 | `backend/src/services/collections-engine.js` | C13 Collections Intelligence: risk scoring (0-100), dunning ladder (4-stage auto-seed), bad-debt provisioning. Provision buckets must pick the highest bucketDays ≤ invoice age (not first match), else aging invoices under-provision. | Low | Preserve highest-applicable-bucket semantics in all future provisioning. |
+| OBS-026 | `backend/prisma/migrations/20260801060000_add_collection_intelligence` | C13 collection intelligence migration (8 tables: CustomerRiskProfile, DunningRule, InstallmentPlan, PlanInstallment, Dispute, ProvisionRule, BadDebtProvision, WriteOffRequest) created for fresh-deploy path; applied via db push. Live verified: risk profiles for 200 customers, provision compute. | Medium | Validate migration on clean staging during B-01. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 17%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 18%
 (Wave 2 in progress — C22/C23/C13 Billing & Finance)
 
 Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
@@ -171,10 +173,12 @@ Wave 2 completed in this session:
      Assurance engine (15 rules, pre/post/continuous) + tests (+15)
   ✅ C13 Tariff Engine: 9 versioned models + tariff-engine (ToU/tiered/
      demand/fixed/tax) + calculate/simulate + tests (+19)
-  ✅ B-02 + B-03 + B-04 + B-05 + B-06 migrations created (fresh-deploy path)
-  ⏳ Next: C13 Collection Intelligence (Step 2.6)
+  ✅ C13 Collection Intelligence: 8 models (risk/dunning/PTP/installments/
+     disputes/provisions/write-off) + engine + tests (+19)
+  ✅ B-02 + B-03 + B-04 + B-05 + B-06 + B-07 migrations (fresh-deploy path)
+  ⏳ Next: C13 Financial Reporting (Step 2.7)
 
-Verification: 222 unit + 48 contract + 31 integration + tsc 0
+Verification: 241 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
 Next gate: Wave 2 completion per P40/P42/P43

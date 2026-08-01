@@ -897,5 +897,28 @@
             "backend/prisma/migrations/20260801050000_add_tariff_engine/migration.sql",
             "222 unit tests passing; P40_EXECUTION_TRACKER.md (17%)"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 2 Step 2.6 — C13 Collection Intelligence implementation",
+        "tools_activated": ["bash", "git", "read", "grep", "filesystem", "memory", "todowrite"],
+        "tools_used": [
+            "implemented C13 Collection Intelligence: 8 models (CustomerRiskProfile, DunningRule, InstallmentPlan, PlanInstallment, Dispute, ProvisionRule, BadDebtProvision, WriteOffRequest)",
+            "implemented collections-engine.js service (risk scoring 0-100, dunning ladder auto-seed, provision buckets highest-applicable, resolveDunningStage)",
+            "implemented collections.js routes (risk compute, dunning rules/run, PTP, installment plans + pay, disputes, provisions, write-offs, summary)",
+            "registered /collections router + collections.* admin permissions",
+            "added mock-prisma delegates + collections.test.mjs (19 tests); verified 241 unit tests pass",
+            "verified live end-to-end: risk profiles for 200 customers, dunning run, provision compute; cleaned demo data",
+            "created B-07 collection migration; updated tracker (C13 70%, overall 18%), PROJECT_STATE, OBS-025/026",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "backend/src/services/collections-engine.js",
+            "backend/src/routes/collections.js",
+            "backend/prisma/schema.prisma (8 collection models)",
+            "backend/tests/api/collections.test.mjs",
+            "backend/prisma/migrations/20260801060000_add_collection_intelligence/migration.sql",
+            "241 unit tests passing; P40_EXECUTION_TRACKER.md (18%)"
+        ]
     }
 ]

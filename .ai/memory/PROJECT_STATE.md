@@ -18,9 +18,10 @@
 | 2.3 | C13 Financial Integration (FinancialEvent, AccountMapping, PostingEngine, GL hooks, B-04 migration) | ✅ Complete |
 | 2.4 | C13 Revenue Intelligence (RevenueRule, RevenueLeakageFinding, RevenueInvestigation, Assurance engine, B-05 migration) | ✅ Complete |
 | 2.5 | C13 Tariff Engine (9 versioned models: TariffVersion, TariffVersionRate, TariffVersionTier, TariffToUSchedule, TariffDemandRate, TariffFixedCharge, TariffTax, TariffChangeLog, CustomerTariff, B-06 migration) | ✅ Complete |
-| 2.6 | C13 Collection Intelligence | ⏳ Next |
+| 2.6 | C13 Collection Intelligence (CustomerRiskProfile, DunningRule, InstallmentPlan, PlanInstallment, Dispute, ProvisionRule, BadDebtProvision, WriteOffRequest, B-07 migration) | ✅ Complete |
+| 2.7 | C13 Financial Reporting | ⏳ Next |
 
-**Overall implementation coverage:** 17% (source of truth: `P40_EXECUTION_TRACKER.md`)
+**Overall implementation coverage:** 18% (source of truth: `P40_EXECUTION_TRACKER.md`)
 
 ---
 

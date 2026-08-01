@@ -862,6 +862,10 @@ model Customer {
   serviceConnections ServiceConnection[]
   payments         Payment[]
   customerTariffs  CustomerTariff[]
+  riskProfile      CustomerRiskProfile?
+  installmentPlans InstallmentPlan[]
+  disputes         Dispute[]
+  writeOffRequests WriteOffRequest[]
 }
 
 model MeterType {
@@ -2669,6 +2673,157 @@ model CustomerTariff {
   @@index([customerId, status])
   @@index([tariffVersionId])
   @@index([effectiveFrom, status])
+}
+
+// ─── C13 Collection Intelligence (Wave 2 Step 2.6) ──────────────────────────
+
+model CustomerRiskProfile {
+  id             String   @id @default(uuid())
+  customerId     String
+  customer       Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  riskScore      Float    @default(50)      // 0-100
+  riskBand       String   @default("MEDIUM") // LOW | MEDIUM | HIGH | CRITICAL
+  agingDays      Int      @default(0)
+  totalOwing     Float    @default(0)
+  overdueCount   Int      @default(0)
+  promiseKeptRate Float   @default(1)
+  lastPaymentDaysAgo Int? 
+  computedAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([customerId])
+  @@index([riskBand, riskScore])
+}
+
+model DunningRule {
+  id          String   @id @default(uuid())
+  name        String
+  code        String   @unique
+  stage       Int      @default(1)
+  minDays     Int      @default(0)
+  maxDays     Int?
+  action      String   @default("REMINDER") // REMINDER | EMAIL | SMS | CALL | ESCALATE
+  channel     String?
+  message     String?
+  active      Boolean  @default(true)
+  priority    Int      @default(0)
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+
+  @@index([active, stage])
+}
+
+model InstallmentPlan {
+  id               String           @id @default(uuid())
+  customerId       String
+  customer         Customer         @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  collectionCaseId String?
+  totalAmount      Float
+  downPayment      Float            @default(0)
+  installments     Int              @default(1)
+  frequencyDays    Int              @default(30)
+  startDate        DateTime
+  status           String           @default("ACTIVE") // ACTIVE | COMPLETED | DEFAULTED | CANCELLED
+  paidAmount       Float            @default(0)
+  createdBy        String?
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  archivedAt       DateTime?
+
+  planInstallments PlanInstallment[]
+  @@index([customerId, status])
+  @@index([collectionCaseId])
+}
+
+model PlanInstallment {
+  id             String          @id @default(uuid())
+  planId         String
+  plan           InstallmentPlan @relation(fields: [planId], references: [id], onDelete: Cascade)
+  sequence       Int
+  dueDate        DateTime
+  amount         Float
+  paidAmount     Float           @default(0)
+  status         String          @default("PENDING") // PENDING | PAID | OVERDUE | PARTIAL
+  paidAt         DateTime?
+  createdAt      DateTime        @default(now())
+
+  @@index([planId, status])
+  @@index([dueDate, status])
+}
+
+model Dispute {
+  id             String   @id @default(uuid())
+  customerId     String
+  customer       Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  invoiceId      String?
+  reason         String
+  amount         Float
+  status         String   @default("OPEN") // OPEN | UNDER_REVIEW | APPROVED | REJECTED | CLOSED
+  resolution     String?
+  resolvedBy     String?
+  resolvedAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([customerId, status])
+  @@index([invoiceId, status])
+}
+
+model ProvisionRule {
+  id          String   @id @default(uuid())
+  name        String
+  code        String   @unique
+  bucketDays  Int      @default(90)       // aging bucket minimum days
+  provisionPct Float   @default(25)       // percentage of outstanding to provision
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+
+  provisions BadDebtProvision[]
+
+  @@index([active, bucketDays])
+}
+
+model BadDebtProvision {
+  id             String        @id @default(uuid())
+  ruleId         String?
+  rule           ProvisionRule? @relation(fields: [ruleId], references: [id])
+  customerId     String?
+  periodId       String?
+  amount         Float
+  bucketDays     Int           @default(0)
+  outstanding    Float         @default(0)
+  provisionPct   Float         @default(0)
+  period         String?       // YYYY-MM key
+  createdAt      DateTime      @default(now())
+
+  @@index([period, amount])
+  @@index([ruleId])
+  @@index([customerId])
+}
+
+model WriteOffRequest {
+  id             String   @id @default(uuid())
+  customerId     String
+  customer       Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  invoiceId      String?
+  collectionCaseId String?
+  amount         Float
+  reason         String
+  status         String   @default("PENDING") // PENDING | APPROVED | REJECTED | EXECUTED
+  approvalId     String?
+  approvedBy     String?
+  approvedAt     DateTime?
+  executedAt     DateTime?
+  notes          String?
+  createdBy      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([customerId, status])
+  @@index([status, createdAt])
 }
 
 

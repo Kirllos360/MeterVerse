@@ -52,6 +52,7 @@ import { workflowRouter } from "./routes/workflows.js"
 import { financialIntegrationRouter } from "./routes/financial-integration.js"
 import { revenueAssuranceRouter } from "./routes/revenue-assurance.js"
 import { tariffEngineRouter } from "./routes/tariff-engine.js"
+import { collectionsRouter } from "./routes/collections.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
@@ -286,6 +287,7 @@ mount("/workflows", workflowRouter)
 mount("/financial-integration", financialIntegrationRouter)
 mount("/revenue-assurance", revenueAssuranceRouter)
 mount("/tariff-engine", tariffEngineRouter)
+mount("/collections", collectionsRouter)
 mount("/materialized-views", materializedViewsRouter)
 mount("/gateways", gatewaysRouter)
 mount("/knowledge-articles", knowledgeArticlesRouter)
