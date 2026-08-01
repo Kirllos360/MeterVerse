@@ -690,5 +690,22 @@
             "backend/tests/api/governance.test.mjs",
             "140 unit tests passing"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 1 — coverage thresholds + governance B-01 migration baseline",
+        "tools_activated": ["bash", "read", "grep", "filesystem", "git", "memory", "todowrite"],
+        "tools_used": [
+            "measured current coverage (44.5/37.7/49.5/47.7) and raised thresholds to 46/36/48/43",
+            "generated governance-only B-01 migration (10 tables + indexes, 242 lines)",
+            "verified migrate status reveals db-push baseline (OBS-013 recorded)",
+            "recorded OBS-013/OBS-014; updated execution tracker to 12%",
+            "full verification: 140 unit + 48 contract + 31 integration + tsc 0"
+        ],
+        "evidence": [
+            "backend/vitest.config.ts (raised thresholds)",
+            "backend/prisma/migrations/20260801000000_add_governance_registry/migration.sql",
+            "P40_EXECUTION_TRACKER.md (12%)"
+        ]
     }
 ]

@@ -38,7 +38,7 @@ Program-level status:
 | C12 Identity & Zero Trust | 🟨 | Auth, RBAC, Sessions, MFA, ApiKey, Audit | + Governance runtime | 70% |
 | C19 Platform Admin & DevSecOps | 🟨 | CI/CD 5 workflows, config-center, health | + Release/CAB runtime | 55% |
 | C20 Quality & Certification | 🟨 | vitest, coverage, playwright, CI | + Test registry/gates | 40% |
-| C21 Governance & DTO | 🟨 | — (designed only) | + Registries (16 models) | 0% |
+| C21 Governance & DTO | 🟨 | Governance registries (10 models + routes) | + Registries (16 models) | 62% |
 
 ## Wave 2 — Billing/Finance (C22, C23, C13) — ~45 days
 
@@ -132,13 +132,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-010 | `backend/tests/unit/security-middleware.test.mjs` | New C12 middleware test file requires `prisma.auditEntry.create.mockResolvedValue({})` before invoking paths that call `auditLog` (returns `.catch` on create promise). | Low | Accept as test-harness convention; consider making auditLog resilient to non-promise create in treatment phase. |
 | OBS-011 | `backend/prisma/schema.prisma` + `backend/src/routes/governance.js` | C21 governance models added via `prisma db push` (no formal migration folder); production migration must be created in Wave 2 Batch B-01 consolidation. | High | Create formal migration for governance models during B-01 migration baseline. |
 | OBS-012 | `backend/src/routes/governance.js` | Governance routes use `governance.*` permission namespace added to admin hardcoded role; custom roles require DB PermissionOnRole entries. | Low | Document permission seed for custom roles in Wave-1 completion. |
+| OBS-013 | `backend/prisma/_prisma_migrations` (DB) | Database created via `prisma db push`; `_prisma_migrations` history table lacks Prisma `migrate` columns, so `migrate status` fails (`started_at` missing). Migrations folder is historical documentation; schema is applied and verified. | High | In B-01 treatment, either (a) adopt `migrate` baseline with a new `_prisma_migrations` seed, or (b) formalize `db push` + drift checks as the official migration policy. |
+| OBS-014 | `backend/prisma/migrations/20260801000000_add_governance_registry` | Governance migration (10 tables + indexes) created for fresh-deploy path; not applied via `migrate` on current DB (already in sync via db push). | Medium | Validate migration on a clean staging DB during Wave-2 B-01. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 11%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 12%
 (Wave 1 in progress — C12/C19/C20/C21 foundation)
 
 Wave 1 completed in this session:
@@ -147,8 +149,12 @@ Wave 1 completed in this session:
   ✅ Symbiot port isolation (C19 test infra)
   ✅ Contract/integration suites verified green (48+31)
   ✅ C12 security middleware test suite (+31 tests)
-  ✅ C21 governance registries: 10 models + routes + summary (+9 tests) — 140 unit tests
-  ⏳ Next: governance route coverage for remaining models, coverage thresholds, B-01 migration baseline
+  ✅ C21 governance registries: 10 models + routes + summary (+9 tests)
+  ✅ Governance B-01 migration created (fresh-deploy path)
+  ✅ Coverage thresholds raised (40/30/40/39 → 46/36/48/43)
+  ⏳ Next: governance route coverage for remaining models, migration policy decision (OBS-013)
+
+Verification: 140 unit + 48 contract + 31 integration + tsc 0 errors
 
 Last updated: 2026-08-01
 Next gate: Wave 1 completion (C12/C19/C20/C21) per P40
