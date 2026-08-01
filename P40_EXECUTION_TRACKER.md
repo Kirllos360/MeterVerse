@@ -50,7 +50,7 @@ Program-level status:
 
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
-| C22 SaaS & Multi-Tenancy | ðŸŸ¥ | â€” | Tenant/subscription models | 0% |
+| C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
 | C23 Workflow & BPM | ðŸŸ¥ | workflow-engine (3 state machines) | + BPM runtime (19 models) | 10% |
 | C13 Financial Intelligence | ðŸŸ¨ | accounting backend (5 models, routes) | + billing-to-GL, revenue, tariff, AI | 30% |
 
@@ -140,33 +140,33 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-012 | `backend/src/routes/governance.js` | Governance routes use `governance.*` permission namespace added to admin hardcoded role; custom roles require DB PermissionOnRole entries. | Low | Document permission seed for custom roles in Wave-1 completion. |
 | OBS-013 | `backend/prisma/_prisma_migrations` (DB) | Database created via `prisma db push`; `_prisma_migrations` history table lacks Prisma `migrate` columns, so `migrate status` fails (`started_at` missing). Migrations folder is historical documentation; schema is applied and verified. | High | In B-01 treatment, either (a) adopt `migrate` baseline with a new `_prisma_migrations` seed, or (b) formalize `db push` + drift checks as the official migration policy. |
 | OBS-014 | `backend/prisma/migrations/20260801000000_add_governance_registry` | Governance migration (10 tables + indexes) created for fresh-deploy path; not applied via `migrate` on current DB (already in sync via db push). | Medium | Validate migration on a clean staging DB during Wave-2 B-01. |
+| OBS-015 | `backend/src/routes/tenants.js` | C22 tenant routes: `GET /:id` preceded `GET /plans`, causing `/plans` to be captured by `/:id` (404). Fixed by reordering `/plans` before `/:id`. | Medium | Confirm no other `/:id`-style route in tenants.js shadows specific sub-routes; regression test added. |
+| OBS-016 | `backend/prisma/migrations/20260801010000_add_tenant_foundation` | C22 tenant migration (6 tables) created for fresh-deploy path; applied via db push on current DB. | Medium | Validate migration on clean staging during B-01. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: â–ˆâ–ˆâ–ˆâ–ˆâ–‘â–‘â–‘â–‘â–‘â–‘ 12%
-(Wave 1 in progress â€” C12/C19/C20/C21 foundation)
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 13%
+(Wave 2 in progress — C22/C23/C13 Billing & Finance)
 
-Wave 1 completed in this session:
-  âœ… CI integration+contract job (C19/C20 gates)
-  âœ… Location contract endpoints implemented (C12/C01 data surface)
-  âœ… Symbiot port isolation (C19 test infra)
-  âœ… Contract/integration suites verified green (48+31)
-  âœ… C12 security middleware test suite (+31 tests)
-  âœ… C21 governance registries: 10 models + routes + summary (+9 tests)
-  âœ… Governance B-01 migration created (fresh-deploy path)
-  âœ… Coverage thresholds raised (40/30/40/39 â†’ 46/36/48/43)
-  â³ Next: governance route coverage for remaining models, migration policy decision (OBS-013)
+Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
 
-Verification: 140 unit + 48 contract + 31 integration + tsc 0 errors
+Wave 2 completed in this session:
+  ✅ C22 Tenant Foundation: 6 models (Tenant, TenantSetting, SubscriptionPlan,
+     TenantSubscription, UsageMeter, EnvironmentProfile) + routes + tests (+15)
+  ✅ B-02 tenant migration created (fresh-deploy path)
+  ⏳ Next: C23 Workflow Foundation (Step 2.2)
+
+Verification: 155 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
-Next gate: Wave 1 completion (C12/C19/C20/C21) per P40
+Next gate: Wave 2 completion per P40/P42/P43
 ```
 
 ---
 
 *This document is the implementation coverage registry. Updated at every gate. Not a planning artifact â€” execution tracking.*
+
 

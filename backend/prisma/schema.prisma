@@ -190,6 +190,7 @@ model Country {
   archivedAt    DateTime?
   updatedAt     DateTime     @updatedAt
   governorates  Governorate[]
+  tenants       Tenant[]
 }
 
 model Governorate {
@@ -2106,3 +2107,127 @@ model GovernanceAuditFinding {
   @@index([status, dueDate])
   @@index([auditType, createdAt])
 }
+
+// ─── C22 SaaS & Multi-Tenancy Foundation (Wave 2) ────────────────────────────
+
+model Tenant {
+  id             String   @id @default(uuid())
+  name           String
+  slug           String   @unique
+  type           String   @default("UTILITY") // UTILITY | ENTERPRISE | SMALL_BUSINESS
+  countryId      String?
+  country        Country? @relation(fields: [countryId], references: [id])
+  timezone       String   @default("Africa/Cairo")
+  currency       String   @default("EGP")
+  defaultLanguage String  @default("en")
+  status         String   @default("TRIAL") // TRIAL | ACTIVE | SUSPENDED | ARCHIVED
+  lifecycleStatus String @default("ONBOARDING") // ONBOARDING | PROVISIONED | ACTIVE | ARCHIVING | ARCHIVED
+  isolationStrategy String @default("ROW_LEVEL") // ROW_LEVEL | SCHEMA | HYBRID
+  dataResidency  String? // region constraint
+  maxMeters      Int      @default(10000)
+  maxUsers       Int      @default(100)
+  maxStorage     Int      @default(10240) // MB
+  settings       String   @default("{}")
+  branding       String   @default("{}")
+  createdBy      String?
+  createdAt      DateTime @default(now())
+  archivedAt     DateTime?
+  updatedAt      DateTime @updatedAt
+  settingsEntries TenantSetting[]
+  subscriptions  TenantSubscription[]
+
+  @@index([status, lifecycleStatus])
+  @@index([countryId])
+  @@index([slug])
+}
+
+model TenantSetting {
+  id        String   @id @default(uuid())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  key       String
+  value     String
+  category  String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  archivedAt DateTime?
+
+  @@unique([tenantId, key])
+  @@index([tenantId, category])
+}
+
+model SubscriptionPlan {
+  id          String   @id @default(uuid())
+  name        String
+  code        String   @unique
+  tier        String   @default("STARTER") // STARTER | GROWTH | ENTERPRISE
+  priceMonthly Float   @default(0)
+  priceAnnual  Float   @default(0)
+  currency    String   @default("EGP")
+  features    String   @default("{}") // JSON entitlements
+  limits      String   @default("{}") // JSON { maxMeters, maxUsers, maxStorage, apiCallsPerDay }
+  supportLevel String  @default("STANDARD") // STANDARD | PRIORITY | DEDICATED
+  slaLevel    Float    @default(99.5)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+  subscriptions TenantSubscription[]
+
+  @@index([tier, active])
+}
+
+model TenantSubscription {
+  id             String   @id @default(uuid())
+  tenantId       String
+  tenant         Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  planId         String
+  plan           SubscriptionPlan @relation(fields: [planId], references: [id])
+  status         String   @default("TRIAL") // TRIAL | ACTIVE | SUSPENDED | CANCELLED | EXPIRED
+  startDate      DateTime @default(now())
+  trialEndsAt    DateTime?
+  renewsAt       DateTime?
+  billingCycle   String   @default("MONTHLY") // MONTHLY | ANNUAL
+  seats          Int      @default(1)
+  addOns         String   @default("{}")
+  price          Float    @default(0)
+  currency       String   @default("EGP")
+  discountPercent Float   @default(0)
+  promoCode      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  archivedAt     DateTime?
+
+  @@index([tenantId, status])
+  @@index([planId])
+  @@index([status, renewsAt])
+}
+
+model UsageMeter {
+  id          String   @id @default(uuid())
+  tenantId    String
+  metric      String   // API_CALLS | STORAGE_GB | AI_TOKENS | METER_READINGS | USERS
+  periodStart DateTime
+  periodEnd   DateTime
+  quantity    Float    @default(0)
+  unit        String   @default("count")
+  createdAt   DateTime @default(now())
+
+  @@unique([tenantId, metric, periodStart, periodEnd])
+  @@index([tenantId, metric, periodEnd])
+}
+
+model EnvironmentProfile {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  code        String   @unique
+  envType     String   @default("DEV") // DEV | TEST | STAGING | PROD
+  config      String   @default("{}")
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+
+  @@index([envType, active])
+}
+
