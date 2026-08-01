@@ -874,5 +874,28 @@
             "backend/prisma/migrations/20260801040000_add_revenue_intelligence/migration.sql",
             "203 unit tests passing; P40_EXECUTION_TRACKER.md (16%)"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 2 Step 2.5 — C13 Tariff Engine implementation",
+        "tools_activated": ["bash", "git", "read", "grep", "filesystem", "memory", "todowrite"],
+        "tools_used": [
+            "implemented C13 Tariff Engine: 9 models (TariffVersion, TariffVersionRate, TariffVersionTier, TariffToUSchedule, TariffDemandRate, TariffFixedCharge, TariffTax, TariffChangeLog, CustomerTariff)",
+            "implemented tariff-engine.js service (versioned calculate: flat/tiered/ToU/demand/fixed/tax; resolveActiveVersion; calculateForCustomer; simulateTariff)",
+            "implemented tariff-engine.js routes (version CRUD + activate lifecycle, customer assignments, calculate, simulate)",
+            "registered /tariff-engine router + tariffs.* admin permissions",
+            "added mock-prisma delegates (updateMany/deleteMany to mock model) + tariff-engine.test.mjs (19 tests); verified 222 unit tests pass",
+            "verified live end-to-end: version create+activate, tiered+fixed+tax calculate (587.1), simulate (420); cleaned demo data",
+            "created B-06 tariff migration; updated tracker (C13 60%, overall 17%), PROJECT_STATE, OBS-023/024",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "backend/src/services/tariff-engine.js",
+            "backend/src/routes/tariff-engine.js",
+            "backend/prisma/schema.prisma (9 tariff models)",
+            "backend/tests/api/tariff-engine.test.mjs",
+            "backend/prisma/migrations/20260801050000_add_tariff_engine/migration.sql",
+            "222 unit tests passing; P40_EXECUTION_TRACKER.md (17%)"
+        ]
     }
 ]

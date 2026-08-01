@@ -861,6 +861,7 @@ model Customer {
   units            Unit[]
   serviceConnections ServiceConnection[]
   payments         Payment[]
+  customerTariffs  CustomerTariff[]
 }
 
 model MeterType {
@@ -1103,6 +1104,7 @@ model Tariff {
   groupPricings GroupPricing[]
   rates         TariffRate[]
   tiers         TariffTier[]
+  versions      TariffVersion[]
 }
 
 model TariffRate {
@@ -2524,6 +2526,151 @@ model RevenueInvestigation {
   @@index([findingId])
   @@index([status, assignedTo])
 }
+
+// ─── C13 Tariff Engine (Wave 2 Step 2.5) ────────────────────────────────────
+
+model TariffVersion {
+  id           String    @id @default(uuid())
+  tariffId     String
+  tariff       Tariff    @relation(fields: [tariffId], references: [id], onDelete: Cascade)
+  versionNumber Int      @default(1)
+  label        String?
+  status       String    @default("DRAFT") // DRAFT | ACTIVE | SUPERSEDED | ARCHIVED
+  effectiveFrom DateTime
+  effectiveTo   DateTime?
+  baseRate     Float?
+  createdBy    String?
+  createdAt    DateTime  @default(now())
+  activatedAt  DateTime?
+  archivedAt   DateTime?
+  updatedAt    DateTime  @updatedAt
+
+  rates       TariffVersionRate[]
+  tiers       TariffVersionTier[]
+  touSchedules TariffToUSchedule[]
+  demandRates TariffDemandRate[]
+  fixedCharges TariffFixedCharge[]
+  taxes       TariffTax[]
+  changeLogs  TariffChangeLog[]
+  customerAssignments CustomerTariff[]
+
+  @@unique([tariffId, versionNumber])
+  @@index([tariffId, status])
+  @@index([effectiveFrom, status])
+}
+
+model TariffVersionRate {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  name          String
+  rate          Float
+  unit          String        @default("kWh")
+  priority      Int           @default(0)
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId])
+}
+
+model TariffVersionTier {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  name          String
+  minValue      Float?
+  maxValue      Float?
+  rate          Float
+  unit          String        @default("kWh")
+  priority      Int           @default(0)
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId])
+}
+
+model TariffToUSchedule {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  name          String
+  dayOfWeek     String        @default("ALL") // MON-SUN | ALL | WEEKDAY | WEEKEND
+  startHour     Int
+  endHour       Int
+  rate          Float
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId, dayOfWeek])
+}
+
+model TariffDemandRate {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  name          String
+  rate          Float
+  unit          String        @default("kW")
+  threshold     Float?        // free allowance before charge applies
+  priority      Int           @default(0)
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId])
+}
+
+model TariffFixedCharge {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  name          String
+  amount        Float
+  frequency     String        @default("MONTHLY") // MONTHLY | QUARTERLY | ANNUAL | ONCE
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId])
+}
+
+model TariffTax {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  name          String
+  rate          Float
+  type          String        @default("PERCENTAGE") // PERCENTAGE | FLAT
+  amount        Float?
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId])
+}
+
+model TariffChangeLog {
+  id            String        @id @default(uuid())
+  versionId     String
+  version       TariffVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  changedBy     String?
+  changeType    String        @default("UPDATE") // CREATE | UPDATE | ACTIVATE | SUPERSEDE | ARCHIVE
+  summary       String?
+  details       String?       // JSON diff
+  createdAt     DateTime      @default(now())
+
+  @@index([versionId])
+}
+
+model CustomerTariff {
+  id            String    @id @default(uuid())
+  customerId    String
+  customer      Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  tariffVersionId String
+  tariffVersion TariffVersion @relation(fields: [tariffVersionId], references: [id])
+  effectiveFrom DateTime
+  effectiveTo   DateTime?
+  status        String    @default("ACTIVE") // ACTIVE | SUSPENDED | EXPIRED
+  assignedBy    String?
+  createdAt     DateTime  @default(now())
+  archivedAt    DateTime?
+
+  @@index([customerId, status])
+  @@index([tariffVersionId])
+  @@index([effectiveFrom, status])
+}
+
 
 
 

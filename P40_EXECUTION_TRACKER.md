@@ -52,7 +52,7 @@ Program-level status:
 |---------|--------|------------|----------|:--------:|
 | C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
 | C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
-| C13 Financial Intelligence | 🟨 | Revenue Assurance engine (15 rules, findings, investigations, scoring) | + billing-to-GL, revenue, tariff, AI | 50% |
+| C13 Financial Intelligence | 🟨 | Tariff Engine (9 versioned models, ToU/tiered/demand/fixed/tax, simulation) | + billing-to-GL, revenue, tariff, AI | 60% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
 
@@ -148,13 +148,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-020 | `backend/prisma/migrations/20260801030000_add_financial_integration` | C13 financial integration migration (2 tables: FinancialEvent, AccountMapping) created for fresh-deploy path; applied via db push. Invoice/payment GL hooks are feature-flag guarded (`FINANCIAL_POSTING_ENABLED !== "false"`). | Medium | Validate migration on clean staging during B-01; confirm flag default remains on. |
 | OBS-021 | `backend/src/services/revenue-assurance-engine.js` | C13 Revenue Assurance engine: 15 seeded rules (6 PRE_BILL, 6 POST_BILL, 3 CONTINUOUS), JSON condition evaluator, dedupe of open findings, variance scoring (0-100). `InvoiceTax` links via `invoiceItemId` (not `invoiceId`), so tax aggregation joins through invoice items. | Low | Keep tax aggregation via invoice-item join for all new queries. |
 | OBS-022 | `backend/prisma/migrations/20260801040000_add_revenue_intelligence` | C13 revenue intelligence migration (3 tables: RevenueRule, RevenueLeakageFinding, RevenueInvestigation) created for fresh-deploy path; applied via db push. Live run verified: 2358 checks, 50 findings detected then cleaned. | Medium | Validate migration on clean staging during B-01. |
+| OBS-023 | `backend/src/services/tariff-engine.js` | C13 Tariff Engine: versioned calculation (flat/tiered/ToU/demand/fixed/tax) + simulation. Tiered bands with null maxValue must extend to remaining consumption (`max = tier.maxValue ?? Infinity`), not clamp at min. | Low | Preserve open-ended tier semantics in all future tariff calculations. |
+| OBS-024 | `backend/prisma/migrations/20260801050000_add_tariff_engine` | C13 tariff engine migration (9 tables: TariffVersion + 7 component models + CustomerTariff) created for fresh-deploy path; applied via db push. Live verified: version create/activate, tiered+fixed+tax calculate (587.1), simulate (420). | Medium | Validate migration on clean staging during B-01. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 16%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 17%
 (Wave 2 in progress — C22/C23/C13 Billing & Finance)
 
 Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
@@ -167,10 +169,12 @@ Wave 2 completed in this session:
      PostingEngine + invoice/payment GL hooks + audit trail + tests (+16)
   ✅ C13 Revenue Intelligence: RevenueRule/LeakageFinding/Investigation +
      Assurance engine (15 rules, pre/post/continuous) + tests (+15)
-  ✅ B-02 + B-03 + B-04 + B-05 migrations created (fresh-deploy path)
-  ⏳ Next: C13 Tariff Engine (Step 2.5)
+  ✅ C13 Tariff Engine: 9 versioned models + tariff-engine (ToU/tiered/
+     demand/fixed/tax) + calculate/simulate + tests (+19)
+  ✅ B-02 + B-03 + B-04 + B-05 + B-06 migrations created (fresh-deploy path)
+  ⏳ Next: C13 Collection Intelligence (Step 2.6)
 
-Verification: 203 unit + 48 contract + 31 integration + tsc 0
+Verification: 222 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
 Next gate: Wave 2 completion per P40/P42/P43
