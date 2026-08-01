@@ -1877,3 +1877,232 @@ enum JobStatus {
   failed
   cancelled
 }
+
+// ─── C21 Enterprise Governance Registry (Wave 1) ───────────────────────────
+
+model GovernanceStandard {
+  id             String     @id @default(uuid())
+  code           String     @unique
+  name           String
+  version        String     @default("1.0")
+  category       String     @default("ARCHITECTURE") // ARCHITECTURE | SECURITY | DATA | AI | QUALITY | OPERATIONS | FINANCE
+  description    String?
+  content        String?
+  status         String     @default("DRAFT") // DRAFT | REVIEW | APPROVED | DEPRECATED
+  approvedBy     String?
+  approvedAt     DateTime?
+  effectiveFrom  DateTime?
+  effectiveTo    DateTime?
+  supersedesId   String?
+  createdBy      String?
+  createdAt      DateTime   @default(now())
+  archivedAt     DateTime?
+  updatedAt      DateTime   @updatedAt
+
+  @@index([category, status])
+  @@index([status, approvedAt])
+}
+
+model GovernancePolicy {
+  id              String   @id @default(uuid())
+  code            String   @unique
+  name            String
+  version         String   @default("1.0")
+  category        String   @default("OPERATIONAL")
+  description     String?
+  rules           String?  // JSON array of policy rules
+  applicability   String?  // JSON: scope / audience
+  status          String   @default("DRAFT") // DRAFT | REVIEW | APPROVED | ENFORCED | DEPRECATED
+  enforcementLevel String  @default("MANDATORY") // MANDATORY | RECOMMENDED | INFORMATIONAL
+  approvedBy      String?
+  approvedAt      DateTime?
+  reviewedAt      DateTime?
+  nextReviewAt    DateTime?
+  supersedesId    String?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  archivedAt      DateTime?
+  updatedAt       DateTime @updatedAt
+
+  @@index([category, status])
+  @@index([status, nextReviewAt])
+}
+
+model GovernanceDecision {
+  id                String   @id @default(uuid())
+  reference         String   @unique
+  title             String
+  description       String?
+  decisionType      String   @default("TACTICAL") // STRATEGIC | ARCHITECTURAL | FINANCIAL | OPERATIONAL | TACTICAL
+  status            String   @default("PROPOSED") // PROPOSED | REVIEWED | APPROVED | REJECTED | SUPERSEDED
+  options           String?  // JSON alternatives considered
+  rationale         String?
+  impactAnalysis    String?  // JSON
+  decidedBy         String?
+  decidedAt         DateTime?
+  relatedDecisions  String?  // JSON references
+  linkedRequirements String? // JSON
+  createdBy         String?
+  createdAt         DateTime @default(now())
+  archivedAt        DateTime?
+  updatedAt         DateTime @updatedAt
+
+  @@index([decisionType, status])
+  @@index([status, decidedAt])
+}
+
+model ArchitectureDecisionRecord {
+  id             String   @id @default(uuid())
+  adrNumber      String   @unique
+  title          String
+  status         String   @default("PROPOSED") // PROPOSED | ACCEPTED | SUPERSEDED | DEPRECATED
+  context        String?
+  decision       String?
+  consequences   String?
+  alternatives   String?  // JSON
+  relatedPrograms String? // JSON
+  approvedBy     String?
+  approvedAt     DateTime?
+  supersededBy   String?
+  createdBy      String?
+  createdAt      DateTime @default(now())
+  archivedAt     DateTime?
+  updatedAt       DateTime @updatedAt
+
+  @@index([status, approvedAt])
+}
+
+model GovernanceException {
+  id                String   @id @default(uuid())
+  standardId        String?  // FK to GovernanceStandard
+  policyId          String?  // FK to GovernancePolicy
+  title             String
+  description       String?
+  justification     String?
+  scope             String?
+  duration          String?  // JSON window
+  riskAssessment    String?  // JSON
+  status            String   @default("REQUESTED") // REQUESTED | REVIEWED | APPROVED | REJECTED | EXPIRED
+  mitigationPlan    String?
+  requestedBy       String?
+  approvedBy        String?
+  approvedAt        DateTime?
+  expiresAt         DateTime?
+  createdBy         String?
+  createdAt         DateTime @default(now())
+  archivedAt        DateTime?
+  updatedAt         DateTime @updatedAt
+
+  @@index([status, expiresAt])
+  @@index([standardId, status])
+  @@index([policyId, status])
+}
+
+model GovernanceWaiver {
+  id            String   @id @default(uuid())
+  policyId      String?
+  title         String
+  description   String?
+  waiverType    String   @default("TEMPORARY") // TEMPORARY | PERMANENT
+  justification String?
+  expiresAt     DateTime?
+  status        String   @default("REQUESTED") // REQUESTED | APPROVED | REJECTED | EXPIRED
+  approvedBy    String?
+  approvedAt    DateTime?
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  archivedAt    DateTime?
+  updatedAt     DateTime @updatedAt
+
+  @@index([status, expiresAt])
+}
+
+model TechnicalDebtItem {
+  id               String   @id @default(uuid())
+  source           String   @default("REVIEW") // ADR | CODE_REVIEW | ARCHITECTURE_REVIEW | AUDIT
+  description      String?
+  category         String   @default("CODE") // ARCHITECTURE | CODE | DATA | SECURITY | PERFORMANCE | TEST
+  severity         String   @default("MEDIUM") // LOW | MEDIUM | HIGH | CRITICAL
+  estimatedEffort  Int?     // hours
+  interestRate     Float?   // debt accrual
+  status           String   @default("OPEN") // OPEN | IN_PROGRESS | RESOLVED | WAIVED
+  linkedProgram    String?
+  owner            String?
+  createdBy        String?
+  createdAt        DateTime @default(now())
+  resolvedAt       DateTime?
+  archivedAt       DateTime?
+  updatedAt        DateTime @updatedAt
+
+  @@index([category, severity])
+  @@index([status, createdAt])
+}
+
+model BusinessRisk {
+  id            String   @id @default(uuid())
+  title         String
+  description   String?
+  category      String   @default("OPERATIONAL") // STRATEGIC | OPERATIONAL | FINANCIAL | CYBER | VENDOR | AI | COMPLIANCE
+  likelihood    Int      @default(3) // 1-5
+  impact        Int      @default(3) // 1-5
+  inherentRisk  Int?
+  residualRisk  Int?
+  mitigation    String?
+  contingency   String?
+  owner         String?
+  status        String   @default("IDENTIFIED") // IDENTIFIED | ASSESSED | MITIGATING | ACCEPTED | CLOSED
+  lastReviewAt  DateTime?
+  nextReviewAt  DateTime?
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  archivedAt    DateTime?
+  updatedAt     DateTime @updatedAt
+
+  @@index([category, status])
+  @@index([status, nextReviewAt])
+}
+
+model ComplianceObligation {
+  id               String   @id @default(uuid())
+  framework        String   @default("ISO27001") // ISO27001 | SOC2 | NIST | OWASP | GDPR | FINANCIAL | UTILITY | INTERNAL
+  controlId        String
+  controlName      String
+  description      String?
+  status           String   @default("NOT_ASSESSED") // NOT_APPLICABLE | COMPLIANT | PARTIAL | NON_COMPLIANT | NOT_ASSESSED
+  evidence         String?  // JSON evidence references
+  assessor         String?
+  assessedAt       DateTime?
+  remediationPlan  String?
+  dueDate          DateTime?
+  createdBy        String?
+  createdAt        DateTime @default(now())
+  archivedAt       DateTime?
+  updatedAt        DateTime @updatedAt
+
+  @@unique([framework, controlId])
+  @@index([framework, status])
+  @@index([status, dueDate])
+}
+
+model GovernanceAuditFinding {
+  id               String   @id @default(uuid())
+  auditType        String   @default("INTERNAL") // INTERNAL | EXTERNAL | REGULATORY | PENETRATION
+  title            String
+  description      String?
+  severity         String   @default("MEDIUM") // LOW | MEDIUM | HIGH | CRITICAL
+  findingType      String   @default("CONTROL") // CONTROL | COMPLIANCE | SECURITY | DATA | PROCESS
+  status           String   @default("OPEN") // OPEN | IN_PROGRESS | REMEDIATED | ACCEPTED | CLOSED
+  remediationPlan  String?
+  evidence         String?  // JSON
+  dueDate          DateTime?
+  owner            String?
+  createdBy        String?
+  createdAt        DateTime @default(now())
+  closedAt         DateTime?
+  archivedAt       DateTime?
+  updatedAt        DateTime @updatedAt
+
+  @@index([severity, status])
+  @@index([status, dueDate])
+  @@index([auditType, createdAt])
+}

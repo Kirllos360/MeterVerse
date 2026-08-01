@@ -38,7 +38,7 @@ Program-level status:
 | C12 Identity & Zero Trust | 🟨 | Auth, RBAC, Sessions, MFA, ApiKey, Audit | + Governance runtime | 70% |
 | C19 Platform Admin & DevSecOps | 🟨 | CI/CD 5 workflows, config-center, health | + Release/CAB runtime | 55% |
 | C20 Quality & Certification | 🟨 | vitest, coverage, playwright, CI | + Test registry/gates | 40% |
-| C21 Governance & DTO | 🟥 | — (designed only) | + Registries (16 models) | 0% |
+| C21 Governance & DTO | 🟨 | — (designed only) | + Registries (16 models) | 0% |
 
 ## Wave 2 — Billing/Finance (C22, C23, C13) — ~45 days
 
@@ -130,13 +130,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-008 | `backend/` | 23+ uncommitted coverage artifacts and a deleted frontend test (`permissions.test.ts`) remain in working tree. | Medium | Clean working tree per P41 blocker #4; verify whether `permissions.test.ts` deletion is intentional. |
 | OBS-009 | `backend/src/middleware/security.js` | `requireAccess(model, resourceId)` returns an async middleware via an async function; callers must `await requireAccess(...)` before invoking. Not used by any route today (dead surface). | Low | Document usage contract or convert to sync factory in treatment phase; add route coverage if adopted. |
 | OBS-010 | `backend/tests/unit/security-middleware.test.mjs` | New C12 middleware test file requires `prisma.auditEntry.create.mockResolvedValue({})` before invoking paths that call `auditLog` (returns `.catch` on create promise). | Low | Accept as test-harness convention; consider making auditLog resilient to non-promise create in treatment phase. |
+| OBS-011 | `backend/prisma/schema.prisma` + `backend/src/routes/governance.js` | C21 governance models added via `prisma db push` (no formal migration folder); production migration must be created in Wave 2 Batch B-01 consolidation. | High | Create formal migration for governance models during B-01 migration baseline. |
+| OBS-012 | `backend/src/routes/governance.js` | Governance routes use `governance.*` permission namespace added to admin hardcoded role; custom roles require DB PermissionOnRole entries. | Low | Document permission seed for custom roles in Wave-1 completion. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 9%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 11%
 (Wave 1 in progress — C12/C19/C20/C21 foundation)
 
 Wave 1 completed in this session:
@@ -144,8 +146,9 @@ Wave 1 completed in this session:
   ✅ Location contract endpoints implemented (C12/C01 data surface)
   ✅ Symbiot port isolation (C19 test infra)
   ✅ Contract/integration suites verified green (48+31)
-  ✅ C12 security middleware test suite (+31 tests) — 131 unit tests total
-  ⏳ Next: C21 governance registries, C12 further expansion, coverage thresholds
+  ✅ C12 security middleware test suite (+31 tests)
+  ✅ C21 governance registries: 10 models + routes + summary (+9 tests) — 140 unit tests
+  ⏳ Next: governance route coverage for remaining models, coverage thresholds, B-01 migration baseline
 
 Last updated: 2026-08-01
 Next gate: Wave 1 completion (C12/C19/C20/C21) per P40
