@@ -430,5 +430,24 @@
             "backend/src/middleware/security.js auditLog",
             "C21_Governance_Portfolio_DTO.md (Policy/Standard/ComplianceObligation/AuditFinding designs)"
         ]
+    },
+    {
+        "date": "2026-07-29",
+        "task": "C31 Knowledge Marketplace Organizational Intelligence blueprint",
+        "tools_activated": ["filesystem", "bash", "read", "grep", "glob", "memory", "serena", "git"],
+        "tools_used": [
+            "tools-manifest read for task routing",
+            "KnowledgeArticle, LearnedPattern, Incident, KnowledgeRepository, RCA ResolutionLearner, C18-C30 knowledge and governance foundations audited",
+            "knowledge marketplace, search, AI agent, organizational memory, learning, and governance architecture decomposed",
+            "memory knowledge graph updated with C31 state",
+            "write tool used to create the read-only blueprint",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "C31_Knowledge_Marketplace_Organizational_Intelligence.md",
+            "backend/prisma/schema.prisma KnowledgeArticle, LearnedPattern, Incident models",
+            "src/intelligence/knowledge/repository/KnowledgeRepository.js",
+            "src/intelligence/rca/learning/ResolutionLearner.js"
+        ]
     }
 ]
