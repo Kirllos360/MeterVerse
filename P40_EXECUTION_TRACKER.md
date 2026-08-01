@@ -171,6 +171,8 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-043 | P45-G logging | Audit + activity explorer + connection profiles verified reachable via UI/API (audit 200 with real entries). | Low | — |
 | OBS-044 | P45 login session bug | Login/MFA/emergency `session.create` omitted required `token` + `expiresAt` and used non-existent `ipAddress` → 500. Fixed to canonical fields (`token`, `ip`, `expiresAt`). Added `@@unique([roleId,permissionId])` on PermissionOnRole so `seed.js` upsert works. | High | Run seed on clean DB to verify. |
 | OBS-045 | P45 demo baseline | Ran `scripts/seed.js` → 30 permissions, 4 roles, real admin user (`admin@meterverse.com`/`Admin@123`, bcrypt), 19 settings, 8 flags, 20 templates. Real login → real JWT → authorized 200s verified. Demo readiness core satisfied. | High | Document demo credentials in runbook. |
+| OBS-046 | P45 route-order bug | `notFoundHandler` was registered BEFORE inline `/api` routes (runtime/status, scheduler/stats, ingestion/status, health/scores, failover, observability, diagnostics) — all silently 404. Moved error handling to end of server.js; all inline routes now reachable. Also fixed RuntimeManager metrics bug (line-36 overwrite of MetricsCollector) → runtime/status 500. | High | Error handlers must be last in Express. |
+| OBS-047 | P45 ingestion + migrations | Wired ingestion-runtime (Symbiot TCP bridge + connection-profile polling adapters at boot); pruning duplicate init migrations (00001_initial, 20260723000000_init_schema) → clean single baseline + additive B-series for fresh deploy. | Medium | Validate fresh `migrate deploy` on staging. |
 
 ---
 

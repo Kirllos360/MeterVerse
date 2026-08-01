@@ -24,6 +24,11 @@ Platform core hardened + wired before further business domains (per P44 findings
 | P45-G Enterprise logging verified reachable | ✅ |
 | P45-H Full exam green (267 unit, 56 contract, 31 integration, coverage, tsc 0, audit 0) | ✅ |
 | P45 login session fix (token/expiresAt/ip) + PermissionOnRole unique | ✅ |
+| P45 demo baseline seeded (real admin user, 4 roles, 30 permissions) | ✅ real login verified 200 |
+| P45-J Migration pruning (single baseline 00001_init + additive B-series) | ✅ |
+| P45-K Ingestion runtime wired (Symbiot TCP bridge + polling adapters at boot) | ✅ `/api/ingestion/status` live |
+| P45-L Organization hierarchy verified (areas/projects/zones/units real API) | ✅ |
+| P45 route-order fix (notFoundHandler last) + RuntimeManager metrics fix | ✅ all inline routes 200 |
 | Demo baseline seeded (real admin user, 4 roles, 30 permissions, settings, flags) | ✅ real login verified 200 |
 
 ---

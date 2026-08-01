@@ -1031,5 +1031,29 @@
             "scripts/seed.js run (admin user, 4 roles, 30 permissions)",
             "P40_EXECUTION_TRACKER.md (OBS-037..045), PROJECT_STATE 8.5.0"
         ]
+    },
+    {
+        "task": "P45 Core Baseline J-K-L: migration pruning, ingestion runtime, route-order + metrics fixes",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE pre-flight + P00 + AI_ROLES + tools-manifest + PROJECT_STATE 8.5.0 + memory graph",
+            "P45-J: pruned duplicate init migrations (00001_initial 0-SQL, 20260723000000_init_schema 78-tbl subset) -> single baseline 00001_init + additive B-series",
+            "P45-K: created ingestion-runtime.js wiring Symbiot TCP bridge + connection-profile polling adapters at boot; exposed GET /api/ingestion/status",
+            "FIX: notFoundHandler registered before inline /api routes -> all silently 404; moved error handlers to end of server.js",
+            "FIX: RuntimeManager metrics bug (MetricsCollector overwritten by plain object) -> runtime/status 500; real collector + _counters",
+            "FIX: symbiot-bridge EADDRINUSE non-fatal",
+            "P45-L: verified org hierarchy live (areas/projects/zones/units 200; admin/areas uses GenericAdminPage real API)",
+            "verified: 267 unit + 56 contract pass; runtime/status, ingestion/status, scheduler/stats, health/scores, failover all 200",
+            "committed 57ed4e57 + 6777b4f5 pushed to kirllos360 origin; recorded OBS-046/047, PROJECT_STATE updated"
+        ],
+        "evidence": [
+            "backend/src/services/ingestion-runtime.js (new)",
+            "backend/src/server.js (error handlers last + ingestion boot)",
+            "backend/src/services/runtime-manager.js (metrics fix)",
+            "backend/src/services/symbiot-bridge.js (EADDRINUSE non-fatal)",
+            "prisma/migrations (2 dup init removed)",
+            "P40_EXECUTION_TRACKER.md (OBS-046/047)"
+        ]
     }
 ]
