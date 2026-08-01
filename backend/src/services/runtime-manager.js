@@ -50,8 +50,11 @@ export class RuntimeManager {
     if (this.state === "running") return
     logger.info({ component: "runtime-manager" }, "Runtime starting...")
 
-    // Start Symbiot bridge
-    this.symbiotBridge = createSymbiotBridge()
+    // Start Symbiot bridge (ports configurable via SYMBIOT_TCP_PORT/SYMBIOT_HTTP_PORT for CI isolation)
+    this.symbiotBridge = createSymbiotBridge({
+      tcpPort: Number(process.env.SYMBIOT_TCP_PORT) || undefined,
+      httpPort: Number(process.env.SYMBIOT_HTTP_PORT) || undefined,
+    })
     logger.info({ component: "runtime-manager" }, "Symbiot bridge created")
 
     // Start pool + sessions

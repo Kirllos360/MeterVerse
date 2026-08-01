@@ -7,7 +7,7 @@ const MAX_TCP = 10;
 const MAX_HTTP = 100;
 
 export function createSymbiotBridge(options = {}) {
-  const { tcpPort = 9000, httpPort = 9001 } = options;
+  const { tcpPort = Number(process.env.SYMBIOT_TCP_PORT) || 9000, httpPort = Number(process.env.SYMBIOT_HTTP_PORT) || 9001 } = options;
 
   // TCP server for raw meter data streams
   const tcpServer = createServer((socket) => {

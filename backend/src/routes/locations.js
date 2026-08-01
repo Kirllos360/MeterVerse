@@ -64,6 +64,32 @@ router.get("/zones/:zoneId/units", async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
+// GET /zones — flat list of all zones (contract endpoint)
+router.get("/zones", async (req, res, next) => {
+  try {
+    const { projectId } = req.query
+    const where = { archivedAt: null }
+    if (projectId) where.projectId = projectId
+    const zones = await prisma.zone.findMany({
+      where,
+      include: { _count: { select: { units: true } } },
+      orderBy: { name: "asc" },
+    })
+    res.json({ zones: zones.map(z => ({ id: z.id, name: z.name, code: z.code, projectId: z.projectId, unitCount: z._count.units })) })
+  } catch (err) { next(err) }
+})
+
+// GET /units — flat list of all units (contract endpoint)
+router.get("/units", async (req, res, next) => {
+  try {
+    const { zoneId } = req.query
+    const where = { archivedAt: null }
+    if (zoneId) where.zoneId = zoneId
+    const units = await prisma.unit.findMany({ where, orderBy: { name: "asc" } })
+    res.json({ units })
+  } catch (err) { next(err) }
+})
+
 // GET /unit-types — distinct unit types
 router.get("/unit-types", async (req, res, next) => {
   try {

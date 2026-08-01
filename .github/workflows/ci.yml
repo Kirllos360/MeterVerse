@@ -58,6 +58,99 @@ jobs:
         working-directory: backend
         continue-on-error: false
 
+  test-integration:
+    name: Integration & Contract Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: meterverse_test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
+
+      - name: Push schema to test database
+        run: npx prisma db push --skip-generate
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
+
+      - name: Seed test database
+        run: npm run db:seed
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
+          JWT_SECRET: ci-test-secret
+        continue-on-error: true
+
+      - name: Start backend (dev mode)
+        run: |
+          NODE_ENV=development PORT=3002 DATABASE_URL=postgresql://test:test@localhost:5433/meterverse_test JWT_SECRET=ci-test-secret SYMBIOT_TCP_PORT=9100 SYMBIOT_HTTP_PORT=9101 node src/server.js &
+          echo "backend started"
+        working-directory: backend
+        env:
+          NODE_ENV: development
+          PORT: "3002"
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
+          JWT_SECRET: ci-test-secret
+          SYMBIOT_TCP_PORT: "9100"
+          SYMBIOT_HTTP_PORT: "9101"
+
+      - name: Wait for backend health
+        run: |
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:3002/api/health > /dev/null; then
+              echo "backend healthy"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "backend did not become healthy"
+          exit 1
+
+      - name: Run integration tests
+        run: npm run test:integration
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
+          JWT_SECRET: ci-test-secret
+
+      - name: Run contract tests
+        run: npm run test:contract
+        working-directory: backend
+        env:
+          DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
+          JWT_SECRET: ci-test-secret
+          CONTRACT_BASE_URL: http://localhost:3002
+
+
   test-frontend:
     name: Frontend Build
     runs-on: ubuntu-latest
