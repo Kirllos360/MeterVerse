@@ -52,7 +52,7 @@ Program-level status:
 |---------|--------|------------|----------|:--------:|
 | C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
 | C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
-| C13 Financial Intelligence | 🟨 | Financial Reporting (P&L, BS, CF, aging, BvA, ratios, snapshots, IFRS) | + billing-to-GL, revenue, tariff, AI | 80% |
+| C13 Financial Intelligence | 🟢 | Financial AI (forecasting, Monte Carlo, scenarios, health, insights, recommendations) | + billing-to-GL, revenue, tariff, AI | 90% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
 
@@ -154,18 +154,21 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-026 | `backend/prisma/migrations/20260801060000_add_collection_intelligence` | C13 collection intelligence migration (8 tables: CustomerRiskProfile, DunningRule, InstallmentPlan, PlanInstallment, Dispute, ProvisionRule, BadDebtProvision, WriteOffRequest) created for fresh-deploy path; applied via db push. Live verified: risk profiles for 200 customers, provision compute. | Medium | Validate migration on clean staging during B-01. |
 | OBS-027 | `backend/src/services/financial-reporting-engine.js` | C13 Financial Reporting: P&L, Balance Sheet, Cash Flow (indirect), AR aging, BvA, ratios, snapshots. GL `closingBalance` is debit-normal signed (credit-normal accounts negative) — revenue/equity/liability must be sign-inverted to present positive. | Low | Preserve debit-normal GL sign convention in all statement builders. |
 | OBS-028 | `backend/prisma/migrations/20260801070000_add_financial_reporting` | C13 financial reporting migration (8 tables: FinancialSnapshot, Budget, BudgetVsActual, FinancialRatio, ReportSchedule, FinancialNote, IFRSMapping, SegmentPerformance) created for fresh-deploy path; applied via db push. Live verified: P&L/BS/aging/snapshot/ratios. | Medium | Validate migration on clean staging during B-01. |
+| OBS-029 | `backend/src/services/financial-ai-engine.js` | C13 Financial AI: linear-trend+seasonal forecasting, Monte Carlo (Box-Muller, p5/p95/histogram), scenario analysis, business health score (0-100 across profitability/liquidity/collections/growth), executive insights. Rule-based per P43 (C18 model agents deferred). | Low | Swap linear-trend for C18 ML models in a later wave; keep output contract. |
+| OBS-030 | `backend/prisma/migrations/20260801080000_add_financial_ai` | C13 financial AI migration (7 tables: FinancialForecast, FinancialScenario, MonteCarloResult, BusinessHealthScore, ExecutiveInsight, AiModelVersion, AiRecommendationLog) created for fresh-deploy path; applied via db push. Live verified: forecast, Monte Carlo, health, scenario, insights, board. | Medium | Validate migration on clean staging during B-01. |
+| OBS-031 | Wave 2 complete | All 8 P43 Wave 2 steps delivered (C22/C23/C13): B-02..B-09 migrations, 267 unit tests. Overall coverage 20%. C13 Financial Intelligence at 90% (frontend + C18 ML agents + bank reconciliation remain). | High | Wave 2 certification (P44) + remaining C13 sub-programs per roadmap. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 19%
-(Wave 2 in progress — C22/C23/C13 Billing & Finance)
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 20%
+(Wave 2 COMPLETE — C22/C23/C13 Billing & Finance)
 
 Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
 
-Wave 2 completed in this session:
+Wave 2 completed in this session (P43 Steps 2.1-2.8):
   ✅ C22 Tenant Foundation: 6 models + routes + tests (+15)
   ✅ C23 Workflow Foundation: 8 models (definitions/versions/instances/
      tasks/approvals) + routes + tests (+17)
@@ -179,10 +182,12 @@ Wave 2 completed in this session:
      disputes/provisions/write-off) + engine + tests (+19)
   ✅ C13 Financial Reporting: 8 models + reporting engine (P&L/BS/CF/aging/
      BvA/ratios/snapshots) + tests (+16)
-  ✅ B-02 … B-08 migrations created (fresh-deploy path)
-  ⏳ Next: C13 Financial AI (Step 2.8) — final Wave 2 step
+  ✅ C13 Financial AI: 7 models + AI engine (forecast/MonteCarlo/scenarios/
+     health/insights/recommendations) + tests (+10)
+  ✅ B-02 … B-09 migrations created (fresh-deploy path)
+  ✅ Wave 2 complete — ready for certification review
 
-Verification: 257 unit + 48 contract + 31 integration + tsc 0
+Verification: 267 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
 Next gate: Wave 2 completion per P40/P42/P43

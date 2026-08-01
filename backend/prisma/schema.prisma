@@ -2953,6 +2953,109 @@ model SegmentPerformance {
   @@index([segmentType, periodKey])
 }
 
+// ─── C13 Financial AI (Wave 2 Step 2.8) ─────────────────────────────────────
+
+model FinancialForecast {
+  id          String   @id @default(uuid())
+  forecastType String  @default("REVENUE") // REVENUE | COLLECTIONS | CASH | EXPENSE
+  horizon     Int      @default(3)          // months
+  periodKey   String   // base period
+  values      String   @default("[]")       // JSON array of forecasted values
+  confidence  String   @default("medium")   // low | medium | high
+  methodology String   @default("linear-trend")
+  params      String?  // JSON
+  createdBy   String?
+  createdAt   DateTime @default(now())
+
+  @@index([forecastType, periodKey])
+  @@index([createdAt])
+}
+
+model FinancialScenario {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  scenarioType String  @default("CUSTOM") // OPTIMISTIC | PESSIMISTIC | BASE | CUSTOM
+  adjustments String   @default("{}")     // JSON of multiplier adjustments per line
+  inputs      String   @default("{}")     // JSON baseline inputs
+  results     String   @default("{}")     // JSON computed outcomes
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MonteCarloResult {
+  id          String   @id @default(uuid())
+  forecastType String  @default("REVENUE")
+  periodKey   String
+  iterations  Int      @default(1000)
+  mean        Float
+  median      Float
+  p5          Float
+  p95         Float
+  stdDev      Float
+  distribution String @default("{}") // JSON histogram
+  createdAt   DateTime @default(now())
+
+  @@index([forecastType, periodKey])
+}
+
+model BusinessHealthScore {
+  id          String   @id @default(uuid())
+  periodKey   String
+  overall     Float    // 0-100
+  dimensions  String   @default("{}") // JSON per-dimension scores
+  drivers     String   @default("[]") // JSON improvement drivers
+  createdAt   DateTime @default(now())
+
+  @@unique([periodKey])
+  @@index([periodKey])
+}
+
+model ExecutiveInsight {
+  id          String   @id @default(uuid())
+  category    String   @default("FINANCIAL") // FINANCIAL | OPERATIONAL | RISK | COLLECTIONS
+  title       String
+  summary     String
+  severity    String   @default("info") // info | warning | critical
+  metric      String?
+  value       Float?
+  recommendation String?
+  periodKey   String?
+  createdAt   DateTime @default(now())
+
+  @@index([category, createdAt])
+}
+
+model AiModelVersion {
+  id        String   @id @default(uuid())
+  modelKey  String
+  version   String
+  status    String   @default("STAGING") // STAGING | ACTIVE | DEPRECATED
+  metrics   String   @default("{}")      // JSON evaluation metrics
+  notes     String?
+  createdBy String?
+  createdAt DateTime @default(now())
+
+  @@index([modelKey, status])
+}
+
+model AiRecommendationLog {
+  id             String   @id @default(uuid())
+  recommendation String
+  category       String   @default("FINANCIAL")
+  impact         Float?
+  confidence     Float?
+  status         String   @default("PENDING") // PENDING | ACCEPTED | REJECTED | APPLIED
+  appliedBy      String?
+  appliedAt      DateTime?
+  metadata       String?
+  createdAt      DateTime @default(now())
+
+  @@index([category, status])
+  @@index([createdAt])
+}
+
 
 
 

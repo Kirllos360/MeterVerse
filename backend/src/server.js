@@ -54,6 +54,7 @@ import { revenueAssuranceRouter } from "./routes/revenue-assurance.js"
 import { tariffEngineRouter } from "./routes/tariff-engine.js"
 import { collectionsRouter } from "./routes/collections.js"
 import { financialReportsRouter } from "./routes/financial-reports.js"
+import { financialAiRouter } from "./routes/financial-ai.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
@@ -290,6 +291,7 @@ mount("/revenue-assurance", revenueAssuranceRouter)
 mount("/tariff-engine", tariffEngineRouter)
 mount("/collections", collectionsRouter)
 mount("/financial-reports", financialReportsRouter)
+mount("/financial-ai", financialAiRouter)
 mount("/materialized-views", materializedViewsRouter)
 mount("/gateways", gatewaysRouter)
 mount("/knowledge-articles", knowledgeArticlesRouter)
