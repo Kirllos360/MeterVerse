@@ -507,5 +507,24 @@
             "backend/prisma/schema.prisma Meter, Reading, MeterEvent models",
             "C01-C33 blueprint inventory (git log 0b3fa8de..HEAD)"
         ]
+    },
+    {
+        "date": "2026-07-29",
+        "task": "C35 ESG Sustainability Carbon Intelligence recommendation blueprint",
+        "tools_activated": ["filesystem", "bash", "read", "grep", "glob", "memory", "serena", "git"],
+        "tools_used": [
+            "tools-manifest read for task routing",
+            "C01-C34 coverage audited via blueprint inventory and git log",
+            "ESG/carbon gap and candidate programs analyzed with scoring",
+            "sequential-thinking used for gap analysis and program recommendation",
+            "memory knowledge graph updated with C35 recommendation state",
+            "write tool used to create the read-only recommendation blueprint",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "C35_ESG_Sustainability_Carbon_Recommendation.md",
+            "C34_Energy_Utility_Intelligence_Recommendation.md",
+            "backend/prisma/schema.prisma (no existing carbon/ESG models confirmed)"
+        ]
     }
 ]
