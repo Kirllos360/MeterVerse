@@ -1,11 +1,30 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** Wave 2 COMPLETE — Billing/Finance (C22 SaaS, C23 BPM, C13 Financial)  
-**Version:** 8.4.0-WAVE2-COMPLETE  
+**Current Phase:** P45 — Enterprise Core Platform Baseline  
+**Version:** 8.5.0-P45-CORE-BASELINE  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P45 Enterprise Core Platform Baseline
+
+Platform core hardened + wired before further business domains (per P44 findings):
+
+| Area | Status |
+|------|--------|
+| P45-A Unified PrismaClient (single pool) | ✅ `server.js` re-exports `db.js` singleton |
+| P45-B Dead code removed (routes/index.js, admin/users.js, /monitoring) | ✅ |
+| P45-C Auth middleware deduplicated (one `authenticate`) | ✅ |
+| P45-D Real auth (frontend→:3002, mock gated) | ✅ |
+| P45-E Navigation fully wired (no placeholder pages) | ✅ |
+| P45-F Persistence verification (8 live contract round-trip tests) | ✅ contract total 56 |
+| P45-G Enterprise logging verified reachable | ✅ |
+| P45-H Full exam green (267 unit, 56 contract, 31 integration, coverage, tsc 0, audit 0) | ✅ |
+| P45 login session fix (token/expiresAt/ip) + PermissionOnRole unique | ✅ |
+| Demo baseline seeded (real admin user, 4 roles, 30 permissions, settings, flags) | ✅ real login verified 200 |
 
 ---
 

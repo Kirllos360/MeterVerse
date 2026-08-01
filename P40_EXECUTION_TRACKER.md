@@ -162,6 +162,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-034 | Duplicate init migrations | `00001_init` (86 tbl) ⊇ `20260723000000_init_schema` (78 tbl); `00001_initial` (0 SQL). Fresh deploy would conflict. | High | Prune to one baseline + additive B-02..B-09. |
 | OBS-035 | Frontend mock dependency | Demo would be simulated: auth falls back to MOCK_USERS + DevAuthInit auto-login; admin accounting/collections/reporting pages render hardcoded arrays; C13 has zero frontend wiring. | Critical | Wire frontends to live backend + seed real data before enterprise demo. |
 | OBS-036 | Dead code | `routes/index.js` imports 8 non-existent modules (guaranteed crash); 10 orphan services; `routes/admin/users.js` duplicates admin.js; `/admin` + `/monitor` double-mounted. | Medium | Delete/repair dead files; wire or remove orphan services. |
+| OBS-037 | P45-A Prisma singleton | Unified PrismaClient: `server.js` now re-exports canonical `src/db.js` singleton (was 2 instances → 2 pools). Verified live (single "Pool started"). | High | Keep single import path; never create `new PrismaClient()` in routes. |
+| OBS-038 | P45-B dead routes | Removed `routes/index.js` (imported 8 missing modules) + `routes/admin/users.js` (duplicated admin.js). Dropped `/monitoring` alias. | Medium | Run dead-code sweep each wave. |
+| OBS-039 | P45-C middleware dedup | Removed duplicate `authenticate` from security.js (canonical re-exported from auth.js); audited `requireRole` retained. 2 unit tests aligned. | Low | One auth impl only. |
+| OBS-040 | P45-D real auth | Frontend auth now defaults to backend :3002; mock users + DevAuthInit gated behind `NEXT_PUBLIC_ALLOW_MOCK_AUTH`/`NEXT_PUBLIC_ALLOW_DEV_AUTH` (off by default). Demo = real auth. | High | Keep mock flags off in demo/prod. |
+| OBS-041 | P45-E nav wiring | All 11 `#` placeholder menu items wired to real admin routes (only intentional "Forms" parent remains). | Low | No placeholder pages. |
+| OBS-042 | P45-F persistence tests | New live contract suite (8 tests) proving create→read→update→delete round-trips with real DB writes. Contract total now 56. | High | Extend as new domains wire up. |
+| OBS-043 | P45-G logging | Audit + activity explorer + connection profiles verified reachable via UI/API (audit 200 with real entries). | Low | — |
+| OBS-044 | P45 login session bug | Login/MFA/emergency `session.create` omitted required `token` + `expiresAt` and used non-existent `ipAddress` → 500. Fixed to canonical fields (`token`, `ip`, `expiresAt`). Added `@@unique([roleId,permissionId])` on PermissionOnRole so `seed.js` upsert works. | High | Run seed on clean DB to verify. |
+| OBS-045 | P45 demo baseline | Ran `scripts/seed.js` → 30 permissions, 4 roles, real admin user (`admin@meterverse.com`/`Admin@123`, bcrypt), 19 settings, 8 flags, 20 templates. Real login → real JWT → authorized 200s verified. Demo readiness core satisfied. | High | Document demo credentials in runbook. |
 
 ---
 

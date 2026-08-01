@@ -1006,5 +1006,30 @@
             "Frontend tsc 0 + vitest 44 pass",
             "npm audit 0 vulnerabilities"
         ]
+    },
+    {
+        "task": "P45 — Enterprise Core Platform Baseline (backend de-risk + real auth + nav + persistence)",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "deepseek-eyes", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE Rule 0 pre-flight + P00_CONSTITUTION + AI_ROLES + tools-manifest + PROJECT_STATE + memory graph",
+            "P45-A: unified PrismaClient (server.js re-exports db.js singleton) — verified single pool live",
+            "P45-B: deleted routes/index.js + admin/users.js; removed /monitoring alias",
+            "P45-C: removed duplicate authenticate in security.js (canonical re-export from auth.js); aligned 2 unit tests",
+            "P45-D: frontend auth defaults to :3002; mock users + DevAuthInit gated behind NEXT_PUBLIC_ALLOW_MOCK_AUTH / NEXT_PUBLIC_ALLOW_DEV_AUTH",
+            "P45-E: wired 11 nav '#' placeholders to real admin routes; tsc 0",
+            "P45-F: added live contract persistence suite (8 round-trip tests) — contract total 56",
+            "P45-G: verified audit + activity + connection logging reachable via UI/API",
+            "P45 demo baseline: fixed session.create (token/expiresAt/ip) + PermissionOnRole @@unique; ran seed.js (real admin user); verified real login 200 + authorized JWT calls",
+            "committed 3 increments (6b10ca59, 5ae4bcf8, + this one) and pushed to kirllos360 origin; recorded OBS-037..045"
+        ],
+        "evidence": [
+            "backend/src/server.js (single prisma), backend/src/routes/auth.js (session fix)",
+            "backend/prisma/schema.prisma (PermissionOnRole @@unique)",
+            "Frontend/src/identity/auth/api/auth-service.ts + nav-config.ts + DevAuthInit.tsx",
+            "backend/tests/contract/persistence.test.mjs (8 tests)",
+            "scripts/seed.js run (admin user, 4 roles, 30 permissions)",
+            "P40_EXECUTION_TRACKER.md (OBS-037..045), PROJECT_STATE 8.5.0"
+        ]
     }
 ]

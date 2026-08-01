@@ -37,7 +37,14 @@ router.post("/login", async (req, res, next) => {
 
     // Create session for refresh tokens
     const session = await prisma.session.create({
-      data: { userId: user.id, isActive: true, ipAddress: req.ip, userAgent: req.headers["user-agent"] || "" },
+      data: {
+        userId: user.id,
+        token: crypto.randomUUID(),
+        ip: req.ip || "unknown",
+        userAgent: req.headers["user-agent"] || "auth",
+        isActive: true,
+        expiresAt: new Date(Date.now() + 7 * 86400000),
+      },
     })
 
     const accessToken = jwt.sign({ sub: user.id, email: user.email, role: user.role, system: system_type }, JWT_SECRET, { expiresIn: "15m" })
@@ -70,7 +77,7 @@ router.post("/mfa/login", async (req, res, next) => {
     const verified = speakeasy.totp.verify({ secret: user.mfaSecret, encoding: "base32", token: totpCode })
     if (!verified) return res.status(401).json({ error: "Invalid TOTP code" })
     const session = await prisma.session.create({
-      data: { userId: user.id, isActive: true, ipAddress: req.ip, userAgent: req.headers["user-agent"] || "" },
+      data: { userId: user.id, token: crypto.randomUUID(), ip: req.ip || "unknown", userAgent: req.headers["user-agent"] || "mfa", isActive: true, expiresAt: new Date(Date.now() + 7 * 86400000) },
     })
     const accessToken = jwt.sign({ sub: user.id, email: user.email, role: user.role, system: "admin" }, JWT_SECRET, { expiresIn: "15m" })
     const refreshToken = jwt.sign({ sub: user.id, sessionId: session.id }, JWT_REFRESH_SECRET, { expiresIn: "7d" })
@@ -185,7 +192,7 @@ router.post("/emergency/token", authenticate, requirePermission("admin.emergency
   try {
     const { reason, duration = 240 } = z.object({ reason: z.string().min(1).max(500), duration: z.number().min(30).max(480).optional() }).parse(req.body)
     const emergencyToken = jwt.sign({ sub: req.user.sub, email: req.user.email, role: "emergency", emergency: true, reason }, JWT_SECRET, { expiresIn: `${duration}m` })
-    const session = await prisma.session.create({ data: { userId: req.user.sub, isActive: true, ipAddress: req.ip, userAgent: req.headers["user-agent"] || "" } })
+    const session = await prisma.session.create({ data: { userId: req.user.sub, token: crypto.randomUUID(), ip: req.ip || "unknown", userAgent: req.headers["user-agent"] || "emergency", isActive: true, expiresAt: new Date(Date.now() + 7 * 86400000) } })
     auditLog(req, "emergency.token_issued", { reason, duration, sessionId: session.id })
     res.json({ emergencyToken, expiresIn: duration * 60, sessionId: session.id })
   } catch (err) { next(err) }
