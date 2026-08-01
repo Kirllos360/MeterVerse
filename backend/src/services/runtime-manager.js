@@ -1,4 +1,4 @@
-import { prisma } from "../server.js"
+﻿import { prisma } from "../server.js"
 import { ConnectionPool } from "./connection-pool.js"
 import { SessionManager } from "./session-manager.js"
 import { HealthMonitor } from "./health-monitor.js"
@@ -33,7 +33,8 @@ export class RuntimeManager {
     this.symbiotBridge = null
     this._healthTimer = null
     this._activeProfiles = new Map()
-    this.metrics = { connectionsOpened: 0, connectionsClosed: 0, reconnections: 0, errors: 0 }
+    this.metrics = new MetricsCollector()
+    this._counters = { connectionsOpened: 0, connectionsClosed: 0, reconnections: 0, errors: 0 }
     this.listeners = new Map()
   }
 
@@ -110,7 +111,7 @@ export class RuntimeManager {
   async _connectProfile(profile) {
     try {
       const socket = await this.pool.acquire(profile.id, profile.host, profile.port, profile.connTimeout * 1000)
-      this.metrics.connectionsOpened++
+      this._counters.connectionsOpened++
 
       // Auth handshake
       let token = this.sessions.get(profile.id)
@@ -126,7 +127,7 @@ export class RuntimeManager {
       this._emit(RUNTIME_EVENTS.PROFILE_ACTIVATED, { profileId: profile.id, name: profile.name })
       logger.info({ profileId: profile.id, name: profile.name, component: "runtime-manager" }, "Profile connected")
     } catch (e) {
-      this.metrics.errors++
+      this._counters.errors++
       logger.error({ profileId: profile.id, error: e.message, component: "runtime-manager" }, "Profile connection failed")
     }
   }
@@ -138,7 +139,7 @@ export class RuntimeManager {
     for (const [id, entry] of this._activeProfiles) {
       const healthy = entry.socket && entry.socket.writable
       if (!healthy) {
-        this.metrics.connectionsClosed++
+        this._counters.connectionsClosed++
         this._emit(RUNTIME_EVENTS.CONNECTION_LOST, { profileId: id })
 
         // Attempt reconnect
@@ -146,7 +147,7 @@ export class RuntimeManager {
           const profile = await prisma.connectionProfile.findUnique({ where: { id } })
           if (profile) {
             await this._connectProfile(profile)
-            this.metrics.reconnections++
+            this._counters.reconnections++
             this._emit(RUNTIME_EVENTS.CONNECTION_RESTORED, { profileId: id })
           }
         } catch (e) {
@@ -189,3 +190,4 @@ export class RuntimeManager {
 }
 
 export { RUNTIME_EVENTS }
+

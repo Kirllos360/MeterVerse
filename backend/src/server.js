@@ -56,6 +56,7 @@ import { collectionsRouter } from "./routes/collections.js"
 import { financialReportsRouter } from "./routes/financial-reports.js"
 import { financialAiRouter } from "./routes/financial-ai.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
+import { startIngestion, getIngestionStatus } from "./services/ingestion-runtime.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
 import { requirePermission } from "./middleware/security.js"
@@ -321,11 +322,6 @@ API_PREFIXES.forEach(p => app.use(p, diagnosticsRouter))
 mount("/data-gate", dataGateRouter)
 mount("/admin-settings", adminSettingsRouter)
 
-// ─── ERROR HANDLING ──────────────────────────────────────────────────────────
-
-app.use(notFoundHandler)
-app.use(errorHandler)
-
 const runtime = new RuntimeManager()
 const scheduler = new SchedulerEngine(runtime)
 
@@ -340,6 +336,7 @@ scheduler.register(RETRY_JOB)
 app.get("/api/runtime/status", (req, res) => { res.json({ ...runtime.getStatus(), scheduler: scheduler.getStats() }) })
 app.post("/api/runtime/restart", async (req, res) => { await runtime.restart(); scheduler.start(); res.json({ status: "restarted" }) })
 app.get("/api/scheduler/stats", (req, res) => { res.json(scheduler.getStats()) })
+app.get("/api/ingestion/status", (req, res) => { res.json(getIngestionStatus()) })
 app.get("/api/health/scores", async (req, res) => {
   const scores = await runtime.healthMonitor.getAllScores().catch(() => [])
   res.json({ scores, stats: runtime.healthMonitor.getStats() })
@@ -391,7 +388,14 @@ const httpServer = createServer(app)
 initWebSocket(httpServer)
 
 httpServer.listen(PORT, () => {
-  runtime.start().then(() => { scheduler.start() }).catch(err => console.error("[runtime] Startup error:", err.message))
+  runtime.start().then(() => {
+    scheduler.start()
+    return startIngestion()
+  }).catch(err => console.error("[runtime] Startup error:", err.message))
 })
+
+// ─── ERROR HANDLING (registered LAST so inline /api routes above are reachable) ─
+app.use(notFoundHandler)
+app.use(errorHandler)
 
 

@@ -22,6 +22,13 @@ export function createSymbiotBridge(options = {}) {
     socket.write(`SYMBIOT: Connected (${connections.size}/${MAX_TCP})\n`);
   });
 
+  tcpServer.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`[symbiot] TCP port ${tcpPort} in use — bridge skipped (ingestion continues via polling)`);
+      return;
+    }
+    console.error(`[symbiot] TCP error: ${err.message}`);
+  });
   tcpServer.listen(tcpPort, () => console.log(`[symbiot] TCP bridge on :${tcpPort}`));
   return { tcpServer, connections };
 }
