@@ -92,7 +92,7 @@ describe('C12 security middleware', () => {
       expect(next).toHaveBeenCalled();
     });
 
-    it('should return 401 TOKEN_EXPIRED for expired token', () => {
+    it('should return 401 for expired token', () => {
       const err = new Error('expired');
       err.name = 'TokenExpiredError';
       jwt.verify.mockImplementation(() => { throw err; });
@@ -103,10 +103,10 @@ describe('C12 security middleware', () => {
       authenticate(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(401);
-      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ code: 'TOKEN_EXPIRED' }));
+      expect(res.json).toHaveBeenCalledWith({ error: 'Invalid or expired token' });
     });
 
-    it('should return 401 INVALID_TOKEN for invalid token', () => {
+    it('should return 401 for invalid token', () => {
       jwt.verify.mockImplementation(() => { throw new Error('bad signature'); });
       const req = mockReq({ headers: { authorization: 'Bearer bad' } });
       const res = mockRes();
@@ -115,7 +115,7 @@ describe('C12 security middleware', () => {
       authenticate(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(401);
-      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ code: 'INVALID_TOKEN' }));
+      expect(res.json).toHaveBeenCalledWith({ error: 'Invalid or expired token' });
     });
   });
 

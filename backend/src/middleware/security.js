@@ -1,6 +1,7 @@
-import jwt from "jsonwebtoken"
 import { prisma } from "../server.js"
 import { processEvent } from "../services/notification-engine.js"
+import { authenticate } from "./auth.js"
+export { authenticate }
 
 const JWT_SECRET = process.env.JWT_SECRET
 if (!JWT_SECRET) { console.error("FATAL: JWT_SECRET required"); process.exit(1) }
@@ -9,22 +10,8 @@ const JWT_ISSUER = "meterverse"
 const JWT_AUDIENCE = "meterverse-admin"
 
 // ─── JWT AUTHENTICATION ───────────────────────────────────────────────────────
-
-export function authenticate(req, res, next) {
-  const header = req.headers.authorization
-  if (!header || !header.startsWith("Bearer ")) {
-    return res.status(401).json({ error: "Authentication required" })
-  }
-
-  try {
-    const token = header.split(" ")[1]
-    req.user = jwt.verify(token, JWT_SECRET, { issuer: JWT_ISSUER, audience: JWT_AUDIENCE })
-    next()
-  } catch (err) {
-    if (err.name === "TokenExpiredError") return res.status(401).json({ error: "Token expired", code: "TOKEN_EXPIRED" })
-    return res.status(401).json({ error: "Invalid token", code: "INVALID_TOKEN" })
-  }
-}
+// P45: authenticate is the canonical implementation re-exported from auth.js
+// (single source — includes dev-bypass). Removed the duplicate here.
 
 // ─── RBAC ─────────────────────────────────────────────────────────────────────
 

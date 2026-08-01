@@ -2,7 +2,7 @@ import express from "express"
 import cors from "cors"
 import helmet from "helmet"
 import rateLimit from "express-rate-limit"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "./db.js"
 import { authRouter } from "./routes/auth.js"
 import { customersRouter } from "./routes/customers.js"
 import { metersRouter } from "./routes/meters.js"
@@ -102,7 +102,9 @@ if (!isProduction && !process.env.JWT_SECRET) {
   process.env.JWT_SECRET = "dev-secret-" + Date.now()
 }
 
-export const prisma = new PrismaClient()
+// Canonical Prisma singleton shared across all routes + services (see src/db.js).
+// P45: single connection pool — previously server.js created a second PrismaClient.
+export { prisma }
 
 app.use(correlationMiddleware)
 app.use(idempotencyMiddleware)
@@ -258,7 +260,6 @@ mount("/domain", domainRouter)
 mount("/business", businessRouter)
 mount("/crud", crudRouter)
 mount("/monitor", monitorRouter)
-mount("/monitoring", monitorRouter)
 mount("/ai", aiRouter)
 mount("/security", securityRouter)
 mount("/sessions", sessionsRouter)
