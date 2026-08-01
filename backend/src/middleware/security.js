@@ -57,7 +57,7 @@ const ROUTE_PERMISSION_MAP = {
 
 const ROLE_PERMISSIONS = {
   super_admin: null,
-  admin: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "notifications.*", "meter_assignments.*", "admin.*", "ai.*", "business.*", "monitor.*", "reports.*", "services.*", "preferences.*", "governance.*", "tenant.*", "workflow.*", "accounting.events.*", "accounting.mappings.*", "revenue.*", "tariffs.*", "collections.*"],
+  admin: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "notifications.*", "meter_assignments.*", "admin.*", "ai.*", "business.*", "monitor.*", "reports.*", "services.*", "preferences.*", "governance.*", "tenant.*", "workflow.*", "accounting.events.*", "accounting.mappings.*", "revenue.*", "tariffs.*", "collections.*", "reporting.financial.*"],
   area_manager: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "notifications.*", "reports.*"],
   operator: ["customers.*", "meters.*", "readings.*", "invoices.*", "payments.*", "monitor.*"],
   billing: ["invoices.*", "payments.*", "customers.read", "customers.list", "meters.read", "meters.list", "reports.*"],

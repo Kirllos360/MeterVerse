@@ -2826,6 +2826,134 @@ model WriteOffRequest {
   @@index([status, createdAt])
 }
 
+// ─── C13 Financial Reporting (Wave 2 Step 2.7) ──────────────────────────────
+
+model FinancialSnapshot {
+  id          String   @id @default(uuid())
+  snapshotType String  @default("MONTHLY") // MONTHLY | QUARTERLY | ANNUAL
+  periodKey   String   // YYYY-MM or YYYY
+  periodId    String?
+  label       String?
+  data        String   @default("{}") // JSON of statement values
+  generatedAt DateTime @default(now())
+  generatedBy String?
+  createdAt   DateTime @default(now())
+
+  @@unique([snapshotType, periodKey])
+  @@index([periodKey])
+}
+
+model Budget {
+  id          String    @id @default(uuid())
+  name        String
+  periodKey   String
+  accountCode String?
+  accountId   String?
+  category    String    @default("OPERATING") // OPERATING | CAPEX | FINANCING
+  amount      Float
+  frequency   String    @default("MONTHLY")
+  status      String    @default("ACTIVE")
+  createdBy   String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  archivedAt  DateTime?
+
+  budgetVsActuals BudgetVsActual[]
+
+  @@index([periodKey, category])
+  @@index([accountCode, periodKey])
+}
+
+model BudgetVsActual {
+  id          String  @id @default(uuid())
+  periodKey   String
+  budgetId    String?
+  budget      Budget? @relation(fields: [budgetId], references: [id])
+  accountCode String?
+  category    String
+  budgetAmount Float
+  actualAmount Float
+  variance    Float
+  variancePct Float?
+  createdAt   DateTime @default(now())
+
+  @@index([periodKey, category])
+}
+
+model FinancialRatio {
+  id        String   @id @default(uuid())
+  name      String
+  code      String   @unique
+  formula   String   // description of computation
+  numerator   String?
+  denominator String?
+  value     Float?
+  periodKey String?
+  computedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+
+  @@index([code, periodKey])
+}
+
+model ReportSchedule {
+  id          String   @id @default(uuid())
+  name        String
+  reportType  String   // PNL | BALANCE_SHEET | CASH_FLOW | AGING | BVA
+  frequency   String   @default("MONTHLY") // DAILY | WEEKLY | MONTHLY | QUARTERLY
+  recipients  String?  // JSON array of emails
+  active      Boolean  @default(true)
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  archivedAt  DateTime?
+}
+
+model FinancialNote {
+  id          String   @id @default(uuid())
+  reportType  String
+  periodKey   String
+  title       String
+  content     String
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([reportType, periodKey])
+}
+
+model IFRSMapping {
+  id          String   @id @default(uuid())
+  ifrsCode    String
+  description String
+  accountCode String?
+  accountType String?
+  category    String   @default("UNCATEGORIZED") // REVENUE | EXPENSE | ASSET | LIABILITY | EQUITY
+  mapping     String?  // JSON config
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([ifrsCode, accountCode])
+  @@index([category])
+}
+
+model SegmentPerformance {
+  id          String   @id @default(uuid())
+  segmentType String   // AREA | PROJECT | CUSTOMER_GROUP | TARIFF
+  segmentKey  String
+  periodKey   String
+  revenue     Float    @default(0)
+  cost        Float    @default(0)
+  margin      Float    @default(0)
+  marginPct   Float?
+  computedAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  @@unique([segmentType, segmentKey, periodKey])
+  @@index([segmentType, periodKey])
+}
+
+
 
 
 

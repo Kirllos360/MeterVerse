@@ -52,7 +52,7 @@ Program-level status:
 |---------|--------|------------|----------|:--------:|
 | C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
 | C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
-| C13 Financial Intelligence | 🟨 | Collections Intelligence (risk scoring, dunning, PTP, installments, provisions, write-off) | + billing-to-GL, revenue, tariff, AI | 70% |
+| C13 Financial Intelligence | 🟨 | Financial Reporting (P&L, BS, CF, aging, BvA, ratios, snapshots, IFRS) | + billing-to-GL, revenue, tariff, AI | 80% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
 
@@ -152,13 +152,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-024 | `backend/prisma/migrations/20260801050000_add_tariff_engine` | C13 tariff engine migration (9 tables: TariffVersion + 7 component models + CustomerTariff) created for fresh-deploy path; applied via db push. Live verified: version create/activate, tiered+fixed+tax calculate (587.1), simulate (420). | Medium | Validate migration on clean staging during B-01. |
 | OBS-025 | `backend/src/services/collections-engine.js` | C13 Collections Intelligence: risk scoring (0-100), dunning ladder (4-stage auto-seed), bad-debt provisioning. Provision buckets must pick the highest bucketDays ≤ invoice age (not first match), else aging invoices under-provision. | Low | Preserve highest-applicable-bucket semantics in all future provisioning. |
 | OBS-026 | `backend/prisma/migrations/20260801060000_add_collection_intelligence` | C13 collection intelligence migration (8 tables: CustomerRiskProfile, DunningRule, InstallmentPlan, PlanInstallment, Dispute, ProvisionRule, BadDebtProvision, WriteOffRequest) created for fresh-deploy path; applied via db push. Live verified: risk profiles for 200 customers, provision compute. | Medium | Validate migration on clean staging during B-01. |
+| OBS-027 | `backend/src/services/financial-reporting-engine.js` | C13 Financial Reporting: P&L, Balance Sheet, Cash Flow (indirect), AR aging, BvA, ratios, snapshots. GL `closingBalance` is debit-normal signed (credit-normal accounts negative) — revenue/equity/liability must be sign-inverted to present positive. | Low | Preserve debit-normal GL sign convention in all statement builders. |
+| OBS-028 | `backend/prisma/migrations/20260801070000_add_financial_reporting` | C13 financial reporting migration (8 tables: FinancialSnapshot, Budget, BudgetVsActual, FinancialRatio, ReportSchedule, FinancialNote, IFRSMapping, SegmentPerformance) created for fresh-deploy path; applied via db push. Live verified: P&L/BS/aging/snapshot/ratios. | Medium | Validate migration on clean staging during B-01. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 18%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 19%
 (Wave 2 in progress — C22/C23/C13 Billing & Finance)
 
 Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
@@ -175,10 +177,12 @@ Wave 2 completed in this session:
      demand/fixed/tax) + calculate/simulate + tests (+19)
   ✅ C13 Collection Intelligence: 8 models (risk/dunning/PTP/installments/
      disputes/provisions/write-off) + engine + tests (+19)
-  ✅ B-02 + B-03 + B-04 + B-05 + B-06 + B-07 migrations (fresh-deploy path)
-  ⏳ Next: C13 Financial Reporting (Step 2.7)
+  ✅ C13 Financial Reporting: 8 models + reporting engine (P&L/BS/CF/aging/
+     BvA/ratios/snapshots) + tests (+16)
+  ✅ B-02 … B-08 migrations created (fresh-deploy path)
+  ⏳ Next: C13 Financial AI (Step 2.8) — final Wave 2 step
 
-Verification: 241 unit + 48 contract + 31 integration + tsc 0
+Verification: 257 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
 Next gate: Wave 2 completion per P40/P42/P43
