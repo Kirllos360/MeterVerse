@@ -16,9 +16,10 @@
 | 2.1 | C22 Tenant Foundation (6 models, tenants.js, B-02 migration) | ✅ Complete |
 | 2.2 | C23 Workflow Foundation (8 models, workflows.js, B-03 migration) | ✅ Complete |
 | 2.3 | C13 Financial Integration (FinancialEvent, AccountMapping, PostingEngine, GL hooks, B-04 migration) | ✅ Complete |
-| 2.4 | C13 Revenue Management | ⏳ Next |
+| 2.4 | C13 Revenue Intelligence (RevenueRule, RevenueLeakageFinding, RevenueInvestigation, Assurance engine, B-05 migration) | ✅ Complete |
+| 2.5 | C13 Tariff Engine | ⏳ Next |
 
-**Overall implementation coverage:** 15% (source of truth: `P40_EXECUTION_TRACKER.md`)
+**Overall implementation coverage:** 16% (source of truth: `P40_EXECUTION_TRACKER.md`)
 
 ---
 

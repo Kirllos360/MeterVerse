@@ -2446,5 +2446,85 @@ model AccountMapping {
   @@index([creditAccountId])
 }
 
+// ─── C13 Revenue Intelligence (Wave 2 Step 2.4) ─────────────────────────────
+
+model RevenueRule {
+  id            String   @id @default(uuid())
+  name          String
+  code          String   @unique
+  description   String?
+  category      String   @default("POST_BILL") // PRE_BILL | POST_BILL | CONTINUOUS
+  entityType    String   @default("invoice")   // invoice | payment | reading | billrun | customer
+  condition     String                        // JSON condition expression
+  severity      String   @default("medium")   // low | medium | high | critical
+  action        String   @default("flag")     // flag | auto-fix | block
+  expectedValue Float?
+  tolerance     Float?                        // allowed variance fraction
+  active        Boolean  @default(true)
+  priority      Int      @default(0)
+  runFrequency  String   @default("on_demand") // on_demand | nightly | realtime
+  createdBy     String?
+  createdAt     DateTime @default(now())
+  archivedAt    DateTime?
+  updatedAt     DateTime @updatedAt
+
+  findings RevenueLeakageFinding[]
+}
+
+model RevenueLeakageFinding {
+  id               String         @id @default(uuid())
+  ruleId           String
+  rule             RevenueRule    @relation(fields: [ruleId], references: [id])
+  entityType       String
+  entityId         String
+  sourceType       String         @default("invoice") // invoice | payment | reading | billrun | customer
+  sourceId         String?
+  periodId         String?
+  customerId       String?
+  expectedAmount   Float?
+  actualAmount     Float?
+  varianceAmount   Float?
+  variancePct      Float?
+  status           String         @default("OPEN") // OPEN | INVESTIGATING | CONFIRMED | FALSE_POSITIVE | RESOLVED
+  severity         String         @default("medium")
+  summary          String?
+  details          String?
+  detectedAt       DateTime       @default(now())
+  resolvedAt       DateTime?
+  resolvedBy       String?
+  resolutionNote   String?
+  archivedAt       DateTime?
+  investigationId  String?
+
+  investigations  RevenueInvestigation[]
+
+  @@index([ruleId, status])
+  @@index([entityType, entityId])
+  @@index([periodId, status])
+  @@index([customerId, status])
+}
+
+model RevenueInvestigation {
+  id            String              @id @default(uuid())
+  findingId     String
+  finding       RevenueLeakageFinding @relation(fields: [findingId], references: [id])
+  title         String
+  description   String?
+  status        String              @default("OPEN") // OPEN | IN_PROGRESS | RESOLVED | CLOSED
+  priority      String              @default("medium")
+  assignedTo    String?
+  startedAt     DateTime            @default(now())
+  completedAt   DateTime?
+  outcome       String?             // CONFIRMED_LEAKAGE | NO_ISSUE | FIXED
+  resolution    String?
+  createdBy     String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@index([findingId])
+  @@index([status, assignedTo])
+}
+
+
 
 

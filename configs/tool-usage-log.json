@@ -851,5 +851,28 @@
             "backend/prisma/migrations/20260801030000_add_financial_integration/migration.sql",
             "188 unit tests passing; P40_EXECUTION_TRACKER.md (15%)"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 2 Step 2.4 — C13 Revenue Intelligence implementation",
+        "tools_activated": ["bash", "git", "read", "grep", "filesystem", "memory", "todowrite"],
+        "tools_used": [
+            "implemented C13 Revenue Intelligence: RevenueRule + RevenueLeakageFinding + RevenueInvestigation models",
+            "implemented revenue-assurance-engine.js service (15 seeded rules across PRE_BILL/POST_BILL/CONTINUOUS, JSON condition evaluator, dedupe, scoring)",
+            "implemented revenue-assurance.js routes (rules CRUD+seed, findings list/get/status, investigations, run, summary)",
+            "registered /revenue-assurance router + revenue.* admin permissions",
+            "added mock-prisma delegates + revenue-assurance.test.mjs (15 tests); verified 203 unit tests pass",
+            "verified live end-to-end: seed 15 rules, run POST_BILL checks (2358 checks / 50 findings), summary; cleaned demo findings",
+            "created B-05 revenue migration; updated tracker (C13 50%, overall 16%), PROJECT_STATE, OBS-021/022",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "backend/src/services/revenue-assurance-engine.js",
+            "backend/src/routes/revenue-assurance.js",
+            "backend/prisma/schema.prisma (RevenueRule, RevenueLeakageFinding, RevenueInvestigation)",
+            "backend/tests/api/revenue-assurance.test.mjs",
+            "backend/prisma/migrations/20260801040000_add_revenue_intelligence/migration.sql",
+            "203 unit tests passing; P40_EXECUTION_TRACKER.md (16%)"
+        ]
     }
 ]
