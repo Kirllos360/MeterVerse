@@ -1,6 +1,9 @@
 import type { AuthUser } from "../AuthRuntime"
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"
+// P45: default to the real MeterVerse backend (:3002). Mock auth only when
+// explicitly enabled via NEXT_PUBLIC_ALLOW_MOCK_AUTH=true (never for demo/prod).
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002"
+const MOCK_AUTH_ENABLED = process.env.NEXT_PUBLIC_ALLOW_MOCK_AUTH === "true"
 
 interface LoginResponse {
   user: AuthUser
@@ -44,19 +47,19 @@ function createMockUser(email: string, name: string): AuthUser {
 }
 
 export async function loginUser(email: string, password: string): Promise<LoginResponse> {
-  // Try real backend first, fall back to mock
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    try {
-      const res = await fetch(`${API_BASE}/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
-      if (res.ok) return res.json()
-    } catch {}
-  }
+  // Real backend first (always attempted)
+  try {
+    const res = await fetch(`${API_BASE}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
+    if (res.ok) return res.json()
+  } catch {}
 
-  // Mock fallback
+  // Mock fallback — only when explicitly enabled (never for demo/production)
+  if (!MOCK_AUTH_ENABLED) throw new Error("Invalid credentials")
+
   await new Promise((r) => setTimeout(r, 800))
   const found = MOCK_USERS[email.toLowerCase()]
   if (!found || found.password !== password) {
@@ -72,20 +75,19 @@ export async function loginUser(email: string, password: string): Promise<LoginR
 }
 
 export async function registerUser(payload: RegisterPayload): Promise<AuthUser> {
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    try {
-      const res = await fetch(`${API_BASE}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        return data.user || data
-      }
-    } catch {}
-  }
+  try {
+    const res = await fetch(`${API_BASE}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    })
+    if (res.ok) {
+      const data = await res.json()
+      return data.user || data
+    }
+  } catch {}
 
+  if (!MOCK_AUTH_ENABLED) throw new Error("Registration unavailable")
   await new Promise((r) => setTimeout(r, 800))
   const email = payload.email.toLowerCase()
   if (MOCK_USERS[email]) throw new Error("Email already registered")
@@ -94,17 +96,16 @@ export async function registerUser(payload: RegisterPayload): Promise<AuthUser> 
 }
 
 export async function refreshAccessToken(refreshToken: string): Promise<LoginResponse> {
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    try {
-      const res = await fetch(`${API_BASE}/auth/refresh`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ refreshToken }),
-      })
-      if (res.ok) return res.json()
-    } catch {}
-  }
+  try {
+    const res = await fetch(`${API_BASE}/auth/refresh`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken }),
+    })
+    if (res.ok) return res.json()
+  } catch {}
 
+  if (!MOCK_AUTH_ENABLED) throw new Error("Session expired")
   await new Promise((r) => setTimeout(r, 300))
   return {
     user: createMockUser("admin@meterverse.com", "Admin User"),
@@ -115,9 +116,7 @@ export async function refreshAccessToken(refreshToken: string): Promise<LoginRes
 }
 
 export async function logoutUser(): Promise<void> {
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    try {
-      await fetch(`${API_BASE}/auth/logout`, { method: "POST" })
-    } catch {}
-  }
+  try {
+    await fetch(`${API_BASE}/auth/logout`, { method: "POST" })
+  } catch {}
 }

@@ -25,7 +25,7 @@ export const navGroups: NavGroup[] = [
       },
       {
         title: 'Customer Groups',
-        url: '#',
+        url: '/admin/customers',
         icon: 'teams',
         items: []
       },
@@ -61,7 +61,7 @@ export const navGroups: NavGroup[] = [
       },
       {
         title: 'Tariffs',
-        url: '#',
+        url: '/admin/tariffs',
         icon: 'adjustments',
         items: []
       },
@@ -78,7 +78,7 @@ export const navGroups: NavGroup[] = [
       },
       {
         title: 'Meter Types',
-        url: '#',
+        url: '/admin/meter-settings',
         icon: 'fileTypeDoc',
         items: []
       },
@@ -95,7 +95,7 @@ export const navGroups: NavGroup[] = [
       },
       {
         title: 'Manual Reading',
-        url: '#',
+        url: '/admin/readings',
         icon: 'edit',
         items: []
       },
@@ -106,13 +106,13 @@ export const navGroups: NavGroup[] = [
     items: [
       {
         title: 'Operations',
-        url: '#',
+        url: '/admin/operations',
         icon: 'settings',
         items: []
       },
       {
         title: 'Work Orders',
-        url: '#',
+        url: '/admin/tasks',
         icon: 'clipboard',
         items: []
       },
@@ -123,19 +123,19 @@ export const navGroups: NavGroup[] = [
     items: [
       {
         title: 'Reports',
-        url: '#',
+        url: '/admin/reports',
         icon: 'fileTypePdf',
         items: []
       },
       {
         title: 'Financial Reports',
-        url: '#',
+        url: '/admin/reporting',
         icon: 'trendingUp',
         items: []
       },
       {
         title: 'Consumption Reports',
-        url: '#',
+        url: '/admin/reporting',
         icon: 'chart',
         items: []
       },
@@ -146,13 +146,13 @@ export const navGroups: NavGroup[] = [
     items: [
       {
         title: 'Monitoring',
-        url: '#',
+        url: '/admin/monitoring',
         icon: 'monitor',
         items: []
       },
       {
         title: 'Alerts',
-        url: '#',
+        url: '/admin/alerts',
         icon: 'bell',
         items: []
       },
