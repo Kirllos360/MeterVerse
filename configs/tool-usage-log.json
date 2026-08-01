@@ -827,5 +827,29 @@
             "backend/prisma/migrations/20260801020000_add_workflow_foundation/migration.sql",
             "172 unit tests passing; P40_EXECUTION_TRACKER.md (14%)"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 2 Step 2.3 — C13 Financial Integration implementation",
+        "tools_activated": ["bash", "git", "read", "grep", "filesystem", "memory", "todowrite"],
+        "tools_used": [
+            "implemented C13 Financial Integration: FinancialEvent + AccountMapping models",
+            "implemented posting-engine.js service (balanced journal entry, GL update, idempotency, reversal)",
+            "added financial-integration.js routes (mappings CRUD, events list/post/retry, audit-trail, summary)",
+            "hooked PostingEngine into invoices.js (issue) and payments.js (create/reverse), feature-flag guarded",
+            "registered /financial-integration router + accounting.events.*/accounting.mappings.* permissions",
+            "added mock-prisma delegates + financial-integration.test.mjs (16 tests); verified 188 unit tests pass",
+            "verified live end-to-end: period -> mapping -> event -> journal -> GL -> trial-balance -> audit trail; cleaned demo data",
+            "created B-04 financial migration; updated tracker (C13 40%, overall 15%), PROJECT_STATE, OBS-019/020",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "backend/src/services/posting-engine.js",
+            "backend/src/routes/financial-integration.js",
+            "backend/prisma/schema.prisma (FinancialEvent, AccountMapping)",
+            "backend/tests/api/financial-integration.test.mjs",
+            "backend/prisma/migrations/20260801030000_add_financial_integration/migration.sql",
+            "188 unit tests passing; P40_EXECUTION_TRACKER.md (15%)"
+        ]
     }
 ]

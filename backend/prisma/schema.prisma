@@ -1726,6 +1726,8 @@ model Account {
   updatedAt   DateTime  @updatedAt
   journalLines JournalLineItem[]
   ledgers     GeneralLedgerEntry[]
+  debitMappings  AccountMapping[] @relation("DebitAccount")
+  creditMappings AccountMapping[] @relation("CreditAccount")
 
   @@index([type, active])
   @@index([parentId])
@@ -1750,6 +1752,7 @@ model JournalEntry {
   createdAt    DateTime @default(now())
   archivedAt   DateTime?
   lines        JournalLineItem[]
+  financialEvents FinancialEvent[]
 
   @@index([periodId, status])
   @@index([entryDate])
@@ -1806,6 +1809,7 @@ model FinancialPeriod {
 
   journalEntries JournalEntry[]
   ledgers        GeneralLedgerEntry[]
+  financialEvents FinancialEvent[]
 
   @@unique([year, month])
   @@index([status, year, quarter])
@@ -2391,5 +2395,56 @@ model ApprovalDecision {
   @@index([approvalId])
   @@index([approverId])
 }
+
+// ─── C13 Financial Integration Foundation (Wave 2) ──────────────────────────
+
+model FinancialEvent {
+  id             String   @id @default(uuid())
+  sourceType     String   // INVOICE | PAYMENT
+  sourceId       String   // FK to source record (Invoice.id / Payment.id)
+  eventType      String   // INVOICE_ISSUED | PAYMENT_RECEIVED | INVOICE_CANCELLED | PAYMENT_REVERSED | INVOICE_ADJUSTED
+  periodId       String
+  period         FinancialPeriod @relation(fields: [periodId], references: [id])
+  journalEntryId String?
+  journalEntry   JournalEntry? @relation(fields: [journalEntryId], references: [id])
+  amount         Float
+  currency       String   @default("EGP")
+  description    String?
+  metadata       String?  // JSON context (customerId, areaId, tariff, etc.)
+  status         String   @default("PENDING") // PENDING | POSTED | FAILED
+  postedAt       DateTime?
+  errorMessage   String?
+  createdAt      DateTime @default(now())
+  archivedAt     DateTime?
+
+  @@unique([sourceType, sourceId])
+  @@index([periodId, status])
+  @@index([eventType, createdAt])
+  @@index([journalEntryId])
+}
+
+model AccountMapping {
+  id              String   @id @default(uuid())
+  name            String
+  transactionType String   // INVOICE_ISSUED | PAYMENT_RECEIVED | INVOICE_CANCELLED | PAYMENT_REVERSED | INVOICE_ADJUSTED
+  debitAccountId  String
+  debitAccount    Account  @relation("DebitAccount", fields: [debitAccountId], references: [id])
+  creditAccountId String
+  creditAccount   Account  @relation("CreditAccount", fields: [creditAccountId], references: [id])
+  condition       String?  // JSON condition
+  priority        Int      @default(100)
+  active          Boolean  @default(true)
+  effectiveFrom   DateTime
+  effectiveTo     DateTime?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  archivedAt      DateTime?
+  updatedAt       DateTime @updatedAt
+
+  @@index([transactionType, active])
+  @@index([debitAccountId])
+  @@index([creditAccountId])
+}
+
 
 

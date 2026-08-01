@@ -1,11 +1,24 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-07-29  
-**Current Phase:** C13 Planning — Enterprise Financial & Billing Intelligence Platform  
-**Version:** 8.2.0-PLANNING  
+**Last Updated:** 2026-08-01  
+**Current Phase:** Wave 2 — Billing/Finance (C22 SaaS, C23 BPM, C13 Financial) — In Progress  
+**Version:** 8.3.0-WAVE2  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## Wave 2 Execution Progress (P43)
+
+| Step | Program | Status |
+|------|---------|--------|
+| 2.1 | C22 Tenant Foundation (6 models, tenants.js, B-02 migration) | ✅ Complete |
+| 2.2 | C23 Workflow Foundation (8 models, workflows.js, B-03 migration) | ✅ Complete |
+| 2.3 | C13 Financial Integration (FinancialEvent, AccountMapping, PostingEngine, GL hooks, B-04 migration) | ✅ Complete |
+| 2.4 | C13 Revenue Management | ⏳ Next |
+
+**Overall implementation coverage:** 15% (source of truth: `P40_EXECUTION_TRACKER.md`)
 
 ---
 

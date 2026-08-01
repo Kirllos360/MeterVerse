@@ -3,6 +3,7 @@ import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
+import { postEvent } from "../services/posting-engine.js"
 
 const router = Router()
 router.use(authenticate)
@@ -44,6 +45,21 @@ router.post("/", requirePermission("payments.*"), async (req, res, next) => {
       }
       return p
     })
+    // C13 Financial Integration: post PAYMENT_RECEIVED event to GL (feature-flag guarded)
+    if (process.env.FINANCIAL_POSTING_ENABLED !== "false") {
+      try {
+        await postEvent({
+          sourceType: "PAYMENT",
+          sourceId: payment.id,
+          eventType: "PAYMENT_RECEIVED",
+          amount: data.amount,
+          description: `Payment received (${data.method})`,
+          context: { customerId: data.customerId, currency: "EGP" },
+        })
+      } catch (postErr) {
+        auditLog(req, "financialEvent.failed", { sourceType: "PAYMENT", sourceId: payment.id, eventType: "PAYMENT_RECEIVED", reason: postErr.message })
+      }
+    }
     auditLog(req, "payment.created", { paymentId: payment.id, customerId: data.customerId, amount: data.amount })
     res.status(201).json({ payment })
   } catch (err) {
@@ -67,6 +83,21 @@ router.post("/:id/reverse", requirePermission("payments.*"), async (req, res, ne
       await tx.payment.update({ where: { id: payment.id }, data: { status: "reversed" } })
       await tx.customerLedgerEntry.create({ data: { customerId: payment.customerId, type: "reversal", amount: payment.amount, description: reason, reference: payment.id } })
     })
+    // C13 Financial Integration: post PAYMENT_REVERSED event to GL (feature-flag guarded)
+    if (process.env.FINANCIAL_POSTING_ENABLED !== "false") {
+      try {
+        await postEvent({
+          sourceType: "PAYMENT_REVERSAL",
+          sourceId: `${payment.id}_rev`,
+          eventType: "PAYMENT_REVERSED",
+          amount: payment.amount,
+          description: `Payment reversal: ${reason}`,
+          context: { customerId: payment.customerId, currency: "EGP" },
+        })
+      } catch (postErr) {
+        auditLog(req, "financialEvent.failed", { sourceType: "PAYMENT_REVERSAL", sourceId: `${payment.id}_rev`, eventType: "PAYMENT_REVERSED", reason: postErr.message })
+      }
+    }
     auditLog(req, "payment.reversed", { paymentId: payment.id, reason })
     res.json({ message: "Payment reversed" })
   } catch (err) {

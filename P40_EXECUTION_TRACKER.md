@@ -52,7 +52,7 @@ Program-level status:
 |---------|--------|------------|----------|:--------:|
 | C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
 | C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
-| C13 Financial Intelligence | ðŸŸ¨ | accounting backend (5 models, routes) | + billing-to-GL, revenue, tariff, AI | 30% |
+| C13 Financial Intelligence | 🟨 | FinancialEvent + AccountMapping + PostingEngine + invoice/payment GL hooks | + billing-to-GL, revenue, tariff, AI | 40% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
 
@@ -144,13 +144,15 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-016 | `backend/prisma/migrations/20260801010000_add_tenant_foundation` | C22 tenant migration (6 tables) created for fresh-deploy path; applied via db push on current DB. | Medium | Validate migration on clean staging during B-01. |
 | OBS-017 | `backend/src/routes/workflows.js` | C23 workflow routes implement definition/version/instance/task/approval runtime above existing WorkflowState/Transition. No conflict; existing state-machine engine preserved. | Low | Keep adapter layer documented; version lifecycle adds approval status. |
 | OBS-018 | `backend/prisma/migrations/20260801020000_add_workflow_foundation` | C23 workflow migration (8 tables) created for fresh-deploy path; applied via db push. | Medium | Validate migration on clean staging during B-01. |
+| OBS-019 | `backend/src/services/posting-engine.js` | C13 PostingEngine converts INVOICE/PAYMENT events into balanced journal entries + GL updates. Prisma `orderBy` on relation fields requires array form (`[{ period: { year: "desc" } }, ...]`) — single-object multi-key relation sort throws. | Low | Keep orderBy arrays for relation sorts in all new queries. |
+| OBS-020 | `backend/prisma/migrations/20260801030000_add_financial_integration` | C13 financial integration migration (2 tables: FinancialEvent, AccountMapping) created for fresh-deploy path; applied via db push. Invoice/payment GL hooks are feature-flag guarded (`FINANCIAL_POSTING_ENABLED !== "false"`). | Medium | Validate migration on clean staging during B-01; confirm flag default remains on. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 14%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 15%
 (Wave 2 in progress — C22/C23/C13 Billing & Finance)
 
 Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
@@ -159,10 +161,12 @@ Wave 2 completed in this session:
   ✅ C22 Tenant Foundation: 6 models + routes + tests (+15)
   ✅ C23 Workflow Foundation: 8 models (definitions/versions/instances/
      tasks/approvals) + routes + tests (+17)
-  ✅ B-02 + B-03 migrations created (fresh-deploy path)
-  ⏳ Next: C13 Financial Integration (Step 2.3)
+  ✅ C13 Financial Integration: FinancialEvent + AccountMapping +
+     PostingEngine + invoice/payment GL hooks + audit trail + tests (+16)
+  ✅ B-02 + B-03 + B-04 migrations created (fresh-deploy path)
+  ⏳ Next: C13 Revenue Management (Step 2.4)
 
-Verification: 172 unit + 48 contract + 31 integration + tsc 0
+Verification: 188 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
 Next gate: Wave 2 completion per P40/P42/P43
