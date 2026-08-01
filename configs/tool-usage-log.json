@@ -805,5 +805,27 @@
             "backend/prisma/migrations/20260801010000_add_tenant_foundation/migration.sql",
             "155 unit tests passing; P40_EXECUTION_TRACKER.md (13%)"
         ]
+    },
+    {
+        "date": "2026-08-01",
+        "task": "Wave 2 Step 2.2 — C23 Workflow/BPM Foundation implementation",
+        "tools_activated": ["bash", "git", "read", "grep", "filesystem", "memory", "todowrite"],
+        "tools_used": [
+            "loaded governance files per IMPLEMENTATION_PROTOCOL (continuing Wave 2)",
+            "implemented C23: 8 Prisma models (WorkflowDefinition, WorkflowVersion, WorkflowNode, WorkflowEdge, WorkflowInstance, WorkflowTask, ApprovalRequest, ApprovalDecision)",
+            "implemented workflows.js routes (definitions, versions+approve, instances+status, tasks+complete, approvals+decide, summary)",
+            "registered workflowRouter + workflow.* admin permissions",
+            "added mock-prisma delegates + workflows.test.mjs (17 tests); verified 172 unit tests pass",
+            "verified live API (create definition, summary, approvals) on :3002; cleaned demo data",
+            "created B-03 workflow migration; updated tracker (C23 40%, overall 14%); recorded OBS-017/018",
+            "git diff check and status reviewed"
+        ],
+        "evidence": [
+            "backend/src/routes/workflows.js",
+            "backend/prisma/schema.prisma (8 C23 models)",
+            "backend/tests/api/workflows.test.mjs",
+            "backend/prisma/migrations/20260801020000_add_workflow_foundation/migration.sql",
+            "172 unit tests passing; P40_EXECUTION_TRACKER.md (14%)"
+        ]
     }
 ]

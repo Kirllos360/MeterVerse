@@ -2231,3 +2231,165 @@ model EnvironmentProfile {
   @@index([envType, active])
 }
 
+// ─── C23 Workflow / BPM Foundation (Wave 2) ─────────────────────────────────
+
+model WorkflowDefinition {
+  id          String   @id @default(uuid())
+  code        String   @unique
+  name        String
+  description String?
+  domain      String   @default("GENERAL") // BILLING | COLLECTIONS | ASSET | CUSTOMER | COMPLIANCE | GENERAL
+  trigger     String   @default("MANUAL") // API | EVENT | SCHEDULE | MANUAL | SUBPROCESS
+  status      String   @default("DRAFT") // DRAFT | REVIEW | APPROVED | ACTIVE | DEPRECATED
+  tenantId    String?
+  createdBy   String?
+  approvedBy  String?
+  approvedAt  DateTime?
+  variables   String   @default("{}") // JSON input/output schema
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+  versions    WorkflowVersion[]
+
+  @@index([domain, status])
+  @@index([code])
+}
+
+model WorkflowVersion {
+  id             String   @id @default(uuid())
+  definitionId   String
+  definition     WorkflowDefinition @relation(fields: [definitionId], references: [id], onDelete: Cascade)
+  versionNumber  Int
+  status         String   @default("DRAFT") // DRAFT | APPROVED | ACTIVE | SUPERSEDED
+  nodes          String   @default("[]") // JSON node graph
+  edges          String   @default("[]") // JSON edges
+  policies       String   @default("{}") // timeout, retry, approval, compensation
+  effectiveFrom  DateTime?
+  effectiveTo    DateTime?
+  approvedBy     String?
+  approvedAt     DateTime?
+  createdBy      String?
+  createdAt      DateTime @default(now())
+  archivedAt     DateTime?
+  instances      WorkflowInstance[]
+  nodeRecords    WorkflowNode[]
+  edgeRecords    WorkflowEdge[]
+
+  @@unique([definitionId, versionNumber])
+  @@index([definitionId, status])
+}
+
+model WorkflowNode {
+  id             String   @id @default(uuid())
+  versionId      String
+  nodeType       String   @default("TASK") // START | END | TASK | APPROVAL | GATEWAY | TIMER | EVENT | NOTIFICATION | INTEGRATION | SUBPROCESS
+  name           String
+  config         String   @default("{}")
+  positionX      Float?
+  positionY      Float?
+  status         String   @default("ACTIVE")
+  createdAt      DateTime @default(now())
+  archivedAt     DateTime?
+  version        WorkflowVersion? @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@index([versionId])
+}
+
+model WorkflowEdge {
+  id             String   @id @default(uuid())
+  versionId      String
+  fromNodeId     String?
+  toNodeId       String?
+  condition      String?  // JSON condition
+  label          String?
+  createdAt      DateTime @default(now())
+  archivedAt     DateTime?
+  version        WorkflowVersion? @relation(fields: [versionId], references: [id], onDelete: Cascade)
+
+  @@index([versionId])
+}
+
+model WorkflowInstance {
+  id          String   @id @default(uuid())
+  versionId   String
+  version     WorkflowVersion @relation(fields: [versionId], references: [id])
+  tenantId    String?
+  status      String   @default("RUNNING") // RUNNING | COMPLETED | FAILED | CANCELLED | EXCEPTION
+  currentNode String?  // JSON current position
+  variables   String   @default("{}")
+  correlationId String?
+  startedBy   String?
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  archivedAt  DateTime?
+  tasks       WorkflowTask[]
+  approvals   ApprovalRequest[]
+
+  @@index([versionId, status])
+  @@index([tenantId, status])
+  @@index([correlationId])
+}
+
+model WorkflowTask {
+  id          String   @id @default(uuid())
+  instanceId  String
+  instance    WorkflowInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  nodeId      String?
+  type        String   @default("HUMAN") // HUMAN | SERVICE | SCRIPT | AI | DECISION
+  title       String
+  status      String   @default("PENDING") // PENDING | IN_PROGRESS | COMPLETED | FAILED | SKIPPED
+  assigneeId  String?
+  payload     String   @default("{}")
+  result      String?
+  dueDate     DateTime?
+  completedAt DateTime?
+  completedBy String?
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+
+  @@index([instanceId])
+  @@index([assigneeId, status])
+}
+
+model ApprovalRequest {
+  id            String   @id @default(uuid())
+  instanceId    String
+  instance      WorkflowInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+  title         String
+  description   String?
+  mode          String   @default("SEQUENTIAL") // SEQUENTIAL | PARALLEL | UNANIMOUS | MAJORITY | WEIGHTED | EMERGENCY
+  status        String   @default("PENDING") // PENDING | IN_REVIEW | APPROVED | REJECTED | MODIFIED | EXPIRED
+  approverIds   String   @default("[]") // JSON ordered approvers
+  currentIndex  Int      @default(0)
+  threshold     Float?   // for weighted/majority
+  amount        Float?
+  riskLevel     String   @default("LOW")
+  requestedBy   String?
+  requestedAt   DateTime @default(now())
+  decidedAt     DateTime?
+  createdAt     DateTime @default(now())
+  archivedAt    DateTime?
+  decisions     ApprovalDecision[]
+
+  @@index([instanceId])
+  @@index([status, requestedAt])
+}
+
+model ApprovalDecision {
+  id            String   @id @default(uuid())
+  approvalId    String
+  approval      ApprovalRequest @relation(fields: [approvalId], references: [id], onDelete: Cascade)
+  approverId    String
+  approverName  String?
+  decision      String   // APPROVE | REJECT | MODIFY | DELEGATE
+  comment       String?
+  weight        Float    @default(1)
+  decidedAt     DateTime @default(now())
+  createdAt     DateTime @default(now())
+  archivedAt    DateTime?
+
+  @@index([approvalId])
+  @@index([approverId])
+}
+
+

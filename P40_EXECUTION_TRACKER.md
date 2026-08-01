@@ -51,7 +51,7 @@ Program-level status:
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
 | C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
-| C23 Workflow & BPM | ðŸŸ¥ | workflow-engine (3 state machines) | + BPM runtime (19 models) | 10% |
+| C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
 | C13 Financial Intelligence | ðŸŸ¨ | accounting backend (5 models, routes) | + billing-to-GL, revenue, tariff, AI | 30% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
@@ -142,24 +142,27 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-014 | `backend/prisma/migrations/20260801000000_add_governance_registry` | Governance migration (10 tables + indexes) created for fresh-deploy path; not applied via `migrate` on current DB (already in sync via db push). | Medium | Validate migration on a clean staging DB during Wave-2 B-01. |
 | OBS-015 | `backend/src/routes/tenants.js` | C22 tenant routes: `GET /:id` preceded `GET /plans`, causing `/plans` to be captured by `/:id` (404). Fixed by reordering `/plans` before `/:id`. | Medium | Confirm no other `/:id`-style route in tenants.js shadows specific sub-routes; regression test added. |
 | OBS-016 | `backend/prisma/migrations/20260801010000_add_tenant_foundation` | C22 tenant migration (6 tables) created for fresh-deploy path; applied via db push on current DB. | Medium | Validate migration on clean staging during B-01. |
+| OBS-017 | `backend/src/routes/workflows.js` | C23 workflow routes implement definition/version/instance/task/approval runtime above existing WorkflowState/Transition. No conflict; existing state-machine engine preserved. | Low | Keep adapter layer documented; version lifecycle adds approval status. |
+| OBS-018 | `backend/prisma/migrations/20260801020000_add_workflow_foundation` | C23 workflow migration (8 tables) created for fresh-deploy path; applied via db push. | Medium | Validate migration on clean staging during B-01. |
 
 ---
 
 ## Executive Progress
 
 ```
-OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 13%
+OVERALL IMPLEMENTATION COVERAGE: ████░░░░░░ 14%
 (Wave 2 in progress — C22/C23/C13 Billing & Finance)
 
 Wave 1 complete (P42 GO): C12 70%, C19 55%, C20 40%, C21 62%.
 
 Wave 2 completed in this session:
-  ✅ C22 Tenant Foundation: 6 models (Tenant, TenantSetting, SubscriptionPlan,
-     TenantSubscription, UsageMeter, EnvironmentProfile) + routes + tests (+15)
-  ✅ B-02 tenant migration created (fresh-deploy path)
-  ⏳ Next: C23 Workflow Foundation (Step 2.2)
+  ✅ C22 Tenant Foundation: 6 models + routes + tests (+15)
+  ✅ C23 Workflow Foundation: 8 models (definitions/versions/instances/
+     tasks/approvals) + routes + tests (+17)
+  ✅ B-02 + B-03 migrations created (fresh-deploy path)
+  ⏳ Next: C13 Financial Integration (Step 2.3)
 
-Verification: 155 unit + 48 contract + 31 integration + tsc 0
+Verification: 172 unit + 48 contract + 31 integration + tsc 0
 
 Last updated: 2026-08-01
 Next gate: Wave 2 completion per P40/P42/P43
@@ -168,5 +171,6 @@ Next gate: Wave 2 completion per P40/P42/P43
 ---
 
 *This document is the implementation coverage registry. Updated at every gate. Not a planning artifact â€” execution tracking.*
+
 
 

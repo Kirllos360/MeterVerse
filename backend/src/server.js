@@ -48,6 +48,7 @@ import { connectionProfilesRouter as connProfRouter } from "./routes/connection-
 import { migrationRouter } from "./routes/migration.js"
 import { governanceRouter } from "./routes/governance.js"
 import { tenantRouter } from "./routes/tenants.js"
+import { workflowRouter } from "./routes/workflows.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
@@ -278,6 +279,7 @@ mount("/learned-patterns", learnedPatternsRouter)
 mount("/incidents", incidentsRouter)
 mount("/governance", governanceRouter)
 mount("/tenants", tenantRouter)
+mount("/workflows", workflowRouter)
 mount("/materialized-views", materializedViewsRouter)
 mount("/gateways", gatewaysRouter)
 mount("/knowledge-articles", knowledgeArticlesRouter)
