@@ -1,7 +1,7 @@
 @echo off
-title MeterVerse — Starting System
+title MeterVerse OS - Starting System
 echo +---------------------------------------------------------------+
-echo ¦              MeterVerse Enterprise Platform                   ¦
+echo                MeterVerse OS Enterprise Platform
 echo +---------------------------------------------------------------+
 echo.
 
@@ -36,25 +36,31 @@ set DATABASE_URL=postgresql://meter_pulse:meter_pulse_dev@localhost:%PG_PORT%/%P
 node scripts/seed.js >nul 2>&1
 echo   ? Seed data loaded
 
-echo [4/6] Starting Backend...
-cd /d "%~dp0backend\src"
+echo [4/6] Starting Admin Backend (3131)...
+cd /d "%~dp0backend"
 set DATABASE_URL=postgresql://meter_pulse:meter_pulse_dev@localhost:%PG_PORT%/%PG_DB%?schema=public
 set JWT_SECRET=mv-jwt-secret-change-in-production-2026
-set PORT=3001
-start "MeterVerse-Backend" cmd /c "node server.js"
-echo   ? Backend starting on port 3001
+set PORT=3131
+set CORS_ORIGIN=http://localhost:3030,http://localhost:3535
+start "MeterVerse-AdminAPI" cmd /c "node src/server.js"
+echo   ? Admin API starting on port 3131
 
-echo [5/6] Starting Frontend...
+echo [5/6] Starting Admin Frontend (3030)...
 cd /d "%~dp0Frontend"
-start "MeterVerse-Frontend" cmd /c "npx next dev -p 7400"
-echo   ? Frontend starting on port 7400
+set NEXT_PUBLIC_API_URL=http://localhost:3131
+start "MeterVerse-AdminConsole" cmd /c "call node_modules\.bin\next.cmd dev -p 3030"
+echo   ? Admin Console starting on port 3030
 
 echo.
 echo +---------------------------------------------------------------+
-echo ¦  System starting... Please wait 30-60 seconds for first load ¦
-echo ¦  Frontend: http://localhost:7400                              ¦
-echo ¦  Backend:  http://localhost:3001                              ¦
-echo ¦  Login:    admin@meterverse.com / Admin@123                   ¦
+echo   MeterVerse OS starting... Please wait 30-60 seconds
+echo   Admin Console : http://localhost:3030   (Admin / Red theme)
+echo   Admin API     : http://localhost:3131/api/health
+echo   Portal API    : http://localhost:3003/api/health  (PORTAL_MODE=1)
+echo   Login         : admin@meterverse.com / Admin@123
+echo.
+echo   Customer Portal (:3535) â€” run:  npm run portal:frontend
+echo   Portal Backend (:3003)   â€” run:  npm run portal:backend
 echo +---------------------------------------------------------------+
 echo.
 pause

@@ -60,19 +60,19 @@ echo [%DATE% %TIME%] Frontend build: %errorlevel% >> %LOG%
 :: ─── STEP 5: Start services ──────────────────────────────────────────────────
 echo [5/6] Starting services...
 cd /d "%~dp0.."
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=3131&& node src/server.js"
 timeout /t 5 /nobreak >nul
-start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p 7400"
+start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3030"
 echo   Services launching...
 echo [%DATE% %TIME%] Services launched >> %LOG%
 
 :: ─── STEP 6: Verify ─────────────────────────────────────────────────────────
 echo [6/6] Verifying recovery...
 timeout /t 15 /nobreak >nul
-PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3001/api/health' -TimeoutSec 5 -UseBasicParsing -ErrorAction Stop; exit 0}catch{exit 1}" 2>nul
-if %errorlevel%==0 ( echo   ✅ Backend: RUNNING ) else ( echo   ❌ Backend: DOWN )
-PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:7400' -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop; exit 0}catch{exit 1}" 2>nul
-if %errorlevel%==0 ( echo   ✅ Frontend: RUNNING ) else ( echo   ❌ Frontend: DOWN (may need compile time) )
+PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3131/api/health' -TimeoutSec 5 -UseBasicParsing -ErrorAction Stop; exit 0}catch{exit 1}" 2>nul
+if %errorlevel%==0 ( echo   ✅ Admin API: RUNNING ) else ( echo   ❌ Admin API: DOWN )
+PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3030' -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop; exit 0}catch{exit 1}" 2>nul
+if %errorlevel%==0 ( echo   ✅ Admin Console: RUNNING ) else ( echo   ❌ Admin Console: DOWN (may need compile time) )
 
 echo.
 echo ══════════════════════════════════════════════════════════════
@@ -80,7 +80,7 @@ echo  Recovery Status
 echo ══════════════════════════════════════════════════════════════
 echo  Log: %CD%\%LOG%
 echo  Login: admin@meterverse.com / Admin@123
-echo  http://localhost:7400/admin
+echo  http://localhost:3030/admin
 echo ══════════════════════════════════════════════════════════════
 echo.
 echo [%DATE% %TIME%] Recovery complete >> %LOG%
