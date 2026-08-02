@@ -8,7 +8,7 @@ import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { BarChartCard, PieChartCard, LineChartCard } from "@/features/charts/components/ChartComponents"
 
 export default function EnhancedMetersPage() {
-  const [tab, setTab] = useState("dashboard")
+  const [tab, setTab] = useState("list")
 
   const meterStatusData = [
     { name: "Active", value: 1240 }, { name: "Inactive", value: 85 },

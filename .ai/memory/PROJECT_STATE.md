@@ -1,23 +1,30 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-01  
-**Current Phase:** Active System Enablement — OPERATIONAL release baseline  
-**Version:** 9.1.0-ACTIVE-SYSTEM-READY  
+**Last Updated:** 2026-08-02  
+**Current Phase:** Real Operational Certification — PASS (UI-operable)  
+**Version:** 9.2.0-REAL-OPERATIONAL-CERTIFIED  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## Active System Enablement — READY
+## Real Operational Certification — PASS (2026-08-02)
 
-MeterVerse is now a **running operational system** (min production capabilities):
-- 5 role users operational (System Admin + Ops Manager + Billing + Support + Portal)
-- Operational seed: 25 customers, 60 meters, 60 connections, 180 readings, 60 invoices, 23 payments
-- Full business flow live-verified (customer→meter→reading→consumption→invoice→payment→balance→audit)
-- RBAC verified (billing 403 on admin + audited)
-- Reports: `docs/reviews/ACTIVE_SYSTEM_{DISCOVERY,IMPLEMENTATION_PLAN,CERTIFICATION}_REPORT.md` + `ACTIVE_SYSTEM_READY_CHECKPOINT.md`
-- Seed: `backend/scripts/seed-operational.mjs` (idempotent)
+Forensic audit after manual validation revealed **real UI failures** (read-only appearance). Root causes found + fixed + browser-verified:
+
+- **RC-A** Admin nav pointed to settings pages; CRUD pages (users/customers/meters/projects/areas/payments/tariffs) were orphaned → rewired `AdminLayout.tsx` + `admin/page.tsx`.
+- **RC-B** BFF `apiBackend()` hit `:3002/admin/...` (no `/api`) → every admin page empty → normalized in `api-client.ts`.
+- **RC-C** Customers/Meters/Invoices/Payments defaulted to analytics dashboard → default tab `"list"`.
+- **RC-E** Backend returns `customer: {id,name}` object; config cell crashed → transform extracts `.name` (billing.ts).
+
+**Browser-verified (Playwright, real admin JWT):** all 9 core pages show Add + live data rows; Customer create → POST 201 → persisted. Full exam: 292 unit + 56 contract + 31 integration + tsc 0 + vitest 44.
+
+Reports: `docs/reviews/REAL_OPERATIONAL_GAP_REPORT.md`, `ROOT_CAUSE_ANALYSIS.md`, `REAL_OPERATIONAL_CERTIFICATION_REPORT.md`.
+
+**Remaining (non-blocking):** hydration "button-in-button" console warning; some non-core BFFs originally 404 (now fixed via normalization, verified 200).
+
+---
 
 Tests: 292 unit, 56 contract, 31 integration, tsc 0, vitest 44.
 

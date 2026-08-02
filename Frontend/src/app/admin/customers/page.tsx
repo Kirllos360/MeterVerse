@@ -10,7 +10,7 @@ import { LineChartCard, BarChartCard, PieChartCard, AreaChartCard } from "@/feat
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
 
 export default function EnhancedCustomersPage() {
-  const [tab, setTab] = useState("dashboard")
+  const [tab, setTab] = useState("list")
   const [stats, setStats] = useState<any>(null)
 
   useEffect(() => {

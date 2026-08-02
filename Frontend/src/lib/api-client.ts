@@ -99,7 +99,10 @@ export async function apiBackend<T>(
   const isGet = !fetchOptions.method || fetchOptions.method === "GET"
   const locQuery = isGet ? getLocationQuery() : ""
   const separator = path.includes("?") ? "&" : "?"
-  const finalPath = locQuery ? `${path}${separator}${locQuery}` : path
+  // P49.5/ASE: apiBackend targets the backend :3002 directly. Normalize so the
+  // backend's /api surface is always hit (BFF handlers pass "/admin/users" etc.).
+  const normalized = path.startsWith("/api/") ? path : path.startsWith("/") ? `/api${path}` : path
+  const finalPath = locQuery ? `${normalized}${separator}${locQuery}` : normalized
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",

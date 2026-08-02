@@ -1303,5 +1303,29 @@
             "docs/reviews/ACTIVE_SYSTEM_READY_CHECKPOINT.md",
             "P40_EXECUTION_TRACKER.md (OBS-067)"
         ]
+    },
+    {
+        "task": "REAL Operational Failure Investigation — forensic audit + fix (UI-certified)",
+        "date": "2026-08-02",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "playwright", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE forensic-first + P00 + AI_ROLES + tools-manifest + PROJECT_STATE + memory graph",
+            "Phase 1 Discover: confirmed frontend :7400 (Next SPA) + backend :3002 + API URL + DB",
+            "Phase 2 Reproduce: Playwright with REAL admin JWT -> reproduced 'no Add/data' on Users/Customers",
+            "Phase 3-6 Trace + Root Cause: 5 RCs (nav wiring, BFF path, dashboard-first default, hydration, object-customer crash)",
+            "Phase 8 Fix (small+tested): AdminLayout nav -> CRUD pages; admin/page.tsx page map; api-client.ts /api normalization; default list tab x4; billing.ts transform .name",
+            "Phase 9 Test: full exam 292 unit + 56 contract + 31 integration + tsc 0 + vitest 44; Playwright journey all 9 pages Add+data; Customer create POST 201 persisted",
+            "Phase 10 Certify: REAL_OPERATIONAL_CERTIFICATION_REPORT.md PASS (human-admin operable via UI); gap + root-cause reports"
+        ],
+        "evidence": [
+            "docs/reviews/REAL_OPERATIONAL_GAP_REPORT.md",
+            "docs/reviews/ROOT_CAUSE_ANALYSIS.md",
+            "docs/reviews/REAL_OPERATIONAL_CERTIFICATION_REPORT.md",
+            "Frontend/src/admin/layout/AdminLayout.tsx",
+            "Frontend/src/app/admin/page.tsx",
+            "Frontend/src/lib/api-client.ts",
+            "Frontend/src/admin/tables/configs/billing.ts",
+            "P40_EXECUTION_TRACKER.md (OBS-068)"
+        ]
     }
 ]

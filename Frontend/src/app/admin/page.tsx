@@ -24,6 +24,13 @@ const RevenueAssurancePage = dynamic(() => import("./revenue-assurance/page"), {
 const FinancialAiPage = dynamic(() => import("./financial-ai/page"), { ssr: false })
 const DocumentGovernancePage = dynamic(() => import("./documents-governance/page"), { ssr: false })
 const CommunicationPage = dynamic(() => import("./communication/page"), { ssr: false })
+const UsersPage = dynamic(() => import("./users/page"), { ssr: false })
+const CustomersPage = dynamic(() => import("./customers/page"), { ssr: false })
+const MetersPage = dynamic(() => import("./meters/page"), { ssr: false })
+const ProjectsPage = dynamic(() => import("./projects/page"), { ssr: false })
+const AreasPage = dynamic(() => import("./areas/page"), { ssr: false })
+const PaymentsPage = dynamic(() => import("./payments/page"), { ssr: false })
+const TariffsPage = dynamic(() => import("./tariffs/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
@@ -35,10 +42,17 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   "users-permissions": UsersPermissionsPage,
   "customer-settings": CustomerSettingsPage,
   "meter-settings": MeterSettingsPage,
+  users: UsersPage,
+  customers: CustomersPage,
+  meters: MetersPage,
+  projects: ProjectsPage,
+  areas: AreasPage,
   readings: ReadingsPage,
+  tariffs: TariffsPage,
   "tariff-settings": TariffSettingsPage,
   "bill-cycle-settings": BillCycleSettingsPage,
   invoices: InvoicesPage,
+  payments: PaymentsPage,
   "payment-settings": PaymentSettingsPage,
   settings: SettingsPage,
   audit: AuditPage,

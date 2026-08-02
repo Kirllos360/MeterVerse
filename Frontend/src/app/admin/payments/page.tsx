@@ -8,7 +8,7 @@ import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { LineChartCard, BarChartCard, PieChartCard } from "@/features/charts/components/ChartComponents"
 
 export default function EnhancedPaymentsPage() {
-  const [tab, setTab] = useState("dashboard")
+  const [tab, setTab] = useState("list")
 
   const monthlyData = [
     { name: "Jan", collected: 185000, pending: 32000 },

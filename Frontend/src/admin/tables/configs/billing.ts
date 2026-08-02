@@ -8,7 +8,7 @@ export const billingConfigs: Record<string, PageConfig> = {
     apiEndpoint: "/api/invoices",
     serverSide: true, statusField,
     transform: (d: any) => (d.invoices || []).map((inv: any) => ({
-      id: inv.id, customer: inv.customerName || inv.customer || inv.customerId || "—",
+      id: inv.id, customer: inv.customerName || (typeof inv.customer === "object" && inv.customer ? inv.customer.name : inv.customer) || inv.customerId || "—",
       amount: inv.amount || inv.total || 0, status: inv.status || "pending",
       dueDate: inv.dueDate || inv.dueAt || "", createdAt: inv.createdAt || "",
     })),
@@ -32,7 +32,7 @@ export const billingConfigs: Record<string, PageConfig> = {
     apiEndpoint: "/api/payments",
     serverSide: true, statusField,
     transform: (d: any) => (d.payments || []).map((p: any) => ({
-      id: p.id, customer: p.customerName || p.customer || p.customerId || "—",
+      id: p.id, customer: p.customerName || (typeof p.customer === "object" && p.customer ? p.customer.name : p.customer) || p.customerId || "—",
       amount: p.amount || p.total || 0, method: p.method || p.paymentMethod || "—",
       status: p.status || "completed", createdAt: p.createdAt || "",
     })),

@@ -8,7 +8,7 @@ import { EnhancedListPage } from "@/features/grid/EnhancedListPage"
 import { LineChartCard, BarChartCard, PieChartCard } from "@/features/charts/components/ChartComponents"
 
 export default function EnhancedInvoicesPage() {
-  const [tab, setTab] = useState("dashboard")
+  const [tab, setTab] = useState("list")
 
   const statusData = [{name:"Paid",value:450},{name:"Pending",value:120},{name:"Overdue",value:45},{name:"Cancelled",value:15}]
   const revenueData = [{name:"Jan",revenue:85000},{name:"Feb",revenue:92000},{name:"Mar",revenue:88000},{name:"Apr",revenue:105000},{name:"May",revenue:98000},{name:"Jun",revenue:112000}]
