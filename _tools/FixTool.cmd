@@ -48,9 +48,9 @@ set TEMP=%FILE%.safe
 (
     for /f "usebackq delims=" %%a in ("%FILE%") do (
         set LINE=%%a
-        set LINE=!LINE:taskkill /F /IM node.exe 2^>nul =taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2^>nul !
-        set LINE=!LINE:taskkill /F /IM node.exe 2^>nul=taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2^>nul!
-        set LINE=!LINE:taskkill /F /IM node.exe =taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" !
+        set LINE=!LINE:taskkill /F /IM node.exe 2^>nul =taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2^>nul !
+        set LINE=!LINE:taskkill /F /IM node.exe 2^>nul=taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2^>nul!
+        set LINE=!LINE:taskkill /F /IM node.exe =taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" !
         echo !LINE!
     )
 ) > "%TEMP%"

@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 title MeterVerse STRESS TEST
 cd /d "%~dp0"
 setlocal enabledelayedexpansion
@@ -12,12 +12,12 @@ set CYCLE=0
 echo === 15-MINUTE STRESS TEST === > %LOG%
 
 echo Killing old services...
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 timeout /t 3 /nobreak >nul
 
 :: Start fresh
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js"
 timeout /t 10 /nobreak >nul
 
 :: Verify startup
@@ -30,22 +30,22 @@ echo.
 :LOOP
 set /a CYCLE+=1
 set /a DELAY=!RANDOM! %% 31 + 20
-echo === Cycle !CYCLE! — waiting !DELAY!s === >> %LOG%
+echo === Cycle !CYCLE! â€” waiting !DELAY!s === >> %LOG%
 timeout /t !DELAY! /nobreak >nul
 
 set /a SCENARIO=!RANDOM! %% 3
 if !SCENARIO!==0 (
     echo [CYCLE !CYCLE!] Killing BACKEND
-    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
 )
 if !SCENARIO!==1 (
     echo [CYCLE !CYCLE!] Killing FRONTEND
-    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 )
 if !SCENARIO!==2 (
     echo [CYCLE !CYCLE!] Killing BOTH
-    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
-    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 )
 
 set /a WAIT=!RANDOM! %% 31 + 30

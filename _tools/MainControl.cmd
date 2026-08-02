@@ -54,8 +54,8 @@ cls
 echo Starting MeterVerse services...
 
 :: Safe kill
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 timeout /t 2 /nobreak >nul
 
 :: Pre-flight checks
@@ -89,7 +89,7 @@ if %errorlevel%==1 (
 :: Launch Backend
 echo [1] Starting Backend...
 echo [%DATE% %TIME%] [BE] Starting >> "%LM%"
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js" > "%LB%" 2>&1
 
 :: Wait for backend HTTP health (up to 30s)
 set READY=0
@@ -105,9 +105,9 @@ if !READY!==1 ( echo   Backend may not be ready (DB required) ) else ( echo   Ba
 echo [2] Starting Frontend...
 echo [%DATE% %TIME%] [FE] Starting >> "%LM%"
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
 ) else (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
 )
 
 echo.
@@ -130,7 +130,7 @@ echo.
 set BK=0&set BD=0
 if !BE_SLP!==0 (
     :: Check 1: Window exists?
-    tasklist /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul | findstr /I "node.exe" >nul 2>nul
     if !errorlevel!==0 (
         :: Check 2: HTTP health?
         PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:%BE_PORT%/api/health' -TimeoutSec 2 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
@@ -147,7 +147,7 @@ if !BE_SLP!==0 (
 :: â”€â”€â”€ CHECK FRONTEND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 set FK=0&set FD=0
 if !FE_SLP!==0 (
-    tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul | findstr /I "node.exe" >nul 2>nul
     if !errorlevel!==0 (
         PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:%FE_PORT%' -TimeoutSec 3 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
         if !errorlevel!==0 ( set FK=1 & set FE_ATT=0 & echo FE: HEALTHY ) else ( set FD=1 & set /a FE_ATT+=1 & echo FE: DEGRADED x!FE_ATT! )
@@ -163,7 +163,7 @@ if !FE_SLP!==0 (
 if !BE_SLP!==0 if !BK!==0 (
     call :FIX_BE
     :: After fixing BE, check FE too in same cycle
-    tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul | findstr /I "node.exe" >nul 2>nul
     if !errorlevel!==1 if !FE_SLP!==0 call :FIX_FE
 ) else (
     if !FE_SLP!==0 if !FK!==0 call :FIX_FE
@@ -173,19 +173,19 @@ if !BE_SLP!==0 if !BK!==0 (
 if !BD!==1 (
     echo  âš  Backend degraded â€” restarting...
     echo [%DATE% %TIME%] [BE] Degraded â€” restarting >> "%LE%"
-    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
     timeout /t 2 /nobreak >nul
-    start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
+    start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js" > "%LB%" 2>&1
 )
 if !FD!==1 (
     echo  âš  Frontend degraded â€” restarting...
     echo [%DATE% %TIME%] [FE] Degraded â€” restarting >> "%LE%"
-    taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+    taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
     timeout /t 2 /nobreak >nul
     if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-        start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+        start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
     ) else (
-        start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+        start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
     )
 )
 
@@ -230,15 +230,15 @@ if !errorlevel!==0 (
     timeout /t 3 /nobreak >nul
 )
 
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
 timeout /t 3 /nobreak >nul
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js" > "%LB%" 2>&1
 echo [%DATE% %TIME%] [BE] Restarted >> "%LE%"
 
 :: Verify with tasklist
 for /l %%i in (1,1,7) do (
     timeout /t 3 /nobreak >nul
-    tasklist /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul | findstr /I "node.exe" >nul 2>nul
     if !errorlevel!==0 goto :EOF
 )
 echo [%DATE% %TIME%] [BE] Warning: window not confirmed >> "%LE%"
@@ -258,19 +258,19 @@ if !FE_ATT! GEQ %MAX_ATT% (
     goto :EOF
 )
 
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 timeout /t 3 /nobreak >nul
 if exist "%~dp0..\Frontend\.next\cache" rmdir /s /q "%~dp0..\Frontend\.next\cache" 2>nul >nul
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
 ) else (
-    start "MeterVerse-Frontend" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
 )
 echo [%DATE% %TIME%] [FE] Restarted >> "%LE%"
 
 for /l %%i in (1,1,7) do (
     timeout /t 3 /nobreak >nul
-    tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
+    tasklist /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul | findstr /I "node.exe" >nul 2>nul
     if !errorlevel!==0 goto :EOF
 )
 echo [%DATE% %TIME%] [FE] Warning: window not confirmed >> "%LE%"
@@ -280,8 +280,8 @@ goto :EOF
 ::  MENU
 :: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 :STOP
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
-taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
+taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 set BE_SLP=0&set FE_SLP=0&set BE_ATT=0&set FE_ATT=0
 echo [%DATE% %TIME%] [SYS] Stopped >> "%LM%"
 echo Done.
