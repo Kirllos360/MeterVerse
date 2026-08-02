@@ -1,4 +1,4 @@
-# Dependencies
+﻿# Dependencies
 node_modules/
 Frontend/node_modules/
 backend/node_modules/
@@ -15,7 +15,7 @@ backend/dist/
 .env
 .env.local
 .env.*.local
-.env.example
+!.env.example
 backend/.env
 
 # Logs
