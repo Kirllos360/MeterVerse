@@ -101,16 +101,16 @@ router.get("/unit-types", async (req, res, next) => {
 // GET /tree — full cascading tree
 router.get("/tree", async (req, res, next) => {
   try {
-    const areaRows = await prisma.meter.groupBy({ by: ["area"], _count: { _all: true }, where: { area: { not: null }, archivedAt: null }, orderBy: { area: "asc" } })
+    const areas = await prisma.area.findMany({ where: { archivedAt: null }, orderBy: { name: "asc" } })
     const tree = []
-    for (const a of areaRows) {
-      const areaName = a.area
-      const areaRec = await prisma.area.findFirst({ where: { name: areaName } })
-      const projects = areaRec
-        ? await prisma.project.findMany({ where: { areaId: areaRec.id, archivedAt: null }, include: { zones: { include: { units: true } } } })
-        : []
+    for (const areaRec of areas) {
+      const projects = await prisma.project.findMany({ where: { areaId: areaRec.id, archivedAt: null }, include: { zones: { include: { units: true } } } })
+      const meterCount = await prisma.meter.count({ where: { areaId: areaRec.id, archivedAt: null } })
       tree.push({
-        name: areaName,
+        id: areaRec.id,
+        name: areaRec.name,
+        code: areaRec.code,
+        meterCount,
         projects: projects.map(p => ({
           id: p.id, name: p.name,
           zones: p.zones.filter(z => !z.archivedAt).map(z => ({

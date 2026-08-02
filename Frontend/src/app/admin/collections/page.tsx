@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -53,18 +53,36 @@ const ACTIVE_CASES: ActiveCase[] = [
 ]
 
 export default function AdminCollectionsPage() {
-  const [aging] = useState<AgingBucket[]>(AGING_BUCKETS)
+  const [aging, setAging] = useState<AgingBucket[]>(AGING_BUCKETS)
   const [collectors] = useState<Collector[]>(COLLECTORS)
   const [cases] = useState<ActiveCase[]>(ACTIVE_CASES)
+  const [live, setLive] = useState<{ openCases?: number; overdueTotal?: number } | null>(null)
 
-  const totalOutstanding = aging.reduce((s, b) => s + b.total, 0)
+  // P45: fetch real collections summary from the backend when reachable.
+  // Static sample data remains as a graceful fallback (never overwrites real data).
+  useEffect(() => {
+    let cancelled = false
+    fetch("/api/collections/summary", { headers: { "X-Dev-Mode": "true" } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (cancelled || !d || typeof d.openCases !== "number") return
+        setLive(d)
+        setAging([
+          { bucket: "Open cases", count: d.openCases, total: d.overdueTotal || 0, percentage: 100 },
+        ])
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
+
+  const totalOutstanding = live?.overdueTotal ?? aging.reduce((s, b) => s + b.total, 0)
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>Collections Dashboard</h1>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>Aging buckets, collector performance, and active cases</p>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{live ? "Live data from /api/collections" : "Aging buckets, collector performance, and active cases"}</p>
         </div>
         <motion.div animate={waveAnim} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
