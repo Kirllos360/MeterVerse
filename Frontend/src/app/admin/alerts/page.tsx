@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -40,8 +40,26 @@ const ALERT_RULES: AlertRule[] = [
 ]
 
 export default function AlertsPage() {
-  const [activeAlerts] = useState<ActiveAlert[]>(ACTIVE_ALERTS)
+  const [activeAlerts, setActiveAlerts] = useState<ActiveAlert[]>(ACTIVE_ALERTS)
   const [rules] = useState<AlertRule[]>(ALERT_RULES)
+  const [live, setLive] = useState(false)
+
+  // P49: fetch real alerts from the backend. Mock data is graceful fallback only.
+  useEffect(() => {
+    let cancelled = false
+    fetch("/api/alerts", { headers: { "X-Dev-Mode": "true" } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (cancelled || !d?.alerts?.length) return
+        setActiveAlerts(d.alerts.slice(0, 12).map((a: any) => ({
+          id: a.id, title: a.message || a.name || "Alert", severity: (a.severity || "info").toLowerCase(),
+          source: a.source || a.entityType || "-", acknowledged: a.acknowledgedAt != null,
+        })))
+        setLive(true)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
 
   const criticalCount = activeAlerts.filter((a) => a.severity === "critical" && !a.acknowledged).length
 
