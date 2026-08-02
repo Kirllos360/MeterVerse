@@ -1,11 +1,24 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P49 — Enterprise Activation (real system transformation)  
-**Version:** 8.9.0-P49-ACTIVATED  
-**Branch:** main  
+**Current Phase:** P49.5 — Repository Intelligence Audit (pre-Wave-3)  
+**Version:** 8.10.0-P49.5-AUDITED  
+**Branch:** main (audit branch `audit/P49.5-repository-intelligence` for reports)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P49.5 Repository Intelligence
+
+Audited all 6 repositories (MeterVerse + Meter + collection-tracker + Meter-×2 + Mete).
+MeterVerse confirmed most complete (unique: combined channels 5.8.0, revenue assurance, financial AI, workflows).
+Reports in `docs/reviews/P49_5_*.md` (×3): Repository Intelligence, Capability Matrix, Missing Capabilities.
+
+**Missing capabilities to extract:** settlement/wallet/chilled-water/gas (Mete), tickets/claims (Mete/Abady), invoice hash/QR, robust Excel import, Jasper templates (60+), OpenAPI contract, collection KPIs.
+**Critical finding:** Mete commits hardcoded Symbiot DB credentials — never inherit.
+
+**Wave 3 impact:** C14 gets tickets/claims; C24 gets docs/import + hash/QR; C13 follow-on gets settlement/wallet/gas + bank reconciliation.
 
 ---
 
