@@ -1356,5 +1356,25 @@
             "docker-compose.yml",
             "P40_EXECUTION_TRACKER.md (OBS-069)"
         ]
+    },
+    {
+        "task": "P1b Recovery & Memory Synchronization — repository reflects P51 state",
+        "date": "2026-08-02",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "playwright", "todowrite"],
+        "tools_used": [
+            "P1a: verified P51 state — main in sync, tag present, admin BE 3131/FE 3030/portal BE 3003 live, portal admin-gate 404, env correct; fixed stale .next proxy 500 via clean restart",
+            "P1b: repo-health scan — 0 legacy branding in code; 0 old ports after updating 16 test specs + 8 .cjs + 3 _tools .cmd; orphan detection found 65 unreachable admin pages",
+            "P1b: wired 25 P0 operational screens into admin pageMap (tsc 0, vitest 44)",
+            "P1c: governance sync — PROJECT_STATE 10.0.1-RECOVERY-SYNCED, AI_BIBLE port 3131, tracker OBS-070",
+            "P1d: committed + pushed recovery milestone (d8199815)"
+        ],
+        "evidence": [
+            "Frontend/src/app/admin/page.tsx (orphan wiring)",
+            "Frontend/tests/* port updates",
+            "_tools/{AdvancedTest,MainControl,config}.cmd",
+            ".ai/memory/PROJECT_STATE.md (10.0.1-RECOVERY-SYNCED)",
+            ".ai/memory/AI_BIBLE.md (3131)",
+            "P40_EXECUTION_TRACKER.md (OBS-070)"
+        ]
     }
 ]

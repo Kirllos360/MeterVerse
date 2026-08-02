@@ -15,7 +15,7 @@ If discovery hasn't happened → respond ONLY "CAPABILITY DISCOVERY REQUIRED".
 ☐ MCP CHECK — 12 MCPs active (including postgres-mcp and playwright-mcp)
 ☐ CLI CHECK — lighthouse, axe-core, puppeteer
 ☐ RUNTIME CHECK — Node, Java, Docker, PostgreSQL
-☐ BACKEND CHECK — :3002/api/health = 200
+☐ BACKEND CHECK — :3131/api/health = 200 (Admin API; Portal API :3003)
 ☐ TESTS CHECK — vitest run passes
 ☐ TYPESCRIPT CHECK — 0 errors
 ☐ GIT CHECK — clean tree

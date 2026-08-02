@@ -1,11 +1,24 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-02  
-**Current Phase:** P51 — MeterVerse OS Enterprise Monorepo (CERTIFIED)  
-**Version:** 10.0.0-METERVERSE-OS  
-**Branch:** feature/p51-meterverse-os-platform (→ merge to main)  
+**Last Updated:** 2026-08-02 (P1b recovery)  
+**Current Phase:** P51 MeterVerse OS (CERTIFIED) + Recovery Synchronized  
+**Version:** 10.0.1-RECOVERY-SYNCED  
+**Branch:** main (P51 merged)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## Recovery & Memory Synchronization — DONE (P1b)
+
+Repository truly reflects P51 state:
+- **Ports synced repo-wide:** 0 old ports (7400/3002/3001) in tracked code (16 test specs, 8 .cjs, 3 _tools .cmd updated → 3030/3131/3003). Historical docs retain original refs.
+- **Legacy branding:** 0 "Meter Pulse/Meter System/Meter Verse" in code.
+- **Orphans wired:** 65 top-level admin pages were unreachable; **25 P0 operational screens wired into SPA pageMap** (accounting, collections, alerts, sim, zones, units, service-connections, meter-assignments, notifications, security, roles, permissions, api-keys, integrations, webhooks, tasks, scheduler, cache, backup, health, runtime, operations, connectivity-center, business, reports).
+- **Stale proxy 500 fixed** (dev `.next` cache, not code) via clean restart.
+- Commit `d8199815`.
+
+**Next: P2 Enterprise Operational Audit → P3 Operational Completion (P0 usability).**
 
 ---
 
