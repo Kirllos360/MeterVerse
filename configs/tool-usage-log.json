@@ -1076,5 +1076,25 @@
             "Frontend/src/app/admin/collections/page.tsx (live fetch)",
             "P40_EXECUTION_TRACKER.md (OBS-048)"
         ]
+    },
+    {
+        "task": "P45 Core Baseline O: wire reports + workflows pages to live backend",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE pre-flight + P00 + AI_ROLES + tools-manifest + PROJECT_STATE + memory graph",
+            "discovered most admin pages are already LIVE via next.config rewrite (/api/* -> :3002); P44 'static' overestimated (OBS-050)",
+            "added 8 real report summary endpoints in reports.js (operational/financial/executive/consumption/variance/aging/kpi) backed by Prisma aggregates; fixed KpiSnapshot createdAt->recordedAt; all verified 200",
+            "wired admin/reporting page handleGenerate to real /api/reports/export (was fake 2s setTimeout); verified live export 200 with real invoice data",
+            "wired admin/workflows page to real /api/workflows/definitions + instances via React effect (mock as fallback)",
+            "verified: 267 unit + 56 contract + tsc 0 + vitest 44; report endpoints all live",
+            "committed 98e0724d pushed to kirllos360 origin; recorded OBS-049/050, PROJECT_STATE updated"
+        ],
+        "evidence": [
+            "backend/src/routes/reports.js (8 summary endpoints)",
+            "Frontend/src/app/admin/reporting/page.tsx (real generate)",
+            "Frontend/src/app/admin/workflows/page.tsx (live fetch)",
+            "P40_EXECUTION_TRACKER.md (OBS-049/050)"
+        ]
     }
 ]
