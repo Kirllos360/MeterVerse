@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 import { chromium } from "playwright"
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "fs"
 import { join, dirname } from "path"
@@ -8,7 +8,7 @@ import pixelmatch from "pixelmatch"
 import { PNG } from "pngjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const SCREENSHOTS = join(__dirname, "..", "..", "docs", "screenshots")
 const BASELINE = join(SCREENSHOTS, "baseline")
 const DIFF_DIR = join(SCREENSHOTS, "diff")
@@ -52,7 +52,7 @@ async function captureBaseline() {
         await page.screenshot({ path: filepath, fullPage: true })
         console.log(`  [baseline] ${route} (${vp})`)
       } catch (e) {
-        console.log(`  ⚠️  ${route} (${vp}): ${e.message}`)
+        console.log(`  âš ï¸  ${route} (${vp}): ${e.message}`)
       }
     }
   }
@@ -99,11 +99,11 @@ async function compareScreenshots() {
           writeFileSync(diffPath, PNG.sync.write(diff))
         }
         results.push({ route, viewport: vp, status: diffRatio > THRESHOLD ? "fail" : "pass", diff: diffRatio, diffPath: diffRatio > THRESHOLD ? diffPath : null })
-        const icon = diffRatio > THRESHOLD ? "❌" : "✅"
+        const icon = diffRatio > THRESHOLD ? "âŒ" : "âœ…"
         console.log(`  ${icon} ${route} (${vp}): ${(diffRatio * 100).toFixed(2)}% changed`)
       } catch (e) {
         results.push({ route, viewport: vp, status: "error", diff: 1, diffPath: null })
-        console.log(`  ⚠️  ${route} (${vp}): ${e.message}`)
+        console.log(`  âš ï¸  ${route} (${vp}): ${e.message}`)
       }
     }
   }
@@ -131,7 +131,7 @@ function generateReport(results, passed, failed, total, overallDiff) {
   md += "|-------|----------|--------|--------|\n"
 
   for (const r of results) {
-    const statusIcon = r.status === "pass" ? "✅" : r.status === "fail" ? "❌" : r.status === "missing" ? "⚠️" : "❌"
+    const statusIcon = r.status === "pass" ? "âœ…" : r.status === "fail" ? "âŒ" : r.status === "missing" ? "âš ï¸" : "âŒ"
     md += `| ${r.route} | ${r.viewport} | ${statusIcon} ${r.status} | ${(r.diff * 100).toFixed(2)}% |\n`
   }
 
@@ -145,9 +145,9 @@ function generateReport(results, passed, failed, total, overallDiff) {
 
   md += "\n## Summary\n\n"
   if (overallDiff > THRESHOLD * 100) {
-    md += "❌ **FAILED:** Visual regressions detected above threshold.\n"
+    md += "âŒ **FAILED:** Visual regressions detected above threshold.\n"
   } else {
-    md += "✅ **PASSED:** No significant visual regressions.\n"
+    md += "âœ… **PASSED:** No significant visual regressions.\n"
   }
 
   const reportPath = join(SCREENSHOTS, "..", "VISUAL_REGRESSION_REPORT.md")
@@ -172,7 +172,7 @@ async function main() {
         const dst = join(BASELINE, `${route}-${vp}.png`)
         if (existsSync(src)) {
           writeFileSync(dst, readFileSync(src))
-          console.log(`  ✅ ${route} (${vp})`)
+          console.log(`  âœ… ${route} (${vp})`)
         }
       }
     }

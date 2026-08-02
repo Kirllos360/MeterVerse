@@ -1,6 +1,6 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 
 async function main() {
   const browser = await chromium.launch({ headless: true })
@@ -14,7 +14,7 @@ async function main() {
   console.log("\n1. ROOT PAGE LOADED")
 
   // 2. Toggle to Arabic
-  const langBtn = page.locator('button[aria-label*="Language"], button[aria-label*="اللغة"], button:has-text("EN"), button:has-text("AR")').first()
+  const langBtn = page.locator('button[aria-label*="Language"], button[aria-label*="Ø§Ù„Ù„ØºØ©"], button:has-text("EN"), button:has-text("AR")').first()
   if (await langBtn.isVisible({ timeout: 3000 }).catch(() => false)) {
     await langBtn.click()
     await page.waitForTimeout(1500)
@@ -58,7 +58,7 @@ async function main() {
   sidebarTextsEn.forEach((t) => console.log(t))
 
   // 7. Toggle dark mode
-  const themeBtn = page.locator('button[aria-label*="Mode"], button[aria-label*="الوضع"], button:has-text("☀"), button:has-text("☽")').first()
+  const themeBtn = page.locator('button[aria-label*="Mode"], button[aria-label*="Ø§Ù„ÙˆØ¶Ø¹"], button:has-text("â˜€"), button:has-text("â˜½")').first()
   if (await themeBtn.isVisible({ timeout: 2000 }).catch(() => false)) {
     await themeBtn.click()
     await page.waitForTimeout(1000)
@@ -68,7 +68,7 @@ async function main() {
   console.log(`7. DARK MODE: class="${htmlClass}" color-scheme="${colorScheme}"`)
 
   await browser.close()
-  console.log("\n✅ Visual checks complete")
+  console.log("\nâœ… Visual checks complete")
 }
 
 main().catch((e) => {

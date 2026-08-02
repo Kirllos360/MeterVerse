@@ -1,11 +1,11 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 import { chromium } from "playwright"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const SCREENSHOTS = path.resolve(__dirname, "..", "..", "docs", "screenshots")
 
 const VIEWPORTS = {
@@ -46,7 +46,7 @@ async function capture(browser, page) {
         await page.goto(`${BASE}${route.path}`, { waitUntil: "domcontentloaded", timeout: 15000 })
         await page.waitForTimeout(2000)
       } catch {
-        console.log(`  ⚠️  skipping ${route.name} (${viewport})`)
+        console.log(`  âš ï¸  skipping ${route.name} (${viewport})`)
         continue
       }
 
@@ -58,7 +58,7 @@ async function capture(browser, page) {
         await page.screenshot({ path: filepath, fullPage: true, timeout: 10000 })
         results.push({ route: route.name, viewport, path: filename })
       } catch {
-        console.log(`  ⚠️  screenshot failed: ${route.name} (${viewport})`)
+        console.log(`  âš ï¸  screenshot failed: ${route.name} (${viewport})`)
         continue
       }
 
@@ -146,7 +146,7 @@ async function generateGallery(results) {
   }
 
   fs.writeFileSync(index, md, "utf-8")
-  console.log(`\n✅ Gallery: ${index}`)
+  console.log(`\nâœ… Gallery: ${index}`)
 }
 
 async function main() {
@@ -164,7 +164,7 @@ async function main() {
 
   await generateGallery(results)
 
-  console.log(`\n✅ Complete: ${results.length} screenshots captured`)
+  console.log(`\nâœ… Complete: ${results.length} screenshots captured`)
 }
 
 main().catch(console.error)

@@ -1,9 +1,9 @@
-@echo off
-:: MeterVerse Tool Configuration — Shared settings for all tools
+﻿@echo off
+:: MeterVerse Tool Configuration â€” Shared settings for all tools
 :: Edit this file to change ports, paths, and repo settings
 
-set BE_PORT=3002
-set FE_PORT=7400
+set BE_PORT=3131
+set FE_PORT=3030
 set DB_PORT=5432
 set DB_USER=meter_pulse
 set DB_PASS=meter_pulse_dev

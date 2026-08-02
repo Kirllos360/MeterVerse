@@ -111,7 +111,7 @@ set /a PHASE+=1
 echo ═══ TEST !PHASE! — HTTP flood + crash ═══
 call :LOG "TEST !PHASE!: HTTP flood + kill"
 :: Start HTTP flood in background
-start /b "" cmd /c "for /l %%i in (1,1,50) do (PowerShell -Command \"try{Invoke-WebRequest -Uri 'http://localhost:3001/api/health' -TimeoutSec 1 -UseBasicParsing -ErrorAction Stop}catch{}\" 2^>nul >nul)"
+start /b "" cmd /c "for /l %%i in (1,1,50) do (PowerShell -Command \"try{Invoke-WebRequest -Uri 'http://localhost:3131/api/health' -TimeoutSec 1 -UseBasicParsing -ErrorAction Stop}catch{}\" 2^>nul >nul)"
 timeout /t 5 /nobreak >nul
 :: Kill while under load
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul

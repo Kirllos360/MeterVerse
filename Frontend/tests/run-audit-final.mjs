@@ -1,10 +1,10 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const REPORT_DIR = path.resolve(__dirname, "../test-reports")
 fs.mkdirSync(REPORT_DIR, { recursive: true })
 
@@ -62,12 +62,12 @@ async function test(page, url, name, opts = {}) {
 
   page.removeListener("console", handler)
 
-  if (opts.expectRedirect && r.finalUrl === BASE + "/") console.log(`  ✅ ${name}: redirect OK`)
+  if (opts.expectRedirect && r.finalUrl === BASE + "/") console.log(`  âœ… ${name}: redirect OK`)
   else if (opts.expectRedirect) r.errors.push(`Expected redirect to / but got ${r.finalUrl}`)
-  if (opts.expectAdmin && r.finalUrl?.startsWith(BASE + "/admin")) console.log(`  ✅ ${name}: admin route OK`)
+  if (opts.expectAdmin && r.finalUrl?.startsWith(BASE + "/admin")) console.log(`  âœ… ${name}: admin route OK`)
 
   const hasErr = r.errors.length > 0 || r.jsErrors.length > 0
-  const icon = hasErr ? "❌" : r.warnings.length > 0 ? "⚠️" : "✅"
+  const icon = hasErr ? "âŒ" : r.warnings.length > 0 ? "âš ï¸" : "âœ…"
   if (hasErr) report.summary.failed++; else if (r.warnings.length > 0) report.summary.warnings++; else report.summary.passed++
   console.log(`  ${icon} ${name}: ${r.status} | JS:${r.jsErrors.length} A11y:${r.issues.length} DOM:${r.resources.domNodes}`)
   report.pages[name] = r
@@ -76,7 +76,7 @@ async function test(page, url, name, opts = {}) {
 
 async function main() {
   console.log("=".repeat(70))
-  console.log("METERVERSE FINAL AUDIT — PHASE 16")
+  console.log("METERVERSE FINAL AUDIT â€” PHASE 16")
   console.log("=".repeat(70))
 
   const browser = await chromium.launch({ headless: true })
@@ -86,7 +86,7 @@ async function main() {
   // ===========================================
   // PHASE 1: ROOT & MAIN SYSTEM ROUTES
   // ===========================================
-  console.log("\n── 1. MAIN SYSTEM ──")
+  console.log("\nâ”€â”€ 1. MAIN SYSTEM â”€â”€")
   await test(page, BASE + "/", "Root Workspace")
   await test(page, BASE + "/login", "Redirect: /login", { expectRedirect: true })
   await test(page, BASE + "/workspace", "Redirect: /workspace", { expectRedirect: true })
@@ -100,7 +100,7 @@ async function main() {
   // ===========================================
   // PHASE 2: ADMIN PLATFORM (port 7500 route)
   // ===========================================
-  console.log("\n── 2. ADMIN PLATFORM ──")
+  console.log("\nâ”€â”€ 2. ADMIN PLATFORM â”€â”€")
   await test(page, BASE + "/admin/login", "Admin Login", { expectAdmin: true })
   await test(page, BASE + "/admin/dashboard", "Admin Dashboard", { expectAdmin: true })
   await test(page, BASE + "/admin/users", "Admin Users", { expectAdmin: true })
@@ -114,7 +114,7 @@ async function main() {
   // ===========================================
   // PHASE 3: AUTH BYPASS TESTS
   // ===========================================
-  console.log("\n── 3. AUTH BYPASS PROTECTION ──")
+  console.log("\nâ”€â”€ 3. AUTH BYPASS PROTECTION â”€â”€")
   const bypassUrls = [
     "/dashboard", "/app/admin", "/customer", "/about",
     "/privacy-policy", "/terms-of-service", "/component-lab",
@@ -126,7 +126,7 @@ async function main() {
   // ===========================================
   // PHASE 4: SIDEBAR NAVIGATION
   // ===========================================
-  console.log("\n── 4. SIDEBAR NAVIGATION ──")
+  console.log("\nâ”€â”€ 4. SIDEBAR NAVIGATION â”€â”€")
   await page.goto(BASE + "/", { waitUntil: "networkidle" })
   await page.waitForTimeout(2000)
 
@@ -147,7 +147,7 @@ async function main() {
           const active = document.querySelector("[aria-selected='true']")
           return active?.textContent?.trim()?.substring(0, 30)
         })
-        console.log(`  ✅ ${label} → Tab active: ${tab}`)
+        console.log(`  âœ… ${label} â†’ Tab active: ${tab}`)
       }
     } catch {}
   }
@@ -155,15 +155,15 @@ async function main() {
   // ===========================================
   // PHASE 5: CONSOLE ERROR DEEP SCAN
   // ===========================================
-  console.log("\n── 5. CONSOLE ERRORS ──")
+  console.log("\nâ”€â”€ 5. CONSOLE ERRORS â”€â”€")
   const unique = [...new Set(report.consoleErrors)]
-  if (unique.length > 0) { unique.forEach((e, i) => console.log(`  ❌ [${i + 1}] ${e}`)) }
-  else { console.log("  ✅ NONE FOUND") }
+  if (unique.length > 0) { unique.forEach((e, i) => console.log(`  âŒ [${i + 1}] ${e}`)) }
+  else { console.log("  âœ… NONE FOUND") }
 
   // ===========================================
   // PHASE 6: SECURITY HEADERS
   // ===========================================
-  console.log("\n── 6. SECURITY HEADERS ──")
+  console.log("\nâ”€â”€ 6. SECURITY HEADERS â”€â”€")
   const resp = await page.goto(BASE + "/", { waitUntil: "load" })
   const h = resp?.headers() || {}
   const secHeaders = {
@@ -173,13 +173,13 @@ async function main() {
     "X-XSS-Protection": h["x-xss-protection"] === "1; mode=block",
   }
   for (const [k, v] of Object.entries(secHeaders)) {
-    console.log(`  ${v ? "✅" : "❌"} ${k}`)
+    console.log(`  ${v ? "âœ…" : "âŒ"} ${k}`)
   }
 
   // ===========================================
   // PHASE 7: DESIGN TOKENS
   // ===========================================
-  console.log("\n── 7. DESIGN TOKENS ──")
+  console.log("\nâ”€â”€ 7. DESIGN TOKENS â”€â”€")
   const tokens = await page.evaluate(() => {
     const found = {}
     const checks = ["--brand-primary", "--surface-base", "--text-primary", "--border-default", "--status-success"]
@@ -188,9 +188,9 @@ async function main() {
   })
   report.designTokens = tokens
   if (Object.keys(tokens).length > 0) {
-    for (const [k, v] of Object.entries(tokens)) console.log(`  ✅ ${k}: ${v}`)
+    for (const [k, v] of Object.entries(tokens)) console.log(`  âœ… ${k}: ${v}`)
   } else {
-    console.log("  ⚠️ Design tokens not in :root (may be in theme CSS)")
+    console.log("  âš ï¸ Design tokens not in :root (may be in theme CSS)")
 
     const allVars = await page.evaluate(() => {
       const v = {}
@@ -214,54 +214,54 @@ async function main() {
   console.log("FINAL AUDIT SUMMARY")
   console.log("=".repeat(70))
   console.log(`Total: ${report.summary.total}`)
-  console.log(`✅ Passed: ${report.summary.passed}`)
-  console.log(`❌ Failed: ${report.summary.failed}`)
-  console.log(`⚠️ Warnings: ${report.summary.warnings}`)
+  console.log(`âœ… Passed: ${report.summary.passed}`)
+  console.log(`âŒ Failed: ${report.summary.failed}`)
+  console.log(`âš ï¸ Warnings: ${report.summary.warnings}`)
   console.log(`Console errors: ${unique.length}`)
   console.log(`Security headers: ${Object.values(secHeaders).filter(Boolean).length}/4`)
 
   // Save report
   const lines = [
     "=".repeat(70),
-    "METERVERSE FINAL AUDIT REPORT — PHASE 16",
+    "METERVERSE FINAL AUDIT REPORT â€” PHASE 16",
     "=".repeat(70),
     `Date: ${new Date().toLocaleString()}`,
     `Target: ${BASE}`,
     "",
     `Total: ${report.summary.total}`,
-    `✅ Passed: ${report.summary.passed}`,
-    `❌ Failed: ${report.summary.failed}`,
-    `⚠️ Warnings: ${report.summary.warnings}`,
+    `âœ… Passed: ${report.summary.passed}`,
+    `âŒ Failed: ${report.summary.failed}`,
+    `âš ï¸ Warnings: ${report.summary.warnings}`,
     `Console errors: ${unique.length}`,
     `Security headers: ${Object.values(secHeaders).filter(Boolean).length}/4`,
     "",
-    "── ALL PAGE RESULTS ──",
+    "â”€â”€ ALL PAGE RESULTS â”€â”€",
   ]
   for (const [name, r] of Object.entries(report.pages)) {
-    const icon = r.errors.length > 0 || r.jsErrors.length > 0 ? "❌" : r.warnings.length > 0 ? "⚠️" : "✅"
-    lines.push(`[${icon}] ${name} → ${r.finalUrl}`)
+    const icon = r.errors.length > 0 || r.jsErrors.length > 0 ? "âŒ" : r.warnings.length > 0 ? "âš ï¸" : "âœ…"
+    lines.push(`[${icon}] ${name} â†’ ${r.finalUrl}`)
     lines.push(`  Status: ${r.status} | JS:${r.jsErrors.length} | A11y:${r.issues.length} | DOM:${r.resources.domNodes}`)
     if (r.errors.length) r.errors.forEach(e => lines.push(`  ERROR: ${e}`))
   }
-  lines.push("", "── CONSOLE ERRORS ──")
-  if (unique.length) unique.forEach(e => lines.push(`  ❌ ${e}`))
-  else lines.push("  ✅ None found")
-  lines.push("", "── SECURITY HEADERS ──")
-  for (const [k, v] of Object.entries(secHeaders)) lines.push(`  ${v ? "✅" : "❌"} ${k}`)
-  lines.push("", "── RECOMMENDATIONS ──")
-  lines.push("  • Add Content-Security-Policy header with nonces for Next.js")
-  lines.push("  • Add loading skeletons for Suspense boundaries")
-  lines.push("  • Add full RTL CSS flip support for Arabic")
-  lines.push("  • Connect frontend service layer to backend API (port 3001)")
-  lines.push("  • Add unit tests (Vitest) + component tests (RTL)")
-  lines.push("  • Add CI pipeline for automated Playwright tests")
+  lines.push("", "â”€â”€ CONSOLE ERRORS â”€â”€")
+  if (unique.length) unique.forEach(e => lines.push(`  âŒ ${e}`))
+  else lines.push("  âœ… None found")
+  lines.push("", "â”€â”€ SECURITY HEADERS â”€â”€")
+  for (const [k, v] of Object.entries(secHeaders)) lines.push(`  ${v ? "âœ…" : "âŒ"} ${k}`)
+  lines.push("", "â”€â”€ RECOMMENDATIONS â”€â”€")
+  lines.push("  â€¢ Add Content-Security-Policy header with nonces for Next.js")
+  lines.push("  â€¢ Add loading skeletons for Suspense boundaries")
+  lines.push("  â€¢ Add full RTL CSS flip support for Arabic")
+  lines.push("  â€¢ Connect frontend service layer to backend API (port 3001)")
+  lines.push("  â€¢ Add unit tests (Vitest) + component tests (RTL)")
+  lines.push("  â€¢ Add CI pipeline for automated Playwright tests")
 
   const rp = path.join(REPORT_DIR, `final-audit-${Date.now()}.txt`)
   fs.writeFileSync(rp, lines.join("\n"))
   console.log(`\nFull report: ${rp}`)
 
   await browser.close()
-  console.log("\n✅ FINAL AUDIT COMPLETE")
+  console.log("\nâœ… FINAL AUDIT COMPLETE")
 }
 
 main().catch((e) => { console.error("FATAL:", e.message); process.exit(1) })

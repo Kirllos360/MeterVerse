@@ -1,8 +1,8 @@
-import { test, expect, type Page, type ConsoleMessage } from "@playwright/test"
+﻿import { test, expect, type Page, type ConsoleMessage } from "@playwright/test"
 import fs from "fs"
 import path from "path"
 
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const REPORT_DIR = path.resolve(__dirname, "../test-reports")
 fs.mkdirSync(REPORT_DIR, { recursive: true })
 
@@ -144,7 +144,7 @@ test.describe("MeterVerse Comprehensive Audit", () => {
         if (await btn.isVisible({ timeout: 2000 }).catch(() => false)) {
           await btn.click()
           await page.waitForTimeout(800)
-          console.log(`  Clicked: ${item} ✓`)
+          console.log(`  Clicked: ${item} âœ“`)
         }
       } catch (e: any) {
         console.log(`  Could not click ${item}: ${e.message}`)
@@ -165,7 +165,7 @@ test.describe("MeterVerse Comprehensive Audit", () => {
     for (const url of bypassUrls) {
       await page.goto(BASE + url, { waitUntil: "load", timeout: 10000 })
       expect(page.url()).toBe(BASE + "/")
-      console.log(`  ${url} → redirect to / ✓`)
+      console.log(`  ${url} â†’ redirect to / âœ“`)
     }
   })
 
@@ -216,7 +216,7 @@ test.describe("MeterVerse Comprehensive Audit", () => {
     }
 
     if (consoleErrors.length > 0) {
-      console.log(`\n  ❌ CONSOLE ERRORS FOUND (${consoleErrors.length}):`)
+      console.log(`\n  âŒ CONSOLE ERRORS FOUND (${consoleErrors.length}):`)
       consoleErrors.forEach((e, i) => console.log(`    ${i + 1}. ${e}`))
     }
   })

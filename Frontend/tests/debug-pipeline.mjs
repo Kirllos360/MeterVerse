@@ -1,11 +1,11 @@
-import { chromium } from 'playwright';
+﻿import { chromium } from 'playwright';
 import { writeFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const FRONTEND = join(__dirname, '..');
-const BASE = 'http://localhost:7400';
+const BASE = 'http://localhost:3030';
 
 const adminDir = join(FRONTEND, 'src', 'app', 'admin');
 const adminPages = readdirSync(adminDir, { withFileTypes: true })

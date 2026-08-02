@@ -1,6 +1,6 @@
-import { test, expect } from "@playwright/test"
+﻿import { test, expect } from "@playwright/test"
 
-const BASE = process.env.BASE_URL || "http://localhost:7400"
+const BASE = process.env.BASE_URL || "http://localhost:3030"
 
 test.describe("Authentication Flow", () => {
 

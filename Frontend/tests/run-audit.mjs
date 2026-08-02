@@ -1,10 +1,10 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const REPORT_DIR = path.resolve(__dirname, "../test-reports")
 fs.mkdirSync(REPORT_DIR, { recursive: true })
 
@@ -39,7 +39,7 @@ async function auditPage(page, url, name, { expectRedirect } = {}) {
   }
 
   report.summary.total++
-  console.log(`\n🔍 ${name} (${url})`)
+  console.log(`\nðŸ” ${name} (${url})`)
 
   // Capture console
   const consoleHandler = (msg) => {
@@ -108,16 +108,16 @@ async function auditPage(page, url, name, { expectRedirect } = {}) {
   if (expectRedirect) {
     const redirected = result.finalUrl === BASE + "/"
     if (redirected) {
-      console.log(`  ✅ Redirected to / as expected`)
+      console.log(`  âœ… Redirected to / as expected`)
     } else {
-      console.log(`  ❌ Expected redirect to / but got: ${result.finalUrl}`)
+      console.log(`  âŒ Expected redirect to / but got: ${result.finalUrl}`)
       result.errors.push("Expected redirect to /")
     }
   }
 
   const hasErrors = result.errors.length > 0 || result.jsErrors.length > 0
   const hasWarnings = result.warnings.length > 0
-  const statusIcon = hasErrors ? "❌" : hasWarnings ? "⚠️" : "✅"
+  const statusIcon = hasErrors ? "âŒ" : hasWarnings ? "âš ï¸" : "âœ…"
   console.log(`  ${statusIcon} Status: ${result.status} | JS Errors: ${result.jsErrors.length} | Issues: ${result.issues.length} | DOM: ${result.resources.domNodes}`)
 
   if (hasErrors) report.summary.failed++
@@ -200,7 +200,7 @@ async function main() {
       if (await btn.isVisible({ timeout: 2000 }).catch(() => false)) {
         await btn.click()
         await page.waitForTimeout(1000)
-        console.log(`  ✅ Clicked "${label}"`)
+        console.log(`  âœ… Clicked "${label}"`)
 
         // Check content area changed
         const contentChanged = await page.evaluate((lbl) => {
@@ -209,10 +209,10 @@ async function main() {
         }, label)
         console.log(`     Content shows "${label}": ${contentChanged}`)
       } else {
-        console.log(`  ⚠️ "${label}" button not visible`)
+        console.log(`  âš ï¸ "${label}" button not visible`)
       }
     } catch (e) {
-      console.log(`  ❌ "${label}" error: ${e.message}`)
+      console.log(`  âŒ "${label}" error: ${e.message}`)
     }
   }
 
@@ -278,7 +278,7 @@ async function main() {
     const unique = [...new Set(report.consoleErrors)]
     unique.forEach((e, i) => console.log(`  ${i + 1}. ${e}`))
   } else {
-    console.log("✅ No console errors detected")
+    console.log("âœ… No console errors detected")
   }
 
   // ========================================
@@ -310,32 +310,32 @@ async function main() {
     "",
     "--- SUMMARY ---",
     `Total Pages Tested: ${report.summary.total}`,
-    `✅ Passed: ${report.summary.passed}`,
-    `❌ Failed: ${report.summary.failed}`,
-    `⚠️ Warnings: ${report.summary.warnings}`,
+    `âœ… Passed: ${report.summary.passed}`,
+    `âŒ Failed: ${report.summary.failed}`,
+    `âš ï¸ Warnings: ${report.summary.warnings}`,
     `Console Errors: ${report.consoleErrors.length}`,
     "",
     "--- PAGE RESULTS ---",
   ]
   for (const [name, result] of Object.entries(report.pages)) {
-    lines.push(`[${result.errors.length > 0 || result.jsErrors.length > 0 ? "❌" : result.warnings.length > 0 ? "⚠️" : "✅"}] ${name} (${result.url})`)
-    lines.push(`    Status: ${result.status} → ${result.finalUrl}`)
+    lines.push(`[${result.errors.length > 0 || result.jsErrors.length > 0 ? "âŒ" : result.warnings.length > 0 ? "âš ï¸" : "âœ…"}] ${name} (${result.url})`)
+    lines.push(`    Status: ${result.status} â†’ ${result.finalUrl}`)
     lines.push(`    JS Errors: ${result.jsErrors.length} | DOM Nodes: ${result.resources.domNodes}`)
-    if (result.errors.length > 0) result.errors.forEach(e => lines.push(`    ❌ ${e}`))
-    if (result.issues.length > 0) result.issues.forEach(i => lines.push(`    ⚠️ ${i}`))
+    if (result.errors.length > 0) result.errors.forEach(e => lines.push(`    âŒ ${e}`))
+    if (result.issues.length > 0) result.issues.forEach(i => lines.push(`    âš ï¸ ${i}`))
   }
   lines.push("", "--- CONSOLE ERRORS ---")
   if (report.consoleErrors.length > 0) {
     const unique = [...new Set(report.consoleErrors)]
-    unique.forEach(e => lines.push(`  ❌ ${e}`))
+    unique.forEach(e => lines.push(`  âŒ ${e}`))
   } else {
-    lines.push("  ✅ None found")
+    lines.push("  âœ… None found")
   }
   fs.writeFileSync(summaryPath, lines.join("\n"))
   console.log(`Summary saved: ${summaryPath}`)
 
   await browser.close()
-  console.log("\n✅ Audit complete!")
+  console.log("\nâœ… Audit complete!")
 }
 
 main().catch((e) => {

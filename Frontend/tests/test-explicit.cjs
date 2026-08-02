@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+﻿const { chromium } = require('playwright');
 (async () => {
   const possiblePaths = [
     'C:/Users/EPower/AppData/Local/ms-playwright/chromium-1228/chrome-win64/chrome.exe',
@@ -14,7 +14,7 @@ const { chromium } = require('playwright');
         args: ['--no-sandbox', '--disable-setuid-sandbox']
       });
       const page = await browser.newPage();
-      await page.goto('http://localhost:7400/admin', { waitUntil: 'domcontentloaded', timeout: 20000 });
+      await page.goto('http://localhost:3030/admin', { waitUntil: 'domcontentloaded', timeout: 20000 });
       console.log('SUCCESS with: ' + execPath);
       await page.screenshot({ path: 'explicit-test.png', fullPage: true });
       await browser.close();

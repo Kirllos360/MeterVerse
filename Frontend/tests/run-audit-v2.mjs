@@ -1,10 +1,10 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const REPORT_DIR = path.resolve(__dirname, "../test-reports")
 fs.mkdirSync(REPORT_DIR, { recursive: true })
 
@@ -73,7 +73,7 @@ async function auditPage(page, url, name, opts = {}) {
 
     if (opts.expectRedirect) {
       if (result.finalUrl === BASE + "/") {
-        console.log(`  ✅ ${name}: Redirect to / OK`)
+        console.log(`  âœ… ${name}: Redirect to / OK`)
       } else {
         result.errors.push(`Expected redirect to /, got ${result.finalUrl}`)
       }
@@ -85,7 +85,7 @@ async function auditPage(page, url, name, opts = {}) {
   page.removeListener("console", consoleHandler)
 
   const hasErrors = result.errors.length > 0 || result.jsErrors.length > 0
-  const icon = hasErrors ? "❌" : result.warnings.length > 0 ? "⚠️" : "✅"
+  const icon = hasErrors ? "âŒ" : result.warnings.length > 0 ? "âš ï¸" : "âœ…"
   if (hasErrors) report.summary.failed++
   else if (result.warnings.length > 0) report.summary.warnings++
   else report.summary.passed++
@@ -109,7 +109,7 @@ async function main() {
   // ===========================================
   // PHASE 1: ROUTE & REDIRECT AUDIT
   // ===========================================
-  console.log("\n── PHASE 1: ROUTE & REDIRECT AUDIT ──")
+  console.log("\nâ”€â”€ PHASE 1: ROUTE & REDIRECT AUDIT â”€â”€")
   await auditPage(page, BASE + "/", "Root Workspace")
 
   const redirectUrls = [
@@ -132,7 +132,7 @@ async function main() {
   // ===========================================
   // PHASE 2: SIDEBAR INTERACTION
   // ===========================================
-  console.log("\n── PHASE 2: SIDEBAR INTERACTION ──")
+  console.log("\nâ”€â”€ PHASE 2: SIDEBAR INTERACTION â”€â”€")
   await page.goto(BASE + "/", { waitUntil: "networkidle" })
   await page.waitForTimeout(2000)
 
@@ -156,7 +156,7 @@ async function main() {
     }
   } catch {}
 
-  // Now try clicking nav items again — sidebar might be expanded
+  // Now try clicking nav items again â€” sidebar might be expanded
   const navItems = ["Dashboard", "Customers", "Meters", "Readings", "Invoices", "Payments"]
   for (const label of navItems) {
     try {
@@ -165,7 +165,7 @@ async function main() {
       if (visible) {
         await btn.click()
         await page.waitForTimeout(1500)
-        console.log(`  ✅ Clicked "${label}"`)
+        console.log(`  âœ… Clicked "${label}"`)
         // Verify tab system responded
         const activeTabInfo = await page.evaluate(() => {
           const tabs = document.querySelectorAll("[role='tab'], [class*='tab']")
@@ -174,7 +174,7 @@ async function main() {
         })
         console.log(`     Tabs: ${activeTabInfo.totalTabs}, Active: ${activeTabInfo.activeText}`)
       } else {
-        console.log(`  ⚠️ "${label}" not visible — trying SVG icon click`)
+        console.log(`  âš ï¸ "${label}" not visible â€” trying SVG icon click`)
         // Try clicking the SVG icon area for this nav item
         const svgBtn = page.locator(`nav button:nth-child(${navItems.indexOf(label) + 1})`).first()
         if (await svgBtn.isVisible({ timeout: 1000 }).catch(() => false)) {
@@ -184,26 +184,26 @@ async function main() {
         }
       }
     } catch (e) {
-      console.log(`  ❌ "${label}" error: ${e.message}`)
+      console.log(`  âŒ "${label}" error: ${e.message}`)
     }
   }
 
   // ===========================================
   // PHASE 3: CONSOLE DEEP SCAN
   // ===========================================
-  console.log("\n── PHASE 3: CONSOLE DEEP SCAN ──")
+  console.log("\nâ”€â”€ PHASE 3: CONSOLE DEEP SCAN â”€â”€")
   const allErrors = [...new Set(report.consoleErrors)]
   if (allErrors.length > 0) {
     console.log(`Found ${allErrors.length} unique console errors:`)
     allErrors.forEach((e, i) => console.log(`  [${i + 1}] ${e}`))
   } else {
-    console.log("✅ No console errors detected in any page")
+    console.log("âœ… No console errors detected in any page")
   }
 
   // ===========================================
   // PHASE 4: DESIGN SYSTEM DEEP INSPECTION
   // ===========================================
-  console.log("\n── PHASE 4: DESIGN SYSTEM ──")
+  console.log("\nâ”€â”€ PHASE 4: DESIGN SYSTEM â”€â”€")
   await page.goto(BASE + "/", { waitUntil: "networkidle" })
   await page.waitForTimeout(2000)
 
@@ -254,7 +254,7 @@ async function main() {
   // ===========================================
   // PHASE 5: SECURITY AUDIT
   // ===========================================
-  console.log("\n── PHASE 5: SECURITY AUDIT ──")
+  console.log("\nâ”€â”€ PHASE 5: SECURITY AUDIT â”€â”€")
   const securityFindings = []
   
   // Check CSP headers
@@ -276,15 +276,15 @@ async function main() {
   else securityFindings.push("No CSP meta tag")
 
   // Check all pages redirect to /
-  securityFindings.push(`Auth bypass: ${redirectUrls.length} protected routes all redirected to / ✓`)
+  securityFindings.push(`Auth bypass: ${redirectUrls.length} protected routes all redirected to / âœ“`)
 
   console.log(`  Security findings: ${securityFindings.length}`)
-  securityFindings.forEach(f => console.log(`    ${f.startsWith("MISSING") ? "❌" : "✅"} ${f}`))
+  securityFindings.forEach(f => console.log(`    ${f.startsWith("MISSING") ? "âŒ" : "âœ…"} ${f}`))
 
   // ===========================================
   // PHASE 6: ACCESSIBILITY & ISSUES
   // ===========================================
-  console.log("\n── PHASE 6: ACCESSIBILITY ──")
+  console.log("\nâ”€â”€ PHASE 6: ACCESSIBILITY â”€â”€")
   await page.goto(BASE + "/", { waitUntil: "load" })
   await page.waitForTimeout(2000)
 
@@ -318,13 +318,13 @@ async function main() {
 
     return issues
   })
-  a11yCheck.forEach(i => console.log(`  ${i.startsWith("Headings:") ? "ℹ️" : "⚠️"} ${i}`))
+  a11yCheck.forEach(i => console.log(`  ${i.startsWith("Headings:") ? "â„¹ï¸" : "âš ï¸"} ${i}`))
   report.findings.push(...a11yCheck.filter(i => !i.startsWith("Headings:")))
 
   // ===========================================
   // PHASE 7: DARK MODE / THEME SWITCHING
   // ===========================================
-  console.log("\n── PHASE 7: THEME CHECK ──")
+  console.log("\nâ”€â”€ PHASE 7: THEME CHECK â”€â”€")
   const themeState = await page.evaluate(() => ({
     htmlClass: document.documentElement.className,
     htmlAttr: Object.values(document.documentElement.attributes).map(a => `${a.name}=${a.value}`).join("; "),
@@ -348,9 +348,9 @@ async function main() {
   console.log("FINAL AUDIT SUMMARY")
   console.log("=".repeat(70))
   console.log(`Total tests: ${report.summary.total}`)
-  console.log(`✅ Passed: ${report.summary.passed}`)
-  console.log(`❌ Failed: ${report.summary.failed}`)
-  console.log(`⚠️ Warnings: ${report.summary.warnings}`)
+  console.log(`âœ… Passed: ${report.summary.passed}`)
+  console.log(`âŒ Failed: ${report.summary.failed}`)
+  console.log(`âš ï¸ Warnings: ${report.summary.warnings}`)
   console.log(`Unique console errors: ${[...new Set(report.consoleErrors)].length}`)
   console.log(`Accessibility issues: ${report.findings.filter(f => f.includes("missing") || f.includes("without")).length}`)
 
@@ -361,51 +361,51 @@ async function main() {
     `Date: ${new Date().toLocaleString()}`,
     `Target: ${BASE}`,
     "",
-    "── SUMMARY ──",
+    "â”€â”€ SUMMARY â”€â”€",
     `Total page tests: ${report.summary.total}`,
-    `✅ Passed: ${report.summary.passed}`,
-    `❌ Failed: ${report.summary.failed}`,
-    `⚠️ Warnings: ${report.summary.warnings}`,
+    `âœ… Passed: ${report.summary.passed}`,
+    `âŒ Failed: ${report.summary.failed}`,
+    `âš ï¸ Warnings: ${report.summary.warnings}`,
     `Console errors: ${[...new Set(report.consoleErrors)].length}`,
     `A11y issues: ${report.findings.filter(f => f.includes("missing") || f.includes("without")).length}`,
     "",
-    "── ALL PAGE RESULTS ──",
+    "â”€â”€ ALL PAGE RESULTS â”€â”€",
   ]
   for (const [name, r] of Object.entries(report.pages)) {
-    const icon = r.errors.length > 0 || r.jsErrors.length > 0 ? "❌" : r.warnings.length > 0 ? "⚠️" : "✅"
-    summaryLines.push(`[${icon}] ${name} → ${r.finalUrl}`)
+    const icon = r.errors.length > 0 || r.jsErrors.length > 0 ? "âŒ" : r.warnings.length > 0 ? "âš ï¸" : "âœ…"
+    summaryLines.push(`[${icon}] ${name} â†’ ${r.finalUrl}`)
     summaryLines.push(`  Status: ${r.status} | JS:${r.jsErrors.length} | A11y:${r.issues.length} | DOM:${r.resources.domNodes}`)
     if (r.errors.length) r.errors.forEach(e => summaryLines.push(`  ERROR: ${e}`))
     if (r.issues.length) r.issues.forEach(i => summaryLines.push(`  A11Y: ${i}`))
   }
-  summaryLines.push("", "── ALL CONSOLE ERRORS ──")
+  summaryLines.push("", "â”€â”€ ALL CONSOLE ERRORS â”€â”€")
   const uniqueErrors = [...new Set(report.consoleErrors)]
-  if (uniqueErrors.length) uniqueErrors.forEach(e => summaryLines.push(`  ❌ ${e}`))
-  else summaryLines.push("  ✅ None found")
+  if (uniqueErrors.length) uniqueErrors.forEach(e => summaryLines.push(`  âŒ ${e}`))
+  else summaryLines.push("  âœ… None found")
   
-  summaryLines.push("", "── SECURITY ──")
-  securityFindings.forEach(f => summaryLines.push(`  ${f.startsWith("MISSING") ? "❌" : "✅"} ${f}`))
+  summaryLines.push("", "â”€â”€ SECURITY â”€â”€")
+  securityFindings.forEach(f => summaryLines.push(`  ${f.startsWith("MISSING") ? "âŒ" : "âœ…"} ${f}`))
   
-  summaryLines.push("", "── DESIGN SYSTEM ──")
+  summaryLines.push("", "â”€â”€ DESIGN SYSTEM â”€â”€")
   summaryLines.push(`  data-theme: ${designSys.themes[0]}`)
   summaryLines.push(`  CSS vars defined: ${Object.keys(designSys.allCSSVars).length}`)
   summaryLines.push(`  ${designSys.motions.join(" | ")}`)
   
-  summaryLines.push("", "── RECOMMENDATIONS ──")
-  if (designSys.themes[0] === "none") summaryLines.push("  • No data-theme set on <html>")
-  if (Object.keys(designSys.allCSSVars).length < 5) summaryLines.push("  • Design tokens not found in CSS variables")
-  if (report.findings.some(f => f.includes("missing alt"))) summaryLines.push("  • Add alt attributes to all images")
-  if (report.findings.some(f => f.includes("without label"))) summaryLines.push("  • Add aria-label to icon-only buttons")
-  if (!headers["content-security-policy"]) summaryLines.push("  • Add Content-Security-Policy header")
-  if (!headers["x-frame-options"]) summaryLines.push("  • Add X-Frame-Options: DENY header")
-  if (!headers["x-content-type-options"]) summaryLines.push("  • Add X-Content-Type-Options: nosniff header")
+  summaryLines.push("", "â”€â”€ RECOMMENDATIONS â”€â”€")
+  if (designSys.themes[0] === "none") summaryLines.push("  â€¢ No data-theme set on <html>")
+  if (Object.keys(designSys.allCSSVars).length < 5) summaryLines.push("  â€¢ Design tokens not found in CSS variables")
+  if (report.findings.some(f => f.includes("missing alt"))) summaryLines.push("  â€¢ Add alt attributes to all images")
+  if (report.findings.some(f => f.includes("without label"))) summaryLines.push("  â€¢ Add aria-label to icon-only buttons")
+  if (!headers["content-security-policy"]) summaryLines.push("  â€¢ Add Content-Security-Policy header")
+  if (!headers["x-frame-options"]) summaryLines.push("  â€¢ Add X-Frame-Options: DENY header")
+  if (!headers["x-content-type-options"]) summaryLines.push("  â€¢ Add X-Content-Type-Options: nosniff header")
 
   const reportPath = path.join(REPORT_DIR, `audit-v2-${Date.now()}.txt`)
   fs.writeFileSync(reportPath, summaryLines.join("\n"))
   console.log(`\nFull report: ${reportPath}`)
 
   await browser.close()
-  console.log("\n✅ Audit complete!")
+  console.log("\nâœ… Audit complete!")
 }
 
 main().catch((e) => { console.error("FATAL:", e.message); process.exit(1) })

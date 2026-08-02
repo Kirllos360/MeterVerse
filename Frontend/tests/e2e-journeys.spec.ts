@@ -1,8 +1,8 @@
-import { test, expect } from "@playwright/test"
+﻿import { test, expect } from "@playwright/test"
 
-const BASE = process.env.BASE_URL || "http://localhost:7400"
+const BASE = process.env.BASE_URL || "http://localhost:3030"
 
-test.describe("E2E — Business Critical Journeys", () => {
+test.describe("E2E â€” Business Critical Journeys", () => {
 
   test("login page renders and has form fields", async ({ page }) => {
     await page.goto(`${BASE}/login`)

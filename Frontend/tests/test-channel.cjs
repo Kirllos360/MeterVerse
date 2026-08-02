@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+﻿const { chromium } = require('playwright');
 (async () => {
   try {
     const browser = await chromium.launch({ 
@@ -9,7 +9,7 @@ const { chromium } = require('playwright');
     const page = await browser.newPage();
     await page.setViewportSize({ width: 1440, height: 900 });
     console.log('Navigating...');
-    await page.goto('http://localhost:7400/admin', { waitUntil: 'domcontentloaded', timeout: 30000 });
+    await page.goto('http://localhost:3030/admin', { waitUntil: 'domcontentloaded', timeout: 30000 });
     console.log('Page loaded');
     await page.waitForTimeout(3000);
     await page.screenshot({ path: 'chrome-channel-test.png', fullPage: true });
@@ -22,7 +22,7 @@ const { chromium } = require('playwright');
       console.log('Retrying without channel...');
       const browser2 = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
       const page2 = await browser2.newPage();
-      const resp = await page2.goto('http://localhost:7400/admin', { waitUntil: 'domcontentloaded', timeout: 30000 });
+      const resp = await page2.goto('http://localhost:3030/admin', { waitUntil: 'domcontentloaded', timeout: 30000 });
       console.log('Response status: ' + resp.status());
       await page2.waitForTimeout(3000);
       await page2.screenshot({ path: 'no-channel-test.png', fullPage: true });

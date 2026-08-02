@@ -1,11 +1,11 @@
-#!/usr/bin/env node
+﻿#!/usr/bin/env node
 import { readFileSync, readdirSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const FRONTEND = join(__dirname, "..")
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 
 async function httpGet(path) {
   try {
@@ -18,7 +18,7 @@ async function testWave(name, fn) {
   const start = Date.now()
   const result = await fn()
   const elapsed = Math.round((Date.now() - start) / 1000)
-  console.log(`  ${result.fail > 0 ? "❌" : "✅"} ${name}: ${result.ok}/${result.total} (${elapsed}s)`)
+  console.log(`  ${result.fail > 0 ? "âŒ" : "âœ…"} ${name}: ${result.ok}/${result.total} (${elapsed}s)`)
   return result
 }
 
@@ -82,7 +82,7 @@ const WAVES = [
 let globalOk = 0, globalFail = 0, cleanRounds = 0, totalRounds = 0
 const startTime = Date.now()
 
-console.log("30-MINUTE AGGRESSIVE TEST — STARTING")
+console.log("30-MINUTE AGGRESSIVE TEST â€” STARTING")
 console.log("====================================")
 
 while (Date.now() - startTime < 30 * 60 * 1000 && totalRounds < 50) {
@@ -103,9 +103,9 @@ while (Date.now() - startTime < 30 * 60 * 1000 && totalRounds < 50) {
   
   if (roundFail === 0) {
     cleanRounds++
-    console.log(`  ✅ CLEAN ROUND #${cleanRounds}`)
+    console.log(`  âœ… CLEAN ROUND #${cleanRounds}`)
   } else {
-    console.log(`\n  ❌ FAILURES DETECTED — RESETTING COUNTER`)
+    console.log(`\n  âŒ FAILURES DETECTED â€” RESETTING COUNTER`)
     globalOk = 0; globalFail = 0; cleanRounds = 0
   }
   
@@ -126,5 +126,5 @@ console.log(`  Total rounds: ${totalRounds}`)
 console.log(`  Clean rounds: ${cleanRounds}`)
 console.log(`  Tests: ${total} total, ${globalOk} passed, ${globalFail} failed`)
 console.log(`  Rate: ${rate}%`)
-console.log(`  Status: ${globalFail === 0 ? "✅ ALL CLEAN" : "❌ ISSUES FOUND"}`)
+console.log(`  Status: ${globalFail === 0 ? "âœ… ALL CLEAN" : "âŒ ISSUES FOUND"}`)
 console.log(`============================================`)

@@ -1,4 +1,4 @@
-const { chromium } = require('playwright');
+﻿const { chromium } = require('playwright');
 (async () => {
   try {
     const browser = await chromium.launch({ headless: true });
@@ -8,7 +8,7 @@ const { chromium } = require('playwright');
     // Try different URL formats
     const urls = [
       'http://127.0.0.1:7400/admin',
-      'http://localhost:7400/admin',
+      'http://localhost:3030/admin',
       'http://[::1]:7400/admin',
     ];
     

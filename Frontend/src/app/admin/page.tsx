@@ -32,6 +32,33 @@ const AreasPage = dynamic(() => import("./areas/page"), { ssr: false })
 const PaymentsPage = dynamic(() => import("./payments/page"), { ssr: false })
 const TariffsPage = dynamic(() => import("./tariffs/page"), { ssr: false })
 
+// ─── P1b: recovery — wire previously-orphaned operational screens into the SPA
+const AccountingPage = dynamic(() => import("./accounting/page"), { ssr: false })
+const CollectionsPage = dynamic(() => import("./collections/page"), { ssr: false })
+const AlertsPage = dynamic(() => import("./alerts/page"), { ssr: false })
+const SimPage = dynamic(() => import("./sim/page"), { ssr: false })
+const ZonesPage = dynamic(() => import("./zones/page"), { ssr: false })
+const UnitsPage = dynamic(() => import("./units/page"), { ssr: false })
+const ServiceConnectionsPage = dynamic(() => import("./service-connections/page"), { ssr: false })
+const MeterAssignmentsPage = dynamic(() => import("./meter-assignments/page"), { ssr: false })
+const NotificationsPage = dynamic(() => import("./notifications/page"), { ssr: false })
+const SecurityPage = dynamic(() => import("./security/page"), { ssr: false })
+const RolesPage = dynamic(() => import("./roles/page"), { ssr: false })
+const PermissionsPage = dynamic(() => import("./permissions/page"), { ssr: false })
+const ApiKeysPage = dynamic(() => import("./api-keys/page"), { ssr: false })
+const IntegrationsPage = dynamic(() => import("./integrations/page"), { ssr: false })
+const WebhooksPage = dynamic(() => import("./webhooks/page"), { ssr: false })
+const TasksPage = dynamic(() => import("./tasks/page"), { ssr: false })
+const SchedulerPage = dynamic(() => import("./scheduler/page"), { ssr: false })
+const CachePage = dynamic(() => import("./cache/page"), { ssr: false })
+const BackupPage = dynamic(() => import("./backup/page"), { ssr: false })
+const HealthPage = dynamic(() => import("./health/page"), { ssr: false })
+const RuntimePage = dynamic(() => import("./runtime/page"), { ssr: false })
+const OperationsPage = dynamic(() => import("./operations/page"), { ssr: false })
+const ConnectivityCenterPage = dynamic(() => import("./connectivity-center/page"), { ssr: false })
+const BusinessPage = dynamic(() => import("./business/page"), { ssr: false })
+const ReportsPage = dynamic(() => import("./reports/page"), { ssr: false })
+
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
   monitoring: MonitoringPage,
@@ -61,6 +88,32 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   "financial-ai": FinancialAiPage,
   "documents-governance": DocumentGovernancePage,
   communication: CommunicationPage,
+  // P1b: wired operational screens
+  accounting: AccountingPage,
+  collections: CollectionsPage,
+  alerts: AlertsPage,
+  sim: SimPage,
+  zones: ZonesPage,
+  units: UnitsPage,
+  "service-connections": ServiceConnectionsPage,
+  "meter-assignments": MeterAssignmentsPage,
+  notifications: NotificationsPage,
+  security: SecurityPage,
+  roles: RolesPage,
+  permissions: PermissionsPage,
+  "api-keys": ApiKeysPage,
+  integrations: IntegrationsPage,
+  webhooks: WebhooksPage,
+  tasks: TasksPage,
+  scheduler: SchedulerPage,
+  cache: CachePage,
+  backup: BackupPage,
+  health: HealthPage,
+  runtime: RuntimePage,
+  operations: OperationsPage,
+  "connectivity-center": ConnectivityCenterPage,
+  business: BusinessPage,
+  reports: ReportsPage,
   // P46: sub-tabs resolve to their parent workspace page (no orphan screens)
   events: MonitoringPage,
   groups: CustomerSettingsPage,

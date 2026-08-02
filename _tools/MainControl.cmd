@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 title MeterVerse System
 cd /d "%~dp0.."
 setlocal enabledelayedexpansion
@@ -10,8 +10,8 @@ setlocal enabledelayedexpansion
 call "%~dp0SafetyCheck.cmd"
 if %errorlevel%==1 exit /b 1
 
-set BE_PORT=3001
-set FE_PORT=7400
+set BE_PORT=3131
+set FE_PORT=3030
 set LD=%~dp0logs
 set LM=%LD%\main.log
 set LE=%LD%\errors.log
@@ -61,27 +61,27 @@ timeout /t 2 /nobreak >nul
 :: Pre-flight checks
 echo [PRE] Running pre-flight checks...
 if not exist "%~dp0..\backend\node_modules" (
-    echo  ⚠ Backend dependencies missing. Running npm install...
-    echo [%DATE% %TIME%] [SYS] Backend deps missing — installing >> "%LM%"
+    echo  âš  Backend dependencies missing. Running npm install...
+    echo [%DATE% %TIME%] [SYS] Backend deps missing â€” installing >> "%LM%"
     cd /d "%~dp0..\backend"
     call npm install --silent > "%LD%\npm_install.log" 2>&1
     cd /d "%~dp0.."
-    echo  ✅ Dependencies installed
+    echo  âœ… Dependencies installed
 )
 if not exist "%~dp0..\Frontend\node_modules" (
-    echo  ⚠ Frontend dependencies missing. Running npm install...
-    echo [%DATE% %TIME%] [SYS] Frontend deps missing — installing >> "%LM%"
+    echo  âš  Frontend dependencies missing. Running npm install...
+    echo [%DATE% %TIME%] [SYS] Frontend deps missing â€” installing >> "%LM%"
     cd /d "%~dp0..\Frontend"
     call npm install --silent > "%LD%\npm_install.log" 2>&1
     cd /d "%~dp0.."
-    echo  ✅ Dependencies installed
+    echo  âœ… Dependencies installed
 )
 
 :: Quick DB check before starting
 echo [PRE] Checking prerequisites...
 PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5432);$s.Close();exit 0}catch{exit 1}" 2>nul
 if %errorlevel%==1 (
-    echo   ⚠ PostgreSQL not detected on port 5432
+    echo   âš  PostgreSQL not detected on port 5432
     echo   Backend requires PostgreSQL. Start it with: docker compose up -d postgres
     echo   Frontend will still be started (UI-only mode)
 )
@@ -117,16 +117,16 @@ echo.
 echo [%DATE% %TIME%] [SYS] Launched >> "%LM%"
 echo Monitor starting (never stops)...
 
-:: ═══════════════════════════════════════════════════════════════════════════════
-::  SMART MONITOR — checks health, detects degraded, auto-heals, SLEEP recovery
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+::  SMART MONITOR â€” checks health, detects degraded, auto-heals, SLEEP recovery
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 :MONITOR
 cls
 echo.
 echo ===== MeterVerse Smart Monitor =====
 echo.
 
-:: ─── CHECK BACKEND ───────────────────────────────────────────────────────────
+:: â”€â”€â”€ CHECK BACKEND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 set BK=0&set BD=0
 if !BE_SLP!==0 (
     :: Check 1: Window exists?
@@ -144,7 +144,7 @@ if !BE_SLP!==0 (
     if !SLEEP_WAIT! LEQ 0 ( set BE_SLP=0 & set BE_ATT=0 & set SLEEP_WAIT=30 & echo BE: WAKING UP... )
 )
 
-:: ─── CHECK FRONTEND ──────────────────────────────────────────────────────────
+:: â”€â”€â”€ CHECK FRONTEND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 set FK=0&set FD=0
 if !FE_SLP!==0 (
     tasklist /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul | findstr /I "node.exe" >nul 2>nul
@@ -158,7 +158,7 @@ if !FE_SLP!==0 (
     echo FE: SLEEPING (auto-recovery in !SLEEP_WAIT!s)
 )
 
-:: ─── FIX ENGINE — Backend first (dependency), then frontend ──────────────────
+:: â”€â”€â”€ FIX ENGINE â€” Backend first (dependency), then frontend â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 :: If both down, fix backend first (frontend needs backend)
 if !BE_SLP!==0 if !BK!==0 (
     call :FIX_BE
@@ -169,17 +169,17 @@ if !BE_SLP!==0 if !BK!==0 (
     if !FE_SLP!==0 if !FK!==0 call :FIX_FE
 )
 
-:: ─── FIX ENGINE — Degraded mode (running but unhealthy) ──────────────────────
+:: â”€â”€â”€ FIX ENGINE â€” Degraded mode (running but unhealthy) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 if !BD!==1 (
-    echo  ⚠ Backend degraded — restarting...
-    echo [%DATE% %TIME%] [BE] Degraded — restarting >> "%LE%"
+    echo  âš  Backend degraded â€” restarting...
+    echo [%DATE% %TIME%] [BE] Degraded â€” restarting >> "%LE%"
     taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
     timeout /t 2 /nobreak >nul
     start "MeterVerse-Backend" cmd /c "cd /d %~dp0..\backend && node src/server.js" > "%LB%" 2>&1
 )
 if !FD!==1 (
-    echo  ⚠ Frontend degraded — restarting...
-    echo [%DATE% %TIME%] [FE] Degraded — restarting >> "%LE%"
+    echo  âš  Frontend degraded â€” restarting...
+    echo [%DATE% %TIME%] [FE] Degraded â€” restarting >> "%LE%"
     taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul
     timeout /t 2 /nobreak >nul
     if exist "%~dp0..\Frontend\.next\BUILD_ID" (
@@ -195,9 +195,9 @@ echo 30s loop (Ctrl+C to stop)...
 ping -n 31 127.0.0.1 >nul 2>nul
 goto MONITOR
 
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 ::  FIX: BACKEND
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 :FIX_BE
 echo Fixing BE (attempt !BE_ATT!/%MAX_ATT%)...
 echo [%DATE% %TIME%] [BE] Fix !BE_ATT! >> "%LE%"
@@ -206,7 +206,7 @@ echo [%DATE% %TIME%] [BE] Fix !BE_ATT! >> "%LE%"
 PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5432);$s.Close();exit 0}catch{exit 1}" 2>nul
 if %errorlevel%==1 (
     if !BE_ATT! GEQ 3 (
-        echo  → PostgreSQL not available. Skipping backend retries.
+        echo  â†’ PostgreSQL not available. Skipping backend retries.
         echo  Start database: docker compose up -d postgres
         set BE_SLP=1
         goto :EOF
@@ -214,7 +214,7 @@ if %errorlevel%==1 (
 )
 
 if !BE_ATT! GEQ %MAX_ATT% (
-    echo  → SLEEP MODE (will retry in 30s)
+    echo  â†’ SLEEP MODE (will retry in 30s)
     echo [%DATE% %TIME%] [BE] SLEEP MODE >> "%LE%"
     set BE_SLP=1&set SLEEP_WAIT=30
     goto :EOF
@@ -223,7 +223,7 @@ if !BE_ATT! GEQ %MAX_ATT% (
 :: Check if port is in use by another process
 netstat -ano | findstr ":%BE_PORT% " >nul 2>nul
 if !errorlevel!==0 (
-    echo  ⚠ Port %BE_PORT% in use! Killing conflict...
+    echo  âš  Port %BE_PORT% in use! Killing conflict...
     for /f "tokens=5" %%p in ('netstat -ano ^| findstr ":%BE_PORT% "') do (
         taskkill /F /PID %%p 2>nul >nul
     )
@@ -244,15 +244,15 @@ for /l %%i in (1,1,7) do (
 echo [%DATE% %TIME%] [BE] Warning: window not confirmed >> "%LE%"
 goto :EOF
 
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 ::  FIX: FRONTEND
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 :FIX_FE
 echo Fixing FE (attempt !FE_ATT!/%MAX_ATT%)...
 echo [%DATE% %TIME%] [FE] Fix !FE_ATT! >> "%LE%"
 
 if !FE_ATT! GEQ %MAX_ATT% (
-    echo  → SLEEP MODE (will retry in 30s)
+    echo  â†’ SLEEP MODE (will retry in 30s)
     echo [%DATE% %TIME%] [FE] SLEEP MODE >> "%LE%"
     set FE_SLP=1&set SLEEP_WAIT=30
     goto :EOF
@@ -276,9 +276,9 @@ for /l %%i in (1,1,7) do (
 echo [%DATE% %TIME%] [FE] Warning: window not confirmed >> "%LE%"
 goto :EOF
 
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 ::  MENU
-:: ═══════════════════════════════════════════════════════════════════════════════
+:: â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 :STOP
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Backend" 2>nul >nul
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-Frontend" 2>nul >nul

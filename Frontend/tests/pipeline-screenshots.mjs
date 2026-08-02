@@ -1,6 +1,6 @@
-#!/usr/bin/env node
-// MeterVerse Enterprise Screenshot Pipeline — Rule 5.4
-// Captures: All pages × 3 viewports × 2 themes × 2 directions
+﻿#!/usr/bin/env node
+// MeterVerse Enterprise Screenshot Pipeline â€” Rule 5.4
+// Captures: All pages Ã— 3 viewports Ã— 2 themes Ã— 2 directions
 // Also captures: dialogs, drawers, context menus, forms, tables, charts, empty/loading/error states
 
 import { chromium } from "playwright"
@@ -9,7 +9,7 @@ import { join, dirname } from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3030"
 const FRONTEND = join(__dirname, "..")
 const ROOT = join(FRONTEND, "..")
 const SCREENSHOTS = join(ROOT, "docs", "screenshots", "pipeline")
@@ -116,7 +116,7 @@ async function capture() {
   const browser = await chromium.launch()
   let captureId = 0
 
-  // Phase 1: All pages × Desktop (light, LTR)
+  // Phase 1: All pages Ã— Desktop (light, LTR)
   console.log("Phase 1: All pages (light/ltr/desktop)")
   {
     const context = await browser.newContext()
@@ -142,7 +142,7 @@ async function capture() {
     await context.close()
   }
 
-  // Phase 2: Core pages × Tablet + Mobile (light, LTR)
+  // Phase 2: Core pages Ã— Tablet + Mobile (light, LTR)
   console.log("\nPhase 2: Core pages (responsive)")
   for (const [vpName, vpDims] of Object.entries(VIEWPORTS).slice(1)) {
     const context = await browser.newContext()
