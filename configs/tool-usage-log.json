@@ -1055,5 +1055,26 @@
             "prisma/migrations (2 dup init removed)",
             "P40_EXECUTION_TRACKER.md (OBS-046/047)"
         ]
+    },
+    {
+        "task": "P45 Core Baseline N: org hierarchy seed + live location tree + C13 frontend BFF wiring",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE pre-flight + P00 + AI_ROLES + tools-manifest + PROJECT_STATE + memory graph",
+            "built seed-org-hierarchy.mjs: cleaned 125 T027 test projects, created 3 real Area records (OCT/NEW/SOD), EOX Enterprise org, 5 projects, 10 zones, 60 units (idempotent upserts)",
+            "fixed locations.js /tree to source from Area model (was meter.area groupBy -> always empty); now returns full area->project->zone->unit hierarchy + meterCount",
+            "added 4 frontend BFF handlers proxying to live backend: /api/collections/summary, /api/financial-reports/ratios, /api/revenue-assurance/summary, /api/financial-ai/board",
+            "wired admin/collections page to fetch live /api/collections/summary (React effect); static data only as fallback; label reflects live vs sample",
+            "verified: org tree live (NEW 2 proj, OCT 2 proj, SOD 1 proj); 267 unit + 56 contract + 31 integration + tsc 0 + vitest 44",
+            "committed 75ed8b84 pushed to kirllos360 origin; recorded OBS-048, PROJECT_STATE updated"
+        ],
+        "evidence": [
+            "backend/scripts/seed-org-hierarchy.mjs",
+            "backend/src/routes/locations.js (tree fix)",
+            "Frontend/src/app/api/{collections,financial-reports,revenue-assurance,financial-ai}/**/route.ts",
+            "Frontend/src/app/admin/collections/page.tsx (live fetch)",
+            "P40_EXECUTION_TRACKER.md (OBS-048)"
+        ]
     }
 ]

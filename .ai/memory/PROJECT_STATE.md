@@ -29,6 +29,8 @@ Platform core hardened + wired before further business domains (per P44 findings
 | P45-K Ingestion runtime wired (Symbiot TCP bridge + polling adapters at boot) | ✅ `/api/ingestion/status` live |
 | P45-L Organization hierarchy verified (areas/projects/zones/units real API) | ✅ |
 | P45 route-order fix (notFoundHandler last) + RuntimeManager metrics fix | ✅ all inline routes 200 |
+| P45-N Org hierarchy seeded (EOX org, 3 areas, 5 projects, 10 zones, 60 units) + live /tree | ✅ |
+| P45-N C13 BFF wiring (collections/financial-reports/revenue-assurance/financial-ai) | ✅ collections page live |
 | Demo baseline seeded (real admin user, 4 roles, 30 permissions, settings, flags) | ✅ real login verified 200 |
 
 ---
