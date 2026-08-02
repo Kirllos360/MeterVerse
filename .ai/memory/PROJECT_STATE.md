@@ -1,22 +1,27 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** Wave 3 COMPLETE — Documents (C24) + Communication (C25) + Customer Experience (C14)  
-**Version:** 9.0.0-WAVE3-COMPLETE  
+**Current Phase:** Active System Enablement — OPERATIONAL release baseline  
+**Version:** 9.1.0-ACTIVE-SYSTEM-READY  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## Wave 3 — Complete (P50)
+## Active System Enablement — READY
 
-- **C24 Documents:** Document/Version/Category/Tag/Retention/Approval/Comment models (B-15) + `/api/documents-governance` + admin page. Reused legacy StoredFile binary store.
-- **C25 Communication:** Conversation/Message/DeliveryAttempt/Preference (B-16) + `/api/communication` unified inbox + admin page. Reused nodemailer/notification-engine/webhook.
-- **C14 Customer Experience:** Preference/DelegatedAccess/ServiceRequest/CustomerDocument/Ticket (B-17) + `/api/portal` + user self-service page.
-- 18 new models, 3 migrations (B-15/16/17), 25 new tests (292 total), live-verified, all pushed.
+MeterVerse is now a **running operational system** (min production capabilities):
+- 5 role users operational (System Admin + Ops Manager + Billing + Support + Portal)
+- Operational seed: 25 customers, 60 meters, 60 connections, 180 readings, 60 invoices, 23 payments
+- Full business flow live-verified (customer→meter→reading→consumption→invoice→payment→balance→audit)
+- RBAC verified (billing 403 on admin + audited)
+- Reports: `docs/reviews/ACTIVE_SYSTEM_{DISCOVERY,IMPLEMENTATION_PLAN,CERTIFICATION}_REPORT.md` + `ACTIVE_SYSTEM_READY_CHECKPOINT.md`
+- Seed: `backend/scripts/seed-operational.mjs` (idempotent)
 
-Trackers: C24 35%, C25 40%, C14 35%. **Next: Wave 4 (C15 Integration, C26 MDM, C17 Analytics) per P40.**
+Tests: 292 unit, 56 contract, 31 integration, tsc 0, vitest 44.
+
+**Next: Wave 4 (C15 Integration, C26 MDM, C17 Analytics).**
 
 ---
 
