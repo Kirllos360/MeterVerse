@@ -13,7 +13,7 @@ export function generateInvoiceHash(invoice) {
 
 export async function generateInvoiceQR(invoice) {
   const hash = generateInvoiceHash(invoice)
-  const verificationUrl = `${process.env.BASE_URL || "http://localhost:7400"}/verify/invoice/${invoice.id}?hash=${hash}`
+  const verificationUrl = `${process.env.BASE_URL || "http://localhost:3030"}/verify/invoice/${invoice.id}?hash=${hash}`
   const qrPath = path.join(QR_DIR, `qr-${invoice.id}.png`)
   await QRCode.toFile(qrPath, verificationUrl, { width: 200, margin: 2, color: { dark: "#000", light: "#fff" } })
   return { filepath: qrPath, hash, verificationUrl }

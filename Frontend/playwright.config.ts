@@ -13,7 +13,7 @@ export default defineConfig({
     ["list"],
   ],
   use: {
-    baseURL: process.env.BASE_URL || "http://localhost:7400",
+    baseURL: process.env.BASE_URL || (process.env.PORTAL_MODE === "1" ? "http://localhost:3535" : "http://localhost:3030"),
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     launchOptions: { args: ["--no-sandbox"] },

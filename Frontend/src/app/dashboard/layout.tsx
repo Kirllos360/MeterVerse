@@ -7,8 +7,8 @@ import AppSidebar from "@/components/layout/app-sidebar"
 import { StatusBarContent } from "@/workspace/components/StatusBarContent"
 
 export const metadata: Metadata = {
-  title: "Dashboard - MeterVerse",
-  description: "MeterVerse Enterprise Operating System",
+  title: "Dashboard - MeterVerse OS",
+  description: "MeterVerse OS — Enterprise Operating System",
 }
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {

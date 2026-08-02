@@ -18,26 +18,51 @@ services:
       retries: 20
       start_period: 10s
 
-  backend:
+  admin-backend:
     build: ./backend
     ports:
-      - "3001:3001"
+      - "3131:3131"
     environment:
+      PORT: 3131
       DATABASE_URL: postgresql://meter_pulse:meter_pulse_dev@postgres:5432/meter_pulse?schema=public
       JWT_SECRET: mv-jwt-secret-change-in-production-2026
-      CORS_ORIGIN: http://localhost:7400
+      CORS_ORIGIN: http://localhost:3030,http://localhost:3535
     depends_on:
       postgres:
         condition: service_healthy
 
-  frontend:
+  portal-backend:
+    build: ./backend
+    ports:
+      - "3003:3003"
+    environment:
+      PORT: 3003
+      PORTAL_MODE: "1"
+      DATABASE_URL: postgresql://meter_pulse:meter_pulse_dev@postgres:5432/meter_pulse?schema=public
+      JWT_SECRET: mv-jwt-secret-change-in-production-2026
+      CORS_ORIGIN: http://localhost:3030,http://localhost:3535
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  admin-frontend:
     build: ./Frontend
     ports:
-      - "7400:3000"
+      - "3030:3030"
     environment:
-      NEXT_PUBLIC_API_URL: http://backend:3001/api
+      NEXT_PUBLIC_API_URL: http://admin-backend:3131/api
     depends_on:
-      - backend
+      - admin-backend
+
+  portal-frontend:
+    build: ./Frontend
+    ports:
+      - "3535:3535"
+    environment:
+      PORTAL_MODE: "1"
+      NEXT_PUBLIC_API_URL: http://portal-backend:3003/api
+    depends_on:
+      - portal-backend
 
 volumes:
   pgdata:

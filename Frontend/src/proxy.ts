@@ -4,37 +4,37 @@ import type { NextRequest } from "next/server"
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const host = request.headers.get("host") || ""
-  const port = host.split(":")[1] || "7400"
+  const port = host.split(":")[1] || "3030"
+  const isPortal = process.env.PORTAL_MODE === "1"
 
-  // === PORT 7500 (Admin Platform) ===
-  if (port === "7500") {
+  // === ADMIN FRONTEND (:3030) ===
+  if (!isPortal) {
     // Allow Next.js internals and static assets
     if (pathname.startsWith("/_next") || pathname.match(/\.\w+$/)) {
       return NextResponse.next()
     }
-    // Admin login is always accessible (entry point)
-    if (pathname === "/admin/login") {
+    // Admin routes + root pass through
+    if (pathname.startsWith("/admin") || pathname === "/") {
       return NextResponse.next()
     }
-    // All /admin/* routes pass through
-    if (pathname.startsWith("/admin")) {
-      return NextResponse.next()
-    }
-    // Everything else on port 7500 → redirect to admin login
-    const loginUrl = new URL("/admin/login", request.url)
-    return NextResponse.redirect(loginUrl)
+    // Everything else → redirect to /
+    return NextResponse.redirect(new URL("/", request.url))
   }
 
-  // === PORT 7400 (Main System) ===
-  // Allow admin routes
-  if (pathname.startsWith("/admin")) {
+  // === PORTAL FRONTEND (:3535) ===
+  // Allow portal routes, auth, assets
+  if (
+    pathname.startsWith("/user") ||
+    pathname.startsWith("/portal") ||
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/auth") ||
+    pathname.startsWith("/_next") ||
+    pathname === "/" ||
+    pathname.match(/\.\w+$/)
+  ) {
     return NextResponse.next()
   }
-  // Root passes through
-  if (pathname === "/") {
-    return NextResponse.next()
-  }
-  // Everything else → redirect to /
+  // Everything else on portal → redirect to /
   return NextResponse.redirect(new URL("/", request.url))
 }
 

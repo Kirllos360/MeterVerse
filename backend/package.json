@@ -1,7 +1,8 @@
 {
     "name": "meterverse-backend",
-    "version": "8.0.0",
+    "version": "10.0.0",
     "type": "module",
+    "description": "MeterVerse OS — Enterprise utility metering and billing platform backend (Admin API :3131, Portal API :3003)",
     "scripts": {
         "dev": "node src/server.js",
         "start": "node src/server.js",

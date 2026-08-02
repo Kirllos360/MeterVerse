@@ -105,7 +105,7 @@ export default function LoginPage() {
             <div className="w-20 h-20 rounded-2xl flex items-center justify-center mb-4" style={{ backgroundColor: "var(--brand)", boxShadow: "0 4px 20px rgba(0,0,0,0.2)" }}>
               <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
             </div>
-            <h1 className="text-4xl font-bold text-white mb-1" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>MeterVerse</h1>
+            <h1 className="text-4xl font-bold text-white mb-1" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.3)" }}>MeterVerse OS</h1>
             <p className="text-sm" style={{ color: "rgba(255,255,255,0.45)", textShadow: "0 1px 4px rgba(0,0,0,0.2)" }}>Enterprise Utility OS</p>
           </div>
           <motion.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

@@ -1,8 +1,7 @@
 import type { AuthUser } from "../AuthRuntime"
 
-// P45: default to the real MeterVerse backend (:3002). Mock auth only when
-// explicitly enabled via NEXT_PUBLIC_ALLOW_MOCK_AUTH=true (never for demo/prod).
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002"
+// P51: default to the MeterVerse OS backend. Admin API = :3131; Portal API = :3003.
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.PORTAL_MODE === "1" ? "http://localhost:3003" : "http://localhost:3131")
 const MOCK_AUTH_ENABLED = process.env.NEXT_PUBLIC_ALLOW_MOCK_AUTH === "true"
 
 interface LoginResponse {

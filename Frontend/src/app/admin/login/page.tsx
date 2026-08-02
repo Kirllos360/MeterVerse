@@ -36,7 +36,7 @@ export default function LoginPage() {
               style={{ backgroundColor: "#DC2626", boxShadow: "0 0 30px rgba(220,38,38,0.3)" }}>
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </motion.div>
-            <h1 className="text-xl font-bold text-white mb-1">Meter Verse</h1>
+            <h1 className="text-xl font-bold text-white mb-1">MeterVerse OS</h1>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>Administration Panel</p>
           </div>
 
@@ -62,7 +62,7 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>Meter Verse v8.0 · Administration</p>
+            <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>MeterVerse OS v10.0 · Administration</p>
           </div>
         </div>
       </motion.div>

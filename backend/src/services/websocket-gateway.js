@@ -5,7 +5,15 @@ let io = null
 
 export function initWebSocket(server) {
   io = new Server(server, {
-    cors: { origin: process.env.CORS_ORIGIN || "http://localhost:7400", credentials: true },
+    cors: {
+      origin: (process.env.CORS_ORIGIN || "")
+        .split(",")
+        .map(s => s.trim())
+        .filter(Boolean).length
+        ? process.env.CORS_ORIGIN.split(",").map(s => s.trim())
+        : ["http://localhost:3030", "http://localhost:3535"],
+      credentials: true,
+    },
   })
 
   io.use((socket, next) => {

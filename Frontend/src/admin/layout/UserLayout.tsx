@@ -272,7 +272,7 @@ export default function SystemLayout({ children, theme = "green", title = "Admin
         <div className="flex items-center justify-between w-full px-5 text-[12px] font-bold tracking-wide" style={{ color: "var(--text-secondary)" }}>
           <div className="flex items-center gap-3">
             <motion.div animate={waveAnim} className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: brandColor }} />
-            <span className="font-extrabold tracking-wider" style={{ color: "var(--text-secondary)", fontSize: "13px" }}>Meter Verse v8.0</span>
+            <span className="font-extrabold tracking-wider" style={{ color: "var(--text-secondary)", fontSize: "13px" }}>MeterVerse OS v10.0</span>
             <span className="hidden sm:inline opacity-50">·</span>
             <span className="hidden sm:inline opacity-70">{isLight ? "Light" : "Dark"} · {lang.toUpperCase()}</span>
           </div>

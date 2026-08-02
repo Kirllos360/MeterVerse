@@ -112,14 +112,14 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
   return (
     <div className="flex items-center h-14 px-4 gap-3 shrink-0" style={{ backdropFilter: "blur(20px)", WebkitBackdropFilter: "blur(20px)", backgroundColor: "var(--toolbar-bg)", borderBottom: "1px solid var(--toolbar-border)" }}>
       
-      {/* Logo — clickable, pulsating circle + Meter Verse name */}
+      {/* Logo — clickable, pulsating circle + MeterVerse OS name */}
       <motion.button onClick={onLogoClick} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
         className="flex items-center gap-2.5 min-w-0 shrink-0 rounded-xl px-1 py-1">
         <motion.div animate={{ scale: [1, 1.15, 1] }} transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }} className="w-8 h-8 rounded-full shrink-0 flex items-center justify-center" style={{ backgroundColor: "var(--brand)", boxShadow: "0 0 15px rgba(var(--brand-rgb),0.3)" }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </motion.div>
         <div className="hidden md:block leading-tight text-left">
-          <div className="text-sm font-bold tracking-tight" style={{ color: "var(--toolbar-text)" }}>Meter Verse</div>
+          <div className="text-sm font-bold tracking-tight" style={{ color: "var(--toolbar-text)" }}>MeterVerse OS</div>
           <div className="text-[9px] font-semibold uppercase tracking-wider" style={{ color: "var(--toolbar-muted)" }}>{systemTitle}</div>
         </div>
       </motion.button>

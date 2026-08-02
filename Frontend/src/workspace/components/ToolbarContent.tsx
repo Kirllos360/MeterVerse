@@ -43,7 +43,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
           <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: "var(--brand)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           </div>
-          <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--text-primary)" }}>MeterVerse</span>
+          <span className="text-sm font-bold tracking-tight hidden md:inline" style={{ color: "var(--text-primary)" }}>MeterVerse OS</span>
         </div>
         <span style={{ color: "var(--text-tertiary)" }} className="hidden sm:inline font-medium">{language === "ar" ? "مساحة العمل" : "Workspace"}</span>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden sm:block" style={{ color: "var(--text-tertiary)" }}>

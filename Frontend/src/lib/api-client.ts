@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:3002"
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.PORTAL_MODE === "1" ? "http://localhost:3003" : "http://localhost:3131")
 const BASE_URL = "/api"
 
 interface ApiError {
@@ -99,7 +99,7 @@ export async function apiBackend<T>(
   const isGet = !fetchOptions.method || fetchOptions.method === "GET"
   const locQuery = isGet ? getLocationQuery() : ""
   const separator = path.includes("?") ? "&" : "?"
-  // P49.5/ASE: apiBackend targets the backend :3002 directly. Normalize so the
+  // P51: apiBackend targets the MeterVerse OS backend directly. Normalize so the
   // backend's /api surface is always hit (BFF handlers pass "/admin/users" etc.).
   const normalized = path.startsWith("/api/") ? path : path.startsWith("/") ? `/api${path}` : path
   const finalPath = locQuery ? `${normalized}${separator}${locQuery}` : normalized

@@ -26,8 +26,8 @@ timeout /t 3 /nobreak >nul
 
 :: Start services
 echo Starting services...
-start "MeterVerse-Backend" cmd /c "cd /d %~dp0backend && node src/server.js"
-start "MeterVerse-Frontend" cmd /c "cd /d %~dp0Frontend && npx next start -p 7400"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0backend && set PORT=3131&& node src/server.js"
+start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3030"
 echo Waiting 20s for startup...
 timeout /t 20 /nobreak >nul
 
@@ -147,13 +147,13 @@ pause
 :: ─── HELPERS ──────────────────────────────────────────────────────────────────
 :CHECK_BE
 set BE_UP=0
-PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3001/api/health' -TimeoutSec 5 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
+PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3131/api/health' -TimeoutSec 5 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
 if %errorlevel%==0 set BE_UP=1
 exit /b
 
 :CHECK_FE
 set FE_UP=0
-PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:7400' -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
+PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3030' -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
 if %errorlevel%==0 set FE_UP=1
 exit /b
 

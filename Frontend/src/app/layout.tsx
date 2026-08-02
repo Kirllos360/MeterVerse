@@ -19,7 +19,7 @@ import "../styles/globals.css"
 const META_THEME_COLORS = { light: "#ffffff", dark: "#09090b" }
 
 export const metadata: Metadata = {
-  title: "MeterVerse Enterprise OS",
+  title: "MeterVerse OS",
   description: "Enterprise Utility Operating System",
 }
 
@@ -34,9 +34,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME
   const lang = cookieStore.get("mv_language")?.value || "en"
   const dir = lang === "ar" ? "rtl" : "ltr"
+  // P51: MeterVerse OS profile — admin (3030) vs portal (3535) via PORTAL_MODE.
+  const profile = process.env.PORTAL_MODE === "1" ? "portal" : "admin"
 
   return (
-    <html lang={lang} dir={dir} suppressHydrationWarning>
+    <html lang={lang} dir={dir} data-profile={profile} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

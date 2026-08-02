@@ -87,7 +87,7 @@ export class AIAssistant extends AIBase {
     }
 
     return {
-      message: "I'm your MeterVerse AI assistant. I can help you with:\n• **Energy consumption** — current usage, trends, comparisons\n• **Anomaly detection** — unusual readings, faults, outliers\n• **Forecasting** — consumption projections, billing estimates\n• **Recommendations** — optimization opportunities, best practices\n\nWhat would you like to explore?",
+      message: "I'm your MeterVerse OS AI assistant. I can help you with:\n• **Energy consumption** — current usage, trends, comparisons\n• **Anomaly detection** — unusual readings, faults, outliers\n• **Forecasting** — consumption projections, billing estimates\n• **Recommendations** — optimization opportunities, best practices\n\nWhat would you like to explore?",
       reasoning: "General purpose query — provided available capabilities.",
       confidence: 0.95,
       suggestions: ["Show energy dashboard", "Check for anomalies", "Generate forecast", "Get recommendations"],

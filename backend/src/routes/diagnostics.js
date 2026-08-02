@@ -41,7 +41,7 @@ router.get("/system/diagnostics", async (req, res) => {
       const headers = ep.auth ? { "Authorization": req.headers.authorization || "Bearer dev", "X-Dev-Mode": "true" } : {}
       const controller = new AbortController()
       const timeout = setTimeout(() => controller.abort(), 5000)
-      const resp = await fetch(`http://localhost:${process.env.PORT || 3002}${ep.url}`, { headers, signal: controller.signal })
+      const resp = await fetch(`http://localhost:${process.env.PORT || 3131}${ep.url}`, { headers, signal: controller.signal })
       clearTimeout(timeout)
       const status = resp.status
       const ok = status === 200

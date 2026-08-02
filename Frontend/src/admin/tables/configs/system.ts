@@ -318,7 +318,7 @@ export const systemConfigs: Record<string, PageConfig> = {
     fields: defFields([]), statsCards: [sc("Total", Icons.notification, r=>r.length)],
   },
   plugins: {
-    id: "plugins", title: "Plugin Marketplace", description: "Extend MeterVerse with plugins",
+    id: "plugins", title: "Plugin Marketplace", description: "Extend MeterVerse OS with plugins",
     apiEndpoint: "", statusField,
     columns: [
       { id: "name", header: "Plugin", accessor: r => r.name, width: 220 },
