@@ -14,7 +14,13 @@ const SYSTEM_TABS = [
   { id: "system", label: "System", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0" },
 ]
 
-const ADMIN_ONLY_IDS: string[] = []
+// P49 RULE 5: User = Enterprise Operations Center. Admin-infrastructure items
+// (database, migrations, users/permissions, audit, general config) are removed
+// from the user navigation — the user operates, the admin governs.
+const ADMIN_ONLY_IDS: string[] = [
+  "database-management", "migration-uploads", "users-permissions",
+  "connection-settings", "bill-cycle-settings", "settings", "audit",
+]
 const USER_ONLY_IDS: string[] = []
 
 const ALL_NAV_GROUPS = [
