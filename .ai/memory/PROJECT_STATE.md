@@ -1,11 +1,26 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P48 — EOS Experience Transformation (complete) — ready for Wave 3  
-**Version:** 8.8.0-P48-EOS  
+**Current Phase:** P49 — Enterprise Activation (real system transformation)  
+**Version:** 8.9.0-P49-ACTIVATED  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P49 Enterprise Activation
+
+Real-data activation + experience transformation (no more mock/demo experience):
+- Wired accounting sub-pages (ledger/trial-balance/journal) to real backend
+- Collections cases + collectors wired to real endpoints
+- NEW revenue-assurance + financial-ai pages (consume BFF → real backend)
+- Alerts wired to /api/alerts
+- Admin-vs-User split: user (Operations Center) nav filters admin-infra items
+- Full enterprise scenario chain re-verified live end-to-end
+
+Remaining minor placeholders: documents, upload, balances, bill-cycle, monitoring.
+Next: Wave 3 (C24/C25/C14) per P47 rebaseline + P48 EOS contract.
 
 ---
 

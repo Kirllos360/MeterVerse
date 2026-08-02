@@ -1158,5 +1158,28 @@
             "P40_EXECUTION_TRACKER.md (OBS-058/059)",
             ".ai/memory/PROJECT_STATE.md (8.8.0)"
         ]
+    },
+    {
+        "task": "P49 — Enterprise Activation (real system transformation)",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE pre-flight + P00 + AI_ROLES + tools-manifest + PROJECT_STATE + memory graph",
+            "wired accounting sub-pages (ledger/trial-balance/journal) to real backend endpoints",
+            "wired collections cases + collectors to domain collection-cases + risk-profiles",
+            "created new admin revenue-assurance + financial-ai pages consuming existing BFF handlers (real backend)",
+            "wired alerts page to /api/alerts",
+            "Admin-vs-User split: populated ADMIN_ONLY_IDS in SystemLayout + UserLayout so user (Operations Center) nav filters admin-infra items",
+            "re-verified full enterprise scenario chain live (login->area 3->project 11->user 2->role 5->customer/meter/reading/invoice real->report 1483 meters->audit->logout)",
+            "committed 5c7873f0 (A-B), 9329a4ea (C), fea553e0 (alerts) to kirllos360 origin; recorded OBS-060/061, PROJECT_STATE 8.9.0"
+        ],
+        "evidence": [
+            "Frontend/src/app/admin/accounting/{ledger,trial-balance,journal}/page.tsx",
+            "Frontend/src/app/admin/{revenue-assurance,financial-ai}/page.tsx",
+            "Frontend/src/app/admin/{collections,alerts}/page.tsx",
+            "Frontend/src/admin/layout/{SystemLayout,UserLayout}.tsx",
+            "P40_EXECUTION_TRACKER.md (OBS-060/061)",
+            ".ai/memory/PROJECT_STATE.md (8.9.0)"
+        ]
     }
 ]
