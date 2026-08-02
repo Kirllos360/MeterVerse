@@ -222,20 +222,21 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
               {openPages.map(p => {
                 const isActive = activePage === p.id
                 return (
-                  <motion.button key={p.id} onClick={() => setActivePage(p.id as any)}
+                  <motion.div key={p.id} onClick={() => setActivePage(p.id as any)} role="button" tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActivePage(p.id as any) } }}
                     layout layoutId={`tab-${p.id}`}
-                    className="flex items-center gap-1.5 shrink-0 px-3 py-1 text-xs font-bold rounded-xl transition-all whitespace-nowrap group"
+                    className="flex items-center gap-1.5 shrink-0 px-3 py-1 text-xs font-bold rounded-xl transition-all whitespace-nowrap group cursor-pointer"
                     style={{ backgroundColor: isActive ? brandColor : "transparent", color: isActive ? "#FFFFFF" : "var(--text-secondary)" }}>
                     {isActive && <motion.span layoutId="tabActiveDot" className="w-1.5 h-1.5 rounded-full bg-white" />}
                     {p.label}
-                    <motion.button
+                    <button
                       onClick={(e) => { e.stopPropagation(); removeOpenPage(p.id) }}
-                      whileHover={{ scale: 1.2 }}
+                      aria-label={`Close ${p.label}`}
                       className="opacity-0 group-hover:opacity-100 transition-opacity ml-0.5"
                       style={{ color: isActive ? "rgba(255,255,255,0.7)" : "var(--text-tertiary)" }}>
                       <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg>
-                    </motion.button>
-                  </motion.button>
+                    </button>
+                  </motion.div>
                 )
               })}
             </div>
