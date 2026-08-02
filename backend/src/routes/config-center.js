@@ -19,7 +19,8 @@ function encrypt(text) {
   const cipher = crypto.createCipheriv(ALGORITHM, ENCRYPTION_KEY, iv)
   let encrypted = cipher.update(text, "utf8", "hex")
   encrypted += cipher.final("hex")
-  return iv.toString("hex") + ":" + encrypted
+  const tag = cipher.getAuthTag().toString("hex")
+  return iv.toString("hex") + ":" + tag + ":" + encrypted
 }
 
 function decrypt(text) {
@@ -27,8 +28,10 @@ function decrypt(text) {
   try {
     const parts = text.split(":")
     const iv = Buffer.from(parts.shift(), "hex")
+    const tag = Buffer.from(parts.shift(), "hex")
     const encrypted = parts.join(":")
     const decipher = crypto.createDecipheriv(ALGORITHM, ENCRYPTION_KEY, iv)
+    decipher.setAuthTag(tag)
     let decrypted = decipher.update(encrypted, "hex", "utf8")
     decrypted += decipher.final("utf8")
     return decrypted

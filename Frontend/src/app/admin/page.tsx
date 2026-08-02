@@ -39,6 +39,9 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   settings: SettingsPage,
   audit: AuditPage,
   "report-settings": ReportSettingsPage,
+  // P46: sub-tabs resolve to their parent workspace page (no orphan screens)
+  events: MonitoringPage,
+  groups: CustomerSettingsPage,
 }
 
 export default function AdminSpaPage() {

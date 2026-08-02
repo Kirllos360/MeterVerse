@@ -57,7 +57,7 @@ router.get("/:id", requirePermission("invoices.list"), async (req, res, next) =>
 router.post("/", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body)
-    const invoice = await prisma.invoice.create({ data })
+    const invoice = await prisma.invoice.create({ data: { ...data, ...(data.dueDate ? { dueDate: new Date(data.dueDate) } : {}) } })
     auditLog(req, "invoice.created", { invoiceId: invoice.id })
     res.status(201).json({ invoice })
   } catch (err) {

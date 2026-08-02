@@ -1,27 +1,52 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
+import { requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
 
-// GET /areas — distinct all areas from Meter records + system settings fallback
+// GET /areas — real Area records with meter counts (P46: source of truth)
 router.get("/areas", async (req, res, next) => {
   try {
-    const rows = await prisma.meter.groupBy({ by: ["area"], _count: { _all: true }, where: { area: { not: null }, archivedAt: null }, orderBy: { area: "asc" } })
-    if (rows.length > 0) {
-      const areas = rows.map(r => ({ name: r.area, code: r.area?.substring(0, 3).toUpperCase(), meterCount: r._count._all }))
-      return res.json({ areas })
-    }
-    // Fallback: get areas from system settings
-    const settings = await prisma.systemSetting.findMany({ where: { category: "location", type: "area", archivedAt: null } })
-    const areas = settings.map(s => ({ name: s.value, code: s.value.substring(0, 3).toUpperCase(), meterCount: 0 }))
-    // Also try Area model
-    const areaRecords = await prisma.area.findMany({ where: { archivedAt: null } })
-    for (const a of areaRecords) {
-      if (!areas.find(x => x.name === a.name)) areas.push({ name: a.name, code: a.code, meterCount: 0 })
-    }
+    const areaRecords = await prisma.area.findMany({ where: { archivedAt: null }, orderBy: { name: "asc" } })
+    const areas = await Promise.all(areaRecords.map(async (a) => {
+      const meterCount = await prisma.meter.count({ where: { areaId: a.id, archivedAt: null } })
+      return { id: a.id, name: a.name, code: a.code, status: a.status, meterCount, governorateId: a.governorateId }
+    }))
     res.json({ areas })
+  } catch (err) { next(err) }
+})
+
+// POST /areas — create an area
+router.post("/areas", requirePermission("locations.areas.create"), async (req, res, next) => {
+  try {
+    const { name, code, governorateId } = req.body || {}
+    if (!name || !code) return res.status(400).json({ error: "name and code are required" })
+    const existing = await prisma.area.findFirst({ where: { OR: [{ name }, { code }] } })
+    if (existing) return res.status(409).json({ error: "Area with this name or code already exists" })
+    const area = await prisma.area.create({ data: { name, code, governorateId: governorateId || null, status: "active" } })
+    auditLog(req, "area.created", { areaId: area.id, name, code })
+    res.status(201).json({ area })
+  } catch (err) { next(err) }
+})
+
+// PUT /areas/:id — update an area
+router.put("/areas/:id", requirePermission("locations.areas.update"), async (req, res, next) => {
+  try {
+    const { name, code, status, governorateId } = req.body || {}
+    const area = await prisma.area.update({ where: { id: req.params.id }, data: { ...(name && { name }), ...(code && { code }), ...(status && { status }), ...(governorateId !== undefined && { governorateId }) } })
+    auditLog(req, "area.updated", { areaId: area.id, changes: Object.keys(req.body || {}) })
+    res.json({ area })
+  } catch (err) { next(err) }
+})
+
+// DELETE /areas/:id — soft delete an area
+router.delete("/areas/:id", requirePermission("locations.areas.delete"), async (req, res, next) => {
+  try {
+    await prisma.area.update({ where: { id: req.params.id }, data: { archivedAt: new Date(), status: "inactive" } })
+    auditLog(req, "area.deleted", { areaId: req.params.id })
+    res.json({ success: true })
   } catch (err) { next(err) }
 })
 
