@@ -50,23 +50,23 @@ Program-level status:
 
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
-| C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle | 45% |
-| C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 40% |
-| C13 Financial Intelligence | 🟢 | Financial AI (forecasting, Monte Carlo, scenarios, health, insights, recommendations) | + billing-to-GL, revenue, tariff, AI | 90% |
+| C22 SaaS & Multi-Tenancy | 🟨 | Tenant, settings, plans, subscriptions, usage, environments | + SubscriptionPlan/lifecycle + frontend | 40% |
+| C23 Workflow & BPM | 🟨 | definitions/versions/instances/tasks/approvals | + BPM runtime (19 models) | 42% |
+| C13 Financial Intelligence | 🟢 | Financial AI (forecasting, Monte Carlo, scenarios, health, insights, recommendations) | + billing-to-GL, revenue, tariff, AI | 85% |
 
 ## Wave 3 â€” Records/Comms/Customer (C24, C25, C14) â€” ~40 days
 
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
-| C24 Documents & Records | ðŸŸ¨ | StoredFile, OcrJob, PdfJob | + governed repository (21 models) | 25% |
-| C25 Communication | ðŸŸ¨ | Notification, EmailLog, SmsLog, webhook | + unified hub (21 models) | 30% |
-| C14 Customer Experience | ðŸŸ¥ | basic pages | + portal (8 pages, 5 models) | 15% |
+| C24 Documents & Records | 🟨 | StoredFile, OcrJob, PdfJob (legacy) | + governed repository (21 models, 0 built) | 5% |
+| C25 Communication | 🟨 | Notification, EmailLog, SmsLog, webhook (legacy) | + unified hub (21 models, 0 built) | 8% |
+| C14 Customer Experience | 🟥 | basic pages | + portal (8 pages, 5 models, 0 built) | 8% |
 
 ## Wave 4 â€” Integration/MDM/Analytics (C15, C26, C17) â€” ~50 days
 
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
-| C15 Integration | ðŸŸ¨ | webhook, event-bus, connector seeds | + registry/connectors (8 models) | 25% |
+| C15 Integration | 🟨 | webhook, event-bus, connector seeds | + registry/connectors (8 models) | 15% |
 | C26 Master Data Management | ðŸŸ¥ | â€” | + MDM hub (22 models) | 0% |
 | C17 Data Intelligence | ðŸŸ¨ | KpiDefinition/Snapshot | + warehouse, KPI 75+, dashboards | 15% |
 
@@ -74,7 +74,7 @@ Program-level status:
 
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
-| C16 Asset & Field Ops | ðŸŸ¥ | â€” | + EAM (19 models) | 0% |
+| C16 Asset & Field Ops | 🟥 | — | + EAM (19 models) | 5% |
 | C18 AI Platform | ðŸŸ¨ | ai-engine (9 fns), AgentRuntime, RCA | + gateway/registries (12 models) | 35% |
 | C31 Knowledge Marketplace | ðŸŸ¨ | KnowledgeArticle, LearnedPattern | + marketplace (27 models) | 20% |
 
@@ -179,6 +179,10 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-051 | P46 Alpha cert | All 10 enterprise scenarios executed live and pass (Auth/Org/Perm/Settings/TCP/Meter/Reading/Billing/Audit/Workspace). 4 real defects repaired: AES-GCM config auth-tag (config never persisted), invoice dueDate→Date, Area CRUD added, orphan sub-tabs wired. GL posting closed (open period + mappings seed). Report: `docs/reviews/P46_ALPHA_READINESS_REPORT.md`. **MeterVerse Alpha Operational certified.** | High | Keep demo seeds run before any demo. |
 | OBS-052 | P46 GL baseline | `seed-gl-baseline.mjs` creates AR/Revenue/Cash accounts, OPEN 2026-08 period, INVOICE_ISSUED + PAYMENT_RECEIVED mappings → PostingEngine now posts (was FAILED "No open financial period"). Verified journal + GL + balanced trial balance. | High | Run before financial demo. |
 | OBS-053 | P46 audit actor | `auth.login_success` audit entries record `actor=anonymous` (audit middleware runs before JWT attach). Cosmetic; all other ops record real actor. | Low | Improve middleware order if strict actor capture needed. |
+| OBS-054 | P47 reconciliation — tracker corrected | P47 audit corrected tracker percentages vs repo truth: C13 90→85% (W05 Bank Reconciliation = 0%, GL foundation unmigrated), C24 25→5%, C25 30→8%, C14 15→8% (0 of 47 Wave-3 models exist — legacy models don't count), C22 45→40% (no frontend), C15 25→15%, C16 0→5%. Reports committed to `docs/reviews/P47_*.md`. | High | Wave 3 rebaseline must build the 47 planned models; don't count legacy as deliverables. |
+| OBS-055 | P47 migration drift | 21 models in schema have no migration table (C13 GL x5: Account/FinancialPeriod/GL/Journal/LineItem; C19 ops x7; geography x5; Gateway; KnowledgeArticle/LearnedPattern; Incident). Fresh `migrate deploy` would produce 147 tables vs 168 models. | High | Add B-10 drift migration before Wave 3 (or formalize db-push policy). |
+| OBS-056 | P47 user-platform gap | User platform = admin settings shell re-skinned green; 30+ admin domains have no user self-service (no billing/tariff view, reading submission, pay-bill, profile, tickets, notifications, documents, consumption analytics). Root `/` and `/user` overlap. | Medium | C14 Wave-3 is the user portal build. |
+| OBS-057 | P47 root-level C18 dependency | `backend/src/routes/{rca,intelligence}.js` import root-level `D:\meter\src\intelligence\*` — out-of-backend dependency; backend deploy would crash without root src tree. | High | Vendor/copy C18 runtime into backend or document deploy prerequisite. |
 
 ---
 
