@@ -1,28 +1,34 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-02  
-**Current Phase:** Real Operational Certification — PASS (UI-operable)  
-**Version:** 9.2.0-REAL-OPERATIONAL-CERTIFIED  
-**Branch:** main  
+**Current Phase:** P51 — MeterVerse OS Enterprise Monorepo (CERTIFIED)  
+**Version:** 10.0.0-METERVERSE-OS  
+**Branch:** feature/p51-meterverse-os-platform (→ merge to main)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## Real Operational Certification — PASS (2026-08-02)
+## P51 — MeterVerse OS Transformation — CERTIFIED (2026-08-02)
 
-Forensic audit after manual validation revealed **real UI failures** (read-only appearance). Root causes found + fixed + browser-verified:
+**Enterprise Monorepo, 4 deployable services, ONE repo, ONE PostgreSQL DB, shared packages, ZERO duplicated logic** (STOP CONDITION applied — no 4 isolated codebases).
 
-- **RC-A** Admin nav pointed to settings pages; CRUD pages (users/customers/meters/projects/areas/payments/tariffs) were orphaned → rewired `AdminLayout.tsx` + `admin/page.tsx`.
-- **RC-B** BFF `apiBackend()` hit `:3002/admin/...` (no `/api`) → every admin page empty → normalized in `api-client.ts`.
-- **RC-C** Customers/Meters/Invoices/Payments defaulted to analytics dashboard → default tab `"list"`.
-- **RC-E** Backend returns `customer: {id,name}` object; config cell crashed → transform extracts `.name` (billing.ts).
+**Ports:** Admin Frontend **3030** · Admin Backend **3131** · Portal Frontend **3535** · Portal Backend **3003**
+- `apps/` = deployable runtime profiles over shared source; `packages/` = shared-types, auth, api-client, runtime
+- Backend `PORTAL_MODE=1` → portal API mounts ONLY customer routes (admin/users, projects, accounting → 404)
+- CORS/websocket multi-origin 3030+3535; profile-aware Next rewrites, docker-compose 4-service
 
-**Browser-verified (Playwright, real admin JWT):** all 9 core pages show Add + live data rows; Customer create → POST 201 → persisted. Full exam: 292 unit + 56 contract + 31 integration + tsc 0 + vitest 44.
+**Branding:** MeterVerse OS everywhere (toolbar, layouts, login, metadata, Swagger, packages). Verified in browser.
 
-Reports: `docs/reviews/REAL_OPERATIONAL_GAP_REPORT.md`, `ROOT_CAUSE_ANALYSIS.md`, `REAL_OPERATIONAL_CERTIFICATION_REPORT.md`.
+**Themes (colors only):** Admin = White/Red/Black (`--brand #DC2626`); Portal = White/Green/Black (`data-profile=portal` → `--brand #059669`).
 
-**Remaining (non-blocking):** hydration "button-in-button" console warning; some non-core BFFs originally 404 (now fixed via normalization, verified 200).
+**Startup:** `scripts/start-all.mjs` master launcher; Start.cmd + _tools rewritten.
+
+**Validation:** backend 292 tests · frontend tsc 0 + vitest 44 · Playwright journey on :3030 (all CRUD Add+data) · theme browser-verified.
+
+Reports: `docs/reviews/P51_{DISCOVERY_AND_IMPACT,CERTIFICATION}_REPORT.md`.
+
+**Known dev limitation:** two Next dev servers can't share one `.next` — admin/portal profiles are mutually exclusive locally (Docker co-runs them in production).
 
 ---
 
