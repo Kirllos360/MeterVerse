@@ -112,12 +112,12 @@ jobs:
 
       - name: Start backend (dev mode)
         run: |
-          NODE_ENV=development PORT=3002 DATABASE_URL=postgresql://test:test@localhost:5433/meterverse_test JWT_SECRET=ci-test-secret SYMBIOT_TCP_PORT=9100 SYMBIOT_HTTP_PORT=9101 node src/server.js &
+          NODE_ENV=development PORT=3131 DATABASE_URL=postgresql://test:test@localhost:5433/meterverse_test JWT_SECRET=ci-test-secret SYMBIOT_TCP_PORT=9100 SYMBIOT_HTTP_PORT=9101 node src/server.js &
           echo "backend started"
         working-directory: backend
         env:
           NODE_ENV: development
-          PORT: "3002"
+          PORT: "3131"
           DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
           JWT_SECRET: ci-test-secret
           SYMBIOT_TCP_PORT: "9100"
@@ -126,7 +126,7 @@ jobs:
       - name: Wait for backend health
         run: |
           for i in $(seq 1 20); do
-            if curl -sf http://localhost:3002/api/health > /dev/null; then
+            if curl -sf http://localhost:3131/api/health > /dev/null; then
               echo "backend healthy"
               exit 0
             fi
@@ -148,7 +148,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://test:test@localhost:5433/meterverse_test
           JWT_SECRET: ci-test-secret
-          CONTRACT_BASE_URL: http://localhost:3002
+          CONTRACT_BASE_URL: http://localhost:3131
 
 
   test-frontend:

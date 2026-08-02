@@ -1,0 +1,16 @@
+{
+  "name": "@meterverse/admin-backend",
+  "version": "10.0.0",
+  "private": true,
+  "description": "MeterVerse OS — Admin API (port 3131). Deployable profile over the shared Express source (PORTAL_MODE unset); no code duplication.",
+  "scripts": {
+    "dev": "cd ../../backend && PORT=3131 node src/server.js",
+    "start": "cd ../../backend && PORT=3131 node src/server.js",
+    "test": "cd ../../backend && npm test"
+  },
+  "dependencies": {
+    "@meterverse/auth": "10.0.0",
+    "@meterverse/runtime": "10.0.0",
+    "@meterverse/shared-types": "10.0.0"
+  }
+}

@@ -5,5 +5,5 @@ RUN npm ci --only=production
 COPY backend/prisma ./prisma/
 RUN npx prisma generate
 COPY backend/src ./src/
-EXPOSE 3001
+EXPOSE 3131 3003
 CMD ["node", "src/server.js"]

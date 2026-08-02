@@ -1,15 +1,13 @@
 {
-    "name": "next-shadcn-dashboard-starter",
-    "version": "1.0.0",
+    "name": "meterverse-admin-frontend",
+    "version": "10.0.0",
     "private": true,
-    "author": {
-        "name": "Kiran",
-        "url": "https://github.com/Kiranism"
-    },
     "scripts": {
-        "dev": "node scripts/postinstall.js 2>/dev/null; next dev -p 7400",
+        "dev": "node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
+        "dev:portal": "PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3535",
         "build": "next build",
-        "start": "next start",
+        "start": "next start -p 3030",
+        "start:portal": "PORTAL_MODE=1 next start -p 3535",
         "lint": "oxlint",
         "lint:fix": "oxlint --fix && bun format",
         "lint:strict": "oxlint --deny-warnings",

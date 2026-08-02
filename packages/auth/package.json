@@ -1,0 +1,13 @@
+{
+  "name": "@meterverse/auth",
+  "version": "10.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}

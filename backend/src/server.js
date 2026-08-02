@@ -82,7 +82,14 @@ import { getAvailabilityPlans, getAvailabilityPlan, setAvailabilityPlan } from "
 import logger from "./services/logger.js"
 
 const app = express()
-const PORT = process.env.PORT || 3002
+
+// ─── METERVERSE OS PROFILE ───────────────────────────────────────────────────
+// PORTAL_MODE=1 → Customer Portal API (port 3003): exposes ONLY customer-facing
+// routes (invoices, payments, portal, meters list, notifications, consumptions,
+// profile/preferences, requests/tickets). Admin/ops routes are NOT mounted.
+// PORTAL_MODE unset → Admin API (port 3131): full enterprise API.
+const PORTAL_MODE = process.env.PORTAL_MODE === "1"
+const PORT = process.env.PORT || (PORTAL_MODE ? 3003 : 3131)
 const isProduction = process.env.NODE_ENV === "production"
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -158,7 +165,9 @@ if (isProduction) {
 
 // CORS — Strict single origin
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || "http://localhost:7400",
+  origin: (process.env.CORS_ORIGIN || "").split(",").filter(Boolean).length
+    ? process.env.CORS_ORIGIN.split(",").map(s => s.trim())
+    : ["http://localhost:3030", "http://localhost:3535"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token", "X-Dev-Mode"],
@@ -259,56 +268,67 @@ mount("/readings", readingsRouter)
 mount("/consumptions", consumptionsRouter)
 mount("/invoices", invoicesRouter)
 mount("/payments", paymentsRouter)
-mount("/admin", adminRouter)
-mount("/services", servicesRouter)
-mount("/reports", reportsRouter)
-mount("/reports/jasper", jasperBridgeRouter)
-mount("/domain", domainRouter)
-mount("/business", businessRouter)
-mount("/crud", crudRouter)
-mount("/monitor", monitorRouter)
-mount("/ai", aiRouter)
-mount("/security", securityRouter)
-mount("/sessions", sessionsRouter)
-mount("/meter-assignments", meterAssignmentRouter)
+
+// ─── PROFILE-AWARE ROUTES ────────────────────────────────────────────────────
+// PORTAL_MODE=1 (Customer Portal API, :3003) mounts ONLY customer-facing
+// routes. All admin/ops routes below are excluded to guarantee the portal never
+// exposes enterprise endpoints. Admin API (:3131) mounts everything.
+if (!PORTAL_MODE) {
+  mount("/admin", adminRouter)
+  mount("/services", servicesRouter)
+  mount("/reports", reportsRouter)
+  mount("/reports/jasper", jasperBridgeRouter)
+  mount("/domain", domainRouter)
+  mount("/business", businessRouter)
+  mount("/crud", crudRouter)
+  mount("/monitor", monitorRouter)
+  mount("/ai", aiRouter)
+  mount("/security", securityRouter)
+  mount("/sessions", sessionsRouter)
+  mount("/search", searchRouter)
+  mount("/tasks", tasksRouter)
+  mount("/alerts", alertsRouter)
+  mount("/documents", documentsRouter)
+  mount("/documents-governance", documentGovernanceRouter)
+  mount("/tariffs", tariffsRouter)
+  mount("/sim", simRouter)
+  mount("/projects", projectsRouter)
+  mount("/pdf", pdfRouter)
+  mount("/templates", templatesRouter)
+  mount("/billing", billingRouter)
+  mount("/admin", configRouter)
+  mount("/locations", locationsRouter)
+  mount("/intelligence", intelligenceRouter)
+  mount("/knowledge", knowledgeRouter)
+  mount("/rca", rcaRouter)
+  mount("/accounting", accountingRouter)
+  mount("/learned-patterns", learnedPatternsRouter)
+  mount("/incidents", incidentsRouter)
+  mount("/governance", governanceRouter)
+  mount("/tenants", tenantRouter)
+  mount("/workflows", workflowRouter)
+  mount("/financial-integration", financialIntegrationRouter)
+  mount("/revenue-assurance", revenueAssuranceRouter)
+  mount("/tariff-engine", tariffEngineRouter)
+  mount("/collections", collectionsRouter)
+  mount("/financial-reports", financialReportsRouter)
+  mount("/financial-ai", financialAiRouter)
+  mount("/materialized-views", materializedViewsRouter)
+  mount("/gateways", gatewaysRouter)
+  mount("/knowledge-articles", knowledgeArticlesRouter)
+  mount("/ai-feedback", aiFeedbackRouter)
+  mount("/database-connections", databaseConnectionsRouter)
+  mount("/connection-profiles", connProfRouter)
+  mount("/migration", migrationRouter)
+  mount("/data-gate", dataGateRouter)
+  mount("/admin-settings", adminSettingsRouter)
+}
+
+// Portal-exposed routes that are also safe on the customer portal
 mount("/notifications", notificationsRouter)
-mount("/communication", communicationRouter)
+mount("/meter-assignments", meterAssignmentRouter)
 mount("/preferences", preferencesRouter)
-mount("/search", searchRouter)
-mount("/tasks", tasksRouter)
-mount("/alerts", alertsRouter)
-mount("/documents", documentsRouter)
-mount("/documents-governance", documentGovernanceRouter)
-mount("/tariffs", tariffsRouter)
-mount("/sim", simRouter)
-mount("/projects", projectsRouter)
-mount("/pdf", pdfRouter)
-mount("/templates", templatesRouter)
-mount("/billing", billingRouter)
-mount("/admin", configRouter)
-mount("/locations", locationsRouter)
-mount("/intelligence", intelligenceRouter)
-mount("/knowledge", knowledgeRouter)
-mount("/rca", rcaRouter)
-mount("/accounting", accountingRouter)
-mount("/learned-patterns", learnedPatternsRouter)
-mount("/incidents", incidentsRouter)
-mount("/governance", governanceRouter)
-mount("/tenants", tenantRouter)
-mount("/workflows", workflowRouter)
-mount("/financial-integration", financialIntegrationRouter)
-mount("/revenue-assurance", revenueAssuranceRouter)
-mount("/tariff-engine", tariffEngineRouter)
-mount("/collections", collectionsRouter)
-mount("/financial-reports", financialReportsRouter)
-mount("/financial-ai", financialAiRouter)
-mount("/materialized-views", materializedViewsRouter)
-mount("/gateways", gatewaysRouter)
-mount("/knowledge-articles", knowledgeArticlesRouter)
-mount("/ai-feedback", aiFeedbackRouter)
-mount("/database-connections", databaseConnectionsRouter)
-mount("/connection-profiles", connProfRouter)
-mount("/migration", migrationRouter)
+mount("/communication", communicationRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))
@@ -327,8 +347,6 @@ app.use("/api-docs.json", (req, res) => res.json(swaggerSpec))
 // QR router mounted at /api level
 API_PREFIXES.forEach(p => app.use(p, qrRouter))
 API_PREFIXES.forEach(p => app.use(p, diagnosticsRouter))
-mount("/data-gate", dataGateRouter)
-mount("/admin-settings", adminSettingsRouter)
 
 const runtime = new RuntimeManager()
 const scheduler = new SchedulerEngine(runtime)

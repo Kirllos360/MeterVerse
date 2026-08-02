@@ -1,0 +1,17 @@
+{
+  "name": "@meterverse/admin-frontend",
+  "version": "10.0.0",
+  "private": true,
+  "description": "MeterVerse OS — Admin Console (port 3030). Deployable profile over the shared Next.js source; no code duplication.",
+  "scripts": {
+    "dev": "node ../../Frontend/scripts/postinstall.js 2>/dev/null; next dev -p 3030",
+    "build": "cd ../../Frontend && next build",
+    "start": "cd ../../Frontend && next start -p 3030",
+    "lint": "cd ../../Frontend && npx oxlint"
+  },
+  "dependencies": {
+    "@meterverse/auth": "10.0.0",
+    "@meterverse/api-client": "10.0.0",
+    "@meterverse/shared-types": "10.0.0"
+  }
+}

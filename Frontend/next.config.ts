@@ -36,10 +36,13 @@ const baseConfig: NextConfig = {
   // Bundle analysis (run: ANALYZE=true next build)
   // Removed invalid withBundleAnalyzer config key
   async rewrites() {
+    // MeterVerse OS: admin FE (3030) proxies to Admin API (3131); portal FE
+    // (3535) proxies to Portal API (3003) when PORTAL_MODE=1.
+    const backendPort = process.env.PORTAL_MODE === "1" ? "3003" : "3131"
     return [
       {
         source: "/api/:path*",
-        destination: `http://localhost:3002/api/:path*`,
+        destination: `http://localhost:${backendPort}/api/:path*`,
       },
     ]
   },

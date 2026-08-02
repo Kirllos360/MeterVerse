@@ -41,7 +41,7 @@ router.get("/audit/security", requireRole("admin","super_admin"), async (req, re
     checks.push({ check: "HTTP Security Headers", status: "pass", detail: "Helmet.js active (CSP, HSTS, X-Frame, etc.)" })
     
     // 5. CORS
-    const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:7400"
+    const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:3030,http://localhost:3535"
     checks.push({ check: "CORS", status: corsOrigin !== "*" ? "pass" : "warn", detail: `Origin: ${corsOrigin}` })
     
     // 6. Session Count
