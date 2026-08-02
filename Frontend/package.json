@@ -2,6 +2,7 @@
     "name": "meterverse-admin-frontend",
     "version": "10.0.0",
     "private": true,
+    "description": "MeterVerse OS — Admin Console (:3030) + Customer Portal (:3535) Next.js frontend",
     "scripts": {
         "dev": "node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
         "dev:portal": "PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3535",

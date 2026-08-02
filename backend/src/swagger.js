@@ -5,10 +5,10 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "MeterVerse API",
-      version: "1.0.0",
-      description: "Enterprise utility metering and billing platform API",
-      contact: { name: "MeterVerse Engineering" },
+      title: "MeterVerse OS API",
+      version: "10.0.0",
+      description: "MeterVerse OS — Enterprise utility metering and billing platform API",
+      contact: { name: "MeterVerse OS Engineering" },
     },
     servers: [{ url: "/api", description: "API v1" }],
     components: {

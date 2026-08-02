@@ -69,19 +69,19 @@ body {
   --brand-user-light: rgba(5, 150, 105, 0.1);
   --brand-user-dark: rgba(5, 150, 105, 0.8);
 
-  /* ─── Neutral Surface Tokens ─────────────────────── */
-  --surface-base: oklch(0.94 0.006 160);
-  --surface-raised: oklch(0.99 0.003 160);
-  --surface-sunken: oklch(0.92 0.005 160);
-  --surface-topbar: oklch(0.96 0.005 160);
-  --surface-tableHeader: oklch(0.95 0.005 160);
+  /* ─── Neutral Surface Tokens (Admin: White; Portal: White) ───────── */
+  --surface-base: oklch(0.94 0 0);
+  --surface-raised: oklch(0.99 0 0);
+  --surface-sunken: oklch(0.92 0 0);
+  --surface-topbar: oklch(0.96 0 0);
+  --surface-tableHeader: oklch(0.95 0 0);
   --surface-pop: oklch(1 0 0);
 
-  /* ─── Text Tokens ────────────────────────────────── */
-  --text-primary: oklch(0.15 0.005 160);
-  --text-secondary: oklch(0.45 0.005 160);
-  --text-tertiary: oklch(0.65 0.005 160);
-  --text-disabled: oklch(0.8 0.005 160);
+  /* ─── Text Tokens (Admin: Black text; Portal: Black text) ────────── */
+  --text-primary: oklch(0.15 0 0);
+  --text-secondary: oklch(0.45 0 0);
+  --text-tertiary: oklch(0.65 0 0);
+  --text-disabled: oklch(0.8 0 0);
 
   /* ─── Border Tokens ──────────────────────────────── */
   --border-default: oklch(0 0 0 / 8%);
@@ -112,8 +112,8 @@ body {
   --black-rgb: 0, 0, 0;
   --panel-accent: #005F4E;
 
-  /* ─── Sidebar Tokens ─────────────────────────────── */
-  --sidebar-background: #005F4E;
+  /* ─── Sidebar Tokens (Admin: Black) ──────────────── */
+  --sidebar-background: #111111;
   --sidebar-surface: rgba(255, 255, 255, 0.05);
   --sidebar-text: #FFFFFF;
   --sidebar-text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -146,8 +146,8 @@ body {
   --admin-text-muted-light: rgba(0, 0, 0, 0.5);
   --admin-text-dim-light: rgba(0, 0, 0, 0.25);
 
-  /* ─── Inspector Tokens ───────────────────────────── */
-  --inspector-background: #005241;
+  /* ─── Inspector Tokens (Admin: Black) ────────────── */
+  --inspector-background: #111111;
   --inspector-surface: rgba(255, 255, 255, 0.03);
   --inspector-text: #FFFFFF;
   --inspector-text-shadow: 0 1px 3px rgba(0,0,0,0.3);
@@ -161,6 +161,20 @@ body {
   --inspector-button-bg: rgba(var(--brand-rgb), 0.2);
   --inspector-button-text: #FFFFFF;
   --inspector-button-hover: rgba(255, 255, 255, 0.05);
+}
+
+/* ─── PORTAL PROFILE (PORTAL_MODE=1 → :3535) ────────────────────────────
+   Green palette: White surfaces + Green brand + Black text (light),
+   Black surfaces + Green brand + White text (dark). Colors only. */
+[data-profile="portal"] {
+  --brand: #059669;
+  --brand-rgb: 5, 150, 105;
+  --brand-hover: color-mix(in srgb, var(--brand) 85%, black);
+  --brand-light: rgba(5, 150, 105, 0.1);
+  --brand-dark: rgba(5, 150, 105, 0.8);
+  --brand-user: #059669;
+  --sidebar-background: #064E3B;
+  --inspector-background: #064E3B;
 }
 
 [data-theme] body {

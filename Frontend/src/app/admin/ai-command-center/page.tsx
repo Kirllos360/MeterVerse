@@ -60,7 +60,7 @@ export default function AICommandCenter() {
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <div><h1 className="text-2xl font-bold">AI Command Center</h1><p className="text-sm text-muted-foreground">Intelligence Layer — MeterVerse Enterprise AI</p></div>
+        <div><h1 className="text-2xl font-bold">AI Command Center</h1><p className="text-sm text-muted-foreground">Intelligence Layer — MeterVerse OS Enterprise AI</p></div>
       </div>
 
       {kpis.length > 0 && (

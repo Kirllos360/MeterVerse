@@ -56,7 +56,7 @@ export default function AppSidebar() {
       <SidebarHeader className='group-data-[collapsible=icon]:pt-4 px-4 py-2'>
         <div className="flex items-center gap-2 text-sm font-medium" style={{ color: "var(--text-primary)" }}>
           <div className="w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold text-white" style={{ backgroundColor: "var(--brand)" }}>MV</div>
-          <span className="truncate">MeterVerse</span>
+          <span className="truncate">MeterVerse OS</span>
         </div>
       </SidebarHeader>
       <SidebarContent className='overflow-x-hidden'>

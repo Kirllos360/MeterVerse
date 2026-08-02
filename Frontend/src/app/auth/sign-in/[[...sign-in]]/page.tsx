@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Sign In - MeterVerse",
-  description: "Sign in to MeterVerse",
+  title: "Sign In - MeterVerse OS",
+  description: "Sign in to MeterVerse OS",
 }
 
 export default function SignInPage() {
@@ -12,7 +12,7 @@ export default function SignInPage() {
         <div className="text-center mb-6">
           <div className="w-10 h-10 mx-auto mb-3 rounded-lg flex items-center justify-center text-sm font-bold text-white" style={{ backgroundColor: "var(--brand-primary)" }}>MV</div>
           <h1 className="text-lg font-semibold" style={{ color: "var(--text-primary)" }}>Welcome back</h1>
-          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>Sign in to MeterVerse</p>
+          <p className="text-sm mt-1" style={{ color: "var(--text-secondary)" }}>Sign in to MeterVerse OS</p>
         </div>
         <div className="space-y-3">
           <input type="email" placeholder="Email" className="w-full px-3 py-2 rounded-lg border text-sm" style={{ borderColor: "var(--border-default)", backgroundColor: "var(--surface-sunken)" }} />
