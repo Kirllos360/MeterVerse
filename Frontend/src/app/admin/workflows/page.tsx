@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -41,8 +41,23 @@ const MOCK_INSTANCES: WorkflowInstance[] = [
 ]
 
 export default function WorkflowsPage() {
-  const [defs] = useState<WorkflowDef[]>(MOCK_DEFS)
-  const [instances] = useState<WorkflowInstance[]>(MOCK_INSTANCES)
+  const [defs, setDefs] = useState<WorkflowDef[]>(MOCK_DEFS)
+  const [instances, setInstances] = useState<WorkflowInstance[]>(MOCK_INSTANCES)
+  const [live, setLive] = useState(false)
+
+  // P45: fetch real workflow definitions + instances when the backend is reachable.
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([
+      fetch("/api/workflows/definitions", { headers: { "X-Dev-Mode": "true" } }).then(r => r.ok ? r.json() : null),
+      fetch("/api/workflows/instances", { headers: { "X-Dev-Mode": "true" } }).then(r => r.ok ? r.json() : null),
+    ]).then(([d, i]) => {
+      if (cancelled) return
+      if (d?.definitions?.length) { setDefs(d.definitions.map((x: any) => ({ id: x.id, name: x.name, description: x.description, trigger: x.trigger || "MANUAL", status: x.status }))); setLive(true) }
+      if (i?.instances?.length) { setInstances(i.instances.map((x: any) => ({ id: x.id, workflow: x.definition?.name || x.code || x.id, startedAt: x.createdAt, currentState: x.currentState || x.status, status: x.status, entity: x.entityType || "-" }))); setLive(true) }
+    }).catch(() => {})
+    return () => { cancelled = true }
+  }, [])
 
   return (
     <div className="space-y-6">

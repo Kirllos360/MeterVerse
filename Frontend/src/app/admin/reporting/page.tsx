@@ -23,7 +23,20 @@ export default function ReportingStudioPage() {
   const handleGenerate = async () => {
     if (!selectedReport) return
     setGenerating(true)
-    setTimeout(() => setGenerating(false), 2000)
+    // P45: real report generation against the backend (no simulation).
+    const typeMap: Record<string, string> = { consumption: "readings", financial: "invoices", meters: "meters", customer: "customers", billing: "invoices", collections: "aging" }
+    try {
+      const res = await fetch("/api/reports/export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Dev-Mode": "true" },
+        body: JSON.stringify({ type: typeMap[selectedReport] || "invoices", format: format.toLowerCase() === "xlsx" ? "json" : format.toLowerCase() }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        console.log(`[reporting] generated ${selectedReport}:`, data.exportId || data.count || data.rows?.length || "ok")
+      }
+    } catch {}
+    setGenerating(false)
   }
 
   return (

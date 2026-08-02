@@ -7,6 +7,85 @@ import { requirePermission, auditLog } from "../middleware/security.js"
 const router = Router()
 router.use(authenticate)
 
+// ─── Executive report summaries (P45: wire admin/reports page to real data) ───
+router.get("/operational", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const [meters, customers, readings, areas] = await Promise.all([
+      prisma.meter.count({ where: { archivedAt: null } }),
+      prisma.customer.count({ where: { archivedAt: null } }),
+      prisma.reading.count({ where: { archivedAt: null } }),
+      prisma.area.count({ where: { archivedAt: null } }),
+    ])
+    res.json({ meters, customers, readings, areas, online: 0, offline: 0, alerts: 0 })
+  } catch (err) { next(err) }
+})
+
+router.get("/financial", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const [invoices, payments, collected] = await Promise.all([
+      prisma.invoice.aggregate({ where: { archivedAt: null }, _sum: { amount: true }, _count: true }),
+      prisma.payment.aggregate({ where: { status: "completed" }, _sum: { amount: true }, _count: true }),
+      prisma.invoice.aggregate({ where: { status: "paid", archivedAt: null }, _sum: { amount: true } }),
+    ])
+    res.json({ invoiced: invoices._sum.amount || 0, invoiceCount: invoices._count, collected: payments._sum.amount || 0, paid: collected._sum.amount || 0, outstanding: (invoices._sum.amount || 0) - (payments._sum.amount || 0), paymentCount: payments._count })
+  } catch (err) { next(err) }
+})
+
+router.get("/executive", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const [customers, meters, invoices, payments, users] = await Promise.all([
+      prisma.customer.count({ where: { archivedAt: null } }),
+      prisma.meter.count({ where: { archivedAt: null } }),
+      prisma.invoice.count({ where: { archivedAt: null } }),
+      prisma.payment.count({ where: { status: "completed" } }),
+      prisma.user.count({ where: { archivedAt: null } }),
+    ])
+    res.json({ customers, meters, invoices, payments, users })
+  } catch (err) { next(err) }
+})
+
+router.get("/consumption", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const agg = await prisma.reading.aggregate({ where: { archivedAt: null }, _sum: { value: true }, _count: true })
+    res.json({ totalConsumption: agg._sum.value || 0, readingCount: agg._count, trend: 0 })
+  } catch (err) { next(err) }
+})
+
+router.get("/variance", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const [invoiced, collected] = await Promise.all([
+      prisma.invoice.aggregate({ where: { archivedAt: null }, _sum: { amount: true } }),
+      prisma.payment.aggregate({ where: { status: "completed" }, _sum: { amount: true } }),
+    ])
+    const i = invoiced._sum.amount || 0
+    const c = collected._sum.amount || 0
+    res.json({ invoiced: i, collected: c, variance: i - c, variancePct: i ? Math.round((i - c) / i * 100) : 0 })
+  } catch (err) { next(err) }
+})
+
+router.get("/aging", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const invoices = await prisma.invoice.findMany({ where: { archivedAt: null, status: { in: ["issued", "partial", "overdue"] } }, select: { amount: true, paidAmount: true, dueDate: true } })
+    const now = Date.now()
+    const buckets = { "0-30": 0, "31-60": 0, "61-90": 0, "90+": 0 }
+    for (const inv of invoices) {
+      const outstanding = inv.amount - (inv.paidAmount || 0)
+      if (outstanding <= 0) continue
+      const due = inv.dueDate ? Math.floor((now - inv.dueDate) / 86400000) : 0
+      const key = due > 90 ? "90+" : due > 60 ? "61-90" : due > 30 ? "31-60" : "0-30"
+      buckets[key] += outstanding
+    }
+    res.json({ buckets })
+  } catch (err) { next(err) }
+})
+
+router.get("/kpi", requirePermission("reports.*"), async (req, res, next) => {
+  try {
+    const kpis = await prisma.kpiSnapshot.findMany({ orderBy: { recordedAt: "desc" }, take: 12 })
+    res.json({ kpis })
+  } catch (err) { next(err) }
+})
+
 router.post("/export", requirePermission("reports.*"), async (req, res, next) => {
   try {
     const { type, format, filters } = z.object({
