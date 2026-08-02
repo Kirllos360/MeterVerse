@@ -28,6 +28,7 @@ import { searchRouter } from "./routes/search.js"
 import { tasksRouter } from "./routes/tasks.js"
 import { alertsRouter } from "./routes/alerts.js"
 import { notificationsRouter } from "./routes/notifications.js"
+import { communicationRouter } from "./routes/communication.js"
 import { documentsRouter } from "./routes/documents.js"
 import { documentGovernanceRouter } from "./routes/documents-governance.js"
 import { tariffsRouter } from "./routes/tariffs.js"
@@ -269,6 +270,7 @@ mount("/security", securityRouter)
 mount("/sessions", sessionsRouter)
 mount("/meter-assignments", meterAssignmentRouter)
 mount("/notifications", notificationsRouter)
+mount("/communication", communicationRouter)
 mount("/preferences", preferencesRouter)
 mount("/search", searchRouter)
 mount("/tasks", tasksRouter)
