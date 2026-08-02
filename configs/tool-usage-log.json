@@ -1243,5 +1243,20 @@
             "backend/src/server.js (consumptions mount)",
             "P40_EXECUTION_TRACKER.md (OBS-065)"
         ]
+    },
+    {
+        "task": "Tool readiness audit — install missing capabilities (search-before-install)",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory"],
+        "tools_used": [
+            "verified 10 proposed tools: 8 already present (gh 2.92, prisma, playwright, snyk 1.1305, swagger-ui-express/swagger-jsdoc, pino, zod, hand-rolled prometheus getPrometheus live 200)",
+            "rejected Redis (not used — only a diagnostics label; queue/cache PostgreSQL-backed via QueueJob/CacheEntry)",
+            "installed @lhci/cli 0.15.1 globally (Lighthouse CI) for performance scoring — registered in configs/tools-manifest.md + PROJECT_STATE",
+            "committed governance updates"
+        ],
+        "evidence": [
+            "configs/tools-manifest.md (lhci entry)",
+            ".ai/memory/PROJECT_STATE.md (8.12.1 tool readiness)"
+        ]
     }
 ]

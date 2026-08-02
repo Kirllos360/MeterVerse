@@ -1,11 +1,20 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P0 Foundation (Wave-3 prep) — Consumption entity + API  
-**Version:** 8.12.0-P0-FOUNDATION  
+**Current Phase:** P0 Foundation (Wave-3 prep) — tool readiness audit  
+**Version:** 8.12.1-P0-FOUNDATION  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## Tool Readiness Audit (2026-08-01)
+
+Verified 10 proposed tools — **8 already present** (gh 2.92, prisma, playwright, snyk 1.1305, swagger, pino, zod, hand-rolled prometheus), **1 rejected** (Redis — not used; queue/cache is PostgreSQL-backed), **1 installed**:
+- **`@lhci/cli` 0.15.1** (Lighthouse CI) installed globally for performance scoring — registered in `configs/tools-manifest.md`.
+
+---
 
 ---
 

@@ -12,7 +12,7 @@
 | `sequential-thinking` | `mcp-server-sequential-thinking` | **Any complex multi-step task** — audit, analysis, planning, debugging | Breaks down problems into verifiable sub-steps. Prevents skipping intermediate reasoning. |
 | `git` | `mcp-server-git --repository D:\meter` | **Any git operation** — diff, blame, log, status, branch | Verifies what changed vs what was planned. Detects STATUS.yaml inconsistencies via git diff. |
 | `filesystem` | `mcp-server-filesystem D:\meter` | **Codebase analysis** — counting files, measuring sizes, finding patterns, Meter/ audit | Filesystem operations beyond glob/grep. Directory tree analysis, size audits. |
-| `postgres` | `uvx postgres-mcp --access-mode=restricted` | **Database auditing, tuning, health, index analysis, explain plans** | Crystal DBA Postgres MCP Pro � health checks, index tuning (Anytime Algorithm), explain plans with hypothetical indexes, safe SQL execution with read-only mode, workload analysis |
+| `postgres` | `uvx postgres-mcp --access-mode=restricted` | **Database auditing, tuning, health, index analysis, explain plans** | Crystal DBA Postgres MCP Pro � health checks, index tuning (Anytime Algorithm), explain plans with hypothetical indexes, safe SQL execution with read-only mode, workload analysis |
 | `playwright` | `npx @playwright/mcp@latest` | **UI verification** — screenshots, component rendering, visual regression | Captures evidence of UI changes. Required for T03 GATE_CHECK evidence. |
 | `openapi` | `mcp-openapi` | **API documentation** — generating/validating OpenAPI specs | When working on API contracts or route documentation. |
 
@@ -24,6 +24,7 @@
 | `prisma` | `backend/node_modules/.bin/prisma` | **Database schema** — migrations, validate, generate | Any schema change, migration, validation. |
 | `husky` | `node_modules/.bin/husky` | **Git hooks** — pre-commit, pre-push | Setting up commit hooks. Required for T03-S03. |
 | `npx` | System | **Running any npm package** without installing | Ad-hoc tool execution. |
+| `lhci` | Global (`@lhci/cli` 0.15.1) | **Performance scoring** — Lighthouse CI on deployed site | Performance/accessibility/SEO/BP audit. Acquired 2026-08-01 (P0 gate enhancement). |
 
 ## 3. Project Scripts
 
