@@ -1,11 +1,27 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P49.5 — Repository Intelligence Audit (pre-Wave-3)  
-**Version:** 8.10.0-P49.5-AUDITED  
-**Branch:** main (audit branch `audit/P49.5-repository-intelligence` for reports)  
+**Current Phase:** P49.6 — Capability Consolidation & Wave 3 Revalidation (complete — ready for P50/Wave 3)  
+**Version:** 8.11.0-P49.6-CONSOLIDATED  
+**Branch:** main (audit branch `audit/P49.6-capability-consolidation` for reports)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P49.6 Capability Consolidation
+
+Deliverables:
+- `docs/reviews/P49_6_ENTERPRISE_CAPABILITY_MAP.md` — Complete/Partial/Missing/Rejected
+- `docs/reviews/P49_6_WAVE3_REVALIDATION.md` — order C24→C25→C14 confirmed
+- `docs/reviews/P49_6_MISSING_CAPABILITY_ROADMAP.md` — 9 items with phase
+- `docs/security/OBS-063-security-remediation.md` — credential-leak remediation
+
+**Wave 3 adjusted scope:** C14 adds tickets/claims; C24 adds invoice hash/QR + robust import; C25 wires real email/SMS. Deferred: settlement/wallet/gas (Wave 5), bank reconciliation (C13-W05).
+
+**Security:** no leaked credentials in MeterVerse (verified); secret-scan CI gate on roadmap.
+
+**Next: P50 — Wave 3 Execution Activation.**
 
 ---
 
