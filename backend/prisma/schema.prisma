@@ -3093,6 +3093,133 @@ model AiRecommendationLog {
   @@index([createdAt])
 }
 
+// ─── C24 Enterprise Documents & Records (Wave 3) ─────────────────────────────
+// Governance layer over legacy StoredFile (binary store). Additive.
+
+model DocumentCategory {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  code        String       @unique
+  description String?
+  parentId    String?
+  parent      DocumentCategory? @relation("CategoryTree", fields: [parentId], references: [id])
+  children    DocumentCategory[] @relation("CategoryTree")
+  createdAt   DateTime     @default(now())
+  archivedAt  DateTime?
+
+  documents Document[]
+}
+
+model DocumentTag {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  color     String?
+  createdAt DateTime   @default(now())
+
+  documents DocumentDocumentTag[]
+}
+
+model Document {
+  id            String            @id @default(uuid())
+  title         String
+  description   String?
+  categoryId    String?
+  category      DocumentCategory? @relation(fields: [categoryId], references: [id])
+  status        String            @default("DRAFT") // DRAFT | REVIEW | APPROVED | PUBLISHED | ARCHIVED | DISPOSED
+  versionNumber Int               @default(1)
+  currentVersionId String?
+  mimeType      String?
+  sizeBytes     Int?
+  storedFileId  String?           // link to binary (StoredFile)
+  customerId    String?
+  areaId        String?
+  projectId     String?
+  createdBy     String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  archivedAt    DateTime?
+
+  versions      DocumentVersion[]
+  tags          DocumentDocumentTag[]
+  approvals     DocumentApproval[]
+  comments      DocumentComment[]
+  retentionPolicyId String?
+  retentionPolicy  RetentionPolicy? @relation(fields: [retentionPolicyId], references: [id])
+
+  @@index([categoryId, status])
+  @@index([customerId])
+  @@index([areaId, createdAt])
+  @@index([projectId])
+  @@index([storedFileId])
+}
+
+model DocumentVersion {
+  id            String    @id @default(uuid())
+  documentId    String
+  document      Document  @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  versionNumber Int
+  storedFileId  String?
+  mimeType      String?
+  sizeBytes     Int?
+  checksum      String?   // SHA-256 content hash
+  changeNote    String?
+  createdBy     String?
+  createdAt     DateTime  @default(now())
+
+  @@unique([documentId, versionNumber])
+  @@index([documentId])
+}
+
+model DocumentDocumentTag {
+  id         String       @id @default(uuid())
+  documentId String
+  document   Document     @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  tagId      String
+  tag        DocumentTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, tagId])
+}
+
+model RetentionPolicy {
+  id            String     @id @default(uuid())
+  name          String
+  code          String     @unique
+  retentionDays Int?
+  action        String     @default("ARCHIVE") // ARCHIVE | DISPOSE | KEEP
+  legalHold     Boolean    @default(false)
+  description   String?
+  active        Boolean    @default(true)
+  createdAt     DateTime   @default(now())
+  archivedAt    DateTime?
+
+  documents Document[]
+}
+
+model DocumentApproval {
+  id           String   @id @default(uuid())
+  documentId   String
+  document     Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  approverId   String?
+  status       String   @default("PENDING") // PENDING | APPROVED | REJECTED
+  comment      String?
+  decidedAt    DateTime?
+  createdAt    DateTime @default(now())
+
+  @@index([documentId, status])
+}
+
+model DocumentComment {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  authorId   String?
+  body       String
+  createdAt  DateTime @default(now())
+
+  @@index([documentId])
+}
+
+
 
 
 
