@@ -35,6 +35,8 @@ const ALL_NAV_ITEMS = [
   { id: "settings", label: "General Settings", icon: "M12 15a3 3 0 100-6 3 3 0 000 6z" },
   { id: "audit", label: "Audit Log", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2" },
   { id: "report-settings", label: "Reports", icon: "M9 17v-2m3 2v-4m3 4v-6" },
+  { id: "revenue-assurance", label: "Revenue Assurance", icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" },
+  { id: "financial-ai", label: "Financial AI", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10" },
 ]
 
 const PAGE_SUB_TABS: Record<string, { id: string; label: string }[]> = {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -39,7 +39,34 @@ const MOCK_TB: TrialBalanceRow[] = [
 
 export default function TrialBalancePage() {
   const [period, setPeriod] = useState(PERIODS[0])
-  const [rows] = useState<TrialBalanceRow[]>(MOCK_TB)
+  const [rows, setRows] = useState<TrialBalanceRow[]>(MOCK_TB)
+  const [live, setLive] = useState(false)
+
+  // P49: fetch real trial balance via the latest open financial period.
+  useEffect(() => {
+    let cancelled = false
+    fetch("/api/accounting/financial-periods", { headers: { "X-Dev-Mode": "true" } })
+      .then(r => r.ok ? r.json() : null)
+      .then(per => {
+        if (cancelled || !per?.periods?.length) return
+        const latest = per.periods[0]
+        setPeriod(`${latest.year}-${String(latest.month).padStart(2, "0")}`)
+        return fetch(`/api/accounting/trial-balance?periodId=${latest.id}`, { headers: { "X-Dev-Mode": "true" } })
+      })
+      .then(r => (r && r.ok ? r.json() : null))
+      .then(tb => {
+        if (cancelled || !tb?.rows?.length) return
+        const mapped: TrialBalanceRow[] = tb.rows.map((r: any) => ({
+          code: r.code, account: r.name, type: (r.type || "").toLowerCase(),
+          debit: r.totalDebit || (r.closingBalance > 0 ? r.closingBalance : 0),
+          credit: r.totalCredit || (r.closingBalance < 0 ? Math.abs(r.closingBalance) : 0),
+        }))
+        setRows(mapped.filter(r => r.code))
+        setLive(true)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
 
   const totalDebit = rows.reduce((s, r) => s + r.debit, 0)
   const totalCredit = rows.reduce((s, r) => s + r.credit, 0)

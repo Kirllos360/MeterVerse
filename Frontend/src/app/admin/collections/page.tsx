@@ -54,24 +54,40 @@ const ACTIVE_CASES: ActiveCase[] = [
 
 export default function AdminCollectionsPage() {
   const [aging, setAging] = useState<AgingBucket[]>(AGING_BUCKETS)
-  const [collectors] = useState<Collector[]>(COLLECTORS)
-  const [cases] = useState<ActiveCase[]>(ACTIVE_CASES)
+  const [collectors, setCollectors] = useState<Collector[]>(COLLECTORS)
+  const [cases, setCases] = useState<ActiveCase[]>(ACTIVE_CASES)
   const [live, setLive] = useState<{ openCases?: number; overdueTotal?: number } | null>(null)
 
-  // P45: fetch real collections summary from the backend when reachable.
-  // Static sample data remains as a graceful fallback (never overwrites real data).
+  // P45/P49: fetch real collections data from the backend when reachable.
+  // Static sample data remains as a graceful fallback (never shown when real).
   useEffect(() => {
     let cancelled = false
-    fetch("/api/collections/summary", { headers: { "X-Dev-Mode": "true" } })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => {
-        if (cancelled || !d || typeof d.openCases !== "number") return
-        setLive(d)
-        setAging([
-          { bucket: "Open cases", count: d.openCases, total: d.overdueTotal || 0, percentage: 100 },
-        ])
-      })
-      .catch(() => {})
+    Promise.all([
+      fetch("/api/collections/summary", { headers: { "X-Dev-Mode": "true" } }).then(r => r.ok ? r.json() : null),
+      fetch("/api/domain/collection-cases", { headers: { "X-Dev-Mode": "true" } }).then(r => r.ok ? r.json() : null),
+      fetch("/api/collections/risk-profiles", { headers: { "X-Dev-Mode": "true" } }).then(r => r.ok ? r.json() : null),
+    ]).then(([sum, casesD, riskD]) => {
+      if (cancelled) return
+      if (sum && typeof sum.openCases === "number") {
+        setLive(sum)
+        setAging([{ bucket: "Open cases", count: sum.openCases, total: sum.overdueTotal || 0, percentage: 100 }])
+      }
+      const realCases = (casesD as any)?.items || (casesD as any)?.collectionCases || (casesD as any)?.collection_cases || (casesD as any)?.data
+      if (Array.isArray(realCases) && realCases.length) {
+        setCases(realCases.slice(0, 10).map((c: any, i: number) => ({
+          id: c.id || `C${i}`, customer: c.customer?.name || c.customerId || "-", debt: c.totalAmount || 0,
+          daysOverdue: c.daysOverdue ?? 0, collector: c.assignedTo || "unassigned", status: c.status || "open",
+        })))
+        setLive(prev => prev || {})
+      }
+      const riskList = (riskD as any)?.profiles
+      if (Array.isArray(riskList) && riskList.length) {
+        setCollectors(riskList.slice(0, 6).map((p: any) => ({
+          name: p.customer?.name || p.customerId, cases: p.overdueCount || 0, collected: 0,
+          outstanding: p.totalOwing || 0, recoveryRate: Math.max(0, Math.min(100, Math.round(100 - p.riskScore))),
+        })))
+      }
+    }).catch(() => {})
     return () => { cancelled = true }
   }, [])
 

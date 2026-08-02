@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -46,15 +46,44 @@ const MOCK_BALANCES: AccountBalance[] = [
 
 export default function GeneralLedgerPage() {
   const [period, setPeriod] = useState(PERIODS[0])
-  const [ledger] = useState<LedgerEntry[]>(MOCK_LEDGER)
-  const [balances] = useState<AccountBalance[]>(MOCK_BALANCES)
+  const [ledger, setLedger] = useState<LedgerEntry[]>(MOCK_LEDGER)
+  const [balances, setBalances] = useState<AccountBalance[]>(MOCK_BALANCES)
+  const [live, setLive] = useState(false)
+
+  // P49: fetch real GL data from the backend. Mock data remains as a graceful
+  // fallback only (never shown when real data is available).
+  useEffect(() => {
+    let cancelled = false
+    fetch("/api/accounting/general-ledger", { headers: { "X-Dev-Mode": "true" } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (cancelled || !d?.entries?.length) return
+        const rows: LedgerEntry[] = d.entries.map((e: any) => ({
+          id: e.id, date: e.updatedAt || e.createdAt || "", account: e.account?.name || e.accountId,
+          accountCode: e.account?.code || "", description: e.description || "GL entry",
+          debit: e.totalDebit || 0, credit: e.totalCredit || 0, balance: e.closingBalance || 0,
+        }))
+        const byCode: Record<string, AccountBalance> = {}
+        for (const e of d.entries as any[]) {
+          const code = e.account?.code || e.accountId
+          if (!byCode[code]) byCode[code] = { account: e.account?.name || code, code, type: (e.account?.type || "").toLowerCase(), debitTotal: 0, creditTotal: 0, netBalance: e.closingBalance || 0 }
+          byCode[code].debitTotal += e.totalDebit || 0
+          byCode[code].creditTotal += e.totalCredit || 0
+        }
+        setLedger(rows)
+        setBalances(Object.values(byCode))
+        setLive(true)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>General Ledger</h1>
-          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>View ledger entries and account balances by period</p>
+          <p className="text-sm" style={{ color: "var(--text-secondary)" }}>{live ? "Live data from /api/accounting/general-ledger" : "View ledger entries and account balances by period"}</p>
         </div>
         <motion.div animate={waveAnim} className="w-8 h-8 rounded-full flex items-center justify-center" style={{ backgroundColor: "var(--brand)" }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5"><path d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7" /></svg>

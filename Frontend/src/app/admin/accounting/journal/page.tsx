@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
 const waveAnim = { scale: [1, 1.05, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
@@ -38,8 +38,32 @@ const MOCK_ENTRIES: JournalEntry[] = [
 ]
 
 export default function JournalEntryPage() {
-  const [lines] = useState<JournalLine[]>(MOCK_LINES)
-  const [entries] = useState<JournalEntry[]>(MOCK_ENTRIES)
+  const [lines, setLines] = useState<JournalLine[]>(MOCK_LINES)
+  const [entries, setEntries] = useState<JournalEntry[]>(MOCK_ENTRIES)
+  const [live, setLive] = useState(false)
+
+  // P49: fetch real journal entries. Mock data is graceful fallback only.
+  useEffect(() => {
+    let cancelled = false
+    fetch("/api/accounting/journal-entries", { headers: { "X-Dev-Mode": "true" } })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (cancelled || !d?.entries?.length) return
+        const list: JournalEntry[] = d.entries.map((e: any) => ({
+          id: e.entryNumber || e.id, description: e.description, date: e.entryDate || e.createdAt,
+          period: e.periodId || "", status: (e.status || "posted").toLowerCase(),
+          totalDebit: e.totalDebit || 0, totalCredit: e.totalCredit || 0, lines: e.lines?.length || 0,
+        }))
+        const first = d.entries[0]
+        if (first?.lines?.length) {
+          setLines(first.lines.map((l: any) => ({ id: l.id, account: l.account?.name || l.accountId, accountCode: l.account?.code || "", debit: l.debitAmount || 0, credit: l.creditAmount || 0 })))
+        }
+        setEntries(list)
+        setLive(true)
+      })
+      .catch(() => {})
+    return () => { cancelled = true }
+  }, [])
 
   const totalDebit = lines.reduce((s, l) => s + l.debit, 0)
   const totalCredit = lines.reduce((s, l) => s + l.credit, 0)

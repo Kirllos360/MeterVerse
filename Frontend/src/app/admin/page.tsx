@@ -20,6 +20,8 @@ const PaymentSettingsPage = dynamic(() => import("./payment-settings/page"), { s
 const SettingsPage = dynamic(() => import("./settings/page"), { ssr: false })
 const AuditPage = dynamic(() => import("./audit/page"), { ssr: false })
 const ReportSettingsPage = dynamic(() => import("./report-settings/page"), { ssr: false })
+const RevenueAssurancePage = dynamic(() => import("./revenue-assurance/page"), { ssr: false })
+const FinancialAiPage = dynamic(() => import("./financial-ai/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
@@ -39,6 +41,8 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   settings: SettingsPage,
   audit: AuditPage,
   "report-settings": ReportSettingsPage,
+  "revenue-assurance": RevenueAssurancePage,
+  "financial-ai": FinancialAiPage,
   // P46: sub-tabs resolve to their parent workspace page (no orphan screens)
   events: MonitoringPage,
   groups: CustomerSettingsPage,
