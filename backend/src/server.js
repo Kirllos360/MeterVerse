@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit"
 import { prisma } from "./db.js"
 import { authRouter } from "./routes/auth.js"
 import { customersRouter } from "./routes/customers.js"
+import { customerPortalRouter } from "./routes/customer-portal.js"
 import { metersRouter } from "./routes/meters.js"
 import { readingsRouter } from "./routes/readings.js"
 import { consumptionsRouter } from "./routes/consumptions.js"
@@ -252,6 +253,7 @@ app.use("/api/auth/login", (req, res, next) => {
 })
 mount("/auth", authRouter)
 mount("/customers", customersRouter)
+mount("/portal", customerPortalRouter)
 mount("/meters", metersRouter)
 mount("/readings", readingsRouter)
 mount("/consumptions", consumptionsRouter)

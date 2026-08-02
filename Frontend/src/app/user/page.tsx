@@ -16,6 +16,7 @@ const ProjectsPage = dynamic(() => import("../admin/projects/page"), { ssr: fals
 const ZonesPage = dynamic(() => import("../admin/zones/page"), { ssr: false })
 const UnitsPage = dynamic(() => import("../admin/units/page"), { ssr: false })
 const TariffsPage = dynamic(() => import("../admin/tariffs/page"), { ssr: false })
+const SelfServicePage = dynamic(() => import("./self-service/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
@@ -31,6 +32,7 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   zones: ZonesPage,
   units: UnitsPage,
   tariffs: TariffsPage,
+  "self-service": SelfServicePage,
 }
 
 export default function UserSpaPage() {

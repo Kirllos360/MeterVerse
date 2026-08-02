@@ -867,6 +867,11 @@ model Customer {
   installmentPlans InstallmentPlan[]
   disputes         Dispute[]
   writeOffRequests WriteOffRequest[]
+  customerPreferences CustomerPreference[]
+  delegatedAccesses   DelegatedAccess[]
+  serviceRequests     ServiceRequest[]
+  customerDocuments   CustomerDocument[]
+  tickets             Ticket[]
 }
 
 model MeterType {
@@ -3288,6 +3293,113 @@ model NotificationPreference {
   @@unique([userId, category])
   @@index([userId])
 }
+
+// ─── C14 Customer Experience (Wave 3) ────────────────────────────────────────
+// Customer self-service foundation: preferences, delegated access, service
+// requests, tickets, customer documents. Additive over Customer/Invoice/etc.
+
+model CustomerPreference {
+  id           String   @id @default(uuid())
+  customerId   String
+  customer     Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  language     String   @default("en")
+  theme        String   @default("adaptive")
+  notifyChannels String @default("[\"in_app\",\"email\"]") // JSON
+  billingEmail String?
+  billingPhone String?
+  preferences  String   @default("{}") // JSON custom prefs
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([customerId])
+  @@index([customerId])
+}
+
+model DelegatedAccess {
+  id              String   @id @default(uuid())
+  customerId      String
+  customer        Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  delegateUserId  String?
+  delegateEmail   String?
+  permissions     String   @default("[\"view\"]") // JSON scopes
+  status          String   @default("ACTIVE") // ACTIVE | REVOKED | EXPIRED
+  validFrom       DateTime @default(now())
+  validTo         DateTime?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  archivedAt      DateTime?
+
+  @@index([customerId, status])
+  @@index([delegateUserId])
+}
+
+model ServiceRequest {
+  id              String   @id @default(uuid())
+  customerId      String
+  customer        Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  type            String   // METER_INSTALL | METER_REPLACE | RECONNECT | DISCONNECT | BILLING | OTHER
+  subject         String
+  description     String?
+  status          String   @default("SUBMITTED") // SUBMITTED | IN_PROGRESS | RESOLVED | CLOSED | CANCELLED
+  assignedTo      String?
+  resolution      String?
+  resolvedAt      DateTime?
+  createdBy       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  archivedAt      DateTime?
+
+  messages ServiceRequestMessage[]
+  @@index([customerId, status])
+  @@index([type, status])
+}
+
+model ServiceRequestMessage {
+  id            String         @id @default(uuid())
+  requestId     String
+  request       ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  authorId      String?
+  body          String
+  channel       String         @default("in_app")
+  createdAt     DateTime       @default(now())
+
+  @@index([requestId])
+}
+
+model CustomerDocument {
+  id          String   @id @default(uuid())
+  customerId  String
+  customer    Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  documentId  String?  // link to C24 Document governance
+  title       String
+  docType     String   @default("STATEMENT") // STATEMENT | CONTRACT | RECEIPT | OTHER
+  storedFileId String?
+  createdAt   DateTime @default(now())
+  archivedAt  DateTime?
+
+  @@index([customerId, docType])
+}
+
+model Ticket {
+  id          String   @id @default(uuid())
+  customerId  String?
+  customer    Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  subject     String
+  description String?
+  category    String   @default("SUPPORT") // SUPPORT | BILLING | METER | TECHNICAL | COMPLAINT
+  priority    String   @default("NORMAL") // LOW | NORMAL | HIGH | CRITICAL
+  status      String   @default("OPEN") // OPEN | IN_PROGRESS | RESOLVED | CLOSED
+  assignedTo  String?
+  createdBy   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  archivedAt  DateTime?
+
+  @@index([customerId, status])
+  @@index([category, status])
+  @@index([status, createdAt])
+}
+
 
 
 
