@@ -1,11 +1,33 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P45 — Enterprise Core Platform Baseline  
-**Version:** 8.5.0-P45-CORE-BASELINE  
+**Current Phase:** P46 — Enterprise Operational Readiness & Alpha Activation  
+**Version:** 8.6.0-P46-ALPHA-OPERATIONAL  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P46 Alpha Certification
+
+All 10 enterprise scenarios executed live and pass. **MeterVerse Alpha Operational certified.**
+
+| Capability | Status |
+|---|---|
+| Authentication / Session / Logout | ✅ Scenario 1 pass |
+| Organization (Area/Project CRUD) | ✅ Scenario 2 pass (Area CRUD added) |
+| Permissions / RBAC / Scope | ✅ Scenario 3 pass (403 + audit) |
+| Settings persistence | ✅ Scenario 4 pass (AES-GCM fixed) |
+| TCP connection + diagnostics | ✅ Scenario 5 pass |
+| Meter lifecycle | ✅ Scenario 6 pass |
+| Reading intake | ✅ Scenario 7 pass |
+| Billing → Payment → GL | ✅ Scenario 8 pass (GL posted) |
+| Audit trail (full fields) | ✅ Scenario 9 pass |
+| Workspace (SPA, no orphans) | ✅ Scenario 10 pass (sub-tabs wired) |
+
+Demo seeds (committed): `scripts/seed.js`, `seed-org-hierarchy.mjs`, `seed-gl-baseline.mjs`.
+Report: `docs/reviews/P46_ALPHA_READINESS_REPORT.md`.
 
 ---
 
