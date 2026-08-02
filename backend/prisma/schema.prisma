@@ -902,6 +902,7 @@ model Meter {
   meterAssignments MeterAssignment[]
   meterEvents      MeterEvent[]
   readings         Reading[]
+  consumptions     Consumption[]
   simAssignments   SIMAssignment[]
   simCards         SIMCard[]
   serviceConnections ServiceConnection[]
@@ -989,6 +990,40 @@ model Reading {
   @@index([projectId, timestamp])
 }
 
+// ─── P0 Foundation: Consumption (Wave 3 prep) ─────────────────────────────────
+// Persisted per-meter consumption (delta between readings) with validation and
+// billing linkage. Additive — computed at runtime today, now first-class.
+
+model Consumption {
+  id           String   @id @default(uuid())
+  meterId      String
+  meter        Meter    @relation(fields: [meterId], references: [id])
+  fromReadingId String?
+  toReadingId  String?
+  periodStart  DateTime
+  periodEnd    DateTime
+  value        Float    @default(0)          // consumption in meter.unit
+  unit         String   @default("kWh")
+  source       String   @default("calculated") // calculated | manual | imported
+  status       String   @default("PENDING")   // PENDING | VALIDATED | FLAGGED | BILLED
+  validationNote String?
+  invoiceId    String?
+  invoice      Invoice? @relation(fields: [invoiceId], references: [id])
+  areaId       String?
+  projectId    String?
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  archivedAt   DateTime?
+
+  @@index([meterId, periodStart, periodEnd])
+  @@index([meterId, status])
+  @@index([invoiceId])
+  @@index([areaId, periodStart])
+  @@index([projectId, periodStart])
+  @@unique([meterId, periodStart, periodEnd])
+}
+
+
 model Invoice {
   id              String           @id @default(uuid())
   number          String           @unique
@@ -1009,6 +1044,7 @@ model Invoice {
   customer        Customer         @relation(fields: [customerId], references: [id])
   invoiceItems    InvoiceItem[]
   payments        Payment[]
+  consumptions    Consumption[]
 
   @@index([customerId, status])
   @@index([status, createdAt])

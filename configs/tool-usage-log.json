@@ -1222,5 +1222,26 @@
             "docs/security/OBS-063-security-remediation.md",
             "P40_EXECUTION_TRACKER.md (OBS-064)"
         ]
+    },
+    {
+        "task": "P0 Foundation (Wave-3 prep) — Consumption entity + API",
+        "date": "2026-08-01",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "todowrite"],
+        "tools_used": [
+            "loaded AI_BIBLE pre-flight + P00 + AI_ROLES + tools-manifest + PROJECT_STATE + memory graph",
+            "verified deep-audit claims were stale (166/168 models exist, audit/RBAC/validation complete, archivedAt standard)",
+            "identified true gap: Consumption entity; added Consumption model + Meter/Invoice relations (B-14 migration)",
+            "created /api/consumptions CRUD route (audit + RBAC + dedupe); registered in server.js",
+            "verified live: create 201 + list; cleaned test record",
+            "full quality gate: 267 unit, 56 contract, 31 integration, coverage green, tsc 0, vitest 44",
+            "committed to kirllos360 origin; recorded OBS-065, PROJECT_STATE 8.12.0"
+        ],
+        "evidence": [
+            "backend/prisma/schema.prisma (Consumption model)",
+            "backend/prisma/migrations/20260801090000_add_consumption_foundation/migration.sql",
+            "backend/src/routes/consumptions.js",
+            "backend/src/server.js (consumptions mount)",
+            "P40_EXECUTION_TRACKER.md (OBS-065)"
+        ]
     }
 ]

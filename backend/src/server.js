@@ -7,6 +7,7 @@ import { authRouter } from "./routes/auth.js"
 import { customersRouter } from "./routes/customers.js"
 import { metersRouter } from "./routes/meters.js"
 import { readingsRouter } from "./routes/readings.js"
+import { consumptionsRouter } from "./routes/consumptions.js"
 import { invoicesRouter } from "./routes/invoices.js"
 import { paymentsRouter } from "./routes/payments.js"
 import { adminRouter } from "./routes/admin.js"
@@ -251,6 +252,7 @@ mount("/auth", authRouter)
 mount("/customers", customersRouter)
 mount("/meters", metersRouter)
 mount("/readings", readingsRouter)
+mount("/consumptions", consumptionsRouter)
 mount("/invoices", invoicesRouter)
 mount("/payments", paymentsRouter)
 mount("/admin", adminRouter)

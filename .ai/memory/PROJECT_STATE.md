@@ -1,11 +1,21 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P49.6 — Capability Consolidation & Wave 3 Revalidation (complete — ready for P50/Wave 3)  
-**Version:** 8.11.0-P49.6-CONSOLIDATED  
-**Branch:** main (audit branch `audit/P49.6-capability-consolidation` for reports)  
+**Current Phase:** P0 Foundation (Wave-3 prep) — Consumption entity + API  
+**Version:** 8.12.0-P0-FOUNDATION  
+**Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P0 Foundation (from Deep Audit)
+
+Verified deep-audit claims were **stale**: 166/168 core models already exist (billing/invoices/payments/GL certified P46), audit/RBAC/validation complete, `archivedAt` is the soft-delete standard. True gap: **Consumption** entity — added (B-14 migration) + `/api/consumptions` CRUD (audit + RBAC + dedupe). Verified live.
+
+Full gate: 267 unit, 56 contract, 31 integration, coverage green, tsc 0, vitest 44.
+
+**Next: Wave 3 (C24/C25/C14) per P49.6 roadmap + P48 EOS.**
 
 ---
 
