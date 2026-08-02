@@ -58,9 +58,9 @@ Program-level status:
 
 | Program | Status | Implemented | Approved | Coverage |
 |---------|--------|------------|----------|:--------:|
-| C24 Documents & Records | 🟨 | StoredFile, OcrJob, PdfJob (legacy) | + governed repository (21 models, 0 built) | 5% |
-| C25 Communication | 🟨 | Notification, EmailLog, SmsLog, webhook (legacy) | + unified hub (21 models, 0 built) | 8% |
-| C14 Customer Experience | 🟥 | basic pages | + portal (8 pages, 5 models, 0 built) | 8% |
+| C24 Documents & Records | 🟨 | StoredFile/OcrJob/PdfJob + Document governance (8 models: Document/Version/Category/Tag/Retention/Approval/Comment + API) | + governed repository (21 models, 8 built) | 35% |
+| C25 Communication | 🟨 | Notification/EmailLog/SmsLog + unified inbox (Conversation/Message/DeliveryAttempt/Preference + API) | + unified hub (21 models, 4 built) | 40% |
+| C14 Customer Experience | 🟨 | Customer portal (Preference/DelegatedAccess/ServiceRequest/CustomerDocument/Ticket + API + self-service page) | + portal (8 pages, 5 models, 5 built + Ticket) | 35% |
 
 ## Wave 4 â€” Integration/MDM/Analytics (C15, C26, C17) â€” ~50 days
 
@@ -191,6 +191,7 @@ Recorded per Rule 5-7 of the Full Implementation Program. Each observation: Uniq
 | OBS-063 | P49.5 critical security | `Mete` repo commits hardcoded Symbiot SQL Server `sa` credentials + sBill passwords in `backend/src/sync/sync-orchestrator.service.ts`. MeterVerse must never inherit this. | Critical | Do NOT copy sync creds; use env/credential-vault only. |
 | OBS-064 | P49.6 capability consolidation | Produced Enterprise Capability Map (Complete/Partial/Missing/Rejected), Wave 3 revalidation (C24→C25→C14 order confirmed), Missing Capability Roadmap (9 items with phase), and OBS-063 security remediation. Reports: `docs/reviews/P49_6_*.md` ×3 + `docs/security/OBS-063-security-remediation.md`. Wave 3 adjusted: C14 adds tickets/claims, C24 adds invoice hash/QR, C25 wires real delivery. | High | Wave 3 execution (P50) incorporates the extraction list; secret-scan CI gate added to roadmap. |
 | OBS-065 | P0 Foundation (Wave-3 prep) | Deep-audit prompt's claims were stale — verified 166/168 core models exist (billing/invoices/payments/GL certified P46), audit/RBAC/validation complete, `archivedAt` soft-delete is the standard (no deletedAt/deletedBy divergence). True gap: `Consumption` entity (persisted per-meter consumption). Added Consumption model (B-14 migration) + `/api/consumptions` CRUD (audit + RBAC + dedupe). Verified create 201/list live. Full gate: 267 unit, 56 contract, 31 integration, coverage green, tsc 0. | High | Wave 3 billing engine can now reference persisted Consumption records. |
+| OBS-066 | Wave 3 certified (C24/C25/C14) | Wave 3 delivered end-to-end: C24 document governance (8 models, B-15), C25 communication hub (4 models, B-16), C14 customer experience (6 models, B-17). 18 new models + 3 route files + 3 frontend apps + 25 tests. Tests 267→292. All committed+pushed (c6dfc1e7, 09e20f36, 2761f974). Tracker rows updated to match repo reality. | High | Wave 4 (C15/C26/C17) next; extract settlement/wallet/gas (Mete) + bank reconciliation in later wave. |
 
 ---
 

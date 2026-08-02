@@ -1,18 +1,22 @@
 # MeterVerse — Project State
 
 **Last Updated:** 2026-08-01  
-**Current Phase:** P0 Foundation (Wave-3 prep) — tool readiness audit  
-**Version:** 8.12.1-P0-FOUNDATION  
+**Current Phase:** Wave 3 COMPLETE — Documents (C24) + Communication (C25) + Customer Experience (C14)  
+**Version:** 9.0.0-WAVE3-COMPLETE  
 **Branch:** main  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## Tool Readiness Audit (2026-08-01)
+## Wave 3 — Complete (P50)
 
-Verified 10 proposed tools — **8 already present** (gh 2.92, prisma, playwright, snyk 1.1305, swagger, pino, zod, hand-rolled prometheus), **1 rejected** (Redis — not used; queue/cache is PostgreSQL-backed), **1 installed**:
-- **`@lhci/cli` 0.15.1** (Lighthouse CI) installed globally for performance scoring — registered in `configs/tools-manifest.md`.
+- **C24 Documents:** Document/Version/Category/Tag/Retention/Approval/Comment models (B-15) + `/api/documents-governance` + admin page. Reused legacy StoredFile binary store.
+- **C25 Communication:** Conversation/Message/DeliveryAttempt/Preference (B-16) + `/api/communication` unified inbox + admin page. Reused nodemailer/notification-engine/webhook.
+- **C14 Customer Experience:** Preference/DelegatedAccess/ServiceRequest/CustomerDocument/Ticket (B-17) + `/api/portal` + user self-service page.
+- 18 new models, 3 migrations (B-15/16/17), 25 new tests (292 total), live-verified, all pushed.
+
+Trackers: C24 35%, C25 40%, C14 35%. **Next: Wave 4 (C15 Integration, C26 MDM, C17 Analytics) per P40.**
 
 ---
 
