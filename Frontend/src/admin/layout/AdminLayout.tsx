@@ -41,6 +41,26 @@ const ALL_NAV_ITEMS = [
   { id: "financial-ai", label: "Financial AI", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10" },
   { id: "documents-governance", label: "Documents", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" },
   { id: "communication", label: "Communication", icon: "M8 10h8m-8 4h5M3 7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" },
+  // P55: operational sub-pages — reachable via nav (were wired in pageMap only)
+  { id: "accounting", label: "Accounting", icon: "M12 6v6m0 0v6m0-6h6m-6 0H6" },
+  { id: "collections", label: "Collections", icon: "M9 17v-2m3 2v-4m3 4v-6" },
+  { id: "alerts", label: "Alerts", icon: "M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+  { id: "sim", label: "SIM", icon: "M8 11V7a4 4 0 118 0m-4 8v2m-2-6h4" },
+  { id: "zones", label: "Zones", icon: "M12 8c-2.21 0-4 1.79-4 4 0 4 4 8 4 8s4-4 4-8c0-2.21-1.79-4-4-4z" },
+  { id: "units", label: "Units", icon: "M3 21h18M5 21V7l7-4 7 4v14" },
+  { id: "service-connections", label: "Service Connections", icon: "M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9" },
+  { id: "meter-assignments", label: "Meter Assignments", icon: "M9 3l3-3m0 0l3 3m-3-3v12" },
+  { id: "notifications", label: "Notifications", icon: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" },
+  { id: "roles", label: "Roles", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" },
+  { id: "permissions", label: "Permissions", icon: "M12 11c1.657 0 3-1.343 3-3S13.657 5 12 5 9 6.343 9 8s1.343 3 3 3zM6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2" },
+  { id: "scheduler", label: "Scheduler", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0" },
+  { id: "queue", label: "Queue", icon: "M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2" },
+  { id: "tasks", label: "Tasks", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" },
+  { id: "webhooks", label: "Webhooks", icon: "M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" },
+  { id: "integrations", label: "Integrations", icon: "M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" },
+  { id: "connectivity-center", label: "Connectivity", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+  { id: "runtime", label: "Runtime", icon: "M13 10V3L4 14h7v7l9-11h-7z" },
+  { id: "backup", label: "Backup", icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2" },
 ]
 
 const PAGE_SUB_TABS: Record<string, { id: string; label: string }[]> = {
