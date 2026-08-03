@@ -11,7 +11,7 @@ call "%~dp0SafetyCheck.cmd"
 if %errorlevel%==1 exit /b 1
 
 set BE_PORT=3131
-set FE_PORT=3030
+set FE_PORT=3535
 set LD=%~dp0logs
 set LM=%LD%\main.log
 set LE=%LD%\errors.log

@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "meterverse://enterprise/runtime/ai-runtime-profile.schema.json",
   "version": "1.0.0",
   "generated": "2026-07-12T06:57:00Z",
@@ -50,8 +50,8 @@
     { "name": "Trivy", "command": "trivy fs --severity CRITICAL,HIGH .", "severity": "high" },
     { "name": "Spectral API Lint", "command": "npx spectral lint **/*.ts", "severity": "medium" },
     { "name": "TruffleHog", "command": "trufflehog filesystem . --only-verified", "severity": "blocker" },
-    { "name": "Lighthouse", "command": "npx lighthouse http://localhost:3030 --output=html", "severity": "medium" },
-    { "name": "Axe", "command": "axe http://localhost:3030", "severity": "medium" }
+    { "name": "Lighthouse", "command": "npx lighthouse http://localhost:3535 --output=html", "severity": "medium" },
+    { "name": "Axe", "command": "axe http://localhost:3535", "severity": "medium" }
   ],
   "mcpServers": [
     { "name": "notion", "type": "cloud", "configKey": "notionApiKey" },

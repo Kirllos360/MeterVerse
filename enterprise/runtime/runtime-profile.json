@@ -1,4 +1,4 @@
-{
+﻿{
   "$schema": "meterverse://enterprise/runtime/runtime-profile.schema.json",
   "version": "1.0.0",
   "generated": "2026-07-12T06:50:00Z",
@@ -6,7 +6,7 @@
     "name": "MeterVerse",
     "organization": "MeterVerse Enterprise",
     "root": "D:\\meter",
-    "description": "Enterprise Utility Operating System — multi-tenant metering, billing, and energy management platform"
+    "description": "Enterprise Utility Operating System â€” multi-tenant metering, billing, and energy management platform"
   },
   "environment": {
     "os": "Microsoft Windows 11 Pro",
@@ -97,6 +97,6 @@
     "snyk": "snyk test",
     "trivy": "trivy fs --severity CRITICAL,HIGH .",
     "spectral": "spectral lint **/*.ts",
-    "lighthouse": "npx lighthouse http://localhost:3030 --output=html"
+    "lighthouse": "npx lighthouse http://localhost:3535 --output=html"
   }
 }

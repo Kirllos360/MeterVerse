@@ -7,7 +7,7 @@ import('playwright').then(async (pw) => {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1440, height: 900 });
   console.log('Navigating...');
-  await page.goto('http://localhost:3030/admin', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await page.goto('http://localhost:3535/admin', { waitUntil: 'domcontentloaded', timeout: 30000 });
   console.log('Page loaded');
   await page.screenshot({ path: 'esm-test.png', fullPage: true });
   console.log('Screenshot saved');

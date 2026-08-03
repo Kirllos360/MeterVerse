@@ -4,8 +4,8 @@
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
     await page.setViewportSize({ width: 1440, height: 900 });
-    console.log('Navigating to http://localhost:3030/admin...');
-    await page.goto('http://localhost:3030/admin', { waitUntil: 'load', timeout: 60000 });
+    console.log('Navigating to http://localhost:3535/admin...');
+    await page.goto('http://localhost:3535/admin', { waitUntil: 'load', timeout: 60000 });
     console.log('Page loaded, waiting 3s...');
     await page.waitForTimeout(3000);
     await page.screenshot({ path: 'test-capture-2.png', fullPage: true });

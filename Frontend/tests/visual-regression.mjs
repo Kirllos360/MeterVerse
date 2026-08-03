@@ -8,7 +8,7 @@ import pixelmatch from "pixelmatch"
 import { PNG } from "pngjs"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:3030"
+const BASE = "http://localhost:3535"
 const SCREENSHOTS = join(__dirname, "..", "..", "docs", "screenshots")
 const BASELINE = join(SCREENSHOTS, "baseline")
 const DIFF_DIR = join(SCREENSHOTS, "diff")

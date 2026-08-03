@@ -2,11 +2,11 @@
   "name": "@meterverse/portal-frontend",
   "version": "10.0.0",
   "private": true,
-  "description": "MeterVerse OS — Customer Portal (port 3535). Deployable profile over the shared Next.js source (PORTAL_MODE=1); no code duplication.",
+  "description": "MeterVerse OS — Customer Portal (port 3030). Deployable profile over the shared Next.js source (PORTAL_MODE=1); no code duplication.",
   "scripts": {
-    "dev": "cd ../../Frontend && PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3535",
+    "dev": "cd ../../Frontend && PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
     "build": "cd ../../Frontend && PORTAL_MODE=1 next build",
-    "start": "cd ../../Frontend && PORTAL_MODE=1 next start -p 3535",
+    "start": "cd ../../Frontend && PORTAL_MODE=1 next start -p 3030",
     "lint": "cd ../../Frontend && npx oxlint"
   },
   "dependencies": {

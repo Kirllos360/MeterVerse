@@ -4,10 +4,10 @@ import type { NextRequest } from "next/server"
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const host = request.headers.get("host") || ""
-  const port = host.split(":")[1] || "3030"
+  const port = host.split(":")[1] || "3535"
   const isPortal = process.env.PORTAL_MODE === "1"
 
-  // === ADMIN FRONTEND (:3030) ===
+  // === ADMIN FRONTEND (:3535) ===
   if (!isPortal) {
     // Allow Next.js internals and static assets
     if (pathname.startsWith("/_next") || pathname.match(/\.\w+$/)) {
@@ -21,7 +21,7 @@ export default function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url))
   }
 
-  // === PORTAL FRONTEND (:3535) ===
+  // === PORTAL FRONTEND (:3030) ===
   // Allow portal routes, auth, assets
   if (
     pathname.startsWith("/user") ||

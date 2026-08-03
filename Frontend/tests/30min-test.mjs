@@ -5,7 +5,7 @@ import { fileURLToPath } from "url"
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const FRONTEND = join(__dirname, "..")
-const BASE = "http://localhost:3030"
+const BASE = "http://localhost:3535"
 
 async function httpGet(path) {
   try {

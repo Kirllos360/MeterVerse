@@ -3,7 +3,7 @@
 :: Edit this file to change ports, paths, and repo settings
 
 set BE_PORT=3131
-set FE_PORT=3030
+set FE_PORT=3535
 set DB_PORT=5432
 set DB_USER=meter_pulse
 set DB_PASS=meter_pulse_dev

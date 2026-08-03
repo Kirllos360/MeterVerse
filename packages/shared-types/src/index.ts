@@ -7,11 +7,11 @@ export interface ServicePorts {
   portalBackend: number
 }
 
-/** MeterVerse OS canonical port registry — single source of truth. */
+/** MeterVerse OS canonical port registry — single source of truth. (P53 forensic swap) */
 export const SERVICE_PORTS: ServicePorts = {
-  adminFrontend: 3030,
+  adminFrontend: 3535,
   adminBackend: 3131,
-  portalFrontend: 3535,
+  portalFrontend: 3030,
   portalBackend: 3003,
 }
 

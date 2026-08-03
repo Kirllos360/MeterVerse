@@ -1,5 +1,5 @@
-# MeterVerse Enterprise Validation Engine v4
-**Generated:** 2026-07-14 | **Phase 04 — Enterprise AI Integration & Autonomous Orchestration**
+﻿# MeterVerse Enterprise Validation Engine v4
+**Generated:** 2026-07-14 | **Phase 04 â€” Enterprise AI Integration & Autonomous Orchestration**
 
 ## Purpose
 Validates every execution result across 12 domains. Gates enforce quality, security, architecture, and compliance standards autonomously. The validation engine is invoked by the orchestrator after each tool execution and at chain completion.
@@ -25,41 +25,41 @@ Validates every execution result across 12 domains. Gates enforce quality, secur
 
 ```
 Tool Execution Output
-  │
-  ▼
-┌─────────────────────────────────────────────────────┐
-│ 1. DOMAIN ROUTER                                     │
-│    Map tool → validation domain(s)                   │
-│    Load domain rules and thresholds                  │
-└─────────────────────────────────────────────────────┘
-  │
-  ▼
-┌─────────────────────────────────────────────────────┐
-│ 2. GATE EXECUTOR                                     │
-│    For each domain gate:                             │
-│    a. Parse tool output for pass/fail signals        │
-│    b. Check against domain thresholds                │
-│    c. Classify result: PASS / FAIL / WARN / SKIP    │
-└─────────────────────────────────────────────────────┘
-  │
-  ▼
-┌─────────────────────────────────────────────────────┐
-│ 3. SEVERITY EVALUATOR                                │
-│    FAIL + BLOCKER → STOP execution                   │
-│    FAIL + HIGH → WARN, continue, flag in report     │
-│    FAIL + MEDIUM → WARN, continue                   │
-│    All PASS → continue                               │
-└─────────────────────────────────────────────────────┘
-  │
-  ▼
-┌─────────────────────────────────────────────────────┐
-│ 4. RESULT AGGREGATOR                                 │
-│    Merge all domain results                          │
-│    Calculate pass rate per domain + overall          │
-│    Generate validation report                        │
-└─────────────────────────────────────────────────────┘
-  │
-  ▼
+  â”‚
+  â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 1. DOMAIN ROUTER                                     â”‚
+â”‚    Map tool â†’ validation domain(s)                   â”‚
+â”‚    Load domain rules and thresholds                  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+  â”‚
+  â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 2. GATE EXECUTOR                                     â”‚
+â”‚    For each domain gate:                             â”‚
+â”‚    a. Parse tool output for pass/fail signals        â”‚
+â”‚    b. Check against domain thresholds                â”‚
+â”‚    c. Classify result: PASS / FAIL / WARN / SKIP    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+  â”‚
+  â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 3. SEVERITY EVALUATOR                                â”‚
+â”‚    FAIL + BLOCKER â†’ STOP execution                   â”‚
+â”‚    FAIL + HIGH â†’ WARN, continue, flag in report     â”‚
+â”‚    FAIL + MEDIUM â†’ WARN, continue                   â”‚
+â”‚    All PASS â†’ continue                               â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+  â”‚
+  â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ 4. RESULT AGGREGATOR                                 â”‚
+â”‚    Merge all domain results                          â”‚
+â”‚    Calculate pass rate per domain + overall          â”‚
+â”‚    Generate validation report                        â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+  â”‚
+  â–¼
 OUTPUT: ValidationReport JSON
 ```
 
@@ -69,9 +69,9 @@ OUTPUT: ValidationReport JSON
 ```
 severity: BLOCKER
 tools:
-  - TypeScript: "npx tsc --noEmit" → exit 0 = PASS, exit != 0 = FAIL
-  - ESLint: "eslint . --ext .ts,.tsx" → 0 errors = PASS, >0 errors = FAIL
-  - Prettier: "prettier --check ." → formatted = PASS, unformatted = WARN
+  - TypeScript: "npx tsc --noEmit" â†’ exit 0 = PASS, exit != 0 = FAIL
+  - ESLint: "eslint . --ext .ts,.tsx" â†’ 0 errors = PASS, >0 errors = FAIL
+  - Prettier: "prettier --check ." â†’ formatted = PASS, unformatted = WARN
 
 pass criteria: TypeScript PASS && ESLint PASS
 blocker: TypeScript FAIL || ESLint FAIL
@@ -81,10 +81,10 @@ blocker: TypeScript FAIL || ESLint FAIL
 ```
 severity: BLOCKER
 tools:
-  - DependencyCruiser: "depcruise src --output-type err" → 0 violations = PASS
-  - Madge: "madge --circular src/index.ts" → 0 circular = PASS, >0 = FAIL
-  - Knip: "knip" → 0 dead exports = PASS, >0 = WARN
-  - ts-prune: "ts-prune" → 0 unused = PASS, >0 = WARN
+  - DependencyCruiser: "depcruise src --output-type err" â†’ 0 violations = PASS
+  - Madge: "madge --circular src/index.ts" â†’ 0 circular = PASS, >0 = FAIL
+  - Knip: "knip" â†’ 0 dead exports = PASS, >0 = WARN
+  - ts-prune: "ts-prune" â†’ 0 unused = PASS, >0 = WARN
 
 pass criteria: DependencyCruiser PASS && Madge PASS
 blocker: DependencyCruiser FAIL || Madge FAIL
@@ -94,13 +94,13 @@ blocker: DependencyCruiser FAIL || Madge FAIL
 ```
 severity: BLOCKER
 tools:
-  - Semgrep: "semgrep --config=auto ." → 0 findings = PASS, >0 high/critical = FAIL
-  - Snyk: "snyk test" → 0 high/critical = PASS, >0 = FAIL
-  - Trivy: "trivy fs --severity CRITICAL,HIGH ." → 0 critical/high = PASS
-  - Checkov: "checkov -d ." → 0 failed = PASS, >0 high = FAIL
-  - Gitleaks: "gitleaks detect" → 0 secrets = PASS, >0 = FAIL
-  - TruffleHog: "trufflehog filesystem . --only-verified" → 0 secrets = PASS
-  - npm audit: "npm audit" → 0 critical/high = PASS, >0 = FAIL
+  - Semgrep: "semgrep --config=auto ." â†’ 0 findings = PASS, >0 high/critical = FAIL
+  - Snyk: "snyk test" â†’ 0 high/critical = PASS, >0 = FAIL
+  - Trivy: "trivy fs --severity CRITICAL,HIGH ." â†’ 0 critical/high = PASS
+  - Checkov: "checkov -d ." â†’ 0 failed = PASS, >0 high = FAIL
+  - Gitleaks: "gitleaks detect" â†’ 0 secrets = PASS, >0 = FAIL
+  - TruffleHog: "trufflehog filesystem . --only-verified" â†’ 0 secrets = PASS
+  - npm audit: "npm audit" â†’ 0 critical/high = PASS, >0 = FAIL
 
 pass criteria: ALL tools PASS
 blocker: ANY tool FAIL (high/critical finding)
@@ -110,10 +110,10 @@ blocker: ANY tool FAIL (high/critical finding)
 ```
 severity: BLOCKER
 tools:
-  - Playwright: "npx playwright test" → all passing = PASS, any fail = FAIL
-  - k6: "k6 run script.js" → 0 errors = PASS, >0 = FAIL
-  - Jest: "npx jest --coverage" → all pass, coverage >= 80% = PASS
-  - Artillery: "artillery run script.yml" → 0 errors = PASS
+  - Playwright: "npx playwright test" â†’ all passing = PASS, any fail = FAIL
+  - k6: "k6 run script.js" â†’ 0 errors = PASS, >0 = FAIL
+  - Jest: "npx jest --coverage" â†’ all pass, coverage >= 80% = PASS
+  - Artillery: "artillery run script.yml" â†’ 0 errors = PASS
 
 pass criteria: Playwright PASS (required), Jest PASS (required)
 blocker: Playwright FAIL || Jest FAIL
@@ -123,9 +123,9 @@ blocker: Playwright FAIL || Jest FAIL
 ```
 severity: BLOCKER
 tools:
-  - Spectral: "npx spectral lint **/*.ts" → 0 errors = PASS
-  - Redocly: "redocly lint" → 0 errors = PASS
-  - SwaggerCLI: "swagger-cli validate" → valid = PASS
+  - Spectral: "npx spectral lint **/*.ts" â†’ 0 errors = PASS
+  - Redocly: "redocly lint" â†’ 0 errors = PASS
+  - SwaggerCLI: "swagger-cli validate" â†’ valid = PASS
 
 pass criteria: Spectral PASS (required)
 blocker: Spectral FAIL
@@ -135,9 +135,9 @@ blocker: Spectral FAIL
 ```
 severity: HIGH
 tools:
-  - Pa11y: "pa11y <url>" → score >= 90 = PASS
-  - Axe CLI: "axe <url>" → 0 violations = PASS
-  - Lighthouse a11y: "lighthouse <url> --category=accessibility" → score >= 90 = PASS
+  - Pa11y: "pa11y <url>" â†’ score >= 90 = PASS
+  - Axe CLI: "axe <url>" â†’ 0 violations = PASS
+  - Lighthouse a11y: "lighthouse <url> --category=accessibility" â†’ score >= 90 = PASS
 
 pass criteria: Pa11y PASS (required)
 blocker: none (HIGH severity, not BLOCKER)
@@ -147,9 +147,9 @@ blocker: none (HIGH severity, not BLOCKER)
 ```
 severity: HIGH
 tools:
-  - Lighthouse: "lighthouse <url> --category=performance" → score >= 80 = PASS
-  - BundleWizard: "bundle-wizard analyze" → bundle < threshold = PASS
-  - k6: "k6 run perf-test.js" → p95 < 500ms = PASS
+  - Lighthouse: "lighthouse <url> --category=performance" â†’ score >= 80 = PASS
+  - BundleWizard: "bundle-wizard analyze" â†’ bundle < threshold = PASS
+  - k6: "k6 run perf-test.js" â†’ p95 < 500ms = PASS
 
 pass criteria: Lighthouse PASS (required)
 blocker: none (HIGH severity)
@@ -159,9 +159,9 @@ blocker: none (HIGH severity)
 ```
 severity: MEDIUM
 tools:
-  - TypeDoc: "npx typedoc" → 0 errors = PASS
-  - MkDocs: "mkdocs build" → buildable = PASS
-  - ADR: check ADR directory exists → exists = PASS
+  - TypeDoc: "npx typedoc" â†’ 0 errors = PASS
+  - MkDocs: "mkdocs build" â†’ buildable = PASS
+  - ADR: check ADR directory exists â†’ exists = PASS
 
 pass criteria: TypeDoc PASS && MkDocs PASS (recommended)
 blocker: none (MEDIUM severity)
@@ -171,8 +171,8 @@ blocker: none (MEDIUM severity)
 ```
 severity: BLOCKER
 tools:
-  - Prisma validate: "npx prisma validate" → valid = PASS
-  - Prisma migrate status: "npx prisma migrate status" → no drift = PASS
+  - Prisma validate: "npx prisma validate" â†’ valid = PASS
+  - Prisma migrate status: "npx prisma migrate status" â†’ no drift = PASS
   - Migration check: no unapplied migrations in prod context
 
 pass criteria: Prisma validate PASS
@@ -183,9 +183,9 @@ blocker: Prisma validate FAIL || migration drift detected
 ```
 severity: HIGH
 tools:
-  - Snyk: "snyk test" → 0 high/critical = PASS
-  - npm audit: "npm audit" → 0 high/critical = PASS
-  - Madge circular: "madge --circular src/index.ts" → 0 circular = PASS
+  - Snyk: "snyk test" â†’ 0 high/critical = PASS
+  - npm audit: "npm audit" â†’ 0 high/critical = PASS
+  - Madge circular: "madge --circular src/index.ts" â†’ 0 circular = PASS
 
 pass criteria: Snyk PASS && Madge PASS
 blocker: none (HIGH severity, but combined with Security Gate for BLOCKER)
@@ -195,9 +195,9 @@ blocker: none (HIGH severity, but combined with Security Gate for BLOCKER)
 ```
 severity: MEDIUM
 tools:
-  - Graphviz: "dot -Tpng graph.dot -o graph.png" → generates = PASS
-  - MermaidCLI: "mmdc -i diagram.mmd -o diagram.png" → generates = PASS
-  - PlantUML: "plantuml diagram.puml" → generates = PASS
+  - Graphviz: "dot -Tpng graph.dot -o graph.png" â†’ generates = PASS
+  - MermaidCLI: "mmdc -i diagram.mmd -o diagram.png" â†’ generates = PASS
+  - PlantUML: "plantuml diagram.puml" â†’ generates = PASS
 
 pass criteria: At least one visualization tool generates output
 blocker: none (MEDIUM severity)
@@ -386,7 +386,7 @@ tool_execution_results: [
     duration: number
   }
 ]
-chain_id: string (optional — to select domain set)
+chain_id: string (optional â€” to select domain set)
 ```
 
 ### Output
@@ -428,8 +428,8 @@ Each validation gate maps to a concrete command string that the orchestrator run
   "k6": "k6 run load-test.js",
   "Artillery": "artillery run test.yml",
   "Spectral": "npx spectral lint **/*.ts",
-  "Pa11y": "pa11y http://localhost:3030",
-  "Lighthouse": "npx lighthouse http://localhost:3030 --output=html",
+  "Pa11y": "pa11y http://localhost:3535",
+  "Lighthouse": "npx lighthouse http://localhost:3535 --output=html",
   "TypeDoc": "npx typedoc",
   "MkDocs": "mkdocs build",
   "Prisma validate": "npx prisma validate",

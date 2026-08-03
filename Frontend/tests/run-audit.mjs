@@ -4,7 +4,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:3030"
+const BASE = "http://localhost:3535"
 const REPORT_DIR = path.resolve(__dirname, "../test-reports")
 fs.mkdirSync(REPORT_DIR, { recursive: true })
 

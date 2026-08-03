@@ -2,16 +2,16 @@
     "name": "meterverse-admin-frontend",
     "version": "10.0.0",
     "private": true,
-    "description": "MeterVerse OS — Admin Console (:3030) + Customer Portal (:3535) Next.js frontend",
+    "description": "MeterVerse OS — Admin Console (:3535) + Customer Portal (:3030) Next.js frontend",
     "engines": {
         "node": ">=20 <25"
     },
     "scripts": {
-        "dev": "node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
-        "dev:portal": "PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3535",
+        "dev": "node scripts/postinstall.js 2>/dev/null; next dev -p 3535",
+        "dev:portal": "PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
         "build": "next build",
-        "start": "next start -p 3030",
-        "start:portal": "PORTAL_MODE=1 next start -p 3535",
+        "start": "next start -p 3535",
+        "start:portal": "PORTAL_MODE=1 next start -p 3030",
         "lint": "oxlint",
         "lint:fix": "oxlint --fix && bun format",
         "lint:strict": "oxlint --deny-warnings",

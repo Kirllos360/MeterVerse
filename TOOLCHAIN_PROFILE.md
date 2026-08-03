@@ -1,4 +1,4 @@
-# MeterVerse Toolchain Profile
+﻿# MeterVerse Toolchain Profile
 **Version:** 1.0.0  
 **Generated:** 2026-07-12  
 **Scope:** All MeterVerse development tasks
@@ -9,7 +9,7 @@
 
 Every tool listed below is **required**. No task is complete unless its associated tool has passed.
 
-### Tier 1 — Per-Task (Always)
+### Tier 1 â€” Per-Task (Always)
 | Tool | Trigger | Command | Failure Action |
 |------|---------|---------|---------------|
 | **TypeScript** | Every code change | `npx tsc --noEmit` | Block PR |
@@ -18,7 +18,7 @@ Every tool listed below is **required**. No task is complete unless its associat
 | **Madge** | Every code change | `madge --circular src/index.ts` | Block PR |
 | **Playwright** | Every UI change | `npx playwright test` | Block PR |
 
-### Tier 2 — Per-Change (Code/Dependency)
+### Tier 2 â€” Per-Change (Code/Dependency)
 | Tool | Trigger | Command | Failure Action |
 |------|---------|---------|---------------|
 | **Prisma validate** | Schema changes | `npx prisma validate` | Block PR |
@@ -29,15 +29,15 @@ Every tool listed below is **required**. No task is complete unless its associat
 | **SpecKit** | Spec changes | `npx speckit validate` | Warning + report |
 | **Graphify** | Architecture changes | `node .opencode/plugins/graphify.js` | Report only |
 
-### Tier 3 — Pre-Deployment
+### Tier 3 â€” Pre-Deployment
 | Tool | Trigger | Command | Failure Action |
 |------|---------|---------|---------------|
-| **Lighthouse** | Before deploy | `npx lighthouse http://localhost:3030 --output=html` | Warning + report |
-| **axe** | Before deploy | `axe http://localhost:3030` | Block deploy |
+| **Lighthouse** | Before deploy | `npx lighthouse http://localhost:3535 --output=html` | Warning + report |
+| **axe** | Before deploy | `axe http://localhost:3535` | Block deploy |
 | **Trivy** | Before deploy | `trivy fs --severity CRITICAL,HIGH .` | Block deploy |
 | **k6** | Before deploy | `k6 run tests/load/*.js` | Warning + report |
 
-### Tier 4 — Weekly / On-Demand
+### Tier 4 â€” Weekly / On-Demand
 | Tool | Trigger | Command | Failure Action |
 |------|---------|---------|---------------|
 | **TruffleHog** | Weekly | `trufflehog filesystem . --only-verified` | Block if secrets found |
@@ -51,25 +51,25 @@ Every tool listed below is **required**. No task is complete unless its associat
 
 ```
 [CODE CHANGE]
-    │
-    ├── Pre-Task ─────────────────── depcruise src (dependency health check)
-    │
-    ├── Development ──────────────── tsc --noEmit + eslint + madge
-    │
-    ├── Testing ──────────────────── playwright test + prisma validate
-    │
-    ├── Security ─────────────────── semgrep + trivy + snyk + trufflehog
-    │                                  │
-    │                                  └── Reports → D:\meter\reports\
-    │
-    ├── Quality Gate ─────────────── All Tier 1 & 2 passed?
-    │                                  │
-    │                                  ├── YES → Continue to deploy
-    │                                  └── NO  → Block + generate report
-    │
-    ├── Pre-Deploy ───────────────── lighthouse + axe + k6
-    │
-    └── Complete ─────────────────── All reports archived
+    â”‚
+    â”œâ”€â”€ Pre-Task â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ depcruise src (dependency health check)
+    â”‚
+    â”œâ”€â”€ Development â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ tsc --noEmit + eslint + madge
+    â”‚
+    â”œâ”€â”€ Testing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ playwright test + prisma validate
+    â”‚
+    â”œâ”€â”€ Security â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ semgrep + trivy + snyk + trufflehog
+    â”‚                                  â”‚
+    â”‚                                  â””â”€â”€ Reports â†’ D:\meter\reports\
+    â”‚
+    â”œâ”€â”€ Quality Gate â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ All Tier 1 & 2 passed?
+    â”‚                                  â”‚
+    â”‚                                  â”œâ”€â”€ YES â†’ Continue to deploy
+    â”‚                                  â””â”€â”€ NO  â†’ Block + generate report
+    â”‚
+    â”œâ”€â”€ Pre-Deploy â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ lighthouse + axe + k6
+    â”‚
+    â””â”€â”€ Complete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ All reports archived
 ```
 
 ---
@@ -79,18 +79,18 @@ Every tool listed below is **required**. No task is complete unless its associat
 ### Report Directory
 ```
 D:\meter\reports\
-├── eslint-{date}.txt
-├── tsc-{date}.txt
-├── depcruise-{date}.txt
-├── madge-{date}.txt
-├── semgrep-{date}.txt
-├── trivy-{date}.{format}
-├── snyk-{date}.txt
-├── spectral-{date}.txt
-├── lighthouse-{date}.html
-├── axe-{date}.txt
-├── trufflehog-{date}.txt
-└── playwright-{date}.xml
+â”œâ”€â”€ eslint-{date}.txt
+â”œâ”€â”€ tsc-{date}.txt
+â”œâ”€â”€ depcruise-{date}.txt
+â”œâ”€â”€ madge-{date}.txt
+â”œâ”€â”€ semgrep-{date}.txt
+â”œâ”€â”€ trivy-{date}.{format}
+â”œâ”€â”€ snyk-{date}.txt
+â”œâ”€â”€ spectral-{date}.txt
+â”œâ”€â”€ lighthouse-{date}.html
+â”œâ”€â”€ axe-{date}.txt
+â”œâ”€â”€ trufflehog-{date}.txt
+â””â”€â”€ playwright-{date}.xml
 ```
 
 ### Report Format
@@ -105,72 +105,72 @@ Every report contains:
 ### Failure Severity Levels
 | Level | Meaning | Action |
 |-------|---------|--------|
-| 🔴 BLOCK | Task cannot proceed | Fix before continuing |
-| 🟡 WARN | Issue found, non-blocking | Fix before PR |
-| 🔵 INFO | Observation only | Log for review |
+| ðŸ”´ BLOCK | Task cannot proceed | Fix before continuing |
+| ðŸŸ¡ WARN | Issue found, non-blocking | Fix before PR |
+| ðŸ”µ INFO | Observation only | Log for review |
 
 ---
 
 ## 4. Quality Gates
 
-### Gate 1 — TypeScript Compilation
+### Gate 1 â€” TypeScript Compilation
 ```
 npx tsc --noEmit
-→ Zero errors = PASS
-→ Any errors = BLOCK
+â†’ Zero errors = PASS
+â†’ Any errors = BLOCK
 ```
 
-### Gate 2 — ESLint
+### Gate 2 â€” ESLint
 ```
 eslint . --ext .ts,.tsx
-→ Zero errors = PASS
-→ Any errors = BLOCK
-→ Warnings = WARN
+â†’ Zero errors = PASS
+â†’ Any errors = BLOCK
+â†’ Warnings = WARN
 ```
 
-### Gate 3 — Dependency Integrity
+### Gate 3 â€” Dependency Integrity
 ```
 depcruise src --output-type err
-→ No violations = PASS
-→ Any violation = BLOCK
+â†’ No violations = PASS
+â†’ Any violation = BLOCK
 ```
 
-### Gate 4 — Circular Dependencies
+### Gate 4 â€” Circular Dependencies
 ```
 madge --circular src/index.ts
-→ No circular deps = PASS
-→ Any circular = BLOCK
+â†’ No circular deps = PASS
+â†’ Any circular = BLOCK
 ```
 
-### Gate 5 — Tests
+### Gate 5 â€” Tests
 ```
 npx playwright test
-→ All passing = PASS
-→ Any failure = BLOCK
+â†’ All passing = PASS
+â†’ Any failure = BLOCK
 ```
 
-### Gate 6 — Security
+### Gate 6 â€” Security
 ```
 semgrep --config=auto . --metrics=off
 trivy fs --severity CRITICAL,HIGH .
 snyk test
-→ No critical/high findings = PASS
-→ CRITICAL findings = BLOCK
-→ HIGH findings = WARN
+â†’ No critical/high findings = PASS
+â†’ CRITICAL findings = BLOCK
+â†’ HIGH findings = WARN
 ```
 
-### Gate 7 — npm Audit
+### Gate 7 â€” npm Audit
 ```
 npm audit --audit-level=high
-→ No high/critical = PASS
-→ Found = WARN
+â†’ No high/critical = PASS
+â†’ Found = WARN
 ```
 
-### Gate 8 — Secrets
+### Gate 8 â€” Secrets
 ```
 trufflehog filesystem . --only-verified
-→ No secrets = PASS
-→ Secrets found = BLOCK
+â†’ No secrets = PASS
+â†’ Secrets found = BLOCK
 ```
 
 ---

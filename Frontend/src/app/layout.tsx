@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME
   const lang = cookieStore.get("mv_language")?.value || "en"
   const dir = lang === "ar" ? "rtl" : "ltr"
-  // P51: MeterVerse OS profile — admin (3030) vs portal (3535) via PORTAL_MODE.
+  // P53: MeterVerse OS profile — admin (3535) vs portal (3030) via PORTAL_MODE.
   const profile = process.env.PORTAL_MODE === "1" ? "portal" : "admin"
 
   return (

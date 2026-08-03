@@ -5,7 +5,7 @@ import path from "path"
 import { fileURLToPath } from "url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const BASE = "http://localhost:3030"
+const BASE = "http://localhost:3535"
 const SCREENSHOTS = path.resolve(__dirname, "..", "..", "docs", "screenshots")
 
 const VIEWPORTS = {

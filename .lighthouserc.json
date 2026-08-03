@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:3030"],
+      "url": ["http://localhost:3535"],
       "numberOfRuns": 3,
       "startServerCommand": "cd Frontend/meterverse-ui && bun run build && bun run start"
     },

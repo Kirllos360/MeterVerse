@@ -27,7 +27,7 @@ timeout /t 3 /nobreak >nul
 :: Start services
 echo Starting services...
 start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0backend && set PORT=3131&& node src/server.js"
-start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3030"
+start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3535"
 echo Waiting 20s for startup...
 timeout /t 20 /nobreak >nul
 
@@ -153,7 +153,7 @@ exit /b
 
 :CHECK_FE
 set FE_UP=0
-PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3030' -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
+PowerShell -Command "try{$r=Invoke-WebRequest -Uri 'http://localhost:3535' -TimeoutSec 10 -UseBasicParsing -ErrorAction Stop; if($r.StatusCode -eq 200){exit 0}else{exit 1}}catch{exit 1}" 2>nul
 if %errorlevel%==0 set FE_UP=1
 exit /b
 
