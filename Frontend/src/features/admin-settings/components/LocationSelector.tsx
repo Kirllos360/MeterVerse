@@ -122,8 +122,8 @@ export function HeaderAreaSelector() {
   const ref = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    fetch("/api/locations/areas")
-      .then(r => r.json()).then(d => setAreas(d.areas || [])).catch(() => {})
+    apiClient<{ areas: Area[] }>("/locations/areas")
+      .then(d => setAreas(d.areas || [])).catch(() => {})
   }, [])
 
   useEffect(() => {
