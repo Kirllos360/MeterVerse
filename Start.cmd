@@ -45,21 +45,21 @@ set CORS_ORIGIN=http://localhost:3030,http://localhost:3535
 start "MeterVerse-AdminAPI" cmd /c "node src/server.js"
 echo   ? Admin API starting on port 3131
 
-echo [5/6] Starting Admin Frontend (3030)...
+echo [5/6] Starting Admin Frontend (3535)...
 cd /d "%~dp0Frontend"
 set NEXT_PUBLIC_API_URL=http://localhost:3131
-start "MeterVerse-AdminConsole" cmd /c "call node_modules\.bin\next.cmd dev -p 3030"
-echo   ? Admin Console starting on port 3030
+start "MeterVerse-AdminConsole" cmd /c "call node_modules\.bin\next.cmd dev -p 3535"
+echo   ? Admin Console starting on port 3535
 
 echo.
 echo +---------------------------------------------------------------+
 echo   MeterVerse OS starting... Please wait 30-60 seconds
-echo   Admin Console : http://localhost:3030   (Admin / Red theme)
+echo   Admin Console : http://localhost:3535   (Admin / Red theme)
 echo   Admin API     : http://localhost:3131/api/health
 echo   Portal API    : http://localhost:3003/api/health  (PORTAL_MODE=1)
 echo   Login         : admin@meterverse.com / Admin@123
 echo.
-echo   Customer Portal (:3535) — run:  npm run portal:frontend
+echo   Customer Portal (:3030) — run:  npm run portal:frontend
 echo   Portal Backend (:3003)   — run:  npm run portal:backend
 echo +---------------------------------------------------------------+
 echo.

@@ -1,6 +1,6 @@
 ﻿import { test, expect, type Page } from "@playwright/test"
 
-const BASE = process.env.BASE_URL || "http://localhost:3030"
+const BASE = process.env.BASE_URL || "http://localhost:3535"
 
 async function navigateTo(page: Page, path: string) {
   const response = await page.goto(`${BASE}${path}`)

@@ -1421,5 +1421,25 @@
             "backend/.env.example, Frontend/.env.example, .gitignore, package.json engines",
             "P40_EXECUTION_TRACKER.md (OBS-072)"
         ]
+    },
+    {
+        "task": "P53 Frontend Port Forensic Migration — Admin FE 3535 / Portal FE 3030 (zero-trust)",
+        "date": "2026-08-02",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "playwright", "todowrite", "prisma"],
+        "tools_used": [
+            "P1 zero-trust discovery: git grep full inventory of 3030/3535/3131/3003/7400/3002 across all tracked files; classified admin vs portal vs CORS vs historical",
+            "P2-4 impact map + migration: swapped admin FE 3030->3535, portal FE 3535->3030 across ~30 files (shared-types, Frontend pkg/config/env/playwright/Dockerfile/proxy/layout, apps/*, root pkg, docker-compose, start-all.mjs, Start.cmd, _tools/*, CI workflows, .lighthouserc, 24 tests, TOOLCHAIN_PROFILE, enterprise/runtime)",
+            "P4 FIXED grafana :3030->:3001 (collision with portal FE)",
+            "P5 tools: FE_PORT=3535 in config.cmd/MainControl, admin console -p 3535 in launchers",
+            "P6-9 browser (Playwright): admin :3535 data-profile=admin red #dc2626 0 errors; portal :3030 data-profile=portal green #059669 0 errors; portal BE gates admin 404",
+            "P10-11 validation: tsc 0, backend 292, frontend vitest 44, production build",
+            "P12-13 governance: PROJECT_STATE 10.3.0-PORT-SWAP-CERTIFIED, OBS-073, P53 report; commit d880755a"
+        ],
+        "evidence": [
+            "docs/reviews/P53_PORT_MIGRATION_CERTIFICATION.md",
+            "packages/shared-types/src/index.ts (SERVICE_PORTS swap)",
+            "docker-compose.yml, Frontend/package.json, scripts/start-all.mjs, _tools/*.cmd",
+            "P40_EXECUTION_TRACKER.md (OBS-073)"
+        ]
     }
 ]

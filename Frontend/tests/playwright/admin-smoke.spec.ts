@@ -1,6 +1,6 @@
 ﻿import { test, expect } from '@playwright/test';
 
-const ADMIN_URL = 'http://localhost:3030/admin';
+const ADMIN_URL = 'http://localhost:3535/admin';
 const BACKEND_URL = 'http://localhost:3131';
 
 async function login(page: any) {

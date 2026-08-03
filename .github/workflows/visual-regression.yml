@@ -1,4 +1,4 @@
-name: Visual Regression
+﻿name: Visual Regression
 
 on:
   pull_request:
@@ -29,9 +29,9 @@ jobs:
 
       - name: Start Server
         run: |
-          bun run dev -p 3030 &
+          bun run dev -p 3535 &
           sleep 20
-          curl -s -o /dev/null -w "%{http_code}" http://localhost:3030
+          curl -s -o /dev/null -w "%{http_code}" http://localhost:3535
 
       - name: Capture Screenshots
         run: node tests/screenshots.mjs 2>&1
@@ -60,5 +60,5 @@ jobs:
       - name: Report Regression
         if: steps.regression.outcome == 'failure'
         run: |
-          echo "⚠️ Visual regressions detected. Check the report."
+          echo "âš ï¸ Visual regressions detected. Check the report."
           echo "This is a warning, not a failure."

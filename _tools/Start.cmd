@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 title MeterVerse OS - Start
 cd /d "%~dp0.."
 call "%~dp0config.cmd"
@@ -35,7 +35,7 @@ if %errorlevel%==0 (
 start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%BE_PORT% && node src/server.js"
 echo Admin API starting on port %BE_PORT%
 
-:: Start Admin Frontend (:3030) — production if build exists, dev otherwise
+:: Start Admin Frontend (:3535) â€” production if build exists, dev otherwise
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
     start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%BE_PORT% && call node_modules\.bin\next.cmd start -p %FE_PORT%"
     echo Admin Console starting on port %FE_PORT% (production mode)

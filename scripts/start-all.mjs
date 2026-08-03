@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
  * MeterVerse OS — Master Launcher
- * Starts: PostgreSQL (check) → Admin Backend (:3131) → Admin Frontend (:3030)
- *         → Portal Backend (:3003) → Portal Frontend (:3535)
+ * Starts: PostgreSQL (check) → Admin Backend (:3131) → Admin Frontend (:3535)
+ *         → Portal Backend (:3003) → Portal Frontend (:3030)
  * Health-checks every service, retries failures, prints a colored summary.
  *
  * NOTE: Next.js cannot run two dev servers on one source tree simultaneously.
- * If both admin FE (3030) and portal FE (3535) are requested, this launcher
+ * If both admin FE (3535) and portal FE (3030) are requested, this launcher
  * starts the admin profile by default; pass --portal-frontend alone to run the
  * portal profile instead (or use production Docker for both).
  */
 import { spawn } from "node:child_process"
 
-const PORT = { adminFrontend: 3030, adminBackend: 3131, portalFrontend: 3535, portalBackend: 3003 }
+const PORT = { adminFrontend: 3535, adminBackend: 3131, portalFrontend: 3030, portalBackend: 3003 }
 const color = (code, s) => `\x1b[${code}m${s}\x1b[0m`
 const ok = s => color("32", s)
 const warn = s => color("33", s)
@@ -69,7 +69,7 @@ async function main() {
   console.log(bold("\n╔══════════════════════════════════════════════╗"))
   console.log(bold("║     METERVERSE OS — MASTER LAUNCHER          ║"))
   console.log(bold("╚══════════════════════════════════════════════╝"))
-  console.log(dim("Admin FE :3030 · Admin API :3131 · Portal FE :3535 · Portal API :3003"))
+  console.log(dim("Admin FE :3535 · Admin API :3131 · Portal FE :3030 · Portal API :3003"))
 
   const dbUrl = process.env.DATABASE_URL || "postgresql://meter_pulse:meter_pulse_dev@localhost:5432/meter_pulse?schema=public"
   const jwt = process.env.JWT_SECRET || "mv-jwt-secret-change-in-production-2026"
@@ -110,7 +110,7 @@ async function main() {
   })
   const allOk = results.every(r => r.status === "ok")
   console.log(allOk ? ok("\n✅ All requested services healthy.") : warn("\n⚠ Some services are not healthy — see above."))
-  console.log(bold("\nURLs:") + `\n  Admin Console  ${ok("http://localhost:3030")}\n  Customer Portal ${ok("http://localhost:3535")}\n  Admin API       ${ok("http://localhost:3131/api/health")}\n  Portal API      ${ok("http://localhost:3003/api/health")}`)
+  console.log(bold("\nURLs:") + `\n  Admin Console  ${ok("http://localhost:3535")}\n  Customer Portal ${ok("http://localhost:3030")}\n  Admin API       ${ok("http://localhost:3131/api/health")}\n  Portal API      ${ok("http://localhost:3003/api/health")}`)
   console.log("\nPress Ctrl+C to stop all services.\n")
   process.exit(allOk ? 0 : 1)
 }

@@ -1,4 +1,4 @@
-name: Enterprise AI Review
+﻿name: Enterprise AI Review
 
 on:
   pull_request:
@@ -54,7 +54,7 @@ jobs:
         continue-on-error: true
         run: |
           bunx playwright install chromium 2>&1
-          bun run dev -p 3030 &
+          bun run dev -p 3535 &
           sleep 15
           bunx playwright test --config=playwright.config.ts 2>&1 | tee ../docs/reviews/playwright-report.txt
 
@@ -81,20 +81,20 @@ jobs:
       - name: Generate PR Summary
         id: summary
         run: |
-          echo "## 🤖 Enterprise AI Review Complete" > ../docs/reviews/pr-summary.md
+          echo "## ðŸ¤– Enterprise AI Review Complete" > ../docs/reviews/pr-summary.md
           echo "" >> ../docs/reviews/pr-summary.md
           echo "| Check | Status |" >> ../docs/reviews/pr-summary.md
           echo "|-------|--------|" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ TypeScript | ${{ steps.tsc.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Lint | ${{ steps.lint.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Build | ${{ steps.build.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Unit Tests | ${{ steps.unit-tests.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Playwright | ${{ steps.playwright.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Screenshots | ${{ steps.screenshots.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Visual Regression | ${{ steps.visual-regression.outcome }}" >> ../docs/reviews/pr-summary.md
-          echo "| ✅ Final Audit | ${{ steps.audit.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… TypeScript | ${{ steps.tsc.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Lint | ${{ steps.lint.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Build | ${{ steps.build.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Unit Tests | ${{ steps.unit-tests.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Playwright | ${{ steps.playwright.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Screenshots | ${{ steps.screenshots.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Visual Regression | ${{ steps.visual-regression.outcome }}" >> ../docs/reviews/pr-summary.md
+          echo "| âœ… Final Audit | ${{ steps.audit.outcome }}" >> ../docs/reviews/pr-summary.md
           echo "" >> ../docs/reviews/pr-summary.md
-          echo "### 📊 Enterprise Review Scores" >> ../docs/reviews/pr-summary.md
+          echo "### ðŸ“Š Enterprise Review Scores" >> ../docs/reviews/pr-summary.md
           grep "Score:" ../docs/reviews/review-*.md >> ../docs/reviews/pr-summary.md 2>/dev/null || true
 
       - name: Post PR Comment

@@ -2,7 +2,7 @@
 import fs from "fs"
 import path from "path"
 
-const BASE = "http://localhost:3030"
+const BASE = "http://localhost:3535"
 const REPORT_DIR = path.resolve(__dirname, "../test-reports")
 fs.mkdirSync(REPORT_DIR, { recursive: true })
 

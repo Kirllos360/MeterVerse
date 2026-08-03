@@ -1,6 +1,6 @@
 ﻿import { chromium } from "playwright"
 
-const BASE = "http://localhost:3030"
+const BASE = "http://localhost:3535"
 
 async function main() {
   const browser = await chromium.launch({ headless: true })

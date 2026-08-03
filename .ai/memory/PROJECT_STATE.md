@@ -1,11 +1,21 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-02 (P52 certified)  
-**Current Phase:** P52 Production Readiness — CERTIFIED  
-**Version:** 10.2.0-PRODUCTION-READY  
-**Branch:** feature/p52-production-readiness (→ merge to main)  
+**Last Updated:** 2026-08-02 (P53 port forensic swap)  
+**Current Phase:** P53 Complete Frontend Port Migration — CERTIFIED  
+**Version:** 10.3.0-PORT-SWAP-CERTIFIED  
+**Branch:** feature/p53-port-forensic-migration (→ merge to main)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P53 — Frontend Port Swap (FORENSIC, ZERO-TRUST) — CERTIFIED (2026-08-02)
+
+**Project decision corrected:** Admin Frontend **3535**, Portal Frontend **3030** (backends unchanged: Admin 3131, Portal 3003).
+
+Migration applied repo-wide (~30 files): shared-types, Frontend package.json/next.config/.env.example/playwright/Dockerfile/proxy/layout, apps/*, docker-compose, start-all.mjs, Start.cmd, _tools/*, CI workflows, .lighthouserc, tests, TOOLCHAIN_PROFILE, enterprise/runtime. **Grafana freed :3030 → :3001** (port conflict with portal FE). qr-engine default 3030 stays (portal verification).
+
+**Validation:** tsc 0, backend 292, frontend vitest 44, production build, browser-tested admin :3535 + portal :3030.
 
 ---
 

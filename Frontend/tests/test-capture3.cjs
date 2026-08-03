@@ -8,7 +8,7 @@
     // Try different URL formats
     const urls = [
       'http://127.0.0.1:7400/admin',
-      'http://localhost:3030/admin',
+      'http://localhost:3535/admin',
       'http://[::1]:7400/admin',
     ];
     
