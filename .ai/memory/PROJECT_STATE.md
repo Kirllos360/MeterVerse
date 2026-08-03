@@ -1,11 +1,27 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-03 (P55 forensic certified)  
-**Current Phase:** P55 Enterprise Forensic Gap Analysis — CERTIFIED  
-**Version:** 10.5.0-P55-FORENSIC-CERTIFIED  
-**Branch:** feature/p55-forensic-gap-analysis (→ merge to main)  
+**Last Updated:** 2026-08-03 (P56 reconciliation + brain prompts)  
+**Current Phase:** P56 Reconciliation — portal :3030 fixed + AI alignment prompts delivered  
+**Version:** 10.6.0-P56-RECONCILED  
+**Branch:** feature/p56-reconciliation (→ merge to main)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P56 — Reconciliation + AI Alignment Prompts (2026-08-03)
+
+**Critical fixes (zero-trust re-validation):**
+- **Portal :3030 was rendering the ADMIN console** — client root gate used server-only `PORTAL_MODE`. Fixed: `NEXT_PUBLIC_PORTAL_MODE` (browser-visible) in page.tsx + portal launchers + package.json scripts. Verified portal :3030 = user version (DASHBOARD green, no admin modules). Commit `a0cfdf2c`.
+- **Admin :3535/ redirect** — served console at root (200). Fixed (stale config).
+- **Portal BE gating** — restarted with PORTAL_MODE=1 → admin routes 404.
+- **BOM in package.json** — removed (broke `next` parsing → portal 500).
+
+**Deliverable (owner request):** Full-context brain prompts so ChatGPT + Kimi can independently decide open architecture:
+- `docs/reviews/P56_CHATGPT_BRAIN_PROMPT.md` (Q1 DB separation, Q2 shared login, Q3 kirllos accounts, Q4 sign-out, Q5 area/project/user wiring, Q6 tooling)
+- `docs/reviews/P56_KIMI_CONTEXT_PROMPT.md`
+
+**Open (awaiting AI decisions):** DB separation model (Q1 — data tenancy is THE blocker), kirllos super-admin accounts (Q3), shared login + sign-out (Q2/Q4), area/project/user role-permission wiring (Q5).
 
 ---
 

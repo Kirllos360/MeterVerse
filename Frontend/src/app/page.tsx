@@ -40,7 +40,9 @@ export default function RootPage() {
   // directly at "/" (URL stays localhost:3535). Portal profile (:3030,
   // PORTAL_MODE=1) renders the user/dashboard version at "/".
   const activePage = useAdminStore((s) => s.activePage)
-  const isPortal = process.env.PORTAL_MODE === "1"
+  // P56: profile must be browser-visible. NEXT_PUBLIC_PORTAL_MODE is set by the
+  // portal launcher (dev/start) so client components can gate admin vs portal.
+  const isPortal = process.env.NEXT_PUBLIC_PORTAL_MODE === "1" || process.env.NEXT_PUBLIC_PORTAL_MODE === "true"
 
   if (!isPortal) {
     // Admin profile: the Admin console at the root URL. AdminSpaPage renders
