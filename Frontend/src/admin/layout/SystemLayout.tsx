@@ -20,6 +20,8 @@ const SYSTEM_TABS = [
 const ADMIN_ONLY_IDS: string[] = [
   "database-management", "migration-uploads", "users-permissions",
   "connection-settings", "bill-cycle-settings", "settings", "audit",
+  "report-settings", "revenue-assurance", "financial-ai",
+  "documents-governance", "communication", "security",
 ]
 const USER_ONLY_IDS: string[] = []
 
