@@ -17,7 +17,8 @@ taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 timeout /t 3 /nobreak >nul
 
 :: Start fresh
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js"
+call "%~dp0config.cmd"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
 timeout /t 10 /nobreak >nul
 
 :: Verify startup

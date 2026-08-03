@@ -89,7 +89,7 @@ if %errorlevel%==1 (
 :: Launch Backend
 echo [1] Starting Backend...
 echo [%DATE% %TIME%] [BE] Starting >> "%LM%"
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js" > "%LB%" 2>&1
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
 
 :: Wait for backend HTTP health (up to 30s)
 set READY=0
@@ -105,9 +105,9 @@ if !READY!==1 ( echo   Backend may not be ready (DB required) ) else ( echo   Ba
 echo [2] Starting Frontend...
 echo [%DATE% %TIME%] [FE] Starting >> "%LM%"
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT% >> "%LF%" 2>&1"
 ) else (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT% >> "%LF%" 2>&1"
 )
 
 echo.
@@ -175,7 +175,7 @@ if !BD!==1 (
     echo [%DATE% %TIME%] [BE] Degraded â€” restarting >> "%LE%"
     taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
     timeout /t 2 /nobreak >nul
-    start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js" > "%LB%" 2>&1
+    start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
 )
 if !FD!==1 (
     echo  âš  Frontend degraded â€” restarting...
@@ -183,9 +183,9 @@ if !FD!==1 (
     taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
     timeout /t 2 /nobreak >nul
     if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-        start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+        start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT% >> "%LF%" 2>&1"
     ) else (
-        start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+        start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT% >> "%LF%" 2>&1"
     )
 )
 
@@ -232,7 +232,7 @@ if !errorlevel!==0 (
 
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
 timeout /t 3 /nobreak >nul
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js" > "%LB%" 2>&1
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
 echo [%DATE% %TIME%] [BE] Restarted >> "%LE%"
 
 :: Verify with tasklist
@@ -262,9 +262,9 @@ taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminConsole" 2>nul >nul
 timeout /t 3 /nobreak >nul
 if exist "%~dp0..\Frontend\.next\cache" rmdir /s /q "%~dp0..\Frontend\.next\cache" 2>nul >nul
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next start -p %FE_PORT% >> "%LF%" 2>&1"
 ) else (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT%" > "%LF%" 2>&1
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && npx next dev -p %FE_PORT% >> "%LF%" 2>&1"
 )
 echo [%DATE% %TIME%] [FE] Restarted >> "%LE%"
 

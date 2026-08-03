@@ -25,9 +25,10 @@ taskkill /F /FI "WINDOWTITLE eq MeterVerse-Conflict" 2>nul >nul
 timeout /t 3 /nobreak >nul
 
 :: Start services
+call "%~dp0config.cmd"
 echo Starting services...
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0backend && set PORT=3131&& node src/server.js"
-start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3535"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0backend && set PORT=3131&& node src/server.js >> "%LB%" 2>&1"
+start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3535 >> "%LF%" 2>&1"
 echo Waiting 20s for startup...
 timeout /t 20 /nobreak >nul
 

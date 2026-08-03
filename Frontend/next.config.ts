@@ -6,6 +6,10 @@ const baseConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  // P54-standalone: Admin (:3535) and Portal (:3030) are separate web apps on
+  // one source tree. Each profile gets its OWN distDir so both Next dev servers
+  // can run SIMULTANEOUSLY without colliding on a shared .next directory.
+  distDir: process.env.PORTAL_MODE === '1' ? '.next-portal' : '.next',
   output: process.env.BUILD_STANDALONE === 'true' ? 'standalone' : undefined,
   images: {
     remotePatterns: [
@@ -47,16 +51,15 @@ const baseConfig: NextConfig = {
     ]
   },
   async redirects() {
-    // Admin profile (:3535): the root serves the Admin console. Redirect / to
-    // /admin so the user/portal version is never served on the admin port.
-    const isPortal = process.env.PORTAL_MODE === "1"
+    // Admin profile (:3535): the Admin console is served DIRECTLY at "/" via the
+    // profile-aware root page — no /admin redirect needed (URL stays localhost:3535).
+    // Portal profile (:3030) serves the user version at "/".
     return [
       {
         source: "/admin/:path+",
         destination: "/admin",
         permanent: false,
       },
-      ...(isPortal ? [] : [{ source: "/", destination: "/admin", permanent: false }]),
     ]
   },
   async headers() {

@@ -60,9 +60,10 @@ echo [%DATE% %TIME%] Frontend build: %errorlevel% >> %LOG%
 :: â”€â”€â”€ STEP 5: Start services â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 echo [5/6] Starting services...
 cd /d "%~dp0.."
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=3131&& node src/server.js"
+call "%~dp0config.cmd"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=3131&& node src/server.js >> "%LB%" 2>&1"
 timeout /t 5 /nobreak >nul
-start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3535"
+start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:3131&& call node_modules\.bin\next.cmd start -p 3535 >> "%LF%" 2>&1"
 echo   Services launching...
 echo [%DATE% %TIME%] Services launched >> %LOG%
 

@@ -84,3 +84,5 @@ Frontend/backend/
 tsconfig.tsbuildinfo
 
 .opencode/
+
+.next-portal/
