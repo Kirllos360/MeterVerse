@@ -1441,5 +1441,27 @@
             "docker-compose.yml, Frontend/package.json, scripts/start-all.mjs, _tools/*.cmd",
             "P40_EXECUTION_TRACKER.md (OBS-073)"
         ]
+    },
+    {
+        "task": "P54 Enterprise Runtime Separation & Stabilization (zero-trust certification)",
+        "date": "2026-08-03",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "playwright", "todowrite", "prisma"],
+        "tools_used": [
+            "Phase A rediscovery: live services 3535/3030/3131/3003 all 200; repo map regenerated",
+            "Phase B/C runtime separation: browser-verified portal leaked admin nav -> expanded ADMIN_ONLY_IDS in SystemLayout; removed dead duplicate UserLayout.tsx (c7ced0cd)",
+            "Phase D/E API cert: admin 3131 exposes admin endpoints; portal 3003 customer-only + blocks admin (404); RBAC viewer->preferences 403",
+            "Phase F/G config+tools: 0 obsolete ports/URLs in code; _tools env-driven",
+            "Phase H/N DB+data quality: 0 broken refs, 0 dup users/invoices; dup customer names = test data",
+            "Phase I/J/K observability: eventBus live (runtime.pool_stats w/ correlationId), health/metrics/scheduler all 200; profilesTracked=0 data-gap documented",
+            "Phase L visual: LocationSelector plain-fetch 401 fix -> apiClient (3ee02b6b); admin/portal 0 page errors",
+            "Phase O/P full test: backend 292, frontend tsc 0 + vitest 44, production build",
+            "Phase Q/R/S: P54 report; OBS-074, PROJECT_STATE 10.4.0-RUNTIME-SEPARATED"
+        ],
+        "evidence": [
+            "docs/reviews/P54_RUNTIME_SEPARATION_CERTIFICATION.md",
+            "Frontend/src/admin/layout/SystemLayout.tsx (ADMIN_ONLY_IDS)",
+            "Frontend/src/features/admin-settings/components/LocationSelector.tsx (apiClient)",
+            "P40_EXECUTION_TRACKER.md (OBS-074)"
+        ]
     }
 ]

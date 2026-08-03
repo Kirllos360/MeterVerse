@@ -1,11 +1,26 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-02 (P53 port forensic swap)  
-**Current Phase:** P53 Complete Frontend Port Migration — CERTIFIED  
-**Version:** 10.3.0-PORT-SWAP-CERTIFIED  
-**Branch:** feature/p53-port-forensic-migration (→ merge to main)  
+**Last Updated:** 2026-08-03 (P54 certified)  
+**Current Phase:** P54 Enterprise Runtime Separation & Stabilization — CERTIFIED  
+**Version:** 10.4.0-RUNTIME-SEPARATED  
+**Branch:** feature/p54-runtime-separation (→ merge to main)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P54 — Runtime Separation & Stabilization — CERTIFIED (2026-08-03)
+
+**Fixed (browser-verified):**
+- Portal (:3030) leaked admin nav (`Admin Settings > Reports`) → expanded `ADMIN_ONLY_IDS` in SystemLayout (report-settings, revenue-assurance, financial-ai, documents-governance, communication, security). Portal nav now user-operational only.
+- Removed dead duplicate `src/admin/layout/UserLayout.tsx` (unreferenced, misleading export).
+- LocationSelector plain-fetch (no auth) → 401s + empty dropdowns → switched to `apiClient` (auth).
+
+**Verified:** admin :3535 (red, full nav, 0 page errors), portal :3030 (green, filtered nav, 0 page errors, 0 console errs); API separation (portal blocks admin 404); DB 0 broken refs; observability/event-bus live; backend 292 + frontend tsc 0 + vitest 44 + production build.
+
+**Non-blocking:** health-scores profilesTracked=0 (no connection profiles seeded; System Health uses real metrics); boot-time pre-auth 401 (F2 dev artifact).
+
+Reports: `docs/reviews/P54_RUNTIME_SEPARATION_CERTIFICATION.md`.
 
 ---
 
