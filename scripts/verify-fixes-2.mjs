@@ -1,10 +1,10 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
 
 // Go to admin and open the inspector/shortcut menu
-await page.goto("http://localhost:7400/admin", { timeout: 30000, waitUntil: "domcontentloaded" }).catch(() => {})
+await page.goto("http://localhost:3535/admin", { timeout: 30000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 5000))
 
 // Click the inspector toggle button (looks for a button that toggles the panel)
@@ -27,8 +27,8 @@ await new Promise(r => setTimeout(r, 2000))
 
 // Check for "Shortcut Menu" text
 const bodyText = await page.evaluate(() => document.body.innerText)
-console.log("Shortcut Menu visible: " + (bodyText.includes("Shortcut Menu") ? "✅ YES" : "❌ NO"))
-console.log("ConnectionHeader visible: " + (bodyText.includes("online") || bodyText.includes("degraded") ? "✅ YES" : "❌ NO"))
+console.log("Shortcut Menu visible: " + (bodyText.includes("Shortcut Menu") ? "âœ… YES" : "âŒ NO"))
+console.log("ConnectionHeader visible: " + (bodyText.includes("online") || bodyText.includes("degraded") ? "âœ… YES" : "âŒ NO"))
 
 // Check footer specifically  
 const footerInfo = await page.evaluate(() => {
@@ -53,16 +53,16 @@ const footerInfo = await page.evaluate(() => {
 console.log("\nFooter info:", JSON.stringify(footerInfo, null, 2))
 
 // Check login page (should have red theme for admin)
-await page.goto("http://localhost:7400/admin/login", { timeout: 20000, waitUntil: "domcontentloaded" }).catch(() => {})
+await page.goto("http://localhost:3535/admin/login", { timeout: 20000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 3000))
 const loginText = await page.evaluate(() => document.body.innerText.substring(0, 200))
 console.log("\nAdmin login page:", loginText.substring(0, 100))
 
 // Check user login page (should have green theme)
-await page.goto("http://localhost:7400/login", { timeout: 20000, waitUntil: "domcontentloaded" }).catch(() => {})
+await page.goto("http://localhost:3535/login", { timeout: 20000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 3000))
 const userLoginText = await page.evaluate(() => document.body.innerText.substring(0, 200))
 console.log("User login page:", userLoginText.substring(0, 100))
 
 await browser.close()
-console.log("\n✅ Verified fixes captured")
+console.log("\nâœ… Verified fixes captured")

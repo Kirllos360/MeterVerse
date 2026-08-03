@@ -1,7 +1,7 @@
-import { createServer } from "http"
+﻿import { createServer } from "http"
 import { request } from "http"
 
-const BASE = "http://localhost:3001"
+const BASE = "http://localhost:3131"
 
 function httpReq(method, path, body, token) {
   return new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ function httpReq(method, path, body, token) {
 }
 
 async function main() {
-  console.log("═══ Notification API Tests ═══\n")
+  console.log("â•â•â• Notification API Tests â•â•â•\n")
 
   // Wait for server
   await new Promise(r => setTimeout(r, 1000))
@@ -38,51 +38,51 @@ async function main() {
   // Login
   const login = await httpReq("POST", "/api/auth/login", { email: "admin@meterverse.com", password: "Admin@123" })
   if (login.status !== 200) {
-    console.log("❌ Login failed:", login.status, login.body)
+    console.log("âŒ Login failed:", login.status, login.body)
     process.exit(1)
   }
   const token = login.body.accessToken
-  if (!token) { console.log("❌ No token in response:", JSON.stringify(login.body).slice(0,200)); process.exit(1) }
-  console.log("✅ Login successful\n")
+  if (!token) { console.log("âŒ No token in response:", JSON.stringify(login.body).slice(0,200)); process.exit(1) }
+  console.log("âœ… Login successful\n")
 
   // Test GET /api/notifications
   const n1 = await httpReq("GET", "/api/notifications", null, token)
-  console.log(`GET /api/notifications → ${n1.status}: ${n1.body.total || 0} notifications`)
+  console.log(`GET /api/notifications â†’ ${n1.status}: ${n1.body.total || 0} notifications`)
 
   // Test GET /api/notifications/unread-count
   const n2 = await httpReq("GET", "/api/notifications/unread-count", null, token)
-  console.log(`GET /api/notifications/unread-count → ${n2.status}: ${n2.body.count} unread`)
+  console.log(`GET /api/notifications/unread-count â†’ ${n2.status}: ${n2.body.count} unread`)
 
   // Test GET /api/notifications/templates
   const n3 = await httpReq("GET", "/api/notifications/templates", null, token)
-  console.log(`GET /api/notifications/templates → ${n3.status}: ${n3.body.templates?.length || 0} templates`)
+  console.log(`GET /api/notifications/templates â†’ ${n3.status}: ${n3.body.templates?.length || 0} templates`)
 
   // Test POST /api/notifications/templates
   const n4 = await httpReq("POST", "/api/notifications/templates", {
     key: "test.route.event", name: "Route Test", type: "in_app", subject: "Test", body: "Route test body", variables: "[]"
   }, token)
-  console.log(`POST /api/notifications/templates → ${n4.status}: ${n4.body.template?.key || "FAIL"}`)
+  console.log(`POST /api/notifications/templates â†’ ${n4.status}: ${n4.body.template?.key || "FAIL"}`)
 
   if (n4.status === 201) {
     const tplId = n4.body.template.id
     
     // Test PUT /api/notifications/templates/:id
     const n5 = await httpReq("PUT", `/api/notifications/templates/${tplId}`, { name: "Route Test Updated" }, token)
-    console.log(`PUT /api/notifications/templates/:id → ${n5.status}: ${n5.body.template?.name}`)
+    console.log(`PUT /api/notifications/templates/:id â†’ ${n5.status}: ${n5.body.template?.name}`)
 
     // Test DELETE /api/notifications/templates/:id
     const n6 = await httpReq("DELETE", `/api/notifications/templates/${tplId}`, null, token)
-    console.log(`DELETE /api/notifications/templates/:id → ${n6.status}: ${n6.body.success}`)
+    console.log(`DELETE /api/notifications/templates/:id â†’ ${n6.status}: ${n6.body.success}`)
   }
 
   // Mark first notification as read if exists
   if (n1.body.notifications?.length > 0) {
     const firstId = n1.body.notifications[0].id
     const n7 = await httpReq("PUT", `/api/notifications/${firstId}/read`, null, token)
-    console.log(`PUT /api/notifications/:id/read → ${n7.status}: ${n7.body.notification?.status}`)
+    console.log(`PUT /api/notifications/:id/read â†’ ${n7.status}: ${n7.body.notification?.status}`)
   }
 
-  console.log("\n═══ Tests Complete ═══")
+  console.log("\nâ•â•â• Tests Complete â•â•â•")
 }
 
 main().catch(console.error)

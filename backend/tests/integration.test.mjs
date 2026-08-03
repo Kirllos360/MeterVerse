@@ -1,6 +1,6 @@
-import { describe, it, expect } from 'vitest';
+﻿import { describe, it, expect } from 'vitest';
 
-const BASE = 'http://localhost:3002';
+const BASE = 'http://localhost:3131';
 const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' };
 const GET = (url) => fetch(`${BASE}${url}`, { headers: AUTH }).then(r => ({ status: r.status, body: r.json() }));
 const POST = (url, body) => fetch(`${BASE}${url}`, { method: 'POST', headers: AUTH, body: JSON.stringify(body) }).then(r => ({ status: r.status, body: r.json() }));
@@ -33,8 +33,8 @@ describeFn('API Integration Tests', () => {
     expect(data.status).toBe('ok');
   });
 
-  // ─── T025: Assignment Conflict Detection ───
-  it('T025: POST /api/meter-assignments — 201 create assignment', async () => {
+  // â”€â”€â”€ T025: Assignment Conflict Detection â”€â”€â”€
+  it('T025: POST /api/meter-assignments â€” 201 create assignment', async () => {
     // Create customer
     const cRes = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: 'T025-Customer-A', email: 't025a@test.com' }) });
     expect(cRes.status).toBe(201);
@@ -52,7 +52,7 @@ describeFn('API Integration Tests', () => {
     expect(r.status).toBe(201);
   });
 
-  it('T025: POST /api/meter-assignments — 409 same meter to different customer', async () => {
+  it('T025: POST /api/meter-assignments â€” 409 same meter to different customer', async () => {
     // Create customer A + meter, assign
     const cA = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: 'T025-Customer-A2', email: 't025a2@test.com' }) }).then(r => r.json());
     const cAId = cA.customer?.id || cA.id;
@@ -62,33 +62,33 @@ describeFn('API Integration Tests', () => {
     // Create customer B
     const cB = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: 'T025-Customer-B', email: 't025b@test.com' }) }).then(r => r.json());
     const cBId = cB.customer?.id || cB.id;
-    // Assign same meter to customer B → 409
+    // Assign same meter to customer B â†’ 409
     const r = await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mtrId, customerId: cBId }) });
     expect(r.status).toBe(409);
   });
 
-  it('T025: POST /api/meter-assignments — 404 for nonexistent meter', async () => {
+  it('T025: POST /api/meter-assignments â€” 404 for nonexistent meter', async () => {
     const c = await fetch(`${BASE}/api/customers`, { method: 'POST', headers: AUTH, body: JSON.stringify({ name: 'T025-Customer-C', email: 't025c@test.com' }) }).then(r => r.json());
     const cId = c.customer?.id || c.id;
     const r = await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: '00000000-0000-0000-0000-000000000000', customerId: cId }) });
     expect(r.status).toBe(404);
   });
 
-  it('T025: POST /api/meter-assignments — 404 for nonexistent customer', async () => {
+  it('T025: POST /api/meter-assignments â€” 404 for nonexistent customer', async () => {
     const m = await fetch(`${BASE}/api/meters`, { method: 'POST', headers: AUTH, body: JSON.stringify({ serial: 'T025-MTR-D-' + Date.now(), type: 'electric', status: 'active' }) }).then(r => r.json());
     const mId = m.meter?.id || m.id;
     const r = await fetch(`${BASE}/api/meter-assignments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: mId, customerId: '00000000-0000-0000-0000-000000000000' }) });
     expect(r.status).toBe(404);
   });
 
-  // ─── T026: SIM Reuse Lifecycle ───
-  it('T026: POST /api/sim — 201 create SIM (available)', async () => {
+  // â”€â”€â”€ T026: SIM Reuse Lifecycle â”€â”€â”€
+  it('T026: POST /api/sim â€” 201 create SIM (available)', async () => {
     const ts = Date.now();
     const r = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000000${ts}`, simNumber: `SIM-T026-A-${ts}`, operator: 'Vodafone' }) });
     expect(r.status).toBe(201);
   });
 
-  it('T026: GET /api/sim/:id/eligibility — 200 eligible initially', async () => {
+  it('T026: GET /api/sim/:id/eligibility â€” 200 eligible initially', async () => {
     const ts = Date.now();
     const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000001${ts}`, simNumber: `SIM-T026-B-${ts}` }) }).then(r => r.json());
     const simId = sim.sim?.id || sim.id;
@@ -134,7 +134,7 @@ describeFn('API Integration Tests', () => {
     expect(eBody.eligible).toBe(true);
   });
 
-  it('T026: POST /api/sim/:id/assign — reassign after release (reuse)', async () => {
+  it('T026: POST /api/sim/:id/assign â€” reassign after release (reuse)', async () => {
     const ts = Date.now();
     const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000004${ts}`, simNumber: `SIM-T026-E-${ts}` }) }).then(r => r.json());
     const simId = sim.sim?.id || sim.id;
@@ -152,17 +152,17 @@ describeFn('API Integration Tests', () => {
     expect(r.status).toBe(201);
   });
 
-  it('T026: POST /api/sim/:id/assign — 404 for missing SIM', async () => {
+  it('T026: POST /api/sim/:id/assign â€” 404 for missing SIM', async () => {
     const r = await fetch(`${BASE}/api/sim/nonexistent-sim-id/assign`, { method: 'POST', headers: AUTH, body: JSON.stringify({ meterId: '00000000-0000-0000-0000-000000000000' }) });
     expect(r.status).toBe(404);
   });
 
-  it('T026: POST /api/sim/:id/release — 404 for missing SIM', async () => {
+  it('T026: POST /api/sim/:id/release â€” 404 for missing SIM', async () => {
     const r = await fetch(`${BASE}/api/sim/nonexistent-sim-id/release`, { method: 'POST', headers: AUTH });
     expect(r.status).toBe(404);
   });
 
-  it('T026: POST /api/sim/:id/release — 400 for unassigned SIM', async () => {
+  it('T026: POST /api/sim/:id/release â€” 400 for unassigned SIM', async () => {
     const ts = Date.now();
     const sim = await fetch(`${BASE}/api/sim`, { method: 'POST', headers: AUTH, body: JSON.stringify({ iccid: `8900000005${ts}`, simNumber: `SIM-T026-F-${ts}` }) }).then(r => r.json());
     const simId = sim.sim?.id || sim.id;
@@ -170,7 +170,7 @@ describeFn('API Integration Tests', () => {
     expect(r.status).toBe(400);
   });
 
-  // ─── T027: Projects Module ───
+  // â”€â”€â”€ T027: Projects Module â”€â”€â”€
   it('T027: full CRUD lifecycle via /api/projects', async () => {
     // Create org first (required for project FK)
     const ts = Date.now();
@@ -236,8 +236,8 @@ describeFn('API Integration Tests', () => {
     expect(r.project.status).toBe('active');
   });
 
-  // ─── T045: Reading Validation Thresholds ───
-  describe('Phase 4 — Readings', { timeout: 15000 }, () => {
+  // â”€â”€â”€ T045: Reading Validation Thresholds â”€â”€â”€
+  describe('Phase 4 â€” Readings', { timeout: 15000 }, () => {
   let t045TariffCreated = false;
   async function ensureT045Tariff() {
     if (t045TariffCreated) return;
@@ -277,8 +277,8 @@ describeFn('API Integration Tests', () => {
   });
   });
 
-  // ─── PHASE 5: US3 — Invoices & Payments ───
-  describe('Phase 5 — Invoices & Payments', { timeout: 30000 }, () => {
+  // â”€â”€â”€ PHASE 5: US3 â€” Invoices & Payments â”€â”€â”€
+  describe('Phase 5 â€” Invoices & Payments', { timeout: 30000 }, () => {
   let tariffCreated = false;
 
   async function ensureTariff() {
@@ -302,19 +302,19 @@ describeFn('API Integration Tests', () => {
   }
 
   // T053: Generate + Issue Invoice
-  it('T053: POST /api/invoices/generate — 201 creates invoice', async () => {
+  it('T053: POST /api/invoices/generate â€” 201 creates invoice', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const r = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-01-01', periodEnd: '2026-01-31' }) });
     expect(r.status).toBe(201);
   });
 
-  it('T053: POST /api/invoices/generate — 400 for missing customerId', async () => {
+  it('T053: POST /api/invoices/generate â€” 400 for missing customerId', async () => {
     const r = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ periodStart: '2026-01-01', periodEnd: '2026-01-31' }) });
     expect(r.status).toBe(400);
   });
 
-  it('T053: POST /api/invoices/:id/issue — 200 issues invoice', async () => {
+  it('T053: POST /api/invoices/:id/issue â€” 200 issues invoice', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-02-01', periodEnd: '2026-02-28' }) }).then(r => r.json());
@@ -323,7 +323,7 @@ describeFn('API Integration Tests', () => {
     expect(r.status).toBe(200);
   });
 
-  it('T053: POST /api/invoices/:id/issue — 400 for already issued', async () => {
+  it('T053: POST /api/invoices/:id/issue â€” 400 for already issued', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-03-01', periodEnd: '2026-03-31' }) }).then(r => r.json());
@@ -334,20 +334,20 @@ describeFn('API Integration Tests', () => {
   });
 
   // T054: Adjustments
-  it('T054: POST /api/invoices/:id/adjustments — 404 (todo)', async () => {
+  it('T054: POST /api/invoices/:id/adjustments â€” 404 (todo)', async () => {
     const r = await fetch(`${BASE}/api/invoices/nonexistent-id/adjustments`, { method: 'POST', headers: AUTH, body: JSON.stringify({}) });
     expect([400, 404]).toContain(r.status);
   });
 
   // T055: Create + Reverse Payment
-  it('T055: POST /api/payments — 201 creates payment', async () => {
+  it('T055: POST /api/payments â€” 201 creates payment', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const r = await fetch(`${BASE}/api/payments`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, amount: 500, method: 'cash' }) });
     expect(r.status).toBe(201);
   });
 
-  it('T055: POST /api/payments/:id/reverse — guard works (200=dev, 403=prod)', async () => {
+  it('T055: POST /api/payments/:id/reverse â€” guard works (200=dev, 403=prod)', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-06-01', periodEnd: '2026-06-30' }) }).then(r => r.json());
@@ -359,13 +359,13 @@ describeFn('API Integration Tests', () => {
   });
 
   // T056: Customer Statement
-  it('T056: GET /api/customers/:id/statement — 404 for nonexistent', async () => {
+  it('T056: GET /api/customers/:id/statement â€” 404 for nonexistent', async () => {
     const r = await fetch(`${BASE}/api/customers/nonexistent-customer-id/statement`, { headers: AUTH });
     expect(r.status).toBe(404);
   });
 
   // T057: Invoice immutability
-  it('T057: PUT /api/invoices/:id — 400 after issue (immutable)', async () => {
+  it('T057: PUT /api/invoices/:id â€” 400 after issue (immutable)', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-04-01', periodEnd: '2026-04-30' }) }).then(r => r.json());
@@ -376,7 +376,7 @@ describeFn('API Integration Tests', () => {
   });
 
   // T058: Oldest-due-first allocation (verify payment endpoint works)
-  it('T058: POST /api/payments — 200 allocates to oldest due', async () => {
+  it('T058: POST /api/payments â€” 200 allocates to oldest due', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-05-01', periodEnd: '2026-05-31' }) }).then(r => r.json());
@@ -387,7 +387,7 @@ describeFn('API Integration Tests', () => {
   });
 
   // T059: Super-admin guard exists
-  it('T059: POST /api/payments/:id/reverse — guard present on endpoint', async () => {
+  it('T059: POST /api/payments/:id/reverse â€” guard present on endpoint', async () => {
     const ts = Date.now();
     const { customerId } = await createCustomerAndMeter(ts);
     const gen = await fetch(`${BASE}/api/invoices/generate`, { method: 'POST', headers: AUTH, body: JSON.stringify({ customerId, periodStart: '2026-07-01', periodEnd: '2026-07-31' }) }).then(r => r.json());

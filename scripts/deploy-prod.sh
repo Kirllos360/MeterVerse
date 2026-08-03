@@ -1,5 +1,5 @@
-#!/bin/bash
-# Production Deployment Script (T117) — Hardened for security
+﻿#!/bin/bash
+# Production Deployment Script (T117) â€” Hardened for security
 set -e
 
 echo "=== MeterVerse Production Deploy ==="
@@ -50,7 +50,7 @@ NODE_ENV=production PORT=3001 DATABASE_URL="$DATABASE_URL" \
 echo "[5/6] Waiting for readiness..."
 for i in $(seq 1 30); do
   sleep 1
-  STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3001/api/health/ready 2>/dev/null || echo "000")
+  STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3131/api/health/ready 2>/dev/null || echo "000")
   if [ "$STATUS" = "200" ]; then
     echo "Service is ready"
     break
@@ -63,6 +63,6 @@ done
 
 # 6. Full health check suite
 echo "[6/6] Running health check suite..."
-curl -f http://localhost:3001/api/health || exit 1
-curl -f http://localhost:3001/api/health/ready || exit 1
+curl -f http://localhost:3131/api/health || exit 1
+curl -f http://localhost:3131/api/health/ready || exit 1
 echo "=== Deploy complete ==="

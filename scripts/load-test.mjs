@@ -1,5 +1,5 @@
-// Load test script (T113) — runs concurrent API requests
-const TARGET = process.env.TARGET || 'http://localhost:3002';
+﻿// Load test script (T113) â€” runs concurrent API requests
+const TARGET = process.env.TARGET || 'http://localhost:3131';
 const CONCURRENCY = parseInt(process.env.CONCURRENCY || '10');
 const REQUESTS = parseInt(process.env.REQUESTS || '100');
 

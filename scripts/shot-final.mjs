@@ -1,4 +1,4 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true, args: ["--disable-font-subpixel-positioning"] })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
@@ -15,12 +15,12 @@ const shot = async (url, name) => {
   }
 }
 
-await shot("http://localhost:7400/admin", "admin-root")
-await shot("http://localhost:7400/admin/customers", "admin-customers")
-await shot("http://localhost:7400/admin/invoices", "admin-invoices")
-await shot("http://localhost:7400/admin/meters", "admin-meters")
-await shot("http://localhost:7400/admin/payments", "admin-payments")
-await shot("http://localhost:7400/", "root-home")
+await shot("http://localhost:3535/admin", "admin-root")
+await shot("http://localhost:3535/admin/customers", "admin-customers")
+await shot("http://localhost:3535/admin/invoices", "admin-invoices")
+await shot("http://localhost:3535/admin/meters", "admin-meters")
+await shot("http://localhost:3535/admin/payments", "admin-payments")
+await shot("http://localhost:3535/", "root-home")
 
 await browser.close()
 console.log("DONE")

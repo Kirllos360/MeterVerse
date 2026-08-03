@@ -1,20 +1,20 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
-const BASE = "http://localhost:7400"
+const BASE = "http://localhost:3535"
 const report = { runs: [], passed: 0, failed: 0, total: 0 }
 
 async function check(label, fn) {
   report.total++
   try {
     const ok = await fn()
-    if (ok) { report.passed++; console.log("  ✅ " + label) }
-    else { report.failed++; console.log("  ❌ " + label) }
+    if (ok) { report.passed++; console.log("  âœ… " + label) }
+    else { report.failed++; console.log("  âŒ " + label) }
     report.runs.push({ label, passed: ok })
   } catch (e) {
     report.failed++
     report.runs.push({ label, passed: false, error: String(e) })
-    console.log("  ❌ " + label + ": " + e)
+    console.log("  âŒ " + label + ": " + e)
   }
 }
 
@@ -94,30 +94,30 @@ for (let loop = 1; loop <= 30; loop++) {
 
   await check("Backend health API responds", async () => {
     try {
-      const r = await page.request.get("http://localhost:3002/api/health")
+      const r = await page.request.get("http://localhost:3131/api/health")
       return r.ok()
     } catch { return false }
   })
 
   await check("Backend meters API responds", async () => {
     try {
-      const r = await page.request.get("http://localhost:3002/api/meters?limit=1", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } })
+      const r = await page.request.get("http://localhost:3131/api/meters?limit=1", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } })
       return r.ok()
     } catch { return false }
   })
 
   await check("Backend customers API responds", async () => {
     try {
-      const r = await page.request.get("http://localhost:3002/api/customers?limit=1", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } })
+      const r = await page.request.get("http://localhost:3131/api/customers?limit=1", { headers: { Authorization: "Bearer dev", "X-Dev-Mode": "true" } })
       return r.ok()
     } catch { return false }
   })
 
   await page.close()
-  console.log("  ─── Loop " + loop + ": " + report.passed + "/" + report.total + " passed ───")
+  console.log("  â”€â”€â”€ Loop " + loop + ": " + report.passed + "/" + report.total + " passed â”€â”€â”€")
 }
 
-console.log("\n═══ FINAL RESULTS ═══")
+console.log("\nâ•â•â• FINAL RESULTS â•â•â•")
 console.log("Total checks: " + report.total)
 console.log("Passed: " + report.passed)
 console.log("Failed: " + report.failed)

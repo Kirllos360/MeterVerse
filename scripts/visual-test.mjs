@@ -1,10 +1,10 @@
-import { chromium } from 'playwright';
+﻿import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const BASE = 'http://localhost:7400';
+const BASE = 'http://localhost:3535';
 const SS_DIR = join(__dirname, '..', 'docs', 'screenshots', 'visual-audit');
 
 mkdirSync(SS_DIR, { recursive: true });
@@ -87,7 +87,7 @@ async function testPage(page, { path, name }) {
 }
 
 async function main() {
-  console.log('🚀 Launching Playwright headless browser...\n');
+  console.log('ðŸš€ Launching Playwright headless browser...\n');
 
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({ viewport: { width: 1920, height: 1080 } });
@@ -98,7 +98,7 @@ async function main() {
     process.stdout.write(`  Testing ${p.path} ... `);
     const entry = await testPage(page, p);
     const ok = entry.status === 200 && entry.hasContent;
-    const symbol = ok ? '✅' : '❌';
+    const symbol = ok ? 'âœ…' : 'âŒ';
     const reason = !ok ? ` (status=${entry.status}, content=${entry.hasContent}${entry.timeout ? ', TIMEOUT' : ''}${entry.errors.length ? ', errors=' + entry.errors.length : ''})` : '';
     console.log(`${symbol}${reason}`);
   }
@@ -113,9 +113,9 @@ async function main() {
   const rows = results.map(r => {
     const ok = r.status === 200 && r.hasContent;
     const statusStr = r.status ? `${r.status}` : 'ERR';
-    const icon = ok ? '✅' : '❌';
+    const icon = ok ? 'âœ…' : 'âŒ';
     const note = r.timeout ? ' (timeout)' : r.errors.length ? ` (${r.errors.length} console error(s))` : '';
-    return `| ${icon} | \`${r.path}\` | ${statusStr} | ${r.title?.replace(/\|/g, '\\|') ?? '—'} | ${r.hasContent} |${note} |`;
+    return `| ${icon} | \`${r.path}\` | ${statusStr} | ${r.title?.replace(/\|/g, '\\|') ?? 'â€”'} | ${r.hasContent} |${note} |`;
   }).join('\n');
 
   const errPages = results.filter(r => r.errors.length > 0);
@@ -148,15 +148,15 @@ All screenshots saved to \`docs/screenshots/visual-audit/\`.
 `;
 
   writeFileSync(join(SS_DIR, 'SUMMARY.md'), summary, 'utf-8');
-  console.log(`\n📄 Summary written to docs/screenshots/visual-audit/SUMMARY.md`);
-  console.log(`📸 ${results.length} screenshots saved.\n`);
-  console.log(`═══ RESULTS ═══`);
-  console.log(`  ✅ Pass: ${pass}`);
-  console.log(`  ❌ Fail: ${fail}`);
-  console.log(`  📊 Rate: ${(pass / total * 100).toFixed(1)}%`);
+  console.log(`\nðŸ“„ Summary written to docs/screenshots/visual-audit/SUMMARY.md`);
+  console.log(`ðŸ“¸ ${results.length} screenshots saved.\n`);
+  console.log(`â•â•â• RESULTS â•â•â•`);
+  console.log(`  âœ… Pass: ${pass}`);
+  console.log(`  âŒ Fail: ${fail}`);
+  console.log(`  ðŸ“Š Rate: ${(pass / total * 100).toFixed(1)}%`);
   results.forEach(r => {
     const ok = r.status === 200 && r.hasContent;
-    console.log(`  ${ok ? '✅' : '❌'} ${r.path} (HTTP ${r.status ?? 'ERR'})${r.timeout ? ' ⏰ TIMEOUT' : ''}${r.errors.length ? ` ⚠️ ${r.errors.length} error(s)` : ''}`);
+    console.log(`  ${ok ? 'âœ…' : 'âŒ'} ${r.path} (HTTP ${r.status ?? 'ERR'})${r.timeout ? ' â° TIMEOUT' : ''}${r.errors.length ? ` âš ï¸ ${r.errors.length} error(s)` : ''}`);
   });
 }
 

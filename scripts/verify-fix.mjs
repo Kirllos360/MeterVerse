@@ -1,8 +1,8 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
-await page.goto("http://localhost:7400/admin", { waitUntil: "networkidle", timeout: 30000 })
+await page.goto("http://localhost:3535/admin", { waitUntil: "networkidle", timeout: 30000 })
 await page.waitForTimeout(3000)
 
 const info = await page.evaluate(() => {
@@ -41,13 +41,13 @@ info.containers.forEach((c, i) => console.log("  [" + i + "] " + c.cls + " | " +
 // Check if brand is red
 const firstBrand = info.containers[0]?.style || ""
 if (firstBrand.includes("DC2626") || firstBrand.includes("dc2626")) {
-  console.log("\n✓ BRAND COLOR: RED #DC2626")
+  console.log("\nâœ“ BRAND COLOR: RED #DC2626")
 } else if (firstBrand.includes("00BFA5")) {
-  console.log("\n✗ BRAND COLOR: Still teal")
+  console.log("\nâœ— BRAND COLOR: Still teal")
 } else {
   console.log("\n? BRAND COLOR: Unknown")
 }
 
-console.log("\nDUPLICATION CHECK: " + (info.containers.length <= 2 ? "✓ SINGLE LAYOUT" : "✗ DUPLICATE LAYOUT (" + info.containers.length + " containers)"))
+console.log("\nDUPLICATION CHECK: " + (info.containers.length <= 2 ? "âœ“ SINGLE LAYOUT" : "âœ— DUPLICATE LAYOUT (" + info.containers.length + " containers)"))
 
 await browser.close()

@@ -1,17 +1,17 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const b = await chromium.launch({ headless: true })
 const p = await b.newPage({ viewport: { width: 1440, height: 900 } })
 
 // First load admin to warm up the compiler
-await p.goto("http://localhost:7400/admin", { timeout: 60000 }).catch(() => {})
+await p.goto("http://localhost:3535/admin", { timeout: 60000 }).catch(() => {})
 await new Promise(r => setTimeout(r, 6000))
 
 // Check URL
 console.log("Step 1: admin loaded, URL:", p.url())
 
 // Now load user version
-await p.goto("http://localhost:7400/", { timeout: 60000, waitUntil: "domcontentloaded" }).catch(() => {})
+await p.goto("http://localhost:3535/", { timeout: 60000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 6000))
 
 // Take screenshot 
