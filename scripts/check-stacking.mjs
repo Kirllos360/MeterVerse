@@ -1,8 +1,8 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
-await page.goto("http://localhost:7400/admin", { timeout: 30000 }).catch(() => {})
+await page.goto("http://localhost:3535/admin", { timeout: 30000 }).catch(() => {})
 await new Promise(r => setTimeout(r, 5000))
 
 const btn = page.locator("button").filter({ hasText: "Admin User" }).first()

@@ -1,4 +1,4 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const b = await chromium.launch({ headless: true })
 const p = await b.newPage({ viewport: { width: 1440, height: 900 } })
@@ -6,7 +6,7 @@ const p = await b.newPage({ viewport: { width: 1440, height: 900 } })
 let errors = []
 p.on("console", m => { if (m.type() === "error") errors.push(m.text()) })
 
-await p.goto("http://localhost:7400/?t=" + Date.now(), { timeout: 60000, waitUntil: "domcontentloaded" }).catch(() => {})
+await p.goto("http://localhost:3535/?t=" + Date.now(), { timeout: 60000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 8000))
 
 // Check if user button exists

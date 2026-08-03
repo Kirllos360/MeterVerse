@@ -1,4 +1,4 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
@@ -14,9 +14,9 @@ page.on("console", msg => {
 
 // TEST 1: Load admin page
 console.log("=== TEST 1: Load admin page ===")
-await page.goto("http://localhost:7400/admin", { timeout: 30000, waitUntil: "domcontentloaded" }).catch(() => {})
+await page.goto("http://localhost:3535/admin", { timeout: 30000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 5000))
-console.log("Status:", (await page.goto("http://localhost:7400/admin", { timeout: 10000 }).catch(() => null))?.status())
+console.log("Status:", (await page.goto("http://localhost:3535/admin", { timeout: 10000 }).catch(() => null))?.status())
 console.log("Console errors:", errors.length)
 errors.forEach(e => console.log("  ", e.text.substring(0, 100)))
 
@@ -57,17 +57,17 @@ console.log("Total errors:", errors.length)
 
 // TEST 5: Login page test
 console.log("\n=== TEST 5: Login pages ===")
-await page.goto("http://localhost:7400/admin/login", { timeout: 10000 }).catch(() => {})
+await page.goto("http://localhost:3535/admin/login", { timeout: 10000 }).catch(() => {})
 await new Promise(r => setTimeout(r, 2000))
 console.log("Admin login loaded:", await page.locator("text=Sign In").isVisible())
 
-await page.goto("http://localhost:7400/login", { timeout: 10000 }).catch(() => {})
+await page.goto("http://localhost:3535/login", { timeout: 10000 }).catch(() => {})
 await new Promise(r => setTimeout(r, 2000))
 console.log("User login loaded:", await page.locator("h1").first().isVisible())
 
 // TEST 6: Check footer
 console.log("\n=== TEST 6: Footer check ===")
-await page.goto("http://localhost:7400/admin", { timeout: 10000 }).catch(() => {})
+await page.goto("http://localhost:3535/admin", { timeout: 10000 }).catch(() => {})
 await new Promise(r => setTimeout(r, 3000))
 const footerText = await page.locator("text=Meter Verse v8.0").isVisible()
 console.log("Footer 'Meter Verse v8.0' visible:", footerText)

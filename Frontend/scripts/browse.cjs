@@ -1,4 +1,4 @@
-const { chromium } = require("playwright");
+﻿const { chromium } = require("playwright");
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
@@ -6,8 +6,8 @@ const { chromium } = require("playwright");
   const page = await ctx.newPage();
 
   // Step 1: Go to admin page
-  console.log("=== STEP 1: http://localhost:7400/admin ===");
-  await page.goto("http://localhost:7400/admin", { waitUntil: "networkidle", timeout: 30000 }).catch(() => {});
+  console.log("=== STEP 1: http://localhost:3535/admin ===");
+  await page.goto("http://localhost:3535/admin", { waitUntil: "networkidle", timeout: 30000 }).catch(() => {});
   await page.waitForTimeout(3000);
   
   // Get ALL text content
@@ -50,7 +50,7 @@ const { chromium } = require("playwright");
 
   // Step 4: Check what happens on dashboard
   console.log("\n=== STEP 4: Dashboard ===");
-  await page.goto("http://localhost:7400/dashboard/overview", { waitUntil: "networkidle", timeout: 15000 }).catch(() => {});
+  await page.goto("http://localhost:3535/dashboard/overview", { waitUntil: "networkidle", timeout: 15000 }).catch(() => {});
   await page.waitForTimeout(3000);
   text = await page.evaluate(() => document.body.innerText);
   console.log(text.slice(0, 1500));

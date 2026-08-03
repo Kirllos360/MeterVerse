@@ -1,8 +1,8 @@
-import { chromium } from "playwright";
+﻿import { chromium } from "playwright";
 
 async function screenshot(page, name) {
   await page.screenshot({ path: `D:/meter/docs/screenshots/${name}.png`, fullPage: true });
-  console.log(`  📸 ${name}.png`);
+  console.log(`  ðŸ“¸ ${name}.png`);
 }
 
 async function main() {
@@ -16,7 +16,7 @@ async function main() {
   console.log("Taking screenshots of all admin pages...\n");
 
   // Admin dashboard
-  await page.goto("http://localhost:7400/admin", { waitUntil: "networkidle", timeout: 30000 }).catch(() => {});
+  await page.goto("http://localhost:3535/admin", { waitUntil: "networkidle", timeout: 30000 }).catch(() => {});
   await screenshot(page, "admin-dashboard");
   console.log("  Sidebar links:", await page.locator("a[href^='/admin/']").all().then(links => links.length));
 
@@ -24,21 +24,21 @@ async function main() {
   const pages = ["customers", "meters", "invoices", "payments", "readings", "tariffs", "sim", "projects", "users", "roles", "audit", "backup", "cache", "queue", "health", "sessions", "settings", "dashboard"];
   for (const p of pages) {
     try {
-      await page.goto(`http://localhost:7400/admin/${p}`, { waitUntil: "networkidle", timeout: 15000 });
+      await page.goto(`http://localhost:3535/admin/${p}`, { waitUntil: "networkidle", timeout: 15000 });
       await screenshot(page, `admin-${p}`);
     } catch (e) {
-      console.log(`  ❌ ${p}: ${e.message?.slice(0, 50)}`);
+      console.log(`  âŒ ${p}: ${e.message?.slice(0, 50)}`);
     }
   }
 
   // Check what "Customer Group" shows
   try {
-    await page.goto("http://localhost:7400/admin/customer-groups", { waitUntil: "networkidle", timeout: 15000 }).catch(() => {});
+    await page.goto("http://localhost:3535/admin/customer-groups", { waitUntil: "networkidle", timeout: 15000 }).catch(() => {});
     await screenshot(page, "admin-customer-groups");
   } catch {}
 
   await browser.close();
-  console.log("\n✅ All screenshots saved to docs/screenshots/");
+  console.log("\nâœ… All screenshots saved to docs/screenshots/");
 }
 
 main().catch(console.error);

@@ -1,4 +1,4 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
@@ -14,7 +14,7 @@ const results = []
 
 for (const p of pages) {
   try {
-    const resp = await page.goto("http://localhost:7400/admin/" + p, { waitUntil: "networkidle", timeout: 10000 })
+    const resp = await page.goto("http://localhost:3535/admin/" + p, { waitUntil: "networkidle", timeout: 10000 })
     const status = resp ? resp.status() : 0
     results.push({ page: p, status })
     console.log(p + ": " + status)

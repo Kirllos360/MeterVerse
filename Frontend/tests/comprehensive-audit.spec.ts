@@ -254,7 +254,7 @@ test.describe("MeterVerse Comprehensive Audit", () => {
 test.describe("Backend API Health Check", () => {
   test("API is on different port (backend check)", async ({ request }) => {
     // Check if backend is running
-    const resp = await request.get("http://localhost:3001/api/health").catch(() => null)
+    const resp = await request.get("http://localhost:3131/api/health").catch(() => null)
     if (resp) {
       console.log(`  Backend API: ${resp.status()}`)
     } else {

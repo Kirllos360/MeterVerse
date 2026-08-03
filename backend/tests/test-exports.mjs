@@ -1,6 +1,6 @@
-import { request } from "http"
+﻿import { request } from "http"
 
-const BASE = "http://localhost:3001"
+const BASE = "http://localhost:3131"
 
 function req(method, path, body, token) {
   return new Promise((resolve, reject) => {
@@ -35,10 +35,10 @@ async function main() {
     const isCSV = res.headers["content-type"]?.includes("csv")
     const hasHeader = res.body.includes(",")
     if (res.status === 200 && isCSV && hasHeader) {
-      console.log(`  OK ${ep} → ${res.status}, ${lines} lines, CSV`)
+      console.log(`  OK ${ep} â†’ ${res.status}, ${lines} lines, CSV`)
       passed++
     } else {
-      console.log(`  FAIL ${ep} → ${res.status}, content-type: ${res.headers["content-type"]}`)
+      console.log(`  FAIL ${ep} â†’ ${res.status}, content-type: ${res.headers["content-type"]}`)
     }
   }
 

@@ -1,10 +1,10 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
 
 // Check user page
-await page.goto("http://localhost:7400/user", { waitUntil: "networkidle", timeout: 20000 })
+await page.goto("http://localhost:3535/user", { waitUntil: "networkidle", timeout: 20000 })
 await page.waitForTimeout(3000)
 
 const userInfo = await page.evaluate(() => {

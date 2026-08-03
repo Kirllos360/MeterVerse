@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeAll } from 'vitest';
+﻿import { describe, it, expect, beforeAll } from 'vitest';
 import { prisma } from '../helpers/setup.js';
 
-const BASE = 'http://localhost:3002';
+const BASE = 'http://localhost:3131';
 const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' };
 
 async function waitForBackend(retries = 10, delay = 1000) {
@@ -20,7 +20,7 @@ const describeFn = backendReady ? describe : describe.skip;
 describeFn('LearnedPatterns API', () => {
   let patternId;
 
-  it('POST /api/learned-patterns — 201 create', async () => {
+  it('POST /api/learned-patterns â€” 201 create', async () => {
     const r = await fetch(`${BASE}/api/learned-patterns`, {
       method: 'POST', headers: AUTH,
       body: JSON.stringify({ pattern: 'Meter offline after SIM cooldown', resolution: 'Replace SIM and reset meter', tags: '["meter","sim"]' }),
@@ -32,7 +32,7 @@ describeFn('LearnedPatterns API', () => {
     patternId = d.pattern.id;
   });
 
-  it('GET /api/learned-patterns — 200 list', async () => {
+  it('GET /api/learned-patterns â€” 200 list', async () => {
     const r = await fetch(`${BASE}/api/learned-patterns`, { headers: AUTH });
     expect(r.status).toBe(200);
     const d = await r.json();
@@ -40,14 +40,14 @@ describeFn('LearnedPatterns API', () => {
     expect(d.total).toBeGreaterThanOrEqual(1);
   });
 
-  it('GET /api/learned-patterns/:id — 200 detail', async () => {
+  it('GET /api/learned-patterns/:id â€” 200 detail', async () => {
     const r = await fetch(`${BASE}/api/learned-patterns/${patternId}`, { headers: AUTH });
     expect(r.status).toBe(200);
     const d = await r.json();
     expect(d.pattern.id).toBe(patternId);
   });
 
-  it('PUT /api/learned-patterns/:id — 200 update', async () => {
+  it('PUT /api/learned-patterns/:id â€” 200 update', async () => {
     const r = await fetch(`${BASE}/api/learned-patterns/${patternId}`, {
       method: 'PUT', headers: AUTH,
       body: JSON.stringify({ effectiveness: 0.85 }),
@@ -57,7 +57,7 @@ describeFn('LearnedPatterns API', () => {
     expect(d.pattern.effectiveness).toBe(0.85);
   });
 
-  it('POST /api/learned-patterns/:id/feedback — 200 feedback', async () => {
+  it('POST /api/learned-patterns/:id/feedback â€” 200 feedback', async () => {
     const r = await fetch(`${BASE}/api/learned-patterns/${patternId}/feedback`, {
       method: 'POST', headers: AUTH,
       body: JSON.stringify({ effectiveness: 0.9 }),
@@ -67,7 +67,7 @@ describeFn('LearnedPatterns API', () => {
     expect(d.pattern.frequency).toBeGreaterThanOrEqual(2);
   });
 
-  it('DELETE /api/learned-patterns/:id — 200 soft delete', async () => {
+  it('DELETE /api/learned-patterns/:id â€” 200 soft delete', async () => {
     const r = await fetch(`${BASE}/api/learned-patterns/${patternId}`, { method: 'DELETE', headers: AUTH });
     expect(r.status).toBe(200);
     const d = await r.json();

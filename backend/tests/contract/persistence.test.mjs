@@ -1,5 +1,5 @@
-/**
- * P45 Enterprise Core Baseline — Persistence Verification (LIVE)
+﻿/**
+ * P45 Enterprise Core Baseline â€” Persistence Verification (LIVE)
  *
  * Proves the "no simulated persistence" requirement: every write commits to
  * the real database and can be read back, updated, and deleted. No mocks.
@@ -10,7 +10,7 @@
 
 import { describe, it, expect } from 'vitest'
 
-const BASE = process.env.CONTRACT_BASE_URL || 'http://localhost:3002'
+const BASE = process.env.CONTRACT_BASE_URL || 'http://localhost:3131'
 const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' }
 const req = (method, url, body) =>
   fetch(`${BASE}${url}`, { method, headers: AUTH, body: body ? JSON.stringify(body) : undefined })
@@ -18,7 +18,7 @@ const req = (method, url, body) =>
 
 async function waitForBackend(retries = 10, delay = 1000) {
   for (let i = 0; i < retries; i++) {
-    try { const r = await fetch('http://localhost:3002/api/health', { signal: AbortSignal.timeout(2000) }); if (r.status === 200) return true } catch {}
+    try { const r = await fetch('http://localhost:3131/api/health', { signal: AbortSignal.timeout(2000) }); if (r.status === 200) return true } catch {}
     await new Promise(r => setTimeout(r, delay))
   }
   return false
@@ -28,8 +28,8 @@ const describeFn = ready ? describe : describe.skip
 
 const uid = () => `p45-${Date.now()}-${Math.floor(Math.random() * 100000)}`
 
-describeFn('P45 Persistence Verification — real writes round-trip (no simulation)', () => {
-  it('CUSTOMER: create persists → read back → update → delete', async () => {
+describeFn('P45 Persistence Verification â€” real writes round-trip (no simulation)', () => {
+  it('CUSTOMER: create persists â†’ read back â†’ update â†’ delete', async () => {
     const name = `P45 Customer ${uid()}`
     const created = await req('POST', '/api/customers', { name, email: `${uid()}@test.com` })
     expect(created.status).toBe(201)
@@ -46,7 +46,7 @@ describeFn('P45 Persistence Verification — real writes round-trip (no simulati
     expect(del.status).toBe(200)
   })
 
-  it('METER: create persists → read back → delete', async () => {
+  it('METER: create persists â†’ read back â†’ delete', async () => {
     const serial = uid()
     const created = await req('POST', '/api/meters', { serial, type: 'electric' })
     expect(created.status).toBe(201)
@@ -57,10 +57,10 @@ describeFn('P45 Persistence Verification — real writes round-trip (no simulati
     expect(read.status).toBe(200)
   })
 
-  it('READING: create persists → read back', async () => {
+  it('READING: create persists â†’ read back', async () => {
     const created = await req('POST', '/api/readings', { meterId: 'missing', value: 1 })
     // Either a valid create (201) or a real-backend validation rejection
-    // (400/404/422) for the missing meter — the key assertion is that the
+    // (400/404/422) for the missing meter â€” the key assertion is that the
     // request hits the real backend (no mock 200 fallback).
     expect([201, 400, 404, 422]).toContain(created.status)
   })

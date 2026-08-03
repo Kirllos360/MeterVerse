@@ -1,12 +1,12 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
 
-// TEST ON USER VERSION (localhost:7400) — NOT ADMIN
-console.log("=== TESTING USER VERSION localhost:7400 ===")
+// TEST ON USER VERSION (localhost:3535) â€” NOT ADMIN
+console.log("=== TESTING USER VERSION localhost:3535 ===")
 
-await page.goto("http://localhost:7400", { timeout: 30000, waitUntil: "domcontentloaded" }).catch(() => {})
+await page.goto("http://localhost:3535", { timeout: 30000, waitUntil: "domcontentloaded" }).catch(() => {})
 await new Promise(r => setTimeout(r, 5000))
 
 const userUrl = page.url()
@@ -31,7 +31,7 @@ if (btnExists) {
   await page.screenshot({ path: "D:/meter/docs/screenshots/user-version-dropdown.png" })
   
   if (!profile || !signOut) {
-    console.log("\n❌ DROPDOWN NOT VISIBLE IN USER VERSION!")
+    console.log("\nâŒ DROPDOWN NOT VISIBLE IN USER VERSION!")
     console.log("Checking why...")
     
     // Check if overflow-hidden is present on ancestors
@@ -59,7 +59,7 @@ if (btnExists) {
     console.log("Overflow check:", JSON.stringify(overflowCheck))
   }
 } else {
-  console.log("❌ No user button found in user version")
+  console.log("âŒ No user button found in user version")
   // Check what content IS on the page
   const bodyText = await page.evaluate(() => document.body.innerText.substring(0, 500))
   console.log("Page content:", bodyText)

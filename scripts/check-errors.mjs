@@ -1,4 +1,4 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage()
@@ -9,7 +9,7 @@ page.on("console", msg => {
 page.on("pageerror", err => console.log("PAGE ERROR:", err.message))
 
 try {
-  await page.goto("http://localhost:7400/admin", { waitUntil: "networkidle", timeout: 30000 })
+  await page.goto("http://localhost:3535/admin", { waitUntil: "networkidle", timeout: 30000 })
   await page.waitForTimeout(3000)
   console.log("PAGE LOADED:", await page.title())
 } catch (e) {

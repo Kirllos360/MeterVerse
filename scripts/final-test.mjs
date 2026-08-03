@@ -1,4 +1,4 @@
-import { chromium } from "playwright"
+﻿import { chromium } from "playwright"
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
@@ -6,7 +6,7 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
 // Log console errors
 page.on("console", msg => { if (msg.type() === "error") console.log("CONSOLE ERROR:", msg.text()) })
 
-await page.goto("http://localhost:7400/admin", { timeout: 60000 }).catch(() => {})
+await page.goto("http://localhost:3535/admin", { timeout: 60000 }).catch(() => {})
 await new Promise(r => setTimeout(r, 6000))
 
 // Click user menu to open dropdown
@@ -68,9 +68,9 @@ if (userVisible) {
 await browser.close()
 
 if (parentOverflow === "no overflow-hidden ancestor" && hasProfile) {
-  console.log("\n✅ VERDICT: Fix works! Dropdowns visible, no overflow clipping")
+  console.log("\nâœ… VERDICT: Fix works! Dropdowns visible, no overflow clipping")
 } else if (!hasProfile) {
-  console.log("\n❌ VERDICT: Dropdown not rendering at all")
+  console.log("\nâŒ VERDICT: Dropdown not rendering at all")
 } else {
-  console.log("\n⚠️ VERDICT: Dropdown renders but might be clipped")
+  console.log("\nâš ï¸ VERDICT: Dropdown renders but might be clipped")
 }
