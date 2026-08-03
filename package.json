@@ -2,7 +2,7 @@
   "name": "meterverse-os",
   "version": "10.0.0",
   "private": true,
-  "description": "MeterVerse OS — Enterprise Monorepo (Admin Console, Customer Portal, Admin API, Portal API) on one PostgreSQL database with shared packages.",
+  "description": "MeterVerse OS â€” Enterprise Monorepo (Admin Console, Customer Portal, Admin API, Portal API) on one PostgreSQL database with shared packages.",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -10,7 +10,7 @@
   "scripts": {
     "admin:frontend": "cd Frontend && node scripts/postinstall.js 2>/dev/null; next dev -p 3535",
     "admin:backend": "cd backend && PORT=3131 node src/server.js",
-    "portal:frontend": "cd Frontend && PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
+    "portal:frontend": "cd Frontend && PORTAL_MODE=1 NEXT_PUBLIC_PORTAL_MODE=1 NEXT_PUBLIC_PORTAL_MODE=1 node scripts/postinstall.js 2>/dev/null; next dev -p 3030",
     "portal:backend": "cd backend && PORT=3003 PORTAL_MODE=1 node src/server.js",
     "db": "cd backend && npx prisma db push && npm run db:seed",
     "dev:admin": "npm run admin:frontend",
