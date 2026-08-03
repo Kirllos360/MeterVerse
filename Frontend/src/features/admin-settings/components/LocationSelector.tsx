@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useAdminStore } from "@/stores/admin-store"
+import { apiClient } from "@/lib/api-client"
 
 interface Area { name: string; code: string; meterCount: number }
 interface Project { id: string; name: string; zoneCount: number }
@@ -19,24 +20,22 @@ export function LocationSelector() {
 
   // Load areas on mount
   useEffect(() => {
-    fetch("/api/locations/areas")
-      .then(r => r.json()).then(d => setAreas(d.areas || [])).catch(() => {})
-    fetch("/api/locations/unit-types")
-      .then(r => r.json()).then(d => setUnitTypes((d.types || []).map((t: any) => t.type))).catch(() => {})
+    apiClient<{ areas: Area[] }>("/locations/areas").then(d => setAreas(d.areas || [])).catch(() => {})
+    apiClient<{ types: { type: string }[] }>("/locations/unit-types").then(d => setUnitTypes((d.types || []).map(t => t.type))).catch(() => {})
   }, [])
 
   // Load projects when area changes
   useEffect(() => {
     if (!location.selectedArea) { setProjects([]); return }
-    fetch(`/api/locations/areas/${encodeURIComponent(location.selectedArea)}/projects`)
-      .then(r => r.json()).then(d => setProjects(d.projects || [])).catch(() => {})
+    apiClient<{ projects: Project[] }>(`/locations/areas/${encodeURIComponent(location.selectedArea)}/projects`)
+      .then(d => setProjects(d.projects || [])).catch(() => {})
   }, [location.selectedArea])
 
   // Load zones when project changes
   useEffect(() => {
     if (!location.selectedProject) { setZones([]); return }
-    fetch(`/api/locations/projects/${location.selectedProject.id}/zones`)
-      .then(r => r.json()).then(d => setZones(d.zones || [])).catch(() => {})
+    apiClient<{ zones: Zone[] }>(`/locations/projects/${location.selectedProject.id}/zones`)
+      .then(d => setZones(d.zones || [])).catch(() => {})
   }, [location.selectedProject])
 
   // Close on outside click
