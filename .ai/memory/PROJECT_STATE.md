@@ -1,11 +1,23 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-03 (P54 certified)  
-**Current Phase:** P54 Enterprise Runtime Separation & Stabilization — CERTIFIED  
-**Version:** 10.4.0-RUNTIME-SEPARATED  
-**Branch:** feature/p54-runtime-separation (→ merge to main)  
+**Last Updated:** 2026-08-03 (P55 forensic certified)  
+**Current Phase:** P55 Enterprise Forensic Gap Analysis — CERTIFIED  
+**Version:** 10.5.0-P55-FORENSIC-CERTIFIED  
+**Branch:** feature/p55-forensic-gap-analysis (→ merge to main)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P55 — Forensic Gap Analysis — CERTIFIED (2026-08-03)
+
+Zero-trust audit. **Fixed:** ~25 operational pages (Accounting, Collections, Alerts, Sim, Zones, Units, Service Connections, Meter Assignments, Notifications, Roles, Permissions, Scheduler, Queue, Tasks, Webhooks, Integrations, Connectivity, Runtime, Backup) were wired in pageMap but NOT in admin nav → added to `AdminLayout.tsx` ALL_NAV_ITEMS (commit `3c2f2847`).
+
+**Verified:** 4 services live (3535/3131/3030/3003), 17 core pages render 0 errors, functional trace (create customer 201→persisted), portal :3030 user version. Full exam: backend 286, frontend tsc 0 + vitest 44, production build.
+
+**Concerns (non-blocking):** health-scores profilesTracked=0; ~13 pageMap-only pages (Security/SMS/etc.); mock data on Upload; dev pre-auth 401; db-push migration history.
+
+Reports: `docs/reviews/P55_{FORENSIC_GAP_ANALYSIS,CHATGPT_HANDOVER}.md`.
 
 ---
 
