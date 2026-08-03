@@ -47,12 +47,16 @@ const baseConfig: NextConfig = {
     ]
   },
   async redirects() {
+    // Admin profile (:3535): the root serves the Admin console. Redirect / to
+    // /admin so the user/portal version is never served on the admin port.
+    const isPortal = process.env.PORTAL_MODE === "1"
     return [
       {
         source: "/admin/:path+",
         destination: "/admin",
         permanent: false,
       },
+      ...(isPortal ? [] : [{ source: "/", destination: "/admin", permanent: false }]),
     ]
   },
   async headers() {
