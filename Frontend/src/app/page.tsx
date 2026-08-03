@@ -43,8 +43,13 @@ export default function RootPage() {
   const isPortal = process.env.PORTAL_MODE === "1"
 
   if (!isPortal) {
-    // Admin profile: the Admin console at the root URL.
-    return <AdminSpaPage />
+    // Admin profile: the Admin console at the root URL. AdminSpaPage renders
+    // the page-map content; AdminLayout provides the full admin shell (nav).
+    return (
+      <AdminLayout title="Administration">
+        <AdminSpaPage />
+      </AdminLayout>
+    )
   }
 
   const PageComponent = pageMap[activePage] || pageMap.home
