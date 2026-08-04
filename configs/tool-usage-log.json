@@ -1518,5 +1518,24 @@
             "backend/tests/* + Frontend/scripts/* + scripts/* (port migration)",
             "P40_EXECUTION_TRACKER.md (OBS-077)"
         ]
+    },
+    {
+        "task": "P57 Permanent admin/portal separation + visual identity + ChatGPT plan adjustment",
+        "date": "2026-08-03",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "memory", "sequential-thinking", "playwright", "todowrite", "prisma"],
+        "tools_used": [
+            "DIAGNOSED permanent bug: :3535 AND :3030 both showed same admin data (portal FE started without PORTAL_MODE env -> page.tsx rendered admin on portal port)",
+            "FIXED permanently (commit 2b27c274): profile derived from runtime PORT not env — page.tsx window.location.port==='3030'->portal (env fallback); layout.tsx request host/port header -> 3030=portal green else admin red. Two ports can never show same profile.",
+            "VERIFIED (Playwright): :3535=admin red ADMINISTRATION; :3030=portal green DASHBOARD user nav only (no admin modules); theme live (light=white gutter/off-white sectors/red/light-red hover; dark code path verified)",
+            "Visual identity (commit 3d66d335): breadcrumb removed, chart greens->red (AnalyticsBar/ChartComponents/HorizontalBarCard), themeVars black/dark-gray/red/white/light-red + auto-by-clock",
+            "Fixed docs/operations-guide.md stale 3002->3131; created P57_PORT_AND_FRONTEND_PLANNING_REFERENCE.md + P57_CHATGPT_PLAN_ADJUSTMENT.md",
+            "Full exam: backend 292, frontend tsc 0 + vitest 44; OBS-078, PROJECT_STATE 10.8.0"
+        ],
+        "evidence": [
+            "docs/reviews/P57_CHATGPT_PLAN_ADJUSTMENT.md",
+            "docs/reviews/P57_PORT_AND_FRONTEND_PLANNING_REFERENCE.md",
+            "Frontend/src/app/page.tsx + layout.tsx (port-based profile)",
+            "P40_EXECUTION_TRACKER.md (OBS-078)"
+        ]
     }
 ]

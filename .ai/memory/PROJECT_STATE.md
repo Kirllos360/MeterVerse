@@ -1,25 +1,27 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-03 (P57 master recovery certified)  
-**Current Phase:** P57 Enterprise Zero-Trust Master Recovery — CERTIFIED  
-**Version:** 10.7.0-P57-MASTER-RECOVERY  
-**Branch:** feature/p57-master-recovery (→ merge to main)  
+**Last Updated:** 2026-08-03 (P57 permanent separation + visual identity)  
+**Current Phase:** P57 — Permanent admin/portal separation + visual identity + ChatGPT plan adjustment  
+**Version:** 10.8.0-P57-PERMANENT-SEPARATION  
+**Branch:** main (P57 commits merged)  
 **MCPs Active:** 11 (including deepseek-eyes 👁️)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P57 — Zero-Trust Master Recovery — CERTIFIED (2026-08-03)
+## P57 — Permanent Separation + Visual Identity (2026-08-03)
 
-**Fixed:** 48 test/script files referenced stale ports (7400/3002/3001) → migrated to admin :3535 / API :3131. **Zero stale ports in code** (commit `dbb0700b`). This also un-skipped previously-skipped backend tests → **backend 292 all pass**.
+**CRITICAL FIX (permanent):** Admin :3535 and Portal :3030 both showed the SAME admin data because the portal FE was started without PORTAL_MODE env. **Fixed permanently** with port-based profile detection:
+- `page.tsx`: `window.location.port === "3030"` → portal; else admin (env fallback)
+- `layout.tsx` (server): request `host`/port header → 3030 = portal (green), else admin (red)
+- **The two ports can NEVER show the same profile again** (commit `2b27c274`)
+- Verified (Playwright): :3535 = admin red ADMINISTRATION; :3030 = portal green DASHBOARD (user nav only, no admin modules)
 
-**Verified:** 4 services live + healthy (3535/3131/3030/3003, portal admin-gate 404), 12/12 core pages render 0 errors (Playwright), functional wiring (create→persist→reload), production build succeeds.
+**Visual identity (commit `3d66d335`):** dark = black gutter + dark-gray sectors (#1A1A1E) + red secondary + white text + light-red hover; light = white gutter + off-white sectors (#F2F2F5) + red + black text + light-red hover; auto theme by clock. Removed chart greens → red. Removed breadcrumb trail. operations-guide stale ports fixed.
 
-**Known dev-only fragility:** Turbopack dev-cache corruption (CSS/routes.d.ts) when both FEs run on shared source — cleaned caches; launchers should auto-clean.
+**Open (awaiting ChatGPT):** DB tenancy (P56 Q1), shared login/sign-out, kirllos accounts, area/project/user wiring, semantic-green decision, Wave 4 order.
 
-**Open (awaiting ChatGPT/Kimi decisions Q1–Q6 from P56):** DB separation model, shared login/sign-out, kirllos super-admin accounts, area/project/user role-permission wiring.
-
-Report: `docs/reviews/P57_MASTER_RECOVERY_CERTIFICATION.md`.
+Reports: `docs/reviews/P57_{MASTER_RECOVERY_CERTIFICATION,PORT_AND_FRONTEND_PLANNING_REFERENCE,CHATGPT_PLAN_ADJUSTMENT}.md`.
 
 ---
 
