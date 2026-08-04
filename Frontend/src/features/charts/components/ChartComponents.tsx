@@ -33,8 +33,9 @@ function useIsGreen() {
 // Universal professional palette — works on ALL backgrounds, ALL brands
 // Inspired by Apple Numbers, Tableau, and corporate dashboard standards
 // Light enough for dark mode visibility, saturated enough for light mode contrast
-const CHART_COLORS = ["#E74C3C", "#F39C12", "#27AE60", "#3498DB", "#8E44AD", "#16A085", "#D35400", "#2C3E50"]
-const CHART_COLORS_BRIGHT = ["#FF6B6B", "#FFD93D", "#6BCB77", "#5DADE2", "#AF7AC5", "#48C9B0", "#F5B041", "#85C1E9"]
+// P57: admin palette is red-secondary only — no green hues in chart series
+const CHART_COLORS = ["#E74C3C", "#F39C12", "#C0392B", "#3498DB", "#8E44AD", "#E67E22", "#D35400", "#2C3E50"]
+const CHART_COLORS_BRIGHT = ["#FF6B6B", "#FFD93D", "#FF8A80", "#5DADE2", "#AF7AC5", "#F5A623", "#F5B041", "#85C1E9"]
 
 function useChartColors() {
   const isDark = useDarkMode()

@@ -41,8 +41,8 @@ interface HorizontalBarCardProps {
 export function HorizontalBarCard({ title, subtitle, data, height = 250 }: HorizontalBarCardProps) {
   const isDark = useDarkMode()
   const brand = getBrandColor()
-  const colors = [brand, "#F39C12", "#27AE60", "#3498DB", "#8E44AD", "#16A085", "#D35400"]
-  const brightColors = ["#FF6B6B", "#FFD93D", "#6BCB77", "#5DADE2", "#AF7AC5", "#48C9B0", "#F5B041"]
+  const colors = [brand, "#F39C12", "#C0392B", "#3498DB", "#8E44AD", "#E67E22", "#D35400"]
+  const brightColors = ["#FF6B6B", "#FFD93D", "#FF8A80", "#5DADE2", "#AF7AC5", "#F5A623", "#F5B041"]
   const palette = isDark ? brightColors : colors
   // Replace first color with brand
   palette[0] = brand

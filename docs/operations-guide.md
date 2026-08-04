@@ -1,16 +1,16 @@
-# Operations Guide (T119)
+﻿# Operations Guide (T119)
 
 ## Daily Operations
 ```bash
 # Check system health
-curl http://localhost:3002/api/health
-curl http://localhost:3002/api/admin/health
+curl http://localhost:3131/api/health
+curl http://localhost:3131/api/admin/health
 
 # Check queue depth
-curl http://localhost:3002/api/admin/queue
+curl http://localhost:3131/api/admin/queue
 
 # Monitor active sessions
-curl http://localhost:3002/api/admin/sessions
+curl http://localhost:3131/api/admin/sessions
 ```
 
 ## Backup

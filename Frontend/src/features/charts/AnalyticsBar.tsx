@@ -10,7 +10,8 @@ interface AnalyticsBarProps {
   brandColor?: string
 }
 
-const PIE_COLORS = ["var(--brand)", "var(--brand)", "#F59E0B", "#10B981"]
+// P57: admin palette is red-secondary only — no green accent in charts
+const PIE_COLORS = ["var(--brand)", "var(--brand)", "#F59E0B", "#EF4444"]
 
 export function AnalyticsBar({ title, data1, data2, data3, brandColor = "var(--brand)" }: AnalyticsBarProps) {
   const labelClass = "text-[10px] font-medium mb-1.5 block"

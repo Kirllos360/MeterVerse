@@ -6,9 +6,7 @@ import { ErrorBoundary } from "@/components/effects/ErrorBoundary"
 import { InspectorPanel } from "@/admin/layout/InspectorPanel"
 import { AdminToolbar } from "@/admin/layout/AdminToolbar"
 import { useAdminStore } from "@/stores/admin-store"
-import { LocationSelector } from "@/features/admin-settings/components/LocationSelector"
 import { CommandPalette } from "@/features/admin-settings/components/CommandPalette"
-import { Breadcrumbs } from "@/features/admin-settings/components/Breadcrumbs"
 
 const SYSTEM_TABS = [
   { id: "admin", label: "Admin", icon: "M12 15V3m0 12l-4-4m4 4l4-4" },
@@ -127,17 +125,23 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
 
   const themeVars = {
     "--brand": brandColor, "--brand-rgb": brandRgb,
-    "--surface-base": isLight ? "#F2F2F5" : "#121214",
-    "--surface-topbar": isLight ? "#FFFFFF" : "#1A1A1E",
+    // P57 design system: main/gutter background = BLACK (dark) / WHITE (light).
+    // The three sectors (sidebar, topbar, content cards) use the dark-gray/
+    // off-white surface tokens below. Red is the secondary color; hover = light red.
+    "--surface-base": isLight ? "#FFFFFF" : "#000000",
+    "--surface-topbar": isLight ? "#F2F2F5" : "#1A1A1E",
     "--surface-raised": isLight ? "#FFFFFF" : "#1E1E22",
-    "--sidebar-background": isLight ? "#FFFFFF" : "#1A1A1E",
+    "--surface-sunken": isLight ? "#F2F2F5" : "#141416",
+    "--sidebar-background": isLight ? "#F2F2F5" : "#1A1A1E",
     "--border-default": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.08)",
     "--text-primary": isLight ? "#1C1C1E" : "#F2F2F5",
     "--text-secondary": isLight ? "rgba(0,0,0,0.5)" : "rgba(255,255,255,0.5)",
     "--text-tertiary": isLight ? "rgba(0,0,0,0.25)" : "rgba(255,255,255,0.25)",
-    "--toolbar-bg": isLight ? "rgba(255,255,255,0.8)" : "rgba(26,26,30,0.85)",
+    "--toolbar-bg": isLight ? "rgba(242,242,245,0.9)" : "rgba(26,26,30,0.9)",
     "--toolbar-border": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.06)",
     "--toolbar-muted": isLight ? "rgba(0,0,0,0.35)" : "rgba(255,255,255,0.35)",
+    // Light-red hover (secondary red, ~visible): dark "10", light "06"
+    "--hover-bg": isLight ? "rgba(220,38,38,0.06)" : "rgba(220,38,38,0.10)",
   } as React.CSSProperties
 
   const goHome = () => { const h = ALL_NAV_ITEMS[0]; addOpenPage({ id: h.id, label: h.label }); setActivePage("home" as any) }
@@ -229,12 +233,7 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
           </motion.div>
         </div>
 
-          {/* BREADCRUMBS */}
-          <div className="shrink-0 px-1">
-            <Breadcrumbs />
-          </div>
-
-          {/* CONTENT AREA */}
+          {/* CONTENT AREA (breadcrumb removed per P57: no trail between sidebar and workspace) */}
         <div className="flex-1 flex flex-col min-w-0 gap-2">
           {/* FIRST TAB ROW — Open pages from sidebar */}
           <div className="shrink-0 rounded-2xl border px-2" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
@@ -262,7 +261,7 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
             </div>
           </div>
 
-          {/* SECOND TAB ROW — Sub-page tabs + location selector */}
+          {/* SECOND TAB ROW — Sub-page tabs (location breadcrumb removed per P57 design: no trail between sidebar and workspace) */}
           <div className="shrink-0 flex items-center gap-2" style={{ minHeight: 36 }}>
             {subTabs.length > 0 && (
               <div className="flex-1 rounded-2xl border px-3 flex items-center" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
@@ -278,8 +277,6 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
                 </div>
               </div>
             )}
-            {/* Location Selector in right side of second tab row */}
-            <LocationSelector />
           </div>
 
           {/* PAGE CONTENT */}
