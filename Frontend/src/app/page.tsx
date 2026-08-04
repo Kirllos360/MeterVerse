@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import SystemLayout from "@/admin/layout/SystemLayout"
 import SystemDashboard from "@/admin/dashboard/SystemDashboard"
 import AdminLayout from "@/admin/layout/AdminLayout"
@@ -36,13 +37,23 @@ const pageMap: Record<string, React.ComponentType<any>> = {
 
 export default function RootPage() {
   // P54-standalone: the SAME app serves two standalone versions on separate
-  // ports. Admin profile (:3535, PORTAL_MODE unset) renders the Admin console
-  // directly at "/" (URL stays localhost:3535). Portal profile (:3030,
-  // PORTAL_MODE=1) renders the user/dashboard version at "/".
+  // ports. Admin profile (:3535) renders the Admin console at "/". Portal
+  // profile (:3030) renders the user/dashboard version at "/".
   const activePage = useAdminStore((s) => s.activePage)
-  // P56: profile must be browser-visible. NEXT_PUBLIC_PORTAL_MODE is set by the
-  // portal launcher (dev/start) so client components can gate admin vs portal.
-  const isPortal = process.env.NEXT_PUBLIC_PORTAL_MODE === "1" || process.env.NEXT_PUBLIC_PORTAL_MODE === "true"
+  // P57-FIX (permanent): profile is derived from BOTH the browser-visible env
+  // AND the runtime port (window.location.port). Port detection makes the
+  // separation bulletproof — even if a server is mis-started without the env,
+  // the browser port (3030 = portal, 3535 = admin) enforces the correct profile.
+  const [isPortal, setIsPortal] = useState<boolean>(() => {
+    if (process.env.NEXT_PUBLIC_PORTAL_MODE === "1" || process.env.NEXT_PUBLIC_PORTAL_MODE === "true") return true
+    return false
+  })
+  useEffect(() => {
+    const port = window.location.port
+    // 3030 => portal; 3535 (or anything else) => admin. Overrides env as the
+    // authoritative runtime signal so both ports can never show the same profile.
+    setIsPortal(port === "3030")
+  }, [])
 
   if (!isPortal) {
     // Admin profile: the Admin console at the root URL. AdminSpaPage renders

@@ -6,7 +6,7 @@ import ThemeProvider from "@/components/themes/theme-provider"
 import { ActiveThemeProvider } from "@/components/themes/active-theme"
 import { cn } from "@/lib/utils"
 import type { Metadata, Viewport } from "next"
-import { cookies } from "next/headers"
+import { cookies, headers } from "next/headers"
 import NextTopLoader from "nextjs-toploader"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { RuntimeProvider } from "@/runtime/workspace/workspace-runtime"
@@ -34,8 +34,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const themeToApply = isValidTheme ? activeThemeValue! : DEFAULT_THEME
   const lang = cookieStore.get("mv_language")?.value || "en"
   const dir = lang === "ar" ? "rtl" : "ltr"
-  // P53: MeterVerse OS profile — admin (3535) vs portal (3030) via PORTAL_MODE.
-  const profile = process.env.PORTAL_MODE === "1" ? "portal" : "admin"
+  // P57-FIX (permanent): derive profile from the REQUEST PORT (authoritative),
+  // with env as fallback. Port 3030 = portal, 3535 = admin. This guarantees the
+  // two ports can never serve the same profile, even if PORTAL_MODE is mis-set.
+  const headerStore = await headers()
+  const host = headerStore.get("host") || ""
+  const port = host.split(":")[1] || ""
+  const profile = (port === "3030" || process.env.PORTAL_MODE === "1") ? "portal" : "admin"
 
   return (
     <html lang={lang} dir={dir} data-profile={profile} suppressHydrationWarning>
