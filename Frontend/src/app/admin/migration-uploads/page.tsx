@@ -36,7 +36,7 @@ const TEMPLATES = [
 ]
 
 const statusBadge = (s: string) => {
-  const colors: Record<string, string> = { Success: "#22c55e", Completed: "#22c55e", Active: "#22c55e", Running: "#3b82f6", Failed: "#ef4444", Pending: "#f59e0b" }
+  const colors: Record<string, string> = { Success: "#DC2626", Completed: "#DC2626", Active: "#DC2626", Running: "#3b82f6", Failed: "#ef4444", Pending: "#f59e0b" }
   return <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold"
     style={{ backgroundColor: (colors[s] || "#6b7280") + "18", color: colors[s] || "#6b7280" }}>
     <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: colors[s] || "#6b7280" }} />{s}

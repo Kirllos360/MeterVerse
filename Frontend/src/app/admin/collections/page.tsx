@@ -144,7 +144,7 @@ export default function AdminCollectionsPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>EGP {c.collected.toLocaleString()}</p>
-                  <p className="text-xs" style={{ color: c.recoveryRate >= 75 ? "#059669" : "#D97706" }}>{c.recoveryRate}% recovery</p>
+                  <p className="text-xs" style={{ color: c.recoveryRate >= 75 ? "#DC2626" : "#D97706" }}>{c.recoveryRate}% recovery</p>
                 </div>
               </div>
             ))}

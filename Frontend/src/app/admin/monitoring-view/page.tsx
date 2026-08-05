@@ -7,7 +7,7 @@ import { getHealthSummary, getEvents, saveSetting } from "@/features/admin-setti
 const TABS = [{ id: "0", label: "Dashboard" }, { id: "1", label: "Setup" }]
 
 const statusBadge = (s: string) => {
-  const colors: Record<string, string> = { Healthy: "#22c55e", Degraded: "#f59e0b", Down: "#ef4444", Warning: "#f59e0b", Critical: "#ef4444", Info: "#3b82f6" }
+  const colors: Record<string, string> = { Healthy: "#DC2626", Degraded: "#f59e0b", Down: "#ef4444", Warning: "#f59e0b", Critical: "#ef4444", Info: "#3b82f6" }
   return <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: colors[s] + "18", color: colors[s] }}><span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: colors[s] }} />{s}</span>
 }
 

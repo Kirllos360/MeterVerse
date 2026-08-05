@@ -44,7 +44,7 @@ export default function AdminSecurityPage() {
                 {audit.checks.map((c:any,i:number) => (
                   <div key={i} className="flex items-center justify-between px-4 py-3 text-sm">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="pass"?"var(--status-success, #059669)":c.status==="warn"?"var(--status-warning, #D97706)":"var(--status-error, #DC2626)"}}/>
+                      <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="pass"?"var(--brand, #DC2626)":c.status==="warn"?"var(--status-warning, #D97706)":"var(--status-error, #DC2626)"}}/>
                       <span>{c.check}</span>
                     </div>
                     <span className="text-muted-foreground">{c.detail}</span>
@@ -89,7 +89,7 @@ export default function AdminSecurityPage() {
                 {deps.checks.map((c:any,i:number) => (
                   <div key={i} className="flex items-center justify-between px-4 py-3 text-sm">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="ok"?"var(--status-success, #059669)":c.status==="review"?"var(--status-warning, #D97706)":"var(--status-error, #DC2626)"}}/>
+                      <span className="w-2 h-2 rounded-full" style={{backgroundColor:c.status==="ok"?"var(--brand, #DC2626)":c.status==="review"?"var(--status-warning, #D97706)":"var(--status-error, #DC2626)"}}/>
                       <span>{c.dependency}</span>
                       <span className="text-xs font-mono text-muted-foreground">{c.version}</span>
                     </div>

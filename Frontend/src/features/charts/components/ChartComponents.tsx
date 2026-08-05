@@ -21,7 +21,7 @@ function useDarkMode() {
 function useIsGreen() {
   const [isGreen, setIsGreen] = useState(false)
   useEffect(() => {
-    const check = () => setIsGreen(getComputedStyle(document.documentElement).getPropertyValue("--brand").trim().toLowerCase() === "#059669")
+    const check = () => setIsGreen(getComputedStyle(document.documentElement).getPropertyValue("--brand").trim().toLowerCase() === "#DC2626")
     check()
     const observer = new MutationObserver(check)
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["style"] })

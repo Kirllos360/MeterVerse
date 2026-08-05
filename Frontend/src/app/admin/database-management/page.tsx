@@ -82,7 +82,7 @@ export default function DatabaseManagementPage() {
                       <td className="py-3 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{r.meter}</td>
                       <td className="py-3 pr-4" style={{ color: "var(--text-secondary)" }}>{r.reading}</td>
                       <td className="py-3 pr-4" style={{ color: "var(--text-secondary)" }}>{r.date}</td>
-                      <td className="py-3 pr-4"><span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: r.status === "Valid" ? "rgba(34,197,94,0.1)" : "rgba(239,68,68,0.1)", color: r.status === "Valid" ? "#22c55e" : "#ef4444" }}>{r.status}</span></td>
+                      <td className="py-3 pr-4"><span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: r.status === "Valid" ? "rgba(220,38,38,0.1)" : "rgba(239,68,68,0.1)", color: r.status === "Valid" ? "#DC2626" : "#ef4444" }}>{r.status}</span></td>
                       <td className="py-3"><button onClick={() => deleteRow(r.id)} className="text-xs text-red-500 hover:underline">Delete</button></td>
                     </tr>
                   ))}

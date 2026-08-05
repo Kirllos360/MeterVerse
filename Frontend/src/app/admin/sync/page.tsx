@@ -45,7 +45,7 @@ const STATUS_ICONS: Record<string, string> = {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  healthy: "#059669",
+  healthy: "#DC2626",
   warning: "#D97706",
   error: "#DC2626",
   syncing: "#2563EB",
@@ -133,8 +133,8 @@ export default function AdminSyncPage() {
                   <td className="px-5 py-2.5 font-mono" style={{ color: "var(--text-secondary)" }}>{j.finishedAt || "—"}</td>
                   <td className="px-5 py-2.5">
                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium"
-                      style={{ backgroundColor: j.status === "success" ? "rgba(5,150,105,0.1)" : "rgba(217,119,6,0.1)", color: j.status === "success" ? "#059669" : "#D97706" }}>
-                      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: j.status === "success" ? "#059669" : "#D97706" }} />
+                      style={{ backgroundColor: j.status === "success" ? "rgba(220,38,38,0.1)" : "rgba(217,119,6,0.1)", color: j.status === "success" ? "#DC2626" : "#D97706" }}>
+                      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: j.status === "success" ? "#DC2626" : "#D97706" }} />
                       {j.status}
                     </span>
                   </td>

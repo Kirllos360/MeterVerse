@@ -75,7 +75,7 @@ export default function EnhancedMonitoringPage() {
               <div className="flex items-center gap-2">
                 <p className="text-xl font-bold" style={{ color: "var(--text-primary)" }}>{c.value}</p>
                 <span className={`w-2 h-2 rounded-full ${c.status === "healthy" ? "" : ""}`}
-                  style={{ backgroundColor: c.status === "healthy" ? "var(--status-success, #22c55e)" : "var(--status-warning, #eab308)"}} />
+                  style={{ backgroundColor: c.status === "healthy" ? "var(--brand, #DC2626)" : "var(--status-warning, #eab308)"}} />
               </div>
             </motion.div>
           ))}
@@ -96,14 +96,14 @@ export default function EnhancedMonitoringPage() {
                   style={{ backgroundColor: "rgba(var(--brand-rgb),0.03)" }}>
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full" style={{
-                      backgroundColor: h.status === "healthy" ? "var(--status-success, #22c55e)" : "var(--status-warning, #eab308)"
+                      backgroundColor: h.status === "healthy" ? "var(--brand, #DC2626)" : "var(--status-warning, #eab308)"
                     }} />
                     <span style={{ color: "var(--text-primary)" }}>{h.label}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <span style={{ color: "var(--text-tertiary)" }}>{h.latency}</span>
                     <span className="font-semibold" style={{
-                      color: h.status === "healthy" ? "var(--status-success, #22c55e)" : "var(--status-warning, #eab308)"
+                      color: h.status === "healthy" ? "var(--brand, #DC2626)" : "var(--status-warning, #eab308)"
                     }}>{h.status}</span>
                   </div>
                 </motion.div>
@@ -131,7 +131,7 @@ export default function EnhancedMonitoringPage() {
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>{h.label}</span>
               <span className="w-2 h-2 rounded-full" style={{
-                backgroundColor: h.status === "healthy" ? "var(--status-success, #22c55e)" : "var(--status-warning, #eab308)"
+                backgroundColor: h.status === "healthy" ? "var(--brand, #DC2626)" : "var(--status-warning, #eab308)"
               }} />
             </div>
             <p className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{h.status}</p>

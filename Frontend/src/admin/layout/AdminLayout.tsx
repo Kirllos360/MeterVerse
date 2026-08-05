@@ -8,13 +8,6 @@ import { AdminToolbar } from "@/admin/layout/AdminToolbar"
 import { useAdminStore } from "@/stores/admin-store"
 import { CommandPalette } from "@/features/admin-settings/components/CommandPalette"
 
-const SYSTEM_TABS = [
-  { id: "admin", label: "Admin", icon: "M12 15V3m0 12l-4-4m4 4l4-4" },
-  { id: "dashboard", label: "Dashboard", icon: "M3 12l2-2m0 0l7-7 7 7" },
-  { id: "analytics", label: "Analytics", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2z" },
-  { id: "system", label: "System", icon: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0" },
-]
-
 const ALL_NAV_ITEMS = [
   { id: "home", label: "Home", icon: "M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" },
   { id: "monitoring", label: "Monitoring", icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2" },
@@ -81,11 +74,10 @@ interface SystemLayoutProps {
 
 export default function SystemLayout({ children, theme = "red", title = "Administration" }: SystemLayoutProps) {
   const isGreen = false
-  const brandColor = isGreen ? "#059669" : "#DC2626"
+  const brandColor = isGreen ? "#DC2626" : "#DC2626"
   const brandRgb = isGreen ? "5,150,105" : "220,38,38"
 
   const { activePage, setActivePage, openPages, addOpenPage, removeOpenPage, inspectorOpen, setInspectorOpen, sidebarCollapsed, setSidebarCollapsed, themeMode, cycleTheme, lang, toggleLang } = useAdminStore()
-  const [systemTab, setSystemTab] = useState("admin")
   const [subTab, setSubTab] = useState("")
   const [prevPage, setPrevPage] = useState("")
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -130,7 +122,7 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
     // off-white surface tokens below. Red is the secondary color; hover = light red.
     "--surface-base": isLight ? "#FFFFFF" : "#000000",
     "--surface-topbar": isLight ? "#F2F2F5" : "#1A1A1E",
-    "--surface-raised": isLight ? "#FFFFFF" : "#1E1E22",
+    "--surface-raised": isLight ? "#FFFFFF" : "#1A1A1E",
     "--surface-sunken": isLight ? "#F2F2F5" : "#141416",
     "--sidebar-background": isLight ? "#F2F2F5" : "#1A1A1E",
     "--border-default": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.08)",
@@ -146,6 +138,7 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
 
   const goHome = () => { const h = ALL_NAV_ITEMS[0]; addOpenPage({ id: h.id, label: h.label }); setActivePage("home" as any) }
   const subTabs = PAGE_SUB_TABS[activePage] || []
+  const activePageLabel = ALL_NAV_ITEMS.find(i => i.id === activePage)?.label || openPages.find(p => p.id === activePage)?.label || "Page"
   const isRTL = lang === "ar"
 
   const CollapseIcon = ({ collapsed }: { collapsed: boolean }) => (
@@ -168,19 +161,32 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
           onLogoClick={goHome} systemTitle={title} themeColor={brandColor} />
       </div>
 
-      {/* SYSTEM TABS */}
+      {/* OPEN-PAGES TAB ROW (P57: replaces the decorative static Admin/Dashboard/Analytics/System row) */}
       <div className="relative z-10 shrink-0 px-4" style={{ backgroundColor: "var(--surface-topbar)", borderBottom: "1px solid var(--toolbar-border)" }}>
-        <div className="flex gap-0.5 overflow-x-auto py-2 scrollbar-none justify-center">
-          {SYSTEM_TABS.map(tab => (
-            <button key={tab.id} onClick={() => setSystemTab(tab.id)}
-              className="flex items-center gap-2 shrink-0 px-4 py-1.5 text-xs font-bold transition-all rounded-lg relative"
-              style={{ color: systemTab === tab.id ? brandColor : "var(--text-tertiary)" }}>
-              {systemTab === tab.id && <motion.div layoutId="sysTabBg" className="absolute inset-0 rounded-lg" style={{ backgroundColor: isGreen ? "rgba(5,150,105,0.08)" : "rgba(220,38,38,0.08)" }} />}
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={systemTab === tab.id ? 2.5 : 1.5}><path d={tab.icon} /></svg>
-              {tab.label}
-              {systemTab === tab.id && <motion.div layoutId="sysTabDot" className="w-1 h-1 rounded-full" style={{ backgroundColor: brandColor }} />}
-            </button>
-          ))}
+        <div className="flex items-center gap-1 overflow-x-auto py-1.5 scrollbar-none">
+          {openPages.length === 0 && (
+            <span className="text-xs font-semibold px-2 py-1" style={{ color: "var(--text-tertiary)" }}>{t(lang, "Select a page from the sidebar")}</span>
+          )}
+          {openPages.map(p => {
+            const isActive = activePage === p.id
+            return (
+              <motion.div key={p.id} onClick={() => setActivePage(p.id as any)} role="button" tabIndex={0}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActivePage(p.id as any) } }}
+                layout layoutId={`tab-${p.id}`}
+                className="flex items-center gap-1.5 shrink-0 px-3 py-1 text-xs font-bold rounded-xl transition-all whitespace-nowrap group cursor-pointer"
+                style={{ backgroundColor: isActive ? brandColor : "transparent", color: isActive ? "#FFFFFF" : "var(--text-secondary)" }}>
+                {isActive && <motion.span layoutId="tabActiveDot" className="w-1.5 h-1.5 rounded-full bg-white" />}
+                {p.label}
+                <button
+                  onClick={(e) => { e.stopPropagation(); removeOpenPage(p.id) }}
+                  aria-label={`Close ${p.label}`}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity ml-0.5"
+                  style={{ color: isActive ? "rgba(255,255,255,0.7)" : "var(--text-tertiary)" }}>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                </button>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
 
@@ -233,50 +239,26 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
           </motion.div>
         </div>
 
-          {/* CONTENT AREA (breadcrumb removed per P57: no trail between sidebar and workspace) */}
+          {/* CONTENT AREA */}
         <div className="flex-1 flex flex-col min-w-0 gap-2">
-          {/* FIRST TAB ROW — Open pages from sidebar */}
-          <div className="shrink-0 rounded-2xl border px-2" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-            <div className="flex items-center gap-1 overflow-x-auto py-1.5 scrollbar-none">
-              {openPages.map(p => {
-                const isActive = activePage === p.id
-                return (
-                  <motion.div key={p.id} onClick={() => setActivePage(p.id as any)} role="button" tabIndex={0}
-                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setActivePage(p.id as any) } }}
-                    layout layoutId={`tab-${p.id}`}
-                    className="flex items-center gap-1.5 shrink-0 px-3 py-1 text-xs font-bold rounded-xl transition-all whitespace-nowrap group cursor-pointer"
-                    style={{ backgroundColor: isActive ? brandColor : "transparent", color: isActive ? "#FFFFFF" : "var(--text-secondary)" }}>
-                    {isActive && <motion.span layoutId="tabActiveDot" className="w-1.5 h-1.5 rounded-full bg-white" />}
-                    {p.label}
-                    <button
-                      onClick={(e) => { e.stopPropagation(); removeOpenPage(p.id) }}
-                      aria-label={`Close ${p.label}`}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity ml-0.5"
-                      style={{ color: isActive ? "rgba(255,255,255,0.7)" : "var(--text-tertiary)" }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg>
-                    </button>
-                  </motion.div>
-                )
-              })}
-            </div>
-          </div>
-
-          {/* SECOND TAB ROW — Sub-page tabs (location breadcrumb removed per P57 design: no trail between sidebar and workspace) */}
+          {/* SUB-PAGE TABS — always present (even when a page has a single view) */}
           <div className="shrink-0 flex items-center gap-2" style={{ minHeight: 36 }}>
-            {subTabs.length > 0 && (
-              <div className="flex-1 rounded-2xl border px-3 flex items-center" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
-                <div className="flex gap-1 overflow-x-auto py-1.5 scrollbar-none">
-                  {subTabs.map(t => (
+            <div className="flex-1 rounded-2xl border px-3 flex items-center" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
+              <div className="flex gap-1 overflow-x-auto py-1.5 scrollbar-none">
+                {subTabs.length === 0 ? (
+                  <span className="text-xs font-semibold px-2 py-1" style={{ color: "var(--text-tertiary)" }}>{activePageLabel}</span>
+                ) : (
+                  subTabs.map(t => (
                     <button key={t.id} onClick={() => setSubTab(t.id)}
                       className="shrink-0 flex items-center gap-1.5 px-3 py-1 text-xs font-bold transition-all rounded-xl whitespace-nowrap"
                       style={{ backgroundColor: subTab === t.id ? brandColor : "transparent", color: subTab === t.id ? "#FFFFFF" : "var(--text-secondary)" }}>
                       {subTab === t.id && <motion.span animate={waveAnim} className="w-1.5 h-1.5 rounded-full bg-white" />}
                       {t.label}
                     </button>
-                  ))}
-                </div>
+                  ))
+                )}
               </div>
-            )}
+            </div>
           </div>
 
           {/* PAGE CONTENT */}

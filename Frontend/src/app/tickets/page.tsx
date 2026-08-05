@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { motion } from "framer-motion"
 
@@ -19,10 +19,10 @@ export default function TicketsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         {[
-          { label: "Open", value: "—", color: "var(--brand)" },
-          { label: "In Progress", value: "—", color: "#F59E0B" },
-          { label: "Resolved", value: "—", color: "#10B981" },
-          { label: "Closed", value: "—", color: "var(--text-tertiary)" },
+          { label: "Open", value: "â€”", color: "var(--brand)" },
+          { label: "In Progress", value: "â€”", color: "#F59E0B" },
+          { label: "Resolved", value: "â€”", color: "#DC2626" },
+          { label: "Closed", value: "â€”", color: "var(--text-tertiary)" },
         ].map((c, i) => (
           <motion.div key={i} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
             className="rounded-2xl border p-5" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>

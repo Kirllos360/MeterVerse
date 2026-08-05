@@ -300,9 +300,9 @@
   max-width: 360px;
 }
 .alert-toast.success {
-  background: color-mix(in srgb, #22c55e 90%, transparent);
+  background: color-mix(in srgb, var(--brand) 90%, transparent);
   color: white;
-  border: 1px solid color-mix(in srgb, #22c55e 60%, white);
+  border: 1px solid color-mix(in srgb, var(--brand) 60%, white);
 }
 .alert-toast.error {
   background: color-mix(in srgb, #ef4444 90%, transparent);

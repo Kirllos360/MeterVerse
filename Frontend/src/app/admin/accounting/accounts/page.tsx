@@ -78,7 +78,7 @@ const ACCOUNT_TREE: AccountNode[] = [
 ]
 
 const ACCOUNT_TYPES: AccountType[] = [
-  { type: "asset", label: "Asset", normalBalance: "debit", color: "#059669" },
+  { type: "asset", label: "Asset", normalBalance: "debit", color: "#DC2626" },
   { type: "liability", label: "Liability", normalBalance: "credit", color: "#D97706" },
   { type: "equity", label: "Equity", normalBalance: "credit", color: "#2563EB" },
   { type: "revenue", label: "Revenue", normalBalance: "credit", color: "#7C3AED" },

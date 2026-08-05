@@ -124,8 +124,8 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
         </div>
       </motion.button>
 
-      {/* Search — centered, with wave border */}
-      <div ref={searchContainerRef} className="relative flex-1 max-w-xl mx-auto">
+      {/* Search — right-aligned with the first tab row (P57) */}
+      <div ref={searchContainerRef} className="relative flex-1 max-w-xl ml-auto">
         {/* Filter chips */}
         <AnimatePresence>
           {searchOpen && (

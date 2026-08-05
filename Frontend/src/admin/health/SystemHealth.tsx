@@ -6,7 +6,8 @@ interface ServiceStatus {
   name: string; status: "operational" | "degraded" | "down"; latency: string
 }
 
-const COLORS = { operational: "var(--status-success)", degraded: "var(--status-warning)", down: "var(--status-error)" }
+// P57: admin identity is red — operational/success uses the brand red (no green)
+const COLORS = { operational: "var(--brand)", degraded: "var(--status-warning)", down: "var(--status-error)" }
 
 export function SystemHealth() {
   const [services, setServices] = useState<ServiceStatus[]>([])

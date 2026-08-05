@@ -61,7 +61,7 @@ export default function ConnectionSettingsPage() {
   const inputStyle = { backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" } as React.CSSProperties
   const inputClass = "w-full rounded-xl border px-3 py-2 text-xs outline-none transition-all focus:border-[var(--brand)]"
 
-  const statusColor = (s?: string) => s === "active" || s === "Online" ? "#22c55e" : s === "degraded" || s === "Degraded" ? "#f59e0b" : "#6b7280"
+  const statusColor = (s?: string) => s === "active" || s === "Online" ? "#DC2626" : s === "degraded" || s === "Degraded" ? "#f59e0b" : "#6b7280"
 
   const PopupWrapper = ({ children, title }: { children: React.ReactNode; title: string }) => (
     <AnimatePresence>
@@ -120,7 +120,7 @@ export default function ConnectionSettingsPage() {
               {/* Area header */}
               <div className="flex items-center justify-between px-5 py-3 border-b" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
                 <div className="flex items-center gap-3">
-                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: conns.some(c => c.status !== "offline") ? "#22c55e" : "#ef4444" }} />
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: conns.some(c => c.status !== "offline") ? "#DC2626" : "#ef4444" }} />
                   <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{area}</span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded-full" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{conns.length} connection{conns.length !== 1 ? "s" : ""}</span>
                 </div>
@@ -202,8 +202,8 @@ export default function ConnectionSettingsPage() {
             <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{form.name} — {form.type?.toUpperCase()} | {form.host}:{form.port}/{form.database}</p>
           </div>
           {testResult && (
-            <div className="rounded-xl border p-3 text-xs" style={{ backgroundColor: testResult.success ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)", borderColor: testResult.success ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)" }}>
-              <p style={{ color: testResult.success ? "#22c55e" : "#ef4444", fontWeight: 600 }}>{testResult.success ? "Connected" : "Failed"}</p>
+            <div className="rounded-xl border p-3 text-xs" style={{ backgroundColor: testResult.success ? "rgba(220,38,38,0.08)" : "rgba(239,68,68,0.08)", borderColor: testResult.success ? "rgba(220,38,38,0.3)" : "rgba(239,68,68,0.3)" }}>
+              <p style={{ color: testResult.success ? "#DC2626" : "#ef4444", fontWeight: 600 }}>{testResult.success ? "Connected" : "Failed"}</p>
               <p style={{ color: "var(--text-secondary)" }}>Latency: {testResult.latency}ms</p>
               {testResult.error && <p style={{ color: "var(--text-secondary)" }}>{testResult.error}</p>}
             </div>

@@ -71,7 +71,7 @@ export function ChatTab() {
               <div className="flex items-center gap-1">
                 <span className="text-[11px] font-semibold truncate" style={{ color: "var(--text-primary)" }}>{m.name}</span>
                 {isFavorite && <span className="text-[9px]" style={{ color: "var(--brand)" }}>★</span>}
-                {m.online && <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#22C55E" }} />}
+                {m.online && <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: "#DC2626" }} />}
               </div>
               <div className="text-[9px]" style={{ color: "var(--text-tertiary)" }}>{m.role}</div>
             </div>

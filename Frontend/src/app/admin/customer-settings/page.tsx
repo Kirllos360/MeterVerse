@@ -69,7 +69,7 @@ export default function CustomerSettingsPage() {
                 className="flex-1 rounded-xl border px-3 py-2 text-xs outline-none"
                 style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
             </div>
-            {groups.length === 0 ? <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No customer groups configured</p> : table(["Name", "Members", "Status"], groups.filter((g: any) => g.name.toLowerCase().includes(search.toLowerCase())).map((g: any) => [g.name, String(g._count?.members || 0), <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(34,197,94,0.1)" }}>Active</span>]))}
+            {groups.length === 0 ? <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No customer groups configured</p> : table(["Name", "Members", "Status"], groups.filter((g: any) => g.name.toLowerCase().includes(search.toLowerCase())).map((g: any) => [g.name, String(g._count?.members || 0), <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>Active</span>]))}
           </motion.div>
         )}
         {!loading && tab === 1 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Name", "Code", "Billing Cycle", "Settings"], TYPES.map(t => [t.name, t.code, t.billingCycle, t.settings]))}</motion.div>}

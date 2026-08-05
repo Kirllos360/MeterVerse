@@ -142,10 +142,10 @@ export default function JournalEntryPage() {
                   <tr style={{ borderTop: "2px solid var(--brand)", backgroundColor: "rgba(var(--brand-rgb),0.05)" }}>
                     <td className="px-5 py-2.5 font-bold text-xs" style={{ color: "var(--text-primary)" }}>Totals</td>
                     <td className="px-5 py-2.5" />
-                    <td className="px-5 py-2.5 text-right font-bold font-mono text-xs" style={{ color: totalDebit === totalCredit ? "#059669" : "#DC2626" }}>
+                    <td className="px-5 py-2.5 text-right font-bold font-mono text-xs" style={{ color: totalDebit === totalCredit ? "#DC2626" : "#DC2626" }}>
                       EGP {totalDebit.toLocaleString()}
                     </td>
-                    <td className="px-5 py-2.5 text-right font-bold font-mono text-xs" style={{ color: totalDebit === totalCredit ? "#059669" : "#DC2626" }}>
+                    <td className="px-5 py-2.5 text-right font-bold font-mono text-xs" style={{ color: totalDebit === totalCredit ? "#DC2626" : "#DC2626" }}>
                       EGP {totalCredit.toLocaleString()}
                     </td>
                   </tr>
@@ -153,7 +153,7 @@ export default function JournalEntryPage() {
               </table>
             </div>
             {totalDebit === totalCredit ? (
-              <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#059669", backgroundColor: "rgba(5,150,105,0.05)" }}>✓ Balanced</div>
+              <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#DC2626", backgroundColor: "rgba(220,38,38,0.05)" }}>✓ Balanced</div>
             ) : (
               <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#DC2626", backgroundColor: "rgba(220,38,38,0.05)" }}>✗ Unbalanced (difference: EGP {Math.abs(totalDebit - totalCredit).toLocaleString()})</div>
             )}
@@ -187,8 +187,8 @@ export default function JournalEntryPage() {
                       <td className="px-5 py-2.5">
                         <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium capitalize"
                           style={{
-                            backgroundColor: e.status === "posted" ? "rgba(5,150,105,0.1)" : e.status === "draft" ? "rgba(217,119,6,0.1)" : "rgba(220,38,38,0.1)",
-                            color: e.status === "posted" ? "#059669" : e.status === "draft" ? "#D97706" : "#DC2626",
+                            backgroundColor: e.status === "posted" ? "rgba(220,38,38,0.1)" : e.status === "draft" ? "rgba(217,119,6,0.1)" : "rgba(220,38,38,0.1)",
+                            color: e.status === "posted" ? "#DC2626" : e.status === "draft" ? "#D97706" : "#DC2626",
                           }}>
                           {e.status}
                         </span>

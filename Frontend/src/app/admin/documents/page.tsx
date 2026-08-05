@@ -33,7 +33,7 @@ const DOCUMENTS: Document[] = [
 
 const CATEGORIES: DocumentCategory[] = [
   { name: "Technical Docs", color: "#2563EB", count: 12 },
-  { name: "Reports", color: "#059669", count: 8 },
+  { name: "Reports", color: "#DC2626", count: 8 },
   { name: "Templates", color: "#7C3AED", count: 6 },
   { name: "Contracts", color: "#D97706", count: 4 },
   { name: "Archived", color: "#6B7280", count: 15 },
@@ -133,8 +133,8 @@ export default function DocumentsPage() {
                   <td className="px-5 py-2.5">
                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium capitalize"
                       style={{
-                        backgroundColor: d.status === "published" ? "rgba(5,150,105,0.1)" : d.status === "draft" ? "rgba(37,99,235,0.1)" : "rgba(107,114,128,0.1)",
-                        color: d.status === "published" ? "#059669" : d.status === "draft" ? "#2563EB" : "#6B7280",
+                        backgroundColor: d.status === "published" ? "rgba(220,38,38,0.1)" : d.status === "draft" ? "rgba(37,99,235,0.1)" : "rgba(107,114,128,0.1)",
+                        color: d.status === "published" ? "#DC2626" : d.status === "draft" ? "#2563EB" : "#6B7280",
                       }}>
                       {d.status}
                     </span>

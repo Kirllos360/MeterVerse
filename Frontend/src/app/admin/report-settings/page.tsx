@@ -22,7 +22,7 @@ const RECENT_REPORTS = [
 ]
 
 const statusBadge = (s: string) => {
-  const colors: Record<string, string> = { Active: "#22c55e", Completed: "#22c55e", Inactive: "#6b7280", Failed: "#ef4444" }
+  const colors: Record<string, string> = { Active: "#DC2626", Completed: "#DC2626", Inactive: "#6b7280", Failed: "#ef4444" }
   return (
     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold"
       style={{ backgroundColor: colors[s] + "18", color: colors[s] }}>

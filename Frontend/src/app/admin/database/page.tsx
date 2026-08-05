@@ -1,11 +1,11 @@
-"use client"
+﻿"use client"
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Icons } from "@/components/icons"
 import { toast } from "sonner"
 
-// ─── Types ───
+// â”€â”€â”€ Types â”€â”€â”€
 
 type TableName =
   | "Customer" | "Meter" | "Reading" | "Invoice" | "Payment"
@@ -25,7 +25,7 @@ interface TableMeta {
   columns: ColumnDef[]
 }
 
-// ─── Mock Data ───
+// â”€â”€â”€ Mock Data â”€â”€â”€
 import { getHealthSummary } from "@/features/admin-settings/api/service"
 
 const now = new Date().toISOString().split("T")[0]
@@ -63,10 +63,10 @@ const mockData: Record<TableName, Record<string, any>[]> = {
     { id: "2", meterId: "1", value: 1280.3, unit: "kWh", timestamp: daysAgo(5), source: "api", status: "active" },
     { id: "3", meterId: "2", value: 3400.0, unit: "kWh", timestamp: daysAgo(8), source: "manual", status: "active" },
     { id: "4", meterId: "3", value: 567.2, unit: "kWh", timestamp: daysAgo(7), source: "import", status: "active" },
-    { id: "5", meterId: "4", value: 89.5, unit: "m³", timestamp: daysAgo(6), source: "manual", status: "active" },
+    { id: "5", meterId: "4", value: 89.5, unit: "mÂ³", timestamp: daysAgo(6), source: "manual", status: "active" },
     { id: "6", meterId: "2", value: 3420.8, unit: "kWh", timestamp: daysAgo(3), source: "api", status: "active" },
     { id: "7", meterId: "5", value: 2100.0, unit: "kWh", timestamp: daysAgo(4), source: "manual", status: "inactive" },
-    { id: "8", meterId: "6", value: 45.1, unit: "m³", timestamp: daysAgo(2), source: "api", status: "active" },
+    { id: "8", meterId: "6", value: 45.1, unit: "mÂ³", timestamp: daysAgo(2), source: "api", status: "active" },
     { id: "9", meterId: "7", value: 980.0, unit: "kWh", timestamp: daysAgo(1), source: "manual", status: "active" },
     { id: "10", meterId: "3", value: 580.4, unit: "kWh", timestamp: now, source: "api", status: "active" },
   ],
@@ -127,9 +127,9 @@ const mockData: Record<TableName, Record<string, any>[]> = {
     { id: "1", name: "Residential Standard", rate: 0.95, unit: "kWh", status: "active", createdAt: daysAgo(365) },
     { id: "2", name: "Commercial Tier 1", rate: 1.45, unit: "kWh", status: "active", createdAt: daysAgo(365) },
     { id: "3", name: "Industrial High", rate: 1.10, unit: "kWh", status: "active", createdAt: daysAgo(300) },
-    { id: "4", name: "Water Standard", rate: 3.50, unit: "m³", status: "active", createdAt: daysAgo(365) },
+    { id: "4", name: "Water Standard", rate: 3.50, unit: "mÂ³", status: "active", createdAt: daysAgo(365) },
     { id: "5", name: "Solar Feed-In", rate: 2.80, unit: "kWh", status: "inactive", createdAt: daysAgo(180) },
-    { id: "6", name: "Gas Residential", rate: 1.75, unit: "m³", status: "active", createdAt: daysAgo(200) },
+    { id: "6", name: "Gas Residential", rate: 1.75, unit: "mÂ³", status: "active", createdAt: daysAgo(200) },
   ],
   SIMCard: [
     { id: "1", iccid: "898601208100000001", provider: "Vodafone", phone: "+20 110 000 0001", status: "active", meterId: "1", createdAt: daysAgo(120) },
@@ -151,7 +151,7 @@ const mockData: Record<TableName, Record<string, any>[]> = {
   ],
 }
 
-// ─── Table Metadata ───
+// â”€â”€â”€ Table Metadata â”€â”€â”€
 
 const tables: TableMeta[] = [
   { name: "Customer", icon: "teams", description: "Customer records and contact information", columns: [
@@ -192,10 +192,10 @@ const tables: TableMeta[] = [
   ]},
 ]
 
-// ─── Helpers ───
+// â”€â”€â”€ Helpers â”€â”€â”€
 
 function formatCellValue(val: any, type?: string): string {
-  if (val === null || val === undefined || val === "") return "—"
+  if (val === null || val === undefined || val === "") return "â€”"
   if (type === "number" && typeof val === "number") return val.toLocaleString()
   if (type === "date") return val
   return String(val)
@@ -203,13 +203,13 @@ function formatCellValue(val: any, type?: string): string {
 
 function statusColor(status: string): string {
   const map: Record<string, string> = {
-    active: "#22C55E", completed: "#22C55E", paid: "#22C55E",
+    active: "#DC2626", completed: "#DC2626", paid: "#DC2626",
     inactive: "#A1A1AA", pending: "#EAB308", partial: "#EAB308",
     maintenance: "#F97316", overdue: "#EF4444", escalated: "#EF4444",
     terminated: "#EF4444", cancelled: "#EF4444", failed: "#EF4444",
-    closed: "#6B7280", resolved: "#22C55E",
-    open: "#3B82F6", debit: "#EF4444", credit: "#22C55E",
-    true: "#22C55E", false: "#A1A1AA",
+    closed: "#6B7280", resolved: "#DC2626",
+    open: "#3B82F6", debit: "#EF4444", credit: "#DC2626",
+    true: "#DC2626", false: "#A1A1AA",
   }
   return map[status] || "#A1A1AA"
 }
@@ -218,7 +218,7 @@ function badgeVariant(status: string): string {
   const map: Record<string, string> = {
     LP2: "default", Water: "secondary", Gas: "outline",
     admin: "destructive", manager: "default", operator: "secondary", viewer: "outline", billing_admin: "default", field_tech: "secondary",
-    kWh: "default", "m³": "secondary", L: "outline",
+    kWh: "default", "mÂ³": "secondary", L: "outline",
     Vodafone: "default", Orange: "secondary", Etisalat: "outline",
     asset: "default", revenue: "secondary", liability: "outline", equity: "outline",
     debit: "destructive", credit: "default",
@@ -233,7 +233,7 @@ function getNextId(rows: Record<string, any>[]): string {
   return String(Math.max(0, ...nums) + 1)
 }
 
-// ─── Components ───
+// â”€â”€â”€ Components â”€â”€â”€
 
 function SortIcon({ dir }: { dir: "asc" | "desc" | null }) {
   return (
@@ -299,7 +299,7 @@ function CellEditor({ value, type, onSave, onCancel }: {
 
 const ROWS_PER_PAGE_OPTIONS = [10, 25, 50, 100]
 
-// ─── Main Page ───
+// â”€â”€â”€ Main Page â”€â”€â”€
 
 export default function AdminDatabasePage() {
   const [healthData, setHealthData] = useState<any>(null)
@@ -328,7 +328,7 @@ export default function AdminDatabasePage() {
     setCurrentPage(1)
   }
 
-  // ── Filter & Sort ──
+  // â”€â”€ Filter & Sort â”€â”€
   const filtered = useMemo(() => {
     let result = [...data]
     if (searchQuery) {
@@ -355,7 +355,7 @@ export default function AdminDatabasePage() {
     return filtered.slice(start, start + rowsPerPage)
   }, [filtered, currentPage, rowsPerPage])
 
-  // ── Sort Toggle ──
+  // â”€â”€ Sort Toggle â”€â”€
   const handleSort = (key: string) => {
     if (sortKey === key) {
       if (sortDir === "asc") { setSortDir("desc") }
@@ -365,7 +365,7 @@ export default function AdminDatabasePage() {
     }
   }
 
-  // ── Row Selection ──
+  // â”€â”€ Row Selection â”€â”€
   const toggleRow = (id: string) => {
     setSelectedRows(prev => {
       const next = new Set(prev)
@@ -379,13 +379,13 @@ export default function AdminDatabasePage() {
     else { setSelectedRows(new Set(paginated.map(r => r.id))) }
   }
 
-  // ── Cell Edit ──
+  // â”€â”€ Cell Edit â”€â”€
   const handleCellSave = useCallback((rowId: string, key: string, value: any) => {
     setData(prev => prev.map(row => row.id === rowId ? { ...row, [key]: value } : row))
     setEditingCell(null)
   }, [])
 
-  // ── Row Operations ──
+  // â”€â”€ Row Operations â”€â”€
   const handleAddRow = () => {
     const newRow: Record<string, any> = { id: getNextId(data) }
     meta.columns.forEach(col => {
@@ -405,7 +405,7 @@ export default function AdminDatabasePage() {
     toast.success(`${selectedRows.size} row(s) deleted`)
   }
 
-  // ── Export CSV ──
+  // â”€â”€ Export CSV â”€â”€
   const handleExportCSV = () => {
     const cols = meta.columns
     const header = cols.map(c => c.label).join(",")
@@ -425,12 +425,12 @@ export default function AdminDatabasePage() {
     toast.success("CSV exported")
   }
 
-  // ── Pagination ──
+  // â”€â”€ Pagination â”€â”€
   const goToPage = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)))
   }
 
-  // ── Render ──
+  // â”€â”€ Render â”€â”€
   const MetaIcon = Icons[meta.icon] || Icons.settings
 
   return (
@@ -451,7 +451,7 @@ export default function AdminDatabasePage() {
         </div>
       )}
     <div className="flex h-full gap-3">
-      {/* ── Left Sidebar ── */}
+      {/* â”€â”€ Left Sidebar â”€â”€ */}
       <motion.div
         animate={{ width: sidebarCollapsed ? 48 : 220 }}
         className="shrink-0 rounded-xl border overflow-hidden flex flex-col"
@@ -504,7 +504,7 @@ export default function AdminDatabasePage() {
         </div>
       </motion.div>
 
-      {/* ── Main Area ── */}
+      {/* â”€â”€ Main Area â”€â”€ */}
       <div className="flex-1 flex flex-col min-w-0 gap-3">
         {/* Header */}
         <div className="flex items-center justify-between shrink-0">
@@ -514,7 +514,7 @@ export default function AdminDatabasePage() {
             </div>
             <div>
               <h1 className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{selectedTable}</h1>
-              <p className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{meta.description} · {filtered.length} records</p>
+              <p className="text-[10px]" style={{ color: "var(--text-tertiary)" }}>{meta.description} Â· {filtered.length} records</p>
             </div>
           </div>
           <div className="flex items-center gap-1.5">
@@ -684,7 +684,7 @@ export default function AdminDatabasePage() {
               {ROWS_PER_PAGE_OPTIONS.map(n => <option key={n} value={n}>{n}</option>)}
             </select>
             <span>
-              {filtered.length === 0 ? "0 records" : `${(currentPage - 1) * rowsPerPage + 1}–${Math.min(currentPage * rowsPerPage, filtered.length)} of ${filtered.length}`}
+              {filtered.length === 0 ? "0 records" : `${(currentPage - 1) * rowsPerPage + 1}â€“${Math.min(currentPage * rowsPerPage, filtered.length)} of ${filtered.length}`}
             </span>
           </div>
           <div className="flex items-center gap-1">

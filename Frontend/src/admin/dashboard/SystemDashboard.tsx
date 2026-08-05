@@ -37,7 +37,6 @@ function MiniChart({ data, color, height = 60 }: { data: number[]; color: string
 
 const statsConfig = {
   red: { color: "#DC2626", label: "admin" },
-  green: { color: "#059669", label: "user" },
 }
 
 const sampleData = [23, 45, 38, 52, 41, 65, 58, 72, 61, 85, 78, 92, 88, 95, 82, 99]

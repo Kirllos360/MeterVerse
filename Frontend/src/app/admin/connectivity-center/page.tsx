@@ -85,8 +85,8 @@ export default function ConnectivityCenterPage() {
     await fetchAll()
   }
 
-  const statusColor = (s?: string) => s === "active" || s === "healthy" ? "#22c55e" : s === "degraded" ? "#f59e0b" : s === "failed" || s === "critical" ? "#ef4444" : "#6b7280"
-  const scoreColor = (s?: number) => s && s >= 80 ? "#22c55e" : s && s >= 50 ? "#f59e0b" : s && s >= 25 ? "#f97316" : "#ef4444"
+  const statusColor = (s?: string) => s === "active" || s === "healthy" ? "#DC2626" : s === "degraded" ? "#f59e0b" : s === "failed" || s === "critical" ? "#ef4444" : "#6b7280"
+  const scoreColor = (s?: number) => s && s >= 80 ? "#DC2626" : s && s >= 50 ? "#f59e0b" : s && s >= 25 ? "#f97316" : "#ef4444"
 
   const iSx = { backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" } as React.CSSProperties
 
@@ -214,7 +214,7 @@ export default function ConnectivityCenterPage() {
             {diagnosticResult.stages?.map((s: any) => (
               <div key={s.stage} className="flex items-center gap-3 py-2 border-b text-xs" style={{ borderColor: "var(--border-default)" }}>
                 <span className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold"
-                  style={{ backgroundColor: s.status === "passed" ? "rgba(34,197,94,0.15)" : s.status === "failed" ? "rgba(239,68,68,0.15)" : "rgba(156,163,175,0.15)", color: s.status === "passed" ? "#22c55e" : s.status === "failed" ? "#ef4444" : "#9ca3af" }}>
+                  style={{ backgroundColor: s.status === "passed" ? "rgba(220,38,38,0.15)" : s.status === "failed" ? "rgba(239,68,68,0.15)" : "rgba(156,163,175,0.15)", color: s.status === "passed" ? "#DC2626" : s.status === "failed" ? "#ef4444" : "#9ca3af" }}>
                   {s.status === "passed" ? "✓" : s.status === "failed" ? "✗" : "—"}
                 </span>
                 <span className="flex-1" style={{ color: "var(--text-primary)" }}>Stage {s.stage}: {s.name}</span>

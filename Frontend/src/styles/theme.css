@@ -110,7 +110,7 @@ body {
   --status-pending-rgb: var(--semantic-warning-rgb);
   --white-rgb: 255, 255, 255;
   --black-rgb: 0, 0, 0;
-  --panel-accent: #005F4E;
+  --panel-accent: #DC2626;
 
   /* ─── Sidebar Tokens (Admin: Black) ──────────────── */
   --sidebar-background: #111111;

@@ -141,8 +141,8 @@ export default function DatabaseConnectionsPage() {
 
           {testResult && (
             <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}
-              className="rounded-xl border p-3 text-xs" style={{ backgroundColor: testResult.success ? "rgba(34,197,94,0.08)" : "rgba(239,68,68,0.08)", borderColor: testResult.success ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.3)" }}>
-              <p style={{ color: testResult.success ? "#22c55e" : "#ef4444", fontWeight: 600 }}>
+              className="rounded-xl border p-3 text-xs" style={{ backgroundColor: testResult.success ? "rgba(220,38,38,0.08)" : "rgba(239,68,68,0.08)", borderColor: testResult.success ? "rgba(220,38,38,0.3)" : "rgba(239,68,68,0.3)" }}>
+              <p style={{ color: testResult.success ? "#DC2626" : "#ef4444", fontWeight: 600 }}>
                 {testResult.success ? "Connected successfully" : "Connection failed"}
               </p>
               {testResult.latency && <p style={{ color: "var(--text-secondary)" }}>Latency: {testResult.latency}ms</p>}

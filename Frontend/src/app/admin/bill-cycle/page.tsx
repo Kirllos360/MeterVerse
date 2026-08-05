@@ -34,7 +34,7 @@ export default function BillCyclePage() {
   const [searchTerm, setSearchTerm] = useState("")
 
   const statusBadge = (s: string) => {
-    const colors: Record<string, string> = { "In Progress": "#3b82f6", Scheduled: "#f59e0b", Completed: "#22c55e", Failed: "#ef4444" }
+    const colors: Record<string, string> = { "In Progress": "#3b82f6", Scheduled: "#f59e0b", Completed: "#DC2626", Failed: "#ef4444" }
     return (
       <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold"
         style={{ backgroundColor: colors[s] + "18", color: colors[s] }}>

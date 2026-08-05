@@ -102,8 +102,8 @@ export default function WorkflowsPage() {
                   <td className="px-5 py-2.5">
                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium capitalize"
                       style={{
-                        backgroundColor: w.status === "active" ? "rgba(5,150,105,0.1)" : w.status === "draft" ? "rgba(37,99,235,0.1)" : "rgba(107,114,128,0.1)",
-                        color: w.status === "active" ? "#059669" : w.status === "draft" ? "#2563EB" : "#6B7280",
+                        backgroundColor: w.status === "active" ? "rgba(220,38,38,0.1)" : w.status === "draft" ? "rgba(37,99,235,0.1)" : "rgba(107,114,128,0.1)",
+                        color: w.status === "active" ? "#DC2626" : w.status === "draft" ? "#2563EB" : "#6B7280",
                       }}>
                       {w.status}
                     </span>
@@ -161,8 +161,8 @@ export default function WorkflowsPage() {
                   <td className="px-5 py-2.5">
                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium capitalize"
                       style={{
-                        backgroundColor: inst.status === "completed" ? "rgba(5,150,105,0.1)" : inst.status === "in-progress" ? "rgba(37,99,235,0.1)" : "rgba(220,38,38,0.1)",
-                        color: inst.status === "completed" ? "#059669" : inst.status === "in-progress" ? "#2563EB" : "#DC2626",
+                        backgroundColor: inst.status === "completed" ? "rgba(220,38,38,0.1)" : inst.status === "in-progress" ? "rgba(37,99,235,0.1)" : "rgba(220,38,38,0.1)",
+                        color: inst.status === "completed" ? "#DC2626" : inst.status === "in-progress" ? "#2563EB" : "#DC2626",
                       }}>
                       {inst.status}
                     </span>

@@ -21,7 +21,7 @@ const TicketsPage = dynamic(() => import("@/app/tickets/page"), { ssr: false })
 const InfoGuidePage = dynamic(() => import("@/app/info-guide/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
-  home: () => <SystemDashboard brandColor="#059669" title="Dashboard" />,
+  home: () => <SystemDashboard brandColor="#DC2626" title="Dashboard" />,
   customers: CustomersPage,
   meters: MetersPage,
   invoices: InvoicesPage,

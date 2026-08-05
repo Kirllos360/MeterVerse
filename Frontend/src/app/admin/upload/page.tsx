@@ -140,10 +140,10 @@ export default function AdminUploadPage() {
                   <td className="px-5 py-2.5">
                     <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-medium"
                       style={{
-                        backgroundColor: u.status === "success" ? "rgba(5,150,105,0.1)" : u.status === "processing" ? "rgba(37,99,235,0.1)" : "rgba(220,38,38,0.1)",
-                        color: u.status === "success" ? "#059669" : u.status === "processing" ? "#2563EB" : "#DC2626",
+                        backgroundColor: u.status === "success" ? "rgba(220,38,38,0.1)" : u.status === "processing" ? "rgba(37,99,235,0.1)" : "rgba(220,38,38,0.1)",
+                        color: u.status === "success" ? "#DC2626" : u.status === "processing" ? "#2563EB" : "#DC2626",
                       }}>
-                      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: u.status === "success" ? "#059669" : u.status === "processing" ? "#2563EB" : "#DC2626" }} />
+                      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: u.status === "success" ? "#DC2626" : u.status === "processing" ? "#2563EB" : "#DC2626" }} />
                       {u.status}
                     </span>
                   </td>

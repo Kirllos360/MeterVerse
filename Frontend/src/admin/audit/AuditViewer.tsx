@@ -30,12 +30,12 @@ export function AuditViewer() {
       <div style={{ backgroundColor: "var(--surface-base)" }}>
         {filtered.map((e) => (
           <div key={e.id} className="flex items-center gap-3 px-4 py-2 border-b text-xs" style={{ borderColor: "var(--border-default)" }}>
-            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }} />
+            <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: e.status === "success" ? "var(--brand)" : "var(--status-error)" }} />
             <span className="w-32 shrink-0 font-mono text-[10px]" style={{ color: "var(--text-tertiary)" }}>{new Date(e.timestamp).toLocaleTimeString()}</span>
             <span className="w-36 shrink-0 truncate" style={{ color: "var(--text-secondary)" }}>{e.actor}</span>
             <span className="w-32 shrink-0 truncate font-medium" style={{ color: "var(--text-primary)" }}>{e.action}</span>
             <span className="flex-1 truncate" style={{ color: "var(--text-secondary)" }}>{e.resource}</span>
-            <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(var(--status-success-rgb), 0.1)" : "rgba(var(--status-error-rgb), 0.1)", color: e.status === "success" ? "var(--status-success)" : "var(--status-error)" }}>{e.status}</span>
+            <span className="text-[10px] px-2 py-1 rounded-full font-medium" style={{ backgroundColor: e.status === "success" ? "rgba(var(--brand-rgb), 0.1)" : "rgba(var(--status-error-rgb), 0.1)", color: e.status === "success" ? "var(--brand)" : "var(--status-error)" }}>{e.status}</span>
           </div>
         ))}
       </div>

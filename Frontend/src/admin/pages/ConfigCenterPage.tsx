@@ -78,7 +78,7 @@ function ConfigForm({ title, fields, configKey, testEndpoint }: { title: string;
             </div>
           ))}
           {message && (
-            <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(var(--brand-rgb),0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+            <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "#dc2626" }}>
               {message.text}
             </div>
           )}
@@ -171,7 +171,7 @@ function SymbiotConnections() {
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>Connection #{idx + 1}</span>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: conn.status === "active" ? "rgba(5,150,105,0.15)" : conn.status === "error" ? "rgba(var(--brand-rgb),0.15)" : "rgba(107,114,128,0.15)", color: conn.status === "active" ? "#059669" : conn.status === "error" ? "#dc2626" : "#6b7280" }}>
+                <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: conn.status === "active" ? "rgba(var(--brand-rgb),0.15)" : conn.status === "error" ? "rgba(var(--brand-rgb),0.15)" : "rgba(107,114,128,0.15)", color: conn.status === "active" ? "#dc2626" : conn.status === "error" ? "#dc2626" : "#6b7280" }}>
                   {conn.status || "inactive"}
                 </span>
                 <button onClick={() => removeConnection(conn.id)} className="text-[10px] px-2 py-0.5 rounded" style={{ color: "#dc2626" }}>Remove</button>
@@ -204,7 +204,7 @@ function SymbiotConnections() {
           </motion.button>
         )}
         {message && (
-          <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(var(--brand-rgb),0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+          <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "#dc2626" }}>
             {message.text}
           </div>
         )}
@@ -253,7 +253,7 @@ function ThirdPartyPermissions() {
       </p>
 
       {message && (
-        <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: message.type === "success" ? "rgba(5,150,105,0.1)" : "rgba(var(--brand-rgb),0.1)", color: message.type === "success" ? "#059669" : "#dc2626" }}>
+        <div className="px-3 py-2 rounded-lg text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb),0.1)", color: "#dc2626" }}>
           {message.text}
         </div>
       )}
@@ -281,7 +281,7 @@ function ThirdPartyPermissions() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="relative w-14 h-7 rounded-full transition-colors outline-none"
-              style={{ backgroundColor: isGranted ? "#059669" : "rgba(107,114,128,0.3)" }}
+              style={{ backgroundColor: isGranted ? "#DC2626" : "rgba(107,114,128,0.3)" }}
             >
               <motion.div
                 animate={{ x: isGranted ? 28 : 2 }}
@@ -364,7 +364,7 @@ export function ConfigCenterPage() {
 
       {activeTab === "permissions" && <ThirdPartyPermissions />}
 
-      <div className="mt-6 p-4 rounded-lg text-xs" style={{ backgroundColor: "rgba(5,150,105,0.08)", border: "1px solid rgba(5,150,105,0.2)", color: "#059669" }}>
+      <div className="mt-6 p-4 rounded-lg text-xs" style={{ backgroundColor: "rgba(var(--brand-rgb),0.08)", border: "1px solid rgba(var(--brand-rgb),0.2)", color: "#dc2626" }}>
         <strong>⚠️ Security Layer:</strong> Every third-party service requires explicit admin approval before it can be used. Go to the <strong>Permissions</strong> tab to activate services. This prevents unauthorized external calls.
       </div>
     </div>

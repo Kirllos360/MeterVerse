@@ -106,7 +106,7 @@ export default function AlertsPage() {
                   <div className="flex items-center gap-3 mt-1 text-xs" style={{ color: "var(--text-secondary)" }}>
                     <span>{a.source}</span>
                     <span>{a.triggeredAt}</span>
-                    {a.acknowledged && <span className="text-xs" style={{ color: "#059669" }}>Acknowledged</span>}
+                    {a.acknowledged && <span className="text-xs" style={{ color: "#DC2626" }}>Acknowledged</span>}
                   </div>
                 </div>
                 {!a.acknowledged && (

@@ -14,7 +14,7 @@ const TABS = [
 ]
 
 const statusDot = (s: string) => {
-  const color = s === "Online" || s === "ok" || s === "healthy" ? "#22c55e" : s === "Degraded" || s === "degraded" ? "#f59e0b" : "#ef4444"
+  const color = s === "Online" || s === "ok" || s === "healthy" ? "#DC2626" : s === "Degraded" || s === "degraded" ? "#f59e0b" : "#ef4444"
   return <span className="inline-block w-2 h-2 rounded-full mr-2" style={{ backgroundColor: color }} />
 }
 
@@ -95,11 +95,11 @@ export default function HomePage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
               {[
-                { label: "Total Meters", value: health.meters.toLocaleString(), color: "#22c55e" },
+                { label: "Total Meters", value: health.meters.toLocaleString(), color: "#DC2626" },
                 { label: "Customers", value: health.customers.toLocaleString(), color: "#3b82f6" },
                 { label: "Invoices", value: health.invoices.toLocaleString(), color: "#a855f7" },
                 { label: "Payments", value: health.payments.toLocaleString(), color: "#f59e0b" },
-                { label: "Open Events", value: health.openEvents.toLocaleString(), color: health.openEvents > 0 ? "#ef4444" : "#22c55e" },
+                { label: "Open Events", value: health.openEvents.toLocaleString(), color: health.openEvents > 0 ? "#ef4444" : "#DC2626" },
               ].map((s, i) => (
                 <motion.div key={s.label} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
                   className="rounded-xl border p-4" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
@@ -228,7 +228,7 @@ export default function HomePage() {
                     <tr key={ep.name} className="border-b" style={{ borderColor: "var(--border-default)" }}>
                       <td className="py-2 pr-4 font-medium" style={{ color: "var(--text-primary)" }}>{ep.name}</td>
                       <td className="py-2 pr-4"><span className="px-1.5 py-0.5 rounded text-xs font-mono" style={{ backgroundColor: "#dbeafe", color: "#2563eb" }}>{ep.method}</span></td>
-                      <td className="py-2">{statusDot(ep.status)}<span style={{ color: ep.status === "ok" ? "#22c55e" : "var(--text-secondary)" }}>{ep.status}</span></td>
+                      <td className="py-2">{statusDot(ep.status)}<span style={{ color: ep.status === "ok" ? "#DC2626" : "var(--text-secondary)" }}>{ep.status}</span></td>
                     </tr>
                   ))}
                 </tbody>

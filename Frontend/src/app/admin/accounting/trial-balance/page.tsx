@@ -110,7 +110,7 @@ export default function TrialBalancePage() {
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
           <div className="rounded-2xl border p-4 text-center h-full flex flex-col justify-center" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
             <p className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>Status</p>
-            <p className="text-sm font-bold mt-1" style={{ color: balanced ? "#059669" : "#DC2626" }}>
+            <p className="text-sm font-bold mt-1" style={{ color: balanced ? "#DC2626" : "#DC2626" }}>
               {balanced ? "✓ Balanced" : "✗ Unbalanced"}
             </p>
           </div>

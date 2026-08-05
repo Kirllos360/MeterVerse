@@ -140,7 +140,7 @@ export default function GeneralLedgerPage() {
                     <td className="px-5 py-2.5" style={{ color: "var(--text-primary)" }}>{e.description}</td>
                     <td className="px-5 py-2.5 text-right font-mono" style={{ color: e.debit > 0 ? "var(--text-primary)" : "var(--text-secondary)" }}>{e.debit > 0 ? `EGP ${e.debit.toLocaleString()}` : "—"}</td>
                     <td className="px-5 py-2.5 text-right font-mono" style={{ color: e.credit > 0 ? "var(--text-primary)" : "var(--text-secondary)" }}>{e.credit > 0 ? `EGP ${e.credit.toLocaleString()}` : "—"}</td>
-                    <td className="px-5 py-2.5 text-right font-mono font-bold" style={{ color: e.balance < 0 ? "#059669" : "var(--text-primary)" }}>
+                    <td className="px-5 py-2.5 text-right font-mono font-bold" style={{ color: e.balance < 0 ? "#DC2626" : "var(--text-primary)" }}>
                       {e.balance < 0 ? `(EGP ${Math.abs(e.balance).toLocaleString()})` : `EGP ${e.balance.toLocaleString()}`}
                     </td>
                   </tr>
@@ -179,7 +179,7 @@ export default function GeneralLedgerPage() {
                     </td>
                     <td className="px-5 py-2.5 text-right font-mono" style={{ color: "var(--text-primary)" }}>EGP {b.debitTotal.toLocaleString()}</td>
                     <td className="px-5 py-2.5 text-right font-mono" style={{ color: "var(--text-primary)" }}>EGP {b.creditTotal.toLocaleString()}</td>
-                    <td className="px-5 py-2.5 text-right font-mono font-bold" style={{ color: b.netBalance < 0 ? "#059669" : "var(--text-primary)" }}>
+                    <td className="px-5 py-2.5 text-right font-mono font-bold" style={{ color: b.netBalance < 0 ? "#DC2626" : "var(--text-primary)" }}>
                       {b.netBalance < 0 ? `(EGP ${Math.abs(b.netBalance).toLocaleString()})` : `EGP ${b.netBalance.toLocaleString()}`}
                     </td>
                   </tr>

@@ -27,7 +27,7 @@ function ConnectionSignal() {
   return (
     <div className="flex items-center gap-1.5">
       <motion.span animate={status === "online" ? {} : { opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }}
-        className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: status === "online" ? "#22C55E" : status === "degraded" ? "#F59E0B" : "#EF4444" }} />
+        className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: status === "online" ? "#DC2626" : status === "degraded" ? "#F59E0B" : "#EF4444" }} />
       <span className="text-[9px] font-semibold capitalize" style={{ color: "var(--text-tertiary)" }}>{status}</span>
     </div>
   )

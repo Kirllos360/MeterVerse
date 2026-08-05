@@ -78,7 +78,7 @@ export default function LocationSettingsPage() {
             <input placeholder="Search areas..." value={searchArea} onChange={e => setSearchArea(e.target.value)}
               className="w-full rounded-xl border px-3 py-2 text-xs outline-none mb-4"
               style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
-            {table(["Area", "Status"], areas.filter(a => a.toLowerCase().includes(searchArea.toLowerCase())).map(a => [a, <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(34,197,94,0.1)" }}>Active</span>]))}
+            {table(["Area", "Status"], areas.filter(a => a.toLowerCase().includes(searchArea.toLowerCase())).map(a => [a, <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>Active</span>]))}
             <p className="text-xs mt-3" style={{ color: "var(--text-secondary)" }}>Loaded from live data. {meterTypes.length} meter types available.</p>
           </motion.div>
         )}
@@ -87,7 +87,7 @@ export default function LocationSettingsPage() {
             <input placeholder="Search projects..." value={searchProject} onChange={e => setSearchProject(e.target.value)}
               className="w-full rounded-xl border px-3 py-2 text-xs outline-none mb-4"
               style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
-            {table(["Name", "Area", "Units", "Status"], projects.filter(p => p.name.toLowerCase().includes(searchProject.toLowerCase())).map(p => [p.name, p.area, String(p.units), <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(34,197,94,0.1)" }}>{p.status}</span>]))}
+            {table(["Name", "Area", "Units", "Status"], projects.filter(p => p.name.toLowerCase().includes(searchProject.toLowerCase())).map(p => [p.name, p.area, String(p.units), <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>{p.status}</span>]))}
           </motion.div>
         )}
         {!loading && tab === 2 && (
