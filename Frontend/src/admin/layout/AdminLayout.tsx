@@ -117,13 +117,13 @@ export default function SystemLayout({ children, theme = "red", title = "Adminis
 
   const themeVars = {
     "--brand": brandColor, "--brand-rgb": brandRgb,
-    // P57 design system: main/gutter background = BLACK (dark) / WHITE (light).
-    // The three sectors (sidebar, topbar, content cards) use the dark-gray/
-    // off-white surface tokens below. Red is the secondary color; hover = light red.
-    "--surface-base": isLight ? "#FFFFFF" : "#000000",
+    // P57 design system: dark mode uses dark-gray (matching sidebar #1A1A1E)
+    // for all three vertical sections (sidebar, workspace, inspector) with
+    // white text. Light mode uses off-white with black text.
+    "--surface-base": isLight ? "#FFFFFF" : "#1A1A1E",
     "--surface-topbar": isLight ? "#F2F2F5" : "#1A1A1E",
     "--surface-raised": isLight ? "#FFFFFF" : "#1A1A1E",
-    "--surface-sunken": isLight ? "#F2F2F5" : "#141416",
+    "--surface-sunken": isLight ? "#F2F2F5" : "#1A1A1E",
     "--sidebar-background": isLight ? "#F2F2F5" : "#1A1A1E",
     "--border-default": isLight ? "rgba(0,0,0,0.06)" : "rgba(255,255,255,0.08)",
     "--text-primary": isLight ? "#1C1C1E" : "#F2F2F5",

@@ -18,7 +18,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center relative overflow-hidden"
-      style={{ backgroundColor: "#0A0A0A" }}>
+      style={{ backgroundColor: "#1A1A1E" }}>
       
       {/* Animated background */}
       <motion.div className="absolute inset-0 opacity-20"
