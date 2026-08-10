@@ -42,7 +42,7 @@ npm run build
 # 4. Start services
 echo "[4/6] Starting services..."
 cd ../backend
-NODE_ENV=production PORT=3001 DATABASE_URL="$DATABASE_URL" \
+NODE_ENV=production PORT=3131 DATABASE_URL="$DATABASE_URL" \
   JWT_SECRET="$JWT_SECRET" CORS_ORIGIN="$CORS_ORIGIN" \
   node src/server.js &
 

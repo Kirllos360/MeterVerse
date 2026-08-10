@@ -9,7 +9,7 @@ from uuid import uuid4
 
 # === Configuration ===
 SQLITE_PATH = 'D:/meter/Meter/reference/collection-system/instance/collection_backup_20260606_114451.db'
-PG_DSN = 'postgresql://meter_pulse:meter_pulse_dev@127.0.0.1:5432/meter_pulse'
+PG_DSN = 'postgresql://meter_pulse:meter_pulse_dev@127.0.0.1:5433/meter_pulse'
 
 # === State tracking ===
 MIGRATION_LOG = []

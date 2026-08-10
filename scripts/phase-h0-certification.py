@@ -79,7 +79,7 @@ PHASE_G_DATA = {
 # INFRASTRUCTURE SURVEY
 # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 INFRA = {
-    'postgresql': {'port': 5432, 'status': 'OPEN', 'db': 'meter_pulse', 'schema': 'sim_system', 'tables': 22, 'has_data': False},
+    'postgresql': {'port': 5433, 'status': 'OPEN', 'db': 'meter_pulse', 'schema': 'sim_system', 'tables': 22, 'has_data': False},
     'frontend': {'port': 3000, 'status': 'RUNNING', 'tech': 'Next.js 16', 'mode': 'demo'},
     'backend': {'port': 3001, 'status': 'CRASHED', 'tech': 'NestJS', 'error': 'express is undefined in dist/src/main.js'},
     'playwright_mcp': {'port': 8080, 'status': 'RUNNING', 'endpoints': '/mcp/initialize, /mcp/tools, /health'},
@@ -175,7 +175,7 @@ def generate_h0a():
     infra_rows = [
         ['Frontend (Next.js 16)', ':3000', INFRA['frontend']['status'], 'Demo login page rendered'],
         ['Backend (NestJS)', ':3001', INFRA['backend']['status'], INFRA['backend']['error']],
-        ['PostgreSQL 16', ':5432', INFRA['postgresql']['status'], f'{INFRA["postgresql"]["tables"]} tables in sim_system'],
+        ['PostgreSQL 16', ':5433', INFRA['postgresql']['status'], f'{INFRA["postgresql"]["tables"]} tables in sim_system'],
         ['Playwright MCP', ':8080', INFRA['playwright_mcp']['status'], 'Browser automation ready'],
         ['Portainer', ':9000', INFRA['portainer']['status'], 'Docker management'],
         ['Flask Collection', 'N/A', INFRA['flask_collection']['status'], 'Available at reference/collection-system'],
@@ -623,7 +623,7 @@ def generate_h0i():
     lines.append("### New Assets (Meter Verse)\n")
     lines.append("| Asset | Location | Rollback Strategy |\n")
     lines.append("|---|---|---|\n")
-    lines.append("| PostgreSQL DB | localhost:5432 | pg_dump before cutover, pg_restore to revert |\n")
+    lines.append("| PostgreSQL DB | localhost:5433 | pg_dump before cutover, pg_restore to revert |\n")
     lines.append("| Docker Containers | docker-compose | docker compose down, restore from backup |\n")
     lines.append("| Frontend (Next.js) | Frontend/ | git checkout previous, bun run build |\n")
     lines.append("| Backend (NestJS) | backend/ | git checkout previous, npm run build |\n")
@@ -632,7 +632,7 @@ def generate_h0i():
     lines.append("## 2. Rollback Procedures\n\n")
     lines.append("### Rollback: Database\n")
     lines.append("```bash\n")
-    lines.append("pg_restore -h localhost -p 5432 -U meter_pulse -d meter_pulse backup_before_cutover.dump\n")
+    lines.append("pg_restore -h localhost -p 5433 -U meter_pulse -d meter_pulse backup_before_cutover.dump\n")
     lines.append("```\n\n")
     lines.append("### Rollback: Application\n")
     lines.append("```bash\n")
@@ -792,3 +792,5 @@ if __name__ == '__main__':
         f.write(''.join(master))
     print(f'  -> {master_path}')
     print('\nPhase H0 certification complete.')
+
+
