@@ -10,9 +10,7 @@ import { cookies, headers } from "next/headers"
 import NextTopLoader from "nextjs-toploader"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { RuntimeProvider } from "@/runtime/workspace/workspace-runtime"
-import { PermissionProvider } from "@/providers/permission-context"
 import { InfobarProvider } from "@/components/ui/infobar"
-import { AuthProvider } from "@/providers/auth-context"
 import QueryProvider from "@/components/layout/query-provider"
 import "../styles/globals.css"
 
@@ -58,15 +56,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <ActiveThemeProvider initialTheme={themeToApply}>
               <QueryProvider>
                 <RuntimeProvider>
-                  <PermissionProvider>
-                    <AuthProvider>
-                      <InfobarProvider>
-                      <Toaster />
-                      {children}
+                  <InfobarProvider>
+                    <Toaster />
+                    {children}
                   </InfobarProvider>
-                </AuthProvider>
-              </PermissionProvider>
-            </RuntimeProvider>
+                </RuntimeProvider>
               </QueryProvider>
             </ActiveThemeProvider>
           </ThemeProvider>

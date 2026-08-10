@@ -1,16 +1,16 @@
 "use client"
 
 import { useMemo } from "react"
-import { useAuth } from "@/providers/auth-context"
+import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
 import type { NavItem, NavGroup } from "@/types"
 
 export function useFilteredNavItems(items: NavItem[]) {
-  const { user } = useAuth()
+  const user = useAuthRuntime((s) => s.user)
 
   const accessContext = useMemo(() => {
     return {
       user,
-      isAuthenticated: true,
+      isAuthenticated: !!user,
     }
   }, [user])
 
@@ -20,13 +20,13 @@ export function useFilteredNavItems(items: NavItem[]) {
 }
 
 export function useFilteredNavGroups(groups: NavGroup[]) {
-  const { user } = useAuth()
+  const user = useAuthRuntime((s) => s.user)
 
   return useMemo(() => {
     return groups
       .map((group) => ({
         ...group,
-        items: filterItems(group.items, { user, isAuthenticated: true }),
+        items: filterItems(group.items, { user, isAuthenticated: !!user }),
       }))
       .filter((group) => group.items.length > 0)
   }, [groups, user])

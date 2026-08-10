@@ -4,6 +4,7 @@ import { useAdminStore } from "@/stores/admin-store"
 import dynamic from "next/dynamic"
 
 const HomePage = dynamic(() => import("./home/page"), { ssr: false })
+const DashboardPage = dynamic(() => import("./dashboard/page"), { ssr: false })
 const MonitoringPage = dynamic(() => import("./monitoring-view/page"), { ssr: false })
 const ConnectionSettingsPage = dynamic(() => import("./connection-settings/page"), { ssr: false })
 const DatabaseMgmtPage = dynamic(() => import("./database-management/page"), { ssr: false })
@@ -102,6 +103,7 @@ const WorkflowsPage = dynamic(() => import("./workflows/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
   home: HomePage,
+  dashboard: DashboardPage,
   monitoring: MonitoringPage,
   "connection-settings": ConnectionSettingsPage,
   "database-management": DatabaseMgmtPage,

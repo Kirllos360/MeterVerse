@@ -1,25 +1,11 @@
 "use client"
 
 import { createContext, useContext, type ReactNode } from "react"
+import { usePermissionRuntime, type PermissionAction, type PermissionResource, type Role } from "@/identity/permission/PermissionRuntime"
 
-export type PermissionAction = "create" | "read" | "update" | "delete" | "export" | "approve" | "admin"
-export type PermissionResource =
-  | "customers"
-  | "meters"
-  | "readings"
-  | "invoices"
-  | "payments"
-  | "tariffs"
-  | "reports"
-  | "users"
-  | "settings"
-  | "admin"
-  | "billing"
-  | "financial"
+export { type PermissionAction, type PermissionResource, type Role } from "@/identity/permission/PermissionRuntime"
 
-export type Role = "super_admin" | "admin" | "manager" | "operator" | "viewer"
-
-interface Permission {
+export interface Permission {
   action: PermissionAction
   resource: PermissionResource
   scope: "own" | "department" | "all"
@@ -38,53 +24,19 @@ interface PermissionContextType {
   canApprove: (resource: PermissionResource) => boolean
 }
 
-const defaultPermissions: Permission[] = [
-  { action: "read", resource: "customers", scope: "all" },
-  { action: "read", resource: "meters", scope: "all" },
-  { action: "read", resource: "readings", scope: "all" },
-  { action: "read", resource: "invoices", scope: "all" },
-  { action: "read", resource: "payments", scope: "all" },
-  { action: "read", resource: "tariffs", scope: "all" },
-  { action: "read", resource: "reports", scope: "all" },
-]
+// P57 unification: the mock always-true provider was a dual-permission source of
+// truth. `usePermission` now reads from the REAL PermissionRuntime zustand store so
+// authorization can never silently pass under a mock. PermissionProvider is kept as
+// a thin identity wrapper for compatibility (root layout no longer needs to mount it).
+const PermissionContext = createContext<PermissionContextType | null>(null)
 
-const defaultContext: PermissionContextType = {
-  role: "admin",
-  permissions: defaultPermissions,
-  hasPermission: () => true,
-  hasRole: () => true,
-  canCreate: () => true,
-  canRead: () => true,
-  canUpdate: () => true,
-  canDelete: () => true,
-  canExport: () => true,
-  canApprove: () => true,
-}
-
-const PermissionContext = createContext<PermissionContextType>(defaultContext)
-
-export function PermissionProvider({
-  children,
-  role = "admin",
-  permissions = defaultPermissions,
-}: {
-  children: ReactNode
-  role?: Role
-  permissions?: Permission[]
-}) {
-  const hasPermission = (action: PermissionAction, resource: PermissionResource) => {
-    if (role === "super_admin" || role === "admin") return true
-    return permissions.some((p) => p.action === action && p.resource === resource)
-  }
-
-  const hasRole = (r: Role) => {
-    const hierarchy: Role[] = ["super_admin", "admin", "manager", "operator", "viewer"]
-    return hierarchy.indexOf(role) <= hierarchy.indexOf(r)
-  }
-
+export function PermissionProvider({ children }: { children: ReactNode }) {
+  const runtime = usePermissionRuntime()
+  const hasPermission = (action: PermissionAction, resource: PermissionResource) => runtime.hasPermission(action, resource)
+  const hasRole = (role: Role) => runtime.hasRole(role)
   const value: PermissionContextType = {
-    role,
-    permissions,
+    role: runtime.role,
+    permissions: runtime.permissions,
     hasPermission,
     hasRole,
     canCreate: (r) => hasPermission("create", r),
@@ -94,8 +46,24 @@ export function PermissionProvider({
     canExport: (r) => hasPermission("export", r),
     canApprove: (r) => hasPermission("approve", r),
   }
-
   return <PermissionContext.Provider value={value}>{children}</PermissionContext.Provider>
 }
 
-export const usePermission = () => useContext(PermissionContext)
+export function usePermission(): PermissionContextType {
+  const ctx = useContext(PermissionContext)
+  if (ctx) return ctx
+  // Fallback outside provider: delegate to the real store (never mock-allowed).
+  const runtime = usePermissionRuntime()
+  return {
+    role: runtime.role,
+    permissions: runtime.permissions,
+    hasPermission: (a, r) => runtime.hasPermission(a, r),
+    hasRole: (r) => runtime.hasRole(r),
+    canCreate: (r) => runtime.hasPermission("create", r),
+    canRead: (r) => runtime.hasPermission("read", r),
+    canUpdate: (r) => runtime.hasPermission("update", r),
+    canDelete: (r) => runtime.hasPermission("delete", r),
+    canExport: (r) => runtime.hasPermission("export", r),
+    canApprove: (r) => runtime.hasPermission("approve", r),
+  }
+}
