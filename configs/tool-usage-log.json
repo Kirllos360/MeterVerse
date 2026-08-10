@@ -1537,5 +1537,29 @@
             "Frontend/src/app/page.tsx + layout.tsx (port-based profile)",
             "P40_EXECUTION_TRACKER.md (OBS-078)"
         ]
+    },
+    {
+        "task": "P57 Shared login + sign-out fix (Q2/Q4) + Enterprise Validation",
+        "date": "2026-08-09",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "todowrite", "task"],
+        "tools_used": [
+            "P57 VALIDATION: 10-phase enterprise program — repo rediscovery (18,934 files, 187 Prisma models, 63 routes, 43 services, 97 admin pages), missing-file/duplicate discovery, architecture validation, port audit, routing trace, gap analysis (11 programs NOT_STARTED), functional wiring, test-fix loop, dependency verification",
+            "FIX auth.js $Matches[0] PowerShell artifact (ReferenceError 500 on /me + /register edge paths) -> proper error messages",
+            "FIX duplicate mount('/admin') shadowing config-center GET /permissions -> renamed to /permissions/services (both reachable)",
+            "FIX diagnostics engine URL trailing-space bug (cmd `set PORT=3131 &&` -> '3131 ' -> all 24 checks failed) -> String().trim() -> 24/24",
+            "FIX CRITICAL portal-mode regression: cmd `set PORTAL_MODE=1 &&` sets trailing space -> portal backend mounted ALL admin routes; hardened server.js trim + fixed _tools/Start.cmd to `set PORTAL_MODE=1&&` -> portal gates admin (404) + customer routes 200",
+            "FIX stale DB port 5432 -> 5433 in scripts/start-all.mjs, _tools/config.cmd, _tools/MainControl.cmd, backend/scripts/backup-db.mjs",
+            "FIX enforce-permissions.mjs broken middleware import ref (../middleware/permissions.js -> security.js)",
+            "FIX app-sidebar split-brain auth (mock user + real logout) -> single AuthRuntime source",
+            "FIX areas page-config missing transform (backend returns {areas} but page rendered 0 rows)",
+            "VERIFIED: backend 292+31+56 tests pass, FE tsc 0 + vitest 44, production build succeeds, all 5 services live, portal admin-gate 404 confirmed"
+        ],
+        "evidence": [
+            "backend/src/routes/auth.js, config-center.js, diagnostics.js, server.js",
+            "_tools/Start.cmd, _tools/config.cmd, _tools/MainControl.cmd",
+            "scripts/start-all.mjs, backend/scripts/backup-db.mjs, backend/scripts/enforce-permissions.mjs",
+            "Frontend/src/components/layout/app-sidebar.tsx, Frontend/src/admin/tables/configs/admin.ts",
+            "backend/tests/* (292+31+56 pass), Frontend (tsc 0, vitest 44, build ok)"
+        ]
     }
 ]

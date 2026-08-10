@@ -88,7 +88,10 @@ const app = express()
 // routes (invoices, payments, portal, meters list, notifications, consumptions,
 // profile/preferences, requests/tickets). Admin/ops routes are NOT mounted.
 // PORTAL_MODE unset → Admin API (port 3131): full enterprise API.
-const PORTAL_MODE = process.env.PORTAL_MODE === "1"
+// NOTE: cmd launchers (`set PORTAL_MODE=1 && node`) append a trailing space to the
+// value, so trim before comparing — otherwise portal mode silently disables and the
+// portal backend mounts every admin route (security regression).
+const PORTAL_MODE = String(process.env.PORTAL_MODE || "").trim() === "1"
 const PORT = process.env.PORT || (PORTAL_MODE ? 3003 : 3131)
 const isProduction = process.env.NODE_ENV === "production"
 

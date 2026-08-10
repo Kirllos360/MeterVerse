@@ -9,7 +9,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email and password required" }, { status: 400 })
     }
 
-    const data = await loginUser(email, password)
+    // P57 profile-aware login: derive system_type from the request port so the
+    // SAME login UI hits the correct backend system (user=portal, admin=console).
+    const host = request.headers.get("host") || ""
+    const port = host.split(":")[1] || ""
+    const systemType = port === "3030" ? "user" : "admin"
+
+    const data = await loginUser(email, password, systemType)
     const cookieStore = await cookies()
 
     // Set access token as httpOnly cookie
@@ -25,6 +31,9 @@ export async function POST(request: NextRequest) {
       user: data.user,
       refreshToken: data.refreshToken,
       expiresAt: data.expiresAt,
+      redirect: data.redirect,
+      system: data.system,
+      portal: data.portal,
     })
   } catch (err) {
     const message = err instanceof Error ? err.message : "Authentication failed"

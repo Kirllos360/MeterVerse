@@ -41,7 +41,10 @@ router.get("/system/diagnostics", async (req, res) => {
       const headers = ep.auth ? { "Authorization": req.headers.authorization || "Bearer dev", "X-Dev-Mode": "true" } : {}
       const controller = new AbortController()
       const timeout = setTimeout(() => controller.abort(), 5000)
-      const resp = await fetch(`http://localhost:${process.env.PORT || 3131}${ep.url}`, { headers, signal: controller.signal })
+      // PORT may carry a trailing space when launched via cmd (`set PORT=3131 && node`)
+      // — trim so `http://host:PORT/path` parses (was "http://host:3131 /path" → all checks fail).
+      const port = String(process.env.PORT || 3131).trim()
+      const resp = await fetch(`http://localhost:${port}${ep.url}`, { headers, signal: controller.signal })
       clearTimeout(timeout)
       const status = resp.status
       const ok = status === 200

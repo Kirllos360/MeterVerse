@@ -71,7 +71,7 @@ async function main() {
   console.log(bold("╚══════════════════════════════════════════════╝"))
   console.log(dim("Admin FE :3535 · Admin API :3131 · Portal FE :3030 · Portal API :3003"))
 
-  const dbUrl = process.env.DATABASE_URL || "postgresql://meter_pulse:meter_pulse_dev@localhost:5432/meter_pulse?schema=public"
+  const dbUrl = process.env.DATABASE_URL || "postgresql://meter_pulse:meter_pulse_dev@localhost:5433/meter_pulse?schema=public"
   const jwt = process.env.JWT_SECRET || "mv-jwt-secret-change-in-production-2026"
   const cors = "http://localhost:3030,http://localhost:3535"
 

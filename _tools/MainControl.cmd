@@ -79,9 +79,9 @@ if not exist "%~dp0..\Frontend\node_modules" (
 
 :: Quick DB check before starting
 echo [PRE] Checking prerequisites...
-PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5432);$s.Close();exit 0}catch{exit 1}" 2>nul
+PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5433);$s.Close();exit 0}catch{exit 1}" 2>nul
 if %errorlevel%==1 (
-    echo   âš  PostgreSQL not detected on port 5432
+    echo   PostgreSQL not detected on port 5433
     echo   Backend requires PostgreSQL. Start it with: docker compose up -d postgres
     echo   Frontend will still be started (UI-only mode)
 )
@@ -203,10 +203,10 @@ echo Fixing BE (attempt !BE_ATT!/%MAX_ATT%)...
 echo [%DATE% %TIME%] [BE] Fix !BE_ATT! >> "%LE%"
 
 :: Check if DB is available before retrying backend
-PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5432);$s.Close();exit 0}catch{exit 1}" 2>nul
+PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5433);$s.Close();exit 0}catch{exit 1}" 2>nul
 if %errorlevel%==1 (
     if !BE_ATT! GEQ 3 (
-        echo  â†’ PostgreSQL not available. Skipping backend retries.
+        echo  PostgreSQL not available. Skipping backend retries.
         echo  Start database: docker compose up -d postgres
         set BE_SLP=1
         goto :EOF

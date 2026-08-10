@@ -31,6 +31,7 @@ interface AuthState {
   loginAttempts: number
   lockedUntil: number | null
   rememberDevice: boolean
+  redirectTo: string
 
   login: (email: string, password: string, remember?: boolean) => Promise<boolean>
   logout: () => void
@@ -52,6 +53,7 @@ export const useAuthRuntime = create<AuthState>((set, get) => ({
   loginAttempts: 0,
   lockedUntil: null,
   rememberDevice: false,
+  redirectTo: "/",
 
   login: async (email: string, password: string, remember = false) => {
     set({ isLoading: true, error: null })
@@ -85,6 +87,7 @@ export const useAuthRuntime = create<AuthState>((set, get) => ({
         loginAttempts: 0,
         lockedUntil: null,
         rememberDevice: remember,
+        redirectTo: data.redirect || "/",
       })
 
       if (remember) {
@@ -105,9 +108,14 @@ export const useAuthRuntime = create<AuthState>((set, get) => ({
   },
 
   logout: async () => {
-    try { await fetch("/api/auth/logout", { method: "POST" }) } catch {}
-    set({ user: null, tokens: null, isAuthenticated: false, loginAttempts: 0, lockedUntil: null, error: null })
+    const { tokens } = get()
+    try { await fetch("/api/auth/logout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ refreshToken: tokens?.refreshToken }) }) } catch {}
+    set({ user: null, tokens: null, isAuthenticated: false, loginAttempts: 0, lockedUntil: null, error: null, redirectTo: "/" })
     try { localStorage.removeItem("mv-identity") } catch {}
+    // P57 Q4: sign-out always lands on the shared /login page (profile-aware per port)
+    if (typeof window !== "undefined") {
+      window.location.href = "/login"
+    }
   },
 
   refreshSession: async () => {

@@ -27,7 +27,7 @@ import {
 import { UserAvatarProfile } from '@/components/user-avatar-profile';
 import { navGroups } from '@/config/nav-config';
 import { useMediaQuery } from '@/hooks/use-media-query';
-import { useAuth } from '@/providers/auth-context';
+import { useAuthRuntime } from '@/identity/auth/AuthRuntime';
 import { useFilteredNavGroups } from '@/hooks/use-nav';
 import { useDashboardStore } from '@/stores/dashboard-store';
 import * as React from 'react';
@@ -40,7 +40,7 @@ function urlToPageKey(url: string): string {
 
 export default function AppSidebar() {
   const { isOpen } = useMediaQuery();
-  const { user } = useAuth();
+  const { user, logout } = useAuthRuntime();
   const setActivePage = useDashboardStore((s) => s.setActivePage);
   const activePage = useDashboardStore((s) => s.activePage);
   const filteredGroups = useFilteredNavGroups(navGroups);
@@ -169,7 +169,7 @@ export default function AppSidebar() {
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => {}}>
+                <DropdownMenuItem onClick={() => logout()}>
                   <Icons.logout className='mr-2 h-4 w-4' />
                   Sign Out
                 </DropdownMenuItem>

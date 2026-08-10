@@ -130,7 +130,10 @@ router.post("/config/symbiot/test", requirePermission("admin.*"), async (req, re
 
 // ─── THIRD PARTY PERMISSION GRANTS (phone-app style) ────────────────
 
-router.get("/permissions", requirePermission("admin.*"), async (req, res) => {
+// NOTE: was previously router.get("/permissions") which collided with
+// admin.js's GET /permissions (mounted earlier at /admin, so this was
+// shadowed dead code). Renamed to /permissions/services to make it reachable.
+router.get("/permissions/services", requirePermission("admin.*"), async (req, res) => {
   const data = getServicePermissions()
   res.json(data)
 })

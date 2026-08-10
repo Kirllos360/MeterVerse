@@ -9,6 +9,9 @@ interface LoginResponse {
   accessToken: string
   refreshToken: string
   expiresAt: number
+  redirect?: string
+  system?: string
+  portal?: string
 }
 
 interface RegisterPayload {
@@ -45,13 +48,13 @@ function createMockUser(email: string, name: string): AuthUser {
   }
 }
 
-export async function loginUser(email: string, password: string): Promise<LoginResponse> {
+export async function loginUser(email: string, password: string, systemType: string = "admin"): Promise<LoginResponse> {
   // Real backend first (always attempted)
   try {
-    const res = await fetch(`${API_BASE}/auth/login`, {
+    const res = await fetch(`${API_BASE}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email, password, system_type: systemType }),
     })
     if (res.ok) return res.json()
   } catch {}
@@ -75,7 +78,7 @@ export async function loginUser(email: string, password: string): Promise<LoginR
 
 export async function registerUser(payload: RegisterPayload): Promise<AuthUser> {
   try {
-    const res = await fetch(`${API_BASE}/auth/register`, {
+    const res = await fetch(`${API_BASE}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -96,7 +99,7 @@ export async function registerUser(payload: RegisterPayload): Promise<AuthUser> 
 
 export async function refreshAccessToken(refreshToken: string): Promise<LoginResponse> {
   try {
-    const res = await fetch(`${API_BASE}/auth/refresh`, {
+    const res = await fetch(`${API_BASE}/api/auth/refresh`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refreshToken }),
@@ -114,8 +117,15 @@ export async function refreshAccessToken(refreshToken: string): Promise<LoginRes
   }
 }
 
-export async function logoutUser(): Promise<void> {
+export async function logoutUser(refreshToken?: string, accessToken?: string): Promise<void> {
   try {
-    await fetch(`${API_BASE}/auth/logout`, { method: "POST" })
+    await fetch(`${API_BASE}/api/auth/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+      },
+      body: JSON.stringify({ refreshToken }),
+    })
   } catch {}
 }

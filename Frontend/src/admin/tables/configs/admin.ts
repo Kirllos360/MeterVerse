@@ -81,6 +81,7 @@ export const adminConfigs: Record<string, PageConfig> = {
   areas: {
     id: "areas", title: "Service Areas", description: "Geographic service areas and regions",
     apiEndpoint: "/api/locations/areas", statusField,
+    transform: (d: any) => (Array.isArray(d) ? d : d.areas || []),
     columns: [
       { id: "name", header: "Area", accessor: r => r.name, type: "avatar", width: 220 },
       { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },

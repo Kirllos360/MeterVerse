@@ -1,7 +1,8 @@
 "use client"
 
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
 import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
 
 function HeavyRain() {
@@ -53,7 +54,8 @@ function Particles() {
 }
 
 export default function LoginPage() {
-  const { login, isLoading, error, isLocked, remainingLockout } = useAuthRuntime()
+  const { login, isLoading, error, isLocked, remainingLockout, redirectTo } = useAuthRuntime()
+  const router = useRouter()
   const [hydrated, setHydrated] = useState(false)
   useEffect(() => { setHydrated(true) }, [])
   const [mode, setMode] = useState<"login" | "signup">("login")
@@ -65,6 +67,20 @@ export default function LoginPage() {
   const [success, setSuccess] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
   const [signingUp, setSigningUp] = useState(false)
+  const navigated = useRef(false)
+
+  // P57: profile-aware post-login redirect. Portal (:3030) home is "/"; admin
+  // (:3535) home is "/admin" (matches launcher banner). Use the backend redirect
+  // for admin, but always land portal users on the port-derived root.
+  useEffect(() => {
+    if (success && !navigated.current) {
+      navigated.current = true
+      const isPortal = typeof window !== "undefined" && window.location.port === "3030"
+      const target = isPortal ? "/" : (redirectTo && redirectTo.startsWith("/") ? redirectTo : "/")
+      const t = setTimeout(() => router.replace(target), 1200)
+      return () => clearTimeout(t)
+    }
+  }, [success, redirectTo, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

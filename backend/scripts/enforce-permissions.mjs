@@ -30,7 +30,7 @@ for (const file of routeFiles) {
     if (content.indexOf('requirePermission') === -1) {
       content = content.replace(
         /from "\.\.\/middleware\/security\.js"/,
-        'from "../middleware/security.js"\nimport { requirePermission } from "../middleware/permissions.js"'
+        'from "../middleware/security.js"\nimport { requirePermission } from "../middleware/security.js"'
       );
     }
   }

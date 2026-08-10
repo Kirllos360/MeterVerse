@@ -5,7 +5,7 @@ import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 
 const BACKUP_DIR = process.env.BACKUP_DIR || './backups';
-const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/meter_pulse';
+const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5433/meter_pulse';
 
 async function runBackup() {
   const date = new Date().toISOString().replace(/[:.]/g, '-');

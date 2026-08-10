@@ -8,7 +8,7 @@ set ADMIN_FE_PORT=3535
 set PORTAL_BE_PORT=3003
 set PORTAL_FE_PORT=3030
 
-set DB_PORT=5432
+set DB_PORT=5433
 set DB_USER=meter_pulse
 set DB_PASS=meter_pulse_dev
 set DB_NAME=meter_pulse

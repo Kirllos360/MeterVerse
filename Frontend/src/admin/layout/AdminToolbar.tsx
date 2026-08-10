@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { HeaderAreaSelector } from "@/features/admin-settings/components/LocationSelector"
 import { useAdminStore } from "@/stores/admin-store"
+import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
 import { motion, AnimatePresence } from "framer-motion"
 
 function ConnectionHeader() {
@@ -38,6 +39,7 @@ const t = (lang: string, en: string, ar: string) => lang === "ar" ? ar : en
 
 export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto", onCycleTheme, effectiveDark, lang = "en", onToggleLang, onLogoClick, systemTitle = "Administration", themeColor }: any) {
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const { logout } = useAuthRuntime()
   const [searchOpen, setSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const searchRef = useRef<HTMLInputElement>(null)
@@ -372,7 +374,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
                   ))}
                 </div>
                 <div className="border-t p-1" style={{ borderColor: "var(--border-default)" }}>
-                  <button className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: "var(--admin-accent)" }}>
+                  <button onClick={() => { setShowUserMenu(false); logout() }} className="flex items-center gap-3 w-full px-3 py-2 rounded-lg text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/10" style={{ color: "var(--admin-accent)" }}>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" /></svg>
                     <span>{t(lang, "Sign Out", "تسجيل الخروج")}</span>
                   </button>

@@ -91,7 +91,7 @@ router.post("/register", async (req, res, next) => {
     const { email, password, name } = registerSchema.parse(req.body)
 
     const exists = await prisma.user.findUnique({ where: { email } })
-    if (exists) return res.status(401).json({ error: $Matches[0], code: "AUTH_FAILED", correlationId: req?.correlationId || "unknown" })
+    if (exists) return res.status(401).json({ error: "Email already registered", code: "AUTH_FAILED", correlationId: req?.correlationId || "unknown" })
 
     const hashed = await bcrypt.hash(password, 10)
     const user = await prisma.user.create({ data: { email, password: hashed, name } })
@@ -107,7 +107,7 @@ router.post("/register", async (req, res, next) => {
 router.get("/me", authenticate, async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.sub } })
-    if (!user) return res.status(401).json({ error: $Matches[0], code: "AUTH_FAILED", correlationId: req?.correlationId || "unknown" })
+    if (!user) return res.status(401).json({ error: "User not found", code: "AUTH_FAILED", correlationId: req?.correlationId || "unknown" })
     res.json({ user: { id: user.id, email: user.email, name: user.name, role: user.role, permissions: user.role === "admin" ? ["read","write","delete","admin","export","approve"] : ["read"] } })
   } catch (err) { next(err) }
 })
