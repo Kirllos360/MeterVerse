@@ -89,7 +89,7 @@ if %errorlevel%==1 (
 :: Launch Backend
 echo [1] Starting Backend...
 echo [%DATE% %TIME%] [BE] Starting >> "%LM%"
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT%&& node src/server.js >> "%LB%" 2>&1"
 
 :: Wait for backend HTTP health (up to 30s)
 set READY=0
@@ -175,7 +175,7 @@ if !BD!==1 (
     echo [%DATE% %TIME%] [BE] Degraded â€” restarting >> "%LE%"
     taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
     timeout /t 2 /nobreak >nul
-    start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
+    start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT%&& node src/server.js >> "%LB%" 2>&1"
 )
 if !FD!==1 (
     echo  âš  Frontend degraded â€” restarting...
@@ -232,7 +232,7 @@ if !errorlevel!==0 (
 
 taskkill /F /FI "WINDOWTITLE eq MeterVerse-AdminAPI" 2>nul >nul
 timeout /t 3 /nobreak >nul
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT% && node src/server.js >> "%LB%" 2>&1"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set PORT=%BE_PORT%&& node src/server.js >> "%LB%" 2>&1"
 echo [%DATE% %TIME%] [BE] Restarted >> "%LE%"
 
 :: Verify with tasklist

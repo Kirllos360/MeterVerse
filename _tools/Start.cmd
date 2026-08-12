@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 title MeterVerse OS - Start (Admin :3535 + Portal :3030)
 setlocal enabledelayedexpansion
 cd /d "%~dp0.."
@@ -31,32 +31,32 @@ if %errorlevel%==0 (
 :: ─── 1. ADMIN BACKEND (:3131) ─────────────────────────────────────────────
 echo [1/4] Starting Admin API (:%ADMIN_BE_PORT%)...
 echo [%DATE% %TIME%] [ADMIN-BE] Starting >> "%LM%"
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%ADMIN_BE_PORT% && node src/server.js >> "%LB%" 2>&1"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development&& set JWT_SECRET=%JWT_SECRET%&& set CORS_ORIGIN=%CORS_ORIGIN%&& set PORT=%ADMIN_BE_PORT%&& node src/server.js >> "%LB%" 2>&1"
 
 :: ─── 2. ADMIN FRONTEND (:3535) — standalone (own .next) ──────────────────
 echo [2/4] Starting Admin Console (:%ADMIN_FE_PORT%)...
 echo [%DATE% %TIME%] [ADMIN-FE] Starting >> "%LM%"
 if exist "%~dp0..\Frontend\.next\BUILD_ID" (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT% && call node_modules\.bin\next.cmd start -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT%&& call node_modules\.bin\next.cmd start -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
     echo   Admin Console production mode
 ) else (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT% && call node_modules\.bin\next.cmd dev -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT%&& call node_modules\.bin\next.cmd dev -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
     echo   Admin Console dev mode
 )
 
 :: ─── 3. PORTAL BACKEND (:3003) ─────────────────────────────────────────────
 echo [3/4] Starting Portal API (:%PORTAL_BE_PORT%)...
 echo [%DATE% %TIME%] [PORTAL-BE] Starting >> "%LM%"
-start "MeterVerse-PortalAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%PORTAL_BE_PORT% && set PORTAL_MODE=1&& node src/server.js >> "%LPB%" 2>&1"
+start "MeterVerse-PortalAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development&& set JWT_SECRET=%JWT_SECRET%&& set CORS_ORIGIN=%CORS_ORIGIN%&& set PORT=%PORTAL_BE_PORT%&& set PORTAL_MODE=1&& node src/server.js >> "%LPB%" 2>&1"
 
 :: ─── 4. PORTAL FRONTEND (:3030) — standalone (own .next-portal) ──────────
 echo [4/4] Starting Portal Console (:%PORTAL_FE_PORT%)...
 echo [%DATE% %TIME%] [PORTAL-FE] Starting >> "%LM%"
 if exist "%~dp0..\Frontend\.next-portal\BUILD_ID" (
-    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0..\Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT% && call node_modules\.bin\next.cmd start -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
+    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0..\Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT%&& call node_modules\.bin\next.cmd start -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
     echo   Portal Console production mode
 ) else (
-    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0..\Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT% && call node_modules\.bin\next.cmd dev -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
+    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0..\Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT%&& call node_modules\.bin\next.cmd dev -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
     echo   Portal Console dev mode
 )
 

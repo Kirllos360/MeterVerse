@@ -1,7 +1,13 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
 
-export async function GET() {
+// P58: session restore must use the REAL backend /me. Previously this BFF only
+// decoded mock `mv_access_` tokens — a real JWT cookie always fell through to 401,
+// so restoreSession silently depended on the localStorage fallback. Now it forwards
+// the httpOnly mv_session cookie as a Bearer token to the backend.
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (process.env.PORTAL_MODE === "1" ? "http://localhost:3003" : "http://localhost:3131")
+
+export async function GET(_request: NextRequest) {
   const cookieStore = await cookies()
   const session = cookieStore.get("mv_session")
 
@@ -9,32 +15,20 @@ export async function GET() {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
   }
 
-  // Decode the mock token to get user info
   try {
-      const token = session.value
-      if (token.startsWith("mv_access_")) {
-        const payload = JSON.parse(Buffer.from(token.slice(10), "base64").toString())
-      const user = {
-        id: payload.sub,
-        email: payload.email,
-        name: payload.name || payload.email.split("@")[0],
-        role: payload.role || "viewer",
-        permissions:
-          payload.role === "admin"
-            ? ["read", "write", "delete", "admin", "export", "approve"]
-            : payload.role === "operator"
-              ? ["read", "write", "export"]
-              : ["read"],
-        area: "October",
-        project: "Phase 1",
-        tenant: "Palm Hills",
-        language: "en",
-        theme: "adaptive",
-        mfaEnabled: false,
-      }
-      return NextResponse.json({ user })
+    const res = await fetch(`${API_BASE}/api/auth/me`, {
+      headers: { Authorization: `Bearer ${session.value}` },
+      cache: "no-store",
+    })
+    if (res.ok) {
+      const data = await res.json()
+      return NextResponse.json(data)
     }
-  } catch {}
-
-  return NextResponse.json({ error: "Invalid session" }, { status: 401 })
+    if (res.status === 401) {
+      return NextResponse.json({ error: "Invalid or expired session" }, { status: 401 })
+    }
+    return NextResponse.json({ error: "Upstream error" }, { status: res.status })
+  } catch {
+    return NextResponse.json({ error: "Backend unavailable" }, { status: 502 })
+  }
 }
