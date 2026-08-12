@@ -29,8 +29,8 @@ for %%f in ("%~dp0*.cmd") do (
 
 if "%DANGER%"=="1" (
     echo.
-    echo ⚠ Kill-all-node commands found in tool files.
-    echo   These can crash Windows. Use FixTool.cmd to repair.
+    echo Warning: kill-all-node commands found in tool files.
+    echo   These can crash Windows. Remove them manually.
     echo.
     pause
 )

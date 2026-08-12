@@ -14,7 +14,7 @@ set DB_PASS=meter_pulse_dev
 set DB_NAME=meter_pulse
 set CONTAINER_DB=meter-postgres-1
 set GIT_REMOTE=origin
-set GIT_BRANCH=clean-main
+set GIT_BRANCH=main
 
 set LOG_DIR=%~dp0logs
 if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
