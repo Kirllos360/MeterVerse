@@ -1,11 +1,35 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-03 (P57 permanent separation + visual identity)  
-**Current Phase:** P57 — Permanent admin/portal separation + visual identity + ChatGPT plan adjustment  
-**Version:** 10.8.0-P57-PERMANENT-SEPARATION  
-**Branch:** main (P57 commits merged)  
-**MCPs Active:** 11 (including deepseek-eyes 👁️)  
+**Last Updated:** 2026-08-12 (P58 enterprise recovery/recommendation/blueprint)  
+**Current Phase:** P58 — Enterprise Recovery, Recommendation & Execution Blueprint  
+**Version:** 10.9.0-P58-BLUEPRINT  
+**Branch:** main (P57 + P58 commits merged)  
+**MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P58 — Enterprise Recovery, Recommendation & Execution Blueprint (2026-08-12)
+
+**MODE:** decision/recommendation/blueprint phase — NO large implementation started. 20 reports in `docs/reviews/P58/`.
+
+**Revalidated (independently reproduced):** all 11 P57 defects = VERIFIED ROOT FIXED. No regressions.
+
+**NEW defects found & fixed (commit `50398fb5`):**
+- `set X=value &&` cmd trailing-space class: NEXT_PUBLIC_API_URL / NODE_ENV / JWT_SECRET / CORS_ORIGIN / PORT in `_tools/Start.cmd` (×4+2), `MainControl.cmd` (×3), `StressTest.cmd` (×1) → BFF login/CORS/JWT silently broken via launcher. **All → `set X=value&&`.**
+- `/api/auth/me` BFF was MOCK-ONLY (real JWT always 401 → restoreSession silently used localStorage). Now proxies backend Bearer.
+
+**🔴 P0 BLOCKER (WAVE 4 BLOCKED):** Area/project data scoping NOT enforced — `requireAccess` 0 uses, no route scopes by user area/project. Verified live: viewer reads ALL customers (horizontal escalation). Schema supports it (PermissionOnRole.scopeType/scopeId); only enforcement missing. Must fix before Wave 4 / kirllos wiring.
+
+**Other open (see reports 03/10/15/16):** 22 mock/static admin pages; C13-W05 bank recon 0%; GL 21 models unmigrated; tariff fee chain unverified; ~17 dead files.
+
+**Decisions awaiting approval (report 04):** DB = Option A single DB + enforced tenancy (recommended); kirllos = one user + system-scoped role; Admin governs / Portal operates; execution blueprint (report 17) Phase 0→4, tenancy = P0 gate.
+
+**Runtime verified:** 5 ports live, profiles separated (admin red :3535, portal green :3030), portal gates admin 404, CORS OK, BFF login both profiles OK.
+
+**Tests:** backend 292 + 31 + 56, FE tsc 0 + vitest 44, build passes.
+
+**Legacy reconciliation (report 13):** collection-system=ADAPT, sbill=REUSE formulas+REDESIGN, symbiot=REUSE, energy-360=REUSE assets, ims=REJECT, meter-department tariffs=REUSE data, all-last-update=REJECT(security).
 
 ---
 

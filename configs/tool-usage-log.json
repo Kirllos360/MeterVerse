@@ -1561,5 +1561,26 @@
             "Frontend/src/components/layout/app-sidebar.tsx, Frontend/src/admin/tables/configs/admin.ts",
             "backend/tests/* (292+31+56 pass), Frontend (tsc 0, vitest 44, build ok)"
         ]
+    },
+    {
+        "task": "P58 Enterprise Recovery, Recommendation & Execution Blueprint",
+        "date": "2026-08-12",
+        "tools_activated": ["bash", "read", "grep", "glob", "filesystem", "todowrite", "task"],
+        "tools_used": [
+            "P58: decision/recommendation/blueprint phase — NO large implementation. Revalidated all 11 P57 defects (VERIFIED ROOT FIXED). Independently verified runtime matrix (PIDs, ports, profiles, CORS, DB).",
+            "FOUND+FIXED trailing-space env bug class (cmd `set X=value &&`): NEXT_PUBLIC_API_URL/NODE_ENV/JWT_SECRET/CORS_ORIGIN/PORT in _tools/Start.cmd x6, MainControl.cmd x3, StressTest.cmd x1 -> BFF login/CORS/JWT silently broken via launcher. All -> `set X=value&&`.",
+            "FOUND+FIXED /api/auth/me BFF mock-only (real JWT cookie always 401 -> restoreSession silently used localStorage). Now proxies backend Bearer -> verified returns real super_admin.",
+            "CRITICAL FINDING (P0, WAVE 4 BLOCKED): area/project data scoping NOT enforced — requireAccess defined but 0 uses; verified live a viewer reads ALL customers (horizontal privilege escalation). Schema supports it (PermissionOnRole.scopeType/scopeId).",
+            "Audits: mock/static pages (22 mock/static + 10 mixed), duplication (auth/perm unified, AdminLayout/SystemLayout twin, dead files), toolchain (13 .cmd + start-all), legacy reconciliation (collection/sbill/symbiot/energy-360/ims/meter-department/all-last-update), tariff gap (fee chain unverified), planning reality matrix (C13-C38).",
+            "Produced 20 P58 reports (docs/reviews/P58/) + 4 architecture decisions awaiting approval + execution blueprint (tenancy = P0 gate) + ChatGPT handover.",
+            "Committed 50398fb5 (P58 fixes). Committed PROJECT_STATE 10.9.0-P58-BLUEPRINT."
+        ],
+        "evidence": [
+            "docs/reviews/P58/01..20_*.md",
+            "_tools/Start.cmd, MainControl.cmd, StressTest.cmd (trailing-space fixes)",
+            "Frontend/src/app/api/auth/me/route.ts (real /me BFF)",
+            "backend/src/middleware/security.js (requireAccess 0 uses = P0 finding)",
+            ".ai/memory/PROJECT_STATE.md (10.9.0-P58-BLUEPRINT)"
+        ]
     }
 ]
