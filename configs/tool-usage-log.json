@@ -1582,5 +1582,23 @@
             "backend/src/middleware/security.js (requireAccess 0 uses = P0 finding)",
             ".ai/memory/PROJECT_STATE.md (10.9.0-P58-BLUEPRINT)"
         ]
+    },
+    {
+        "task": "P58 Toolchain consolidation - unified MeterVerse.cmd control center",
+        "date": "2026-08-12",
+        "tools_activated": ["bash", "read", "edit", "write"],
+        "tools_used": [
+            "Audited all 11 _tools .cmd: classified REAL (Start/Stop/config), PARTIAL (MainControl admin-only, AdvancedTest/StressTest test-only), FAKE/docker-wrong (Deploy, DisasterRecovery used docker exec for NATIVE PG :5433 -> 0-byte backups), OBSOLETE (FixTool repaired a gone pattern), RISKY (GitPush blind add -A)",
+            "Built _tools/MeterVerse.cmd unified control center: 11 modes (start/stop/status/monitor/test/deploy/backup/restore/push/logs/help), native PG pg_dump/psql, all 4 services, auto-heal monitor",
+            "Fixed: Deploy/DisasterRecovery docker->native psql; config GIT_BRANCH clean-main->main; SafetyCheck message",
+            "Deleted 9 obsolete tools: Start, Stop, MainControl, AdvancedTest, StressTest, Deploy, DisasterRecovery, GitPush, FixTool",
+            "Verified: status 5/5 RUNNING, test 7/7 PASS (health x4 + DB + portal-gate + 20x flood), backup 2.2MB real dump (19139 lines), stop stops all 4",
+            "Gitignore _tools/backups/ (DB dumps); README + tools-manifest updated"
+        ],
+        "evidence": [
+            "_tools/MeterVerse.cmd, _tools/config.cmd, _tools/SafetyCheck.cmd",
+            "_tools/README.md, configs/tools-manifest.md, .gitignore",
+            "_tools/backups/meterverse_20261208.sql (2.2MB real dump)"
+        ]
     }
 ]

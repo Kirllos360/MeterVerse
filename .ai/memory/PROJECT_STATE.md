@@ -9,6 +9,19 @@
 
 ---
 
+## P58 — Toolchain Consolidation (2026-08-12)
+
+**Unified `_tools/MeterVerse.cmd`** — single control center replacing 9 fragmented tools:
+- Merged: Start, Stop, MainControl (auto-heal monitor), AdvancedTest, StressTest (test), Deploy, DisasterRecovery, GitPush (safe), SafetyCheck
+- **Fixed docker-wrong tools:** Deploy + DisasterRecovery used `docker exec` for DB that is NATIVE PostgreSQL :5433 (produced 0-byte backups). Now native `pg_dump`/`psql` — verified 2.2MB real dump.
+- **Deleted 9 obsolete/fake tools** (Start, Stop, MainControl, AdvancedTest, StressTest, Deploy, DisasterRecovery, GitPush, FixTool). Kept: `MeterVerse.cmd` + `config.cmd` + `SafetyCheck.cmd`.
+- config.cmd: GIT_BRANCH clean-main→main; DB_PORT=5433.
+- 11 modes: start/stop/status/monitor/test/deploy/backup/restore/push/logs/help.
+- Verified: status 5/5 RUNNING, test 7/7 PASS, backup real 2.2MB, stop stops all 4.
+- `.gitignore` + `_tools/backups/` (DB dumps). Commit `5757a569`.
+
+---
+
 ## P58 — Enterprise Recovery, Recommendation & Execution Blueprint (2026-08-12)
 
 **MODE:** decision/recommendation/blueprint phase — NO large implementation started. 20 reports in `docs/reviews/P58/`.

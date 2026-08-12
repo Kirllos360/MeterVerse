@@ -30,6 +30,9 @@
 
 | Script | Location | When to use | Purpose |
 |--------|----------|-------------|---------|
+| `MeterVerse.cmd` | `_tools/MeterVerse.cmd` | **P58: UNIFIED control center** — start/stop/status/monitor/test/deploy/backup/restore/push/logs/help | Single tool replacing 9 fragmented launchers. Native PG :5433. |
+| `config.cmd` | `_tools/config.cmd` | Shared by all tools | Single source of truth for ports (3131/3535/3003/3030/5433), DB creds, git remote/branch. |
+| `SafetyCheck.cmd` | `_tools/SafetyCheck.cmd` | Before any tool start | Refuses to run if any `_tools` file contains kill-all-node (`taskkill /IM node.exe`). |
 | `Set-Status.ps1` | `scripts/Set-Status.ps1` | **Every status update** | Standardized STATUS.yaml updater with verification. |
 | `Set-PlanningStatus.psm1` | `scripts/Set-PlanningStatus.psm1` | **PowerShell module** for status updates | Importable function for scripts. |
 | `scripts/add-indexes.mjs` | `backend/scripts/add-indexes.mjs` | **Schema index changes** | Automated @@index injection. |
