@@ -13,7 +13,13 @@ if not exist "%LOG_DIR%" mkdir "%LOG_DIR%"
 
 rem ---- Safety: block dangerous kill-all-node patterns ----
 call :SAFETY_CHECK
-if errorlevel 1 exit /b 1
+if errorlevel 1 (
+    echo.
+    echo [SAFETY] Kill-all-node command found in _tools. Refusing to run.
+    echo Press any key to exit...
+    pause >nul
+    exit /b 1
+)
 
 set "ARG=%~1"
 if "%ARG%"=="" goto MENU
@@ -32,7 +38,6 @@ echo Unknown command: %ARG%
 goto HELP
 
 :MENU
-cls
 echo.
 echo  ============================================================
 echo    METERVERSE OS - Control Center

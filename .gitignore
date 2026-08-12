@@ -87,3 +87,6 @@ tsconfig.tsbuildinfo
 .opencode/
 
 .next-portal/
+
+# MCP tool runtime state (auto-generated)
+.serena/

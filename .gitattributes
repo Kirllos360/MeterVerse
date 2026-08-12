@@ -1,0 +1,13 @@
+# Force batch files to be stored as text with CRLF and no BOM
+# Prevents git/core.autocrlf from converting .cmd to UTF-16 (breaks cmd.exe)
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# Backend/scripts source
+*.mjs text eol=lf
+*.js text eol=lf
+
+# Generated/build dirs
+Frontend/.next/ -text
+Frontend/.next-portal/ -text
