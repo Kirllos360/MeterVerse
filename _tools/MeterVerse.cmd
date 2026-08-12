@@ -87,29 +87,29 @@ if errorlevel 1 (
 rem --- 1. Admin Backend (:3131) ---
 echo [1/4] Admin Backend :%ADMIN_BE_PORT% ...
 call :LOG "[BE] Starting admin :%ADMIN_BE_PORT%"
-start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%ADMIN_BE_PORT%&& node src/server.js >> "%LB%" 2>&1"
+start "MeterVerse-AdminAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%ADMIN_BE_PORT%&& node src/server.js >> "%LB%" 2>&1"
 
 rem --- 2. Admin Frontend (:3535) ---
 echo [2/4] Admin Frontend :%ADMIN_FE_PORT% ...
 call :LOG "[FE] Starting admin :%ADMIN_FE_PORT%"
-if exist "%~dp0Frontend\.next\BUILD_ID" (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT%&& call node_modules\.bin\next.cmd start -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
+if exist "%~dp0..\Frontend\.next\BUILD_ID" (
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT%&& call node_modules\.bin\next.cmd start -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
 ) else (
-    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT%&& call node_modules\.bin\next.cmd dev -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
+    start "MeterVerse-AdminConsole" cmd /c "cd /d %~dp0..\Frontend && set NEXT_PUBLIC_API_URL=http://localhost:%ADMIN_BE_PORT%&& call node_modules\.bin\next.cmd dev -p %ADMIN_FE_PORT% >> "%LF%" 2>&1"
 )
 
 rem --- 3. Portal Backend (:3003) ---
 echo [3/4] Portal Backend :%PORTAL_BE_PORT% ...
 call :LOG "[BE] Starting portal :%PORTAL_BE_PORT%"
-start "MeterVerse-PortalAPI" cmd /c "cd /d %~dp0backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%PORTAL_BE_PORT%&& set PORTAL_MODE=1&& node src/server.js >> "%LPB%" 2>&1"
+start "MeterVerse-PortalAPI" cmd /c "cd /d %~dp0..\backend && set NODE_ENV=development && set JWT_SECRET=%JWT_SECRET% && set CORS_ORIGIN=%CORS_ORIGIN% && set PORT=%PORTAL_BE_PORT%&& set PORTAL_MODE=1&& node src/server.js >> "%LPB%" 2>&1"
 
 rem --- 4. Portal Frontend (:3030) ---
 echo [4/4] Portal Frontend :%PORTAL_FE_PORT% ...
 call :LOG "[FE] Starting portal :%PORTAL_FE_PORT%"
-if exist "%~dp0Frontend\.next-portal\BUILD_ID" (
-    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT%&& call node_modules\.bin\next.cmd start -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
+if exist "%~dp0..\Frontend\.next-portal\BUILD_ID" (
+    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0..\Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT%&& call node_modules\.bin\next.cmd start -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
 ) else (
-    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT%&& call node_modules\.bin\next.cmd dev -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
+    start "MeterVerse-PortalConsole" cmd /c "cd /d %~dp0..\Frontend && set PORTAL_MODE=1&& set NEXT_PUBLIC_API_URL=http://localhost:%PORTAL_BE_PORT%&& call node_modules\.bin\next.cmd dev -p %PORTAL_FE_PORT% >> "%LPF%" 2>&1"
 )
 
 rem --- Health check (all 4, up to 90s) ---
@@ -224,16 +224,16 @@ git pull %GIT_REMOTE% %GIT_BRANCH% 2>>"%LOG_DIR%\deploy.log"
 echo [2/5] Backup DB...
 call :BACKUP_DB
 echo [3/5] Backend deps + generate...
-cd /d "%~dp0backend"
+cd /d "%~dp0..\backend"
 call npm install --silent >>"%LOG_DIR%\deploy.log" 2>&1
 call npx prisma generate >>"%LOG_DIR%\deploy.log" 2>&1
 cd /d "%~dp0.."
 echo [4/5] Migrate DB...
-cd /d "%~dp0backend"
+cd /d "%~dp0..\backend"
 call npx prisma db push >>"%LOG_DIR%\deploy.log" 2>&1
 cd /d "%~dp0.."
 echo [5/5] Build frontend...
-cd /d "%~dp0Frontend"
+cd /d "%~dp0..\Frontend"
 call npm install --silent >>"%LOG_DIR%\deploy.log" 2>&1
 call npx next build >>"%LOG_DIR%\deploy.log" 2>&1
 cd /d "%~dp0.."
@@ -274,7 +274,7 @@ echo Review the above files before committing.
 set /p gok="Commit and push? [y/N]: "
 if /i not "%gok%"=="y" ( echo Cancelled. & if "%ARG%"=="" pause & exit /b 0 )
 echo [SYS] Running tests before push...
-cd /d "%~dp0backend" & call npm run test:all >nul 2>&1
+cd /d "%~dp0..\backend" & call npm run test:all >nul 2>&1
 cd /d "%~dp0.."
 git add -A
 git commit -m "chore: update %DATE% %TIME%"
@@ -333,16 +333,20 @@ PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('
 exit /b
 
 :GET_PSQL
-if exist "C:\Program Files\PostgreSQL\16\bin\psql.exe" set "PSQL=C:\Program Files\PostgreSQL\16\bin\psql.exe"
-if exist "C:\Program Files\PostgreSQL\17\bin\psql.exe" set "PSQL=C:\Program Files\PostgreSQL\17\bin\psql.exe"
-if exist "C:\Program Files\PostgreSQL\18\bin\psql.exe" set "PSQL=C:\Program Files\PostgreSQL\18\bin\psql.exe"
+rem Prefer the same major version as the RUNNING server (16 is the live native PG).
+if not defined PSQL if exist "C:\Program Files\PostgreSQL\16\bin\psql.exe" set "PSQL=C:\Program Files\PostgreSQL\16\bin\psql.exe"
+if not defined PSQL if exist "C:\Program Files\PostgreSQL\17\bin\psql.exe" set "PSQL=C:\Program Files\PostgreSQL\17\bin\psql.exe"
+if not defined PSQL if exist "C:\Program Files\PostgreSQL\18\bin\psql.exe" set "PSQL=C:\Program Files\PostgreSQL\18\bin\psql.exe"
 if not defined PSQL set "PSQL=psql"
 exit /b
 
 :GET_PGDUMP
-if exist "C:\Program Files\PostgreSQL\16\bin\pg_dump.exe" set "PGDUMP=C:\Program Files\PostgreSQL\16\bin\pg_dump.exe"
-if exist "C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" set "PGDUMP=C:\Program Files\PostgreSQL\17\bin\pg_dump.exe"
-if exist "C:\Program Files\PostgreSQL\18\bin\pg_dump.exe" set "PGDUMP=C:\Program Files\PostgreSQL\18\bin\pg_dump.exe"
+rem IMPORTANT: pg_dump and psql MUST be the same major version, else the dump
+rem contains directives (e.g. PG18 \restrict) the older psql cannot parse.
+rem Prefer PG16 (matches the live native server + psql above). First match wins.
+if not defined PGDUMP if exist "C:\Program Files\PostgreSQL\16\bin\pg_dump.exe" set "PGDUMP=C:\Program Files\PostgreSQL\16\bin\pg_dump.exe"
+if not defined PGDUMP if exist "C:\Program Files\PostgreSQL\17\bin\pg_dump.exe" set "PGDUMP=C:\Program Files\PostgreSQL\17\bin\pg_dump.exe"
+if not defined PGDUMP if exist "C:\Program Files\PostgreSQL\18\bin\pg_dump.exe" set "PGDUMP=C:\Program Files\PostgreSQL\18\bin\pg_dump.exe"
 if not defined PGDUMP set "PGDUMP=pg_dump"
 exit /b
 
