@@ -1,8 +1,6 @@
 // Automated Evidence Collector — Gathers all data for RCA analysis
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "../../../../backend/src/db.js"
 import logger from "../../../../backend/src/services/logger.js"
-
-const prisma = new PrismaClient()
 
 export class EvidenceCollector {
   async collect(serial) {
