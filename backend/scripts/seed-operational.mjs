@@ -47,7 +47,7 @@ async function main() {
     const email = `${PREFIX}.cust${i}@example.com`
     const existing = await prisma.customer.findFirst({ where: { email } })
     if (existing) { customerIds.push(existing.id); continue }
-    const c = await prisma.customer.create({ data: { name: customerNames[i], email, phone: `0100${String(10000000 + i * 137)}`, address: `Area ${["October", "New Cairo", "SODIC"][i % 3]} — Building ${i + 1}`, status: "active" } })
+    const c = await prisma.customer.create({ data: { name: customerNames[i], email, phone: `0100${String(10000000 + i * 137)}`, address: `Area ${["October", "New Cairo", "SODIC"][i % 3]} — Building ${i + 1}`, status: "active", areaId: areaIds[["OCT", "NEW", "SOD"][i % 3]] } })
     customerIds.push(c.id)
   }
   console.log(`  ✅ ${customerIds.length} customers`)
