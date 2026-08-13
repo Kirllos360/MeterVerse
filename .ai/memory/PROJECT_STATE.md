@@ -9,7 +9,22 @@
 
 ---
 
-## P58 — Toolchain Consolidation (2026-08-12)
+## P59 — P0 Tenancy Enforcement + Operational Foundation (2026-08-13)
+
+**P0 BLOCKER FIXED + CERTIFIED (code/test level):** Horizontal privilege escalation (viewer read all areas) is fixed at the backend boundary:
+- JWT carries area/project scope; `scopeWhere()`/`clampRequestedScope()` enforce on all list queries (fail-closed); `requireAccess()` fixed + wired to detail routes; payments export hole closed; admin-settings/diagnostics/locations RBAC gaps closed; X-Dev-Mode super_admin bypass gated behind ALLOW_DEV_BYPASS=true.
+- Effective-permission endpoint `/api/auth/permissions` (DB grants, not hardcoded).
+- Customers backfilled with areaId (164 records); seed now assigns areaId.
+- **Commits:** 13f285f2, 27e680ab, a7239fd5, 8aa2afaf, 8b69a3f5
+- **Evidence:** 300/300 backend tests (incl. 7 escalation), 56 contract, 31 integration, clean boot, 14/14 tenancy proof.
+
+**⚠️ LIVE ACTIVATION PENDING:** running backends :3131/:3003 are ELEVATED processes (pre-P59 code). Admin-terminal restart required to activate tenancy live. Wave 4 remains BLOCKED until live browser/API re-verification.
+
+**Reports:** docs/reviews/P59/ (tenancy forensic + certification, consolidated findings, ChatGPT handover). FINAL = CONDITIONAL GO.
+
+---
+
+## P59 — Toolchain Consolidation (2026-08-12)
 
 **Unified `_tools/MeterVerse.cmd`** — single control center replacing 9 fragmented tools:
 - Merged: Start, Stop, MainControl (auto-heal monitor), AdvancedTest, StressTest (test), Deploy, DisasterRecovery, GitPush (safe), SafetyCheck
