@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requirePermission, auditLog } from "../middleware/security.js"
+import { requirePermission, requireAccess, scopeWhere, clampRequestedScope, auditLog } from "../middleware/security.js"
 import { postEvent } from "../services/posting-engine.js"
 
 const router = Router()
@@ -143,17 +143,22 @@ router.get("/", requirePermission("payments.*"), async (req, res, next) => {
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const where = { ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}), ...(clamp.projectId ? { projectId: String(clamp.projectId) } : {}) }
     const [payments, total] = await Promise.all([
-      prisma.payment.findMany({ skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: { paymentTransactions: true } }),
-      prisma.payment.count(),
+      prisma.payment.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" }, include: { paymentTransactions: true } }),
+      prisma.payment.count({ where }),
     ])
     res.json({ payments, total, page, limit })
   } catch (err) { next(err) }
 })
 
-router.get("/export", requirePermission("payments.list"), async (req, res, next) => {
+router.get("/export", requirePermission("payments.export"), async (req, res, next) => {
   try {
-    const items = await prisma.payment.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" }, take: 1000 })
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const items = await prisma.payment.findMany({ where: { archivedAt: null, ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" }, take: 1000 })
     const header = "id,customerId,amount,method,status,createdAt"
     const rows = items.map(p => [p.id, p.customerId, p.amount, p.method, p.status, p.createdAt?.toISOString() || ""].join(","))
     res.setHeader("Content-Type", "text/csv")

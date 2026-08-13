@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, requireAccess, scopeWhere, clampRequestedScope, auditLog } from "../middleware/security.js"
 
 const createSchema = z.object({
   serial: z.string().min(1).max(100),
@@ -17,7 +17,9 @@ router.use(authenticate)
 
 router.get("/export", requirePermission("meters.create"), async (req, res, next) => {
   try {
-    const items = await prisma.meter.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const items = await prisma.meter.findMany({ where: { archivedAt: null, ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" } })
     const header = "serial,type,location,status,area,customerId,createdAt"
     const rows = items.map(m => `${m.serial},${m.type || ""},${m.location || ""},${m.status || ""},${m.area || ""},${m.customerId || ""},${m.createdAt?.toISOString() || ""}`)
     res.setHeader("Content-Type", "text/csv")
@@ -29,8 +31,10 @@ router.get("/export", requirePermission("meters.create"), async (req, res, next)
 
 router.get("/", requirePermission("meters.list"), async (req, res, next) => {
   try {
-    const { page = 1, limit = 10, search, areaId, projectId } = req.query
-    const where = { archivedAt: null, ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}), ...(areaId ? { areaId: String(areaId) } : {}), ...(projectId ? { projectId: String(projectId) } : {}) }
+    const { page = 1, limit = 10, search } = req.query
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const where = { archivedAt: null, ...scopeWhere(req), ...(search ? { OR: [{ serial: { contains: search } }, { type: { contains: search } }] } : {}), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}), ...(clamp.projectId ? { projectId: String(clamp.projectId) } : {}) }
     const [meters, total] = await Promise.all([
       prisma.meter.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { createdAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
       prisma.meter.count({ where }),
@@ -39,7 +43,7 @@ router.get("/", requirePermission("meters.list"), async (req, res, next) => {
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requirePermission("meters.list"), async (req, res, next) => {
+router.get("/:id", requirePermission("meters.list"), requireAccess("Meter", null), async (req, res, next) => {
   try {
     const meter = await prisma.meter.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { readings: { orderBy: { timestamp: "desc" }, take: 10 }, customer: true } })
     if (!meter) return res.status(404).json({ error: "Meter not found" })

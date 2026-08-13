@@ -7,9 +7,11 @@ if (!JWT_SECRET) {
 }
 
 export function authenticate(req, res, next) {
-  // Dev bypass: allow requests with X-Dev-Mode header (development only)
-  // Requires NODE_ENV != production AND JWT_SECRET must be explicitly set for dev
-  if (req.headers["x-dev-mode"] === "true" && process.env.NODE_ENV !== "production" && process.env.JWT_SECRET) {
+  // Dev bypass: only when EXPLICITLY enabled via ALLOW_DEV_BYPASS=true.
+  // P59: was gated on NODE_ENV != production alone, which let any dev request
+  // silently become super_admin via the X-Dev-Mode header - making tenancy and
+  // RBAC tests meaningless and allowing accidental privilege escalation.
+  if (process.env.ALLOW_DEV_BYPASS === "true" && req.headers["x-dev-mode"] === "true" && process.env.NODE_ENV !== "production") {
     req.user = { sub: "dev-user", email: "dev@meterverse.com", role: "super_admin", system: "admin" }
     return next()
   }

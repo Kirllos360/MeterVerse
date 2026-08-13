@@ -7,7 +7,7 @@ const router = Router()
 router.use(authenticate)
 
 // GET /areas — real Area records with meter counts (P46: source of truth)
-router.get("/areas", async (req, res, next) => {
+router.get("/areas", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const areaRecords = await prisma.area.findMany({ where: { archivedAt: null }, orderBy: { name: "asc" } })
     const areas = await Promise.all(areaRecords.map(async (a) => {
@@ -51,7 +51,7 @@ router.delete("/areas/:id", requirePermission("locations.areas.delete"), async (
 })
 
 // GET /areas/:area/projects — projects within an area
-router.get("/areas/:area/projects", async (req, res, next) => {
+router.get("/areas/:area/projects", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const { area } = req.params
     const areaRec = await prisma.area.findFirst({ where: { name: area, archivedAt: null } })
@@ -67,7 +67,7 @@ router.get("/areas/:area/projects", async (req, res, next) => {
 })
 
 // GET /projects/:projectId/zones — zones within a project
-router.get("/projects/:projectId/zones", async (req, res, next) => {
+router.get("/projects/:projectId/zones", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const zones = await prisma.zone.findMany({
       where: { projectId: req.params.projectId, archivedAt: null },
@@ -79,7 +79,7 @@ router.get("/projects/:projectId/zones", async (req, res, next) => {
 })
 
 // GET /zones/:zoneId/units — units within a zone
-router.get("/zones/:zoneId/units", async (req, res, next) => {
+router.get("/zones/:zoneId/units", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const units = await prisma.unit.findMany({
       where: { zoneId: req.params.zoneId, archivedAt: null },
@@ -90,7 +90,7 @@ router.get("/zones/:zoneId/units", async (req, res, next) => {
 })
 
 // GET /zones — flat list of all zones (contract endpoint)
-router.get("/zones", async (req, res, next) => {
+router.get("/zones", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const { projectId } = req.query
     const where = { archivedAt: null }
@@ -105,7 +105,7 @@ router.get("/zones", async (req, res, next) => {
 })
 
 // GET /units — flat list of all units (contract endpoint)
-router.get("/units", async (req, res, next) => {
+router.get("/units", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const { zoneId } = req.query
     const where = { archivedAt: null }
@@ -116,7 +116,7 @@ router.get("/units", async (req, res, next) => {
 })
 
 // GET /unit-types — distinct unit types
-router.get("/unit-types", async (req, res, next) => {
+router.get("/unit-types", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const rows = await prisma.unit.groupBy({ by: ["type"], _count: { _all: true }, where: { archivedAt: null }, orderBy: { type: "asc" } })
     res.json({ types: rows.map(r => ({ type: r.type, count: r._count._all })) })
@@ -124,7 +124,7 @@ router.get("/unit-types", async (req, res, next) => {
 })
 
 // GET /tree — full cascading tree
-router.get("/tree", async (req, res, next) => {
+router.get("/tree", requirePermission("locations.list"), async (req, res, next) => {
   try {
     const areas = await prisma.area.findMany({ where: { archivedAt: null }, orderBy: { name: "asc" } })
     const tree = []

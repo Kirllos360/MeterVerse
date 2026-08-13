@@ -61,42 +61,108 @@ const permissionCache = new Map()
 const CACHE_TTL = 60000
 
 // ─── OBJECT-LEVEL AUTHORIZATION (T01) ──────────────────────────────────────
-// Checks if the authenticated user can access a specific resource
-// by verifying the resource's areaId is within the user's permission scope.
+// Checks if the authenticated user can access a specific resource by verifying
+// the resource's areaId/projectId is within the user's JWT-declared scope.
 // Usage: requireAccess("Meter", req.params.id)
-export async function requireAccess(model, resourceId) {
+//
+// AUTHORITATIVE MODEL (P59):
+//   - super_admin / admin roles are global by design (system governance).
+//   - Any other role is restricted to req.user.area / req.user.project (JWT claim).
+//   - A non-global user whose JWT scope is empty is denied (fail-closed).
+export function requireAccess(model, resourceId) {
   return async (req, res, next) => {
     try {
       if (!req.user) return res.status(401).json({ error: "Authentication required" })
-      if (req.user.role === "super_admin") return next()
+      if (req.user.role === "super_admin" || req.user.role === "admin") return next()
 
-      const resource = await prisma[model.toLowerCase()].findUnique({ where: { id: resourceId } })
+      const prismaModel = prisma[model.toLowerCase()]
+      if (!prismaModel) return res.status(500).json({ error: "Unknown model" })
+
+      // Resolve the resource id: explicit arg, else req.params.id, else req.params.resourceId.
+      const id = resourceId || req.params.id || req.params.resourceId
+      if (!id) return res.status(400).json({ error: "Resource id required" })
+
+      const resource = await prismaModel.findUnique({ where: { id } })
       if (!resource) return res.status(404).json({ error: "Resource not found" })
 
-      // If resource has no areaId, check global permissions
-      if (!resource.areaId) {
-        const allowed = await checkPermission(req.user.role, `${model.toLowerCase()}.read`)
-        return allowed ? next() : res.status(403).json({ error: "Access denied" })
+      // Fail-closed: a non-global user MUST have an area scope to access scoped data.
+      const userArea = (req.user.area || "").trim()
+      if (!userArea || userArea === "all") {
+        return res.status(403).json({ error: "No area scope assigned", code: "AREA_RESTRICTED" })
       }
 
-      // Check user's permissions scoped to this area
-      const role = await prisma.role.findUnique({ where: { name: req.user.role } })
-      if (!role) return res.status(403).json({ error: "Role not found" })
+      // Resource belongs to an area: must match the user's area scope.
+      if (resource.areaId) {
+        const resArea = typeof resource.areaId === "string" ? resource.areaId : (resource.area?.id || "")
+        if (userArea !== resArea) {
+          try { auditLog(req, "authorization.area_denied", { model, resourceId: id, userArea, resArea }) } catch {}
+          return res.status(403).json({ error: "Access denied to this resource", code: "AREA_RESTRICTED" })
+        }
+      }
 
-      const permOnRole = await prisma.permissionOnRole.findFirst({
-        where: {
-          roleId: role.id,
-          scopeType: { in: ["area", null] },
-          scopeId: { in: [resource.areaId, null] },
-          grant: true,
-          permission: { name: { contains: model.toLowerCase() } },
-        },
-      })
+      // Project-scoped resource: must match user's project scope when set.
+      if (resource.projectId) {
+        const userProject = (req.user.project || "").trim()
+        if (userProject && userProject !== "all" && userProject !== resource.projectId) {
+          try { auditLog(req, "authorization.project_denied", { model, resourceId: id, userProject, resProject: resource.projectId }) } catch {}
+          return res.status(403).json({ error: "Access denied to this resource", code: "PROJECT_RESTRICTED" })
+        }
+      }
 
-      if (permOnRole) return next()
-      return res.status(403).json({ error: "Access denied to this resource" })
+      next()
     } catch (err) { next(err) }
   }
+}
+
+// ─── LIST SCOPE FILTER ──────────────────────────────────────────────────────
+// Returns a Prisma `where` fragment that restricts a list query to the user's
+// area/project scope (fail-closed). Callers merge into their own where.
+// Global roles (super_admin/admin) return {} = no restriction.
+// A NON-GLOBAL role with an EMPTY scope returns { id: "__denied__" } so the
+// query matches nothing (fail-closed) - such users must have an area assigned.
+export function scopeWhere(req) {
+  if (!req.user || req.user.role === "super_admin" || req.user.role === "admin") return {}
+  const userArea = (req.user.area || "").trim()
+  const userProject = (req.user.project || "").trim()
+  if (!userArea || userArea === "all") {
+    return { id: "__denied__" }
+  }
+  const w = { areaId: userArea }
+  if (userProject && userProject !== "all") w.projectId = userProject
+  return w
+}
+
+// True if the caller's scope is globally unrestricted (admin/super_admin or
+// an explicit "all" scope). Non-global users with empty scope are NOT global.
+export function isGlobalScope(req) {
+  if (!req.user) return false
+  if (req.user.role === "super_admin" || req.user.role === "admin") return true
+  return (req.user.area || "").trim() === "all"
+}
+
+// ─── CLIENT-SUPPLIED AREA/PROJECT CLAMP ─────────────────────────────────────
+// Forces any client-supplied areaId/projectId query param to stay within the
+// user's JWT scope (non-global roles). Returns the clamped value or null if
+// the client requested a scope the user may not access.
+export function clampRequestedScope(req) {
+  if (!req.user || req.user.role === "super_admin" || req.user.role === "admin") {
+    return { ok: true, areaId: req.query.areaId || null, projectId: req.query.projectId || null }
+  }
+  const userArea = (req.user.area || "").trim()
+  const userProject = (req.user.project || "").trim()
+  // Fail-closed: non-global user without an area scope may not list scoped data.
+  if (!userArea || userArea === "all") {
+    return { ok: false, areaId: null, projectId: null, denied: "NO_SCOPE" }
+  }
+  const wantArea = req.query.areaId || null
+  const wantProject = req.query.projectId || null
+  if (wantArea && wantArea !== userArea) {
+    return { ok: false, areaId: null, projectId: null, denied: "AREA" }
+  }
+  if (wantProject && userProject && userProject !== "all" && wantProject !== userProject) {
+    return { ok: false, areaId: null, projectId: null, denied: "PROJECT" }
+  }
+  return { ok: true, areaId: userArea, projectId: userProject && userProject !== "all" ? userProject : wantProject }
 }
 
 // ─── API KEY AUTHENTICATION (T03) ───────────────────────────────────────────

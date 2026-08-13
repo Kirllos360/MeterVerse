@@ -6,6 +6,9 @@ import { requirePermission, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
+// P59: RBAC gap fixed - this whole module is ADMIN configuration/settings.
+// Every route now requires admin.* (was: authenticate-only, any viewer could reach).
+router.use(requirePermission("admin.*"))
 
 // ─── System Health / Home ────────────────────────────────────────────
 router.get("/health/summary", async (req, res, next) => {

@@ -58,6 +58,11 @@ async function createSession(user, systemType, config, ip) {
     role: user.role,
     system: systemType,
     scope: systemType === "admin" ? "admin" : systemType === "user" ? "user" : "mobile",
+    // P59 tenancy: carry the user's area/project scope in the JWT so every
+    // protected route has req.user.area / req.user.project without a DB hit.
+    // Empty string = no scope restriction (system/global admin role).
+    area: user.area || "",
+    project: user.project || "",
   }
 
   const accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: config.expiresIn })

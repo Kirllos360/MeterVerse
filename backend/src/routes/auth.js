@@ -47,7 +47,7 @@ router.post("/login", async (req, res, next) => {
       },
     })
 
-    const accessToken = jwt.sign({ sub: user.id, email: user.email, role: user.role, system: system_type }, JWT_SECRET, { expiresIn: "15m" })
+    const accessToken = jwt.sign({ sub: user.id, email: user.email, role: user.role, system: system_type, area: user.area || "", project: user.project || "" }, JWT_SECRET, { expiresIn: "15m" })
     const refreshToken = jwt.sign({ sub: user.id, sessionId: session.id }, JWT_REFRESH_SECRET, { expiresIn: "7d" })
 
     auditLog(req, "auth.login_success", { email, system: system_type })

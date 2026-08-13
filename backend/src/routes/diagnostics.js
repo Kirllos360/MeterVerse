@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
+import { requirePermission } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -32,7 +33,7 @@ const CRITICAL_ENDPOINTS = [
   { name: "Meter Assignments", url: "/api/meter-assignments", method: "GET", auth: true },
 ]
 
-router.get("/system/diagnostics", async (req, res) => {
+router.get("/system/diagnostics", requirePermission("admin.monitor"), async (req, res) => {
   const results = []
   let passed = 0, failed = 0
 
@@ -69,7 +70,7 @@ router.get("/system/diagnostics", async (req, res) => {
 
 // ─── SYSTEM BACKUP ─────────────────────────────────────────────────
 
-router.get("/system/backup", async (req, res) => {
+router.get("/system/backup", requirePermission("admin.backup"), async (req, res) => {
   try {
     const stats = await Promise.all([
       prisma.customer.count(), prisma.meter.count(), prisma.reading.count(),

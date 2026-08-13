@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, requireAccess, scopeWhere, clampRequestedScope, auditLog } from "../middleware/security.js"
 import { postEvent } from "../services/posting-engine.js"
 
 const generateSchema = z.object({ customerId: z.string().min(1), periodStart: z.string().min(1), periodEnd: z.string().min(1) })
@@ -20,10 +20,12 @@ const createSchema = z.object({
 router.get("/", requirePermission("invoices.list"), async (req, res, next) => {
   try {
     const { page = 1, limit = 10, status } = req.query
-    const where = { archivedAt: null }
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const where = { archivedAt: null, ...scopeWhere(req) }
     if (status) where.status = status
-    if (req.query.areaId) where.areaId = String(req.query.areaId)
-    if (req.query.projectId) where.projectId = String(req.query.projectId)
+    if (clamp.areaId) where.areaId = String(clamp.areaId)
+    if (clamp.projectId) where.projectId = String(clamp.projectId)
     const [invoices, total] = await Promise.all([
       prisma.invoice.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { issuedAt: "desc" }, include: { customer: { select: { id: true, name: true } } } }),
       prisma.invoice.count({ where }),
@@ -35,7 +37,9 @@ router.get("/", requirePermission("invoices.list"), async (req, res, next) => {
 
 router.get("/export", requirePermission("invoices.create"), async (req, res, next) => {
   try {
-    const items = await prisma.invoice.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const items = await prisma.invoice.findMany({ where: { archivedAt: null, ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" } })
     const header = "number,customerId,amount,status,dueDate,issuedAt,paidAt,createdAt"
     const rows = items.map(i => [i.number, i.customerId, i.amount, i.status, i.dueDate, i.issuedAt, i.paidAt, i.createdAt].join(","))
     res.setHeader("Content-Type", "text/csv")
@@ -45,7 +49,7 @@ router.get("/export", requirePermission("invoices.create"), async (req, res, nex
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requirePermission("invoices.list"), async (req, res, next) => {
+router.get("/:id", requirePermission("invoices.list"), requireAccess("Invoice", null), async (req, res, next) => {
   try {
     const invoice = await prisma.invoice.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { customer: true, payments: true } })
     if (!invoice) return res.status(404).json({ error: "Invoice not found" })

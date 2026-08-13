@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, requireAccess, scopeWhere, clampRequestedScope, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -18,11 +18,13 @@ const createSchema = z.object({
 router.get("/", requirePermission("readings.list"), async (req, res, next) => {
   try {
     const { page = 1, limit = 20, meterId, status } = req.query
-    const where = { archivedAt: null }
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const where = { archivedAt: null, ...scopeWhere(req) }
     if (meterId) where.meterId = meterId
     if (status) where.status = status
-    if (req.query.areaId) where.areaId = String(req.query.areaId)
-    if (req.query.projectId) where.projectId = String(req.query.projectId)
+    if (clamp.areaId) where.areaId = String(clamp.areaId)
+    if (clamp.projectId) where.projectId = String(clamp.projectId)
     const [readings, total] = await Promise.all([
       prisma.reading.findMany({ where, skip: (page - 1) * limit, take: Math.min(100, Number(limit)), orderBy: { timestamp: "desc" }, include: { meter: { select: { id: true, serial: true } } } }),
       prisma.reading.count({ where }),
@@ -34,7 +36,9 @@ router.get("/", requirePermission("readings.list"), async (req, res, next) => {
 
 router.get("/export", requirePermission("readings.create"), async (req, res, next) => {
   try {
-    const items = await prisma.reading.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const items = await prisma.reading.findMany({ where: { archivedAt: null, ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" } })
     const header = "meterId,value,unit,timestamp,source,status,createdAt"
     const rows = items.map(i => [i.meterId, i.value, i.unit, i.timestamp, i.source, i.status, i.createdAt].join(","))
     res.setHeader("Content-Type", "text/csv")
@@ -48,7 +52,7 @@ router.get("/review-queue", requirePermission("readings.list"), async (req, res,
   try {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20))
-    const where = { status: { in: ["flagged", "suspicious"] }, archivedAt: null }
+    const where = { status: { in: ["flagged", "suspicious"] }, archivedAt: null, ...scopeWhere(req) }
     if (req.query.meterId) where.meterId = req.query.meterId
     const [readings, total] = await Promise.all([
       prisma.reading.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { timestamp: "desc" }, include: { meter: { select: { id: true, serial: true, type: true } } } }),
@@ -58,7 +62,7 @@ router.get("/review-queue", requirePermission("readings.list"), async (req, res,
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requirePermission("readings.list"), async (req, res, next) => {
+router.get("/:id", requirePermission("readings.list"), requireAccess("Reading", null), async (req, res, next) => {
   try {
     const reading = await prisma.reading.findFirst({ where: { id: req.params.id, archivedAt: null } })
     if (!reading) return res.status(404).json({ error: "Reading not found" })

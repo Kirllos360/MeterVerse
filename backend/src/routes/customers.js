@@ -2,7 +2,7 @@ import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
-import { requireRole, requirePermission, auditLog } from "../middleware/security.js"
+import { requireRole, requirePermission, requireAccess, scopeWhere, clampRequestedScope, auditLog } from "../middleware/security.js"
 
 const router = Router()
 router.use(authenticate)
@@ -20,7 +20,17 @@ router.get("/", requirePermission("customers.list"), async (req, res, next) => {
     const page = Math.max(1, Number(req.query.page) || 1)
     const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 10))
     const search = req.query.search
-    const where = { archivedAt: null, ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}), ...(req.query.areaId ? { areaId: String(req.query.areaId) } : {}), ...(req.query.projectId ? { projectId: String(req.query.projectId) } : {}) }
+    // P59 tenancy: merge the user's area/project scope (fail-closed) and clamp
+    // any client-supplied areaId/projectId to the user's allowed scope.
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const where = {
+      archivedAt: null,
+      ...scopeWhere(req),
+      ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}),
+      ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}),
+      ...(clamp.projectId ? { projectId: String(clamp.projectId) } : {}),
+    }
     const [customers, total] = await Promise.all([
       prisma.customer.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" } }),
       prisma.customer.count({ where }),
@@ -31,7 +41,9 @@ router.get("/", requirePermission("customers.list"), async (req, res, next) => {
 
 router.get("/export", requirePermission("customers.create"), async (req, res, next) => {
   try {
-    const customers = await prisma.customer.findMany({ where: { archivedAt: null }, orderBy: { createdAt: "desc" } })
+    const clamp = clampRequestedScope(req)
+    if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const customers = await prisma.customer.findMany({ where: { archivedAt: null, ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" } })
     const header = "id,name,email,phone,status,area,createdAt"
     const rows = customers.map(c => `${c.id},${c.name || ""},${c.email || ""},${c.phone || ""},${c.status || ""},${c.area || ""},${c.createdAt?.toISOString() || ""}`)
     res.setHeader("Content-Type", "text/csv")
@@ -43,18 +55,19 @@ router.get("/export", requirePermission("customers.create"), async (req, res, ne
 
 router.get("/stats", requirePermission("customers.list"), async (req, res, next) => {
   try {
+    const sw = { archivedAt: null, ...scopeWhere(req) }
     const [total, active, inactive, maintenance, terminated] = await Promise.all([
-      prisma.customer.count({ where: { archivedAt: null } }),
-      prisma.customer.count({ where: { archivedAt: null, status: "active" } }),
-      prisma.customer.count({ where: { archivedAt: null, status: "inactive" } }),
-      prisma.customer.count({ where: { archivedAt: null, status: "maintenance" } }),
-      prisma.customer.count({ where: { archivedAt: null, status: "terminated" } }),
+      prisma.customer.count({ where: sw }),
+      prisma.customer.count({ where: { ...sw, status: "active" } }),
+      prisma.customer.count({ where: { ...sw, status: "inactive" } }),
+      prisma.customer.count({ where: { ...sw, status: "maintenance" } }),
+      prisma.customer.count({ where: { ...sw, status: "terminated" } }),
     ])
     res.json({ stats: { total, active, inactive, maintenance, terminated } })
   } catch (err) { next(err) }
 })
 
-router.get("/:id", requirePermission("customers.list"), async (req, res, next) => {
+router.get("/:id", requirePermission("customers.list"), requireAccess("Customer", null), async (req, res, next) => {
   try {
     const customer = await prisma.customer.findFirst({ where: { id: req.params.id, archivedAt: null }, include: { meters: true, invoices: true } })
     if (!customer) return res.status(404).json({ error: "Customer not found" })

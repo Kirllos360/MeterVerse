@@ -398,13 +398,11 @@ describe('C12 security middleware', () => {
       expect(res.status).toHaveBeenCalledWith(404);
     });
 
-    it('should allow when permission scoped to resource area', async () => {
-      const req = mockReq({ user: { role: 'operator' } });
+    it('should allow when user area matches resource area', async () => {
+      const req = mockReq({ user: { role: 'operator', area: 'area-1', project: '' } });
       const res = mockRes();
       const next = vi.fn();
       prisma.meter.findUnique.mockResolvedValue({ id: 'm-1', areaId: 'area-1' });
-      prisma.role.findUnique.mockResolvedValue({ id: 'role-1' });
-      prisma.permissionOnRole.findFirst.mockResolvedValue({ id: 'perm-1' });
 
       const mw = await requireAccess('Meter', 'm-1');
       await mw(req, res, next);
@@ -412,13 +410,24 @@ describe('C12 security middleware', () => {
       expect(next).toHaveBeenCalled();
     });
 
-    it('should deny when permission not scoped', async () => {
-      const req = mockReq({ user: { role: 'operator' } });
+    it('should deny when user area differs from resource area', async () => {
+      const req = mockReq({ user: { role: 'operator', area: 'area-2', project: '' } });
       const res = mockRes();
       const next = vi.fn();
       prisma.meter.findUnique.mockResolvedValue({ id: 'm-1', areaId: 'area-1' });
-      prisma.role.findUnique.mockResolvedValue({ id: 'role-1' });
-      prisma.permissionOnRole.findFirst.mockResolvedValue(null);
+
+      const mw = await requireAccess('Meter', 'm-1');
+      await mw(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(403);
+      expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should deny non-global user with empty scope (fail-closed)', async () => {
+      const req = mockReq({ user: { role: 'operator', area: '', project: '' } });
+      const res = mockRes();
+      const next = vi.fn();
+      prisma.meter.findUnique.mockResolvedValue({ id: 'm-1', areaId: 'area-1' });
 
       const mw = await requireAccess('Meter', 'm-1');
       await mw(req, res, next);
