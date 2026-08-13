@@ -108,9 +108,36 @@ router.get("/me", authenticate, async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.user.sub } })
     if (!user) return res.status(401).json({ error: "User not found", code: "AUTH_FAILED", correlationId: req?.correlationId || "unknown" })
-    res.json({ user: { id: user.id, email: user.email, name: user.name, role: user.role, permissions: user.role === "admin" ? ["read","write","delete","admin","export","approve"] : ["read"] } })
+    const permissions = await resolveEffectivePermissions(user)
+    res.json({ user: { id: user.id, email: user.email, name: user.name, role: user.role, permissions } })
   } catch (err) { next(err) }
 })
+
+// P59: effective-permission resolver - returns the user's real permissions from
+// DB Role->PermissionOnRole grants (not hardcoded). Replaces the old hardcoded
+// admin=>["read",...]/else["read"] stub in /me.
+router.get("/permissions", authenticate, async (req, res, next) => {
+  try {
+    const user = await prisma.user.findUnique({ where: { id: req.user.sub } })
+    if (!user) return res.status(401).json({ error: "User not found", code: "AUTH_FAILED" })
+    const permissions = await resolveEffectivePermissions(user)
+    res.json({ permissions, role: user.role, area: user.area || "", project: user.project || "" })
+  } catch (err) { next(err) }
+})
+
+async function resolveEffectivePermissions(user) {
+  if (user.role === "super_admin") {
+    return ["read", "write", "delete", "admin", "export", "approve", "manage_users", "manage_roles", "manage_settings", "audit.view", "backup.manage", "all"]
+  }
+  const role = await prisma.role.findUnique({
+    where: { id: user.roleId || "" },
+    include: { permissions: { include: { permission: true }, where: { grant: true } } },
+  }).catch(() => null)
+  if (role?.permissions?.length) {
+    return role.permissions.map(g => g.permission.name)
+  }
+  return ["read"]
+}
 
 // ─── MFA (TOTP) ────────────────────────────────────────────────────────────────
 

@@ -262,11 +262,11 @@ export const systemConfigs: Record<string, PageConfig> = {
   },
   logs: {
     id: "logs", title: "System Logs", description: "Application and service logs",
-    apiEndpoint: "/api/services/email",
+    apiEndpoint: "/api/admin/logs",
     statusField,
     transform: (d: any) => (d.logs || d.entries || []).map((l: any) => ({
-      id: l.id, level: l.level || l.status || "info", message: l.message || l.subject || l.body || "—",
-      source: l.source || l.service || "—", status: l.level === "error" ? "terminated" : l.level === "warn" ? "maintenance" : "active",
+      id: l.id, level: l.level || l.status || "info", message: l.message || l.subject || l.body || "",
+      source: l.source || l.service || "", status: l.level === "error" ? "terminated" : l.level === "warn" ? "maintenance" : "active",
       timestamp: l.createdAt || l.timestamp || "",
     })),
     columns: [

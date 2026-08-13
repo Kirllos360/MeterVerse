@@ -11,6 +11,8 @@ const projectSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   organizationId: z.string(),
+  // P59: Project->Area assignment was impossible (schema has areaId but no API accepted it).
+  areaId: z.string().optional(),
   status: z.enum(["active", "inactive"]).default("active"),
   taxEnabled: z.boolean().default(false),
   taxRate: z.number().min(0).max(1).default(0.14),

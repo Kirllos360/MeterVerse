@@ -84,9 +84,13 @@ export const adminConfigs: Record<string, PageConfig> = {
     transform: (d: any) => (Array.isArray(d) ? d : d.areas || []),
     columns: [
       { id: "name", header: "Area", accessor: r => r.name, type: "avatar", width: 220 },
+      { id: "code", header: "Code", accessor: r => r.code, width: 100 },
       { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
     ],
-    fields: defFields([{ name: "name", label: "Area Name", type: "text", required: true }]),
+    fields: defFields([
+      { name: "name", label: "Area Name", type: "text", required: true },
+      { name: "code", label: "Area Code", type: "text", required: true },
+    ]),
     statsCards: [sc("Total", Icons.teams, r=>r.length)],
   },
   ai: {
