@@ -25,6 +25,8 @@ const {
   auditLog,
   authenticateApiKey,
   requireAccess,
+  scopeWhere,
+  clampRequestedScope,
 } = await import('../../src/middleware/security.js');
 
 function mockRes() {
@@ -434,6 +436,53 @@ describe('C12 security middleware', () => {
 
       expect(res.status).toHaveBeenCalledWith(403);
       expect(next).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('P59 tenancy escalation (viewer horizontal access)', () => {
+    const OCT = 'area-oct-1';
+    const OTHER = 'area-other-9';
+
+    it('viewer with area scope sees ONLY own-area customers (list scoped)', () => {
+      const req = mockReq({ user: { role: 'viewer', area: OCT, project: '' } });
+      const where = { archivedAt: null, ...scopeWhere(req) };
+      expect(where.areaId).toBe(OCT);
+      expect(where.id).toBeUndefined();
+    });
+
+    it('viewer without area scope is fail-closed (matches nothing)', () => {
+      const req = mockReq({ user: { role: 'viewer', area: '', project: '' } });
+      const where = scopeWhere(req);
+      expect(where.id).toBe('__denied__');
+    });
+
+    it('viewer asking for another area via query is DENIED', () => {
+      const req = mockReq({ user: { role: 'viewer', area: OCT, project: '' }, query: { areaId: OTHER } });
+      const clamp = clampRequestedScope(req);
+      expect(clamp.ok).toBe(false);
+    });
+
+    it('viewer asking for own area is allowed and forced to own area', () => {
+      const req = mockReq({ user: { role: 'viewer', area: OCT, project: '' }, query: { areaId: OCT } });
+      const clamp = clampRequestedScope(req);
+      expect(clamp.ok).toBe(true);
+      expect(clamp.areaId).toBe(OCT);
+    });
+
+    it('super_admin is global (no scope restriction)', () => {
+      const req = mockReq({ user: { role: 'super_admin' } });
+      expect(JSON.stringify(scopeWhere(req))).toBe('{}');
+    });
+
+    it('admin is global (no scope restriction)', () => {
+      const req = mockReq({ user: { role: 'admin' } });
+      expect(JSON.stringify(scopeWhere(req))).toBe('{}');
+    });
+
+    it('project-scoped viewer is restricted to own project', () => {
+      const req = mockReq({ user: { role: 'viewer', area: OCT, project: 'proj-a' } });
+      const where = scopeWhere(req);
+      expect(where.projectId).toBe('proj-a');
     });
   });
 });
