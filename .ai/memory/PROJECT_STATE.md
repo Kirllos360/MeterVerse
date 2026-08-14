@@ -1,11 +1,35 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (Legacy System Recovery & Reuse Discovery)  
-**Current Phase:** P59-B — Legacy Asset Discovery (pre-repair)  
-**Version:** 10.11.0-LEGACY-DISCOVERY  
-**Branch:** main (P59-B commits)  
+**Last Updated:** 2026-08-14 (P59-C/LR-1 — Legacy Recovery + Reuse-First Engineering, Phase A)  
+**Current Phase:** P59-C — Legacy Recovery & Reuse-First Engineering  
+**Version:** 10.12.0-P59C-LR1  
+**Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-1 — Legacy Recovery + Reuse-First Engineering (Phase A, 2026-08-14)
+
+**Deep reuse-first audit COMPLETED (Phase A); no code/schema change.** 8 artifacts in
+`docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/`.
+- **Solar wallet recovered (runtime, routes_admin.py:630-697):** consumption=max(Δ1.8.0,0),
+  production=max(Δ2.8.0,0), net, surplus→wallet CREDIT (balance_before/after), tiered tariff
+  [(50,0.48)…(1000,1.58)]+>1000@1.68, admin fee 2% + service fee 9.10. **DISPROVED the
+  discovery-doc "2.23 EGP/kWh"** (that was CR-2047 historical; runtime is tiered).
+- **Settlement engine recovered** (charge_engine.py FIXED/PERCENTAGE/ONE_TIME + Settlement model) —
+  genuinely MISSING in MeterVerse (no Settlement model).
+- **Charge types:** STEPS/FLAT = MeterVerse applyTariff (present); STATIC = ChargeRule fixed
+  (present); **PER_UNIT cap + ZERO = MISSING** (extend ChargeRule).
+- **Solar Excel templates mapped** (Customers 55×25 multi-meter, Invoices 2797×6, Payments 964×6).
+- **OBIS conflict analyzed:** 1.8.0/2.8.0 (directional — required for net metering) vs 5.8.0
+  combined (AGENTS.md) vs MeterVerse single Reading.value. **Decision required before solar
+  implementation** (recommend Option A/E: add obis180/obis280 to Reading).
+- **Test recovery:** chilled-water carry-forward test + 27-feature/i18n parity test.
+- **Phase B (next gate):** Settlement engine + ChargeRule type extension = fully-qualified;
+  Solar wallet gated on OBIS decision; cheque/POS + chilled-water = evidence-gated; SBill data
+  migration gated on P59-B.
+- **P59-B unchanged:** 639 frozen, #2–#6 PENDING, Stage 4E-B + Wave 4 LOCKED.
 
 ---
 

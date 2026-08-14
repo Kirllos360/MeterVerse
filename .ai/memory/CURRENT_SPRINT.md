@@ -1,5 +1,25 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-1 — Legacy Recovery + Reuse-First Engineering (Phase A) (2026-08-14)
+
+**Goal:** Deep reuse-first audit of Collection/IMS/SBill/Symbiot against MeterVerse; map what to recover vs keep vs reject.  
+**Status:** ✅ Complete (Phase A — recovery + mapping; NO code/schema change)  
+
+| Item | Result |
+|------|--------|
+| Solar wallet | Recovered runtime algorithm (tiered, NOT 2.23) — OBIS decision gates implementation |
+| Settlement engine | Recovered (FIXED/PERCENT/ONE_TIME) — MISSING in MeterVerse → Phase B candidate |
+| Charge types | STEPS/FLAT present; PER_UNIT cap + ZERO missing → extend ChargeRule |
+| Solar templates | 3 XLSX schemas mapped → ImportJob adaptation |
+| OBIS conflict | 1.8.0/2.8.0 vs 5.8.0 vs single-value — decision matrix produced |
+| Test recovery | chilled carry-forward + 27-feature parity tests |
+| Phase B | Settlement + charge types = qualified; solar gated on OBIS; cheque/POS + chilled = evidence-gated |
+| Artifacts | 8 files in `docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/` |
+
+**Next:** P59-C/LR-2 — OBIS decision + Settlement Engine + ChargeRule extension implementation (small, fully-qualified).
+
+---
+
 ## P59-B Stage 4E — Business Decision Register + Repair Readiness (2026-08-14)
 
 **Goal:** Close all pending business decisions into an auditable register; prove repair readiness.  

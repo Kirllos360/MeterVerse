@@ -1709,5 +1709,28 @@
             "reference\\all-last-update\\sys_n\\README.md (Symbiot resource)",
             ".ai/memory/PROJECT_STATE.md (10.11.0-LEGACY-DISCOVERY)"
         ]
+    },
+    {
+        "task": "P59-C/LR-1 - Legacy Recovery + Reuse-First Engineering Execution (Phase A: deep recovery + mapping)",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "read", "Select-String", "python/openpyxl", "git"],
+        "tools_used": [
+            "Deep-recovered Collection System solar wallet runtime algorithm (routes_admin.py:630-697: consumption/production/net/surplus/wallet-credit, tiered tariff [(50,0.48)..(1000,1.58)]+1.68, admin fee 2% + service fee 9.10) - DISPROVED the discovery-doc's '2.23 EGP/kWh' as CR-2047 historical vs runtime tiered",
+            "Recovered settlement engine (charge_engine.py:74-112 FIXED/PERCENTAGE/ONE_TIME + models.py Settlement) and 6 charge types (STEPS/FLAT/STATIC/PER_UNIT/ZERO) with exact logic",
+            "Captured solar Excel template schemas via openpyxl (Customers 55x25 multi-meter, Invoices 2797x6, Payments 964x6)",
+            "Confirmed MeterVerse equivalents: applyTariff tiers+rates (business-engine.js:56-86) = STEPS/FLAT; ChargeRule fixed/rate_based (generateCharges:90-108) = STATIC/PER_UNIT partial; NO Settlement model, NO SolarWallet, NO OBIS registers in core Reading",
+            "OBIS conflict analyzed: legacy 1.8.0/2.8.0 (directional, required for net metering) vs 5.8.0 combined (AGENTS.md) vs MeterVerse single Reading.value - produced OBIS-DECISION-MATRIX (recommend Option A/E)",
+            "Test recovery: test_chilled_settlement.py carry-forward rules; test_comprehensive (27 features, i18n parity)",
+            "Phase B scoped: Settlement engine + ChargeRule type extension = fully-qualified implementation candidates; Solar wallet gated on OBIS decision (not authorized this gate); no code/schema changes made",
+            "Produced 8 artifacts in docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/"
+        ],
+        "evidence": [
+            "docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/ (8 files)",
+            "reference\\collection-system\\app\\routes_admin.py:630-697 (solar runtime)",
+            "reference\\collection-system\\app\\charge_engine.py:1-136 (charges+settlements)",
+            "reference\\collection-system\\Solar_*_Import.xlsx (openpyxl)",
+            "backend\\src\\services\\business-engine.js:56-108 (MeterVerse tariff/charges)",
+            ".ai/memory/PROJECT_STATE.md (10.12.0-P59C-LR1)"
+        ]
     }
 ]
