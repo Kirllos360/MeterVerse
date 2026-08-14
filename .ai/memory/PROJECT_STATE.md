@@ -1,11 +1,25 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-C/LR-1 — Legacy Recovery + Reuse-First Engineering, Phase A)  
+**Last Updated:** 2026-08-14 (P59-C/LR-2 — OBIS control + reuse-first implementation)  
 **Current Phase:** P59-C — Legacy Recovery & Reuse-First Engineering  
-**Version:** 10.12.0-P59C-LR1  
+**Version:** 10.13.0-P59C-LR2  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-2 — OBIS Control + Reuse-First Implementation (2026-08-14)
+
+**Implemented (MeterVerse-native, recovered from legacy Collection System):**
+- **Settlement Engine:** new `Settlement` + `InvoiceSettlement` Prisma models + migration + `settlement-engine.js` (FIXED/PERCENTAGE/ONE_TIME, ONE_TIME guarded via explicit InvoiceSettlement reference) + `routes/settlements.js` (CRUD + apply) + wired into server.js. Live-verified: 3 settlements created (fixed 9.10 / percentage 2% / one_time 50), API 200.
+- **ChargeRule extensions:** `per_unit` (rate×consumption capped by new `upperLimit`) + `zero` (applies only at zero consumption) added to `generateCharges` (business-engine.js). Migration added `ChargeRule.upperLimit`.
+- **Solar Excel import contract** (Track D): mapping + validation definitions + ImportJob contract — no OBIS dependency.
+- **Solar wallet implementation contract** (Track E): verified legacy formulas + test vectors + service boundary — **BLOCKED on OBIS decision** (approval artifact produced).
+- **P59-B test-isolation regression FIXED:** discovered `tests/api/{customers-route,incidents,learned-patterns}.test.mjs` were LIVE tests escaping the Stage 4D guard — they POSTed "Test Customer"/`TST-{Date.now()}` records into production (new records at 08:35/08:57/09:26). All 3 gated via live-guard (skip unless CONTRACT_BASE_URL). Production stable at 223/277/361/116/53, zero post-09:30 writes.
+- **Tests:** 325 total (311 baseline + 14 new: 7 settlement + 7 charge-types); unit+api 307 pass + 18 skip (3 live files); contract 56 skip; integration 31 skip; FE tsc 0. Positive-path: gated live tests 12/12 vs test BE :3901; production unchanged.
+- **Artifacts:** `SOLAR-EXCEL-IMPORT-CONTRACT.md`, `SOLAR-WALLET-IMPLEMENTATION-CONTRACT.md` in docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/.
+- **P59-B unchanged:** 639 frozen population NOT touched; #2–#6 PENDING; Stage 4E-B + Wave 4 LOCKED.
 
 ---
 

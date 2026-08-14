@@ -1,7 +1,10 @@
 ﻿import { describe, it, expect, beforeAll } from 'vitest';
 import { prisma } from '../helpers/setup.js';
+import { CONTRACT_BASE_URL, LIVE_TESTS_ENABLED } from '../helpers/live-guard.js';
 
-const BASE = 'http://localhost:3131';
+// P59-B 4D + P59-C/LR-2: LIVE test — must target a dedicated test backend and
+// SKIP otherwise, else it POSTs test learned-patterns into the production DB.
+const BASE = CONTRACT_BASE_URL;
 
 // P59: X-Dev-Mode bypass gated off - use real auth.
 let AUTH;
@@ -24,7 +27,7 @@ async function waitForBackend(retries = 10, delay = 1000) {
   }
   return false;
 }
-const backendReady = await waitForBackend(5, 500);
+const backendReady = LIVE_TESTS_ENABLED ? await waitForBackend(5, 500) : false;
 const describeFn = backendReady ? describe : describe.skip;
 
 describeFn('LearnedPatterns API', () => {

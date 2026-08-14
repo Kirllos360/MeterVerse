@@ -1050,6 +1050,7 @@ model Invoice {
   invoiceItems    InvoiceItem[]
   payments        Payment[]
   consumptions    Consumption[]
+  settlements     InvoiceSettlement[]
 
   @@index([customerId, status])
   @@index([status, createdAt])
@@ -1239,6 +1240,7 @@ model ChargeRule {
   description   String?
   type          String           @default("fixed")
   formula       String?
+  upperLimit    Float?
   priority      Int              @default(0)
   active        Boolean          @default(true)
   effectiveFrom DateTime
@@ -1247,6 +1249,41 @@ model ChargeRule {
   archivedAt DateTime?
   updatedAt     DateTime         @updatedAt
   overrides     ChargeOverride[]
+}
+
+// ─── Settlement Engine (P59-C/LR-2, recovered from legacy Collection System) ──
+// MeterVerse-native settlements applied to invoice subtotal. Types recovered
+// from legacy charge_engine.py (FIXED / PERCENTAGE / ONE_TIME) with the ONE_TIME
+// guard converted to an explicit CustomerLedgerEntry reference check.
+
+model Settlement {
+  id           String   @id @default(uuid())
+  name         String
+  nameAr       String?
+  type         String   @default("fixed") // fixed | percentage | one_time
+  amount       Float    @default(0)
+  percentage   Float    @default(0)
+  description  String?
+  active       Boolean  @default(true)
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  archivedAt   DateTime?
+  invoiceSettlements InvoiceSettlement[]
+}
+
+model InvoiceSettlement {
+  id           String     @id @default(uuid())
+  invoiceId    String
+  settlementId String
+  type         String // fixed | percentage | one_time
+  amount       Float
+  createdAt    DateTime   @default(now())
+  invoice      Invoice    @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  settlement   Settlement @relation(fields: [settlementId], references: [id])
+
+  @@index([invoiceId])
+  @@index([settlementId])
 }
 
 model ChargeOverride {

@@ -1,7 +1,11 @@
 ﻿import { describe, it, expect, beforeAll } from 'vitest';
-const BASE = 'http://localhost:3131';
+import { CONTRACT_BASE_URL, LIVE_TESTS_ENABLED } from '../helpers/live-guard.js';
+
+// P59-B 4D + P59-C/LR-2: LIVE test — must target a dedicated test backend and
+// SKIP otherwise, else it POSTs test incidents into the production DB.
+const BASE = CONTRACT_BASE_URL;
 async function waitForBackend(r = 5, d = 500) { for (let i = 0; i < r; i++) { try { const res = await fetch(`${BASE}/api/health`, { signal: AbortSignal.timeout(2000) }); if (res.status === 200) return true } catch {} await new Promise(x => setTimeout(x, d)) } return false }
-const ready = await waitForBackend();
+const ready = LIVE_TESTS_ENABLED ? await waitForBackend() : false;
 const dfn = ready ? describe : describe.skip;
 
 // P59: X-Dev-Mode bypass gated off - use real auth.

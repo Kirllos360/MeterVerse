@@ -49,6 +49,8 @@ export const prisma = {
   tariffRate: createMockModel(),
   tariffTier: createMockModel(),
   chargeRule: createMockModel(),
+  settlement: createMockModel(),
+  invoiceSettlement: createMockModel(),
   discountRule: createMockModel(),
   contract: createMockModel(),
   contractTerm: createMockModel(),

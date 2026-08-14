@@ -1732,5 +1732,28 @@
             "backend\\src\\services\\business-engine.js:56-108 (MeterVerse tariff/charges)",
             ".ai/memory/PROJECT_STATE.md (10.12.0-P59C-LR1)"
         ]
+    },
+    {
+        "task": "P59-C/LR-2 - OBIS control + reuse-first implementation (settlement engine + charge types + isolation regression fix)",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "psql", "filesystem", "edit", "write", "read", "Select-String", "npx/vitest", "node", "Invoke-WebRequest", "git"],
+        "tools_used": [
+            "Implemented Settlement Engine natively: Prisma Settlement + InvoiceSettlement models, migration (20260814000000), settlement-engine.js (FIXED/PERCENTAGE/ONE_TIME with explicit InvoiceSettlement guard), routes/settlements.js (CRUD + apply), wired into server.js; live-verified 3 types created (fixed 9.10 / pct 2% / one_time 50)",
+            "Extended ChargeRule: per_unit (rate x consumption capped by new upperLimit) + zero (only at zero consumption) in generateCharges (business-engine.js); migration added ChargeRule.upperLimit; granted meter_pulse role DB privileges on new tables",
+            "Produced solar Excel import contract (Track D: mapping + validation + ImportJob contract, no OBIS dependency) and solar wallet implementation contract (Track E: verified formulas + test vectors, BLOCKED on OBIS decision)",
+            "CRITICAL: discovered + fixed P59-B test-isolation regression - tests/api/{customers-route,incidents,learned-patterns}.test.mjs were LIVE tests (BASE=:3131, real POSTs) escaping the Stage 4D guard; they wrote 'Test Customer'/TST-{Date.now()} records into production at 08:35/08:57/09:26; gated all 3 via live-guard (skip unless CONTRACT_BASE_URL)",
+            "Verified isolation: unit+api 307 pass/18 skip (3 live files skipped); contract 56 skip; integration 31 skip; FE tsc 0; positive-path gated live tests 12/12 vs test BE :3901; production unchanged 223/277/361/116/53, zero post-09:30 writes",
+            "P59-B boundary respected: 639 frozen records untouched; decisions #2-#6 remain PENDING"
+        ],
+        "evidence": [
+            "backend/prisma/schema.prisma (Settlement, InvoiceSettlement, ChargeRule.upperLimit)",
+            "backend/prisma/migrations/20260814000000_add_settlement_engine/migration.sql",
+            "backend/src/services/settlement-engine.js, routes/settlements.js, services/business-engine.js",
+            "backend/tests/unit/settlement-engine.test.mjs (7), charge-rule-types.test.mjs (7)",
+            "tests/api/*.test.mjs (3 live files gated via helpers/live-guard.js)",
+            "psql: production stable 223/277/361/116/53; Settlement table 3 rows",
+            "docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/SOLAR-EXCEL-IMPORT-CONTRACT.md, SOLAR-WALLET-IMPLEMENTATION-CONTRACT.md",
+            ".ai/memory/PROJECT_STATE.md (10.13.0-P59C-LR2)"
+        ]
     }
 ]

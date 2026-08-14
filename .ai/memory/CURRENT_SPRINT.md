@@ -1,5 +1,25 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-2 — OBIS Control + Reuse-First Implementation (2026-08-14)
+
+**Goal:** Implement qualified legacy-recovered components natively; resolve OBIS; fix test-isolation regression.  
+**Status:** ✅ Complete — settlement engine + charge types implemented & tested; solar gated on OBIS  
+
+| Item | Result |
+|------|--------|
+| Settlement engine | `Settlement` + `InvoiceSettlement` models + engine + routes — LIVE verified (3 types) |
+| ChargeRule | `per_unit` (capped) + `zero` types + `upperLimit` — implemented + tested |
+| Solar Excel contract | mapping + validation prepared (no OBIS dependency) |
+| Solar wallet | formulas + test vectors prepared — **BLOCKED on OBIS decision** |
+| **Isolation regression** | 3 LIVE tests in `tests/api/` escaping guard — FOUND + FIXED (gated) |
+| Production stability | 223/277/361/116/53, zero post-09:30 writes; P59-B 639 untouched |
+| Tests | 325 total (14 new); unit+api 307 pass/18 skip; contract 56 skip; integration 31 skip; tsc 0 |
+| Artifacts | 2 new contracts in `docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/` |
+
+**Next:** P59-C/LR-3 — OBIS decision approval → solar wallet implementation; then cheque/POS + chilled-water evidence gates.
+
+---
+
 ## P59-C/LR-1 — Legacy Recovery + Reuse-First Engineering (Phase A) (2026-08-14)
 
 **Goal:** Deep reuse-first audit of Collection/IMS/SBill/Symbiot against MeterVerse; map what to recover vs keep vs reject.  

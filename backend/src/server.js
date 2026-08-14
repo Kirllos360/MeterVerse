@@ -37,6 +37,7 @@ import { swaggerSpec, swaggerUi } from "./swagger.js"
 import { simRouter } from "./routes/sim.js"
 import { projectsRouter } from "./routes/projects.js"
 import { billingRouter } from "./routes/billing.js"
+import { settlementsRouter } from "./routes/settlements.js"
 import { intelligenceRouter } from "./routes/intelligence.js"
 import { knowledgeRouter } from "./routes/knowledge.js"
 import { rcaRouter } from "./routes/rca.js"
@@ -299,6 +300,7 @@ if (!PORTAL_MODE) {
   mount("/pdf", pdfRouter)
   mount("/templates", templatesRouter)
   mount("/billing", billingRouter)
+  mount("/settlements", settlementsRouter)
   mount("/admin", configRouter)
   mount("/locations", locationsRouter)
   mount("/intelligence", intelligenceRouter)

@@ -92,14 +92,24 @@ export async function generateCharges(customerId, invoiceId, consumption, period
   const charges = []
   for (const rule of chargeRules) {
     let amount = 0
+    const cap = typeof rule.upperLimit === "number" ? rule.upperLimit : null
+
     if (rule.type === "fixed") {
       amount = parseFloat(rule.formula || "0")
-    } else if (rule.type === "rate_based") {
+    } else if (rule.type === "rate_based" || rule.type === "per_unit") {
+      // PER_UNIT (recovered from legacy charge_engine.py): rate x consumption,
+      // capped by upperLimit when set. rate_based is retained as the alias.
       amount = consumption * parseFloat(rule.formula || "0")
+      if (cap !== null && amount > cap) amount = cap
+    } else if (rule.type === "zero") {
+      // ZERO (recovered from legacy charge_engine.py): charge applies only when
+      // consumption is exactly zero.
+      if (consumption === 0) amount = parseFloat(rule.formula || "0")
     }
+
     if (amount > 0) {
       const item = await prisma.invoiceItem.create({
-        data: { invoiceId, type: "charge", description: rule.name, quantity: consumption, unitPrice: amount / consumption, amount, total: amount },
+        data: { invoiceId, type: "charge", description: rule.name, quantity: consumption, unitPrice: amount / (consumption || 1), amount, total: amount },
       })
       charges.push(item)
     }
