@@ -1,5 +1,24 @@
 # MeterVerse — Current Sprint
 
+## P59-B Stage 4B — Tenancy Security Fix + Class-Safe Backfill (2026-08-14)
+
+**Goal:** Fix the 707-row NULL-scope IDOR, class-safe areaId backfill, re-certify P0 tenancy.  
+**Status:** ✅ Complete — P0 tenancy RE-CERTIFIED (live-proven)  
+
+| Item | Result |
+|------|--------|
+| requireAccess NULL → DENY | Done (fail-closed, `backend/src/middleware/security.js`) |
+| Regression tests added | 5 (security-middleware.test.mjs, 44 total) |
+| Class-safe backfill | 100 invoices, 57 readings, 45 payments (areaId from parent) |
+| Ambiguous untouched | 8 inv, 279 read, 4 pay, 41 meter↔customer conflicts |
+| Re-attack | own 200, foreign/NULL 403, query-manip blocked, admin global ok |
+| Tests | 305/305 unit+api, 56/56 contract, 31/31 integration, FE tsc 0, browser E2E 2/2 |
+| Backup | `_tools/backups/p59b_stage4b_pre_backfill_full_20260814_054557.sql` |
+
+**Next:** Stage 4C — business worksheet for Class C/D/G (~550 rows), project tenancy enablement (deferred), User.area format guard.
+
+---
+
 ## C13 Constitution & Architecture Blueprint
 
 **Goal:** Produce C13 Enterprise Financial & Billing Intelligence Platform Constitution and Architecture Blueprint  

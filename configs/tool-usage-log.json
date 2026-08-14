@@ -1600,5 +1600,27 @@
             "_tools/README.md, configs/tools-manifest.md, .gitignore",
             "_tools/backups/meterverse_20261208.sql (2.2MB real dump)"
         ]
+    },
+    {
+        "task": "P59-B Stage 4B - tenancy NULL-scope IDOR fix + class-safe backfill + re-certification",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "psql", "edit", "write", "read", "Invoke-WebRequest", "npx", "git"],
+        "tools_used": [
+            "requireAccess NULL->DENY fail-closed fix (security.js) - fixes 707-row IDOR (was fail-open on NULL resource areaId)",
+            "5 new security regression tests (NULL-area deny, undefined-area deny, project-mismatch deny, matching-scope allow, admin global allow) - 44 total in file",
+            "Class-safe backfill in one transaction: 100 invoices, 57 readings, 45 payments (areaId from authoritative parent)",
+            "projectId left NULL everywhere (non-authorizing, lineage incomplete); ambiguous classes untouched (8 inv, 279 read, 4 pay, 41 meter/customer conflicts)",
+            "Live re-attack: Area-A viewer own-area 200, foreign/NULL 403 (all 4 entities), query-manip cannot expand (projectId -> 0 rows, foreign areaId -> 403), admin global preserved (49/108/336)",
+            "Regression: 305/305 unit+api, 56/56 contract, 31/31 integration, FE tsc 0, browser E2E 2/2 (viewer + admin login reach /admin)",
+            "Pre-backfill full data dump backup (2.25MB) in _tools/backups; .gitignore now excludes test-results/playwright-report"
+        ],
+        "evidence": [
+            "backend/src/middleware/security.js (requireAccess fail-closed)",
+            "backend/tests/unit/security-middleware.test.mjs (44 tests)",
+            "Frontend/tests/p59b-stage4b.spec.ts (2 E2E)",
+            ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4B), CURRENT_SPRINT.md",
+            "DB: invoice 100/108, reading 57/336, payment 45/49 areaId filled, 0 mismatch, 0 invalid ref",
+            "_tools/backups/p59b_stage4b_pre_backfill_full_20260814_054557.sql"
+        ]
     }
 ]

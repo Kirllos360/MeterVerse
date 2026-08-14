@@ -437,6 +437,72 @@ describe('C12 security middleware', () => {
       expect(res.status).toHaveBeenCalledWith(403);
       expect(next).not.toHaveBeenCalled();
     });
+
+    // P59-B 4B: NULL resource scope MUST be DENIED for scoped users (never fail-open).
+    it('should DENY scoped user when resource areaId is NULL (fail-closed)', async () => {
+      const req = mockReq({ user: { role: 'viewer', area: 'area-1', project: '' } });
+      const res = mockRes();
+      const next = vi.fn();
+      prisma.customer.findUnique.mockResolvedValue({ id: 'c-1', areaId: null });
+
+      const mw = await requireAccess('Customer', 'c-1');
+      await mw(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(403);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ code: 'AREA_RESTRICTED' }));
+      expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should DENY scoped user when resource areaId is undefined (fail-closed)', async () => {
+      const req = mockReq({ user: { role: 'viewer', area: 'area-1', project: '' } });
+      const res = mockRes();
+      const next = vi.fn();
+      prisma.invoice.findUnique.mockResolvedValue({ id: 'i-1' });
+
+      const mw = await requireAccess('Invoice', 'i-1');
+      await mw(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(403);
+      expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should DENY scoped user when resource projectId mismatches (project cannot expand area access)', async () => {
+      const req = mockReq({ user: { role: 'viewer', area: 'area-1', project: 'proj-a' } });
+      const res = mockRes();
+      const next = vi.fn();
+      prisma.reading.findUnique.mockResolvedValue({ id: 'r-1', areaId: 'area-1', projectId: 'proj-b' });
+
+      const mw = await requireAccess('Reading', 'r-1');
+      await mw(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(403);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ code: 'PROJECT_RESTRICTED' }));
+      expect(next).not.toHaveBeenCalled();
+    });
+
+    it('should ALLOW scoped user when resource has own areaId and matching projectId', async () => {
+      const req = mockReq({ user: { role: 'viewer', area: 'area-1', project: 'proj-a' } });
+      const res = mockRes();
+      const next = vi.fn();
+      prisma.reading.findUnique.mockResolvedValue({ id: 'r-1', areaId: 'area-1', projectId: 'proj-a' });
+
+      const mw = await requireAccess('Reading', 'r-1');
+      await mw(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
+
+    it('should allow admin (global) on a NULL-area resource (legitimate global access)', async () => {
+      const req = mockReq({ user: { role: 'admin', area: '', project: '' } });
+      const res = mockRes();
+      const next = vi.fn();
+      prisma.customer.findUnique.mockResolvedValue({ id: 'c-1', areaId: null });
+
+      const mw = await requireAccess('Customer', 'c-1');
+      await mw(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+    });
   });
 
   describe('P59 tenancy escalation (viewer horizontal access)', () => {

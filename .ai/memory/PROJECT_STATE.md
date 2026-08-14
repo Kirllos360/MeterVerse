@@ -1,11 +1,28 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-12 (P58 enterprise recovery/recommendation/blueprint)  
-**Current Phase:** P58 — Enterprise Recovery, Recommendation & Execution Blueprint  
-**Version:** 10.9.0-P58-BLUEPRINT  
-**Branch:** main (P57 + P58 commits merged)  
+**Last Updated:** 2026-08-14 (P59-B Stage 4B — tenancy security fix + backfill + re-certification)  
+**Current Phase:** P59-B — Tenancy Data-Lineage Forensic & Re-Certification  
+**Version:** 10.10.0-P59B-STAGE4B  
+**Branch:** main (P59-B commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-B Stage 4B — Tenancy Security Fix + Class-Safe Backfill (2026-08-14)
+
+**P0 NULL-SCOPE IDOR FIXED + RE-CERTIFIED (live-proven):** The 707-row NULL-scope IDOR (any area-scoped user could read NULL-area invoices/readings/payments/customers/meters by direct ID) is fixed:
+- `requireAccess()` (backend/src/middleware/security.js) now DENIES when resource.areaId is NULL/missing for non-global users (fail-closed; previously `if(resource.areaId)` skipped the check → fail-open). projectId mismatch also denies; NULL projectId cannot expand access.
+- 5 new regression tests in security-middleware.test.mjs (NULL-area deny, undefined-area deny, project-mismatch deny, matching-scope allow, admin global allow).
+- **Class-safe backfill executed in one transaction** (Stage 4A decision gate, Option C Hybrid / Area canonical):
+  - Invoices: 100/108 areaId backfilled from Customer.areaId (8 ambiguous untouched)
+  - Readings: 57/336 backfilled from Meter.areaId where meter↔customer agree (279 ambiguous/conflicted untouched)
+  - Payments: 45/49 backfilled from Customer.areaId (4 ambiguous untouched)
+  - projectId left NULL everywhere (Project non-authorizing, lineage incomplete — per design).
+- **Verification:** 0 mismatches vs authoritative parent, 0 invalid area refs, ambiguous classes untouched. Pre-backfill backup: `_tools/backups/p59b_stage4b_pre_backfill_full_20260814_054557.sql`.
+- **Re-attack (live):** Area-A viewer → own-area 200, foreign-area 403, NULL-area 403 (all 4 entities); query manipulation cannot expand (projectId → 0 rows, foreign areaId → 403); admin global access preserved (payments 49, invoices 108, readings 336).
+- **Tests:** 305/305 unit+api, 56/56 contract, 31/31 integration, FE tsc 0, browser E2E 2/2 (area-A viewer + admin login reach /admin).
+- **Remaining (Stage 4C):** business worksheet for Class C/D/G (~550 rows: 30 customers, 184 meters, 8 invoices, 4 payments, 279 readings, 41 meter↔customer conflicts); project tenancy enablement deferred; User.area format guard.
 
 ---
 

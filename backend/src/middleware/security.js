@@ -91,16 +91,20 @@ export function requireAccess(model, resourceId) {
         return res.status(403).json({ error: "No area scope assigned", code: "AREA_RESTRICTED" })
       }
 
-      // Resource belongs to an area: must match the user's area scope.
-      if (resource.areaId) {
-        const resArea = typeof resource.areaId === "string" ? resource.areaId : (resource.area?.id || "")
-        if (userArea !== resArea) {
-          try { auditLog(req, "authorization.area_denied", { model, resourceId: id, userArea, resArea }) } catch {}
-          return res.status(403).json({ error: "Access denied to this resource", code: "AREA_RESTRICTED" })
-        }
+      // Resource MUST carry an area scope for a non-global user (fail-closed).
+      // A NULL/missing resource areaId is DENIED — never skipped, never fail-open.
+      const resArea = typeof resource.areaId === "string" ? resource.areaId : (resource.area?.id || "")
+      if (!resArea) {
+        try { auditLog(req, "authorization.area_missing", { model, resourceId: id, userArea, resArea }) } catch {}
+        return res.status(403).json({ error: "Access denied to this resource", code: "AREA_RESTRICTED" })
+      }
+      if (userArea !== resArea) {
+        try { auditLog(req, "authorization.area_denied", { model, resourceId: id, userArea, resArea }) } catch {}
+        return res.status(403).json({ error: "Access denied to this resource", code: "AREA_RESTRICTED" })
       }
 
       // Project-scoped resource: must match user's project scope when set.
+      // A NULL resource.projectId cannot expand access (project is subordinate).
       if (resource.projectId) {
         const userProject = (req.user.project || "").trim()
         if (userProject && userProject !== "all" && userProject !== resource.projectId) {
