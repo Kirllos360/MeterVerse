@@ -1687,5 +1687,27 @@
             "npx vitest contract 56 skipped (isolation intact); node guard exit 1 (prod blocked)",
             ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4E)"
         ]
+    },
+    {
+        "task": "Legacy System Recovery & Reuse Discovery Gate (P59-B pre-repair)",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "UnRAR", "filesystem", "read", "Select-String", "git"],
+        "tools_used": [
+            "Verified 3 user archives (D:\\Collection System.rar 3362MB, D:\\IMS.rar 4921MB, D:\\New folder (2).rar 834MB) - ALL password-protected (UnRAR lb -p- -> incorrect password, exit 11/12); did NOT extract (safety rules)",
+            "Bypassed password blocker via already-extracted sources: reference\\collection-system (560 files, Flask/PG), reference\\ims\\IMS + nested IMS.rar (unencrypted, listable, static HTML/JS), reference\\sbill (SQL Server), reference\\all-last-update\\sys_n (Symbiot 5952-file AMI/MDM resource)",
+            "Identified Collection Tracker v1.2.1 (Flask 3 + SQLAlchemy + PG + Redis): ~60 models, 20 route modules, 6 charge types, settlement engine (FIXED/PERCENT/ONE_TIME), solar wallet algorithm (CR 2047 exact formulas, 2.23 EGP/kWh), cheque/POS, chilled-water settlement",
+            "Classified IMS as UI-only prototype (no backend) -> Reference only; 'New folder (2)' as mixed resource (Symbiot protocols + SBill/October billing + Energy360) -> Adaptable/Reference",
+            "Compared vs MeterVerse 200+ models: 5 genuine gaps (solar wallet, settlement engine, chilled water, cheque/POS, solar Excel templates) + 1 data migration source (SBill SQL Server); flagged OBIS conflict 1.8.0/2.8.0 vs 5.8.0",
+            "Produced 11-artifact package in docs/reviews/LEGACY-SYSTEM-RECOVERY/ (MASTER-INVENTORY md+json, ARCHIVE-COMPARISON, COLLECTION-SYSTEM-ANALYSIS, IMS-ANALYSIS, NEW-FOLDER-ANALYSIS, METERVERSE-LEGACY-COMPARISON, BUSINESS-RULE-CATALOG, DATABASE-COMPARISON, REUSE-AND-CLONE-CANDIDATES, DUPLICATE-AND-VERSION-MAP, LEGACY-RECOVERY-RECOMMENDATION)",
+            "Recommended NEXT GATE = Legacy Recovery Solar+Settlement Design (P59-C/LR-1); no implementation, no production change"
+        ],
+        "evidence": [
+            "docs/reviews/LEGACY-SYSTEM-RECOVERY/ (12 files)",
+            "UnRAR exit 11/12 on all 3 archives (password-protected)",
+            "reference\\collection-system\\app\\charge_engine.py (settlement/charge rules), models.py (~60 models)",
+            "reference\\collection-system\\docs\\specs\\business-rule-discovery.md (solar wallet exact formulas)",
+            "reference\\all-last-update\\sys_n\\README.md (Symbiot resource)",
+            ".ai/memory/PROJECT_STATE.md (10.11.0-LEGACY-DISCOVERY)"
+        ]
     }
 ]

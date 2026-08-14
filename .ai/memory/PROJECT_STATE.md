@@ -1,11 +1,34 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-B Stage 4E — business decision closure + repair readiness)  
-**Current Phase:** P59-B — Tenancy Data-Lineage Forensic & Re-Certification  
-**Version:** 10.10.0-P59B-STAGE4E  
+**Last Updated:** 2026-08-14 (Legacy System Recovery & Reuse Discovery)  
+**Current Phase:** P59-B — Legacy Asset Discovery (pre-repair)  
+**Version:** 10.11.0-LEGACY-DISCOVERY  
 **Branch:** main (P59-B commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## Legacy System Recovery & Reuse Discovery (2026-08-14)
+
+**Read-only discovery gate.** The three user RAR archives (`Collection System.rar`, `IMS.rar`,
+`New folder (2).rar`) are **all password-protected** (verified UnRAR exit 11/12) and were NOT
+extracted. Discovery proceeded via already-extracted counterparts in `D:\meter\Meter\reference\`.
+- **Collection Tracker v1.2.1** (Flask/PG, 560 files, `reference\collection-system\`) — the
+  "Collection System" remembered; ~60 models, 6 charge types, settlement engine
+  (FIXED/PERCENT/ONE_TIME), **solar wallet / net metering** (CR 2047 exact formulas, 2.23 EGP/kWh),
+  cheque/POS, chilled-water settlement.
+- **IMS** (`reference\ims\`) — UI-only static HTML/JS prototype; no backend value → Reference only.
+- **"New folder (2)"** (`reference\all-last-update\sys_n\`, `reference\sbill\`) — mixed resource:
+  Symbiot AMI/MDM protocol inventory (.NET, 25+ protocols, 5,952 files) + SBill/October Billing
+  (SQL Server: PalmHills_Billing, Energy360_V4) + Energy360.
+- **MeterVerse comparison:** 5 genuine gaps (solar wallet, settlement engine, chilled water,
+  cheque/POS, solar Excel templates) + 1 data-migration source (SBill SQL Server). OBIS conflict
+  flagged (legacy 1.8.0/2.8.0 vs MeterVerse 5.8.0 combined) — requires business decision.
+- **P59-B tenancy state unchanged:** 639 affected records frozen; decisions #2–#6 PENDING;
+  Stage 4E-B and Wave 4 remain LOCKED.
+- **Artifacts:** `docs/reviews/LEGACY-SYSTEM-RECOVERY/` (11 docs + JSON).
+- **Next gate:** P59-C/LR-1 Legacy Recovery — Solar + Settlement DESIGN (spec-only, no code).
 
 ---
 

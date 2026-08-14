@@ -1,0 +1,54 @@
+{
+  "gate": "P59-B / Pre-Repair - Legacy Asset Discovery",
+  "date": "2026-08-14",
+  "baseline_commit": "41338a9e",
+  "read_only": true,
+  "archives": [
+    {
+      "id": 1,
+      "path": "D:\\Collection System.rar",
+      "size_mb": 3362.65,
+      "modified": "2026-06-29 06:39",
+      "encrypted": true,
+      "extracted_source": "D:\\meter\\Meter\\reference\\collection-system\\",
+      "system": "Collection Tracker v1.2.1",
+      "stack": ["Python3", "Flask3", "SQLAlchemy", "PostgreSQL", "Redis", "alembic", "Jinja2"]
+    },
+    {
+      "id": 2,
+      "path": "D:\\IMS.rar",
+      "size_mb": 4921.62,
+      "modified": "2026-06-29 10:03",
+      "encrypted": true,
+      "extracted_source": "D:\\meter\\Meter\\reference\\ims\\IMS\\",
+      "system": "IMS UI Prototype",
+      "stack": ["HTML5", "CSS3", "JavaScript", "Node", "Express"]
+    },
+    {
+      "id": 3,
+      "path": "D:\\New folder (2).rar",
+      "size_mb": 834.87,
+      "modified": "2026-07-04 01:53",
+      "encrypted": true,
+      "extracted_sources": [
+        "D:\\meter\\Meter\\reference\\sbill\\",
+        "D:\\meter\\Meter\\reference\\all-last-update\\sys_n\\",
+        "D:\\meter\\Meter\\reference\\symbiot\\",
+        "D:\\meter\\Meter\\reference\\energy-360\\"
+      ],
+      "systems": ["SBill / October Billing", "Symbiot AMI/MDM", "Energy 360"],
+      "stack": ["Java", "SpringBoot", ".NET", "Angular", "SQLServer", "JasperReports", "WCF"]
+    }
+  ],
+  "file_counts": {
+    "collection_system": 560,
+    "ims_prototype": 25,
+    "sbill_docs": "multiple analysis packages",
+    "symbiot_resource": "5,952 files / 1.7 GB (per sys_n README)"
+  },
+  "notes": [
+    "All three RAR archives are password-protected; no direct extraction performed.",
+    "Discovery used already-extracted legacy reference trees under D:\\meter\\Meter\\reference\\.",
+    "No binaries executed, no installers run, no legacy DB connected, no production writes."
+  ]
+}
