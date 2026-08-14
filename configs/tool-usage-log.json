@@ -1622,5 +1622,25 @@
             "DB: invoice 100/108, reading 57/336, payment 45/49 areaId filled, 0 mismatch, 0 invalid ref",
             "_tools/backups/p59b_stage4b_pre_backfill_full_20260814_054557.sql"
         ]
+    },
+    {
+        "task": "P59-B Stage 4C - business tenancy data-resolution forensic worksheet + classification gate",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "psql", "edit", "write", "read", "git"],
+        "tools_used": [
+            "Disproved the '~550' backlog figure: current DB shows 50 NULL-area customers (not 30) + 208 NULL-area meters (not 184) - population grew because the contract/live test suite writes test records to the production DB",
+            "Built mutually-exclusive row-level classification: 277 ROOT records (50 customers C_UNDET_NOMETER, 57 M_A_DERIV, 129 M_B no-customer, 41 M_D_CONFLICT) + 350 DEPENDENT (304 readings, 16 invoices, 8 payments, 22 dependent meters) = 627 unique affected",
+            "Confirmed reading split 123+91+90=304 (no double-count) and 0 NULL readings on consistent meters",
+            "Financial risk ranking: 41 M_D conflicts = P1 billing mis-attribution (Oct->NC 8, NC->Oct 11, other 22; 123 readings + billing records); 16 invoices/8 payments P1",
+            "User.area audit: text NOT NULL, 2 test viewers use UUID, 5 production users empty (silent fail-closed availability risk, not leak); no names in use",
+            "Test-hygiene finding: live-api.test.mjs writes NULL-scope customers/meters/readings/invoices/payments to production - requires transactional/isolated test DB before further backfill",
+            "Produced docs/reviews/P59/P59-B-STAGE4C-BUSINESS-RESOLUTION-WORKSHEET.md (exec summary, methodology, SQL evidence, exact counts, impact graph, risk ranking, worksheet, decisions, invariants)"
+        ],
+        "evidence": [
+            "docs/reviews/P59/P59-B-STAGE4C-BUSINESS-RESOLUTION-WORKSHEET.md",
+            "psql: Customer 214/50 null, Meter 268/208 null, Reading 361/304 null, Invoice 116/16 null, Payment 53/8 null",
+            "psql: root_total 277, dependent_total 350, grand_total_affected 627",
+            ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4C)"
+        ]
     }
 ]

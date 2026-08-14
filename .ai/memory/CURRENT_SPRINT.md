@@ -1,5 +1,25 @@
 # MeterVerse — Current Sprint
 
+## P59-B Stage 4C — Business Tenancy Data-Resolution Worksheet + Classification (2026-08-14)
+
+**Goal:** Forensically reconcile the ambiguous/conflicting tenancy population and produce the business-resolution worksheet.  
+**Status:** ✅ Complete — forensic only, NO data changes  
+
+| Item | Result |
+|------|--------|
+| "~550" figure | **DISPROVEN** — actual = 627 unique affected (277 root + 350 dependent) |
+| Root records | 277 (50 customers, 57 M_A, 129 M_B, 41 M_D conflicts) |
+| Dependent records | 350 (304 readings, 16 invoices, 8 payments, 22 meters) |
+| Test-hygiene finding | contract tests write NULL-scope rows to PRODUCTION DB — must isolate |
+| Financial risk | 41 M_D conflicts = P1 billing mis-attribution |
+| Auto-safe | NONE until stakeholder approval; 57 M_A = high-confidence business-confirmation |
+| Undeterminable | 129 M_B + 50 customers (stay untouched) |
+| Artifact | `docs/reviews/P59/P59-B-STAGE4C-BUSINESS-RESOLUTION-WORKSHEET.md` |
+
+**Next:** Stage 4D — BLOCKED until the 6 stakeholder decisions + test-hygiene isolation are resolved.
+
+---
+
 ## P59-B Stage 4B — Tenancy Security Fix + Class-Safe Backfill (2026-08-14)
 
 **Goal:** Fix the 707-row NULL-scope IDOR, class-safe areaId backfill, re-certify P0 tenancy.  
