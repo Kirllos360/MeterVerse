@@ -18,6 +18,7 @@ export const MAX_IMPORT_ROWS = 50000
 export const IMPORT_SCHEMAS = {
   solar_customers: {
     sheet: "Customers",
+    duplicateKey: "Meter Serial Electricity",
     required: ["Meter Serial Electricity", "Arabic Name"],
     columns: {
       "Meter Serial Electricity": { type: "string", required: true },
@@ -34,6 +35,7 @@ export const IMPORT_SCHEMAS = {
   },
   solar_invoices: {
     sheet: "Invoices",
+    duplicateKey: "Meter Serial",
     required: ["Meter Serial", "Month", "Invoice Amount"],
     columns: {
       "Meter Serial": { type: "string", required: true },
@@ -46,6 +48,7 @@ export const IMPORT_SCHEMAS = {
   },
   solar_payments: {
     sheet: "Payments",
+    duplicateKey: "Meter Serial",
     required: ["Meter Serial", "Month", "Payment Amount"],
     columns: {
       "Meter Serial": { type: "string", required: true },
@@ -127,12 +130,33 @@ export async function createImportJob({ type, fileName, rows, errors, req }) {
   return job
 }
 
+// Detect duplicate rows within a batch by a key column. Returns a map
+// rowIndex -> duplicateOfIndex for rows sharing the same key (first occurrence wins).
+export function detectDuplicateRows(type, rows) {
+  const schema = IMPORT_SCHEMAS[type]
+  if (!schema) return new Map()
+  const keyCol = schema.duplicateKey
+  if (!keyCol) return new Map()
+  const seen = new Map()
+  const duplicates = new Map()
+  for (const { index, data } of rows) {
+    const key = str(data[keyCol])
+    if (!key) continue
+    if (seen.has(key)) duplicates.set(index, seen.get(key))
+    else seen.set(key, index)
+  }
+  return duplicates
+}
+
 // Execute a previewed import. Only rows that passed validation are processed.
+// Each row applies atomically in its own transaction (partial failure does not
+// roll back other rows). Duplicate rows are skipped (first occurrence wins).
 // Non-mutating for preview; mutation happens here under explicit approval.
 export async function executeImport(type, rows, { req } = {}) {
   let processed = 0
   let failed = 0
   const results = []
+  const duplicates = detectDuplicateRows(type, rows)
 
   for (const { index, data } of rows) {
     const v = validateRow(type, data, index)
@@ -141,8 +165,15 @@ export async function executeImport(type, rows, { req } = {}) {
       results.push({ row: index, status: "failed", errors: v.errors })
       continue
     }
+    if (duplicates.has(index)) {
+      failed++
+      results.push({ row: index, status: "duplicate", errors: [`duplicate of row ${duplicates.get(index)}`] })
+      continue
+    }
     try {
-      const outcome = await applyRow(type, data)
+      const outcome = await prisma.$transaction(async (tx) => {
+        return applyRow(type, data, tx)
+      })
       processed++
       results.push({ row: index, status: "ok", id: outcome.id })
     } catch (e) {
@@ -154,9 +185,11 @@ export async function executeImport(type, rows, { req } = {}) {
 }
 
 // Apply a single validated row to the database via existing MeterVerse models.
-async function applyRow(type, data) {
+// Accepts an optional transaction client so callers can wrap per-row atomicity.
+async function applyRow(type, data, tx) {
+  const db = tx || prisma
   if (type === "solar_customers") {
-    const customer = await prisma.customer.create({
+    const customer = await db.customer.create({
       data: {
         name: str(data["Arabic Name"]),
         email: str(data["Email"]) || null,
@@ -165,15 +198,15 @@ async function applyRow(type, data) {
     })
     const meterSerial = str(data["Meter Serial Electricity"])
     if (meterSerial) {
-      const meter = await prisma.meter.create({ data: { serial: meterSerial, type: "solar", status: "active" } })
-      await prisma.meter.update({ where: { id: meter.id }, data: { customerId: customer.id } })
+      const meter = await db.meter.create({ data: { serial: meterSerial, type: "solar", status: "active" } })
+      await db.meter.update({ where: { id: meter.id }, data: { customerId: customer.id } })
     }
     return { id: customer.id }
   }
   if (type === "solar_invoices") {
-    const meter = await prisma.meter.findFirst({ where: { serial: str(data["Meter Serial"]) } })
+    const meter = await db.meter.findFirst({ where: { serial: str(data["Meter Serial"]) } })
     if (!meter) throw new Error(`meter not found: ${data["Meter Serial"]}`)
-    const invoice = await prisma.invoice.create({
+    const invoice = await db.invoice.create({
       data: {
         number: str(data["Invoice Number"]) || `SOLAR-${Date.now()}`,
         customerId: meter.customerId,
@@ -184,9 +217,9 @@ async function applyRow(type, data) {
     return { id: invoice.id }
   }
   if (type === "solar_payments") {
-    const meter = await prisma.meter.findFirst({ where: { serial: str(data["Meter Serial"]) } })
+    const meter = await db.meter.findFirst({ where: { serial: str(data["Meter Serial"]) } })
     if (!meter) throw new Error(`meter not found: ${data["Meter Serial"]}`)
-    const payment = await prisma.payment.create({
+    const payment = await db.payment.create({
       data: {
         customerId: meter.customerId,
         amount: num(data["Payment Amount"]),

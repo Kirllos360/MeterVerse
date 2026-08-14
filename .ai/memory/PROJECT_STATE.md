@@ -1,11 +1,23 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-C/LR-5 — Solar wallet engine + import execute verification)  
+**Last Updated:** 2026-08-14 (P59-C/LR-6 — Solar vertical-slice mapping + import hardening + tariff seed)  
 **Current Phase:** P59-C — Reuse-First Implementation  
-**Version:** 10.17.0-P59C-LR5  
+**Version:** 10.18.0-P59C-LR6  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-6 — Solar Vertical Slice + Import Production-Grade (2026-08-14)
+
+**Approval state = STATE 2 (requests only, none fabricated). Safe parallel lanes:**
+- **Solar vertical-slice map (24 steps)** created: steps 14-18,21,23,24 = IMPLEMENTED+TESTED (solar engine + import safety); steps 4,12 = BLOCKED (OBIS capture); steps 19,20 = MISSING (PDF/portal); step 9 = ADAPTED.
+- **Solar tiered Tariff seed implemented + verified on isolated test DB:** `scripts/seed-solar-tariff.js` — 12 TariffTier rows (0.48→1.58) + over-1000 rate 1.68 (recovered runtime evidence). Production untouched (0 SOLAR tariffs in meter_pulse).
+- **Import EXECUTE production-grade hardening (still gated):** `detectDuplicateRows` (duplicateKey per schema) + per-row `$transaction` atomicity + existing unknown-meter/50k-cap/idempotency(409). 3 new tests → import-engine 12.
+- **Tests: 356 total (338 pass + 18 skip)** — 3 new. FE tsc 0. Graph validator 12/0/0 (TEST-COVERAGE updated). Speckit 100% (C-SOLAR-TARIFF DONE row added).
+- **P59-B safe:** production 223/277/361/116/53; 639 frozen untouched. OBIS + Import EXECUTE + P59-B #2–#6 all PENDING.
+- **Artifacts:** `P59-C-LR6-SOLAR-VERTICAL-SLICE.md` + seed-solar-tariff.js + import hardening + 3 tests + graph/SpecKit updates.
 
 ---
 

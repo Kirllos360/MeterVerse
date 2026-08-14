@@ -1,5 +1,24 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-6 — Solar Vertical Slice + Import Production-Grade (2026-08-14)
+
+**Goal:** Maximum safe progress — solar vertical map + import hardening + tariff seed (parallel lanes, no fabricated approval).  
+**Status:** ✅ Complete — solar slice mapped; import prod-grade; solar tariff seeded (test-DB)  
+
+| Item | Result |
+|------|--------|
+| Solar vertical slice | 24-step map — 9 IMPLEMENTED+TESTED, 2 OBIS-BLOCKED, 2 MISSING (PDF/portal) |
+| Solar tariff seed | seed-solar-tariff.js — 12 tiers + 1.68; test-DB verified; prod untouched |
+| Import EXECUTE | prod-grade: dup-detect + per-row tx + 50k cap + 409 idempotency (still gated) |
+| Tests | 356 total (338 pass + 18 skip); 3 new; FE tsc 0 |
+| Graph/SpecKit | 12/0/0; C-SOLAR-TARIFF DONE |
+| P59-B | 223/277/361/116/53 stable; 639 untouched |
+| Approvals | OBIS + Import EXECUTE + P59-B #2–#6 all PENDING (STATE 2) |
+
+**Next:** P59-C/LR-7 — decide OBIS (A/E) + Import EXECUTE; then Reading obis capture → solar route/PDF/portal + cheque/POS implementation.
+
+---
+
 ## P59-C/LR-5 — Solar Wallet Engine + Guarded Import EXECUTE (2026-08-14)
 
 **Goal:** Close decision boundary honestly (STATE 2), implement safe solar/import work in parallel.  

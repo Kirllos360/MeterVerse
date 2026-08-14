@@ -1845,5 +1845,27 @@
             "speckit/MASTER-ROADMAP.md (C-SOLAR ENGINE DONE)",
             ".ai/memory/PROJECT_STATE.md (10.17.0-P59C-LR5)"
         ]
+    },
+    {
+        "task": "P59-C/LR-6 - Solar vertical-slice map + import production-grade hardening + solar tariff seed",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "edit", "write", "read", "Select-String", "node", "npx/vitest", "psql", "dot/graphviz", "git"],
+        "tools_used": [
+            "Approval state verified = STATE 2 (requests only; no fabricated approval) -> PATH B parallel safe lanes",
+            "Created P59-C-LR6-SOLAR-VERTICAL-SLICE.md: 24-step classification (9 IMPLEMENTED+TESTED, 2 OBIS-BLOCKED, 2 MISSING PDF/portal, rest EXISTS/REUSED)",
+            "Hardened Import EXECUTE (still prod-gated): detectDuplicateRows (duplicateKey per schema) + per-row $transaction atomicity; 3 new tests -> import-engine 12",
+            "Implemented scripts/seed-solar-tariff.js (recovered runtime tiers 0.48-1.58 + over-1000 1.68) as MeterVerse-native Tariff + TariffTier + over-limit rate; verified on isolated meter_pulse_test (1 tariff + 12 tiers); production untouched (0 SOLAR tariffs)",
+            "Tests 356 total (338 pass + 18 skip), 3 new; FE tsc 0; graph validator 12/0/0 (TEST-COVERAGE updated); speckit 100% (C-SOLAR-TARIFF row)",
+            "P59-B safe: production 223/277/361/116/53 verified; 639 untouched"
+        ],
+        "evidence": [
+            "docs/reviews/P59/P59-C-LR6-SOLAR-VERTICAL-SLICE.md",
+            "backend/scripts/seed-solar-tariff.js",
+            "backend/src/services/import-engine.js (detectDuplicateRows + per-row tx)",
+            "backend/tests/unit/import-engine.test.mjs (12)",
+            "psql meter_pulse_test: 1 SOLAR tariff + 12 tiers; meter_pulse: 0 SOLAR tariffs, 223/277/361/116/53",
+            "docs/architecture/graph/TEST-COVERAGE.dot (updated), speckit/MASTER-ROADMAP.md",
+            ".ai/memory/PROJECT_STATE.md (10.18.0-P59C-LR6)"
+        ]
     }
 ]

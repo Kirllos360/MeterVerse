@@ -6,7 +6,7 @@ vi.mock('../../src/services/notification-engine.js', () => ({ processEvent: vi.f
 vi.mock('../../src/db.js', () => ({ prisma, default: prisma }));
 vi.mock('../../src/middleware/security.js', () => ({ auditLog: vi.fn() }));
 
-const { validateRow, IMPORT_SCHEMAS, executeImport, createImportJob, MAX_IMPORT_ROWS } = await import('../../src/services/import-engine.js');
+const { validateRow, IMPORT_SCHEMAS, executeImport, createImportJob, MAX_IMPORT_ROWS, detectDuplicateRows } = await import('../../src/services/import-engine.js');
 
 describe('P59-C/LR-3 import engine (Solar Excel ImportJob, MeterVerse-native)', () => {
   beforeEach(() => { resetPrismaMocks(); vi.clearAllMocks(); });
@@ -72,5 +72,46 @@ describe('P59-C/LR-3 import engine (Solar Excel ImportJob, MeterVerse-native)', 
 
   it('exposes a bounded MAX_IMPORT_ROWS guard', () => {
     expect(MAX_IMPORT_ROWS).toBe(50000);
+  });
+
+  it('detectDuplicateRows flags repeated meter serials (first occurrence wins)', () => {
+    const rows = [
+      { index: 2, data: { 'Meter Serial': 'M-1', 'Month': '2026-03', 'Invoice Amount': 10 } },
+      { index: 3, data: { 'Meter Serial': 'M-2', 'Month': '2026-03', 'Invoice Amount': 20 } },
+      { index: 4, data: { 'Meter Serial': 'M-1', 'Month': '2026-04', 'Invoice Amount': 30 } },
+    ];
+    const d = detectDuplicateRows('solar_invoices', rows);
+    expect(d.has(4)).toBe(true);
+    expect(d.get(4)).toBe(2); // duplicate of row 2
+    expect(d.size).toBe(1);
+  });
+
+  it('executeImport skips duplicate rows as status=duplicate', async () => {
+    prisma.$transaction.mockImplementation(async (fn) => fn(prisma));
+    prisma.meter.findFirst.mockResolvedValue({ id: 'm-1', customerId: 'c-1' });
+    prisma.invoice.create.mockResolvedValue({});
+    const rows = [
+      { index: 2, data: { 'Meter Serial': 'M-1', 'Month': '2026-03', 'Invoice Amount': 10 } },
+      { index: 3, data: { 'Meter Serial': 'M-1', 'Month': '2026-04', 'Invoice Amount': 20 } },
+    ];
+    const r = await executeImport('solar_invoices', rows, {});
+    expect(r.processed).toBe(1);
+    expect(r.failed).toBe(1);
+    expect(r.results.find(x => x.status === 'duplicate')).toBeDefined();
+    expect(prisma.invoice.create).toHaveBeenCalledTimes(1);
+  });
+
+  it('executeImport applies each row in a transaction (per-row atomicity)', async () => {
+    prisma.$transaction.mockImplementation(async (fn) => fn(prisma));
+    prisma.customer.create.mockResolvedValue({ id: 'c-1' });
+    prisma.meter.create.mockResolvedValue({ id: 'm-1' });
+    prisma.meter.update.mockResolvedValue({});
+    const rows = [
+      { index: 2, data: { 'Arabic Name': 'A', 'Meter Serial Electricity': 'E-1' } },
+      { index: 3, data: { 'Arabic Name': 'B', 'Meter Serial Electricity': 'E-2' } },
+    ];
+    const r = await executeImport('solar_customers', rows, {});
+    expect(r.processed).toBe(2);
+    expect(prisma.$transaction).toHaveBeenCalledTimes(2); // one tx per row
   });
 });

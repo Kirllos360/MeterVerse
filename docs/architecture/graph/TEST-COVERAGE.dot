@@ -6,15 +6,16 @@ digraph TestCov {
   label="Test Coverage — v1.0.0 (evidence, not estimates)";
 
   node [shape=box fillcolor="#d1f5d3"];
-  UNIT [label="unit+api 353 (335 pass + 18 skip live)"];
+  UNIT [label="unit+api 356 (338 pass + 18 skip live)"];
   T_SEC [label="security 44 (requireAccess NULL→403)"];
   T_SETTLE [label="settlement 7 (LR-2)"];
   T_CHARGE [label="charge-types 7 (LR-2)"];
   T_DBGUARD [label="db-guard 6 (isolation)"];
-  T_IMPORT [label="import-engine 9 + tenancy 3 (LR-3/4)"];
+  T_IMPORT [label="import-engine 12 + tenancy 3 (LR-3/4/6)"];
   T_SOLAR [label="solar-wallet 16 (LR-5)"];
-  IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — preview live-proven 2796 rows; EXECUTE verified in isolation, gated in prod]" fillcolor="#fef7e0"];
+  IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — EXECUTE prod-grade: dup-detect + per-row tx + 50k cap; prod gated]" fillcolor="#fef7e0"];
   SOLAR_DONE [label="Solar Wallet ENGINE\n[DONE LR-5 — pure compute+persist, 16 tests; Reading capture OBIS-gated]" fillcolor="#fef7e0"];
+  TARIFF_SEED [label="Solar tiered Tariff seed\n[DONE LR-6 — 12 tiers + 1.68 over-limit; test-DB verified]" fillcolor="#fef7e0"];
 
   node [shape=box fillcolor="#fef7e0"];
   CONTRACT [label="contract 56 (skip unless test BE)"];
