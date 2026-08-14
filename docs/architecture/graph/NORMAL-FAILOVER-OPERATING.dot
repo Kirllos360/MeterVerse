@@ -1,0 +1,61 @@
+// NORMAL-FAILOVER-OPERATING graph — P59-C/LR-2A v1.0.0
+// Three-way operating model with split-brain protection.
+digraph Operating {
+  rankdir=TB;
+  label="Normal / Failover / Emergency Operating Model — v1.0.0\nOnly ONE environment owns writes at any moment.";
+
+  subgraph cluster_normal {
+    label="PROFILE 0 — NORMAL (primary)";
+    style=filled; fillcolor="#e8f0fe";
+    U [shape=box label="Users/Admins"];
+    FE [shape=box label="Frontend :3535/:3030"];
+    BE [shape=box label="Backend :3131/:3003"];
+    DB [shape=cylinder label="PG meter_pulse"];
+    INT [shape=box label="Integrations\n(Symbiot/SEP/Fawry)"];
+    U -> FE -> BE -> DB;
+    BE -> INT [style=dashed];
+  }
+
+  subgraph cluster_fail1 {
+    label="PROFILE 1 — PRIMARY FAILOVER (prepared, validated, sync'd)";
+    style=filled; fillcolor="#fef7e0";
+    FE1 [shape=box label="Failover Frontend"];
+    BE1 [shape=box label="Failover Backend"];
+    DB1 [shape=cylinder label="Replica/stale-sync"];
+    FE1 -> BE1 -> DB1 [style=dashed];
+  }
+
+  subgraph cluster_fail2 {
+    label="PROFILE 2 — EMERGENCY (read-only survival)";
+    style=filled; fillcolor="#fff1f0";
+    FE2 [shape=box label="Emergency UI (read-only)"];
+    BE2 [shape=box label="Emergency API (read-only)"];
+    DB2 [shape=cylinder label="Emergency data snapshot"];
+    FE2 -> BE2 -> DB2 [style=dotted];
+  }
+
+  // Failover sequence
+  NORMAL [shape=note label="NORMAL\nhealth OK"];
+  DETECT [shape=note label="DETECTION\nhealth-check interval, failure threshold"];
+  DECIDE [shape=note label="DECISION\nactivation threshold"];
+  FENCE [shape=note label="FENCING\nwrite authority token; only one writer"];
+  ACT1 [shape=note label="ACTIVATE PROFILE 1"];
+  MON [shape=note label="MONITORING"];
+  RECOV [shape=note label="PRIMARY RECOVERY"];
+  RECON [shape=note label="DATA RECONCILIATION"];
+  RET [shape=note label="RETURN TO NORMAL"];
+
+  NORMAL -> DETECT -> DECIDE -> FENCE -> ACT1 -> MON;
+  MON -> RECOV -> RECON -> RET;
+  RET -> NORMAL [style=dashed];
+
+  // Split-brain
+  subgraph cluster_split {
+    label="SPLIT-BRAIN PROTECTION";
+    style=dashed;
+    sb1 [shape=note label="leader/primary ownership: single token"];
+    sb2 [shape=note label="fencing: old primary cannot write after failover"];
+    sb3 [shape=note label="health authority: agreed checker"];
+    sb4 [shape=note label="conflict detection + reconciliation"];
+  }
+}

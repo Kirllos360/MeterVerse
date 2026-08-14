@@ -1,0 +1,38 @@
+// BUSINESS-DATAFLOW graph — P59-C/LR-2A v1.0.0
+// End-to-end metering → billing → finance flow, including LR-2 settlement + legacy recovery.
+digraph DataFlow {
+  rankdir=LR;
+  label="Business Data Flow — v1.0.0";
+
+  MeterSrc [shape=box fillcolor="#e0f2fe" label="Meter source\n(Symbiot/SEP/manual)"];
+  Read [shape=box fillcolor="#f3e8fd" label="Reading\n(areaId/projectId)"];
+  Val [shape=box fillcolor="#e0f2fe" label="Validation\n(ValidationRule)"];
+  Cons [shape=box fillcolor="#f3e8fd" label="Consumption"];
+  Tariff [shape=box fillcolor="#f3e8fd" label="Tariff apply\n(business-engine)"];
+  Charges [shape=box fillcolor="#f3e8fd" label="ChargeRule\n(fixed/rate_based/per_unit/zero)"];
+  Settle [shape=box fillcolor="#f3e8fd" label="Settlement\n(fixed/percentage/one_time) LR-2"];
+  Invoice [shape=box fillcolor="#f3e8fd" label="Invoice + InvoiceItem\n+ InvoiceSettlement"];
+  Pay [shape=box fillcolor="#f3e8fd" label="Payment + PaymentTransaction"];
+  Ledger [shape=box fillcolor="#f3e8fd" label="CustomerLedgerEntry\n+ JournalEntry/GL"];
+  Report [shape=box fillcolor="#e0f2fe" label="Reporting"];
+
+  MeterSrc -> Read [label="ingest"];
+  Read -> Val [label="validate"];
+  Val -> Cons [label="compute delta"];
+  Cons -> Tariff [label="apply"];
+  Tariff -> Charges [label="itemize"];
+  Charges -> Settle [label="add settlements (LR-2)"];
+  Settle -> Invoice [label="assemble"];
+  Invoice -> Pay [label="collect"];
+  Pay -> Ledger [label="post"];
+  Ledger -> Report [label="report"];
+
+  subgraph cluster_fail {
+    label="Failure modes (every edge needs retry/recovery)";
+    style=dashed;
+    f1 [shape=note label="ingest fail → retry/backoff (scheduler)"];
+    f2 [shape=note label="validate fail → ReadingReview/FLAGGED"];
+    f3 [shape=note label="invoice fail → transaction rollback"];
+    f4 [shape=note label="payment fail → gateway retry + idempotency"];
+  }
+}

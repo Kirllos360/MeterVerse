@@ -1,0 +1,22 @@
+// DISASTER-RECOVERY graph — P59-C/LR-2A v1.0.0
+digraph DR {
+  rankdir=TB;
+  label="Disaster Recovery — v1.0.0\nEvidence: _tools/backups (pg_dump) + MeterVerse DR framework (C19 blueprint)";
+
+  node [shape=box fillcolor="#e0f2fe"];
+  BACKUP [label="Backup\n(pg_dump data-only, 2.25MB; full 17.2GB zip)"];
+  RESTORE [label="Restore\n(psql apply)"];
+  VALIDATE [label="Restore Validation\n(count fingerprint check)"];
+  FAIL1 [label="Profile 1 (prepared)"];
+  FAIL2 [label="Profile 2 (emergency read-only)"];
+  DB [label="PG16 meter_pulse"];
+
+  BACKUP -> RESTORE -> VALIDATE -> DB;
+  DB -> FAIL1 [style=dashed];
+  FAIL1 -> FAIL2 [style=dotted label="only if both down"];
+
+  node [shape=note];
+  r1 [label="RPO/RTO: REQUIRES BUSINESS DECISION (C19 blueprint recommends RPO 15min / RTO 1h core)"];
+  r2 [label="Monthly restore validation: REQUIRES BUSINESS DECISION (planned)"];
+  r3 [label="P59-B freeze means DR restore of meter_pulse is a controlled, governed operation"];
+}

@@ -1,0 +1,30 @@
+// MAINTENANCE-OPERATING graph — P59-C/LR-2A v1.0.0
+digraph Maintenance {
+  rankdir=TB;
+  label="Maintenance Operating Model — v1.0.0\nEvery class: PRECHECK → EXECUTION → HEALTH → ROLLBACK → POSTCHECK";
+
+  node [shape=box fillcolor="#fef7e0"];
+  NORMAL [label="NORMAL"];
+  PREP [label="MAINTENANCE PREPARATION"];
+  TRAFFIC [label="TRAFFIC CONTROL"];
+  DEPLOY [label="SAFE DEPLOYMENT"];
+  HEALTH [label="HEALTH VALIDATION"];
+  CONTIN [label="USER CONTINUITY"];
+  RET [label="RETURN"];
+  NORMAL -> PREP -> TRAFFIC -> DEPLOY -> HEALTH -> CONTIN -> RET -> NORMAL [style=dashed];
+
+  node [shape=note];
+  m1 [label="MAIN MAINTENANCE\n→ Profile 1 serves → validate → return"];
+  m2 [label="EMERGENCY\nMAIN down + Profile 1 down → Profile 2 (read-only)"];
+  m3 [label="Classes: zero-downtime / degraded / planned-failover / emergency / DB / backend / frontend / integration / migration"];
+
+  subgraph cluster_cycle {
+    label="PRECHECK → EXECUTION → HEALTH CHECK → ROLLBACK → POSTCHECK";
+    style=dashed;
+    c1 [shape=note label="PRECHECK: preflight, backups, freeze verify"];
+    c2 [shape=note label="EXECUTION: bounded, gated"];
+    c3 [shape=note label="HEALTH: readiness probes, 45s stability window (P59-B rule)"];
+    c4 [shape=note label="ROLLBACK: defined undo path"];
+    c5 [shape=note label="POSTCHECK: verify + governance update"];
+  }
+}

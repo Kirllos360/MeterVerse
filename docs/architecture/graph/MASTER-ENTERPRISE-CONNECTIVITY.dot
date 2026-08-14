@@ -1,0 +1,145 @@
+﻿// MeterVerse â€” Master Enterprise Connectivity Graph
+// Version 1.0.0 â€” P59-C/LR-2A (2026-08-14)
+// Control artifact: represents actual architecture (FACT edges only).
+// Node attributes: id, type, owner, scope, criticality.
+// Edge attributes: rel (relationship), auth (authorization), fail (failure behavior).
+
+digraph MeterVerse {
+  rankdir=LR;
+  compound=true;
+  labelloc="t";
+  label="MeterVerse Master Enterprise Connectivity â€” v1.0.0\nControl foundation for all future implementation";
+
+  // â”€â”€â”€ ENVIRONMENTS / OPERATING PROFILES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=box, style=filled, fillcolor="#e8f0fe"];
+  ENV_NORMAL [id="env.normal" type=environment owner=platform scope=global criticality=critical label="PROFILE 0 - NORMAL\nFrontend 3535/3030 Backend 3131/3003 PG16 meter_pulse"];
+  ENV_FAIL1  [id="env.fail1" type=environment owner=platform scope=global criticality=critical label="PROFILE 1 â€” PRIMARY FAILOVER\nindependently deployable, continuously validated"];
+  ENV_FAIL2  [id="env.fail2" type=environment owner=platform scope=global criticality=high label="PROFILE 2 â€” EMERGENCY\nread-only survival layer"];
+  ENV_TEST   [id="env.test" type=environment owner=qa scope=test criticality=medium label="TEST ENV\nmeter_pulse_test (isolated)"];
+
+  // â”€â”€â”€ TENANCY LAYER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=ellipse, fillcolor="#e6f4ea"];
+  AREA [id="t.area" type=tenancy owner=org scope=global criticality=critical label="Area (3: October/NewCairo/SODIC)"];
+  PROJ [id="t.project" type=tenancy owner=org scope=area criticality=high label="Project (14, areaId NULL â€” deferred)"];
+  ZONE [id="t.zone" type=tenancy owner=org scope=project criticality=medium label="Zone (0)"];
+  UNIT [id="t.unit" type=tenancy owner=org scope="customer_and_zone" criticality=medium label="Unit (0)"];
+
+  // â”€â”€â”€ IDENTITY / RBAC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=ellipse, fillcolor="#fef7e0"];
+  USER [id="id.user" type=identity owner=platform scope=role criticality=critical label="User (area/project text, roleId)"];
+  ROLE [id="id.role" type=identity owner=platform scope=global criticality=critical label="Role (super_admin/admin/area_manager/operator/billing/team_leader/viewer)"];
+  PERM [id="id.permission" type=identity owner=platform scope=global criticality=critical label="Permission + PermissionOnRole (DB grants)"];
+  JWT  [id="id.jwt" type=identity owner=platform scope=user criticality=critical label="JWT (area/project claims)"];
+
+  // â”€â”€â”€ CORE DOMAIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=box, fillcolor="#f3e8fd"];
+  CUST [id="d.customer" type=domain owner=billing scope=area criticality=critical label="Customer (areaId)"];
+  METER [id="d.meter" type=domain owner=ops scope=area criticality=critical label="Meter (areaId, customerId)"];
+  READ [id="d.reading" type=domain owner=ops scope="area_and_project" criticality=high label="Reading (areaId/projectId)"];
+  CONS [id="d.consumption" type=domain owner=billing scope="area_and_project" criticality=high label="Consumption"];
+  TARIFF [id="d.tariff" type=domain owner=billing scope=global criticality=high label="Tariff/TariffRate/TariffTier/TariffVersion"];
+  CHARGERULE [id="d.chargerule" type=domain owner=billing scope=global criticality=medium label="ChargeRule (fixed/rate_based/per_unit/zero)"];
+  SETTLE [id="d.settlement" type=domain owner=billing scope=global criticality=medium label="Settlement (fixed/percentage/one_time) â€” LR-2"];
+  INVOICE [id="d.invoice" type=domain owner=billing scope="area_and_project" criticality=critical label="Invoice (+InvoiceItem, InvoiceSettlement)"];
+  PAYMENT [id="d.payment" type=domain owner=finance scope="area_and_project" criticality=critical label="Payment (+PaymentTransaction, PaymentGateway)"];
+  LEDGER [id="d.ledger" type=domain owner=finance scope=customer criticality=critical label="CustomerLedgerEntry + JournalEntry/GL"];
+  COLLECTION [id="d.collection" type=domain owner=finance scope=area criticality=high label="CollectionCase/CollectionAction/PromiseToPay"];
+
+  // â”€â”€â”€ SERVICES / ENGINES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=box, fillcolor="#e0f2fe"];
+  S_AUTH [id="s.auth" type=service owner=platform scope=global criticality=critical label="auth-engine + middleware/security.js\n(requireAccess/scopeWhere/clampRequestedScope)"];
+  S_BIZ  [id="s.biz" type=service owner=billing scope=global criticality=high label="business-engine (consume/tariff/charges/invoice)"];
+  S_BILL [id="s.billing" type=service owner=billing scope=global criticality=high label="billing-engine + billing routes"];
+  S_SETTLE [id="s.settle" type=service owner=billing scope=global criticality=medium label="settlement-engine (LR-2)"];
+  S_TARIFF [id="s.tariff" type=service owner=billing scope=global criticality=high label="tariff-engine"];
+  S_PAY  [id="s.payment" type=service owner=finance scope=global criticality=high label="payment engine/routes"];
+  S_SCHED [id="s.sched" type=service owner=platform scope=global criticality=high label="scheduler-engine + ingestion-runtime"];
+  S_NOTIF [id="s.notif" type=service owner=platform scope=global criticality=medium label="notification-engine + webhook"];
+  S_REP  [id="s.report" type=service owner=platform scope=global criticality=medium label="reporting-engine + financial-reporting"];
+
+  // â”€â”€â”€ DATABASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=cylinder, fillcolor="#d1f5d3"];
+  DB_PROD [id="db.prod" type=database owner=dba scope=global criticality=critical label="PostgreSQL 16\nmeter_pulse (frozen population 639)"];
+  DB_TEST [id="db.test" type=database owner=qa scope=test criticality=medium label="meter_pulse_test (isolated)"];
+
+  // â”€â”€â”€ LEGACY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  node [shape=folder, fillcolor="#fff1f0"];
+  LEG_SOLAR [id="leg.solar" type=legacy owner=legacy scope="not_applicable" criticality=low label="Legacy Solar Wallet (Collection)"];
+  LEG_SETTLE [id="leg.settle" type=legacy owner=legacy scope="not_applicable" criticality=low label="Legacy Settlement (Collection)"];
+  LEG_IMS [id="leg.ims" type=legacy owner=legacy scope="not_applicable" criticality=low label="IMS (UI prototype)"];
+  LEG_SYMB [id="leg.symb" type=legacy owner=legacy scope="not_applicable" criticality=low label="Symbiot AMI/MDM (protocols)"];
+  LEG_SBILL [id="leg.sbill" type=legacy owner=legacy scope="not_applicable" criticality=low label="SBill/October (SQL Server)"];
+
+  // â”€â”€â”€ EDGES: TENANCY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  AREA -> PROJ [rel=contains auth="area_scope" fail=deny];
+  PROJ -> ZONE [rel=contains auth="project_scope" fail=deny];
+  ZONE -> UNIT [rel=contains auth="inherited" fail=deny];
+  AREA -> CUST [rel=owns auth="areaId" criticality=critical fail=deny];
+  AREA -> METER [rel=owns auth="areaId" fail=deny];
+  CUST -> METER [rel=owns auth="areaId" fail=deny];
+  METER -> READ [rel=produces auth="inherited" fail=deny];
+  READ -> CONS [rel=derives auth="inherited" fail=deny];
+  CUST -> INVOICE [rel=bills auth="inherited" fail=deny];
+  CUST -> PAYMENT [rel=pays auth="inherited" fail=deny];
+  INVOICE -> PAYMENT [rel=settles auth="inherited" fail=deny];
+  CUST -> LEDGER [rel=posts auth="customer" fail=deny];
+  INVOICE -> COLLECTION [rel=drives auth="area_scope" fail=deny];
+  PAYMENT -> COLLECTION [rel=resolves auth="area_scope" fail=deny];
+
+  // â”€â”€â”€ EDGES: IDENTITY / RBAC â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  USER -> ROLE [rel=has_role auth="roleId"];
+  ROLE -> PERM [rel=grants auth="PermissionOnRole"];
+  USER -> JWT [rel=claims auth="area_and_project"];
+  JWT -> S_AUTH [rel=consumed_by auth="verify"];
+  S_AUTH -> CUST [rel=scopes auth="requireAccess_scopeWhere" label="NULL scope => DENY"];
+  S_AUTH -> METER [rel=scopes auth="requireAccess"];
+  S_AUTH -> READ [rel=scopes auth="requireAccess"];
+  S_AUTH -> INVOICE [rel=scopes auth="requireAccess"];
+  S_AUTH -> PAYMENT [rel=scopes auth="scopeWhere"];
+
+  // â”€â”€â”€ EDGES: SERVICES â†’ DOMAIN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  S_BIZ -> READ [rel=reads];
+  S_BIZ -> TARIFF [rel=applies];
+  S_BIZ -> CHARGERULE [rel=applies];
+  S_BIZ -> INVOICE [rel=assembles];
+  S_BILL -> INVOICE [rel=generates];
+  S_SETTLE -> SETTLE [rel=reads];
+  S_SETTLE -> INVOICE [rel=applies_to label="InvoiceSettlement"];
+  S_SETTLE -> LEDGER [rel=posts];
+  S_TARIFF -> TARIFF [rel=manages];
+  S_PAY -> PAYMENT [rel=processes];
+  S_PAY -> LEDGER [rel=posts];
+  S_SCHED -> DB_PROD [rel="reads_writes"];
+  S_NOTIF -> DB_PROD [rel="reads_writes"];
+  S_REP -> DB_PROD [rel=reads];
+
+  // â”€â”€â”€ EDGES: DATABASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  DB_PROD -> DB_TEST [rel=isolated_from style=dashed];
+  ENV_TEST -> DB_TEST [rel=targets style=dashed];
+  ENV_TEST -> ENV_NORMAL [rel=must_not_write_to style=dotted label="test isolation guard (db-guard.js)"];
+
+  // â”€â”€â”€ EDGES: ENVIRONMENTS / FAILOVER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  ENV_NORMAL -> ENV_FAIL1 [rel=failover_to style=bold label="detection â†’ decision â†’ fencing â†’ activation"];
+  ENV_FAIL1 -> ENV_FAIL2 [rel=emergency_only style=bold label="only if MAIN+FAIL1 down"];
+  ENV_NORMAL -> DB_PROD [rel=uses];
+  ENV_FAIL1 -> DB_PROD [rel=reads_stale style=dashed];
+  ENV_FAIL2 -> DB_PROD [rel=read_only style=dashed];
+
+  // â”€â”€â”€ EDGES: LEGACY REUSE (adapted, never direct) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  LEG_SOLAR -> S_SETTLE [rel=adapted_knowledge style=dashed label="solar formula â†’ native (OBIS gated)"];
+  LEG_SETTLE -> S_SETTLE [rel=adapted_code style=dashed label="FIXED/PERCENT/ONE_TIME â†’ settlement-engine"];
+  LEG_IMS -> ENV_NORMAL [rel=rejected style=dotted];
+  LEG_SYMB -> S_SCHED [rel=protocol_knowledge style=dashed];
+  LEG_SBILL -> DB_PROD [rel=migration_boundary style=dotted label="gated on P59-B"];
+
+  // â”€â”€â”€ KEY CONSTRAINT LABELS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  subgraph cluster_rules {
+    label="MASTER INVARIANTS (must never be violated)";
+    style=dashed;
+    "R1" [shape=note label="Area = canonical tenancy root; NULL/mismatch scope => DENY (fail-closed)"];
+    "R2" [shape=note label="Project subordinate/non-authorizing (deferred)"];
+    "R3" [shape=note label="Automated tests NEVER mutate meter_pulse (db-guard + live-guard)"];
+    "R4" [shape=note label="P59-B 639 frozen records untouched until approval"];
+    "R5" [shape=note label="Only ONE environment has authoritative write ownership (split-brain protection)"];
+  }
+}

@@ -1,0 +1,28 @@
+// IMPLEMENTATION-DEPENDENCY graph — P59-C/LR-2A v1.0.0
+// Ordering for recovery/implementation targets (from LR-1/LR-2 evidence).
+digraph ImplDep {
+  rankdir=TB;
+  label="Implementation Dependency — v1.0.0\nShortest dependency-safe order";
+
+  node [shape=box fillcolor="#e6f4ea"];
+  P0a [label="P59-B approvals (#2-#6)\n[stakeholder, BLOCKED]" fillcolor="#fff1f0"];
+  P0b [label="OBIS register decision\n[stakeholder, BLOCKED]" fillcolor="#fff1f0"];
+  DONE_SETTLE [label="Settlement engine\n[DONE LR-2]" fillcolor="#d1f5d3"];
+  DONE_CHARGE [label="ChargeRule per_unit/zero\n[DONE LR-2]" fillcolor="#d1f5d3"];
+  DONE_ISO [label="Test isolation\n[DONE 4D + LR-2 fix]" fillcolor="#d1f5d3"];
+  P1_SOLAR [label="Solar wallet engine\n[gated: OBIS]"];
+  P1_EXCEL [label="Solar Excel ImportJob\n[safe — no OBIS dep]" fillcolor="#fef7e0"];
+  P2_SYMB [label="Symbiot/SEP protocol bridge\n[extract knowledge]"];
+  P2_TAX [label="SBill tax seed config\n[safe]"];
+  P3_CHEQUE [label="Cheque/POS\n[evidence-gated]"];
+  P3_CHILLED [label="Chilled-water\n[business-gated]"];
+  P3_MIGRATE [label="SBill data migration\n[gated: P59-B + OBIS]" fillcolor="#fff1f0"];
+
+  P1_EXCEL -> DONE_ISO;
+  P1_SOLAR -> P0b;
+  P1_SOLAR -> DONE_SETTLE [style=dashed label="uses settlement/ledger"];
+  P3_MIGRATE -> P0a;
+  P3_MIGRATE -> P0b;
+  P3_CHEQUE -> DONE_SETTLE [style=dashed];
+  P3_CHILLED -> DONE_SETTLE [style=dashed];
+}

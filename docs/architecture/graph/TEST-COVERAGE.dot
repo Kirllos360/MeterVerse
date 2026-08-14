@@ -1,0 +1,32 @@
+// TEST-COVERAGE graph — P59-C/LR-2A v1.0.0
+// Evidence-based: unit+api 325 total (307 pass + 18 skip), contract 56 skip,
+// integration 31 skip, FE tsc 0. Tenancy + security live-proven.
+digraph TestCov {
+  rankdir=LR;
+  label="Test Coverage — v1.0.0 (evidence, not estimates)";
+
+  node [shape=box fillcolor="#d1f5d3"];
+  UNIT [label="unit+api 325 (307 pass + 18 skip live)"];
+  T_SEC [label="security 44 (requireAccess NULL→403)"];
+  T_SETTLE [label="settlement 7 (LR-2)"];
+  T_CHARGE [label="charge-types 7 (LR-2)"];
+  T_DBGUARD [label="db-guard 6 (isolation)"];
+
+  node [shape=box fillcolor="#fef7e0"];
+  CONTRACT [label="contract 56 (skip unless test BE)"];
+  INTEG [label="integration 31 (skip unless test BE)"];
+  E2E [label="E2E 2 (login)"];
+  TSC [label="FE tsc 0"];
+
+  node [shape=box fillcolor="#fff1f0"];
+  GAP1 [label="GAP: solar wallet (needs OBIS)"];
+  GAP2 [label="GAP: ImportJob processor (none)"];
+  GAP3 [label="GAP: cheque/POS/chilled (evidence-gated)"];
+
+  UNIT -> T_SEC;
+  UNIT -> T_SETTLE;
+  UNIT -> T_CHARGE;
+  UNIT -> T_DBGUARD;
+  CONTRACT -> INTEG [style=dashed];
+  GAP1 -> GAP2 [style=dotted];
+}

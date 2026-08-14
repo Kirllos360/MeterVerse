@@ -1,11 +1,26 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-C/LR-2 — OBIS control + reuse-first implementation)  
-**Current Phase:** P59-C — Legacy Recovery & Reuse-First Engineering  
-**Version:** 10.13.0-P59C-LR2  
+**Last Updated:** 2026-08-14 (P59-C/LR-2A — Master Connectivity Graph + Spec Kit control foundation)  
+**Current Phase:** P59-C — Graph & Spec Kit Control Foundation  
+**Version:** 10.14.0-P59C-LR2A  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-2A — Master Connectivity / Resilience / Operating Graph + Spec Kit (2026-08-14)
+
+**Created the operational control foundation (NOT documentation):**
+- **Master graph package** in `docs/architecture/graph/`: 12 specialized DOT graphs (MASTER-ENTERPRISE-CONNECTIVITY, TENANCY-AREA-PROJECT, RBAC-PERMISSION, BUSINESS-DATAFLOW, WORKFLOW-ENGINE, NORMAL-FAILOVER-OPERATING, MAINTENANCE-OPERATING, SECURITY-ATTACK-PATH, LEGACY-REUSE, IMPLEMENTATION-DEPENDENCY, TEST-COVERAGE, DISASTER-RECOVERY) + SVG renders.
+- **`validate-graph.mjs`** — operational graph validator (DOT parse, reference resolution, orphan detection, forbidden tenancy cycles, required attrs). Current: **7 graphs, 0 fail, 0 warn**.
+- **`MASTER-GRAPH-RULES.md`** — node/edge/scope/permission/failure/failover/maintenance/validation/change-control rulebook. Safety margins marked REQUIRES BUSINESS DECISION (RTO/RPO/detection threshold/etc.).
+- **`MASTER-ENTERPRISE-CONNECTIVITY.json`** — machine-readable node (38) + edge (47) index.
+- **Spec Kit v1.1.0** — `speckit/MASTER-ROADMAP.md` (capability roadmap reconciled with implementation-dependency graph) + index.json updated (control loop + graph validator ref). Validator: **19/19 pass, 100%**.
+- **Three-way operating model** (Profile 0 normal / Profile 1 failover / Profile 2 emergency) + split-brain protection (single write owner).
+- **Reconciled with existing infra:** graphiti v2.0.0 (118 nodes/103 edges), speckit v1.0.0, graphify-out, memory knowledge-graph — reused, not rebuilt.
+- **P59-B safety:** production stable 223/277/361/116/53; 639 frozen untouched; no business repair; Wave 4 locked.
+- **Decision:** safety margins (RTO/RPO/fencing/failover thresholds) = **REQUIRES BUSINESS DECISION** (PENDING).
 
 ---
 

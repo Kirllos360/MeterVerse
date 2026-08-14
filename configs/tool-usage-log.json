@@ -1755,5 +1755,28 @@
             "docs/reviews/LEGACY-SYSTEM-RECOVERY/P59-C-LR1/SOLAR-EXCEL-IMPORT-CONTRACT.md, SOLAR-WALLET-IMPLEMENTATION-CONTRACT.md",
             ".ai/memory/PROJECT_STATE.md (10.13.0-P59C-LR2)"
         ]
+    },
+    {
+        "task": "P59-C/LR-2A - Master Connectivity / Resilience / Operating Graph + Spec Kit control foundation",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "dot/graphviz", "filesystem", "edit", "write", "read", "Select-String", "npx/vitest", "node", "memory-MCP", "git"],
+        "tools_used": [
+            "Created operational master graph package in docs/architecture/graph/: 12 DOT graphs (MASTER-ENTERPRISE-CONNECTIVITY, TENANCY-AREA-PROJECT, RBAC-PERMISSION, BUSINESS-DATAFLOW, WORKFLOW-ENGINE, NORMAL-FAILOVER-OPERATING, MAINTENANCE-OPERATING, SECURITY-ATTACK-PATH, LEGACY-REUSE, IMPLEMENTATION-DEPENDENCY, TEST-COVERAGE, DISASTER-RECOVERY) + SVG renders via graphviz dot 15.1.0",
+            "Built validate-graph.mjs graph validator (DOT parse via dot.exe, node/edge reference resolution, orphan detection, forbidden tenancy cycle detection, required attrs) - 7 graphs, 0 fail, 0 warn",
+            "Wrote MASTER-GRAPH-RULES.md (node/edge/scope/permission/failure/failover/maintenance/validation/change-control rules) with safety margins marked REQUIRES BUSINESS DECISION",
+            "Created MASTER-ENTERPRISE-CONNECTIVITY.json (38 nodes, 47 edges, machine-readable) and README linking specialized graphs",
+            "Spec Kit v1.1.0: created speckit/MASTER-ROADMAP.md (capability roadmap reconciled with dependency graph) + updated index.json (control loop + graph validator ref); validator 19/19 pass 100%",
+            "Three-way operating model (Profile 0 normal / Profile 1 failover / Profile 2 emergency) + split-brain protection (single write owner)",
+            "Reconciled with existing infra (graphiti v2.0.0 118n/103e, speckit v1.0.0, graphify-out, memory knowledge-graph) - reused, not rebuilt",
+            "Verified P59-B safety: production 223/277/361/116/53 stable; 639 untouched; unit+api 307 pass/18 skip; Wave 4 locked"
+        ],
+        "evidence": [
+            "docs/architecture/graph/ (12 .dot + 7 .svg + validate-graph.mjs + MASTER-GRAPH-RULES.md + MASTER-ENTERPRISE-CONNECTIVITY.json + README.md)",
+            "speckit/MASTER-ROADMAP.md, speckit/index.json (v1.1.0)",
+            "node validate-graph.mjs: 7 pass, 0 fail, 0 warn",
+            "speckit validator: 19 passed, 0 failed, 100%",
+            "psql: production stable 223/277/361/116/53",
+            ".ai/memory/PROJECT_STATE.md (10.14.0-P59C-LR2A)"
+        ]
     }
 ]

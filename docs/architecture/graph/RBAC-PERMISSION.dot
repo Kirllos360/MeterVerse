@@ -1,0 +1,46 @@
+// RBAC-PERMISSION graph — P59-C/LR-2A v1.0.0
+// Based on actual security.js (requireAccess/scopeWhere/clampRequestedScope) + Role/Permission models.
+digraph RBAC {
+  rankdir=TB;
+  label="RBAC / Permission — v1.0.0\nBackend-enforced (JWT) · fail-closed on NULL scope";
+
+  User [shape=box fillcolor="#fef7e0"];
+  Role [shape=box fillcolor="#fef7e0"];
+  Permission [shape=box fillcolor="#fef7e0"];
+  JWT [shape=box fillcolor="#fef7e0"];
+  requireAccess [shape=box fillcolor="#e0f2fe" label="requireAccess\n(model, id)"];
+  scopeWhere [shape=box fillcolor="#e0f2fe" label="scopeWhere\nlist filter"];
+  clamp [shape=box fillcolor="#e0f2fe" label="clampRequestedScope\nquery params"];
+  Resource [shape=box fillcolor="#f3e8fd" label="Customer/Meter/Reading/Invoice/Payment"];
+
+  User -> Role [label="roleId (admin only) / role string"];
+  Role -> Permission [label="PermissionOnRole (DB grants)"];
+  User -> JWT [label="area + project claims"];
+  JWT -> requireAccess [label="req.user"];
+  JWT -> scopeWhere [label="req.user"];
+  JWT -> clamp [label="req.user"];
+  requireAccess -> Resource [label="detail: NULL areaId => DENY\nmismatch => DENY\nmatch => allow"];
+  scopeWhere -> Resource [label="list: {areaId:userArea};\nempty scope => {id:'__denied__'}"];
+  clamp -> Resource [label="rejects ?areaId= outside scope"];
+
+  subgraph cluster_roles {
+    label="Roles (hardcoded + DB)";
+    style=dashed;
+    super_admin [shape=note label="global bypass (system governance)"];
+    admin [shape=note label="global bypass"];
+    area_manager [shape=note label="area-scoped"];
+    operator [shape=note label="area-scoped"];
+    billing [shape=note label="area-scoped"];
+    team_leader [shape=note label="area-scoped"];
+    viewer [shape=note label="area-scoped — P58/P59 test case"];
+  }
+
+  // P58 permanent test case
+  subgraph cluster_test {
+    label="PERMANENT TEST — Viewer Area A must NOT read Area B";
+    style=dashed;
+    t1 [shape=note label="viewer(area=A) -> ?areaId=B => clamp DENY (403)"];
+    t2 [shape=note label="viewer(area=A) -> direct ID of B record => requireAccess DENY (403)"];
+    t3 [shape=note label="viewer(area=A) -> NULL-area record => DENY (fail-closed, P59-B IDOR fix)"];
+  }
+}

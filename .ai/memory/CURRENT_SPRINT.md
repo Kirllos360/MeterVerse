@@ -1,5 +1,25 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-2A — Master Connectivity Graph + Spec Kit Control Foundation (2026-08-14)
+
+**Goal:** Create the master graph that controls all future implementation (graph = map, Spec Kit = plan, tests = proof, git = history, governance = authority).  
+**Status:** ✅ Complete — 12 graphs + validator + Spec Kit master roadmap + rules  
+
+| Item | Result |
+|------|--------|
+| Master graph package | 12 DOT graphs + SVG (docs/architecture/graph/) |
+| Graph validator | `validate-graph.mjs` — 7 graphs, 0 fail, 0 warn |
+| Master rules | MASTER-GRAPH-RULES.md (change-control + invariants) |
+| JSON index | 38 nodes + 47 edges machine-readable |
+| Spec Kit | v1.1.0 + MASTER-ROADMAP.md reconciled with dependency graph; 19/19 validator |
+| Operating model | Profile 0/1/2 + split-brain protection |
+| Reused infra | graphiti (118n/103e), speckit, memory graph — not rebuilt |
+| P59-B | 223/277/361/116/53 stable; 639 untouched; Wave 4 locked |
+
+**Next:** P59-C/LR-3 — apply the control loop to the next safe implementation (Solar Excel ImportJob), and resolve OBIS decision.
+
+---
+
 ## P59-C/LR-2 — OBIS Control + Reuse-First Implementation (2026-08-14)
 
 **Goal:** Implement qualified legacy-recovered components natively; resolve OBIS; fix test-isolation regression.  

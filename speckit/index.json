@@ -1,7 +1,10 @@
 {
-  "name": "SpecKit — MeterVerse Specification Kit",
-  "version": "1.0.0",
+  "name": "SpecKit - MeterVerse Specification Kit",
+  "version": "1.1.0",
   "description": "Specification validation framework for MeterVerse enterprise development",
+  "masterRoadmap": "MASTER-ROADMAP.md",
+  "controlLoop": "CHANGE_REQUEST -> GRAPH_IMPACT -> SPEC -> PLAN -> TASKS -> DEPENDENCY_CHECK -> IMPLEMENT -> TEST -> GRAPH_REVALIDATION -> CONVERGE -> SECURITY_VALIDATION -> OPERATIONAL_VALIDATION -> COMMIT -> PUSH -> POST_COMMIT_GRAPH_VALIDATION",
+  "graphValidator": "docs/architecture/graph/validate-graph.mjs",
   "validators": [
     "architecture",
     "design-tokens",
@@ -19,3 +22,4 @@
     "has-playwright-test"
   ]
 }
+

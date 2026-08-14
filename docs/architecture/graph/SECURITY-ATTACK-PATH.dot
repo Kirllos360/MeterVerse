@@ -1,0 +1,35 @@
+// SECURITY-ATTACK-PATH graph — P59-C/LR-2A v1.0.0
+// Models attack paths (FACT from P58/P59-B live testing) and their controls.
+digraph Security {
+  rankdir=TB;
+  label="Security Attack Paths — v1.0.0\nEach path = attack → control → status (from live evidence)";
+
+  node [shape=box];
+
+  // Attack paths
+  a1 [label="IDOR direct-ID on NULL-area record" fillcolor="#fff1f0"];
+  a2 [label="Horizontal escalation: viewer Area A → Area B" fillcolor="#fff1f0"];
+  a3 [label="Query manipulation: ?areaId= / ?projectId=" fillcolor="#fff1f0"];
+  a4 [label="Test suite writes to production DB" fillcolor="#fff1f0"];
+  a5 [label="Cross-project escalation (projectId)" fillcolor="#fff1f0"];
+
+  // Controls
+  c1 [label="requireAccess NULL→DENY (P59-B 4B)" fillcolor="#e6f4ea"];
+  c2 [label="scopeWhere + clampRequestedScope (fail-closed)" fillcolor="#e6f4ea"];
+  c3 [label="clamp rejects foreign area; project cannot expand" fillcolor="#e6f4ea"];
+  c4 [label="db-guard + live-guard (P59-B 4D, LR-2 fix)" fillcolor="#e6f4ea"];
+  c5 [label="project subordinate/non-authorizing (deferred)" fillcolor="#e6f4ea"];
+
+  // Status
+  s1 [label="FIXED + live-proven (403)" shape=note];
+  s2 [label="FIXED + live-proven (403)" shape=note];
+  s3 [label="FIXED + live-proven (403/0 rows)" shape=note];
+  s4 [label="FIXED + proven (production unchanged)" shape=note];
+  s5 [label="DE FERRED — project not authorizing" shape=note];
+
+  a1 -> c1 -> s1;
+  a2 -> c2 -> s2;
+  a3 -> c3 -> s3;
+  a4 -> c4 -> s4;
+  a5 -> c5 -> s5;
+}

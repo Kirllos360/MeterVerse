@@ -1,0 +1,50 @@
+// WORKFLOW-ENGINE graph — P59-C/LR-2A v1.0.0
+// Maps existing workflow primitives (FACT) + normalization (PROPOSED).
+digraph Workflow {
+  rankdir=TB;
+  label="Workflow Engine — v1.0.0\nFACT = existing · PROPOSED = normalized control model";
+
+  // Existing primitives (FACT)
+  node [shape=box fillcolor="#e0f2fe"];
+  Queue [label="QueueJob (FACT)"];
+  Sched [label="ScheduledTask + scheduler-engine (FACT)"];
+  States [label="WorkflowState/WorkflowTransition (FACT)"];
+  Task [label="Task (FACT)"];
+  Approve [label="ApprovalRequest/ApprovalDecision (FACT)"];
+  Event [label="EventBus (in-memory — P41 noted durability gap)"];
+  Notif [label="notification-engine (FACT)"];
+  Audit [label="AuditEntry (FACT)"];
+
+  // Normalized process spine (PROPOSED control)
+  node [shape=note];
+  t1 [label="TRIGGER"];
+  t2 [label="VALIDATION"];
+  t3 [label="AUTHORIZATION"];
+  t4 [label="EXECUTION"];
+  t5 [label="PERSISTENCE"];
+  t6 [label="EVENT"];
+  t7 [label="NOTIFICATION"];
+  t8 [label="AUDIT"];
+  t9 [label="COMPLETION"];
+  t1 -> t2 -> t3 -> t4 -> t5 -> t6 -> t7 -> t8 -> t9;
+
+  node [shape=box fillcolor="#fff1f0"];
+  f1 [label="FAILURE"];
+  f2 [label="RETRY / BACKOFF"];
+  f3 [label="DEAD-LETTER / FAILED STATE"];
+  f4 [label="ALERT"];
+  f5 [label="OPERATOR ACTION"];
+  f6 [label="RECOVERY"];
+  f7 [label="REPLAY / COMPENSATION"];
+  f1 -> f2 -> f3 -> f4 -> f5 -> f6 -> f7;
+
+  // Engine-type selection criteria
+  node [shape=note fillcolor="#e6f4ea"];
+  e1 [label="synchronous transaction → simple feature"];
+  e2 [label="asynchronous job → QueueJob (slow/integration)"];
+  e3 [label="scheduled job → scheduler-engine"];
+  e4 [label="state machine → WorkflowState/Transition"];
+  e5 [label="approval workflow → ApprovalRequest"];
+  e6 [label="event-driven → EventBus (needs durability)"];
+  e7 [label="saga/compensation → only where multi-system atomicity justified"];
+}

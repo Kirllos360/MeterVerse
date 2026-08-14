@@ -1,0 +1,29 @@
+// LEGACY-REUSE graph — P59-C/LR-2A v1.0.0
+// LR-1/LR-2 recovered components → MeterVerse-native homes. Adaptation boundary only.
+digraph LegacyReuse {
+  rankdir=LR;
+  label="Legacy → MeterVerse Reuse — v1.0.0\nNo direct architecture import; only value (rules/formulas/tests/templates).";
+
+  node [shape=folder fillcolor="#fff1f0"];
+  L_SETTLE [label="Legacy Settlement\n(Collection charge_engine.py)"];
+  L_CHARGE [label="Legacy Charge Types\n(STEPS/FLAT/STATIC/PER_UNIT/ZERO)"];
+  L_SOLAR [label="Legacy Solar Wallet\n(routes_admin.py + CR2047)"];
+  L_EXCEL [label="Legacy Solar XLSX\n(3 templates)"];
+  L_SYMB [label="Symbiot AMI/MDM\n(protocols)"];
+  L_SBILL [label="SBill/October\n(SQL Server data)"];
+
+  node [shape=box fillcolor="#e0f2fe"];
+  M_SETTLE [label="settlement-engine.js\n+ Settlement/InvoiceSettlement (LR-2 DONE)"];
+  M_CHARGE [label="generateCharges\nper_unit/zero + ChargeRule.upperLimit (LR-2 DONE)"];
+  M_SOLAR [label="solar-wallet-engine\n(contract ready — OBIS gated)"];
+  M_EXCEL [label="ImportJob schemas\n(contract ready)"];
+  M_SYMB [label="gateways / SEP bridge\n(protocol knowledge)"];
+  M_SBILL [label="meter_pulse migration\n(gated on P59-B)"];
+
+  L_SETTLE -> M_SETTLE [label="ADAPT (ported logic)" color=green];
+  L_CHARGE -> M_CHARGE [label="ADAPT (extended ChargeRule)" color=green];
+  L_SOLAR -> M_SOLAR [label="EXTRACT knowledge → native (BLOCKED: OBIS)" color=orange];
+  L_EXCEL -> M_EXCEL [label="REUSE templates (contract)" color=green];
+  L_SYMB -> M_SYMB [label="EXTRACT protocol knowledge" color=orange];
+  L_SBILL -> M_SBILL [label="MIGRATE DATA (boundary, gated)" color=red];
+}

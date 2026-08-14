@@ -1,0 +1,38 @@
+// TENANCY-AREA-PROJECT graph — P59-C/LR-2A v1.0.0
+// Validated against live DB: Area 3, Project 14 (areaId NULL), Zone/Unit 0.
+digraph Tenancy {
+  rankdir=LR;
+  label="Tenancy / Area / Project — v1.0.0\nArea=canonical root · Project=deferred";
+
+  Area [shape=box fillcolor="#e6f4ea"];
+  Project [shape=box fillcolor="#e6f4ea"];
+  Zone [shape=box fillcolor="#e6f4ea"];
+  Unit [shape=box fillcolor="#e6f4ea"];
+  Customer [shape=box fillcolor="#f3e8fd"];
+  Meter [shape=box fillcolor="#f3e8fd"];
+  Reading [shape=box fillcolor="#f3e8fd"];
+  Invoice [shape=box fillcolor="#f3e8fd"];
+  Payment [shape=box fillcolor="#f3e8fd"];
+
+  Area -> Project [label="projectId (14, ALL areaId NULL → deferred)" style=dashed];
+  Area -> Customer [label="areaId (canonical)" color=red];
+  Area -> Meter [label="areaId (canonical)" color=red];
+  Project -> Zone [label="projectId (0 rows)" style=dashed];
+  Zone -> Unit [label="zoneId (0 rows)" style=dashed];
+  Customer -> Unit [label="customerId"];
+  Customer -> Meter [label="customerId"];
+  Meter -> Reading [label="meterId"];
+  Meter -> Invoice [label="meterId (through Consumption)" style=dashed];
+  Customer -> Invoice [label="customerId"];
+  Customer -> Payment [label="customerId"];
+  Invoice -> Payment [label="invoiceId"];
+
+  // P59-B frozen classification as annotation
+  subgraph cluster_p59 {
+    label="P59-B FROZEN BACKLOG (639 — DO NOT TOUCH)";
+    style=dashed;
+    n1 [shape=note label="56 NULL customers"];
+    n2 [shape=note label="57 M_A · 135 M_B · 41 M_D conflicts"];
+    n3 [shape=note label="22 dep meters · 304 readings · 16 invoices · 8 payments"];
+  }
+}
