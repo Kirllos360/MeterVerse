@@ -1,24 +1,36 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-B Stage 4D — production-DB test isolation + data freeze)  
+**Last Updated:** 2026-08-14 (P59-B Stage 4E — business decision closure + repair readiness)  
 **Current Phase:** P59-B — Tenancy Data-Lineage Forensic & Re-Certification  
-**Version:** 10.10.0-P59B-STAGE4D  
+**Version:** 10.10.0-P59B-STAGE4E  
 **Branch:** main (P59-B commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P59-B Stage 4D — Production-DB Test Isolation + Population Freeze (2026-08-14)
+## P59-B Stage 4E — Business Decision Register + Repair Readiness (2026-08-14)
 
-**Test-pollution defect FIXED + isolation PROVEN:** contract/live suites were writing NULL-scope test records into the production DB (confirmed: `live-api.test.mjs` T023/T024 POSTs customers/meters with `TST-{Date.now()}` serials; Invoice 108→116, Customer 194→218 across stages).
-- **Fail-closed guard:** `backend/src/db-guard.js` + `db.js` — TEST_MODE=1 + `meter_pulse` → process refuses to start (exit 1) before Prisma connects. Pure/testable.
-- **Live-suite guard:** `tests/helpers/live-guard.js` — contract + integration suites SKIP unless `CONTRACT_BASE_URL` points to a test backend (no silent prod mutation).
-- **`meter_pulse_test`** dedicated DB created (187 tables) + seeded; same native PG (low-memory).
-- **Proof:** contract 56/56 + integration 31/31 pass vs test BE :3901 (meter_pulse_test); production row counts IDENTICAL before/after (218/272/361/116/53). Unit+api 311/311 (incl. 6 guard tests), FE tsc 0.
-- **Frozen authoritative classification (post-isolation):** 285 root (54 NULL customers, 57 M_A, 133 M_B, 41 M_D conflicts) + 350 dependent (22 meters, 304 readings, 16 invoices, 8 payments) = **635 unique** (4C's 627 was stale — residual pre-guard pollution; now frozen).
-- **Decision register:** #1 isolation IMPLEMENTED; #2-#6 (M_A backfill, M_D direction, M_B mapping, NULL customers, invoice/payment disposition) all **PENDING** — no stakeholder approval invented.
-- **Artifact:** `docs/reviews/P59/P59-B-STAGE4D-TEST-ISOLATION-AND-DATA-FREEZE.md`
+**Decision-closure gate — NO business repair.** STOP condition handled: 635 baseline was
+violated (+1 customer +1 meter = T023/T024 test pollution committing late from the
+pre-isolation window); investigated, root-caused, documented, and **re-frozen at 637**
+(stable 15s×2, no writer). No production data modified.
+- **Re-frozen backlog:** ROOT 287 (55 NULL customers, 57 M_A, 134 M_B, 41 M_D conflicts)
+  + DEPENDENT 350 (22 meters, 304 readings, 16 invoices, 8 payments) = **637**.
+- **Decision #2 (57 M_A, P5-MTR):** candidate areaId=customer.areaId; 90 reads/40 inv/20 pay;
+  HIGH confidence — **PENDING** approval.
+- **Decision #3 (41 M_D, P50-OPER, REAL customers):** 123 reads/102 inv/41 pay; direction
+  UNKNOWN; HIGH billing risk — **PENDING**.
+- **Decision #4 (134 M_B):** 123/134 carry TST/T0 test serials (TEST-POLLUTION); 34 with
+  readings (operational-unassigned); 11 other — **PENDING**.
+- **Decision #5 (55 NULL customers):** ~52/55 test-named (T023/T025/Contract Test/P5-Customer);
+  ~3 possible real — **PENDING**.
+- **Decision #6 (16 inv + 8 pay):** all dependent on NULL customers — no independent
+  disposition — **PENDING**.
+- **Integrity:** 0 orphans, 0 invalid area refs, 0 lineage mismatches; test signatures 146
+  meters + 164 customers. Isolation re-verified (contract 56 skipped; guard exit 1).
+- **Approval:** NONE fabricated. All 5 decisions PENDING stakeholder approval.
+- **Artifact:** `docs/reviews/P59/P59-B-STAGE4E-BUSINESS-DECISION-REGISTER.md`
 
 ---## P59-B Stage 4B — Tenancy Security Fix + Class-Safe Backfill (2026-08-14)
 

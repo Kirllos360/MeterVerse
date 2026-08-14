@@ -1,5 +1,26 @@
 # MeterVerse — Current Sprint
 
+## P59-B Stage 4E — Business Decision Register + Repair Readiness (2026-08-14)
+
+**Goal:** Close all pending business decisions into an auditable register; prove repair readiness.  
+**Status:** ✅ Complete — decision register produced; NO business repair; approval NOT fabricated  
+
+| Item | Result |
+|------|--------|
+| Freeze | STOP handled — 635 violated (+1/+1 test pollution), re-frozen **637** (stable) |
+| Backlog | ROOT 287 + DEPENDENT 350 = **637** |
+| #2 M_A (57) | areaId=customer.areaId candidate, HIGH conf, **PENDING** |
+| #3 M_D (41) | REAL customers, direction UNKNOWN, HIGH billing risk, **PENDING** |
+| #4 M_B (134) | 123 test-serial (TEST-POLLUTION), 34 with readings, **PENDING** |
+| #5 NULL cust (55) | ~52 test-named, ~3 real, **PENDING** |
+| #6 inv/pay (16/8) | all dependent on #5, **PENDING** |
+| Integrity | 0 orphans, 0 invalid refs, 0 mismatches; isolation re-verified |
+| Artifact | `docs/reviews/P59/P59-B-STAGE4E-BUSINESS-DECISION-REGISTER.md` |
+
+**Next:** Stakeholder approval closure for #2–#6, then Stage 4E-B (business repair execution) — dependency-driven, root-first.
+
+---
+
 ## P59-B Stage 4D — Production-DB Test Isolation + Population Freeze (2026-08-14)
 
 **Goal:** Prove + fix test-DB isolation; freeze the population before any business repair.  

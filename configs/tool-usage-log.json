@@ -1664,5 +1664,28 @@
             "psql: prod 218/272/361/116/53 unchanged before/after contract+integration runs; meter_pulse_test 5/5/1 test rows",
             ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4D)"
         ]
+    },
+    {
+        "task": "P59-B Stage 4E - business decision closure + repair readiness gate",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "psql", "edit", "write", "read", "Select-String", "npx", "node", "git"],
+        "tools_used": [
+            "Handled STOP condition: 635 freeze baseline violated (+1 customer, +1 meter, both T023/T024 test signatures created 04:26 committing late); investigated, root-caused, documented, re-froze at 637 (stable over 15s x2, no active writer)",
+            "Verified test isolation still intact: contract 56 skipped by default; db-guard TEST_MODE+meter_pulse -> exit 1",
+            "DECISION #2: 57 M_A meters (P5-MTR serials) -> areaId=customer.areaId candidate; 90 readings/40 invoices/20 payments downstream; HIGH confidence; PENDING approval",
+            "DECISION #3: 41 M_D conflicts (P50-OPER-M serials, REAL customer names, NOT test) -> 123 readings/102 invoices/41 payments; direction UNKNOWN; HIGH billing risk; PENDING",
+            "DECISION #4: 134 M_B meters -> 123/134 carry TST/T0 test serials (TEST-POLLUTION); 34 with readings (55 total) operational-unassigned; 11 other; PENDING",
+            "DECISION #5: 55 NULL customers -> ~52/55 test-named (T023/T025/Contract Test/P5-Customer); ~3 possible real; PENDING",
+            "DECISION #6: 16 invoices + 8 payments ALL dependent on NULL customers (14 P5 + 2 T025; payments all P5) - no independent disposition",
+            "Integrity: 0 orphans, 0 invalid area refs, 0 lineage mismatches; test signatures 146 meters + 164 customers",
+            "Produced docs/reviews/P59/P59-B-STAGE4E-BUSINESS-DECISION-REGISTER.md (frozen baseline, freeze-violation record, row-level register, exec decision table, readiness assessment)"
+        ],
+        "evidence": [
+            "docs/reviews/P59/P59-B-STAGE4E-BUSINESS-DECISION-REGISTER.md",
+            "psql: re-frozen 637 (219/273/361/116/53), stable 15s x2",
+            "psql: M_D 41 (8 Oct->NC, 11 NC->Oct, 22 other), M_B 134 (41 TST + 82 T0 + 11), C 55 (13 Test + 16 P5 + 26 other)",
+            "npx vitest contract 56 skipped (isolation intact); node guard exit 1 (prod blocked)",
+            ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4E)"
+        ]
     }
 ]
