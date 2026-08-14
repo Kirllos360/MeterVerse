@@ -1,5 +1,26 @@
 # MeterVerse — Current Sprint
 
+## P59-B Stage 4D — Production-DB Test Isolation + Population Freeze (2026-08-14)
+
+**Goal:** Prove + fix test-DB isolation; freeze the population before any business repair.  
+**Status:** ✅ Complete — isolation PROVEN, population FROZEN  
+
+| Item | Result |
+|------|--------|
+| Contamination source | `live-api.test.mjs` T023/T024 POSTs customers/meters into production |
+| Production DB guard | `db-guard.js` — TEST_MODE=1 + meter_pulse → refuses to start (exit 1) |
+| Live-suite guard | contract + integration SKIP unless `CONTRACT_BASE_URL` set |
+| Test DB | `meter_pulse_test` created (187 tables) + seeded |
+| Isolation proof | contract 56/56 + integration 31/31 vs :3901; production IDENTICAL before/after (218/272/361/116/53) |
+| Frozen classification | 285 root + 350 dependent = **635 unique** |
+| Decision register | #1 isolation IMPLEMENTED; #2-#6 all PENDING |
+| Tests | 311/311 unit+api, 56/56 contract (isolated), 31/31 integration (isolated), tsc 0 |
+| Artifact | `docs/reviews/P59/P59-B-STAGE4D-TEST-ISOLATION-AND-DATA-FREEZE.md` |
+
+**Next:** Stage 4E — BLOCKED until decisions #2-#6 are approved (M_A backfill, M_D direction, M_B mapping, NULL customers, invoice/payment disposition).
+
+---
+
 ## P59-B Stage 4C — Business Tenancy Data-Resolution Worksheet + Classification (2026-08-14)
 
 **Goal:** Forensically reconcile the ambiguous/conflicting tenancy population and produce the business-resolution worksheet.  

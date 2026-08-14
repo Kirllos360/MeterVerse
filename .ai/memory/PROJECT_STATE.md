@@ -1,24 +1,24 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-B Stage 4C — business tenancy resolution worksheet + classification)  
+**Last Updated:** 2026-08-14 (P59-B Stage 4D — production-DB test isolation + data freeze)  
 **Current Phase:** P59-B — Tenancy Data-Lineage Forensic & Re-Certification  
-**Version:** 10.10.0-P59B-STAGE4C  
+**Version:** 10.10.0-P59B-STAGE4D  
 **Branch:** main (P59-B commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P59-B Stage 4C — Business Tenancy Data-Resolution Worksheet + Classification (2026-08-14)
+## P59-B Stage 4D — Production-DB Test Isolation + Population Freeze (2026-08-14)
 
-**Forensic-only gate — NO data changes. The Stage 4B "~550" figure is DISPROVEN.**
-- Exact mutually-exclusive population (SQL-reproducible): **277 ROOT records** (50 NULL-area customers C_UNDET_NOMETER; 57 M_A_DERIV meters; 129 M_B no-customer meters; 41 M_D meter↔customer conflicts) + **350 DEPENDENT** (304 readings, 16 invoices, 8 payments, 22 dependent meters) = **627 unique affected**.
-- **Test-hygiene CRITICAL FINDING:** `backend/tests/contract/live-api.test.mjs` writes NULL-scope test records into the PRODUCTION DB (invoices created 01:35/02:51 with `INV-{Date.now()}` numbers). Population grew between 4B (108 invoices) and 4C (116). Contract tests MUST be transactional/isolated before any further backfill (Stage 4D prerequisite).
-- **Financial risk:** 41 M_D conflicts = P1 billing mis-attribution (directions Oct→NC 8, NC→Oct 11, other 22; 123 readings + billing records). 16 NULL invoices + 8 NULL payments P1.
-- **User.area audit:** `text NOT NULL`; 2 test viewers use valid Area UUIDs; 5 production users empty (silent fail-closed availability risk, not leak); no names in use. Defensive UUID/empty validation recommended as separate P1.
-- **Auto-safe candidates:** NONE until stakeholder approval (M_A meters high-confidence but M_D proves meter≠customer is possible). 57 M_A = business-confirmation. 129 M_B + 50 customers = undeterminable (stay untouched). 41 M_D = conflict resolution.
-- **Artifact:** `docs/reviews/P59/P59-B-STAGE4C-BUSINESS-RESOLUTION-WORKSHEET.md`
-- **6 stakeholder decisions required** (test hygiene, M_A approval, M_D direction, M_B assignment, test-vs-real customers, invoice/payment disposition).
+**Test-pollution defect FIXED + isolation PROVEN:** contract/live suites were writing NULL-scope test records into the production DB (confirmed: `live-api.test.mjs` T023/T024 POSTs customers/meters with `TST-{Date.now()}` serials; Invoice 108→116, Customer 194→218 across stages).
+- **Fail-closed guard:** `backend/src/db-guard.js` + `db.js` — TEST_MODE=1 + `meter_pulse` → process refuses to start (exit 1) before Prisma connects. Pure/testable.
+- **Live-suite guard:** `tests/helpers/live-guard.js` — contract + integration suites SKIP unless `CONTRACT_BASE_URL` points to a test backend (no silent prod mutation).
+- **`meter_pulse_test`** dedicated DB created (187 tables) + seeded; same native PG (low-memory).
+- **Proof:** contract 56/56 + integration 31/31 pass vs test BE :3901 (meter_pulse_test); production row counts IDENTICAL before/after (218/272/361/116/53). Unit+api 311/311 (incl. 6 guard tests), FE tsc 0.
+- **Frozen authoritative classification (post-isolation):** 285 root (54 NULL customers, 57 M_A, 133 M_B, 41 M_D conflicts) + 350 dependent (22 meters, 304 readings, 16 invoices, 8 payments) = **635 unique** (4C's 627 was stale — residual pre-guard pollution; now frozen).
+- **Decision register:** #1 isolation IMPLEMENTED; #2-#6 (M_A backfill, M_D direction, M_B mapping, NULL customers, invoice/payment disposition) all **PENDING** — no stakeholder approval invented.
+- **Artifact:** `docs/reviews/P59/P59-B-STAGE4D-TEST-ISOLATION-AND-DATA-FREEZE.md`
 
 ---## P59-B Stage 4B — Tenancy Security Fix + Class-Safe Backfill (2026-08-14)
 

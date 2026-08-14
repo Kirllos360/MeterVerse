@@ -9,8 +9,10 @@
  */
 
 import { describe, it, expect, beforeAll } from 'vitest'
+import { CONTRACT_BASE_URL, LIVE_TESTS_ENABLED } from '../helpers/live-guard.js'
 
-const BASE = process.env.CONTRACT_BASE_URL || 'http://localhost:3131'
+// P59-B 4D: live persistence suites must target a dedicated test backend, never production.
+const BASE = CONTRACT_BASE_URL
 // P59: X-Dev-Mode bypass gated off - use REAL auth.
 let AUTH
 const req = (method, url, body) =>
@@ -33,8 +35,7 @@ async function waitForBackend(retries = 10, delay = 1000) {
   }
   return false
 }
-const ready = await waitForBackend(10, 1000)
-const describeFn = ready ? describe : describe.skip
+const describeFn = LIVE_TESTS_ENABLED ? describe : describe.skip
 
 const uid = () => `p45-${Date.now()}-${Math.floor(Math.random() * 100000)}`
 

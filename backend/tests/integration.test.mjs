@@ -1,6 +1,9 @@
 ﻿import { describe, it, expect, beforeAll } from 'vitest';
+import { CONTRACT_BASE_URL, LIVE_TESTS_ENABLED } from './helpers/live-guard.js';
 
-const BASE = 'http://localhost:3131';
+// P59-B 4D: live suites must target a dedicated test backend, never production.
+const BASE = CONTRACT_BASE_URL;
+const describeFn = LIVE_TESTS_ENABLED ? describe : describe.skip;
 // P59: X-Dev-Mode bypass gated off - integration tests use REAL authentication.
 let AUTH;
 const GET = (url) => fetch(`${BASE}${url}`, { headers: AUTH }).then(r => ({ status: r.status, body: r.json() }));
@@ -26,8 +29,6 @@ async function waitForBackend(retries = 10, delay = 1000) {
   return false;
 }
 const backendReady = await waitForBackend(10, 1000);
-
-const describeFn = backendReady ? describe : describe.skip;
 const LONG_TIMEOUT = 15000;
 
 describeFn('API Integration Tests', () => {

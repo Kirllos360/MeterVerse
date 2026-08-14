@@ -1642,5 +1642,27 @@
             "psql: root_total 277, dependent_total 350, grand_total_affected 627",
             ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4C)"
         ]
+    },
+    {
+        "task": "P59-B Stage 4D - production-DB test isolation + population freeze",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "psql", "edit", "write", "read", "Select-String", "npx", "node", "git"],
+        "tools_used": [
+            "Confirmed + proved Stage 4C test-pollution finding: live-api.test.mjs T023/T024 POST customers/meters (serial TST-{Date.now()}, 'Test Customer') into production DB; population grew across stages (Invoice 108->116, Customer 194->218)",
+            "Built fail-closed production DB guard: backend/src/db-guard.js (pure) + db.js calls assertSafeTestDatabase; TEST_MODE=1 + meter_pulse -> process.exit(1) before Prisma connects",
+            "Live-suite guard: tests/helpers/live-guard.js - contract + integration suites SKIP unless CONTRACT_BASE_URL set (fail-closed, no silent prod mutation)",
+            "Created dedicated meter_pulse_test DB (187 tables, schema-cloned) + seeded (admin/roles/perms)",
+            "End-to-end isolation proof: contract 56/56 + integration 31/31 pass vs test backend :3901 (meter_pulse_test); production row counts IDENTICAL before/after (218/272/361/116/53)",
+            "Frozen authoritative classification: 285 root (54 C + 57 M_A + 133 M_B-nocust + 41 M_D) + 350 dependent (22 meters, 304 readings, 16 invoices, 8 payments) = 635 unique",
+            "311/311 unit+api (incl. 6 new db-guard tests), 56/56 contract (isolated), 31/31 integration (isolated), FE tsc 0",
+            "Produced docs/reviews/P59/P59-B-STAGE4D-TEST-ISOLATION-AND-DATA-FREEZE.md (baseline, suite matrix, contamination source, guard, isolation validation, non-mutation proof, frozen baseline, decision register)"
+        ],
+        "evidence": [
+            "docs/reviews/P59/P59-B-STAGE4D-TEST-ISOLATION-AND-DATA-FREEZE.md",
+            "backend/src/db-guard.js, backend/src/db.js, backend/tests/helpers/live-guard.js",
+            "backend/tests/unit/db-guard.test.mjs (6 tests)",
+            "psql: prod 218/272/361/116/53 unchanged before/after contract+integration runs; meter_pulse_test 5/5/1 test rows",
+            ".ai/memory/PROJECT_STATE.md (10.10.0-P59B-STAGE4D)"
+        ]
     }
 ]
