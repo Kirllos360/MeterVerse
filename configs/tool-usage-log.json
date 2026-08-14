@@ -1778,5 +1778,28 @@
             "psql: production stable 223/277/361/116/53",
             ".ai/memory/PROJECT_STATE.md (10.14.0-P59C-LR2A)"
         ]
+    },
+    {
+        "task": "P59-C/LR-3 - Execution control + safe Solar Excel ImportJob implementation",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "edit", "write", "read", "Select-String", "npm", "node", "npx/vitest", "curl", "psql", "dot/graphviz", "git"],
+        "tools_used": [
+            "Track B: discovered import infra was model-only (ImportJob/ExcelJob models + multer but NO processor) -> created MeterVerse-native import-engine.js (schema registry for solar_customers/solar_invoices/solar_payments, xlsx parse, row validation, preview->execute lifecycle, applyRow to existing models) + routes/imports.js (types/upload/jobs)",
+            "Installed xlsx@0.18.5 (justified: no XLSX parser existed; openpyxl is Python-only); registered as dependency",
+            "Live-proven: uploaded real legacy Solar_Invoices_Template.xlsx -> 2796 rows, 2796 valid, 0 invalid (preview only); ImportJob persisted; production untouched",
+            "8 new import-engine unit tests; total suite 333 (315 pass + 18 skip); FE tsc 0",
+            "Track A: updated TEST-COVERAGE graph (ImportJob DONE), created WORKFLOW-SAFETY-MATRIX.md (import workflow phases + safety gates + failover status), updated SpecKit MASTER-ROADMAP (C-IMPORT DONE)",
+            "Graph validator re-run: 12 pass, 0 fail, 0 warn",
+            "P59-B safe: production 223/277/361/116/53; 639 untouched; only ImportJob table grew (additive)"
+        ],
+        "evidence": [
+            "backend/src/services/import-engine.js, backend/src/routes/imports.js",
+            "backend/tests/unit/import-engine.test.mjs (8 tests)",
+            "backend/package.json (xlsx ^0.18.5)",
+            "Live: POST /imports/upload/solar_invoices on real template -> 2796 valid/0 invalid",
+            "docs/architecture/graph/WORKFLOW-SAFETY-MATRIX.md, TEST-COVERAGE.dot (updated)",
+            "speckit/MASTER-ROADMAP.md (C-IMPORT DONE)",
+            ".ai/memory/PROJECT_STATE.md (10.15.0-P59C-LR3)"
+        ]
     }
 ]

@@ -18,9 +18,9 @@ CHANGE REQUEST → GRAPH IMPACT ANALYSIS → SPEC → PLAN → TASKS → DEPENDE
 | C-SETTLE | Settlement engine (FIXED/PERCENT/ONE_TIME) | none | settlement-engine.js + Settlement/InvoiceSettlement | vertical slice | **DONE (LR-2)** |
 | C-CHARGE | ChargeRule per_unit/zero + cap | none | generateCharges + ChargeRule.upperLimit | cross-cutting | **DONE (LR-2)** |
 | C-ISOLATE | Production/Test DB isolation | none | db-guard + live-guard | security hardening | **DONE (4D + LR-2)** |
+| C-IMPORT | Solar Excel ImportJob (3 types) | none (no OBIS) | import-engine.js + routes/imports.js + xlsx | feature | **DONE (LR-3) — preview live-proven; EXECUTE gated on approval** |
 | C-TENANCY | P59-B tenancy repair (639) | approvals #2-#6 | Customer/Meter/Reading/Invoice/Payment areaId | data repair | BLOCKED (stakeholder) |
 | C-SOLAR | Solar wallet / net metering | OBIS decision | solar-wallet-engine.js | vertical slice | BLOCKED (OBIS) |
-| C-IMPORT | Solar Excel ImportJob (3 types) | none (no OBIS) | ImportJob processor + templates | feature | READY (safe) |
 | C-SYMB | Symbiot/SEP protocol bridge | none | gateways service | infrastructure | PENDING (knowledge extract) |
 | C-TAX | SBill tax seed config | none | TariffTax/InvoiceTax seed | migration | PENDING (safe) |
 | C-CHEQUE | Cheque/POS/payment centers | settlement | Cheque/POSTerminal models | vertical slice | PENDING (evidence) |

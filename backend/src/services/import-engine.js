@@ -1,0 +1,195 @@
+import { prisma } from "../db.js"
+import { auditLog } from "../middleware/security.js"
+import { createRequire } from "module"
+
+const require = createRequire(import.meta.url)
+
+// ─── IMPORT ENGINE (P59-C/LR-3) ─────────────────────────────────────────────
+// MeterVerse-native bulk import processor. Reuses legacy Solar XLSX column
+// knowledge (recovered in P59-C/LR-1/2) but implemented with the current
+// Express + Prisma + PostgreSQL stack. Lifecycle:
+//   UPLOAD → FILE VALIDATION → SCHEMA VALIDATION → ROW VALIDATION → PREVIEW
+//   → EXECUTION → RESULT → AUDIT
+// Does NOT mutate production until an explicit execute step; never touches the
+// P59-B frozen population (639 records) or OBIS-dependent solar behavior.
+
+export const IMPORT_SCHEMAS = {
+  solar_customers: {
+    sheet: "Customers",
+    required: ["Meter Serial Electricity", "Arabic Name"],
+    columns: {
+      "Meter Serial Electricity": { type: "string", required: true },
+      "Arabic Name": { type: "string", required: true },
+      "Meter Serial Water": { type: "string" },
+      "Meter Serial Garden": { type: "string" },
+      "Initial Balance Electricity": { type: "number" },
+      "Initial Balance Water": { type: "number" },
+      "Initial Balance Garden": { type: "number" },
+      "Unit No.": { type: "string" },
+      "Email": { type: "string" },
+      "Phone 1": { type: "string" },
+    },
+  },
+  solar_invoices: {
+    sheet: "Invoices",
+    required: ["Meter Serial", "Month", "Invoice Amount"],
+    columns: {
+      "Meter Serial": { type: "string", required: true },
+      "Month": { type: "string", required: true },
+      "Invoice Amount": { type: "number", required: true },
+      "Invoice Number": { type: "string" },
+      "Solar Tag": { type: "string" },
+      "Notes": { type: "string" },
+    },
+  },
+  solar_payments: {
+    sheet: "Payments",
+    required: ["Meter Serial", "Month", "Payment Amount"],
+    columns: {
+      "Meter Serial": { type: "string", required: true },
+      "Month": { type: "string", required: true },
+      "Payment Amount": { type: "number", required: true },
+      "Payment Method": { type: "string" },
+      "Solar Tag": { type: "string" },
+      "Notes": { type: "string" },
+    },
+  },
+}
+
+function num(v) {
+  const n = typeof v === "number" ? v : parseFloat(String(v ?? "").replace(/,/g, "").trim())
+  return Number.isFinite(n) ? n : null
+}
+
+function str(v) {
+  if (v === null || v === undefined) return ""
+  return String(v).trim()
+}
+
+// Row-level validation against the schema. Returns { ok, errors }.
+export function validateRow(type, row, rowIndex) {
+  const schema = IMPORT_SCHEMAS[type]
+  if (!schema) return { ok: false, errors: [`Unknown import type ${type}`] }
+  const errors = []
+  for (const [col, spec] of Object.entries(schema.columns)) {
+    const raw = row[col]
+    if (spec.required && (raw === undefined || raw === null || str(raw) === "")) {
+      errors.push(`row ${rowIndex}: missing required '${col}'`)
+      continue
+    }
+    if (spec.type === "number" && raw !== undefined && raw !== null && str(raw) !== "") {
+      if (num(raw) === null) errors.push(`row ${rowIndex}: '${col}' not a number`)
+    }
+  }
+  return { ok: errors.length === 0, errors }
+}
+
+// Parse an uploaded workbook into typed rows for a given import type.
+export function parseWorkbook(buffer, type) {
+  const schema = IMPORT_SCHEMAS[type]
+  if (!schema) throw new Error(`Unknown import type ${type}`)
+  const { read, utils } = require("xlsx")
+  const wb = read(buffer, { type: "buffer" })
+  const sheetName = schema.sheet
+  if (!wb.SheetNames.includes(sheetName)) {
+    return { ok: false, rows: [], errors: [`Workbook missing sheet '${sheetName}' (has: ${wb.SheetNames.join(", ")})`] }
+  }
+  const sheet = wb.Sheets[sheetName]
+  const json = utils.sheet_to_json(sheet, { defval: "" })
+  const header = json.length > 0 ? Object.keys(json[0]) : []
+  const missingRequired = schema.required.filter((c) => !header.includes(c))
+  if (missingRequired.length > 0) {
+    return { ok: false, rows: [], errors: [`Missing required columns: ${missingRequired.join(", ")}`] }
+  }
+  const rows = json.map((r, i) => ({ index: i + 2, data: r }))
+  return { ok: true, rows, errors: [] }
+}
+
+// Create an ImportJob record and return its id (status preview). Validated row
+// payload is persisted on the job so execution is idempotent (no re-upload).
+export async function createImportJob({ type, fileName, rows, errors, req }) {
+  const job = await prisma.importJob.create({
+    data: {
+      type,
+      fileName,
+      status: "preview",
+      totalRows: rows.length,
+      errors: JSON.stringify({ schemaErrors: errors.slice(0, 50), rows }),
+      processed: 0,
+      failed: errors.length,
+    },
+  })
+  return job
+}
+
+// Execute a previewed import. Only rows that passed validation are processed.
+// Non-mutating for preview; mutation happens here under explicit approval.
+export async function executeImport(type, rows, { req } = {}) {
+  let processed = 0
+  let failed = 0
+  const results = []
+
+  for (const { index, data } of rows) {
+    const v = validateRow(type, data, index)
+    if (!v.ok) {
+      failed++
+      results.push({ row: index, status: "failed", errors: v.errors })
+      continue
+    }
+    try {
+      const outcome = await applyRow(type, data)
+      processed++
+      results.push({ row: index, status: "ok", id: outcome.id })
+    } catch (e) {
+      failed++
+      results.push({ row: index, status: "error", errors: [e.message] })
+    }
+  }
+  return { processed, failed, results }
+}
+
+// Apply a single validated row to the database via existing MeterVerse models.
+async function applyRow(type, data) {
+  if (type === "solar_customers") {
+    const customer = await prisma.customer.create({
+      data: {
+        name: str(data["Arabic Name"]),
+        email: str(data["Email"]) || null,
+        openingBalance: num(data["Initial Balance Electricity"]) || 0,
+      },
+    })
+    const meterSerial = str(data["Meter Serial Electricity"])
+    if (meterSerial) {
+      const meter = await prisma.meter.create({ data: { serial: meterSerial, type: "solar", status: "active" } })
+      await prisma.meter.update({ where: { id: meter.id }, data: { customerId: customer.id } })
+    }
+    return { id: customer.id }
+  }
+  if (type === "solar_invoices") {
+    const meter = await prisma.meter.findFirst({ where: { serial: str(data["Meter Serial"]) } })
+    if (!meter) throw new Error(`meter not found: ${data["Meter Serial"]}`)
+    const invoice = await prisma.invoice.create({
+      data: {
+        number: str(data["Invoice Number"]) || `SOLAR-${Date.now()}`,
+        customerId: meter.customerId,
+        amount: num(data["Invoice Amount"]),
+        status: "pending",
+      },
+    })
+    return { id: invoice.id }
+  }
+  if (type === "solar_payments") {
+    const meter = await prisma.meter.findFirst({ where: { serial: str(data["Meter Serial"]) } })
+    if (!meter) throw new Error(`meter not found: ${data["Meter Serial"]}`)
+    const payment = await prisma.payment.create({
+      data: {
+        customerId: meter.customerId,
+        amount: num(data["Payment Amount"]),
+        method: str(data["Payment Method"]) || "cash",
+        status: "completed",
+      },
+    })
+    return { id: payment.id }
+  }
+  throw new Error(`Unsupported import type ${type}`)
+}

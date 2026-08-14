@@ -1,11 +1,27 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-C/LR-2A — Master Connectivity Graph + Spec Kit control foundation)  
-**Current Phase:** P59-C — Graph & Spec Kit Control Foundation  
-**Version:** 10.14.0-P59C-LR2A  
+**Last Updated:** 2026-08-14 (P59-C/LR-3 — Execution control + Safe Solar Import progress)  
+**Current Phase:** P59-C — Execution Control + Reuse-First Implementation  
+**Version:** 10.15.0-P59C-LR3  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-3 — Execution Control + Safe Solar Import Progress (2026-08-14)
+
+**Real product progress + control-layer extension (Track A + Track B in parallel):**
+- **Track B — Solar Excel ImportJob IMPLEMENTED (MeterVerse-native):**
+  - `backend/src/services/import-engine.js` — schema registry (solar_customers/solar_invoices/solar_payments), xlsx parse (via `xlsx` lib, installed), row validation, preview→execute lifecycle (idempotent via job status), applyRow to existing Customer/Meter/Invoice/Payment models.
+  - `backend/src/routes/imports.js` — types/upload/:type (preview) + jobs/:id/execute + jobs list; multer upload; documents.* permission; audit.
+  - **Live-proven:** uploaded the real legacy `Solar_Invoices_Template.xlsx` → **2796 rows, 2796 valid, 0 invalid** (preview only, no production mutation). ImportJob persisted.
+  - 8 new unit tests; total suite 333 (315 pass + 18 skip); FE tsc 0.
+  - `xlsx@0.18.5` added to package.json (justified: no XLSX parser existed).
+- **Track A — control layer extended:** TEST-COVERAGE graph updated (ImportJob DONE); `WORKFLOW-SAFETY-MATRIX.md` created (import workflow phases + safety gates + failover status); SpecKit MASTER-ROADMAP updated (C-IMPORT DONE). Graph validator still **12 pass, 0 fail, 0 warn**.
+- **P59-B safety:** production stable 223/277/361/116/53 (verified live); 639 frozen untouched; only ImportJob table grew (additive job data).
+- **OBIS status:** unchanged — Solar Wallet still gated on OBIS decision; import EXECUTE path designed but gated on explicit approval (no fabrication).
+- **Artifacts:** `docs/architecture/graph/WORKFLOW-SAFETY-MATRIX.md` + updated TEST-COVERAGE.dot/svg + `speckit/MASTER-ROADMAP.md`.
 
 ---
 

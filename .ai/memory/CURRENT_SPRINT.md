@@ -1,5 +1,24 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-3 — Execution Control + Safe Solar Import (2026-08-14)
+
+**Goal:** Parallel — build control layer (Track A) + real safe product progress (Track B).  
+**Status:** ✅ Complete — Solar ImportJob implemented+tested; control layer extended  
+
+| Item | Result |
+|------|--------|
+| Solar ImportJob | import-engine.js + imports.js route + xlsx — **LIVE-proven 2796 rows/0 invalid** |
+| Import lifecycle | upload→validate→preview→execute (idempotent via job status, audit) |
+| Tests | 333 total (315 pass + 18 skip); 8 new import tests; FE tsc 0 |
+| Graph control | TEST-COVERAGE updated + WORKFLOW-SAFETY-MATRIX.md; validator 12/0/0 |
+| SpecKit | MASTER-ROADMAP updated (C-IMPORT DONE) |
+| P59-B | 223/277/361/116/53 stable; 639 untouched; ImportJob additive only |
+| OBIS | unchanged — solar wallet gated; import EXECUTE gated on approval |
+
+**Next:** P59-C/LR-4 — obtain import-EXECUTE approval + OBIS decision; then solar wallet + cheque/POS evidence gates.
+
+---
+
 ## P59-C/LR-2A — Master Connectivity Graph + Spec Kit Control Foundation (2026-08-14)
 
 **Goal:** Create the master graph that controls all future implementation (graph = map, Spec Kit = plan, tests = proof, git = history, governance = authority).  
