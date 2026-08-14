@@ -6,13 +6,15 @@ digraph TestCov {
   label="Test Coverage — v1.0.0 (evidence, not estimates)";
 
   node [shape=box fillcolor="#d1f5d3"];
-  UNIT [label="unit+api 333 (315 pass + 18 skip live)"];
+  UNIT [label="unit+api 353 (335 pass + 18 skip live)"];
   T_SEC [label="security 44 (requireAccess NULL→403)"];
   T_SETTLE [label="settlement 7 (LR-2)"];
   T_CHARGE [label="charge-types 7 (LR-2)"];
   T_DBGUARD [label="db-guard 6 (isolation)"];
-  T_IMPORT [label="import-engine 8 (LR-3 solar ImportJob)"];
-  IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — preview live-proven 2796 rows]" fillcolor="#fef7e0"];
+  T_IMPORT [label="import-engine 9 + tenancy 3 (LR-3/4)"];
+  T_SOLAR [label="solar-wallet 16 (LR-5)"];
+  IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — preview live-proven 2796 rows; EXECUTE verified in isolation, gated in prod]" fillcolor="#fef7e0"];
+  SOLAR_DONE [label="Solar Wallet ENGINE\n[DONE LR-5 — pure compute+persist, 16 tests; Reading capture OBIS-gated]" fillcolor="#fef7e0"];
 
   node [shape=box fillcolor="#fef7e0"];
   CONTRACT [label="contract 56 (skip unless test BE)"];
@@ -21,8 +23,8 @@ digraph TestCov {
   TSC [label="FE tsc 0"];
 
   node [shape=box fillcolor="#fff1f0"];
-  GAP1 [label="GAP: solar wallet (needs OBIS)"];
-  GAP2 [label="GAP: import EXECUTE path (design exists, execution gated on approval)"];
+  GAP1 [label="GAP: Reading obis180/280 capture (OBIS-gated)"];
+  GAP2 [label="GAP: import EXECUTE in prod (approval-gated)"];
   GAP3 [label="GAP: cheque/POS/chilled (evidence-gated)"];
 
   UNIT -> T_SEC;
@@ -30,7 +32,9 @@ digraph TestCov {
   UNIT -> T_CHARGE;
   UNIT -> T_DBGUARD;
   UNIT -> T_IMPORT;
+  UNIT -> T_SOLAR;
   T_IMPORT -> IMPORT_DONE;
+  T_SOLAR -> SOLAR_DONE;
   CONTRACT -> INTEG [style=dashed];
-  GAP1 -> GAP2 [style=dotted];
+  GAP1 -> GAP2 -> GAP3 [style=dotted];
 }

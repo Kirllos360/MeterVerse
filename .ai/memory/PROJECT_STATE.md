@@ -1,11 +1,24 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-C/LR-4 — Parallel progress control: approval closure + import hardening)  
-**Current Phase:** P59-C — Execution Control + Reuse-First Implementation  
-**Version:** 10.16.0-P59C-LR4  
+**Last Updated:** 2026-08-14 (P59-C/LR-5 — Solar wallet engine + import execute verification)  
+**Current Phase:** P59-C — Reuse-First Implementation  
+**Version:** 10.17.0-P59C-LR5  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-5 — Solar Wallet Engine + Guarded Import EXECUTE Verification (2026-08-14)
+
+**Decision gate = STATE 2 (approval requests only — none fabricated).** Safe parallel lanes:
+- **Lane B — Solar Wallet ENGINE IMPLEMENTED + TESTED:** `backend/src/services/solar-wallet-engine.js` — pure compute (net/surplus/tiered tariff/admin 2%/service 9.10) + persist via EXISTING CustomerLedgerEntry/Invoice/InvoiceItem. **16 unit tests.** OBIS boundary respected (directional inputs passed in; Reading capture NOT done). Verified runtime evidence (NOT the 2.23 myth): tiered `[(50,0.48)..(1000,1.58)]`+1.68; tier quirk reproduced (150→82 per proven runtime).
+- **Lane C — Import EXECUTE mechanism VERIFIED in isolated test DB** (meter_pulse_test via :3901): real legacy template preview 2796 valid/0 invalid; EXECUTE → processed=0 failed=2796 (all "meter not found" — correct guard, no orphan invoices); **idempotency proven (re-execute → 409)**. Production EXECUTE remains GATED.
+- **Lane D — Cheque/POS evidence classified:** legacy Cheque model (PENDING→cleared lifecycle, payment_id FK) → **ADAPT**; CurrencyType → **MISSING/business-decision**; PaymentFee → **ADAPT**; POS → **NEEDS EVIDENCE**. Not implemented (no solar dependency).
+- **Lane A — OBIS migration-ready package** documented (Option A: add Reading.obis180/280 when approved; engine already accepts directional inputs). No schema change.
+- **Tests: 353 total (335 pass + 18 skip)** — 16 new solar tests. FE tsc 0. Graph validator 12/0/0 (TEST-COVERAGE + IMPLEMENTATION-DEPENDENCY updated). Speckit roadmap (C-SOLAR ENGINE DONE, capture BLOCKED).
+- **P59-B safe:** production 223/277/361/116/53; 639 frozen untouched. OBIS + Import EXECUTE + P59-B #2–#6 all PENDING.
+- **Artifacts:** `docs/reviews/P59/P59-C-LR5-SAFE-WORK-ARTIFACTS.md` + solar-wallet-engine + 16 tests + graph/SpecKit updates.
 
 ---
 

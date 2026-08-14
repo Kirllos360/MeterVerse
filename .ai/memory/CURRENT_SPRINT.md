@@ -1,5 +1,25 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-5 — Solar Wallet Engine + Guarded Import EXECUTE (2026-08-14)
+
+**Goal:** Close decision boundary honestly (STATE 2), implement safe solar/import work in parallel.  
+**Status:** ✅ Complete — solar wallet engine implemented+tested; import EXECUTE verified in isolation  
+
+| Item | Result |
+|------|--------|
+| Solar wallet engine | solar-wallet-engine.js — **IMPLEMENTED + 16 tests** (pure compute + persist via existing ledger/invoice) |
+| OBIS boundary | Reading capture NOT done (gated); engine takes directional inputs |
+| Import EXECUTE | mechanism VERIFIED on meter_pulse_test (2796 failed/0 processed = correct guard; re-execute 409) — prod still gated |
+| Cheque/POS | classified ADAPT/MISSING/NEEDS-EVIDENCE (no implementation) |
+| Tests | 353 total (335 pass + 18 skip); FE tsc 0 |
+| Graph/SpecKit | validator 12/0/0; roadmap C-SOLAR ENGINE DONE, capture BLOCKED |
+| P59-B | 223/277/361/116/53 stable; 639 untouched |
+| Approvals | OBIS + Import EXECUTE + P59-B #2–#6 all PENDING (STATE 2) |
+
+**Next:** P59-C/LR-6 — decide OBIS (A/E) + Import EXECUTE; then Reading obis capture + solar route + cheque/POS implementation.
+
+---
+
 ## P59-C/LR-4 — Parallel Progress Control (2026-08-14)
 
 **Goal:** Parallel lanes — approval closure + safe implementation; don't let blockers stop safe work.  

@@ -1822,5 +1822,28 @@
             "psql: production 223/277/361/116/53",
             ".ai/memory/PROJECT_STATE.md (10.16.0-P59C-LR4)"
         ]
+    },
+    {
+        "task": "P59-C/LR-5 - Solar wallet engine + guarded import execute verification + cheque evidence",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "edit", "write", "read", "Select-String", "node", "npx/vitest", "psql", "curl", "dot/graphviz", "git"],
+        "tools_used": [
+            "Decision gate = STATE 2: searched repo, only request exists for OBIS A/E and Import EXECUTE (the 'Option A approved' hits are the P58 DB-architecture decision, NOT OBIS) - no approval fabricated",
+            "Lane B: implemented solar-wallet-engine.js (pure computeSolar: net/surplus/tiered tariff/admin 2%/service 9.10 + persistSolarInvoice via existing CustomerLedgerEntry/Invoice/InvoiceItem) + 16 unit tests; OBIS boundary respected (directional inputs in, no Reading capture)",
+            "Evidence-first: legacy runtime computes 150 units = 50@0.48+100@0.58 = 82 (chunk=min(remaining,limit) on cumulative limits) - engine reproduces proven runtime, test asserts 82 not band-perfect 87",
+            "Lane C: verified Import EXECUTE mechanism on isolated meter_pulse_test (:3901) - real legacy template preview 2796 valid/0 invalid; EXECUTE processed=0 failed=2796 (all meter-not-found = correct guard, no orphan invoices); idempotency proven (re-execute 409)",
+            "Lane D: read legacy Cheque/CurrencyType/PaymentFee models - classified Cheque ADAPT (PENDING->cleared lifecycle), CurrencyType MISSING/business-decision, PaymentFee ADAPT, POS NEEDS-EVIDENCE",
+            "Lane E: updated TEST-COVERAGE.dot (solar 16) + IMPLEMENTATION-DEPENDENCY.dot (engine DONE, capture gated); graph validator 12/0/0; speckit roadmap C-SOLAR ENGINE DONE",
+            "Tests 353 total (335 pass + 18 skip), 16 new; FE tsc 0; P59-B production 223/277/361/116/53 verified untouched"
+        ],
+        "evidence": [
+            "backend/src/services/solar-wallet-engine.js",
+            "backend/tests/unit/solar-wallet-engine.test.mjs (16)",
+            "docs/reviews/P59/P59-C-LR5-SAFE-WORK-ARTIFACTS.md",
+            "psql meter_pulse_test: ImportJob completed 2796 failed/0 processed (guarded execute)",
+            "docs/architecture/graph/TEST-COVERAGE.dot, IMPLEMENTATION-DEPENDENCY.dot (updated, 12/0/0)",
+            "speckit/MASTER-ROADMAP.md (C-SOLAR ENGINE DONE)",
+            ".ai/memory/PROJECT_STATE.md (10.17.0-P59C-LR5)"
+        ]
     }
 ]

@@ -10,8 +10,9 @@ digraph ImplDep {
   DONE_SETTLE [label="Settlement engine\n[DONE LR-2]" fillcolor="#d1f5d3"];
   DONE_CHARGE [label="ChargeRule per_unit/zero\n[DONE LR-2]" fillcolor="#d1f5d3"];
   DONE_ISO [label="Test isolation\n[DONE 4D + LR-2 fix]" fillcolor="#d1f5d3"];
-  P1_SOLAR [label="Solar wallet engine\n[gated: OBIS]"];
-  P1_EXCEL [label="Solar Excel ImportJob\n[safe — no OBIS dep]" fillcolor="#fef7e0"];
+  DONE_SOLAR [label="Solar wallet ENGINE (pure)\n[DONE LR-5 - 16 tests]" fillcolor="#d1f5d3"];
+  P1_SOLAR_CAP [label="Reading obis180/280 capture\n[gated: OBIS]"];
+  P1_EXCEL [label="Solar Excel ImportJob\n[safe - no OBIS dep]" fillcolor="#fef7e0"];
   P2_SYMB [label="Symbiot/SEP protocol bridge\n[extract knowledge]"];
   P2_TAX [label="SBill tax seed config\n[safe]"];
   P3_CHEQUE [label="Cheque/POS\n[evidence-gated]"];
@@ -19,8 +20,9 @@ digraph ImplDep {
   P3_MIGRATE [label="SBill data migration\n[gated: P59-B + OBIS]" fillcolor="#fff1f0"];
 
   P1_EXCEL -> DONE_ISO;
-  P1_SOLAR -> P0b;
-  P1_SOLAR -> DONE_SETTLE [style=dashed label="uses settlement/ledger"];
+  P1_SOLAR_CAP -> P0b;
+  P1_SOLAR_CAP -> DONE_SOLAR [style=dashed label="feeds computeSolar"];
+  DONE_SOLAR -> DONE_SETTLE [style=dashed label="uses ledger/invoice"];
   P3_MIGRATE -> P0a;
   P3_MIGRATE -> P0b;
   P3_CHEQUE -> DONE_SETTLE [style=dashed];
