@@ -22,14 +22,16 @@ router.get("/", requirePermission("customers.list"), async (req, res, next) => {
     const search = req.query.search
     // P59 tenancy: merge the user's area/project scope (fail-closed) and clamp
     // any client-supplied areaId/projectId to the user's allowed scope.
+    // NOTE: Customer model has areaId but NO projectId column - only filter by area.
     const clamp = clampRequestedScope(req)
     if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
+    const scope = scopeWhere(req)
+    delete scope.projectId // Customer has no projectId column
     const where = {
       archivedAt: null,
-      ...scopeWhere(req),
+      ...scope,
       ...(search ? { OR: [{ name: { contains: search } }, { email: { contains: search } }] } : {}),
       ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}),
-      ...(clamp.projectId ? { projectId: String(clamp.projectId) } : {}),
     }
     const [customers, total] = await Promise.all([
       prisma.customer.findMany({ where, skip: (page - 1) * limit, take: limit, orderBy: { createdAt: "desc" } }),
@@ -43,7 +45,9 @@ router.get("/export", requirePermission("customers.create"), async (req, res, ne
   try {
     const clamp = clampRequestedScope(req)
     if (!clamp.ok) return res.status(403).json({ error: "Area/project access denied", code: "AREA_RESTRICTED" })
-    const customers = await prisma.customer.findMany({ where: { archivedAt: null, ...scopeWhere(req), ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" } })
+    const escope = scopeWhere(req)
+    delete escope.projectId // Customer has no projectId column
+    const customers = await prisma.customer.findMany({ where: { archivedAt: null, ...escope, ...(clamp.areaId ? { areaId: String(clamp.areaId) } : {}) }, orderBy: { createdAt: "desc" } })
     const header = "id,name,email,phone,status,area,createdAt"
     const rows = customers.map(c => `${c.id},${c.name || ""},${c.email || ""},${c.phone || ""},${c.status || ""},${c.area || ""},${c.createdAt?.toISOString() || ""}`)
     res.setHeader("Content-Type", "text/csv")
@@ -56,6 +60,7 @@ router.get("/export", requirePermission("customers.create"), async (req, res, ne
 router.get("/stats", requirePermission("customers.list"), async (req, res, next) => {
   try {
     const sw = { archivedAt: null, ...scopeWhere(req) }
+    delete sw.projectId // Customer has no projectId column
     const [total, active, inactive, maintenance, terminated] = await Promise.all([
       prisma.customer.count({ where: sw }),
       prisma.customer.count({ where: { ...sw, status: "active" } }),

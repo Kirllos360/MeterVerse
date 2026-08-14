@@ -2,7 +2,17 @@
 import { prisma } from '../helpers/setup.js';
 
 const BASE = 'http://localhost:3131';
-const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' };
+
+// P59: X-Dev-Mode bypass gated off - use real auth.
+let AUTH;
+beforeAll(async () => {
+  const login = await fetch(`${BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'admin@meterverse.com', password: 'Admin@123', system_type: 'admin' }),
+  });
+  const d = await login.json();
+  AUTH = { 'Authorization': `Bearer ${d.accessToken}`, 'Content-Type': 'application/json' };
+}, 15000);
 
 async function waitForBackend(retries = 10, delay = 1000) {
   for (let i = 0; i < retries; i++) {

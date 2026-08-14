@@ -1,9 +1,20 @@
-﻿import { describe, it, expect } from 'vitest';
+﻿import { describe, it, expect, beforeAll } from 'vitest';
 const BASE = 'http://localhost:3131';
-const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' };
 async function waitForBackend(r = 5, d = 500) { for (let i = 0; i < r; i++) { try { const res = await fetch(`${BASE}/api/health`, { signal: AbortSignal.timeout(2000) }); if (res.status === 200) return true } catch {} await new Promise(x => setTimeout(x, d)) } return false }
 const ready = await waitForBackend();
 const dfn = ready ? describe : describe.skip;
+
+// P59: X-Dev-Mode bypass is gated behind ALLOW_DEV_BYPASS=true (off by default).
+// These live-API tests must use REAL authentication now.
+let AUTH;
+beforeAll(async () => {
+  const login = await fetch(`${BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'admin@meterverse.com', password: 'Admin@123', system_type: 'admin' }),
+  });
+  const d = await login.json();
+  AUTH = { 'Authorization': `Bearer ${d.accessToken}`, 'Content-Type': 'application/json' };
+}, 15000);
 
 dfn('Customers API', () => {
   let id;

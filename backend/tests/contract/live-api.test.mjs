@@ -4,12 +4,23 @@
  * No mocks. No stubs. Real requests, real responses, real database.
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll } from 'vitest';
 
 const BASE = process.env.CONTRACT_BASE_URL || 'http://localhost:3131';
-const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' };
+// P59: X-Dev-Mode bypass gated behind ALLOW_DEV_BYPASS=true (off by default).
+// Live contract tests use REAL authentication.
+let AUTH;
 const GET = (url) => fetch(`${BASE}${url}`, { headers: AUTH }).then(r => ({ status: r.status, body: r.json() }));
 const POST = (url, body) => fetch(`${BASE}${url}`, { method: 'POST', headers: AUTH, body: JSON.stringify(body) }).then(r => ({ status: r.status, body: r.json() }));
+
+beforeAll(async () => {
+  const login = await fetch(`${BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'admin@meterverse.com', password: 'Admin@123', system_type: 'admin' }),
+  });
+  const d = await login.json();
+  AUTH = { 'Authorization': `Bearer ${d.accessToken}`, 'Content-Type': 'application/json' };
+}, 15000);
 
 // Check if backend is reachable before running live tests (retry with backoff)
 async function waitForBackend(retries = 10, delay = 1000) {

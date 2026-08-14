@@ -8,13 +8,23 @@
  * roles, connection profiles, audit entries.
  */
 
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 
 const BASE = process.env.CONTRACT_BASE_URL || 'http://localhost:3131'
-const AUTH = { 'Authorization': 'Bearer dev', 'X-Dev-Mode': 'true', 'Content-Type': 'application/json' }
+// P59: X-Dev-Mode bypass gated off - use REAL auth.
+let AUTH
 const req = (method, url, body) =>
   fetch(`${BASE}${url}`, { method, headers: AUTH, body: body ? JSON.stringify(body) : undefined })
     .then(async r => ({ status: r.status, body: await r.json() }))
+
+beforeAll(async () => {
+  const login = await fetch(`${BASE}/api/auth/login`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: 'admin@meterverse.com', password: 'Admin@123', system_type: 'admin' }),
+  })
+  const d = await login.json()
+  AUTH = { 'Authorization': `Bearer ${d.accessToken}`, 'Content-Type': 'application/json' }
+}, 15000)
 
 async function waitForBackend(retries = 10, delay = 1000) {
   for (let i = 0; i < retries; i++) {
