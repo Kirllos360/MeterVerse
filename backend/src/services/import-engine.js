@@ -13,6 +13,8 @@ const require = createRequire(import.meta.url)
 // Does NOT mutate production until an explicit execute step; never touches the
 // P59-B frozen population (639 records) or OBIS-dependent solar behavior.
 
+export const MAX_IMPORT_ROWS = 50000
+
 export const IMPORT_SCHEMAS = {
   solar_customers: {
     sheet: "Customers",
@@ -96,6 +98,9 @@ export function parseWorkbook(buffer, type) {
   }
   const sheet = wb.Sheets[sheetName]
   const json = utils.sheet_to_json(sheet, { defval: "" })
+  if (json.length > MAX_IMPORT_ROWS) {
+    return { ok: false, rows: [], errors: [`Workbook exceeds MAX_IMPORT_ROWS (${json.length} > ${MAX_IMPORT_ROWS})`] }
+  }
   const header = json.length > 0 ? Object.keys(json[0]) : []
   const missingRequired = schema.required.filter((c) => !header.includes(c))
   if (missingRequired.length > 0) {

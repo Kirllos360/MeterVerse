@@ -1801,5 +1801,26 @@
             "speckit/MASTER-ROADMAP.md (C-IMPORT DONE)",
             ".ai/memory/PROJECT_STATE.md (10.15.0-P59C-LR3)"
         ]
+    },
+    {
+        "task": "P59-C/LR-4 - Parallel progress control: approval closure package + import hardening + tenancy tests",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "edit", "write", "read", "Select-String", "node", "npx/vitest", "psql", "dot/graphviz", "git"],
+        "tools_used": [
+            "Lane E: created docs/reviews/P59/P59-C-LR4-APPROVAL-CLOSURE.md - concise decision requests for OBIS (Option A short-term, E long-term) and Import EXECUTE (preview vs execute, scope, rollback, audit) - no approval fabricated, both PENDING",
+            "Lane F: added MAX_IMPORT_ROWS=50000 guard to import-engine.js parseWorkbook (rejects oversized workbooks) + unit test",
+            "Lane F: added import-tenancy.test.mjs (3 tests: documents.* permission fail-closed for viewer, admin allowed, requireAccess NULL-area deny for scoped user = import EXECUTE writes must respect tenancy)",
+            "Lanes A-D: reused existing control layer (12 graphs + SpecKit roadmap + WORKFLOW-SAFETY-MATRIX) - validated graph 12/0/0 and speckit 100%, no duplication",
+            "Test suite 337 total (319 pass + 18 skip), 4 new tests; FE tsc 0; runtime smoke (import types live)",
+            "P59-B safe: production 223/277/361/116/53 verified; 639 untouched; OBIS + Import EXECUTE + P59-B #2-#6 all PENDING"
+        ],
+        "evidence": [
+            "docs/reviews/P59/P59-C-LR4-APPROVAL-CLOSURE.md",
+            "backend/src/services/import-engine.js (MAX_IMPORT_ROWS)",
+            "backend/tests/unit/import-tenancy.test.mjs (3), import-engine.test.mjs (9)",
+            "npx vitest: 337 total 319 pass/18 skip; graph 12/0/0; speckit 100%",
+            "psql: production 223/277/361/116/53",
+            ".ai/memory/PROJECT_STATE.md (10.16.0-P59C-LR4)"
+        ]
     }
 ]

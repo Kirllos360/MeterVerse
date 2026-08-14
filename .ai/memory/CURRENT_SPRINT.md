@@ -1,5 +1,23 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-4 — Parallel Progress Control (2026-08-14)
+
+**Goal:** Parallel lanes — approval closure + safe implementation; don't let blockers stop safe work.  
+**Status:** ✅ Complete — approval packages produced; import hardening + tenancy tests added  
+
+| Item | Result |
+|------|--------|
+| Lane E | Approval Closure Package (OBIS A/E + Import EXECUTE) — PENDING, no fabrication |
+| Lane F | MAX_IMPORT_ROWS=50000 guard + 3 tenancy-path tests |
+| Tests | 337 total (319 pass + 18 skip); 4 new; FE tsc 0 |
+| Control layer | reused 12 graphs + SpecKit + WORKFLOW-SAFETY-MATRIX — validated 12/0/0, 100% |
+| P59-B | 223/277/361/116/53 stable; 639 untouched |
+| Blockers | OBIS, Import EXECUTE, P59-B #2–#6 all PENDING |
+
+**Next:** P59-C/LR-5 — decision on OBIS + Import EXECUTE (approval packages ready); then solar wallet + cheque/POS evidence gates.
+
+---
+
 ## P59-C/LR-3 — Execution Control + Safe Solar Import (2026-08-14)
 
 **Goal:** Parallel — build control layer (Track A) + real safe product progress (Track B).  

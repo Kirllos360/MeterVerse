@@ -6,7 +6,7 @@ vi.mock('../../src/services/notification-engine.js', () => ({ processEvent: vi.f
 vi.mock('../../src/db.js', () => ({ prisma, default: prisma }));
 vi.mock('../../src/middleware/security.js', () => ({ auditLog: vi.fn() }));
 
-const { validateRow, IMPORT_SCHEMAS, executeImport, createImportJob } = await import('../../src/services/import-engine.js');
+const { validateRow, IMPORT_SCHEMAS, executeImport, createImportJob, MAX_IMPORT_ROWS } = await import('../../src/services/import-engine.js');
 
 describe('P59-C/LR-3 import engine (Solar Excel ImportJob, MeterVerse-native)', () => {
   beforeEach(() => { resetPrismaMocks(); vi.clearAllMocks(); });
@@ -68,5 +68,9 @@ describe('P59-C/LR-3 import engine (Solar Excel ImportJob, MeterVerse-native)', 
     const payload = JSON.parse(prisma.importJob.create.mock.calls[0][0].data.errors);
     expect(payload.rows).toHaveLength(1);
     expect(job.id).toBe('job-1');
+  });
+
+  it('exposes a bounded MAX_IMPORT_ROWS guard', () => {
+    expect(MAX_IMPORT_ROWS).toBe(50000);
   });
 });

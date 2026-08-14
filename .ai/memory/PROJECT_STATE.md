@@ -1,11 +1,23 @@
 # MeterVerse — Project State
 
-**Last Updated:** 2026-08-14 (P59-C/LR-3 — Execution control + Safe Solar Import progress)  
+**Last Updated:** 2026-08-14 (P59-C/LR-4 — Parallel progress control: approval closure + import hardening)  
 **Current Phase:** P59-C — Execution Control + Reuse-First Implementation  
-**Version:** 10.15.0-P59C-LR3  
+**Version:** 10.16.0-P59C-LR4  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-4 — Parallel Progress Control (2026-08-14)
+
+**Parallel lanes: approval closure (E) + safe implementation (F) — blockers did NOT stop safe work.**
+- **Lane E — Approval Closure Package:** `docs/reviews/P59/P59-C-LR4-APPROVAL-CLOSURE.md` — concise decision requests for OBIS (Option A short-term / E long-term) + Import EXECUTE (preview vs execute, scope, rollback, audit). **No approval fabricated — both PENDING.**
+- **Lane F — Safe Implementation (import preview hardening):** added `MAX_IMPORT_ROWS = 50000` guard in `import-engine.js` (parseWorkbook rejects oversized workbooks) + test; added `import-tenancy.test.mjs` (3 tests: documents.* permission fail-closed for viewer, admin allowed, requireAccess NULL-area deny for scoped user = import EXECUTE writes must respect tenancy).
+- **Test suite now 337 total (319 pass + 18 skip)** — 4 new tests (1 cap + 3 tenancy). FE tsc 0. Graph validator 12/0/0. Speckit 100%.
+- **Lanes A-D reused existing control layer** (12 graphs + SpecKit roadmap + WORKFLOW-SAFETY-MATRIX from LR-2A/3) — validated, not duplicated.
+- **P59-B safe:** production 223/277/361/116/53 (verified live); 639 frozen untouched. OBIS + Import EXECUTE + P59-B #2–#6 all remain PENDING (no fabrication).
+- **Artifacts:** `P59-C-LR4-APPROVAL-CLOSURE.md` + import-engine MAX_IMPORT_ROWS + import-tenancy tests.
 
 ---
 
