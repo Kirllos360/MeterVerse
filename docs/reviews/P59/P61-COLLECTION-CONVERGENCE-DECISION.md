@@ -118,3 +118,33 @@ The smallest proven reusable units are the **calculation/parsing engines** (char
 - Known blockers (approval-gated, NOT failures): Import EXECUTE, OBIS, P59-B #2–#6, Wave 4
 - Known debt (documented, separate from blockers): chilled-water settlement, CurrencyType/POSTerminal, downloadable fillable templates parity (Collection had 9; MeterVerse has upload+preview not download-fillable), water-balance model unverified
 - UNKNOWN/NOT TESTED: full import execute (approval-gated), solar compute invoice generation in UI, PDF download flow in UI
+
+## 10. CROSS-PROJECT IMPORT CLASSIFICATION (§20) — EVIDENCE-BASED
+
+**Dependency:** backend/src/routes/{rca,intelligence,knowledge}.js → D:\meter\src\intelligence/** (10 modules) → backend/src/{db.js, services/logger.js}
+
+**Evidence:**
+- 10 files exist in D:\meter\src\intelligence (rca engine/evidence/five-whys/recommendation/learning; agent runtime; knowledge repository; tool registry; audit service; model router).
+- 3 routes (rca, intelligence, knowledge) are MOUNTED in server.js (production).
+- Cross-modules import BACK into backend (AgentRuntime→logger.js; KnowledgeRepository→db.js+logger.js) = CIRCULAR cross-root coupling.
+- Backend startup log confirms live load: "MODULE_TYPELESS_PACKAGE_JSON Warning: Module type of file:///D:/meter/src/intelligence/runtime/agent-engine/AgentRuntime.js is not specified" (D:\meter has no package.json "type": "module").
+- D:\meter\src is a 16-file sibling module (intelligence + design-system + app/api/meterverse BFF stubs), NOT the Collection System.
+
+**Classification:** 
+- Why it exists: P46-era intelligence/RCA engine was authored in a sibling D:\meter\src tree and wired into backend routes.
+- Required? The 3 routes are mounted & functional (RCA/knowledge/intelligence features). Removing = feature loss.
+- Isolate? Would require moving 10 files into backend/src (or an npm-linked package) + fixing type:module.
+- Safe temporarily? YES — imports resolve, only a performance warning (type:module missing).
+- Build/runtime/deploy risk: LOW (works in production today); MEDIUM if D:\meter\src is ever deleted or repackaged.
+- Remediation path: (1) short-term = add "type":"module" to a D:\meter/src/package.json OR change imports to .mjs; (2) medium = move intelligence/* into backend/src/intelligence; (3) long = extract to a versioned internal package.
+- Action: DOCUMENT + classify as KNOWN DEBT (safe, isolated, functional). NOT removed (would break features). NOT expanded.
+
+## 11. RUNTIME BLOCKER — POSTGRESQL DOWN (memory exhaustion)
+
+**ERROR (forensic):**
+- SOURCE: environment / Windows
+- FIRST OBSERVED: 17:18 (first prisma.syncLog DB failure in backend.log)
+- ROOT CAUSE: 8GB RAM exhausted (Free=1MB; Memory Compression=1090MB; OpenCode host 723+345+128MB; Edge ~450MB; Defender 228MB). PostgreSQL startup → child process exception 0xC0000142 (STATUS_DLL_INIT_FAILED, memory allocation failure).
+- DATA SAFETY: INTACT — pg recovery completed ("database system is ready to accept connections"), redo done, checkpoint complete; 6 base dirs + WAL present; reading 9988.5 on disk.
+- IMPACT ON P61: All P61 implementation verified 17:12-17:26 while DB was UP. Post-17:30 runtime re-checks degraded. Final live re-certification BLOCKED until memory freed.
+- REMEDIATION: free RAM (close Edge tabs / restart machine), then: pg_ctl start -D "C:\Program Files\PostgreSQL\16\data" -l "…\pg_startup.log" -w -t 60 → verify fingerprint → re-run p60-check.mjs + adddata-check.mjs.
