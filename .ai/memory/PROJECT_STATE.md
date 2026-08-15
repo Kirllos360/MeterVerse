@@ -1,12 +1,22 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60.1 - Enterprise execution control + reuse forensic)  
-**Current Phase:** P60.1 - Runtime Reliability Gate + Collection Reuse  
-**Version:** 10.20.0-P60.1  
+**Last Updated:** 2026-08-15 (P60.2 - Runtime recovery + Collection forensic)  
+**Current Phase:** P60.2 - Enterprise Runtime Recovery + Certification Loop  
+**Version:** 10.20.0-P60.2  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.2 - Enterprise Runtime Recovery + Collection Forensic (2026-08-15)
+
+**Rediscovery-first gate (nothing inherited). All state re-verified.**
+- **PostgreSQL :5433:** forensic recovery EXHAUSTED - 0xC0000142 (memory ceiling, FreeVirtual 15MB), data INTACT (139MB, 6 base dirs, WAL), non-admin blocks net start. ENVIRONMENTAL BLOCKER.
+- **Non-DB certification PASS:** admin persistence (same PIDs 60s), browser add-data/upload/customers 0 errors, FE tsc 0, 371 tests (353/18), security+tenancy 49/49, solar-wallet 16/16, import-engine 15/15, Graph 12/0/0, SpecKit 100%.
+- **Collection forensic:** 10 named capabilities all verified in Collection System; P60.2 reuse matrix (25 capabilities, classes A-F). Priority: template (done) > solar invoice > portal.
+- **Artifacts:** docs/reviews/P60/P60.2-{COLLECTION-REUSE-MATRIX,CERTIFICATION}.md.
+- **Blockers unchanged:** Import EXECUTE, OBIS, P59-B #2-6, Wave 4 (approval). Chilled-water = top evidence-gated next.
+
 
 ## P60.1 - Enterprise Execution Control (2026-08-15)
 

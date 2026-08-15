@@ -1941,5 +1941,17 @@
             "dot: LEGACY-REUSE.svg regenerated after graph edge added",
             "tsc: FE 0 errors; next build: admin FE rebuilt (template button)"
         ]
+    },
+    {
+        "task": "P60.2: Enterprise runtime recovery + Collection forensic + full-system cert loop",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "psql", "node-fetch", "playwright", "tsc", "vitest", "dot/graphviz", "memory-graph"],
+        "tools_used": [
+            "rediscovery: git HEAD/clean, services, RAM, PG (all re-verified, nothing inherited)",
+            "PG forensic: service/version/port/data-dir/WAL/postmaster.pid/stale-procs/disk/memory; 7x pg_ctl attempts -> 0xC0000142 BLOCKED",
+            "playwright: add-data/upload/customers pages render 0 errors; Template button live",
+            "vitest: 353/371 full, security+tenancy 49/49, solar-wallet 16/16, import-engine 15/15",
+            "git: HEAD 3f671c0b verified; graph 12/0/0; speckit 100%"
+        ]
     }
 ]
