@@ -344,6 +344,8 @@ mount("/notifications", notificationsRouter)
 mount("/meter-assignments", meterAssignmentRouter)
 mount("/preferences", preferencesRouter)
 mount("/communication", communicationRouter)
+// P60: areas endpoint is portal-safe (area selector on portal home).
+mount("/locations", locationsRouter)
 
 // Cloudflare AI bridge (mounted at /api level)
 API_PREFIXES.forEach(p => app.use(p, aiCloudflareRouter))

@@ -129,6 +129,23 @@ router.get("/dashboard/summary", requirePermission("customers.read"), async (_re
   } catch (err) { next(err) }
 })
 
+// ─── Portal areas (area selector) ────────────────────────────────────────────
+// Portal-accessible area list so the portal's area dropdown works.
+router.get("/areas", requirePermission("customers.read"), async (_req, res, next) => {
+  try {
+    const areas = await prisma.area.findMany({ where: { status: { not: "archived" } }, orderBy: { name: "asc" } })
+    res.json({ areas })
+  } catch (err) { next(err) }
+})
+
+// ─── Portal areas alias at /locations/areas (FE area selector uses this path) ─
+router.get("/locations/areas", requirePermission("customers.read"), async (_req, res, next) => {
+  try {
+    const areas = await prisma.area.findMany({ where: { status: { not: "archived" } }, orderBy: { name: "asc" } })
+    res.json({ areas })
+  } catch (err) { next(err) }
+})
+
 // ─── Solar invoices (portal-facing) ──────────────────────────────────────────
 // Lists a customer's solar invoices (numbers starting "SOLAR-" or "INV-" with
 // solar origin) for the portal invoice view. Permission-gated; area safety is
