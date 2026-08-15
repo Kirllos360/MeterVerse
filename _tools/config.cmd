@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 :: MeterVerse Tool Configuration — Shared settings for all tools
 :: Edit this file to change ports, paths, and repo settings
 :: P54: Admin (:3535) and Portal (:3030) are SEPARATE standalone apps.
