@@ -1,13 +1,24 @@
 ﻿# MeterVerse â€” Project State
-
-**Last Updated:** 2026-08-14 (P59-C/LR-7 â€” Solar route implemented + live-verified)  
-**Current Phase:** P59-C â€” Reuse-First Implementation  
-**Version:** 10.20.0-P59C-LR7DEEP  
-**Branch:** main (P59-B/P59-C commits)  
+**Last Updated:** 2026-08-15 (P60 - Forensic validation + runtime zero-error)  
+**Current Phase:** P60 - Deep Forensic Validation + Collection Reuse Decision  
+**Version:** 10.20.0-P60  
+**Branch:** main (HEAD 9bdcf3fd, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+- Artifact: docs/reviews/P59/P60-FORENSIC-VALIDATION-AND-REUSE-DECISION.md (failure-family analysis + component classification + verified state).
+- **PERMANENT PREVENTION RULE:** every FE/BE integration milestone requires a Playwright browser test (login, API status capture, no 4xx/5xx, profile-correct API base portal->3003/admin->3131, reload survival); every runtime tool must PROBE before claiming RUNNING.
+- **Runtime fixes:** portal /locations/areas 404 fixed (mount locationsRouter in portal-safe block + areas routes). Browser-verified: Admin 13 API OK / 0 err; Portal 7 API OK / 0 err (SITE OK both).
+- Evidence-gated (not yet recovered): chilled-water settlement, CurrencyType, POSTerminal.
+- Collection business logic ALREADY recovered: settlement-engine (FIXED/PERCENT/ONE_TIME), solar-wallet-engine, cheque-engine, import-engine, per_unit/zero charge types.
+- MeterVerse = Node/Express/Prisma (48 services, 67 routes, 189 models, 41 test files, 368 tests) - backend NOT swapped.
+- Collection = Python/Flask/SQLAlchemy (19 routes, 58 models, 3 smoke tests) - CANNOT serve Next.js+Prisma frontend.
+**Decision: C - HYBRID REUSE (keep MeterVerse backend, reuse Collection business LOGIC).** Evidence:
+
+## P60 - Forensic Validation + Reuse Decision (2026-08-15)
+
 
 ## P59-C/LR-7 Deep-Completion (2026-08-14)
 
