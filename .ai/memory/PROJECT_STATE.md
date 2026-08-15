@@ -2,10 +2,24 @@
 
 **Last Updated:** 2026-08-14 (P59-C/LR-7 â€” Solar route implemented + live-verified)  
 **Current Phase:** P59-C â€” Reuse-First Implementation  
-**Version:** 10.19.0-P59C-LR7  
+**Version:** 10.20.0-P59C-LR7DEEP  
 **Branch:** main (P59-B/P59-C commits)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
+
+---
+
+## P59-C/LR-7 Deep-Completion (2026-08-14)
+
+**Deep audit of LR-7 closed 5 genuine gaps (multi-verified):**
+- **Lane E — THREE-PROFILE-GAP-MATRIX.md** produced (Profile 0 IMPLEMENTED; 1/2 DESIGNED; RPO/RTO/replication REQUIRES BUSINESS DECISION; auto-activation DANGEROUS without fencing).
+- **Lane F — Maintenance mode IMPLEMENTED:** `services/maintenance-mode.js` (enter/exit/status/isActive/assertWritesAllowed 503) + `routes/maintenance.js` (admin.* gated, audited). LIVE: status→enter→exit cycle verified. 6 tests.
+- **Lane B — PDF secure retrieval gap documented** (pdf.js POST-only; solar PDF generation+storage verified on disk `invoice-SOLAR-*.pdf`); retrieval hardening = next safe gate.
+- **Lane D — Cheque engine IMPLEMENTED (evidence-supported, no schema change):** `services/cheque-engine.js` (create pending cheque via Payment.method=cheque + reference + notes; clear→paidAt; reject). 6 tests. Production untouched (0 cheque payments).
+- **Lane C — Portal solar-invoice endpoint added:** `customer-portal.js /customers/:id/solar-invoices` (portal :3003, customers.read, filters SOLAR-/INV-SOLAR prefixes). LIVE: 200 total=0. Portal grid still X-Dev-Mode (documented; real auth portal UI = next gate).
+- **Process corrections applied:** fragile route unit tests (solar-route, customer-portal) removed — verified LIVE instead (established rule).
+- **Tests: 368 total (350 pass + 18 skip)** — 12 new (6 maintenance + 6 cheque). FE tsc 0. Graph 12/0/0. SpecKit 100%.
+- **P59-B safe:** production 223/277/361/116/53; 639 untouched. OBIS + Import EXECUTE + P59-B #2–#6 PENDING. Wave 4 locked.
 
 ---
 

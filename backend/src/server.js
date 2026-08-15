@@ -40,6 +40,7 @@ import { billingRouter } from "./routes/billing.js"
 import { settlementsRouter } from "./routes/settlements.js"
 import { importsRouter } from "./routes/imports.js"
 import { solarRouter } from "./routes/solar.js"
+import { maintenanceRouter } from "./routes/maintenance.js"
 import { intelligenceRouter } from "./routes/intelligence.js"
 import { knowledgeRouter } from "./routes/knowledge.js"
 import { rcaRouter } from "./routes/rca.js"
@@ -305,6 +306,7 @@ if (!PORTAL_MODE) {
   mount("/settlements", settlementsRouter)
   mount("/imports", importsRouter)
   mount("/solar", solarRouter)
+  mount("/maintenance", maintenanceRouter)
   mount("/admin", configRouter)
   mount("/locations", locationsRouter)
   mount("/intelligence", intelligenceRouter)

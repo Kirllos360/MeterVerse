@@ -1,5 +1,26 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-7 Deep-Completion (2026-08-14)
+
+**Goal:** Deep-audit LR-7, close all genuine gaps, multi-verify.  
+**Status:** ✅ Complete — 5 gaps closed (maintenance + cheque + portal + profiles + PDF-gap doc)  
+
+| Item | Result |
+|------|--------|
+| Lane E | THREE-PROFILE-GAP-MATRIX.md (Profile 0 impl; 1/2 designed; RPO/RTO = business decision) |
+| Lane F | Maintenance mode IMPLEMENTED (service + route + 6 tests) — LIVE enter/exit verified |
+| Lane B | Solar PDF generation+storage verified; retrieval gap documented |
+| Lane D | Cheque engine IMPLEMENTED (no schema change, 6 tests) — prod untouched |
+| Lane C | Portal solar-invoices endpoint added — LIVE 200 (portal :3003) |
+| Tests | 368 total (350 pass + 18 skip); 12 new; FE tsc 0 |
+| Graph/SpecKit | 12/0/0; 100% |
+| P59-B | 223/277/361/116/53 stable; 639 untouched |
+| Approvals | OBIS + Import EXECUTE + P59-B #2–#6 PENDING (STATE 2) |
+
+**Next:** P59-C/LR-8 — decide OBIS (A/E) + Import EXECUTE; then Reading obis capture → real-auth portal UI + PDF retrieval hardening + import EXECUTE enable.
+
+---
+
 ## P59-C/LR-7 — Solar Route + Operational Delivery (2026-08-14)
 
 **Goal:** Implement the solar route (approval-independent) + deliver operational value.  

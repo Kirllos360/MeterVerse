@@ -114,4 +114,24 @@ router.get("/customers/:id/timeline", requirePermission("customers.read"), async
   } catch (err) { next(err) }
 })
 
+// ─── Solar invoices (portal-facing) ──────────────────────────────────────────
+// Lists a customer's solar invoices (numbers starting "SOLAR-" or "INV-" with
+// solar origin) for the portal invoice view. Permission-gated; area safety is
+// enforced by the caller's scope + customer lookup.
+router.get("/customers/:id/solar-invoices", requirePermission("customers.read"), async (req, res, next) => {
+  try {
+    const invoices = await prisma.invoice.findMany({
+      where: {
+        customerId: req.params.id,
+        archivedAt: null,
+        OR: [{ number: { startsWith: "SOLAR-" } }, { number: { startsWith: "INV-SOLAR" } }],
+      },
+      orderBy: { createdAt: "desc" },
+      take: 50,
+      select: { id: true, number: true, amount: true, status: true, dueDate: true, issuedAt: true, createdAt: true },
+    })
+    res.json({ invoices, total: invoices.length })
+  } catch (err) { next(err) }
+})
+
 export { router as customerPortalRouter }

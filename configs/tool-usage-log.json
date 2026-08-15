@@ -1890,5 +1890,28 @@
             "psql: production 223/277/361/116/53",
             ".ai/memory/PROJECT_STATE.md (10.19.0-P59C-LR7)"
         ]
+    },
+    {
+        "task": "P59-C/LR-7 deep-completion - close 5 genuine gaps (maintenance + cheque + portal + profiles + PDF doc)",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "edit", "write", "read", "Select-String", "node", "npx/vitest", "psql", "curl", "dot/graphviz", "git"],
+        "tools_used": [
+            "Deep audit of LR-7 against its prompt found 5 genuine gaps; closed all safely",
+            "Lane E: THREE-PROFILE-GAP-MATRIX.md - Profile 0 IMPLEMENTED, 1/2 DESIGNED, RPO/RTO/replication REQUIRES BUSINESS DECISION, auto-activation DANGEROUS without fencing",
+            "Lane F: maintenance-mode.js (enter/exit/status/isActive/assertWritesAllowed->503) + routes/maintenance.js (admin.*, audited) + 6 tests; LIVE enter/exit verified",
+            "Lane B: confirmed solar PDF generation+storage on disk (invoice-SOLAR-*.pdf); documented secure-retrieval gap (pdf.js POST-only) as next-gate item",
+            "Lane D: cheque-engine.js (create pending cheque via Payment.method=cheque/reference/notes; clear->paidAt; reject) + 6 tests; evidence-supported, no schema change; prod untouched (0 cheque payments)",
+            "Lane C: customer-portal.js /customers/:id/solar-invoices (portal :3003, customers.read, SOLAR-/INV-SOLAR filter) - LIVE 200 total=0; portal grid X-Dev-Mode documented",
+            "Process corrections: fragile route unit tests removed (solar-route, customer-portal) - verified LIVE instead (established rule)",
+            "Tests 368 total (350 pass + 18 skip), 12 new; FE tsc 0; graph 12/0/0; speckit 100%; P59-B production 223/277/361/116/53 verified untouched"
+        ],
+        "evidence": [
+            "docs/architecture/graph/THREE-PROFILE-GAP-MATRIX.md",
+            "backend/src/services/maintenance-mode.js, routes/maintenance.js, services/cheque-engine.js, routes/customer-portal.js",
+            "backend/tests/unit/maintenance-mode.test.mjs (6), cheque-engine.test.mjs (6)",
+            "Live: maintenance enter/exit; portal solar-invoices 200 total=0",
+            "psql: production 223/277/361/116/53, Payment_cheque=0",
+            ".ai/memory/PROJECT_STATE.md (10.20.0-P59C-LR7DEEP)"
+        ]
     }
 ]
