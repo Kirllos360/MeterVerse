@@ -127,3 +127,12 @@ If any gate fails → task is BLOCKED. Not complete.
   - Git status clean (only gitignored files allowed)
 
 **Why 5 rounds?** Cathes transient failures, race conditions, flaky tests, and environment-specific bugs that a single run would miss. This is the gold standard — not optional.
+
+## P60.1 Durable Learnings (2026-08-15)
+
+1. **Runtime truth over banners:** a health endpoint returning 200 is NOT proof the DB is reachable or login works. Always probe DB separately (psql :5433) before certifying runtime. PostgreSQL failure shows as 0xC0000142 (STATUS_DLL_INIT_FAILED) under memory exhaustion - verify `Free RAM` BEFORE starting PG.
+2. **PostgreSQL instance identity:** MeterVerse DB :5433 = PG16 service `postgresql` (C:\Program Files\PostgreSQL\16). `postgresql-x64-18` = PG18 on :5434 (different instance). NEVER start the wrong service.
+3. **Template generation reuse:** Collection System `routes_import.py` downloadable templates are reusable business logic. MeterVerse equivalent = `import-engine.generateTemplate(type)` + `GET /api/imports/templates/:type/download`. Round-trip (generate->parse) MUST pass for every type - template must match the parser schema.
+4. **Start-Process env propagation:** env vars set before `Start-Process cmd /c` do NOT reach the node child. Launch `node src/server.js` directly (env set in parent) when env vars matter.
+5. **ALLOW_DEV_BYPASS** requires ALL of: env true + X-Dev-Mode:true + NODE_ENV!==production. Production restarts must NEVER carry it.
+6. **Memory constraint:** this 8GB host runs with ~1MB free under OpenCode+Edge+Defender. Heavy `next build` needs `--max-old-space-size=2048` + pagefile; PG may be unable to start until RAM is freed. Budget for it.
