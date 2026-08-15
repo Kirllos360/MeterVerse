@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       user: data.user,
+      accessToken: data.accessToken,
       refreshToken: data.refreshToken,
       expiresAt: data.expiresAt,
       redirect: data.redirect,

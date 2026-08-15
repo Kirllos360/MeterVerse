@@ -1,3 +1,5 @@
+import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
+
 const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || (process.env.PORTAL_MODE === "1" ? "http://localhost:3003" : "http://localhost:3131")
 const BASE_URL = "/api"
 
@@ -20,20 +22,24 @@ export class ApiClientError extends Error {
 
 function getAuthHeaders(): Record<string, string> {
   if (typeof window === "undefined") return {}
-  // Dev mode: use mock token if no real auth
-  const stored = localStorage.getItem("mv-identity")
-  if (!stored) {
-    // Check for dev bypass token
-    const devToken = localStorage.getItem("mv-dev-token")
-    if (devToken) return { Authorization: `Bearer ${devToken}` }
-    return {}
-  }
+  // 1) In-memory auth store (works whether or not "Remember" was checked).
   try {
-    const { state } = JSON.parse(stored)
-    if (state?.tokens?.accessToken) {
-      return { Authorization: `Bearer ${state.tokens.accessToken}` }
-    }
+    const t = useAuthRuntime.getState().tokens?.accessToken
+    if (t) return { Authorization: `Bearer ${t}` }
   } catch {}
+  // 2) Persisted identity (Remember this device).
+  const stored = localStorage.getItem("mv-identity")
+  if (stored) {
+    try {
+      const { state } = JSON.parse(stored)
+      if (state?.tokens?.accessToken) {
+        return { Authorization: `Bearer ${state.tokens.accessToken}` }
+      }
+    } catch {}
+  }
+  // 3) Dev bypass token (gated).
+  const devToken = localStorage.getItem("mv-dev-token")
+  if (devToken) return { Authorization: `Bearer ${devToken}` }
   return {}
 }
 

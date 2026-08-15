@@ -171,12 +171,16 @@ if (isProduction) {
 }
 
 // CORS — Strict single origin
+const CORS_ALLOWED = (process.env.CORS_ORIGIN || "http://localhost:3030,http://localhost:3535")
+  .split(",").map(s => s.trim()).filter(Boolean)
 app.use(cors({
-  origin: (process.env.CORS_ORIGIN || "").split(",").filter(Boolean).length
-    ? process.env.CORS_ORIGIN.split(",").map(s => s.trim())
-    : ["http://localhost:3030", "http://localhost:3535"],
+  origin: (origin, cb) => {
+    // No origin (same-origin/curl) or matched allowed origin -> allow.
+    if (!origin || CORS_ALLOWED.includes(origin)) return cb(null, origin ? origin : true)
+    return cb(null, false)
+  },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-CSRF-Token", "X-Dev-Mode"],
   exposedHeaders: ["X-Request-ID"],
 }))

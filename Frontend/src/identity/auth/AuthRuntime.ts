@@ -90,9 +90,11 @@ export const useAuthRuntime = create<AuthState>((set, get) => ({
         redirectTo: data.redirect || "/",
       })
 
-      if (remember) {
-        try { localStorage.setItem("mv-identity", JSON.stringify({ state: { user: data.user, tokens } })) } catch {}
-      }
+      // Persist the session so a page reload keeps the token. Always persist
+      // (Remember adds a longer TTL) — otherwise navigation/reload loses auth.
+      try {
+        localStorage.setItem("mv-identity", JSON.stringify({ state: { user: data.user, tokens } }))
+      } catch {}
 
       return true
     } catch (err) {
