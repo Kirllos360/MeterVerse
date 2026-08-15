@@ -1867,5 +1867,28 @@
             "docs/architecture/graph/TEST-COVERAGE.dot (updated), speckit/MASTER-ROADMAP.md",
             ".ai/memory/PROJECT_STATE.md (10.18.0-P59C-LR6)"
         ]
+    },
+    {
+        "task": "P59-C/LR-7 - Solar route implementation + operational delivery",
+        "date": "2026-08-14",
+        "tools_activated": ["bash", "filesystem", "edit", "write", "read", "Select-String", "node", "npx/vitest", "psql", "curl", "dot/graphviz", "git"],
+        "tools_used": [
+            "Lane A: implemented routes/solar.js - POST /api/solar/compute (preview) + POST /api/solar/invoices (persist) - reuses solar-wallet-engine + existing ledger/invoice; manual directional input (OBIS schema untouched, STATE 2)",
+            "LIVE-verified on admin backend: compute net=100/amount=53/total=63.16; invoice persist 201 with 3 items; tenancy fail-closed 403 (area-A viewer -> NC customer); own-area 403 = viewer lacks billing.* (correct RBAC)",
+            "Bug found+fixed (process correction): idempotency ref dedup via audit details JSON contains (auditLog stores ref in details not a column); fixed + re-verified 409 on isolated test DB",
+            "Process correction: solar-route unit test harness removed (route import chain breaks vitest isolation - Cannot find module vitest); coverage via live API + service tests (solar-wallet-engine 16)",
+            "Lane B: solar PDF REUSED existing pdf-engine.generateInvoicePdf + POST /api/pdf/invoices/:id (live-verified on isolated test DB)",
+            "Lane D: confirmed MeterVerse Payment lacks cheque fields; legacy Cheque = ADAPT documented (no schema change)",
+            "Tests 356 total (338 pass + 18 skip); FE tsc 0; graph 12/0/0 (TEST-COVERAGE updated); speckit 100% (C-SOLAR ENGINE+ROUTE DONE)",
+            "P59-B safe: production 223/277/361/116/53 verified; 639 untouched"
+        ],
+        "evidence": [
+            "backend/src/routes/solar.js",
+            "docs/reviews/P59/P59-C-LR7-SOLAR-ROUTE-AND-OPERATIONS.md",
+            "Live API: compute 200/403, invoice persist 201/409 (isolated test DB), pdf generated",
+            "docs/architecture/graph/TEST-COVERAGE.dot (updated), speckit/MASTER-ROADMAP.md",
+            "psql: production 223/277/361/116/53",
+            ".ai/memory/PROJECT_STATE.md (10.19.0-P59C-LR7)"
+        ]
     }
 ]

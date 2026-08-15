@@ -1,5 +1,26 @@
 # MeterVerse — Current Sprint
 
+## P59-C/LR-7 — Solar Route + Operational Delivery (2026-08-14)
+
+**Goal:** Implement the solar route (approval-independent) + deliver operational value.  
+**Status:** ✅ Complete — solar route LIVE-verified; PDF reused; cheque documented  
+
+| Item | Result |
+|------|--------|
+| Solar route | routes/solar.js — compute preview + invoice persist; LIVE: 200/403/201/409 |
+| Idempotency | ref dedup via audit details — bug found+fixed |
+| Solar PDF | REUSED existing pdf-engine (live-verified) |
+| Portal view | deferred (safe future lane) |
+| Cheque | ADAPT documented (no schema change) |
+| Tests | 356 total (338 pass + 18 skip); route verified live (unit harness removed — process correction) |
+| Graph/SpecKit | 12/0/0; C-SOLAR ENGINE+ROUTE DONE |
+| P59-B | 223/277/361/116/53 stable; 639 untouched |
+| Approvals | OBIS + Import EXECUTE + P59-B #2–#6 PENDING (STATE 2) |
+
+**Next:** P59-C/LR-8 — decide OBIS (A/E) + Import EXECUTE; then Reading obis capture → portal solar view + cheque/payment adapt.
+
+---
+
 ## P59-C/LR-6 — Solar Vertical Slice + Import Production-Grade (2026-08-14)
 
 **Goal:** Maximum safe progress — solar vertical map + import hardening + tariff seed (parallel lanes, no fabricated approval).  

@@ -21,7 +21,7 @@ CHANGE REQUEST â†’ GRAPH IMPACT ANALYSIS â†’ SPEC â†’ PLAN â†�
 | C-IMPORT | Solar Excel ImportJob (3 types) | none (no OBIS) | import-engine.js + routes/imports.js + xlsx | feature | **DONE (LR-3) â€” preview live-proven; EXECUTE gated on approval** |
 | C-TENANCY | P59-B tenancy repair (639) | approvals #2-#6 | Customer/Meter/Reading/Invoice/Payment areaId | data repair | BLOCKED (stakeholder) |
 | C-SOLAR-TARIFF | Solar tiered tariff seed (12 tiers + 1.68) | none | scripts/seed-solar-tariff.js | migration | DONE (LR-6, test-DB verified) |
-| C-SOLAR | Solar wallet / net metering | OBIS decision (capture) | solar-wallet-engine.js | vertical slice | **ENGINE DONE (LR-5, 16 tests)**; Reading obis capture BLOCKED (OBIS) |
+| C-SOLAR | Solar wallet / net metering | OBIS decision (capture) | solar-wallet-engine.js | vertical slice | **ENGINE + ROUTE DONE (LR-5/7, 16 tests + live-verified; Reading capture OBIS-gated)**; Reading obis capture BLOCKED (OBIS) |
 | C-SYMB | Symbiot/SEP protocol bridge | none | gateways service | infrastructure | PENDING (knowledge extract) |
 | C-TAX | SBill tax seed config | none | TariffTax/InvoiceTax seed | migration | PENDING (safe) |
 | C-CHEQUE | Cheque/POS/payment centers | settlement | Cheque/POSTerminal models | vertical slice | PENDING (evidence) |
