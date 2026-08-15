@@ -16,7 +16,8 @@ echo ============================================================
 
 rem --- DB check ---
 call :CHECK_DB
-if errorlevel 1 ( echo  [DB] :5433 ................ FAIL  - start: net start postgresql-x64-18 ) else ( echo  [DB] :5433 ................ OK )
+rem P60.1: the :5433 MeterVerse DB is PG16 service "postgresql" (NOT postgresql-x64-18 which is PG18 on :5434).
+if errorlevel 1 ( echo  [DB] :5433 ................ FAIL  - start: net start postgresql  ^(PG16 :5433; x64-18 is PG18 :5434^) ) else ( echo  [DB] :5433 ................ OK )
 
 rem --- Stop stale then start all 4 detached ---
 call :KILL_ALL
