@@ -6,7 +6,7 @@ vi.mock('../../src/services/notification-engine.js', () => ({ processEvent: vi.f
 vi.mock('../../src/db.js', () => ({ prisma, default: prisma }));
 vi.mock('../../src/middleware/security.js', () => ({ auditLog: vi.fn() }));
 
-const { validateRow, IMPORT_SCHEMAS, executeImport, createImportJob, MAX_IMPORT_ROWS, detectDuplicateRows } = await import('../../src/services/import-engine.js');
+const { validateRow, IMPORT_SCHEMAS, executeImport, createImportJob, MAX_IMPORT_ROWS, detectDuplicateRows, generateTemplate, parseWorkbook } = await import('../../src/services/import-engine.js');
 
 describe('P59-C/LR-3 import engine (Solar Excel ImportJob, MeterVerse-native)', () => {
   beforeEach(() => { resetPrismaMocks(); vi.clearAllMocks(); });
@@ -113,5 +113,31 @@ describe('P59-C/LR-3 import engine (Solar Excel ImportJob, MeterVerse-native)', 
     const r = await executeImport('solar_customers', rows, {});
     expect(r.processed).toBe(2);
     expect(prisma.$transaction).toHaveBeenCalledTimes(2); // one tx per row
+  });
+
+  it('P60.1: generateTemplate creates a workbook for each import type (fillable download)', async () => {
+    const { write } = await import('xlsx');
+    for (const type of Object.keys(IMPORT_SCHEMAS)) {
+      const wb = generateTemplate(type);
+      expect(wb).toBeDefined();
+      expect(wb.SheetNames).toEqual([IMPORT_SCHEMAS[type].sheet]);
+      const buf = write(wb, { type: 'buffer', bookType: 'xlsx' });
+      expect(buf.byteLength).toBeGreaterThan(5000);
+    }
+  });
+
+  it('P60.1: generateTemplate round-trips into parseWorkbook (template matches parser)', async () => {
+    const { write } = await import('xlsx');
+    for (const type of Object.keys(IMPORT_SCHEMAS)) {
+      const wb = generateTemplate(type);
+      const buf = write(wb, { type: 'buffer', bookType: 'xlsx' });
+      const p = parseWorkbook(buf, type);
+      expect(p.ok).toBe(true);
+      expect(p.errors).toEqual([]);
+    }
+  });
+
+  it('P60.1: generateTemplate rejects unknown import type', () => {
+    expect(() => generateTemplate('bogus')).toThrow(/Unknown import type/);
   });
 });

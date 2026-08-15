@@ -7,7 +7,8 @@ import { fileURLToPath } from "url"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
-import { IMPORT_SCHEMAS, parseWorkbook, createImportJob, executeImport } from "../services/import-engine.js"
+import { IMPORT_SCHEMAS, parseWorkbook, createImportJob, executeImport, generateTemplate } from "../services/import-engine.js"
+import { write as writeXlsx } from "xlsx"
 
 const router = Router()
 router.use(authenticate)
@@ -29,6 +30,21 @@ const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024, files: 1 
 // Available import types (schema registry)
 router.get("/types", requirePermission("documents.*"), (_req, res) => {
   res.json({ types: Object.keys(IMPORT_SCHEMAS), schemas: IMPORT_SCHEMAS })
+})
+
+// Download a fillable XLSX template for an import type (P60.1: reused from
+// Collection System routes_import.py template downloads). Pure generation.
+router.get("/templates/:type/download", requirePermission("documents.*"), (_req, res, next) => {
+  try {
+    const type = _req.params.type
+    if (!IMPORT_SCHEMAS[type]) return res.status(400).json({ error: `Unknown import type '${type}'` })
+    const wb = generateTemplate(type)
+    const buffer = writeXlsx(wb, { type: "buffer", bookType: "xlsx" })
+    auditLog(_req, "import.template.download", { type })
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    res.setHeader("Content-Disposition", `attachment; filename=${type}_template.xlsx`)
+    res.send(buffer)
+  } catch (err) { next(err) }
 })
 
 // Upload + preview: parse, validate schema/rows, create ImportJob (status=preview). No mutation.

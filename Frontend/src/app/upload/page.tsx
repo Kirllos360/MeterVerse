@@ -112,6 +112,31 @@ export default function UploadPage() {
     }
   }
 
+  const doDownloadTemplate = async () => {
+    if (!selectedType) {
+      toast.error("Select an import type first")
+      return
+    }
+    try {
+      const res = await fetch(`/api/imports/templates/${selectedType}/download`, { headers: getAuthHeaders() })
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}))
+        toast.error(body.error || `Download failed (${res.status})`)
+        return
+      }
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement("a")
+      a.href = url
+      a.download = `${selectedType}_template.xlsx`
+      a.click()
+      URL.revokeObjectURL(url)
+      toast.success(`${selectedType} template downloaded`)
+    } catch (e: any) {
+      toast.error(e?.message || "Download failed")
+    }
+  }
+
   const onDrop = (e: React.DragEvent) => {
     e.preventDefault()
     setDragOver(false)
@@ -137,16 +162,22 @@ export default function UploadPage() {
 
           <div>
             <label className="text-xs font-medium mb-1 block" style={{ color: "var(--text-secondary)" }}>Import type</label>
-            <select
-              className="w-full rounded-xl h-9 px-3 text-sm bg-transparent"
-              style={{ color: "var(--text-primary)", border: "1px solid var(--border-default)" }}
-              value={selectedType}
-              onChange={(e) => setSelectedType(e.target.value)}
-            >
-              {Object.keys(types).map((t) => (
-                <option key={t} value={t}>{t}</option>
-              ))}
-            </select>
+            <div className="flex gap-2">
+              <select
+                className="flex-1 rounded-xl h-9 px-3 text-sm bg-transparent"
+                style={{ color: "var(--text-primary)", border: "1px solid var(--border-default)" }}
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+              >
+                {Object.keys(types).map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+              <Button size="sm" variant="outline" className="rounded-xl h-9 shrink-0" onClick={doDownloadTemplate} disabled={!selectedType}>
+                <Icons.download className="mr-1.5 h-3.5 w-3.5" />
+                Template
+              </Button>
+            </div>
             {selectedType && types[selectedType]?.columns && (
               <div className="mt-2 flex flex-wrap gap-1">
                 {Object.entries(types[selectedType].columns).map(([col, spec]) => (

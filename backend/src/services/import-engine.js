@@ -66,6 +66,29 @@ function num(v) {
   return Number.isFinite(n) ? n : null
 }
 
+// ─── TEMPLATE GENERATION (P60.1) ────────────────────────────────────────────
+// Reused from Collection System routes_import.py template downloads: produce a
+// fillable XLSX template for an import type so users can download, fill, and
+// re-upload. Pure generation (no DB, no mutation). Sheet name + header rows
+// are derived from IMPORT_SCHEMAS so templates always match the parser.
+export function generateTemplate(type) {
+  const schema = IMPORT_SCHEMAS[type]
+  if (!schema) throw new Error(`Unknown import type ${type}`)
+  const { utils } = require("xlsx")
+  const header = Object.keys(schema.columns)
+  const aoa = [header]
+  for (const col of header) {
+    const spec = schema.columns[col]
+    if (spec.required) aoa.push([col]) // hint row: mark required columns
+    break
+  }
+  const ws = utils.aoa_to_sheet(aoa)
+  ws["!cols"] = header.map((h) => ({ wch: Math.max(12, h.length + 2) }))
+  const wb = utils.book_new()
+  utils.book_append_sheet(wb, ws, schema.sheet)
+  return wb
+}
+
 function str(v) {
   if (v === null || v === undefined) return ""
   return String(v).trim()
