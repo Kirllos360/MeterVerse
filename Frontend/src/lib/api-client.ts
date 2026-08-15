@@ -20,7 +20,7 @@ export class ApiClientError extends Error {
   }
 }
 
-function getAuthHeaders(): Record<string, string> {
+export function getAuthHeaders(): Record<string, string> {
   if (typeof window === "undefined") return {}
   // 1) In-memory auth store (works whether or not "Remember" was checked).
   try {

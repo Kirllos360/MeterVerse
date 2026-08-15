@@ -1,12 +1,23 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60 - Forensic validation + runtime zero-error)  
-**Current Phase:** P60 - Deep Forensic Validation + Collection Reuse Decision  
-**Version:** 10.20.0-P60  
-**Branch:** main (HEAD 9bdcf3fd, clean, pushed)  
+**Last Updated:** 2026-08-15 (P61 - Execution acceleration + Collection convergence)  
+**Current Phase:** P61 - Collection Convergence + Runtime Certification  
+**Version:** 10.20.0-P61  
+**Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P61 - Execution Acceleration + Collection Convergence (2026-08-15)
+
+**Architectural decision confirmed: C - HYBRID REUSE.** Collection System backend (Flask/Python) REJECTED as the functional foundation (dual-stack debt, incompatible auth/tenancy/DB). Its business LOGIC already recovered (P59-C LR-1..7) and extended.
+- **Add Data page MOCK->REAL:** live entity search, real forms, real submit -> DB (verified: reading 9988.5 persisted, Reading 361->362).
+- **Upload Center static->REAL:** import type picker (solar_customers/invoices/payments), file upload -> preview (valid/invalid), recent jobs list. Fixed multipart upload 401 (exported getAuthHeaders).
+- **Runtime:** Admin 13 API OK/0 err; Portal SITE OK/0 err; all 4 services UP. Backend 368 tests; FE tsc 0; Graph 12/0/0; SpecKit pass; P59-B frozen intact.
+- **Remaining debt:** chilled-water settlement, CurrencyType/POSTerminal, downloadable-fillable template parity, water-balance model (all evidence-gated / documented).
+- **Blockers unchanged (approval):** Import EXECUTE, OBIS, P59-B #2-#6, Wave 4.
+- Artifact: docs/reviews/P59/P61-COLLECTION-CONVERGENCE-DECISION.md
+
 
 - Artifact: docs/reviews/P59/P60-FORENSIC-VALIDATION-AND-REUSE-DECISION.md (failure-family analysis + component classification + verified state).
 - **PERMANENT PREVENTION RULE:** every FE/BE integration milestone requires a Playwright browser test (login, API status capture, no 4xx/5xx, profile-correct API base portal->3003/admin->3131, reload survival); every runtime tool must PROBE before claiming RUNNING.
