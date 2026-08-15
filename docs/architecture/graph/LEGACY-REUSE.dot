@@ -11,6 +11,7 @@ digraph LegacyReuse {
   L_EXCEL [label="Legacy Solar XLSX\n(3 templates)"];
   L_SYMB [label="Symbiot AMI/MDM\n(protocols)"];
   L_SBILL [label="SBill/October\n(SQL Server data)"];
+  L_TEMPLATE [label="Legacy Fillable Templates\n(routes_import.py download/upload)"];
 
   node [shape=box fillcolor="#e0f2fe"];
   M_SETTLE [label="settlement-engine.js\n+ Settlement/InvoiceSettlement (LR-2 DONE)"];
@@ -19,6 +20,7 @@ digraph LegacyReuse {
   M_EXCEL [label="ImportJob schemas\n(contract ready)"];
   M_SYMB [label="gateways / SEP bridge\n(protocol knowledge)"];
   M_SBILL [label="meter_pulse migration\n(gated on P59-B)"];
+  M_TEMPLATE [label="import-engine.generateTemplate\n+ /api/imports/templates/:type/download (P60.1 DONE)"];
 
   L_SETTLE -> M_SETTLE [label="ADAPT (ported logic)" color=green];
   L_CHARGE -> M_CHARGE [label="ADAPT (extended ChargeRule)" color=green];
@@ -26,4 +28,5 @@ digraph LegacyReuse {
   L_EXCEL -> M_EXCEL [label="REUSE templates (contract)" color=green];
   L_SYMB -> M_SYMB [label="EXTRACT protocol knowledge" color=orange];
   L_SBILL -> M_SBILL [label="MIGRATE DATA (boundary, gated)" color=red];
+  L_TEMPLATE -> M_TEMPLATE [label="ADAPT (generate+download xlsx, P60.1)" color=green];
 }

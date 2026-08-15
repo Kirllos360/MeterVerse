@@ -1925,5 +1925,21 @@
             "psql: P59-B fingerprint intact (223/277/116/53 + Settlement 3 + ImportJob 2)",
             "tsc: FE typecheck 0 errors; next build: admin FE rebuilt (add-data + upload real)"
         ]
+    },
+    {
+        "task": "P60.1: Enterprise execution control + Collection template reuse + runtime gate",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "psql", "node-fetch", "playwright", "tsc", "next-build", "dot/graphviz", "vitest", "memory-graph"],
+        "tools_used": [
+            "git: HEAD/status/diff verification",
+            "psql: DB :5433 diagnosis (down, data intact)",
+            "Win32/service: PG16 vs PG18 service identification (Boot.cmd defect root cause)",
+            "node-fetch: template download live test (200/16926B, 400 bogus)",
+            "vitest: 15/15 import-engine (3 new template tests); 353/371 full suite",
+            "node --input-type=module: generateTemplate round-trip parse ok",
+            "playwright: upload page renders with Template button",
+            "dot: LEGACY-REUSE.svg regenerated after graph edge added",
+            "tsc: FE 0 errors; next build: admin FE rebuilt (template button)"
+        ]
     }
 ]

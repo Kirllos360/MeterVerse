@@ -1,12 +1,24 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P61 - Execution acceleration + Collection convergence)  
-**Current Phase:** P61 - Collection Convergence + Runtime Certification  
-**Version:** 10.20.0-P61  
+**Last Updated:** 2026-08-15 (P60.1 - Enterprise execution control + reuse forensic)  
+**Current Phase:** P60.1 - Runtime Reliability Gate + Collection Reuse  
+**Version:** 10.20.0-P60.1  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.1 - Enterprise Execution Control (2026-08-15)
+
+**Forensic gate: real runtime + reuse state, zero-trust, evidence-attributed.**
+- **Reuse delivered:** fillable XLSX template download (Collection routes_import.py -> import-engine.generateTemplate + GET /api/imports/templates/:type/download + upload-page Template button). 3 types, 3 unit tests, live 200/16926B, round-trip parse ok.
+- **Toolchain fix:** Boot.cmd line 19 referenced wrong PG service (postgresql-x64-18 = PG18 :5434); corrected to postgresql (PG16 :5433).
+- **Graph:** LEGACY-REUSE.dot + svg updated (TemplateGen edge); validator 12/0/0. **SpecKit:** C-TEMPLATE added; validator 100%.
+- **Tests:** 371 backend (353 pass/18 skip); FE tsc 0. Artifacts: P60.1-{COLLECTION-REUSE-MATRIX, SYSTEM-HEALTH-GATE, GRAPH-SPECKIT-DELTA, RUNTIME-FAILURE-REGISTER}.md.
+- **BLOCKER (environmental):** PostgreSQL :5433 down - 8GB RAM exhausted (Free=1MB), pg 0xC0000142. Data INTACT (recovery complete, WAL+6 base dirs). Needs RAM freed + elevated 
+et start postgresql.
+- **Debt:** cross-root type:module (perf only); chilled-water settlement; CurrencyType/POSTerminal.
+
 
 ## P61 - Execution Acceleration + Collection Convergence (2026-08-15)
 
