@@ -12,7 +12,8 @@ set DB_PORT=5433
 set DB_USER=meter_pulse
 set DB_PASS=meter_pulse_dev
 set DB_NAME=meter_pulse
-set CONTAINER_DB=meter-postgres-1
+:: NATIVE PostgreSQL only - the database is NOT Dockerized.
+:: Two native services may run (postgresql / postgresql-x64-18); both use :5433.
 set GIT_REMOTE=origin
 set GIT_BRANCH=main
 
