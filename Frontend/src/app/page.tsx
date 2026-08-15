@@ -21,7 +21,7 @@ const TicketsPage = dynamic(() => import("@/app/tickets/page"), { ssr: false })
 const InfoGuidePage = dynamic(() => import("@/app/info-guide/page"), { ssr: false })
 
 const pageMap: Record<string, React.ComponentType<any>> = {
-  home: () => <SystemDashboard brandColor="#DC2626" title="Dashboard" />,
+  home: () => <SystemDashboard brandColor="#059669" title="Dashboard" />,
   customers: CustomersPage,
   meters: MetersPage,
   invoices: InvoicesPage,
@@ -45,6 +45,12 @@ export default function RootPage() {
   // separation bulletproof — even if a server is mis-started without the env,
   // the browser port (3030 = portal, 3535 = admin) enforces the correct profile.
   const [isPortal, setIsPortal] = useState<boolean>(() => {
+    // P57-FIX: initialize from the runtime port synchronously on the client so
+    // the FIRST paint on :3030 is already portal (avoids flashing the admin SPA
+    // then switching). Server render uses the env fallback.
+    if (typeof window !== "undefined") {
+      return window.location.port === "3030"
+    }
     if (process.env.NEXT_PUBLIC_PORTAL_MODE === "1" || process.env.NEXT_PUBLIC_PORTAL_MODE === "true") return true
     return false
   })

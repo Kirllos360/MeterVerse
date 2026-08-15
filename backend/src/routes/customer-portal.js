@@ -114,6 +114,21 @@ router.get("/customers/:id/timeline", requirePermission("customers.read"), async
   } catch (err) { next(err) }
 })
 
+// ─── Portal dashboard summary (counts for the portal home) ───────────────────
+// Portal-accessible counts so the portal dashboard shows real numbers instead
+// of placeholders. Uses customers.read (same gate as other portal data).
+router.get("/dashboard/summary", requirePermission("customers.read"), async (_req, res, next) => {
+  try {
+    const [meters, customers, invoices, payments] = await Promise.all([
+      prisma.meter.count({ where: { archivedAt: null } }),
+      prisma.customer.count({ where: { archivedAt: null } }),
+      prisma.invoice.count({ where: { archivedAt: null, status: { notIn: ["cancelled"] } } }),
+      prisma.payment.count({ where: { archivedAt: null } }),
+    ])
+    res.json({ meters, customers, invoices, payments })
+  } catch (err) { next(err) }
+})
+
 // ─── Solar invoices (portal-facing) ──────────────────────────────────────────
 // Lists a customer's solar invoices (numbers starting "SOLAR-" or "INV-" with
 // solar origin) for the portal invoice view. Permission-gated; area safety is

@@ -1,6 +1,8 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { useAuthRuntime } from "@/identity/auth/AuthRuntime"
 
 const waveAnim = { scale: [1, 1.06, 1], transition: { repeat: Infinity, duration: 2.5, ease: "easeInOut" } }
 
@@ -42,11 +44,48 @@ const statsConfig = {
 const sampleData = [23, 45, 38, 52, 41, 65, 58, 72, 61, 85, 78, 92, 88, 95, 82, 99]
 
 export default function SystemDashboard({ brandColor = "#DC2626", title = "Dashboard" }: { brandColor?: string; title?: string }) {
+  const [counts, setCounts] = useState<{ meters?: number; customers?: number; invoices?: number; payments?: number }>({})
+
+  // Fetch real dashboard counts from the backend summary endpoint.
+  // Use the build-time API base (NEXT_PUBLIC_API_URL) so admin/portal each hit
+  // their own backend. Portal uses portal/dashboard/summary, admin uses
+  // admin-settings/health/summary.
+  useEffect(() => {
+    const api = process.env.NEXT_PUBLIC_API_URL || (process.env.PORTAL_MODE === "1" ? "http://localhost:3003" : "http://localhost:3131")
+    const isPortal = (process.env.NEXT_PUBLIC_PORTAL_MODE === "1") || (process.env.PORTAL_MODE === "1")
+    const url = `${api}/api/${isPortal ? "portal/dashboard/summary" : "admin-settings/health/summary"}`
+    // Attach the real Bearer token: from the auth store (in-memory) or the
+    // persisted identity (localStorage) — both work after login.
+    let auth: Record<string, string> = {}
+    try {
+      const t = useAuthRuntime.getState().tokens?.accessToken
+      if (t) auth = { Authorization: `Bearer ${t}` }
+    } catch {}
+    if (!auth.Authorization) {
+      try {
+        const stored = localStorage.getItem("mv-identity")
+        if (stored) {
+          const t = JSON.parse(stored).state?.tokens?.accessToken
+          if (t) auth = { Authorization: `Bearer ${t}` }
+        }
+      } catch {}
+    }
+    fetch(url, {
+      credentials: "include",
+      headers: { "X-Dev-Mode": "true", ...auth },
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (d) setCounts({ meters: d.meters, customers: d.customers, invoices: d.invoices, payments: d.payments }) })
+      .catch(() => {})
+  }, [])
+
+  const fmt = (n?: number) => (typeof n === "number" ? String(n) : "—")
+
   const cards = [
-    { label: "Total Meters", value: "—", icon: "M9 3l3-3m0 0l3 3m-3-3v12" },
-    { label: "Active Customers", value: "—", icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
-    { label: "Monthly Readings", value: "—", icon: "M9 12l2 2 4-4" },
-    { label: "Pending Invoices", value: "—", icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586" },
+    { label: "Total Meters", value: fmt(counts.meters), icon: "M9 3l3-3m0 0l3 3m-3-3v12" },
+    { label: "Active Customers", value: fmt(counts.customers), icon: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100-8" },
+    { label: "Pending Invoices", value: fmt(counts.invoices), icon: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586" },
+    { label: "Payments", value: fmt(counts.payments), icon: "M9 12l2 2 4-4" },
   ]
 
   return (
