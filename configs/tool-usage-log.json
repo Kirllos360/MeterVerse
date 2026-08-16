@@ -1990,5 +1990,17 @@
             "tsc: FE 0 (cleaned stale types)",
             "dot: TEST-COVERAGE.svg regenerated (+T_PAY node)"
         ]
+    },
+    {
+        "task": "P60.5: Cheque UI completion (config+page+SPA+nav) + solar readiness audit",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "playwright", "tsc", "vitest", "dot/graphviz", "glob", "grep", "read"],
+        "tools_used": [
+            "glob/grep: found 0 FE cheque references (the gap); located page-configs + AdminLayout nav pattern",
+            "write/edit: billing.ts cheques config, admin/cheques/page.tsx, admin/page.tsx pageMap, AdminLayout ALL_NAV_ITEMS, nav-config",
+            "playwright: cheques page browser-verified (nav->page->3 API calls to /api/cheques, 0 errors); payments UI confirmed",
+            "tsc: FE 0; next build: admin FE rebuilt (154s)",
+            "vitest: 387 stable; graph/speckit validators 12/0/0 + 100%"
+        ]
     }
 ]

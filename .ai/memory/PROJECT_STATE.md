@@ -1,12 +1,22 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60.4 - Collection financial closure)  
-**Current Phase:** P60.4 - Settlement + Payment + Cheque Closure  
-**Version:** 10.20.0-P60.4  
+**Last Updated:** 2026-08-15 (P60.5 - Cheque UI completion + max-progress)  
+**Current Phase:** P60.5 - Financial UI + Solar Readiness  
+**Version:** 10.20.0-P60.5  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.5 - Maximum-Progress Gate: Cheque UI + Solar Readiness (2026-08-15)
+
+**Real implementation (anti-stall). Cheque vertical now end-to-end.**
+- **Cheque UI NEW:** billing.ts cheques config (apiEndpoint /api/cheques), admin/cheques page, SPA pageMap wiring, AdminLayout ALL_NAV_ITEMS + nav-config. Browser-verified: nav -> page -> 3 API calls -> 0 errors.
+- **Payments UI** confirmed wired to /api/payments. **Collection reuse:** 10/12 financial capabilities converged (chilled + POS evidence-gated).
+- **Solar readiness:** 17-step audit, 15/17 component-ready; gaps = SEP bridge (P2_SYMB) + OBIS capture (both classified, no approval fabricated).
+- **Tests:** 387 (369/18) stable; FE tsc 0; Graph 12/0/0; SpecKit 100%. **PG :5433 BLOCKED_ENVIRONMENTALLY** (0MB free RAM, recorded once).
+- **Blockers:** Import EXECUTE/OBIS/P59-B #2-6/Wave 4 (approval). Debt: cross-root type:module, POS/chilled (evidence-gated).
+
 
 ## P60.4 - Collection Settlement + Payment + Cheque Closure (2026-08-15)
 

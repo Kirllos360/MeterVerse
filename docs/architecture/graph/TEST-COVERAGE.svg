@@ -141,15 +141,15 @@
 <!-- CHEQUE_DONE -->
 <g id="node13" class="node">
 <title>CHEQUE_DONE</title>
-<polygon fill="none" stroke="black" points="1189.12,-112 846.88,-112 846.88,-71 1189.12,-71 1189.12,-112"/>
-<text xml:space="preserve" text-anchor="middle" x="1018" y="-94.7" font-family="Times New Roman,serif" font-size="14.00">Cheque ROUTE /api/cheques</text>
-<text xml:space="preserve" text-anchor="middle" x="1018" y="-78.2" font-family="Times New Roman,serif" font-size="14.00">[DONE P60.4 — create/clear/reject/list, live 401&#45;protected]</text>
+<polygon fill="none" stroke="black" points="1263.38,-112 772.62,-112 772.62,-71 1263.38,-71 1263.38,-112"/>
+<text xml:space="preserve" text-anchor="middle" x="1018" y="-94.7" font-family="Times New Roman,serif" font-size="14.00">Cheque ROUTE /api/cheques + FE admin/cheques</text>
+<text xml:space="preserve" text-anchor="middle" x="1018" y="-78.2" font-family="Times New Roman,serif" font-size="14.00">[DONE P60.4/P60.5 — create/clear/reject/list, live 401&#45;protected, UI nav+page wired]</text>
 </g>
 <!-- T_CHEQUE&#45;&gt;CHEQUE_DONE -->
 <g id="edge11" class="edge">
 <title>T_CHEQUE&#45;&gt;CHEQUE_DONE</title>
-<path fill="none" stroke="black" d="M681.08,-95.17C728.29,-94.66 783.38,-94.05 835.13,-93.49"/>
-<polygon fill="black" stroke="black" points="834.99,-96.99 844.96,-93.38 834.92,-89.99 834.99,-96.99"/>
+<path fill="none" stroke="black" d="M681.08,-95.17C706.08,-94.9 733.29,-94.6 761.05,-94.3"/>
+<polygon fill="black" stroke="black" points="761.07,-97.8 771.03,-94.19 761,-90.8 761.07,-97.8"/>
 </g>
 <!-- TARIFF_SEED -->
 <g id="node12" class="node">

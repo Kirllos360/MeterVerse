@@ -18,7 +18,7 @@ digraph TestCov {
   IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — EXECUTE prod-grade: dup-detect + per-row tx + 50k cap; prod gated]" fillcolor="#fef7e0"];
   SOLAR_DONE [label="Solar Wallet ENGINE + ROUTE\n[DONE LR-5/7 — compute/persist/route LIVE-verified; Reading capture OBIS-gated]" fillcolor="#fef7e0"];
   TARIFF_SEED [label="Solar tiered Tariff seed\n[DONE LR-6 — 12 tiers + 1.68 over-limit; test-DB verified]" fillcolor="#fef7e0"];
-  CHEQUE_DONE [label="Cheque ROUTE /api/cheques\n[DONE P60.4 — create/clear/reject/list, live 401-protected]" fillcolor="#fef7e0"];
+  CHEQUE_DONE [label="Cheque ROUTE /api/cheques + FE admin/cheques\n[DONE P60.4/P60.5 — create/clear/reject/list, live 401-protected, UI nav+page wired]" fillcolor="#fef7e0"];
 
   node [shape=box fillcolor="#fef7e0"];
   CONTRACT [label="contract 56 (skip unless test BE)"];
