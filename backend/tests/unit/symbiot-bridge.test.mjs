@@ -73,4 +73,13 @@ describe('P60.6 SEP/Symbiot bridge — ingestReading (external meter -> MeterVer
     expect(data.projectId).toBeNull();
     expect(data.areaId).not.toBe('area-b');
   });
+
+  it('idempotency semantics: repeated push appends a new Reading (append, no partial state; dedup is downstream)', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-5', serial: 'SEP-005', areaId: null, projectId: null });
+    prisma.reading.create.mockResolvedValue({ id: 'r-5', meterId: 'm-5' });
+    const payload = { meter: 'SEP-005', value: 10, timestamp: '2026-01-15T10:00:00Z' };
+    await ingestReading(payload);
+    await ingestReading(payload); // retry / duplicate push
+    expect(prisma.reading.create).toHaveBeenCalledTimes(2); // append semantics, both persisted
+  });
 });
