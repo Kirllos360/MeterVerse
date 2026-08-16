@@ -20,3 +20,4 @@
 | **Deliverables** | **13 planning/P60.7_*.md files** (truth matrix, PG recovery, SEP, OBIS, financial, solar, tenancy, cross-OS, AI, reconciliation, gap register, execution gate, final cert) |
 | Verdict | CONDITIONAL GO (code CERTIFIED; live runtime BLOCKED-ENVIRONMENT) |
 | P60.7 completion | §6 Symbiot hardening IMPLEMENTED: negative/non-finite/future/malformed-timestamp rejection + per-IP rate limit (429) + correlation ID. +5 tests. Suite 405 (387/18) |
+| P60.7 §12 completion | Deploy toolchain fixed: MeterVerse.cmd now uses `prisma migrate deploy` (was db push — schema-drift risk). 16 versioned migrations are canonical. Dev `db:setup` retains db push |
