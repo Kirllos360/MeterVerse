@@ -1,0 +1,17 @@
+digraph P1202Outbox {
+  rankdir=LR;
+  label="D-P12-02-002 Transactional Outbox Flow";
+  node [shape=box fillcolor="#e0f2fe"];
+  TX [label="Business DB Transaction"];
+  MUT [label="Domain mutation\n(payment/invoice/reading)"];
+  OUT [label="OutboxEvent INSERT\n(same tx - atomic)"];
+  DISP [label="Dispatcher\n(poll SKIP LOCKED)"];
+  DELIV [label="EventDelivery\n(per consumer)"];
+  CON [label="Consumer\n(idempotent)"];
+  ACK [label="ACK -> status ACKED"];
+  TX -> MUT; TX -> OUT;
+  OUT -> DISP [label="commit"];
+  DISP -> DELIV;
+  DELIV -> CON [label="publish"];
+  CON -> ACK;
+}

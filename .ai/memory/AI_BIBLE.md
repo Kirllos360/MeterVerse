@@ -147,3 +147,9 @@ If any gate fails → task is BLOCKED. Not complete.
 9. **Graphviz BOM trap:** PowerShell `Set-Content -Encoding UTF8` writes a BOM (EF BB BF) that breaks `dot`. For diagram .dot files, strip the BOM (TrimStart 0xFEFF) or write via UTF8-no-BOM before rendering. The 3 write-tool files rendered; the 5 Set-Content files failed until BOM-stripped.
 10. **Integration classification discipline:** classify every integration A-J with evidence (reality matrix). P12-01 catalogued 40 (A=19, B=13). Do not upgrade B→A without runtime evidence.
 11. **Foundation-first:** P12-01 confirmed the event outbox (G-016), universal idempotency (G-015), correlation (G-014), and service-to-service auth (G-017) as the P12-02 integration foundation priorities — do not start luxury integrations before these.
+
+## P12-02 Durable Learnings (2026-08-15)
+
+12. **Transactional outbox is the correct financial-safe event pattern for MeterVerse:** OPTION A (Postgres outbox + in-proc EventBus) chosen over a broker — evidence: 8GB RAM, single-process, native PG. At-least-once + consumer idempotency = effectively-once; NEVER claim exactly-once.
+13. **Financial replay safety rule:** every financial event (PAYMENT/INVOICE/SETTLEMENT/JOURNAL) REQUIRES an IdempotencyRecord; replay is controlled (admin.ops, dry-run) and blocked without the record. This prevents duplicate journal entries (Wave 07 protection).
+14. **Universal idempotency + correlation are the P12-02 foundation unlocks** — the apiClient double-prefix, in-proc event-bus, and missing service auth were all confirmed still-real before design.

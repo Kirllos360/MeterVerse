@@ -1,12 +1,21 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P12-01 - Enterprise Integration Reality + Reconciliation)  
-**Current Phase:** P12-01 - Integration Architecture Baseline  
-**Version:** 10.20.0-P12-01  
+**Last Updated:** 2026-08-15 (P12-02 - Event/Outbox/Idempotency/Service-Security Foundation)  
+**Current Phase:** P12-02 - Event Reliability + Security Foundation  
+**Version:** 10.20.0-P12-02  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P12-02 - Event/Outbox/Idempotency/Correlation/Service-Security Foundation (2026-08-15)
+
+**Implementation-ready architecture: OPTION A (Postgres transactional outbox + in-proc EventBus). 30 docs + 12 diagrams in planning/061_ENTERPRISE_EVENT_RELIABILITY_SECURITY_ARCHITECTURE/.**
+- **Design:** OutboxEvent/EventDelivery/EventDeadLetter/IdempotencyRecord/ServiceIdentity/Credential + AuditEntry.correlationId (additive). At-least-once + consumer idempotency = effectively-once. Financial replay guarded (18). Solar/Symbiot additive (19).
+- **Migration:** 6 phases (shadow/dual-publish/per-consumer cutover, backward compat). Waves P12.2-A..L (~23 days).
+- **Verdict:** CONDITIONALLY CERTIFIED (architecture-ready; PG runtime + OBIS/SEP evidence gate implementation).
+- **Blockers:** PG :5433 (env); OBIS (approval); SEP (evidence).
+
 
 ## P12-01 - Enterprise Integration Reality + Reconciliation (2026-08-15)
 

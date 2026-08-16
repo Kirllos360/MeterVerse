@@ -1,0 +1,1 @@
+digraph C1 { rankdir=LR; label="D-P12-02-001 System Context"; node [shape=box fillcolor="#e0f2fe"]; APP [label="MeterVerse App (Express)"]; PG [label="PostgreSQL"]; DISP [label="Outbox Dispatcher"]; EB [label="EventBus (in-proc)"]; EXT [label="External (webhooks/SEP)"]; APP->PG; APP->DISP; DISP->EB; DISP->EXT; }

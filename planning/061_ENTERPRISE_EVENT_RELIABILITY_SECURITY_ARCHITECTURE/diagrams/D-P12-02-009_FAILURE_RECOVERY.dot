@@ -1,0 +1,1 @@
+digraph C9 { rankdir=TB; label="D-P12-02-009 Failure Recovery"; node [shape=box fillcolor="#e0f2fe"]; CRASH [label="Dispatcher crash"]; LEASE [label="Lease expiry (30s)"]; RECLAIM [label="Re-claim"]; REDELIV [label="Redeliver (idempotent)"]; DB [label="DB down"]; BACK [label="Dispatcher backoff, events wait"]; CRASH->LEASE->RECLAIM->REDELIV; DB->BACK; }

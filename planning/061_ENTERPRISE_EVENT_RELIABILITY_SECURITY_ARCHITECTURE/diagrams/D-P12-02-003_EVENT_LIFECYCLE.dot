@@ -1,0 +1,16 @@
+digraph P1202Lifecycle {
+  rankdir=LR;
+  label="D-P12-02-003 Event Lifecycle State Machine";
+  node [shape=box fillcolor="#e0f2fe"];
+  P [label="PENDING"];
+  D [label="DISPATCHED"];
+  A [label="ACKED (terminal)"];
+  R [label="RETRY (backoff)"];
+  DL [label="DEAD (terminal)"];
+  P -> D [label="claim+publish"];
+  D -> A [label="consumer ack"];
+  D -> R [label="transient failure"];
+  R -> P [label="backoff elapsed"];
+  R -> DL [label="max attempts / poison / permanent 4xx"];
+  DL -> P [label="manual replay (audited, idempotent)"];
+}

@@ -1,0 +1,1 @@
+digraph C8 { rankdir=LR; label="D-P12-02-008 Retry/Dead-Letter/Replay"; node [shape=box fillcolor="#e0f2fe"]; E [label="Event"]; RET [label="Retry (exp backoff+jitter)"]; DL [label="Dead-Letter"]; RP [label="Replay (admin.ops, idempotent)"]; E->RET; RET->DL [label="max attempts/poison"]; DL->RP; RP->E [style=dashed]; }

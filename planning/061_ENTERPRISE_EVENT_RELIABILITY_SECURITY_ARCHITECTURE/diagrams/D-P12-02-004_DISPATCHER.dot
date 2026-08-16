@@ -1,0 +1,1 @@
+digraph C4 { rankdir=LR; label="D-P12-02-004 Dispatcher Architecture"; node [shape=box fillcolor="#e0f2fe"]; POLL [label="Poll (SKIP LOCKED)"]; CLAIM [label="Claim (lease 30s)"]; BATCH [label="Batch (50)"]; PUB [label="Publish per consumer"]; ACK [label="Ack/Retry/DLQ"]; POLL->CLAIM->BATCH->PUB->ACK; }

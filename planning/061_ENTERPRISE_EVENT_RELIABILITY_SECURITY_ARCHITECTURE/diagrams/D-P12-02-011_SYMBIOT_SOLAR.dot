@@ -1,0 +1,1 @@
+digraph C11 { rankdir=LR; label="D-P12-02-011 Symbiot->Solar event flow"; node [shape=box fillcolor="#e0f2fe"]; SYM [label="Symbiot (service auth)"]; ING [label="ingestReading (idempotent)"]; EV [label="READING.INGESTED (outbox)"]; WAL [label="Solar wallet (idempotent)"]; SET [label="Settlement"]; SOLD [label="Solar invoice (financial, guarded)"]; SYM->ING->EV->WAL->SET->SOLD; }

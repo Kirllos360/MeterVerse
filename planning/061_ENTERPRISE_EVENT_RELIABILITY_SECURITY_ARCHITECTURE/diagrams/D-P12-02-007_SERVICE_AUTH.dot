@@ -1,0 +1,14 @@
+digraph P1202SvcAuth {
+  rankdir=LR;
+  label="D-P12-02-007 Service Authentication";
+  node [shape=box fillcolor="#e0f2fe"];
+  A [label="Service A\n(X-Service-Key + HMAC + nonce)"];
+  V [label="Verify\n(keyHash, nonce, timestamp, signature)"];
+  S [label="Scope check\n(service permissions)"];
+  T [label="Tenancy\n(target within service areaScope)"];
+  OP [label="Operation + audit\n+ correlation"];
+  A -> V; V -> S; S -> T; T -> OP;
+  node [shape=box fillcolor="#fff1f0"];
+  REJ [label="401/403\n(expired/revoked/forged/replay/scope)"];
+  V -> REJ [style=dotted]; S -> REJ [style=dotted]; T -> REJ [style=dotted];
+}

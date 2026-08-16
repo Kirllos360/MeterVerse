@@ -2068,5 +2068,16 @@
             "grep/read: verified §5 internal categories (audit/health/metrics/config) + found reality matrix lacked explicit A-AT mapping",
             "write: §5 A-AT coverage appendix + P12-01_SOURCE_OF_TRUTH_DISCREPANCY_REGISTER.md (6 discrepancies, none silently corrected)"
         ]
+    },
+    {
+        "task": "P12-02: Event/Outbox/Idempotency/Correlation/Service-Security Foundation - 30 docs + 12 diagrams",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "vitest", "node-fetch", "dot/graphviz", "grep", "read", "tsc"],
+        "tools_used": [
+            "grep/read: verified P12-01 gaps real (in-proc EventBus, no outbox/idempotency/service-auth models, correlation only symbiot)",
+            "write: 30 P12-02_*.md deliverables (master, outbox, lifecycle, idempotency, correlation, service-auth, threat model, retry/DLQ/replay, ordering, schema, API, dispatcher, observability, failure matrix, migration, compat, testing, accounting safety, solar model, dependency, gaps, discrepancies, waves, acceptance, security, benchmark, decisions, risks, traceability, certification)",
+            "dot: 12 D-P12-02-*.svg diagrams rendered (BOM-safe via UTF8-no-BOM writer)",
+            "vitest/graph/speckit: suite 405 re-verified, graph 12/0/0, speckit 100%"
+        ]
     }
 ]

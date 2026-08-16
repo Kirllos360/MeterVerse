@@ -1,20 +1,18 @@
 ﻿# MeterVerse — Current Sprint
 
-## P12-01 Enterprise Integration Reality Discovery + Reconciliation (2026-08-15)
+## P12-02 Enterprise Event, Outbox, Idempotency, Correlation & Service Security Foundation (2026-08-15)
 
-**Goal:** Authoritative P12 integration baseline — what integrates with what, how, with which data/security/failure behavior.  
-**Status:** Complete — 15 deliverables + 8 diagrams; CONDITIONALLY CERTIFIED
+**Goal:** Implementation-ready architecture for transactional outbox, idempotency, correlation, service-to-service auth.  
+**Status:** Complete — 30 docs + 12 diagrams; CONDITIONALLY CERTIFIED (architecture-ready)
 
 | Item | Result |
 |------|--------|
-| Discovery | 69 routes + 48 services + 18 integration models; **40 integrations catalogued** |
-| Classification | A=19, B=13, C=1, D=1, E=3, F/I=4, G=0, H=0 |
-| P09/P10/P11 | Reconciled (all domains/processes/entities have implementation paths; no conflict) |
-| Symbiot/Solar | Independently audited (P60.6/7 claims re-verified); OBIS capture + SEP gated |
-| Events | event-bus in-process (real); NO outbox/persistent events (G-016 HIGH) |
-| Security/tenancy | P58 verified (ingestion meter-owned); service-to-service auth gap (G-017) |
-| **Deliverables** | **15 P12-01_*.md + 8 D-P12-*.svg** in planning/060_ENTERPRISE_INTEGRATION_ARCHITECTURE/ |
-| Gap register | 22 gaps (1 CRITICAL PG, 5 HIGH, 9 MED, 4 DEBT) |
-| Traceability | ~90% (honest; ~10% = collections/reports/ai lack dedicated API tests) |
-| Verdict | CONDITIONALLY CERTIFIED (PG blocks live; outbox/idempotency/correlation = P12-02) |
-| P12-01 completion | §5 A-AT category coverage appendix + §3 source-of-truth discrepancy register (6 discrepancies) added. Package now 16 deliverables |
+| Truth verification | All P12-01 gaps confirmed real (in-proc EventBus, no outbox/idempotency/service-auth models, correlation only in symbiot) |
+| Architecture decision | **OPTION A: Postgres transactional outbox + in-proc EventBus** (evidence: 8GB RAM, single-process, no broker feasible) |
+| Delivery semantics | At-least-once + consumer idempotency = effectively-once (never claim exactly-once) |
+| Design | OutboxEvent/EventDelivery/EventDeadLetter/IdempotencyRecord/ServiceIdentity/Credential + AuditEntry.correlationId (additive migration) |
+| Safety | Financial replay controlled (idempotency mandatory, dry-run, admin.ops); financialReplayGuard |
+| Solar/Symbiot | Additive only (idempotency + service auth + READING.INGESTED); P60.6/7 behavior preserved |
+| **Package** | **30 P12-02_*.md + 12 D-P12-02-*.svg** in planning/061_ENTERPRISE_EVENT_RELIABILITY_SECURITY_ARCHITECTURE/ |
+| Waves | P12.2-A..L (12 waves, ~23 days) |
+| Verdict | CONDITIONALLY CERTIFIED (architecture-ready; PG runtime + OBIS/SEP evidence gate implementation) |

@@ -1,0 +1,17 @@
+digraph P1202Idem {
+  rankdir=TB;
+  label="D-P12-02-005 Idempotency Flow";
+  node [shape=box fillcolor="#e0f2fe"];
+  REQ [label="Request/Event\n(idempotency key)"];
+  LOOK [label="IdempotencyRecord\nlookup (scope+area+op+key)"];
+  FOUND [label="Found?"];
+  SAME [label="Same payload hash?"];
+  DONE [label="Return persisted response\n(COMPLETED - replay)"];
+  CONFLICT [label="409 CONFLICT\n(same key, diff payload)"];
+  PROC [label="Process + INSERT\n(IN_PROGRESS -> COMPLETED)"];
+  REQ -> LOOK; LOOK -> FOUND;
+  FOUND -> SAME [label="yes"];
+  SAME -> DONE [label="yes"];
+  SAME -> CONFLICT [label="no"];
+  FOUND -> PROC [label="no"];
+}
