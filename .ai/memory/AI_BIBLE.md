@@ -136,3 +136,8 @@ If any gate fails → task is BLOCKED. Not complete.
 4. **Start-Process env propagation:** env vars set before `Start-Process cmd /c` do NOT reach the node child. Launch `node src/server.js` directly (env set in parent) when env vars matter.
 5. **ALLOW_DEV_BYPASS** requires ALL of: env true + X-Dev-Mode:true + NODE_ENV!==production. Production restarts must NEVER carry it.
 6. **Memory constraint:** this 8GB host runs with ~1MB free under OpenCode+Edge+Defender. Heavy `next build` needs `--max-old-space-size=2048` + pagefile; PG may be unable to start until RAM is freed. Budget for it.
+
+## P60.6 Durable Learnings (2026-08-15)
+
+7. **Symbiot/SEP bridge pattern:** external meter ingestion MUST map the external serial to a MeterVerse Meter (via unique serial) and persist a Reading with tenancy (areaId/projectId) taken FROM THE METER record — never from the payload (P58 horizontal-privilege). Fail-closed: unknown meter serial or missing value → reject, never silently drop.
+8. **Anti-stall discipline:** once an environmental blocker is proven (PG memory), record once and execute independent unblocked work. P60.6 converted the symbiot stub → functional in one pass (discover → implement → 12 tests → route → graph/speckit → commit).

@@ -13,7 +13,7 @@ digraph ImplDep {
   DONE_SOLAR [label="Solar wallet ENGINE (pure)\n[DONE LR-5 - 16 tests]" fillcolor="#d1f5d3"];
   P1_SOLAR_CAP [label="Reading obis180/280 capture\n[gated: OBIS]"];
   P1_EXCEL [label="Solar Excel ImportJob\n[safe - no OBIS dep]" fillcolor="#fef7e0"];
-  P2_SYMB [label="Symbiot/SEP protocol bridge\n[extract knowledge]"];
+  P2_SYMB [label="Symbiot/SEP bridge\n[PARTIAL P60.6 — TCP/HTTP multiplex + ingestReading persist; auth gateway/SEP polling remain]" fillcolor="#fef7e0"];
   P2_TAX [label="SBill tax seed config\n[safe]"];
   P3_CHEQUE [label="Cheque engine + /api/cheques route\n[DONE P60.4 - 14 tests, live]" fillcolor="#d1f5d3"];
   P3_POS [label="POS/CurrencyType\n[evidence-gated]"];

@@ -1,13 +1,13 @@
-// TEST-COVERAGE graph — P59-C/LR-2A v1.0.0
+﻿// TEST-COVERAGE graph â€” P59-C/LR-2A v1.0.0
 // Evidence-based: unit+api 325 total (307 pass + 18 skip), contract 56 skip,
 // integration 31 skip, FE tsc 0. Tenancy + security live-proven.
 digraph TestCov {
   rankdir=LR;
-  label="Test Coverage — v1.0.0 (evidence, not estimates)";
+  label="Test Coverage â€” v1.0.0 (evidence, not estimates)";
 
   node [shape=box fillcolor="#d1f5d3"];
-  UNIT [label="unit+api 387 (369 pass + 18 skip live)"];
-  T_SEC [label="security 49 (requireAccess NULL→403)"];
+  UNIT [label="unit+api 398 (380 pass + 18 skip live)"];
+  T_SEC [label="security 49 (requireAccess NULLâ†’403)"];
   T_SETTLE [label="settlement 7 (LR-2)"];
   T_CHARGE [label="charge-types 7 (LR-2)"];
   T_DBGUARD [label="db-guard 6 (isolation)"];
@@ -15,10 +15,11 @@ digraph TestCov {
   T_SOLAR [label="solar-wallet 16 (LR-5) + solar route LIVE-verified (LR-7)"];
   T_CHEQUE [label="cheque engine 6 (LR-7) + route 8 (P60.4)"];
   T_PAY [label="payment route 8 (P60.4) - allocation/overpay/dup/statement"];
-  IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — EXECUTE prod-grade: dup-detect + per-row tx + 50k cap; prod gated]" fillcolor="#fef7e0"];
-  SOLAR_DONE [label="Solar Wallet ENGINE + ROUTE\n[DONE LR-5/7 — compute/persist/route LIVE-verified; Reading capture OBIS-gated]" fillcolor="#fef7e0"];
-  TARIFF_SEED [label="Solar tiered Tariff seed\n[DONE LR-6 — 12 tiers + 1.68 over-limit; test-DB verified]" fillcolor="#fef7e0"];
-  CHEQUE_DONE [label="Cheque ROUTE /api/cheques + FE admin/cheques\n[DONE P60.4/P60.5 — create/clear/reject/list, live 401-protected, UI nav+page wired]" fillcolor="#fef7e0"];
+  T_SYMB [label="symbiot ingest 7 (P60.6) + ingestion route 5 (P60.6)"];
+  IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 â€” EXECUTE prod-grade: dup-detect + per-row tx + 50k cap; prod gated]" fillcolor="#fef7e0"];
+  SOLAR_DONE [label="Solar Wallet ENGINE + ROUTE\n[DONE LR-5/7 â€” compute/persist/route LIVE-verified; Reading capture OBIS-gated]" fillcolor="#fef7e0"];
+  TARIFF_SEED [label="Solar tiered Tariff seed\n[DONE LR-6 â€” 12 tiers + 1.68 over-limit; test-DB verified]" fillcolor="#fef7e0"];
+  CHEQUE_DONE [label="Cheque ROUTE /api/cheques + FE admin/cheques\n[DONE P60.4/P60.5 â€” create/clear/reject/list, live 401-protected, UI nav+page wired]" fillcolor="#fef7e0"];
 
   node [shape=box fillcolor="#fef7e0"];
   CONTRACT [label="contract 56 (skip unless test BE)"];
@@ -39,9 +40,11 @@ digraph TestCov {
   UNIT -> T_SOLAR;
   UNIT -> T_CHEQUE;
   UNIT -> T_PAY;
+  UNIT -> T_SYMB;
   T_IMPORT -> IMPORT_DONE;
   T_SOLAR -> SOLAR_DONE;
   T_CHEQUE -> CHEQUE_DONE;
   CONTRACT -> INTEG [style=dashed];
   GAP1 -> GAP2 -> GAP3 [style=dotted];
 }
+

@@ -23,7 +23,7 @@ CHANGE REQUEST â†’ GRAPH IMPACT ANALYSIS â†’ SPEC â†’ PLAN â†�
 | C-TENANCY | P59-B tenancy repair (639) | approvals #2-#6 | Customer/Meter/Reading/Invoice/Payment areaId | data repair | BLOCKED (stakeholder) |
 | C-SOLAR-TARIFF | Solar tiered tariff seed (12 tiers + 1.68) | none | scripts/seed-solar-tariff.js | migration | DONE (LR-6, test-DB verified) |
 | C-SOLAR | Solar wallet / net metering | OBIS decision (capture) | solar-wallet-engine.js | vertical slice | **ENGINE + ROUTE DONE (LR-5/7, 16 tests + live-verified; Reading capture OBIS-gated)**; Reading obis capture BLOCKED (OBIS) |
-| C-SYMB | Symbiot/SEP protocol bridge | none | gateways service | infrastructure | PENDING (knowledge extract) |
+| C-SYMB | Symbiot/SEP protocol bridge | none | symbiot-bridge.js (TCP/HTTP + ingestReading) + /api/ingestion | infrastructure | **PARTIAL (P60.6) — TCP/HTTP multiplex + reading persist + route (11 tests); SEP auth gateway + polling remain** |
 | C-TAX | SBill tax seed config | none | TariffTax/InvoiceTax seed | migration | PENDING (safe) |
 | C-CHEQUE | Cheque/POS/payment centers | settlement | cheque-engine.js + /api/cheques route + admin cheques UI | vertical slice | **ENGINE + ROUTE + UI DONE (P60.4/P60.5) â€" 14 tests, live 401-protected, FE page wired**; POS/Currency evidence-gated |
 | C-CHILLED | Chilled-water settlement | settlement + business scope | ChilledWater models | vertical slice | PENDING (business) |

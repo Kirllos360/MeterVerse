@@ -1,12 +1,23 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60.5 - Cheque UI completion + max-progress)  
-**Current Phase:** P60.5 - Financial UI + Solar Readiness  
-**Version:** 10.20.0-P60.5  
+**Last Updated:** 2026-08-15 (P60.6 - SEP/Symbiot bridge + Solar readiness)  
+**Current Phase:** P60.6 - Symbiot Bridge Execution  
+**Version:** 10.20.0-P60.6  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.6 - SEP/Symbiot Bridge Execution (2026-08-15)
+
+**Real implementation (anti-stall): bridge stub -> functional meter ingestion.**
+- **ingestReading:** external meter serial -> MeterVerse Meter -> persist Reading(source=symbiot) with meter-owned tenancy (P58-safe: payload cannot override areaId/projectId), fail-closed unknown-meter/missing-value. HTTP POST /readings added.
+- **NEW /api/ingestion route:** GET status (monitor.*) + POST test-push (admin.*, zod). Mounted, live 401-protected.
+- **Tests:** 12 new (symbiot-bridge 7 incl. P58-safety + ingestion-route 5). Full suite 398 (380/18) up from 387. Graph 12/0/0, SpecKit 100%.
+- **Solar readiness:** bridge advanced (was the next unblocked dependency); SEP auth gateway + OBIS remain (evidence/approval-gated).
+- **Financial live-cert checklist prepared** (P60.6-FINANCIAL-LIVE-CERT-CHECKLIST.md, RUNTIME-GATED on PG).
+- **Blockers:** PostgreSQL :5433 (env); OBIS, Import EXECUTE, P59-B #2-6, Wave 4 (approval).
+
 
 ## P60.5 - Maximum-Progress Gate: Cheque UI + Solar Readiness (2026-08-15)
 

@@ -2002,5 +2002,17 @@
             "tsc: FE 0; next build: admin FE rebuilt (154s)",
             "vitest: 387 stable; graph/speckit validators 12/0/0 + 100%"
         ]
+    },
+    {
+        "task": "P60.6: SEP/Symbiot bridge - ingestReading persist + /api/ingestion route + 12 tests",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "node-fetch", "vitest", "tsc", "dot/graphviz", "glob", "grep", "read"],
+        "tools_used": [
+            "grep/read: found symbiot-bridge.js handleIngress was a log-only STUB (the gap)",
+            "write/edit: ingestReading (external meter -> MeterVerse Meter -> Reading persist, meter-owned tenancy, fail-closed) + HTTP POST /readings",
+            "write: routes/ingestion.js (status + test-push) mounted in server.js",
+            "vitest: 12 new (symbiot-bridge 7 incl P58-safety + ingestion-route 5); full suite 398 up from 387",
+            "node-fetch: /api/ingestion live 401-protected; dot: graphs regenerated; validators 12/0/0 + 100%"
+        ]
     }
 ]
