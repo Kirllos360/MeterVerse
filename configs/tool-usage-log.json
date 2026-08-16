@@ -1965,5 +1965,18 @@
             "negative security: 5/5 unauth/bad-token -> 401 (auth enforced at runtime)",
             "vitest: 353/371 full x2, security+tenancy 49/49; playwright: upload/add-data render 0 errors + Template button live; tsc 0; persistence PASS (same PIDs 65s)"
         ]
+    },
+    {
+        "task": "P60.4: Collection Settlement+Payment+Cheque closure - cheque HTTP route implemented",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "node-fetch", "vitest", "tsc", "glob", "grep", "read", "dot/graphviz", "memory-graph"],
+        "tools_used": [
+            "grep/read: located the gap - cheque engine existed (LR-7) but NO HTTP route",
+            "write: routes/cheque.js (GET/POST/clear/reject, auth+tenancy+audit) + mounted in server.js",
+            "vitest: 8 new cheque-route tests; full suite 379 (361 pass/18 skip) up from 371",
+            "node-fetch: /api/cheques live-verified 401-protected (mounted, not 404)",
+            "dot: IMPLEMENTATION-DEPENDENCY + TEST-COVERAGE svg regenerated after cheque update",
+            "speckit/graph validators: 12/0/0 + 100% after updates"
+        ]
     }
 ]

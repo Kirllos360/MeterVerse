@@ -15,7 +15,8 @@ digraph ImplDep {
   P1_EXCEL [label="Solar Excel ImportJob\n[safe - no OBIS dep]" fillcolor="#fef7e0"];
   P2_SYMB [label="Symbiot/SEP protocol bridge\n[extract knowledge]"];
   P2_TAX [label="SBill tax seed config\n[safe]"];
-  P3_CHEQUE [label="Cheque/POS\n[evidence-gated]"];
+  P3_CHEQUE [label="Cheque engine + /api/cheques route\n[DONE P60.4 - 14 tests, live]" fillcolor="#d1f5d3"];
+  P3_POS [label="POS/CurrencyType\n[evidence-gated]"];
   P3_CHILLED [label="Chilled-water\n[business-gated]"];
   P3_MIGRATE [label="SBill data migration\n[gated: P59-B + OBIS]" fillcolor="#fff1f0"];
 

@@ -25,7 +25,7 @@ CHANGE REQUEST â†’ GRAPH IMPACT ANALYSIS â†’ SPEC â†’ PLAN â†�
 | C-SOLAR | Solar wallet / net metering | OBIS decision (capture) | solar-wallet-engine.js | vertical slice | **ENGINE + ROUTE DONE (LR-5/7, 16 tests + live-verified; Reading capture OBIS-gated)**; Reading obis capture BLOCKED (OBIS) |
 | C-SYMB | Symbiot/SEP protocol bridge | none | gateways service | infrastructure | PENDING (knowledge extract) |
 | C-TAX | SBill tax seed config | none | TariffTax/InvoiceTax seed | migration | PENDING (safe) |
-| C-CHEQUE | Cheque/POS/payment centers | settlement | Cheque/POSTerminal models | vertical slice | PENDING (evidence) |
+| C-CHEQUE | Cheque/POS/payment centers | settlement | cheque-engine.js + /api/cheques route (create/clear/reject/list) | vertical slice | **ENGINE + ROUTE DONE (P60.4) â€" 14 tests (6 engine + 8 route), live-mounted 401-protected**; POS/Currency evidence-gated |
 | C-CHILLED | Chilled-water settlement | settlement + business scope | ChilledWater models | vertical slice | PENDING (business) |
 | C-MIGRATE | SBill data migration | P59-B + OBIS | ImportJob/migration | migration | BLOCKED |
 

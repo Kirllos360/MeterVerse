@@ -1,12 +1,22 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60.3 - Runtime recovery + zero-trust certification)  
-**Current Phase:** P60.3 - Full Runtime Recovery + Certification  
-**Version:** 10.20.0-P60.3  
+**Last Updated:** 2026-08-15 (P60.4 - Collection financial closure)  
+**Current Phase:** P60.4 - Settlement + Payment + Cheque Closure  
+**Version:** 10.20.0-P60.4  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.4 - Collection Settlement + Payment + Cheque Closure (2026-08-15)
+
+**Implementation-first (anti-stall). Cheque HTTP surface was the gap.**
+- **NEW: cheque route** (backend/src/routes/cheque.js): GET /api/cheques, POST (create), POST /:id/clear, POST /:id/reject. Auth payments.* + tenancy clamp + audit. Mounted /cheques. Live-verified 401-protected.
+- **Tests:** 8 new cheque-route (create/400/404/clear/non-cheque/reject/list/401). Full suite 379 (361 pass/18 skip), up from 371. Cheque total 14 tests (6 engine + 8 route).
+- **Graph/SpecKit:** C-CHEQUE PENDING→DONE; IMPLEMENTATION-DEPENDENCY P3_CHEQUE→green + P3_POS evidence-gated; TEST-COVERAGE GAP3 split. Validators 12/0/0 + 100%.
+- **Financial vertical now:** Payment(allocation oldest-first) + Reverse/Refund + Statement/Aging + Settlement(engine+route) + Cheque(engine+route) all DONE. UI + DB-runtime deferred (PG environmental blocker).
+- **Blockers:** PostgreSQL :5433 (environmental, data safe + backup-proven); Import EXECUTE/OBIS/P59-B #2-6/Wave 4 (approval). Debt: POS/CurrencyType, chilled-water (evidence-gated).
+
 
 ## P60.3 - Full Runtime Recovery + Zero-Trust Certification (2026-08-15)
 

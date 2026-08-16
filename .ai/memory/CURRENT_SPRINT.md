@@ -1,17 +1,15 @@
 # MeterVerse — Current Sprint
 
-## P60.3 Full Runtime Recovery + Zero-Trust System Certification (2026-08-15)
+## P60.4 Collection Settlement + Payment + Cheque Closure (2026-08-15)
 
-**Goal:** Evidence-chain certification — can the system start, stay running, authenticate, reach DB, survive restarts.  
-**Status:** Non-DB scope CERTIFIED; PostgreSQL recovery BLOCKED (environmental)
+**Goal:** Close the Collection-derived financial vertical inside MeterVerse (anti-stall: real implementation).  
+**Status:** Cheque HTTP surface IMPLEMENTED + TESTED; DB-blocked runtime deferred
 
 | Item | Result |
 |------|--------|
-| Rediscovery | HEAD 46cbf0b1 clean; admin UP; portal DOWN; PG DOWN (9 attempts); RAM 1MB free — all re-verified |
-| PostgreSQL recovery | EXHAUSTED (9×: standard/minimal 32MB/absolute-min 8MB/service/net start). 0xC0000142 + empty log = child can't spawn under memory ceiling (OpenCode ~1.15GB not killable). Data INTACT + **backup-proven safe** (meterverse_20261508.sql: 223/277/361/116/53 + Settlement 3 + ImportJob 2, 325 tables, areaId/projectId present) |
-| Non-DB certification | template/upload routes 401-protected + pages render 0 errors · Graph 12/0/0 · SpecKit 100% · security/tenancy 49/49 + 5/5 negative · persistence PASS (same PIDs 65s) · regression 353/371 ×2 · tsc 0 |
-| Collection forensic | 20 capabilities all verified in Collection; reuse = behavior source (no clone) |
-| Priority (evidence-corrected) | 1. Template/upload (COMPLETE) 2. Settlement+Payment/cheque (no approval, 100% reuse) 3. Solar (OBIS-gated) |
-| Artifact | P60.3-CERTIFICATION.md |
-| Blockers | PostgreSQL (environmental); Import EXECUTE/OBIS/P59-B#2-6/Wave4 (approval) |
-| Debt | cross-root type:module; apiClient double-prefix hygiene |
+| Forensic | Payment allocation = already implemented (oldest-due-first via PaymentTransaction); Cheque engine existed but **no HTTP route** (the gap) |
+| **NEW: cheque route** | `routes/cheque.js` — GET /api/cheques, POST (create), POST /:id/clear, POST /:id/reject. Auth (payments.*), tenancy clamp, audit. Mounted at /cheques. **Live-verified 401-protected** |
+| Tests | **8 new** cheque-route (create/400/404/clear/clear-400/reject/list/401). Full suite 361 pass/18 skip (**379**) — up from 371 |
+| Graph/SpecKit | C-CHEQUE: PENDING→DONE (P60.4); IMPLEMENTATION-DEPENDENCY P3_CHEQUE→green; TEST-COVERAGE GAP3 split (cheque done, POS/chilled remain). Validators 12/0/0 + 100% |
+| Blockers | PostgreSQL :5433 (environmental, data safe); Import EXECUTE/OBIS/P59-B#2-6/Wave4 (approval) |
+| Debt | POS/CurrencyType, chilled-water (evidence-gated); cross-root type:module |
