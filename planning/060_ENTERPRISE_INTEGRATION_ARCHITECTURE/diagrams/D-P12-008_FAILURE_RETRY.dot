@@ -1,0 +1,11 @@
+digraph P12Fail {
+  rankdir=TB;
+  label="D-P12-008 Failure/Retry/Recovery Flow (verified mechanisms)";
+  node [shape=box fillcolor="#e0f2fe"];
+  CB [label="circuit-breaker"];
+  RETRY [label="webhook/import retry"];
+  DL [label="dead-letter (webhook)"];
+  GATE [label="import status-guard (idempotent execute)"];
+  AUDIT [label="auditLog fail-open"];
+  CB -> RETRY; RETRY -> DL; GATE -> AUDIT;
+}

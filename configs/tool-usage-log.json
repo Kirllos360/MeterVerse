@@ -2048,5 +2048,16 @@
             "vitest: full suite 405 (387/18) confirmed; graph 12/0/0; speckit 100%",
             "git: commits pushed, HEAD clean"
         ]
+    },
+    {
+        "task": "P12-01: Enterprise Integration Reality Discovery + Reconciliation (15 deliverables + 8 diagrams)",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "vitest", "node-fetch", "dot/graphviz", "grep", "read", "tsc"],
+        "tools_used": [
+            "grep/read: inventoried 69 routes + 48 services + 18 integration models; mapped P09/P10/P11 to 050/051/052 planning dirs",
+            "write: 15 P12-01_*.md deliverables (reality matrix, catalog, API matrix, dataflows, events, security, external, frontend, DB, reconciliation, gaps, dependency, baseline, verification, certification)",
+            "dot: 8 D-P12-*.svg diagrams (context, dependency, symbiot/solar, reading/accounting, event, tenancy, external, failure) - fixed BOM issue (Set-Content UTF8 adds EF BB BF that breaks dot)",
+            "vitest: suite 405 (387/18) re-verified; graph 12/0/0; speckit 100%"
+        ]
     }
 ]

@@ -1,0 +1,13 @@
+digraph P12Acc {
+  rankdir=LR;
+  label="D-P12-004 Reading-to-Billing-to-Accounting Flow (code-level; live DB-gated)";
+  node [shape=box fillcolor="#e0f2fe"];
+  R [label="Reading"];
+  B [label="billing-engine"];
+  I [label="Invoice"];
+  P [label="Payment (alloc oldest-first)"];
+  GL [label="posting-engine -> GL"];
+  L [label="CustomerLedgerEntry"];
+  A [label="AuditEntry"];
+  R -> B; B -> I; I -> P; P -> GL; P -> L; I -> A; P -> A; GL -> A;
+}

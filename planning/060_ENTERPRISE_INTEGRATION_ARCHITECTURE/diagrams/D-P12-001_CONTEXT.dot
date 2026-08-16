@@ -1,0 +1,31 @@
+digraph P12Context {
+  rankdir=LR;
+  label="D-P12-001 Enterprise Integration Context — P12-01 (verified)";
+
+  node [shape=box fillcolor="#e0f2fe"];
+  ADMIN [label="Admin FE\n:3535"];
+  PORTAL [label="Portal FE\n:3030"];
+  API [label="Express API\n69 routes / 48 services"];
+
+  node [shape=box fillcolor="#e6f4ea"];
+  PG [label="PostgreSQL\n:5433 (meter_pulse)"];
+  SYMBIOT [label="Symbiot\nTCP:9000 / HTTP:9001"];
+  EMAIL [label="Email/SMS\nengine"];
+  WEBHOOK [label="Webhooks\noutbound"];
+  EXTDB [label="External meter DBs\n(connection profiles)"];
+
+  node [shape=box fillcolor="#fef7e0"];
+  SEP [label="SEP (auth/protocol)\nEVIDENCE-GATED" style=dashed];
+  OBIS [label="OBIS capture\nAPPROVAL-GATED" style=dashed];
+  ERP [label="ERP/Bank/GIS\nPLANNED" style=dotted];
+
+  ADMIN -> API [label="REST /api"];
+  PORTAL -> API [label="REST /api"];
+  API -> PG [label="Prisma"];
+  SYMBIOT -> API [label="bridge -> ingestReading"];
+  API -> EMAIL; API -> WEBHOOK;
+  API -> EXTDB [label="connection-pool"];
+  API -> SEP [style=dashed];
+  API -> OBIS [style=dashed];
+  API -> ERP [style=dotted];
+}

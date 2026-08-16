@@ -1,0 +1,27 @@
+digraph P12SymbiotSolar {
+  rankdir=LR;
+  label="D-P12-003 Meter/Symbiot/Solar Dataflow — P12-01 (verified; OBIS step gated)";
+
+  node [shape=box fillcolor="#e0f2fe"];
+  SYM [label="Symbiot/SEP meter"];
+  BRIDGE [label="symbiot-bridge\n(TCP+HTTP, rate-limit, correlationID)"];
+  INGEST [label="ingestReading\n(serial->Meter, tenancy, fail-closed)"];
+  READING [label="Reading\n(source=symbiot)"];
+  SOLAR [label="solar-wallet-engine\n(consumption_180 / production_280)"];
+  BILLING [label="solar.js billing\n(compute + invoices)"];
+  INVOICE [label="Invoice"];
+  CUSTOMER [label="Customer view"];
+
+  node [shape=box fillcolor="#fef7e0"];
+  OBIS [label="OBIS register capture\n1.8.0/2.8.0 — APPROVAL-GATED" style=dashed];
+
+  SYM -> BRIDGE [label="TCP/HTTP"];
+  BRIDGE -> INGEST [label="JSON payload"];
+  INGEST -> READING [label="persist (tested)"];
+  READING -> OBIS [style=dashed label="directional registers"];
+  OBIS -> SOLAR [style=dashed];
+  READING -> SOLAR [label="resolved inputs (current path)"];
+  SOLAR -> BILLING [label="wallet/net-metering"];
+  BILLING -> INVOICE;
+  INVOICE -> CUSTOMER;
+}

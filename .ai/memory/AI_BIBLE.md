@@ -141,3 +141,9 @@ If any gate fails → task is BLOCKED. Not complete.
 
 7. **Symbiot/SEP bridge pattern:** external meter ingestion MUST map the external serial to a MeterVerse Meter (via unique serial) and persist a Reading with tenancy (areaId/projectId) taken FROM THE METER record — never from the payload (P58 horizontal-privilege). Fail-closed: unknown meter serial or missing value → reject, never silently drop.
 8. **Anti-stall discipline:** once an environmental blocker is proven (PG memory), record once and execute independent unblocked work. P60.6 converted the symbiot stub → functional in one pass (discover → implement → 12 tests → route → graph/speckit → commit).
+
+## P12-01 Durable Learnings (2026-08-15)
+
+9. **Graphviz BOM trap:** PowerShell `Set-Content -Encoding UTF8` writes a BOM (EF BB BF) that breaks `dot`. For diagram .dot files, strip the BOM (TrimStart 0xFEFF) or write via UTF8-no-BOM before rendering. The 3 write-tool files rendered; the 5 Set-Content files failed until BOM-stripped.
+10. **Integration classification discipline:** classify every integration A-J with evidence (reality matrix). P12-01 catalogued 40 (A=19, B=13). Do not upgrade B→A without runtime evidence.
+11. **Foundation-first:** P12-01 confirmed the event outbox (G-016), universal idempotency (G-015), correlation (G-014), and service-to-service auth (G-017) as the P12-02 integration foundation priorities — do not start luxury integrations before these.

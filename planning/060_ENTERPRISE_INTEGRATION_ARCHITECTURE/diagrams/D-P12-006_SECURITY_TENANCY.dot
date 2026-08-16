@@ -1,0 +1,23 @@
+digraph P12Tenancy {
+  rankdir=TB;
+  label="D-P12-006 Security/Tenancy Propagation — P12-01 (P58 verified)";
+
+  node [shape=box fillcolor="#e0f2fe"];
+  JWT [label="JWT (sub, role, area claims)"];
+  AUTH [label="authenticate middleware"];
+  PERM [label="requirePermission (RBAC)"];
+  RES [label="requireAccess (resource, fail-closed)"];
+  LIST [label="scopeWhere (list)"];
+  CLAMP [label="clampRequestedScope (query)"];
+  INGEST [label="ingestReading (meter-owned tenancy)"];
+  DB [label="meter_pulse (scoped queries)"];
+
+  JWT -> AUTH;
+  AUTH -> PERM;
+  AUTH -> RES;
+  AUTH -> LIST;
+  AUTH -> CLAMP;
+  AUTH -> INGEST [label="P58: payload CANNOT set areaId/projectId"];
+  PERM -> DB; RES -> DB; LIST -> DB; CLAMP -> DB;
+  INGEST -> DB [label="meter.areaId wins"];
+}

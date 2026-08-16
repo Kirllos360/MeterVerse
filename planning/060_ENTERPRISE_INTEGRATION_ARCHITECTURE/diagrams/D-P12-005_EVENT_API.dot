@@ -1,0 +1,13 @@
+digraph P12Event {
+  rankdir=LR;
+  label="D-P12-005 Event/API Interaction (event-bus in-process, verified)";
+  node [shape=box fillcolor="#e0f2fe"];
+  REST [label="Synchronous REST (primary)"];
+  EB [label="EventBus (in-process emit)"];
+  WEB [label="webhook-dispatcher (outbound)"];
+  WS [label="websocket-gateway"];
+  JOB [label="QueueJob/ScheduledTask"];
+  EXTC [label="External consumers"];
+  REST -> JOB [label="async jobs"];
+  EB -> WEB; EB -> WS; JOB -> REST;
+}

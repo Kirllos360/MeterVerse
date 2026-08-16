@@ -1,0 +1,11 @@
+digraph P12Dep {
+  rankdir=LR;
+  label="D-P12-002 Integration Dependency Map (verified)";
+  node [shape=box fillcolor="#e0f2fe"];
+  FE [label="FE (admin+portal)"];
+  API [label="API layer (69 routes)"];
+  SRV [label="Service layer (48)"];
+  DB [label="Prisma -> PostgreSQL"];
+  EXT [label="External (Symbiot/email/webhooks)"];
+  FE -> API; API -> SRV; SRV -> DB; API -> EXT; SRV -> EXT;
+}
