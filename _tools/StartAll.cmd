@@ -20,7 +20,7 @@ echo [DB] Checking PostgreSQL :5433 ...
 PowerShell -Command "try{$s=New-Object System.Net.Sockets.TcpClient;$s.Connect('127.0.0.1',5433);$s.Close();exit 0}catch{exit 1}" >nul 2>&1
 if errorlevel 1 (
     echo [DB] WARNING: PostgreSQL not detected on :5433.
-    echo      Start the native service: net start postgresql-x64-18
+    echo      Start the native service: net start postgresql  (PG16 :5433; x64-18 is PG18 :5434)
     echo      Frontend will start in UI-only mode.
 )
 

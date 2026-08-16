@@ -85,7 +85,7 @@ echo [DB] Checking PostgreSQL :5433 ...
 call :CHECK_DB
 if errorlevel 1 (
     echo [DB] WARNING: PostgreSQL not detected on 5433.
-    echo      Start the native service: net start postgresql-x64-18
+    echo      Start the native service: net start postgresql  (PG16 :5433; x64-18 is PG18 :5434)
     echo      Frontend will start in UI-only mode.
 )
 

@@ -13,7 +13,8 @@ set DB_USER=meter_pulse
 set DB_PASS=meter_pulse_dev
 set DB_NAME=meter_pulse
 :: NATIVE PostgreSQL only - the database is NOT Dockerized.
-:: Two native services may run (postgresql / postgresql-x64-18); both use :5433.
+:: Two native services may exist: postgresql (PG16, MeterVerse DB on :5433) and
+:: postgresql-x64-18 (PG18 on :5434, separate instance). Only :5433 is MeterVerse.
 set GIT_REMOTE=origin
 set GIT_BRANCH=main
 
