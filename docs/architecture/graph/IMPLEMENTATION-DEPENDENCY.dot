@@ -19,6 +19,9 @@ digraph ImplDep {
   P3_POS [label="POS/CurrencyType\n[evidence-gated]"];
   P3_CHILLED [label="Chilled-water\n[business-gated]"];
   P3_MIGRATE [label="SBill data migration\n[gated: P59-B + OBIS]" fillcolor="#fff1f0"];
+  P12_2A [label="P12.2-A Event Reliability schema\n[DONE 2026-08-16 - 6 tables + migration + 12 tests]" fillcolor="#d1f5d3"];
+  P12_2B [label="P12.2-B Correlation + request identity\n[next - depends on P12.2-A]"];
+  P12_2C [label="P12.2-C Idempotency\n[depends on P12.2-A]" fillcolor="#fef7e0"];
 
   P1_EXCEL -> DONE_ISO;
   P1_SOLAR_CAP -> P0b;
@@ -28,4 +31,6 @@ digraph ImplDep {
   P3_MIGRATE -> P0b;
   P3_CHEQUE -> DONE_SETTLE [style=dashed];
   P3_CHILLED -> DONE_SETTLE [style=dashed];
+  P12_2A -> P12_2B;
+  P12_2A -> P12_2C;
 }

@@ -1,12 +1,22 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P12-03 - Consumer Migration & Pilot design)  
-**Current Phase:** P12-03 - Consumer Migration & Pilot  
-**Version:** 10.20.0-P12-03  
+**Last Updated:** 2026-08-16 (P12.2-A - Event Reliability schema IMPLEMENTED)  
+**Current Phase:** P12.2-A - Event Reliability Foundation (execution)  
+**Version:** 10.20.0-P12.2-A  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P12.2-A - Event Reliability Foundation IMPLEMENTED (2026-08-16)
+
+**Real schema implementation of the P12-02 architecture.**
+- **6 models added:** OutboxEvent, EventDelivery, EventDeadLetter, IdempotencyRecord, ServiceIdentity, ServiceCredential (payload=String per project convention; correlationId NOT NULL on outbox; tenancy area-scoped unique).
+- **Migration:** 20260816000000_add_event_reliability_foundation (additive: 0 DROP, 6 tables, 9 indexes, 3 FK). prisma validate + generate PASS.
+- **Tests:** 12 new (event-reliability.test.mjs). Full suite 417 (399/18) up from 405. FE tsc 0. Graph 12/0/0. SpecKit 100%.
+- **Runtime:** PG :5433 BLOCKED_ENV (migration static-validated, live apply pending). G-014/015/016/017 = PARTIAL (schema done).
+- **Next:** P12.2-B (correlation + request identity middleware).
+
 
 ## P12-03 - Consumer Migration & Pilot (2026-08-15)
 

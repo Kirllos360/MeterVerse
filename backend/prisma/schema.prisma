@@ -3445,3 +3445,122 @@ model Ticket {
 
 
 
+
+// ─── P12.2-A: EVENT RELIABILITY FOUNDATION (P12-02 architecture) ──────────────
+// Transactional outbox + delivery tracking + dead-letter + idempotency +
+// service identity. Payload/metadata stored as String (project convention:
+// JSON-as-String, consistent with existing models). Additive; no existing-table
+// change. Tenancy via areaId/projectId derived from the aggregate, never payload.
+
+model OutboxEvent {
+  id            String    @id @default(uuid())
+  eventType     String
+  eventVersion  Int       @default(1)
+  aggregateType String
+  aggregateId   String
+  tenantId      String?
+  areaId        String?
+  projectId     String?
+  correlationId String
+  causationId   String?
+  idempotencyKey String?
+  payload       String    @default("{}")
+  metadata      String?   // JSON: producer, actor, extra
+  sourceService String?
+  actorId       String?
+  occurredAt    DateTime
+  createdAt     DateTime  @default(now())
+  availableAt   DateTime  @default(now())
+  publishedAt   DateTime?
+  status        String    @default("PENDING")
+  attemptCount  Int       @default(0)
+  lastAttemptAt DateTime?
+  nextRetryAt   DateTime?
+  lastError     String?
+  lockedAt      DateTime?
+  lockedBy      String?
+  deadLetteredAt DateTime?
+  archivedAt    DateTime?
+
+  deliveries    EventDelivery[]
+  deadLetters   EventDeadLetter[]
+
+  @@index([status, nextRetryAt])
+  @@index([aggregateType, aggregateId])
+  @@index([correlationId])
+  @@index([areaId])
+  @@index([eventType, status])
+}
+
+model EventDelivery {
+  id           String   @id @default(uuid())
+  eventId      String
+  event        OutboxEvent @relation(fields: [eventId], references: [id])
+  consumerKey  String
+  status       String   @default("PENDING")
+  attempts     Int      @default(0)
+  lastError    String?
+  deliveredAt  DateTime?
+  createdAt    DateTime @default(now())
+
+  @@unique([eventId, consumerKey])
+  @@index([consumerKey, status])
+}
+
+model EventDeadLetter {
+  id          String   @id @default(uuid())
+  eventId     String
+  event       OutboxEvent @relation(fields: [eventId], references: [id])
+  consumerKey String
+  reason      String
+  lastError   String?
+  replayed    Boolean  @default(false)
+  replayedAt  DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([eventId, consumerKey])
+}
+
+model IdempotencyRecord {
+  id           String   @id @default(uuid())
+  key          String
+  scope        String
+  tenantId     String?
+  areaId       String?
+  projectId    String?
+  operation    String?
+  requestHash  String
+  status       String   @default("IN_PROGRESS")
+  responseBody String?  // JSON: persisted response for HTTP replay
+  createdAt    DateTime @default(now())
+  completedAt  DateTime?
+  expiresAt    DateTime
+
+  @@unique([scope, areaId, operation, key])
+  @@index([expiresAt])
+}
+
+model ServiceIdentity {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  scopes    String   @default("[]") // JSON array
+  areaScope String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  credentials ServiceCredential[]
+}
+
+model ServiceCredential {
+  id          String    @id @default(uuid())
+  serviceId   String
+  service     ServiceIdentity @relation(fields: [serviceId], references: [id])
+  keyHash     String
+  keyPrefix   String    @unique
+  issuedAt    DateTime  @default(now())
+  expiresAt   DateTime?
+  revokedAt   DateTime?
+  lastUsedAt  DateTime?
+
+  @@index([serviceId])
+}

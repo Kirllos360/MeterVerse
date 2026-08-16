@@ -153,3 +153,9 @@ If any gate fails → task is BLOCKED. Not complete.
 12. **Transactional outbox is the correct financial-safe event pattern for MeterVerse:** OPTION A (Postgres outbox + in-proc EventBus) chosen over a broker — evidence: 8GB RAM, single-process, native PG. At-least-once + consumer idempotency = effectively-once; NEVER claim exactly-once.
 13. **Financial replay safety rule:** every financial event (PAYMENT/INVOICE/SETTLEMENT/JOURNAL) REQUIRES an IdempotencyRecord; replay is controlled (admin.ops, dry-run) and blocked without the record. This prevents duplicate journal entries (Wave 07 protection).
 14. **Universal idempotency + correlation are the P12-02 foundation unlocks** — the apiClient double-prefix, in-proc event-bus, and missing service auth were all confirmed still-real before design.
+
+## P12.2-A Durable Learnings (2026-08-16)
+
+15. **Offline migration creation:** `prisma migrate diff --from-empty` regenerates the ENTIRE schema (wrong for additive migrations without a DB). When PG is down, write the migration SQL manually following the project's established style (CREATE TABLE + CREATE INDEX + ALTER ADD CONSTRAINT). Verify via `prisma validate` + `prisma generate` (both offline) + non-destructive check (0 DROP).
+16. **Prisma generate EPERM fix:** the running backend holds `query_engine-windows.dll.node` (rename fails). Stop the node process holding it + clean stale `*.tmp*` files in `.prisma/client` before `prisma generate`.
+17. **Schema convention (reconciles P12-02):** MeterVerse stores JSON payloads as `String` (41 existing fields), NOT Prisma `Json`. Event payload/metadata use `String @default("{}")`. Document the deviation instead of silently changing.

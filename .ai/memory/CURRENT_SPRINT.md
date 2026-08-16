@@ -1,15 +1,18 @@
 ﻿# MeterVerse - Current Sprint
 
-## P12-03 Consumer Migration & Pilot (2026-08-15)
+## P12.2-A Event Reliability Foundation — EXECUTION (2026-08-16)
 
-**Goal:** Execution plan for converting financial postEvent to the P12-02 outbox pipeline (shadow -> cutover).  
-**Status:** Design complete (7 docs); runtime BLOCKED (PG env)
+**Goal:** Implement the P12-02 schema foundation (real repository change).  
+**Status:** IMPLEMENTED — 6 models + migration + 12 tests; PG blocks live apply
 
 | Item | Result |
 |------|--------|
-| Truth | postEvent = financial producer; EventBus = runtime bus; financial events flag-guarded |
-| Design | enqueueEvent (atomic+dual-publish), dispatcher, pilot ledger consumer, replay guard, shadow validation (diff 0 x10) |
-| Package | planning/062_CONSUMER_MIGRATION_PILOT/ (7 docs) |
-| Tasks | 10 (~17 days) |
-| Blockers | PostgreSQL :5433 (env, recovery attempted again - still 1MB RAM); OBIS/SEP (approval/evidence) |
+| Schema | 6 new models: OutboxEvent, EventDelivery, EventDeadLetter, IdempotencyRecord, ServiceIdentity, ServiceCredential (+ correlationId NOT NULL on outbox) |
+| Migration | 20260816000000_add_event_reliability_foundation — additive (0 DROP, 6 CREATE TABLE, 9 INDEX, 3 FK) |
+| Tests | 12 new (identity, idempotency first/dup/conflict/tenant, correlation, P58 tenancy, delivery, financial safety). Suite 417 (399/18) up from 405 |
+| Validate/generate | prisma validate PASS; prisma generate PASS (client regenerated) |
+| Runtime | PG :5433 BLOCKED_ENV — migration static-validated, NOT applied live |
+| Graph/SpecKit | 12/0/0 + 100% (P12.2-A node added to dependency graph) |
+| Gaps | G-014/015/016/017 = PARTIAL (schema done; middleware/wiring P12.2-B/C/D/G) |
+| Next | P12.2-B: correlation + request identity middleware |
 
