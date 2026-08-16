@@ -1,11 +1,16 @@
 // Symbiot Bridge — TCP + HTTP multiplex for external meter data ingestion (T091)
 import { createServer } from 'net';
 import { request } from 'http';
+import crypto from 'crypto';
 import { prisma } from '../db.js';
 
 const connections = new Map();
 const MAX_TCP = 10;
 const MAX_HTTP = 100;
+// Per-IP rate limit for the HTTP /readings endpoint (P60.7 §6 hardening).
+const HTTP_RATE_MAX = 300;        // requests per window
+const HTTP_RATE_WINDOW_MS = 60_000;
+const httpRate = new Map();        // ip -> { count, resetAt }
 
 export function createSymbiotBridge(options = {}) {
   const { tcpPort = Number(process.env.SYMBIOT_TCP_PORT) || 9000, httpPort = Number(process.env.SYMBIOT_HTTP_PORT) || 9001 } = options;
@@ -34,10 +39,22 @@ export function createSymbiotBridge(options = {}) {
 
   // HTTP endpoint for JSON meter-reading POSTs (Symbiot/SEP push)
   const httpServer = createServer((req, res) => {
+    const ip = req.socket.remoteAddress || 'unknown'
+    // Per-IP rate limit (fail-closed: over-limit requests are rejected).
+    const now = Date.now()
+    const entry = httpRate.get(ip)
+    if (!entry || entry.resetAt < now) httpRate.set(ip, { count: 0, resetAt: now + HTTP_RATE_WINDOW_MS })
+    const cur = httpRate.get(ip)
+    cur.count += 1
+    if (cur.count > HTTP_RATE_MAX) {
+      res.writeHead(429, { 'Content-Type': 'application/json' });
+      return res.end(JSON.stringify({ ok: false, error: 'rate limit exceeded', code: 'RATE_LIMITED' }));
+    }
     if (req.method !== 'POST' || req.url !== '/readings') {
       res.writeHead(404, { 'Content-Type': 'application/json' });
       return res.end(JSON.stringify({ error: 'Not found' }));
     }
+    const correlationId = crypto.randomUUID()
     let body = '';
     req.on('data', (c) => { body += c; if (body.length > 1e6) req.destroy(); });
     req.on('end', async () => {
@@ -45,10 +62,10 @@ export function createSymbiotBridge(options = {}) {
         const payload = JSON.parse(body);
         const result = await ingestReading(payload);
         res.writeHead(result.ok ? 200 : 400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify(result));
+        res.end(JSON.stringify({ ...result, correlationId }));
       } catch (err) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ ok: false, error: err.message }));
+        res.end(JSON.stringify({ ok: false, error: err.message, correlationId }));
       }
     });
   });
@@ -60,12 +77,25 @@ export function createSymbiotBridge(options = {}) {
 // Ingest a reading from an external (Symbiot/SEP) meter identity.
 // Maps the external meter serial to a MeterVerse Meter, then persists a Reading
 // with tenancy (areaId/projectId) propagated from the meter. Fail-closed: an
-// unknown serial or missing value is rejected (nothing silently dropped).
+// unknown serial, missing/invalid value, negative value, or impossible (future/
+// malformed) timestamp is rejected (nothing silently dropped).
 export async function ingestReading(payload = {}) {
   const meterSerial = payload.meter ?? payload.serial ?? payload.meterSerial ?? payload.meter_id
   const value = payload.value ?? payload.reading
   if (!meterSerial) return { ok: false, error: 'missing meter serial', code: 'MISSING_METER' }
   if (value === null || value === undefined || Number.isNaN(Number(value))) return { ok: false, error: 'missing or invalid reading value', code: 'INVALID_VALUE' }
+  const numericValue = Number(value)
+  if (numericValue < 0) return { ok: false, error: 'reading value cannot be negative', code: 'NEGATIVE_VALUE' }
+  if (!Number.isFinite(numericValue)) return { ok: false, error: 'reading value is not finite', code: 'INVALID_VALUE' }
+
+  // Timestamp validation: reject malformed or future timestamps (fail-closed).
+  let timestamp = null
+  if (payload.timestamp !== undefined && payload.timestamp !== null && payload.timestamp !== '') {
+    const t = new Date(payload.timestamp)
+    if (Number.isNaN(t.getTime())) return { ok: false, error: 'malformed timestamp', code: 'INVALID_TIMESTAMP' }
+    if (t.getTime() > Date.now() + 60_000) return { ok: false, error: 'timestamp is in the future', code: 'FUTURE_TIMESTAMP' }
+    timestamp = t
+  }
 
   const meter = await prisma.meter.findUnique({ where: { serial: String(meterSerial) } })
   if (!meter) return { ok: false, error: `unknown meter serial '${meterSerial}'`, code: 'UNKNOWN_METER' }
@@ -73,16 +103,16 @@ export async function ingestReading(payload = {}) {
   const reading = await prisma.reading.create({
     data: {
       meterId: meter.id,
-      value: Number(value),
+      value: numericValue,
       source: payload.source || 'symbiot',
       unit: payload.unit || 'kWh',
       status: 'valid',
-      timestamp: payload.timestamp ? new Date(payload.timestamp) : new Date(),
+      timestamp: timestamp || new Date(),
       areaId: meter.areaId,
       projectId: meter.projectId ?? null,
     },
   })
-  return { ok: true, readingId: reading.id, meterId: meter.id, value: Number(value), source: 'symbiot' }
+  return { ok: true, readingId: reading.id, meterId: meter.id, value: numericValue, source: 'symbiot' }
 }
 
 async function handleIngress(id, data) {

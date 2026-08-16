@@ -82,4 +82,43 @@ describe('P60.6 SEP/Symbiot bridge — ingestReading (external meter -> MeterVer
     await ingestReading(payload); // retry / duplicate push
     expect(prisma.reading.create).toHaveBeenCalledTimes(2); // append semantics, both persisted
   });
+
+  it('P60.7 §6: rejects negative reading values (impossible consumption, fail-closed)', async () => {
+    const res = await ingestReading({ meter: 'SEP-006', value: -5 });
+    expect(res.ok).toBe(false);
+    expect(res.code).toBe('NEGATIVE_VALUE');
+    expect(prisma.reading.create).not.toHaveBeenCalled();
+  });
+
+  it('P60.7 §6: rejects non-finite values (Infinity)', async () => {
+    const res = await ingestReading({ meter: 'SEP-006', value: Infinity });
+    expect(res.ok).toBe(false);
+    expect(res.code).toBe('INVALID_VALUE');
+  });
+
+  it('P60.7 §6: rejects future timestamps (impossible reading)', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-6', serial: 'SEP-006', areaId: null, projectId: null });
+    const future = new Date(Date.now() + 3600_000).toISOString(); // +1h
+    const res = await ingestReading({ meter: 'SEP-006', value: 10, timestamp: future });
+    expect(res.ok).toBe(false);
+    expect(res.code).toBe('FUTURE_TIMESTAMP');
+    expect(prisma.reading.create).not.toHaveBeenCalled();
+  });
+
+  it('P60.7 §6: rejects malformed timestamps', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-6', serial: 'SEP-006', areaId: null, projectId: null });
+    const res = await ingestReading({ meter: 'SEP-006', value: 10, timestamp: 'not-a-date' });
+    expect(res.ok).toBe(false);
+    expect(res.code).toBe('INVALID_TIMESTAMP');
+  });
+
+  it('P60.7 §6: accepts a valid past timestamp', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-7', serial: 'SEP-007', areaId: null, projectId: null });
+    prisma.reading.create.mockResolvedValue({ id: 'r-7', meterId: 'm-7' });
+    const past = new Date(Date.now() - 3600_000).toISOString(); // -1h
+    const res = await ingestReading({ meter: 'SEP-007', value: 10, timestamp: past });
+    expect(res.ok).toBe(true);
+    const data = prisma.reading.create.mock.calls[0][0].data;
+    expect(new Date(data.timestamp).getTime()).toBeLessThan(Date.now());
+  });
 });
