@@ -1978,5 +1978,17 @@
             "dot: IMPLEMENTATION-DEPENDENCY + TEST-COVERAGE svg regenerated after cheque update",
             "speckit/graph validators: 12/0/0 + 100% after updates"
         ]
+    },
+    {
+        "task": "P60.4 completion: payment-route tests for Collection-derived financial scenarios",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "vitest", "tsc", "dot/graphviz"],
+        "tools_used": [
+            "grep/read: found NO payment API test existed (gap in 167 scenarios)",
+            "write: tests/api/payments.test.mjs - 8 tests (allocation oldest-first, partial, accumulate, overpayment->credit, duplicate->credit, 401, statement)",
+            "vitest: full suite 387 (369 pass/18 skip) up from 379",
+            "tsc: FE 0 (cleaned stale types)",
+            "dot: TEST-COVERAGE.svg regenerated (+T_PAY node)"
+        ]
     }
 ]

@@ -10,6 +10,9 @@
 
 ## P60.4 - Collection Settlement + Payment + Cheque Closure (2026-08-15)
 
+
+- **P60.4 completion:** +8 payment-route tests covering Collection-derived financial scenarios (allocation oldest-first, overpayment->ledger credit, duplicate->credit, statement balance+aging). Full suite 387 (369 pass/18 skip). TEST-COVERAGE graph +T_PAY node.
+
 **Implementation-first (anti-stall). Cheque HTTP surface was the gap.**
 - **NEW: cheque route** (backend/src/routes/cheque.js): GET /api/cheques, POST (create), POST /:id/clear, POST /:id/reject. Auth payments.* + tenancy clamp + audit. Mounted /cheques. Live-verified 401-protected.
 - **Tests:** 8 new cheque-route (create/400/404/clear/non-cheque/reject/list/401). Full suite 379 (361 pass/18 skip), up from 371. Cheque total 14 tests (6 engine + 8 route).

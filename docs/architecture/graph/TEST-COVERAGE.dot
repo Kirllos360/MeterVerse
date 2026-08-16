@@ -6,7 +6,7 @@ digraph TestCov {
   label="Test Coverage — v1.0.0 (evidence, not estimates)";
 
   node [shape=box fillcolor="#d1f5d3"];
-  UNIT [label="unit+api 379 (361 pass + 18 skip live)"];
+  UNIT [label="unit+api 387 (369 pass + 18 skip live)"];
   T_SEC [label="security 49 (requireAccess NULL→403)"];
   T_SETTLE [label="settlement 7 (LR-2)"];
   T_CHARGE [label="charge-types 7 (LR-2)"];
@@ -14,6 +14,7 @@ digraph TestCov {
   T_IMPORT [label="import-engine 15 + tenancy 3 (LR-3/4/6 + P60.1 templates)"];
   T_SOLAR [label="solar-wallet 16 (LR-5) + solar route LIVE-verified (LR-7)"];
   T_CHEQUE [label="cheque engine 6 (LR-7) + route 8 (P60.4)"];
+  T_PAY [label="payment route 8 (P60.4) - allocation/overpay/dup/statement"];
   IMPORT_DONE [label="Solar Excel ImportJob\n[DONE LR-3 — EXECUTE prod-grade: dup-detect + per-row tx + 50k cap; prod gated]" fillcolor="#fef7e0"];
   SOLAR_DONE [label="Solar Wallet ENGINE + ROUTE\n[DONE LR-5/7 — compute/persist/route LIVE-verified; Reading capture OBIS-gated]" fillcolor="#fef7e0"];
   TARIFF_SEED [label="Solar tiered Tariff seed\n[DONE LR-6 — 12 tiers + 1.68 over-limit; test-DB verified]" fillcolor="#fef7e0"];
@@ -37,6 +38,7 @@ digraph TestCov {
   UNIT -> T_IMPORT;
   UNIT -> T_SOLAR;
   UNIT -> T_CHEQUE;
+  UNIT -> T_PAY;
   T_IMPORT -> IMPORT_DONE;
   T_SOLAR -> SOLAR_DONE;
   T_CHEQUE -> CHEQUE_DONE;
