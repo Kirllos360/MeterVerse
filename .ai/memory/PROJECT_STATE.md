@@ -1,12 +1,23 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60.6 - SEP/Symbiot bridge + Solar readiness)  
-**Current Phase:** P60.6 - Symbiot Bridge Execution  
-**Version:** 10.20.0-P60.6  
+**Last Updated:** 2026-08-15 (P60.7 - Zero-trust runtime recovery + evidence closure)  
+**Current Phase:** P60.7 - Zero-Trust Recovery + Evidence Closure  
+**Version:** 10.20.0-P60.7  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.7 - Zero-Trust Runtime Recovery + Evidence Closure (2026-08-15)
+
+**13 planning deliverables; every P60.6 claim reconciled (test count 13 canonical, suite 400).**
+- **PostgreSQL:** exact diagnosis (PG16 stopped, 1MB RAM, 0xC0000142) + reproducible recovery procedure (free RAM -> net start postgresql -> fingerprint -> financial cert).
+- **SEP:** evidence-gated (no MeterVerse SEP spec/env; Collection symbiot_client = auth pattern). **OBIS:** additive model designed (obisCode/direction/registerType/multiplier/channel on Reading), approval-gated.
+- **Financial:** 16 required behaviors traced to code; live cert RUNTIME-GATED. **Solar:** 15/17 A; chain stops at OBIS capture.
+- **Tenancy/security:** code-level CERTIFIED (49/49 + P58 ingestion test); live cross-tenant NOT-PROVEN (PG). **AI:** implemented + mounted, RBAC-gated. **Cross-platform:** backend portable; _tools Windows-only (docs gap).
+- **Artifacts:** planning/P60.7_*.md (13 files). Verdict: CONDITIONAL GO (code CERTIFIED; live BLOCKED-ENVIRONMENT).
+- **Blockers:** PG :5433 (env); OBIS, SEP spec, Import EXECUTE, P59-B #2-6, Wave 4 (approval/evidence).
+
 
 ## P60.6 - SEP/Symbiot Bridge Execution (2026-08-15)
 
