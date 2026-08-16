@@ -60,6 +60,12 @@ export const navGroups: NavGroup[] = [
         items: []
       },
       {
+        title: 'Cheques',
+        url: '/admin/cheques',
+        icon: 'creditCard',
+        items: []
+      },
+      {
         title: 'Tariffs',
         url: '/admin/tariffs',
         icon: 'adjustments',

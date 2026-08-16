@@ -50,6 +50,32 @@ export const billingConfigs: Record<string, PageConfig> = {
     ]),
     statsCards: [sc("Total", Icons.billing, r=>r.length), sc("Completed", Icons.circleCheck, r=>r.filter(x=>x.status==="completed"||x.status==="active").length), sc("Failed", Icons.circleX, r=>r.filter(x=>x.status==="failed"||x.status==="terminated").length)],
   },
+  cheques: {
+    id: "cheques", title: "Cheques", description: "Cheque payments (pending / cleared / rejected)",
+    apiEndpoint: "/api/cheques",
+    serverSide: true, statusField,
+    transform: (d: any) => (d.cheques || []).map((c: any) => ({
+      id: c.id, customer: c.customerName || (typeof c.customer === "object" && c.customer ? c.customer.name : c.customer) || c.customerId || "—",
+      amount: c.amount || 0, chequeNumber: c.reference || c.chequeNumber || "—",
+      bank: (c.notes || "").replace(/^bank:\s*/i, "").split(" | ")[0] || "—",
+      status: c.status || "pending", createdAt: c.createdAt || "",
+    })),
+    columns: [
+      { id: "customer", header: "Customer", accessor: r => r.customer, type: "avatar", width: 200 },
+      { id: "chequeNumber", header: "Cheque No.", accessor: r => r.chequeNumber, type: "text", width: 130 },
+      { id: "bank", header: "Bank", accessor: r => r.bank, type: "badge", width: 120 },
+      { id: "amount", header: "Amount", accessor: r => `EGP ${(r.amount||0).toLocaleString()}`, type: "number", width: 140 },
+      { id: "status", header: "Status", accessor: r => r.status, type: "status", width: 120 },
+      { id: "createdAt", header: "Date", accessor: r => r.createdAt, type: "date", width: 110 },
+    ],
+    fields: defFields([
+      { name: "customer", label: "Customer", type: "text", required: true },
+      { name: "amount", label: "Amount (EGP)", type: "number", required: true },
+      { name: "chequeNumber", label: "Cheque Number", type: "text", required: true },
+      { name: "bank", label: "Bank Name", type: "text" },
+    ]),
+    statsCards: [sc("Total", Icons.billing, r=>r.length), sc("Pending", Icons.clock, r=>r.filter(x=>x.status==="pending").length), sc("Cleared", Icons.circleCheck, r=>r.filter(x=>x.status==="completed"||x.status==="cleared").length), sc("Rejected", Icons.circleX, r=>r.filter(x=>x.status==="rejected").length)],
+  },
   statements: {
     id: "statements", title: "Customer Statements", description: "View customer statements and aging",
     apiEndpoint: "/api/payments/customers/:id/statement",

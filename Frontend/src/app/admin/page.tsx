@@ -31,6 +31,7 @@ const MetersPage = dynamic(() => import("./meters/page"), { ssr: false })
 const ProjectsPage = dynamic(() => import("./projects/page"), { ssr: false })
 const AreasPage = dynamic(() => import("./areas/page"), { ssr: false })
 const PaymentsPage = dynamic(() => import("./payments/page"), { ssr: false })
+const ChequesPage = dynamic(() => import("./cheques/page"), { ssr: false })
 const TariffsPage = dynamic(() => import("./tariffs/page"), { ssr: false })
 
 // ─── P1b: recovery — wire previously-orphaned operational screens into the SPA
@@ -123,6 +124,7 @@ const pageMap: Record<string, React.ComponentType<any>> = {
   "bill-cycle-settings": BillCycleSettingsPage,
   invoices: InvoicesPage,
   payments: PaymentsPage,
+  cheques: ChequesPage,
   "payment-settings": PaymentSettingsPage,
   settings: SettingsPage,
   audit: AuditPage,
