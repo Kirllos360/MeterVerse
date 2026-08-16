@@ -1,12 +1,22 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P60.2 - Runtime recovery + Collection forensic)  
-**Current Phase:** P60.2 - Enterprise Runtime Recovery + Certification Loop  
-**Version:** 10.20.0-P60.2  
+**Last Updated:** 2026-08-15 (P60.3 - Runtime recovery + zero-trust certification)  
+**Current Phase:** P60.3 - Full Runtime Recovery + Certification  
+**Version:** 10.20.0-P60.3  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P60.3 - Full Runtime Recovery + Zero-Trust Certification (2026-08-15)
+
+**Evidence-chain gate. No fabricated completion.**
+- **PostgreSQL :5433 recovery EXHAUSTED (9 attempts):** 0xC0000142 + empty pg_ctl log = child cannot spawn under memory ceiling (OpenCode host ~1.15GB not killable, Free 1MB). Data INTACT + backup-proven safe (meterverse_20261508.sql today: 223/277/361/116/53 + Settlement 3 + ImportJob 2; 325 tables; areaId/projectId present).
+- **Non-DB certification PASS:** template/upload routes 401-protected, pages render 0 errors; Graph 12/0/0; SpecKit 100%; security/tenancy 49/49 + 5/5 negative; persistence PASS (same PIDs 65s); regression 353/371 x2; tsc 0; admin FE serves current build.
+- **Collection forensic:** 20 capabilities verified in Collection System; reuse = behavior source, no clone. Priority (evidence-corrected): Template/upload COMPLETE > Settlement+Payment/cheque (no approval, 100% reuse) > Solar (OBIS-gated).
+- **Artifact:** docs/reviews/P60/P60.3-CERTIFICATION.md. Verdict: CONDITIONALLY CERTIFIED.
+- **Blockers:** PostgreSQL (environmental); Import EXECUTE, OBIS, P59-B #2-6, Wave 4 (approval).
+
 
 ## P60.2 - Enterprise Runtime Recovery + Collection Forensic (2026-08-15)
 

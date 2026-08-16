@@ -1953,5 +1953,17 @@
             "vitest: 353/371 full, security+tenancy 49/49, solar-wallet 16/16, import-engine 15/15",
             "git: HEAD 3f671c0b verified; graph 12/0/0; speckit 100%"
         ]
+    },
+    {
+        "task": "P60.3: Full runtime recovery + zero-trust certification (evidence chain)",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "psql", "node-fetch", "playwright", "tsc", "vitest", "memory-graph"],
+        "tools_used": [
+            "rediscovery: HEAD 46cbf0b1 clean, services, RAM ceiling (1MB free) - re-verified",
+            "PG forensic: 9 attempts (std/min 32MB/abs-min 8MB/service/net) -> 0xC0000142 BLOCKED; data intact",
+            "DB safety via backup: meterverse_20261508.sql fingerprint 223/277/361/116/53 + Settlement 3 + ImportJob 2 (matches baseline), 325 tables, areaId/projectId present",
+            "negative security: 5/5 unauth/bad-token -> 401 (auth enforced at runtime)",
+            "vitest: 353/371 full x2, security+tenancy 49/49; playwright: upload/add-data render 0 errors + Template button live; tsc 0; persistence PASS (same PIDs 65s)"
+        ]
     }
 ]
