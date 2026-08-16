@@ -6,7 +6,7 @@
 // active at server boot instead of dead services.
 
 import { prisma } from "../db.js"
-import { createSymbiotBridge, getSymbiotStatus } from "./symbiot-bridge.js"
+import { createSymbiotBridge, getSymbiotStatus, ingestReading } from "./symbiot-bridge.js"
 import { registerAdapter, startPolling, stopPolling, listAdapters } from "./polling-ingestion.js"
 import logger from "./logger.js"
 

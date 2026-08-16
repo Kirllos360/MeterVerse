@@ -50,6 +50,7 @@ import { learnedPatternsRouter } from "./routes/learned-patterns.js"
 import { incidentsRouter } from "./routes/incidents.js"
 import { materializedViewsRouter } from "./routes/materialized-views.js"
 import { gatewaysRouter } from "./routes/gateways.js"
+import { ingestionRouter } from "./routes/ingestion.js"
 import { knowledgeArticlesRouter } from "./routes/knowledge-articles.js"
 import { aiFeedbackRouter } from "./routes/ai-feedback.js"
 import { databaseConnectionsRouter } from "./routes/database-connections.js"
@@ -332,6 +333,7 @@ if (!PORTAL_MODE) {
   mount("/financial-ai", financialAiRouter)
   mount("/materialized-views", materializedViewsRouter)
   mount("/gateways", gatewaysRouter)
+  mount("/ingestion", ingestionRouter)
   mount("/knowledge-articles", knowledgeArticlesRouter)
   mount("/ai-feedback", aiFeedbackRouter)
   mount("/database-connections", databaseConnectionsRouter)
