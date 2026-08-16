@@ -19,3 +19,7 @@
 
 ## Exact P12-02 recommendation
 **P12-02 = Event/Outbox + Idempotency + Correlation Foundation Design** — the highest-value integration foundation gaps (G-016/021/014/015) that block reliable financial event integration, plus reconcile with the SEP/Jasper evidence (G-004/013/017) once obtained.
+
+## Completion-pass additions (P12-01 completion)
+- **§5 A-AT category coverage appendix** added to INTEGRATION_REALITY_MATRIX (all 31+ categories explicitly mapped to evidence).
+- **§3 SOURCE_OF_TRUTH_DISCREPANCY_REGISTER.md** added (6 discrepancies recorded, none silently corrected; D-03/D-04 pre-resolved, D-01/02/05/06 open as gaps).

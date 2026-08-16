@@ -12,6 +12,8 @@
 
 **Authoritative integration baseline: 40 integrations classified (A=19,B=13,C=1,D=1,E=3,F/I=4), 18 API modules mapped, 4 dataflows traced, P09/P10/P11 reconciled, 22-gap register, 8 diagrams.**
 - **Symbiot/Solar independently audited** (P60.6/7 claims re-verified; ingest hardened). Events = in-process bus, NO outbox (G-016 HIGH). Security = P58 verified; service-to-service auth gap (G-017).
+- **P12-01 completion:** §5 A-AT appendix + §3 discrepancy register (6) added; package 16 deliverables + 8 diagrams.
+
 - **Package:** planning/060_ENTERPRISE_INTEGRATION_ARCHITECTURE/ (15 P12-01_*.md + 8 D-P12-*.svg). Traceability ~90% (honest).
 - **Verdict:** CONDITIONALLY CERTIFIED (PG blocks live; outbox/idempotency/correlation foundations = P12-02).
 - **Blockers:** PG :5433 (env); OBIS/SEP (approval/evidence); outbox design (P12-02).

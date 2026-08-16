@@ -51,3 +51,40 @@ A = implemented+verified · B = implemented, partially verified · C = partial/d
 - **Class A (implemented+verified): 19** · **B (implemented, partial verify): 13** · **C: 1** · **D: 1** · **E: 3** · **F/I: 4**
 - No **G** (duplicate/conflicting) or **H** (obsolete) found in the backend surface.
 - The `apiClient` double-prefix is **G-debt** (hygiene, tolerated by backend) — recorded separately.
+
+## §5 A-AT category coverage (completion pass)
+The prompt's A-AT integration categories — explicit mapping to verified repo evidence:
+| Cat | Integration | Evidence | Class |
+|-----|-------------|----------|-------|
+| A-B | Internal service integrations | 48 services, engine layer | A/B |
+| C | Frontend↔backend | api-client + proxy | A |
+| D | Admin↔backend | :3535→:3131 | A |
+| E | Portal↔backend | :3030→:3003 | A |
+| F | MeterVerse↔Symbiot | symbiot-bridge | A |
+| G-I | SEP/transport/meter ingestion | ingestReading + /api/ingestion | A (SEP gated) |
+| J | Reading ingestion | ingestReading persist | A |
+| K-L | Reading validation + billing | readings review + billing-engine | B |
+| M-N | Invoice gen + Jasper | invoices.js + jasper-bridge | B/C |
+| O | Payments | payments.js alloc | A |
+| P-Q | Collection + settlements | collections.js + settlements.js | A |
+| R-S | Solar + wallet | solar.js + solar-wallet-engine | A |
+| T-V | Accounting/journals/ledger | posting-engine + CustomerLedgerEntry | B |
+| U | Notifications | notification-engine | B |
+| W-X | Workflow + AI agents | workflow-engine + intelligence | B |
+| Y | Knowledge/RCA | knowledge + rca routes | B |
+| Z-AA | Webhooks + imports | webhook-dispatcher + import-engine | A/B |
+| AB-AC | Exports + file storage | export routes + uploads dir | A/B |
+| AD-AE | Scheduled jobs + background workers | scheduler-engine + QueueJob | B |
+| AF | External APIs | email/sms/webhook/connection | B |
+| AG-AH | Authentication + authorization | JWT + RBAC | A |
+| AI | Tenancy/area/project propagation | requireAccess/scope/clamp | A |
+| AJ | Audit logging | auditLog (AuditEntry) | A |
+| AK | Monitoring/observability | health-monitor + metrics-collector + /metrics/prometheus | A |
+| AL | Health checks | monitor route + /api/health | A |
+| AM | Configuration | config-center + .env | A |
+| AN-AO | Plugin-runtime + cross-area replication | none | E/F |
+| AP | Future ERP/utility | none | E |
+| AQ | Mobile/API consumers | none | E |
+| AR | Bank/payment integrations | none | E/F |
+| AS | GIS/SCADA/IoT | none | E/F |
+| AT | Other (credential vault, circuit-breaker, websocket) | services | A/B |

@@ -17,3 +17,4 @@
 | Gap register | 22 gaps (1 CRITICAL PG, 5 HIGH, 9 MED, 4 DEBT) |
 | Traceability | ~90% (honest; ~10% = collections/reports/ai lack dedicated API tests) |
 | Verdict | CONDITIONALLY CERTIFIED (PG blocks live; outbox/idempotency/correlation = P12-02) |
+| P12-01 completion | §5 A-AT category coverage appendix + §3 source-of-truth discrepancy register (6 discrepancies) added. Package now 16 deliverables |
