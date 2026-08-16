@@ -2079,5 +2079,16 @@
             "dot: 12 D-P12-02-*.svg diagrams rendered (BOM-safe via UTF8-no-BOM writer)",
             "vitest/graph/speckit: suite 405 re-verified, graph 12/0/0, speckit 100%"
         ]
+    },
+    {
+        "task": "P12-03: Consumer Migration & Pilot design (7 docs) + PG recovery attempt + P12-01/02 explanation",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "Win32", "grep", "read", "node-fetch"],
+        "tools_used": [
+            "Win32/psql-net: PG recovery re-attempted (stopped PhoneExperienceHost/SearchHost/TextInputHost, trimmed working set) - still BLOCKED (1MB free RAM, 0xC0000142 documented)",
+            "grep: discovered postEvent producers (invoices.js:163, payments.js:51/89, financial-integration.js) + EventBus = runtime signal bus only",
+            "write: 7 P12-03_*.md (master, pilot consumer, producer integration, shadow validation, tasks, acceptance, certification)",
+            "git: HEAD 4b0ac321 clean"
+        ]
     }
 ]

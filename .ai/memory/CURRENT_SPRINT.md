@@ -1,18 +1,15 @@
-﻿# MeterVerse — Current Sprint
+﻿# MeterVerse - Current Sprint
 
-## P12-02 Enterprise Event, Outbox, Idempotency, Correlation & Service Security Foundation (2026-08-15)
+## P12-03 Consumer Migration & Pilot (2026-08-15)
 
-**Goal:** Implementation-ready architecture for transactional outbox, idempotency, correlation, service-to-service auth.  
-**Status:** Complete — 30 docs + 12 diagrams; CONDITIONALLY CERTIFIED (architecture-ready)
+**Goal:** Execution plan for converting financial postEvent to the P12-02 outbox pipeline (shadow -> cutover).  
+**Status:** Design complete (7 docs); runtime BLOCKED (PG env)
 
 | Item | Result |
 |------|--------|
-| Truth verification | All P12-01 gaps confirmed real (in-proc EventBus, no outbox/idempotency/service-auth models, correlation only in symbiot) |
-| Architecture decision | **OPTION A: Postgres transactional outbox + in-proc EventBus** (evidence: 8GB RAM, single-process, no broker feasible) |
-| Delivery semantics | At-least-once + consumer idempotency = effectively-once (never claim exactly-once) |
-| Design | OutboxEvent/EventDelivery/EventDeadLetter/IdempotencyRecord/ServiceIdentity/Credential + AuditEntry.correlationId (additive migration) |
-| Safety | Financial replay controlled (idempotency mandatory, dry-run, admin.ops); financialReplayGuard |
-| Solar/Symbiot | Additive only (idempotency + service auth + READING.INGESTED); P60.6/7 behavior preserved |
-| **Package** | **30 P12-02_*.md + 12 D-P12-02-*.svg** in planning/061_ENTERPRISE_EVENT_RELIABILITY_SECURITY_ARCHITECTURE/ |
-| Waves | P12.2-A..L (12 waves, ~23 days) |
-| Verdict | CONDITIONALLY CERTIFIED (architecture-ready; PG runtime + OBIS/SEP evidence gate implementation) |
+| Truth | postEvent = financial producer; EventBus = runtime bus; financial events flag-guarded |
+| Design | enqueueEvent (atomic+dual-publish), dispatcher, pilot ledger consumer, replay guard, shadow validation (diff 0 x10) |
+| Package | planning/062_CONSUMER_MIGRATION_PILOT/ (7 docs) |
+| Tasks | 10 (~17 days) |
+| Blockers | PostgreSQL :5433 (env, recovery attempted again - still 1MB RAM); OBIS/SEP (approval/evidence) |
+

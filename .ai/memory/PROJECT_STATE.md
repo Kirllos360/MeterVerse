@@ -1,12 +1,21 @@
 ﻿# MeterVerse â€” Project State
-**Last Updated:** 2026-08-15 (P12-02 - Event/Outbox/Idempotency/Service-Security Foundation)  
-**Current Phase:** P12-02 - Event Reliability + Security Foundation  
-**Version:** 10.20.0-P12-02  
+**Last Updated:** 2026-08-15 (P12-03 - Consumer Migration & Pilot design)  
+**Current Phase:** P12-03 - Consumer Migration & Pilot  
+**Version:** 10.20.0-P12-03  
 **Branch:** main (HEAD = P61 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active â€” Enterprise Engineering Protocol engaged
 
 ---
+
+## P12-03 - Consumer Migration & Pilot (2026-08-15)
+
+**Execution plan + pilot design: convert financial postEvent path (INVOICE_ISSUED/PAYMENT_RECEIVED) to the P12-02 outbox pipeline.**
+- **Verified truth:** postEvent = financial producer (invoices/payments/financial-integration); EventBus = runtime signal bus only; financial events flag-guarded.
+- **Design:** enqueueEvent (atomic outbox + dual-publish) + outbox dispatcher + pilot ledger consumer (shadow->cutover) + financial replay guard + shadow validation (diff 0 x10) + rollback flags.
+- **Package:** planning/062_CONSUMER_MIGRATION_PILOT/ (7 docs). 10 tasks ~17 days. Verdict: design CONDITIONALLY CERTIFIED; runtime BLOCKED (PG env G-001).
+- **Blockers:** PG :5433 (env); OBIS/SEP (approval/evidence).
+
 
 ## P12-02 - Event/Outbox/Idempotency/Correlation/Service-Security Foundation (2026-08-15)
 
