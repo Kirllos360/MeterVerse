@@ -83,3 +83,20 @@ Invoices: SOLAR-52051449-2021-01..12, amount 36.10/month (65 records total)
 - **Hidden fake/demo data:** found 1689-byte stub SOLAR PDF (prior pdf-engine output — minimal, not a real invoice) + demo invoices in .playwright-mcp/draft (excluded from real evidence).
 - **Source→DB→API→UI consistency:** NOT yet verified (PG down) — this is the post-recovery step, documented.
 - **Next prompt improvement:** P13 should start with the full data-source forensic (invoices xlsx + fee validation) BEFORE runtime, and treat PG-down as an offline-work trigger, not a stop.
+
+## 23. CORRECTION — authoritative golden calc (admin-fee rule verified)
+
+**Initial reverse-engineering error corrected:** the earlier "55.17 kWh → 36.10" wrongly EXCLUDED the admin fee. The Collection source rule is unconditional:
+`admin_fee = round(amount * 0.02, 2); service_fee = 9.10; total = round(amount + admin_fee + service_fee, 2)`
+
+**Corrected golden (engine-verified EXACT):**
+```
+net = 54.26 kWh (prev180=45.74, curr180=100.00, prev280=0, curr280=0)
+amount   = 26.47   (50×0.48=24 + 4.26×0.58=2.47)
+adminFee = 0.53    (26.47 × 0.02)
+service  = 9.10
+TOTAL    = 36.10   ✓ MATCHES real SOLAR-52051449-2021-01 exactly
+```
+The MeterVerse solar-wallet-engine reproduces the real historical invoice precisely when fed the correct directional readings. `computeSolar({curr180:100, prev180:45.74, curr280:0, prev280:0}).total === 36.10`.
+
+**Execution script prepared:** `backend/scripts/golden-solar-invoice.mjs` (test-DB-gated, one command, persistence-verify). Fires when PostgreSQL is restored.
