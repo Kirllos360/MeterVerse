@@ -11,6 +11,7 @@ import { readingsRouter } from "./routes/readings.js"
 import { consumptionsRouter } from "./routes/consumptions.js"
 import { invoicesRouter } from "./routes/invoices.js"
 import { paymentsRouter } from "./routes/payments.js"
+import { chequeRouter } from "./routes/cheque.js"
 import { adminRouter } from "./routes/admin.js"
 import { servicesRouter } from "./routes/services.js"
 import { reportsRouter } from "./routes/reports.js"
@@ -279,6 +280,7 @@ mount("/readings", readingsRouter)
 mount("/consumptions", consumptionsRouter)
 mount("/invoices", invoicesRouter)
 mount("/payments", paymentsRouter)
+mount("/cheques", chequeRouter)
 
 // ─── PROFILE-AWARE ROUTES ────────────────────────────────────────────────────
 // PORTAL_MODE=1 (Customer Portal API, :3003) mounts ONLY customer-facing
