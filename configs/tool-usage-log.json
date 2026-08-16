@@ -2026,5 +2026,16 @@
             "grep/read: verified all P60.6 claims (ingestReading, route, tenancy, financial behaviors, AI components, cross-platform)",
             "write: 13 planning/P60.7_*.md deliverables"
         ]
+    },
+    {
+        "task": "P60.7 completion: Symbiot 167 hardening (negative/non-finite/future/malformed ts, rate limit, correlation ID)",
+        "date": "2026-08-15",
+        "tools_activated": ["bash", "git", "vitest", "node --check", "node-fetch", "dot"],
+        "tools_used": [
+            "grep/read: found ingestReading accepted negative values + future timestamps + no rate limit/correlation ID (167 gaps)",
+            "write/edit: symbiot-bridge.js - NEGATIVE_VALUE + INVALID_VALUE(finite) + FUTURE/INVALID_TIMESTAMP rejection, per-IP rate limit 429, correlation ID",
+            "vitest: +5 tests (negative/non-finite/future/malformed/valid-past); symbiot 13, ingestion 5; full suite 405 (387/18)",
+            "node-fetch: ingestion route live 401 after restart; dot: TEST-COVERAGE regenerated (UNIT 405)"
+        ]
     }
 ]

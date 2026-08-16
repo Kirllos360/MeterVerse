@@ -19,3 +19,4 @@
 | Planning reconciliation | Financial/solar/symbiot = DONE in repo; planning status lags (note added) |
 | **Deliverables** | **13 planning/P60.7_*.md files** (truth matrix, PG recovery, SEP, OBIS, financial, solar, tenancy, cross-OS, AI, reconciliation, gap register, execution gate, final cert) |
 | Verdict | CONDITIONAL GO (code CERTIFIED; live runtime BLOCKED-ENVIRONMENT) |
+| P60.7 completion | §6 Symbiot hardening IMPLEMENTED: negative/non-finite/future/malformed-timestamp rejection + per-IP rate limit (429) + correlation ID. +5 tests. Suite 405 (387/18) |

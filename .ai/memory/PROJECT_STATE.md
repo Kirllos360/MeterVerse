@@ -18,6 +18,8 @@
 - **Artifacts:** planning/P60.7_*.md (13 files). Verdict: CONDITIONAL GO (code CERTIFIED; live BLOCKED-ENVIRONMENT).
 - **Blockers:** PG :5433 (env); OBIS, SEP spec, Import EXECUTE, P59-B #2-6, Wave 4 (approval/evidence).
 
+- **P60.7 completion:** Symbiot §6 hardening implemented (negative-value/non-finite/future/malformed-timestamp rejection, per-IP rate limit 429, correlation ID). +5 tests. Suite 405 (387/18).
+
 
 ## P60.6 - SEP/Symbiot Bridge Execution (2026-08-15)
 
