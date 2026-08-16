@@ -235,7 +235,10 @@ call npx prisma generate >>"%LOG_DIR%\deploy.log" 2>&1
 cd /d "%~dp0.."
 echo [4/5] Migrate DB...
 cd /d "%~dp0..\backend"
-call npx prisma db push >>"%LOG_DIR%\deploy.log" 2>&1
+rem P60.7 §12: deploy uses migrate deploy (versioned 16 migrations) as the
+rem canonical production path - NOT db push (which drifts schema and skips
+rem migration history). For dev-only schema sync use npm run db:setup.
+call npx prisma migrate deploy >>"%LOG_DIR%\deploy.log" 2>&1
 cd /d "%~dp0.."
 echo [5/5] Build frontend...
 cd /d "%~dp0..\Frontend"
