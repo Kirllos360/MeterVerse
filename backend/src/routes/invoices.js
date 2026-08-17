@@ -3,7 +3,7 @@ import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requireRole, requirePermission, requireAccess, scopeWhere, clampRequestedScope, auditLog } from "../middleware/security.js"
-import { postEvent } from "../services/posting-engine.js"
+import { enqueueEvent } from "../services/outbox-producer.js"
 
 const generateSchema = z.object({ customerId: z.string().min(1), periodStart: z.string().min(1), periodEnd: z.string().min(1) })
 const router = Router()
@@ -158,16 +158,17 @@ router.post("/:id/issue", requirePermission("invoices.create"), async (req, res,
       data: { status: "issued", issuedAt: new Date(), immutableAt: new Date() },
     })
     // C13 Financial Integration: post INVOICE_ISSUED event to GL (feature-flag guarded)
+    // P12.2-C: route through the transactional outbox producer (enqueueEvent).
     if (process.env.FINANCIAL_POSTING_ENABLED !== "false") {
       try {
-        await postEvent({
+        await enqueueEvent({
           sourceType: "INVOICE",
           sourceId: invoice.id,
           eventType: "INVOICE_ISSUED",
           amount: invoice.amount || 0,
           description: `Invoice ${invoice.number} issued`,
-          context: { customerId: invoice.customerId, currency: "EGP" },
-        })
+          context: { customerId: invoice.customerId, currency: "EGP", areaId: invoice.areaId, projectId: invoice.projectId },
+        }, { correlationId: req.correlationId })
       } catch (postErr) {
         auditLog(req, "financialEvent.failed", { sourceType: "INVOICE", sourceId: invoice.id, eventType: "INVOICE_ISSUED", reason: postErr.message })
       }

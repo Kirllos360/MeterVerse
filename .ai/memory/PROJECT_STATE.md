@@ -1,26 +1,26 @@
 ﻿# MeterVerse — Project State
-**Last Updated:** 2026-08-17 (P12.2-B - server-authoritative correlation middleware COMPLETE)  
-**Current Phase:** P12.2-B - Correlation + Request-Identity Middleware  
-**Version:** 10.20.0-P12.2-B  
-**Branch:** main (HEAD = P12.2-B commits, clean, pushed)  
+**Last Updated:** 2026-08-17 (P12.2-C - enqueueEvent outbox producer COMPLETE)  
+**Current Phase:** P12.2-C - Transactional Outbox Producer  
+**Version:** 10.20.0-P12.2-C  
+**Branch:** main (HEAD = P12.2-C commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P12.2-B - Correlation + Request-Identity Middleware (2026-08-17)
+## P12.2-C - enqueueEvent Outbox Producer (2026-08-17)
 
-**Server-authoritative correlation/causation per P12-02-05 §3 (upgraded in place, no duplicate).**
-- correlationMiddleware: full-UUID requestId; X-Correlation-ID accepted only if valid UUID else regenerated (spoof-proof); X-Causation-ID validated passthrough; response headers set.
-- Propagation: req.correlationId → auditLog (AuditEntry.correlationId) → response.
-- Tests: +7 unit. Suite 448 (430/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
-- Live cert: login 200 — spoofed header regenerated, valid preserved, causation echoed.
-- Next: P12.2-C (enqueueEvent outbox producer) or Solar G01 register input.
+**Transactional outbox producer (P12-03-03) over the P12.2-A schema.**
+- `backend/src/services/outbox-producer.js`: `enqueueEvent` writes OutboxEvent (same-tx atomic) + dual-publishes to legacy postEvent; feature-flag aware (OUTBOX_ENABLED / FINANCIAL_POSTING_ENABLED read at call time — fixed module-load bug).
+- Idempotency: sha256(sourceId:eventType:amount:desc) deterministic key. Correlation/causation/actor stamped.
+- Integration: `routes/invoices.js` INVOICE_ISSUED → enqueueEvent (removed dead postEvent import).
+- Tests: +6 unit. Suite 454 (436/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
+- Live cert: OUTBOX row written for real invoice (INVOICE_ISSUED, corr stamped, idem 64, PENDING); proof cleaned.
+- Next: P12.2-D (outbox dispatcher/consumer).
 
-## P13.8 - FINAL-CHANCE: REAL Solar History + Bilingual PDF (2026-08-17)
+## P13.11 - OWNER DEMO + TECHNICAL PROOF (2026-08-17)
 
-**Register source exhaustively proven absent across ALL roots** (files, all DBs incl collection_tracker=15,012 customers/0 readings, meter_pulse all schemas incl sim_system, all git refs, Symbiot PUSH-only, replay Finding A-2).
-**But REAL data recovered + loaded:** 65 real invoices (2021-01→2026-04) + 23 real payments (REC-SOLAR-52051449-*) for meter 52051449; totals EXACT (77,855.94 / 75,124.50 / 2,731.44). REAL invoice SOLAR-52051449-2021-01=36.10 persisted + visible via API. Bilingual PDF certified via live API (Tahoma Arabic + amountInWords fix). Commit 99811dd7.
+**Made system demonstrable.** Runtime verified: Admin FE :3535 + BE :3131, Portal FE :3030 + BE :3003 all up (Portal was down, started via existing mechanism). Owner docs: docs/solar/OWNER_SOLAR_INVOICE_TECHNICAL_DEMONSTRATION.md + ONE_PAGE + DEMONSTRATION_SCRIPT. Real invoice SOLAR-52051449-2021-01=36.10 + real bilingual PDF verified via live API. Real/Derived/Unknown strictly labeled. Commit 11e8f4ce.
 
 ## P12.2-A - Event Reliability Foundation IMPLEMENTED (2026-08-16)
 

@@ -1,19 +1,19 @@
 ﻿# MeterVerse - Current Sprint
 
-## P12.2-B Correlation + Request-Identity Middleware (2026-08-17)
+## P12.2-C enqueueEvent Outbox Producer (2026-08-17)
 
-**Goal:** server-authoritative correlation/causation middleware over the applied P12.2-A schema (P12-02-05 spec §3).  
-**Status:** COMPLETE — 7 tests + live certified
+**Goal:** transactional outbox producer (P12-03-03) over the P12.2-A schema.  
+**Status:** COMPLETE — 6 tests + live certified
 
 | Item | Result |
 |------|--------|
-| Middleware | correlationMiddleware upgraded in-place (errorHandler.js): full-UUID requestId; correlationId accepted ONLY if valid UUID else regenerated (server-authoritative, spoof-proof); X-Causation-ID validated passthrough |
-| Propagation | req.correlationId → auditLog (AuditEntry.correlationId col) → response headers X-Correlation-ID/X-Request-ID/X-Causation-ID |
-| Tests | +7 unit (valid preserve / invalid regen / absent gen / headers / causation passthrough+ignore / req propagation) |
-| Live cert | login 200: spoofed header regenerated to UUID, valid header preserved, causation echoed |
-| Suite | 448 (430/18) |
-| Verified | Graph 12/0/0, SpecKit 100%, FE tsc 0 |
-| Next | P12.2-C (enqueueEvent outbox producer) or Solar G01 register input |
-| Solar (P13.8) | REAL history loaded (65 inv + 23 pay, totals exact); bilingual PDF certified; registers remain external |
+| Producer | `backend/src/services/outbox-producer.js` `enqueueEvent` — writes OutboxEvent (same-tx), dual-publishes to legacy postEvent; feature-flag aware (OUTBOX_ENABLED / FINANCIAL_POSTING_ENABLED read at call time) |
+| Idempotency | sha256(sourceId:eventType:amount:desc) deterministic key (64 hex) |
+| Correlation | stamps correlationId/causationId/actorId from request context |
+| Integration | `routes/invoices.js` INVOICE_ISSUED → `enqueueEvent` (removed dead postEvent import) |
+| Tests | +6 unit; suite 454 (436/18) |
+| Live cert | OUTBOX row written for real invoice (INVOICE_ISSUED, corr stamped, idem 64, PENDING); proof cleaned |
+| Next | P12.2-D (outbox dispatcher/consumer) or Solar register input |
+| Solar (P13.11) | Owner demo complete: runtime verified (Admin 3535 + Portal 3030 + BEs), real invoice+PDF; registers external |
 
 

@@ -2182,3 +2182,17 @@
       "verified: regression 448, Graph 12/0/0, SpecKit 100%, FE tsc 0"
     ]
   }
+  ,
+  {
+    "task": "P12.2-C enqueueEvent outbox producer",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "node", "vitest", "read", "write"],
+    "tools_used": [
+      "write: backend/src/services/outbox-producer.js - enqueueEvent (same-tx outbox + dual-publish; feature-flag aware; sha256 idempotency key; correlation/causation/actor stamping)",
+      "edit: routes/invoices.js INVOICE_ISSUED -> enqueueEvent; removed dead postEvent import",
+      "root-cause: OUTBOX_ENABLED captured at module-load -> changed to call-time function so runtime toggling works",
+      "vitest: +6 outbox-producer tests; suite 454 (436/18)",
+      "live cert: OUTBOX row written for real invoice (INVOICE_ISSUED, corr stamped, idem 64, PENDING); proof cleaned",
+      "verified: Graph 12/0/0, SpecKit 100%, FE tsc 0"
+    ]
+  }
