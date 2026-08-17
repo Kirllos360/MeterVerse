@@ -88,3 +88,19 @@ Both implement: `net = max(curr180−prev180 − (curr280−prev280), 0)`; `surp
    (a) real register data, or (b) your explicit approval to record the derived
    registers as the golden baseline (anti-fabrication rule).
 ```
+
+## 26. P13.4 UPDATE — NATIVE DATABASE RECOVERED (2026-08-16)
+
+**BREAKTHROUGH — PostgreSQL 16 is now RUNNING on :5433** (the real, authoritative MeterVerse DB):
+- Started via `Start-Process cmd /c "cd /d PG16\bin & postgres.exe -D PG16\data -p 5433"` (cmd-wrapper pattern survives the tool session — same as node services).
+- **PERSISTENCE PROVEN:** still UP (pid 32132) across multiple separate tool commands.
+- **DATABASE IDENTITY + FINGERPRINT (psql + Prisma):** customers=223, meters=277, readings=362, invoices=116, payments=53, users=7, areas=3, projects=14, meterAssignments=79. **Matches reference.**
+- **MeterVerse connects:** `PRISMA CONNECTED` (prisma-connect-test.mjs).
+- **Meter 52051449: NOT in live DB** (0 solar meters in Meter table; types = electric 224 / LP2 45 / water 8).
+
+**Remaining findings:**
+- collection.db (311KB) inspected read-only: 4 customers, **0 meter_reading, 0 transactions, 0 solar_wallet_transaction** → real registers definitively absent from all available project data.
+- BE :3131 launch: node starts with env (proven via job capture: symbiot bridge + tools register) but tool-session reaps detached node children. Needs external terminal (or Boot.cmd from a real shell).
+- Business rule: MeterVerse == Collection (consumption/production/net/surplus/admin_fee 2%/service_fee 9.10) — line-by-line verified.
+
+**Updated status:** DATABASE=GREEN (native, real data, Prisma-verified) · RUNTIME=YELLOW (DB up; BE launch needs external terminal) · REAL DATA=GREEN (customers/meters/invoices) · REAL READING=RED (registers absent) · SOLAR ENGINE=GREEN · INVOICE/PDF/USER=BLOCKED.
