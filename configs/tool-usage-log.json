@@ -2169,3 +2169,16 @@
       "Symbiot 12.xlsx = water meter job (67119107, not 52051449); no SEP data store present"
     ]
   }
+  ,
+  {
+    "task": "P13.11 owner demonstration + technical proof package",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "read"],
+    "tools_used": [
+      "runtime discovery: all ports verified; Admin FE 3535 + BE 3131 (relaunched, was down); Portal FE 3030 + BE 3003 STARTED via existing mechanism (was down)",
+      "psql: verified meter 52051449 -> customer + active assignment; invoice items check",
+      "API: real invoice detail + real PDF via POST /api/pdf/invoices/:id (23649 bytes) verified",
+      "docs: OWNER_SOLAR_INVOICE_TECHNICAL_DEMONSTRATION.md + ONE_PAGE + DEMONSTRATION_SCRIPT",
+      "verified: regression 448, Graph 12/0/0, SpecKit 100%, FE tsc 0"
+    ]
+  }

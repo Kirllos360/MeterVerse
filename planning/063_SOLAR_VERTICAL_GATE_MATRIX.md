@@ -143,3 +143,14 @@ No SEP/LiteDB/SQLite data store present in the deployment.
 
 PRECISE BLOCKER: "Registers are absent from every accessible source. A live original Collection/Symbiot/SEP
 source could not be located/accessed from this environment." (per §9 - NOT claiming an inaccessible DB holds them)
+
+## P13.11 OWNER DEMONSTRATION + TECHNICAL PROOF PACKAGE (2026-08-17)
+- Runtime verified: Admin FE :3535 (200), Admin BE :3131 (health 200, relaunched - was down), Portal FE :3030
+  (200, STARTED via existing mechanism - was down), Portal BE :3003 (health 200), PG :5433, Symbiot :9000/9001.
+- Owner links + real demo confirmed: customer f881de8e, meter 52051449 (solar), invoice SOLAR-52051449-2021-01
+  = 36.10 (issued), real bilingual PDF via API (23649 bytes, 36.10 + number + Arabic + words).
+- Data-flow + tariff + reading->meter exact trace documented.
+- Docs created: docs/solar/OWNER_SOLAR_INVOICE_TECHNICAL_DEMONSTRATION.md, OWNER_SOLAR_INVOICE_ONE_PAGE.md,
+  OWNER_DEMONSTRATION_SCRIPT.md.
+- Real/Derived/Unknown strictly labeled (54.26 kWh = DERIVED; registers = UNKNOWN).
+- Verified: regression 448 (430/18), Graph 12/0/0, SpecKit 100%, FE tsc 0.
