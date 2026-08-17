@@ -90,3 +90,26 @@ VERIFIED:
 - Regression 441 (423/18) | Graph 12/0/0 | SpecKit 100% | FE tsc 0
 
 STATUS: INTERNAL = COMPLETE + REAL-HISTORY LOADED. Only raw 180/280 registers remain UNKNOWN/DERIVED.
+
+## FINAL EXTENDED SOLAR WINDOW (2026-08-17) — NEW ROOTS EXHAUSTED (beyond P13.8)
+
+NEW roots explored this window that P13.8 had NOT searched (all returned NO register data):
+1. Collection System PostgreSQL backups (2 .db.gz, decompressed): collection_20260605 (13 tables, 1 test customer,
+   81 payment tx, NO meter_reading) + auto_repair_20260606 (15 tables, 54 REAL customers incl Ihab Shafie
+   52051449, 0 transactions, NO meter_reading). PROOF: the Collection meter_reading table (which HAS
+   solar_register_180/280 columns per models.py) is EMPTY in every accessible copy.
+2. Live collection_tracker PG (:5433): 15,012 customers, 0 meter_reading, 0 solar, no 52051449.
+3. Solar_Invoices_Import.xlsx full dump: 8 cols (Serial/Month/Amount/Date/Number/Tag/Info/Notes), 65 rows for
+   52051449, ZERO register/consumption columns. Amounts + customer name ONLY.
+4. invoice_calculation_2020.xlsx: 2020 Egyptian tariff tiers (no meter data).
+5. Real solar demo PDFs (invoice-demo-solar-001/002): MOCK demos (SOLAR-MTR-001, 1.5 EGP/kWh, 14% tax) -
+   NOT 52051449, NOT real registers. solar-invoice-test.pdf = invalid (JSON stub).
+6. All dangling git commits (10): grep 52051449/reading_180/solar_register -> no hits.
+7. Full Symbiot SEP2/DLMS reference deployment: driver maps + DLLs only, no meter payloads.
+8. Replay CSVs (d2/d6): no 52051449 hits.
+9. stitch_meterverse_enterprise_os: feature folders, no data.
+10. P59 LR1 contract: confirms 180/280 vectors are DERIVED test values, not real.
+
+CONCLUSION (final, evidence-based): The real 180/280 register history for 52051449 existed ONLY in the live
+Collection System PostgreSQL which is NOT accessible in this environment. Every local copy (PG, both SQLite
+backups, xlsx, PDFs, git, Symbiot deployment, logs) has 0 meter_reading rows. The source is GENUINELY EXTERNAL.

@@ -141,3 +141,11 @@ VERIFIED this pass (multi-path): BE health 200 + authenticated API 52051449/sola
 - Test additions: pdf-route (5), ingestion boundary (3). Suite 439 (421/18).
 - BOM lesson: PowerShell Set-Content -Encoding UTF8 adds a BOM that breaks vitest 4.1.10 ESM loading.
   Strip with: [IO.File]::WriteAllText(p, text, [Text.UTF8Encoding]::new($false)).
+
+## 29. FINAL EXTENDED SOLAR WINDOW (2026-08-17)
+New roots exhausted beyond P13.8: Collection PG backups (2 gz, decompressed - meter_reading table EMPTY in
+all), auto_repair backup (54 real customers incl 52051449 but 0 readings), Solar_Invoices xlsx full dump
+(8 cols, no registers), invoice_calculation_2020 tariff xlsx, real demo solar PDFs (mock only), 10 dangling
+git commits (no hits), full Symbiot SEP2/DLMS deployment (platform only), replay CSVs (no hits), stitch_os
+folders. PROOF: Collection models.py defines solar_register_180/280 on MeterReading, but that table is empty
+in every accessible PG + SQLite copy. Real registers existed only in inaccessible live Collection PG.
