@@ -2132,3 +2132,16 @@
       "verified: Graph 12/0/0, SpecKit 100%, FE tsc 0, live 36.10 compute intact"
     ]
   }
+  ,
+  {
+    "task": "P13.8 FINAL-CHANCE: real history import + bilingual PDF + register-root exhaustion",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "prisma", "vitest", "read", "write"],
+    "tools_used": [
+      "psql: enumerated ALL databases (:5433 collection_tracker exists!) + all schemas (sim_system/area/features/core) - register search now exhaustive: collection_tracker=15012 customers/0 readings/0 solar; sim_system meter 52051449=electricity/0 readings",
+      "read: Meter/reports/solar-wallet-replay-report.md - recovered 65 REAL invoices + 23 REAL payments for 52051449",
+      "prisma: migration 20260817010000_add_payment_reference applied; import-solar-history.mjs loaded real history (sums EXACT: 77855.94/75124.50/2731.44)",
+      "pdf-engine: bilingual Arabic rendering (Tahoma registerFont) + amountInWords decimal fix; REAL PDF via live API certified (23649 bytes, all text checks pass)",
+      "vitest: +2 pdf tests (words + bilingual); suite 441 (423/18)"
+    ]
+  }

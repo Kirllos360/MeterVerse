@@ -1,21 +1,31 @@
 ﻿# MeterVerse — Project State
-**Last Updated:** 2026-08-17 (P13.7 - Solar vertical chain completed: G04 real link + PDF/API test surfaces)  
-**Current Phase:** P13.7 - Solar Invoice Vertical (chain complete; register source external)  
-**Version:** 10.20.0-P13.7  
-**Branch:** main (HEAD = P13.7 commits, clean, pushed)  
+**Last Updated:** 2026-08-17 (P13.8 - REAL solar history imported + bilingual PDF; register root exhausted)  
+**Current Phase:** P13.8 - Solar vertical REAL-data loading (final-chance window)  
+**Version:** 10.20.0-P13.8  
+**Branch:** main (HEAD = P13.8 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P13.7 - Solar Vertical Chain Completion (2026-08-17)
+## P13.8 - FINAL-CHANCE WINDOW: REAL Solar History + Bilingual PDF (2026-08-17)
 
-**G04 real data link applied + certified; PDF route + ingestion boundary test surfaces added.**
-- **G04 (real, evidenced):** meter 57cc414c (52051449 solar) → customer f881de8e (Ihab Shafie) linked via UPDATE; MeterAssignment active 2021-01-01 inserted. Verified 2 paths (psql + authenticated API: meter.customerId set, customer.meters=1).
-- **Tests:** +5 pdf-route API tests (200/404/401; engine mocked = concern separation), +3 ingestion boundary tests (negative/non-numeric/future-timestamp → 400). Suite **439 (421/18)**.
-- **Root cause fix:** a UTF-8 BOM (from a PowerShell Set-Content) at the start of pdf-route.test.mjs broke vitest 4.1.10 ESM loader ("Cannot find module 'backend\vitest'"). Stripped BOM → passes. Rule: never Set-Content -Encoding UTF8 on ESM test files.
-- **Verified:** Graph 12/0/0, SpecKit 100%, FE tsc 0, live API still reproduces real 36.10.
-- **Next:** resolve G01 (register source) → real invoice+PDF vertical; or P12.2-B.
+**Exhausted EVERY data root for raw 180/280 registers (now proven absent everywhere):**
+files, ALL DBs on :5433/:5434 (collection_tracker=15,012 customers but 0 readings/0 solar; meter_pulse public+sim_system+area+features+core), all git refs (branches/tags/remotes incl abady001), Symbiot bridge (PUSH-only), replay reports (Finding A-2 confirms no readings). **Register source = genuinely external.**
+
+**But loaded REAL historical billing for the golden meter 52051449:**
+- 65 REAL invoices (2021-01→2026-04) + 23 REAL payments (REC-SOLAR-52051449-*) imported into MeterVerse
+- TOTALS EXACT: invoiced 77,855.94 | paid 75,124.50 | balance 2,731.44 (= replay report)
+- REAL invoice SOLAR-52051449-2021-01 = 36.10 now persisted, visible via API
+
+**Internal fixes:**
+- Migration 20260817010000_add_payment_reference
+- pdf-engine bilingual Arabic rendering (Tahoma) — fixes mojibake
+- amountInWords decimal fix (36.10 → "thirty six EGP")
+- Scripts: import-solar-history.mjs, real-invoice-pdf-verify.mjs
+
+**Verified:** REAL PDF via live API (23,649 bytes; 36.10 + number + Arabic name + words); Regression **441 (423/18)**; Graph 12/0/0; SpecKit 100%; FE tsc 0.
+**Next:** raw 180/280 registers remain UNKNOWN — only user-supplied reading file (a), Symbiot endpoint (b), or derived authorization (c) can complete that gate.
 
 ## P12.2-A - Event Reliability Foundation IMPLEMENTED (2026-08-16)
 

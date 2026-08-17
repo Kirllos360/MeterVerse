@@ -1,19 +1,21 @@
 ﻿# MeterVerse - Current Sprint
 
-## P13.7 Solar Vertical Chain Completion (2026-08-17)
+## P13.8 REAL Solar History + Bilingual PDF (2026-08-17, FINAL-CHANCE window)
 
-**Goal:** complete remaining internal gates (G04 real data link + PDF route/API + reading-boundary tests).  
-**Status:** COMPLETE (internal) — G01/G07 remain external; gate matrix in planning/063_SOLAR_VERTICAL_GATE_MATRIX.md
+**Goal:** exhaust all remaining data roots; load every real solar history; fix PDF bilingual rendering.  
+**Status:** REAL-HISTORY LOADED + INTERNAL COMPLETE — only raw 180/280 registers remain external
 
 | Item | Result |
 |------|--------|
-| G04 | meter 52051449 → customer linked (UPDATE) + active MeterAssignment 2021-01-01; psql + API verified |
-| PDF route (G16) | +5 API tests (200/404/401), engine mocked (concern separation) |
-| Ingestion boundary (G08) | +3 API tests (negative / non-numeric / future-timestamp → 400) |
-| Root cause | UTF-8 BOM broke vitest ESM loader → stripped; rule: no Set-Content -Encoding UTF8 on ESM tests |
-| Tests | Suite 439 (421/18) |
-| Verified | Graph 12/0/0, SpecKit 100%, FE tsc 0, live 36.10 compute |
-| External blocker | G01/G07: real register source |
-| Next | resolve G01 → real invoice+PDF vertical; or P12.2-B |
+| Register search | ALL roots exhausted: files, all DBs (:5433 collection_tracker=15,012 cust/0 readings, meter_pulse all schemas), all git refs, Symbiot (PUSH-only), reports (A-2 confirms) |
+| REAL invoices | 65 imported (2021-01..2026-04), sum 77855.94 EXACT |
+| REAL payments | 23 imported (REC-SOLAR-52051449-*), sum 75124.50 EXACT |
+| Balance | 2731.44 EXACT (= replay report) |
+| Migration | 20260817010000_add_payment_reference applied LIVE |
+| PDF | bilingual Arabic (Tahoma) + amountInWords fix; REAL PDF via live API certified (36.10 + number + Arabic + words) |
+| Tests | Suite 441 (423/18) |
+| Verified | Graph 12/0/0, SpecKit 100%, FE tsc 0 |
+| External blocker | raw 180/280 registers (file / Symbiot endpoint / derived authorization) |
+| Next | user input (a)/(b)/(c) OR P12.2-B |
 
 

@@ -59,4 +59,23 @@ describe('P13.6 pdf-engine (invoice/statement document generation)', () => {
     expect(text).toContain('Ihab Shafie');
     expect(text).toContain('36.10');
   });
+
+  it('5. amount in words is rendered correctly for decimal amounts (36.10 -> thirty six EGP)', async () => {
+    const { filepath } = await generateInvoicePdf({ ...invoice, amount: 36.10 }, customer);
+    const parser = new PDFParse({ data: fs.readFileSync(filepath) });
+    const data = await parser.getText();
+    const text = Array.isArray(data) ? data.join('\n') : (data?.text ?? JSON.stringify(data));
+    expect(text).toContain('thirty six EGP');
+    expect(text).not.toContain('undefined');
+  });
+
+  it('6. bilingual: Arabic customer names render (Tahoma embedded, not mojibake)', async () => {
+    const arabicCustomer = { ...customer, name: 'ايهاب امام حسنين شافعي' };
+    const { filepath } = await generateInvoicePdf(invoice, arabicCustomer);
+    const parser = new PDFParse({ data: fs.readFileSync(filepath) });
+    const data = await parser.getText();
+    const text = Array.isArray(data) ? data.join('\n') : (data?.text ?? JSON.stringify(data));
+    expect(text).toContain('شافعي');
+    expect(text).toContain('36.10');
+  });
 });

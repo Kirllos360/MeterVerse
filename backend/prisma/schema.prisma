@@ -1070,6 +1070,7 @@ model Payment {
   method              String               @default("cash")
   status              String               @default("completed")
   paidAt              DateTime             @default(now())
+  reference           String?
   areaId              String?
   projectId           String?
   createdAt           DateTime             @default(now())

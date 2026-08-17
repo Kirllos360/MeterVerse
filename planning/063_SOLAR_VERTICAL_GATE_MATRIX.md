@@ -62,3 +62,31 @@ Owner: DeepSeek Execution Kernel Â· Updated: 2026-08-17 (P13.7) Â· Commit ba
 - G16 strengthened: +5 pdf-route API tests (200/404/401; engine mocked = clean separation from pdf-engine unit tests).
 - Root cause: UTF-8 BOM from PowerShell Set-Content broke vitest 4.1.10 ESM loader ("Cannot find module backend/vitest"). Fixed by stripping BOM. Rule: never write ESM test files via Set-Content -Encoding UTF8.
 - Regression: 439 (421/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
+
+## P13.8 — FINAL-CHANCE WINDOW (2026-08-17) REAL DATA RECOVERY + BILINGUAL PDF
+
+NEW ROOTS EXHAUSTED THIS WINDOW (register source = absent everywhere, now PROVEN at every DB/schema/ref):
+- All databases on :5433 (incl collection_tracker: 15,012 customers, 0 readings, 0 solar) and :5434
+- All schemas in meter_pulse: public + sim_system (meter 52051449 = electricity, 0 readings/invoices) + area (empty) + features + core
+- All git refs (branches/tags/remotes incl abady001): no register data
+- Symbiot bridge = PUSH-only (no discovery/historical retrieval); pollers = ConnectionProfile-driven (none)
+- Replay report Finding A-2: "No meter readings (180/280) available" - confirmed
+
+REAL DATA RECOVERED (amounts reconcile with Solar_Invoices_Import.xlsx + replay report):
+- 65 REAL historical invoices for 52051449 (2021-01..2026-04) imported to MeterVerse public schema
+- 23 REAL payments (receipts REC-SOLAR-52051449-*) imported
+- TOTALS match report EXACTLY: invoiced 77855.94 | paid 75124.50 | balance 2731.44
+- REAL invoice SOLAR-52051449-2021-01 = 36.10 (Minimum) now persisted + visible via API
+
+IMPLEMENTED (internal fixes):
+- Migration 20260817010000_add_payment_reference (Payment.reference)
+- pdf-engine: bilingual Arabic rendering (Tahoma embedded, fallback Helvetica) - fixes mojibake customer names
+- pdf-engine: amountInWords decimal bug fixed (36.10 -> "thirty six EGP", was "thirty undefined")
+- scripts/import-solar-history.mjs (reproducible real-history import) + scripts/real-invoice-pdf-verify.mjs
+
+VERIFIED:
+- REAL PDF via live API POST /api/pdf/invoices/:id: 23,649 bytes, %PDF-, text = 36.10 + SOLAR-52051449-2021-01 + Arabic name + "thirty six EGP" + no undefined
+- API detail endpoint shows real invoice + customer
+- Regression 441 (423/18) | Graph 12/0/0 | SpecKit 100% | FE tsc 0
+
+STATUS: INTERNAL = COMPLETE + REAL-HISTORY LOADED. Only raw 180/280 registers remain UNKNOWN/DERIVED.
