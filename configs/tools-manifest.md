@@ -82,3 +82,4 @@ After every task:
 3. **After task**: AI appends to `configs/tool-usage-log.json`
 4. **Self-improvement**: AI evaluates if a better tool exists for future similar tasks
 5. **If no `🧰` block appears**: protocol violation — user can detect immediately
+| `pdf-parse` | `backend/node_modules/pdf-parse` | **PDF text extraction** - real parser validation of invoice/statement PDFs (G16 multi-path; devDependency) | V3 |

@@ -2105,3 +2105,18 @@
         ]
     }
 ]
+  ,
+  {
+    "task": "P13.6 Solar vertical internal-gate completion",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "prisma", "vitest", "tsc", "grep", "read", "write"],
+    "tools_used": [
+      "prisma migrate deploy: 20260817000000_add_invoice_billing_period applied LIVE; columns verified via psql information_schema",
+      "prisma generate: regenerated client after stopping BE (pid 9688) that locked query_engine DLL",
+      "edit: schema.prisma (billingPeriodStart/End), solar-wallet-engine.js (contract+idempotency), routes/solar.js (tenancy+RBAC+serial)",
+      "vitest: +26 solar unit/route tests, +4 pdf-engine tests (PDFParse text validation); suite 431 (413/18)",
+      "pdf-parse: installed devDependency (v2.4.5); PDFParse named export used for real text extraction",
+      "live smoke: /api/solar/compute reproduces real 36.10 from derived 54.26 kWh (read-only); customer resolves via API",
+      "tsc: FE 0; Graph 12/0/0; SpecKit 19/19 100%"
+    ]
+  }

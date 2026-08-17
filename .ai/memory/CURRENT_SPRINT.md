@@ -1,18 +1,22 @@
 ﻿# MeterVerse - Current Sprint
 
-## P12.2-A Event Reliability Foundation — EXECUTION (2026-08-16)
+## P13.6 Solar Invoice Vertical — INTERNAL GATE COMPLETION (2026-08-17)
 
-**Goal:** Implement the P12-02 schema foundation (real repository change).  
-**Status:** IMPLEMENTED — 6 models + migration + 12 tests; PG blocks live apply
+**Goal:** Finish and certify every solar vertical gate not blocked by the external register source.  
+**Status:** COMPLETE (internal) — G01/G07 remain external; gate matrix in planning/063_SOLAR_VERTICAL_GATE_MATRIX.md
 
 | Item | Result |
 |------|--------|
-| Schema | 6 new models: OutboxEvent, EventDelivery, EventDeadLetter, IdempotencyRecord, ServiceIdentity, ServiceCredential (+ correlationId NOT NULL on outbox) |
-| Migration | 20260816000000_add_event_reliability_foundation — additive (0 DROP, 6 CREATE TABLE, 9 INDEX, 3 FK) |
-| Tests | 12 new (identity, idempotency first/dup/conflict/tenant, correlation, P58 tenancy, delivery, financial safety). Suite 417 (399/18) up from 405 |
-| Validate/generate | prisma validate PASS; prisma generate PASS (client regenerated) |
-| Runtime | PG :5433 BLOCKED_ENV — migration static-validated, NOT applied live |
-| Graph/SpecKit | 12/0/0 + 100% (P12.2-A node added to dependency graph) |
-| Gaps | G-014/015/016/017 = PARTIAL (schema done; middleware/wiring P12.2-B/C/D/G) |
-| Next | P12.2-B: correlation + request identity middleware |
+| Migration | 20260817000000_add_invoice_billing_period — applied LIVE (migrate deploy), columns verified, client regenerated |
+| Engine | persistSolarInvoice honors full contract; deterministic business-key number (SOLAR-{serial}-{period}); period fields persisted |
+| Tenancy (G22) | invoice areaId derived from customer.areaId (client input ignored) — horizontal-privilege fix |
+| RBAC (G21) | solar gate billing.* → invoices.create (area_manager/billing enabled) |
+| Idempotency | Invoice.number unique constraint = authoritative dedupe; P2002 → 409 DUPLICATE |
+| PDF (G16) | 4 unit tests w/ PDFParse text extraction; renderer = pdfkit (no Jasper in MeterVerse) |
+| Tests | Suite 428 (410/18): +26 solar unit/route, +4 pdf |
+| Live cert | API compute reproduces REAL 36.10 from derived 54.26 kWh (read-only) |
+| Graph/SpecKit | 12/0/0 + 100% |
+| External blocker | G01/G07: real register source (Symbiot endpoint+credentials OR file OR derived authorization) |
+| Next | resolve G01 → real invoice+PDF vertical; or P12.2-B |
+
 

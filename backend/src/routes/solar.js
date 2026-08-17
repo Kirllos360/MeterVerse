@@ -1,4 +1,4 @@
-import { Router } from "express"
+﻿import { Router } from "express"
 import { z } from "zod"
 import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
@@ -27,13 +27,14 @@ const computeSchema = z.object({
   prev180: z.number().min(0).optional().default(0),
   curr280: z.number().min(0).optional().default(0),
   prev280: z.number().min(0).optional().default(0),
+  periodStart: z.string().optional(),
+  periodEnd: z.string().optional(),
   month: z.string().optional(),
-  areaId: z.string().optional(),
   projectId: z.string().optional(),
 })
 
-// Compute-only preview (no persistence) — safe, read-only.
-router.post("/compute", requirePermission("billing.*"), async (req, res, next) => {
+// Compute-only preview (no persistence) â€” safe, read-only.
+router.post("/compute", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const body = computeSchema.parse(req.body)
     const customer = await prisma.customer.findUnique({ where: { id: body.customerId } })
@@ -56,7 +57,14 @@ const createSchema = computeSchema.extend({
   ref: z.string().optional(),
 })
 
-router.post("/invoices", requirePermission("billing.*"), async (req, res, next) => {
+// Resolve the authoritative area for an invoice. The customer's area is the
+// tenancy source of truth (horizontal-privilege fix): the client can no longer
+// misattribute an invoice to an area it does not control.
+function resolveArea(customer) {
+  return typeof customer.areaId === "string" ? customer.areaId : (customer.area?.id || null)
+}
+
+router.post("/invoices", requirePermission("invoices.create"), async (req, res, next) => {
   try {
     const body = createSchema.parse(req.body)
     const customer = await prisma.customer.findUnique({ where: { id: body.customerId } })
@@ -73,16 +81,21 @@ router.post("/invoices", requirePermission("billing.*"), async (req, res, next) 
     }
 
     const result = computeSolar(body)
+    const period = body.month || (body.periodStart ? body.periodStart.slice(0, 7) : "")
+    const serial = body.meterId ? (await prisma.meter.findUnique({ where: { id: body.meterId } }))?.serial || "" : ""
     const { invoice, items } = await persistSolarInvoice({
       customerId: customer.id,
+      periodStart: body.periodStart,
+      periodEnd: body.periodEnd,
       meterId: body.meterId,
       result,
-      meta: { month: body.month, areaId: body.areaId, projectId: body.projectId },
+      meta: { period, serial, areaId: resolveArea(customer), projectId: body.projectId },
     })
 
     auditLog(req, "solar.invoice.created", {
       ref: body.ref || null,
       invoiceId: invoice.id,
+      number: invoice.number,
       total: result.total,
       surplus: result.surplus,
       items: items.length,
@@ -91,6 +104,10 @@ router.post("/invoices", requirePermission("billing.*"), async (req, res, next) 
   } catch (err) {
     if (err instanceof z.ZodError) return res.status(400).json({ error: "Validation failed", details: err.errors })
     if (err.status) return res.status(err.status).json({ error: err.message, code: err.code })
+    // DB-level idempotency: Invoice.number is a deterministic business key
+    if (err?.code === "P2002" && String(err.meta?.target || "").includes("number")) {
+      return res.status(409).json({ error: "Solar invoice already exists for this meter+period", code: "DUPLICATE" })
+    }
     next(err)
   }
 })

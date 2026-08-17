@@ -99,7 +99,7 @@ describe('P59-C/LR-5 solar wallet engine (recovered legacy rules, MeterVerse-nat
     prisma.invoice.create.mockResolvedValue({ id: 'inv-1' });
     prisma.invoiceItem.create.mockResolvedValue({});
     const r = computeSolar({ curr280: 150, prev280: 50 });
-    await persistSolarInvoice({ customerId: 'c-1', result: r, meta: { month: '2026-03' } });
+    await persistSolarInvoice({ customerId: 'c-1', result: r, meta: { period: '2026-03' } });
     expect(prisma.customerLedgerEntry.create).toHaveBeenCalledTimes(1);
     expect(prisma.customerLedgerEntry.create.mock.calls[0][0].data.type).toBe('solar_credit');
   });
@@ -113,6 +113,40 @@ describe('P59-C/LR-5 solar wallet engine (recovered legacy rules, MeterVerse-nat
     expect(prisma.invoice.create).toHaveBeenCalledTimes(1);
     expect(out.items.length).toBe(3); // energy + admin + service
     expect(prisma.invoiceItem.create.mock.calls.length).toBe(3);
+  });
+
+  it('17. invoice number is a deterministic business key SOLAR-{serial}-{period}', async () => {
+    prisma.invoice.create.mockResolvedValue({ id: 'inv-1' });
+    prisma.invoiceItem.create.mockResolvedValue({});
+    const r = computeSolar({ curr180: 150, prev180: 100 });
+    await persistSolarInvoice({
+      customerId: 'c-1', periodStart: '2021-01-01', periodEnd: '2021-01-31',
+      meterId: 'm-1', result: r, meta: { serial: '52051449', period: '2021-01' },
+    });
+    const data = prisma.invoice.create.mock.calls[0][0].data;
+    expect(data.number).toBe('SOLAR-52051449-2021-01');
+    expect(data.billingPeriodStart).toEqual(new Date('2021-01-01'));
+    expect(data.billingPeriodEnd).toEqual(new Date('2021-01-31'));
+  });
+
+  it('18. no serial/period falls back to a unique timestamp-based number', async () => {
+    prisma.invoice.create.mockResolvedValue({ id: 'inv-1' });
+    prisma.invoiceItem.create.mockResolvedValue({});
+    const r = computeSolar({});
+    await persistSolarInvoice({ customerId: 'c-1', result: r, meta: {} });
+    expect(String(prisma.invoice.create.mock.calls[0][0].data.number)).toMatch(/^SOLAR-\d+$/);
+  });
+
+  it('19. persistSolarInvoice records period fields when supplied via periodStart/periodEnd', async () => {
+    prisma.invoice.create.mockResolvedValue({ id: 'inv-1' });
+    prisma.invoiceItem.create.mockResolvedValue({});
+    const r = computeSolar({ curr180: 250, prev180: 100 });
+    await persistSolarInvoice({ customerId: 'c-1', periodStart: '2026-06-01', periodEnd: '2026-06-30', result: r, meta: {} });
+    const data = prisma.invoice.create.mock.calls[0][0].data;
+    expect(data.billingPeriodStart).toEqual(new Date('2026-06-01'));
+    expect(data.billingPeriodEnd).toEqual(new Date('2026-06-30'));
+    // No serial → no stable business key; falls back to timestamp number.
+    expect(data.number).toMatch(/^SOLAR-\d+$/);
   });
 
   it('14. missing readings default to zero (no crash)', () => {

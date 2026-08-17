@@ -1030,12 +1030,14 @@ model Consumption {
 
 
 model Invoice {
-  id              String           @id @default(uuid())
-  number          String           @unique
-  customerId      String
-  amount          Float
-  status          String           @default("pending")
-  dueDate         DateTime?
+  id                  String           @id @default(uuid())
+  number              String           @unique
+  customerId          String
+  amount              Float
+  status              String           @default("pending")
+  billingPeriodStart  DateTime?
+  billingPeriodEnd    DateTime?
+  dueDate             DateTime?
   issuedAt        DateTime         @default(now())
   immutableAt     DateTime?
   paidAt          DateTime?

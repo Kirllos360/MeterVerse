@@ -64,6 +64,10 @@ export function computeSolar({ curr180 = 0, prev180 = 0, curr280 = 0, prev280 = 
 // - CustomerLedgerEntry (type="solar_credit") for the surplus credit
 // - InvoiceItem rows (type="charge") for tariff amount + admin fee + service fee
 // Returns { ledgerEntry, invoice, items }
+// Idempotency: invoice `number` is a deterministic business key
+// (SOLAR-{serial}-{period}) so the Invoice.number UNIQUE constraint is the
+// authoritative duplicate guard — a second persist with the same serial+period
+// fails with P2002, which callers map to HTTP 409.
 export async function persistSolarInvoice({ customerId, periodStart, periodEnd, meterId, result, meta = {} }) {
   if (result.surplus > 0) {
     await prisma.customerLedgerEntry.create({
@@ -71,18 +75,26 @@ export async function persistSolarInvoice({ customerId, periodStart, periodEnd, 
         customerId,
         type: "solar_credit",
         amount: result.surplus,
-        description: `Solar surplus credit ${meta.month || ""}`.trim(),
+        description: `Solar surplus credit ${meta.period || ""}`.trim(),
         reference: meterId ? `meter:${meterId}` : undefined,
       },
     })
   }
 
+  const period = meta.period || (periodStart ? String(periodStart).slice(0, 7) : "")
+  const serial = meta.serial || ""
+  const number = serial && period ? `SOLAR-${serial}-${period}` : `SOLAR-${Date.now()}`
+  const periodStartDate = periodStart ? new Date(periodStart) : null
+  const periodEndDate = periodEnd ? new Date(periodEnd) : null
+
   const invoice = await prisma.invoice.create({
     data: {
-      number: `SOLAR-${Date.now()}`,
+      number,
       customerId,
       amount: result.total,
       status: "pending",
+      billingPeriodStart: periodStartDate,
+      billingPeriodEnd: periodEndDate,
       issuedAt: new Date(),
       dueDate: new Date(Date.now() + 30 * 86400000),
       areaId: meta.areaId || null,
