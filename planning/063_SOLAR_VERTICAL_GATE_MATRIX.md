@@ -154,3 +154,20 @@ source could not be located/accessed from this environment." (per §9 - NOT clai
   OWNER_DEMONSTRATION_SCRIPT.md.
 - Real/Derived/Unknown strictly labeled (54.26 kWh = DERIVED; registers = UNKNOWN).
 - Verified: regression 448 (430/18), Graph 12/0/0, SpecKit 100%, FE tsc 0.
+
+## P13.12 EMERGENCY OWNER DEMO RECOVERY + BROWSER CERTIFICATION (2026-08-17)
+- FORENSIC runtime inventory (proven NOW, not assumed): PG :5433, Admin BE :3131 (health 200),
+  Admin FE :3535 (200), Portal BE :3003 (200), Portal FE :3030 (200), Symbiot :9000/9001 ALL UP.
+- REAL BROWSER cert (Playwright/Chromium): Admin renders full MeterVerse OS shell (Customers/Meters/
+  Invoices/Reports menus) + Customers screen opens. Not just HTTP 200.
+- Owner data chain via live API: customer f881de8e (Ihab Shafie) -> meter 52051449 (solar) ->
+  invoice SOLAR-52051449-2021-01 (36.10) -> real PDF (23649 bytes).
+- LAN URL: current IP 192.168.1.2 (Wi-Fi); FEs bind :: (all interfaces); Node firewall Allow;
+  LAN URLs 192.168.1.2:3535/3030/3131/3003 all HTTP 200. Remote-device access expected but not
+  tested from a 2nd computer.
+- Stability: all 4 services re-verified HTTP 200 after 30s wait. Launchers added: _tools/start-portal-be.cmd,
+  start-portal-fe.cmd, start-admin-fe.cmd (session-independent). Admin BE via MeterVerseAdminBE task.
+- Sample PDFs generated for 5 real invoices (2021-01/02/03 = 36.10, 2022-09 = 1426.10, 2026-04 = 471.51).
+- Docs updated/created: OWNER_SOLAR_INVOICE_TECHNICAL_DEMONSTRATION.md, ONE_PAGE, DEMONSTRATION_SCRIPT,
+  OWNER_INVOICE_EVIDENCE.md.
+- Real/Derived/Unknown strictly labeled. Regression 454, Graph 12/0/0, SpecKit 100%.

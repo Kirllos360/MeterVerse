@@ -6,18 +6,20 @@ This document is a hard technical evidence package. Every claim below was verifi
 
 ---
 
-## 1. Live System Links (all verified HTTP 200)
+## 1. Live System Links (all verified HTTP 200 + browser-rendered 2026-08-17)
 
-| App | URL | Status |
-|-----|-----|--------|
-| **Admin / Enterprise Console** | http://localhost:3535 | ✅ 200 (title "MeterVerse OS") |
-| **Customer Portal** | http://localhost:3030 | ✅ 200 (title "MeterVerse OS", PORTAL_MODE) |
-| **Admin API** | http://localhost:3131/api | ✅ health 200 |
-| **Portal API** | http://localhost:3003/api | ✅ health 200 |
-| **Symbiot ingestion bridge** | tcp :9000 / http :9001 | ✅ listening (same BE process) |
-| **PostgreSQL** | localhost:5433 (meter_pulse) | ✅ running |
+| App | URL (local) | URL (LAN) | Status |
+|-----|-------------|-----------|--------|
+| **Admin / Enterprise Console** | http://localhost:3535 | http://192.168.1.2:3535 | ✅ 200 + browser-rendered (MeterVerse OS shell, Customers opens) |
+| **Customer Portal** | http://localhost:3030 | http://192.168.1.2:3030 | ✅ 200 |
+| **Admin API** | http://localhost:3131/api | http://192.168.1.2:3131/api | ✅ health 200 |
+| **Portal API** | http://localhost:3003/api | http://192.168.1.2:3003/api | ✅ health 200 |
+| **Symbiot ingestion bridge** | tcp :9000 / http :9001 | — | ✅ listening (BE process) |
+| **PostgreSQL** | localhost:5433 (meter_pulse) | — | ✅ running |
 
 **Admin login:** `admin@meterverse.com` / `Admin@123`
+
+**Current LAN IP:** 192.168.1.2 (Wi-Fi). FEs bind on `::` (all interfaces); Node.js inbound firewall rule = Allow; LAN URL returns HTTP 200 from this machine. Remote-owner access from a separate computer on the same network is expected to work but was not tested from a second device.
 
 ---
 
@@ -141,6 +143,7 @@ Persistence: `persistSolarInvoice({ customerId, periodStart, periodEnd, meterId,
 - **Endpoint:** `POST /api/pdf/invoices/:id` (route `backend/src/routes/pdf.js` → `generateInvoicePdf` in `backend/src/services/pdf-engine.js`)
 - **Rendered file:** `backend/pdf-output/invoice-SOLAR-52051449-2021-01.pdf`
 - **Verification:** 23,649 bytes; magic `%PDF-`; extracted text contains **36.10**, **SOLAR-52051449-2021-01**, **ايهاب امام حسنين شافعي**, and **"thirty six EGP"** (amount in words). Bilingual Arabic rendering via embedded Tahoma.
+- **Sample PDFs (real invoices):** SOLAR-52051449-2021-02 (36.10), -2021-03 (36.10), -2022-09 (1,426.10), -2026-04 (471.51) — all in `backend/pdf-output/`.
 
 ---
 

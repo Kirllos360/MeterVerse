@@ -2196,3 +2196,17 @@
       "verified: Graph 12/0/0, SpecKit 100%, FE tsc 0"
     ]
   }
+  ,
+  {
+    "task": "P13.12 emergency owner demo recovery + browser certification",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "playwright", "read"],
+    "tools_used": [
+      "forensic runtime: all 6 services proven UP (PG/AdminBE/FE/PortalBE/FE/Symbiot); not assumed",
+      "playwright/chromium: Admin browser-rendered (MeterVerse OS shell + Customers opens); real browser cert",
+      "psql+API: customer->meter->invoice->PDF chain verified for real 52051449 data",
+      "LAN: current IP 192.168.1.2, bind ::, firewall Allow, LAN URLs HTTP 200",
+      "sample PDFs: 5 real invoices generated; docs updated + OWNER_INVOICE_EVIDENCE.md created",
+      "verified: regression 454, Graph 12/0/0, SpecKit 100%"
+    ]
+  }

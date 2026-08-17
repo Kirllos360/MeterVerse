@@ -2,6 +2,17 @@
 
 Follow these steps in order. No technical assistance needed.
 
+**URLS (all verified HTTP 200 + browser-rendered, 2026-08-17):**
+- Admin console: **http://localhost:3535** (LAN: http://192.168.1.2:3535)
+- Customer portal: **http://localhost:3030** (LAN: http://192.168.1.2:3030)
+- Admin API: http://localhost:3131/api · Portal API: http://localhost:3003/api
+
+**If a service is not running, start it (from the repo `_tools/` or via scheduled task):**
+- Admin BE: `schtasks /Run /TN "MeterVerseAdminBE"` (or `_tools/start-admin-be.cmd`)
+- Admin FE: `_tools/start-admin-fe.cmd`
+- Portal BE: `_tools/start-portal-be.cmd`
+- Portal FE: `_tools/start-portal-fe.cmd` (or `next dev -p 3030` in `Frontend/` with PORTAL_MODE=1)
+
 ---
 
 **STEP 1 — Open the system.**

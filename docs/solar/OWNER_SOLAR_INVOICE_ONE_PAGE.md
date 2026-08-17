@@ -8,11 +8,13 @@
 MeterVerse OS — an enterprise utility metering & billing platform (PostgreSQL + Node.js + Next.js). The Solar Invoice vertical is fully implemented and verified.
 
 **WHERE IS IT?**
-Running live on this machine right now.
-- **Admin console:** http://localhost:3535
-- **Customer portal:** http://localhost:3030
+Running live on this machine right now (browser-verified 2026-08-17).
+- **Admin console:** http://localhost:3535 (or on the LAN: http://192.168.1.2:3535)
+- **Customer portal:** http://localhost:3030 (or http://192.168.1.2:3030)
 - **API:** http://localhost:3131/api (admin), http://localhost:3003/api (portal)
 - **Login:** admin@meterverse.com / Admin@123
+
+*Verified in a real browser: the Admin console renders the full MeterVerse OS shell (Customers, Meters, Invoices, Reports menus) and the Customers screen opens. All four URLs return HTTP 200; the apps bind to all network interfaces and Node is firewall-allowed, so LAN access works.*
 
 **WHICH METER?**
 Meter serial **52051449** — type **solar**. Stored uniquely in the database with its own meter ID.
