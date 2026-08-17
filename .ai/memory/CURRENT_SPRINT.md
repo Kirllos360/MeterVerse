@@ -1,22 +1,19 @@
 ﻿# MeterVerse - Current Sprint
 
-## P13.6 Solar Invoice Vertical — INTERNAL GATE COMPLETION (2026-08-17)
+## P13.7 Solar Vertical Chain Completion (2026-08-17)
 
-**Goal:** Finish and certify every solar vertical gate not blocked by the external register source.  
+**Goal:** complete remaining internal gates (G04 real data link + PDF route/API + reading-boundary tests).  
 **Status:** COMPLETE (internal) — G01/G07 remain external; gate matrix in planning/063_SOLAR_VERTICAL_GATE_MATRIX.md
 
 | Item | Result |
 |------|--------|
-| Migration | 20260817000000_add_invoice_billing_period — applied LIVE (migrate deploy), columns verified, client regenerated |
-| Engine | persistSolarInvoice honors full contract; deterministic business-key number (SOLAR-{serial}-{period}); period fields persisted |
-| Tenancy (G22) | invoice areaId derived from customer.areaId (client input ignored) — horizontal-privilege fix |
-| RBAC (G21) | solar gate billing.* → invoices.create (area_manager/billing enabled) |
-| Idempotency | Invoice.number unique constraint = authoritative dedupe; P2002 → 409 DUPLICATE |
-| PDF (G16) | 4 unit tests w/ PDFParse text extraction; renderer = pdfkit (no Jasper in MeterVerse) |
-| Tests | Suite 428 (410/18): +26 solar unit/route, +4 pdf |
-| Live cert | API compute reproduces REAL 36.10 from derived 54.26 kWh (read-only) |
-| Graph/SpecKit | 12/0/0 + 100% |
-| External blocker | G01/G07: real register source (Symbiot endpoint+credentials OR file OR derived authorization) |
+| G04 | meter 52051449 → customer linked (UPDATE) + active MeterAssignment 2021-01-01; psql + API verified |
+| PDF route (G16) | +5 API tests (200/404/401), engine mocked (concern separation) |
+| Ingestion boundary (G08) | +3 API tests (negative / non-numeric / future-timestamp → 400) |
+| Root cause | UTF-8 BOM broke vitest ESM loader → stripped; rule: no Set-Content -Encoding UTF8 on ESM tests |
+| Tests | Suite 439 (421/18) |
+| Verified | Graph 12/0/0, SpecKit 100%, FE tsc 0, live 36.10 compute |
+| External blocker | G01/G07: real register source |
 | Next | resolve G01 → real invoice+PDF vertical; or P12.2-B |
 
 

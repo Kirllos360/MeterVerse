@@ -62,6 +62,27 @@ describe('P60.6 ingestion route (SEP/Symbiot bridge HTTP surface)', () => {
     expect(res.status).toBe(400);
   });
 
+  it('POST test-push rejects negative reading value (400, G08 boundary)', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-1', serial: 'SEP-1' });
+    const res = await request(app).post('/api/ingestion/test-push').set(auth()).send({ meter: 'SEP-1', value: -5 });
+    expect(res.status).toBe(400);
+    expect(res.body.code).toBe('NEGATIVE_VALUE');
+  });
+
+  it('POST test-push rejects non-numeric value (400, G08 boundary)', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-1', serial: 'SEP-1' });
+    const res = await request(app).post('/api/ingestion/test-push').set(auth()).send({ meter: 'SEP-1', value: 'abc' });
+    expect(res.status).toBe(400);
+  });
+
+  it('POST test-push rejects future timestamp (400, G08 boundary)', async () => {
+    prisma.meter.findUnique.mockResolvedValue({ id: 'm-1', serial: 'SEP-1' });
+    const future = new Date(Date.now() + 10 * 60000).toISOString();
+    const res = await request(app).post('/api/ingestion/test-push').set(auth()).send({ meter: 'SEP-1', value: 9, timestamp: future });
+    expect(res.status).toBe(400);
+    expect(res.body.code).toBe('FUTURE_TIMESTAMP');
+  });
+
   it('denies unauthenticated access (401)', async () => {
     const res = await request(app).get('/api/ingestion/status');
     expect(res.status).toBe(401);

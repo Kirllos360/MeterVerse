@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+﻿import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { PDFParse } from 'pdf-parse';
 
-process.env.PDF_OUTPUT_DIR = path.join(os.tmpdir(), 'meterverse-pdf-test');
+process.env.PDF_OUTPUT_DIR = path.join(os.tmpdir(), 'meterverse-pdf-tests');
 
 const { generateInvoicePdf, generateStatementPdf } = await import('../../src/services/pdf-engine.js');
 

@@ -1,25 +1,21 @@
 ﻿# MeterVerse — Project State
-**Last Updated:** 2026-08-17 (P13.6 - Solar vertical internal gates COMPLETED + CERTIFIED)  
-**Current Phase:** P13.6 - Solar Invoice Vertical (internal gates complete; register source external)  
-**Version:** 10.20.0-P13.6  
-**Branch:** main (HEAD = P13.6 commits, clean, pushed)  
+**Last Updated:** 2026-08-17 (P13.7 - Solar vertical chain completed: G04 real link + PDF/API test surfaces)  
+**Current Phase:** P13.7 - Solar Invoice Vertical (chain complete; register source external)  
+**Version:** 10.20.0-P13.7  
+**Branch:** main (HEAD = P13.7 commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P13.6 - Solar Invoice Vertical Internal-Gate Certification (2026-08-17)
+## P13.7 - Solar Vertical Chain Completion (2026-08-17)
 
-**All internal gates not requiring the external register source are COMPLETE and CERTIFIED.**
-- **Migration:** 20260817000000_add_invoice_billing_period (Invoice.billingPeriodStart/End) applied to LIVE DB via migrate deploy; columns verified; client regenerated.
-- **Engine:** persistSolarInvoice honors {customerId, periodStart, periodEnd, meterId, result, meta}; invoice number = deterministic business key SOLAR-{serial}-{period} (DB-level idempotency); period fields persisted.
-- **Tenancy fix (G22):** invoice areaId derived from customer.areaId (client input ignored); scoped roles now reach the guard.
-- **RBAC fix (G21):** solar route gate billing.* → invoices.create (area_manager/billing can now create solar invoices).
-- **PDF (G16):** 4 new unit tests with real PDFParse text extraction (devDependency pdf-parse). Real renderer = pdfkit; Jasper not used in MeterVerse.
-- **Tests:** 30 new/updated (26 solar unit+route, 4 pdf). Suite 428 (410 pass/18 skip).
-- **Live certification:** /api/solar/compute on live stack reproduces REAL historical 36.10 from derived 54.26 kWh (read-only, no persistence). Customer + meter resolve via API.
-- **Gate matrix:** planning/063_SOLAR_VERTICAL_GATE_MATRIX.md (G01–G26; G01/G07 BLOCKED external, rest GREEN/CONDITIONAL/PARTIAL).
-- **Next:** resolve G01 (register source) to finish REAL invoice → PDF vertical; or start P12.2-B.
+**G04 real data link applied + certified; PDF route + ingestion boundary test surfaces added.**
+- **G04 (real, evidenced):** meter 57cc414c (52051449 solar) → customer f881de8e (Ihab Shafie) linked via UPDATE; MeterAssignment active 2021-01-01 inserted. Verified 2 paths (psql + authenticated API: meter.customerId set, customer.meters=1).
+- **Tests:** +5 pdf-route API tests (200/404/401; engine mocked = concern separation), +3 ingestion boundary tests (negative/non-numeric/future-timestamp → 400). Suite **439 (421/18)**.
+- **Root cause fix:** a UTF-8 BOM (from a PowerShell Set-Content) at the start of pdf-route.test.mjs broke vitest 4.1.10 ESM loader ("Cannot find module 'backend\vitest'"). Stripped BOM → passes. Rule: never Set-Content -Encoding UTF8 on ESM test files.
+- **Verified:** Graph 12/0/0, SpecKit 100%, FE tsc 0, live API still reproduces real 36.10.
+- **Next:** resolve G01 (register source) → real invoice+PDF vertical; or P12.2-B.
 
 ## P12.2-A - Event Reliability Foundation IMPLEMENTED (2026-08-16)
 

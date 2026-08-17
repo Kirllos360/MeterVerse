@@ -2120,3 +2120,15 @@
       "tsc: FE 0; Graph 12/0/0; SpecKit 19/19 100%"
     ]
   }
+  ,
+  {
+    "task": "P13.7 Solar vertical chain completion",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "vitest", "read", "write"],
+    "tools_used": [
+      "psql: G04 real link (UPDATE Meter.customerId + INSERT MeterAssignment) verified 2 paths (psql + API)",
+      "vitest: +5 pdf-route API tests (engine mocked), +3 ingestion boundary tests; suite 439 (421/18)",
+      "root cause: UTF-8 BOM (PowerShell Set-Content) broke vitest 4.1.10 ESM loader; stripped via [IO.File]::WriteAllText UTF8Encoding(false)",
+      "verified: Graph 12/0/0, SpecKit 100%, FE tsc 0, live 36.10 compute intact"
+    ]
+  }

@@ -132,3 +132,12 @@ derived-baseline authorization (54.26 kWh labeled DERIVED).
 
 VERIFIED this pass (multi-path): BE health 200 + authenticated API 52051449/solar
 + Prisma 57cc414c solar + 278 meters (solar=1). Regression 417 (399/18) green.
+
+## 28. P13.7 Solar Vertical Chain Completion (2026-08-17)
+- G04 REAL data link applied (not fabrication): meter 57cc414c (52051449 solar) -> customer f881de8e (Ihab Shafie)
+  via UPDATE "Meter" SET customerId + INSERT "MeterAssignment" (active, start 2021-01-01). Evidenced by source
+  xlsx serial->customer mapping and the SOLAR-52051449-2021-01 invoice number.
+- Verified: psql (both rows) + authenticated API (meter.customerId linked; customer.meters=1).
+- Test additions: pdf-route (5), ingestion boundary (3). Suite 439 (421/18).
+- BOM lesson: PowerShell Set-Content -Encoding UTF8 adds a BOM that breaks vitest 4.1.10 ESM loading.
+  Strip with: [IO.File]::WriteAllText(p, text, [Text.UTF8Encoding]::new($false)).
