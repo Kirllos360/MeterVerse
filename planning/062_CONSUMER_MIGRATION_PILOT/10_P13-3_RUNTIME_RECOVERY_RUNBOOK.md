@@ -104,3 +104,31 @@ Both implement: `net = max(curr180−prev180 − (curr280−prev280), 0)`; `surp
 - Business rule: MeterVerse == Collection (consumption/production/net/surplus/admin_fee 2%/service_fee 9.10) — line-by-line verified.
 
 **Updated status:** DATABASE=GREEN (native, real data, Prisma-verified) · RUNTIME=YELLOW (DB up; BE launch needs external terminal) · REAL DATA=GREEN (customers/meters/invoices) · REAL READING=RED (registers absent) · SOLAR ENGINE=GREEN · INVOICE/PDF/USER=BLOCKED.
+
+## 27. COMPLETE DEPENDENCY-ROOT EVIDENCE — REAL REGISTER SOURCE (2026-08-17)
+
+Exhausted EVERY legitimate root (kernel §11/§25). Final missing root = LIVE DB integration config:
+- ConnectionProfile: 0 · Gateway: 0 · SyncLog: 0 · ApiKey: 0 · ImportJob: 2 (preview-only, never executed)
+- Symbiot bridge: alive (TCP:9000/HTTP:9001, same pid as BE) but ingestion runtime reports profiles=0 (no source configured)
+- No SEP/SEPJob table in MeterVerse schema (Collection-only concept)
+
+COMPLETE ROOT TABLE:
+| Root | Result | Evidence |
+|------|--------|----------|
+| Static files (xlsx/csv/sql/json/pdf/md) | 0 registers | exhaustive content search |
+| Solar_Customers_For_Import.xlsx | 54 customers, 0 reading cols | xlsx parse |
+| Solar_Invoices_Import.xlsx | 2,797 invoices, 0 register cols | xlsx parse |
+| collection.db SQLite | 4 customers, 0 meter_reading | sqlite inspect |
+| MeterVerse live DB | meter 52051449 = 0 readings/0 consumptions/0 invoices | Prisma + psql |
+| ConnectionProfile/Gateway/SyncLog | ALL 0 | psql |
+| ImportJob | 2 preview-only (never executed) | psql |
+| Symbiot bridge | alive but profiles=0 (no source) | ingestion status |
+| Historical invoice 36.10 | REAL (source xlsx) but registers UNKNOWN | xlsx |
+
+CONCLUSION: The real register source is genuinely absent at every root. This is an
+EXTERNAL data dependency, not a code defect. Three paths forward (user decision):
+(a) real register file, (b) real Symbiot/SEP endpoint+credentials, (c) explicit
+derived-baseline authorization (54.26 kWh labeled DERIVED).
+
+VERIFIED this pass (multi-path): BE health 200 + authenticated API 52051449/solar
++ Prisma 57cc414c solar + 278 meters (solar=1). Regression 417 (399/18) green.
