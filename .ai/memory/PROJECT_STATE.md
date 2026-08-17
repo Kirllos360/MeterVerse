@@ -1,31 +1,26 @@
 ﻿# MeterVerse — Project State
-**Last Updated:** 2026-08-17 (P13.8 - REAL solar history imported + bilingual PDF; register root exhausted)  
-**Current Phase:** P13.8 - Solar vertical REAL-data loading (final-chance window)  
-**Version:** 10.20.0-P13.8  
-**Branch:** main (HEAD = P13.8 commits, clean, pushed)  
+**Last Updated:** 2026-08-17 (P12.2-B - server-authoritative correlation middleware COMPLETE)  
+**Current Phase:** P12.2-B - Correlation + Request-Identity Middleware  
+**Version:** 10.20.0-P12.2-B  
+**Branch:** main (HEAD = P12.2-B commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P13.8 - FINAL-CHANCE WINDOW: REAL Solar History + Bilingual PDF (2026-08-17)
+## P12.2-B - Correlation + Request-Identity Middleware (2026-08-17)
 
-**Exhausted EVERY data root for raw 180/280 registers (now proven absent everywhere):**
-files, ALL DBs on :5433/:5434 (collection_tracker=15,012 customers but 0 readings/0 solar; meter_pulse public+sim_system+area+features+core), all git refs (branches/tags/remotes incl abady001), Symbiot bridge (PUSH-only), replay reports (Finding A-2 confirms no readings). **Register source = genuinely external.**
+**Server-authoritative correlation/causation per P12-02-05 §3 (upgraded in place, no duplicate).**
+- correlationMiddleware: full-UUID requestId; X-Correlation-ID accepted only if valid UUID else regenerated (spoof-proof); X-Causation-ID validated passthrough; response headers set.
+- Propagation: req.correlationId → auditLog (AuditEntry.correlationId) → response.
+- Tests: +7 unit. Suite 448 (430/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
+- Live cert: login 200 — spoofed header regenerated, valid preserved, causation echoed.
+- Next: P12.2-C (enqueueEvent outbox producer) or Solar G01 register input.
 
-**But loaded REAL historical billing for the golden meter 52051449:**
-- 65 REAL invoices (2021-01→2026-04) + 23 REAL payments (REC-SOLAR-52051449-*) imported into MeterVerse
-- TOTALS EXACT: invoiced 77,855.94 | paid 75,124.50 | balance 2,731.44 (= replay report)
-- REAL invoice SOLAR-52051449-2021-01 = 36.10 now persisted, visible via API
+## P13.8 - FINAL-CHANCE: REAL Solar History + Bilingual PDF (2026-08-17)
 
-**Internal fixes:**
-- Migration 20260817010000_add_payment_reference
-- pdf-engine bilingual Arabic rendering (Tahoma) — fixes mojibake
-- amountInWords decimal fix (36.10 → "thirty six EGP")
-- Scripts: import-solar-history.mjs, real-invoice-pdf-verify.mjs
-
-**Verified:** REAL PDF via live API (23,649 bytes; 36.10 + number + Arabic name + words); Regression **441 (423/18)**; Graph 12/0/0; SpecKit 100%; FE tsc 0.
-**Next:** raw 180/280 registers remain UNKNOWN — only user-supplied reading file (a), Symbiot endpoint (b), or derived authorization (c) can complete that gate.
+**Register source exhaustively proven absent across ALL roots** (files, all DBs incl collection_tracker=15,012 customers/0 readings, meter_pulse all schemas incl sim_system, all git refs, Symbiot PUSH-only, replay Finding A-2).
+**But REAL data recovered + loaded:** 65 real invoices (2021-01→2026-04) + 23 real payments (REC-SOLAR-52051449-*) for meter 52051449; totals EXACT (77,855.94 / 75,124.50 / 2,731.44). REAL invoice SOLAR-52051449-2021-01=36.10 persisted + visible via API. Bilingual PDF certified via live API (Tahoma Arabic + amountInWords fix). Commit 99811dd7.
 
 ## P12.2-A - Event Reliability Foundation IMPLEMENTED (2026-08-16)
 

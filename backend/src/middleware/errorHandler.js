@@ -17,11 +17,24 @@ function getErrorCode(status) {
   return ERROR_CODES[status] || "UNKNOWN_ERROR"
 }
 
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+
+// P12.2-B: server-authoritative correlation middleware (§ P12-02-05 §3).
+// - requestId: server-generated full UUID per HTTP request.
+// - correlationId: client X-Correlation-ID is accepted ONLY if it is a valid UUID,
+//   otherwise a fresh full UUID is generated (a client cannot forge/truncate the
+//   trace chain). Propagates: request -> service -> outbox -> consumer -> webhook -> audit.
+// - causationId: client X-Causation-ID (validated UUID) pass-through for event
+//   parent->child linkage; server-set by consumers when emitting child events.
 export function correlationMiddleware(req, res, next) {
-  req.correlationId = req.headers["x-correlation-id"] || uuidv4().slice(0, 8)
-  req.requestId = uuidv4().slice(0, 12)
+  req.requestId = uuidv4()
+  const clientCorrelation = req.headers["x-correlation-id"]
+  req.correlationId = (typeof clientCorrelation === "string" && UUID_RE.test(clientCorrelation.trim())) ? clientCorrelation.trim() : uuidv4()
+  const clientCausation = req.headers["x-causation-id"]
+  if (typeof clientCausation === "string" && UUID_RE.test(clientCausation.trim())) req.causationId = clientCausation.trim()
   res.setHeader("X-Correlation-ID", req.correlationId)
   res.setHeader("X-Request-ID", req.requestId)
+  if (req.causationId) res.setHeader("X-Causation-ID", req.causationId)
   next()
 }
 

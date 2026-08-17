@@ -1,21 +1,19 @@
 ﻿# MeterVerse - Current Sprint
 
-## P13.8 REAL Solar History + Bilingual PDF (2026-08-17, FINAL-CHANCE window)
+## P12.2-B Correlation + Request-Identity Middleware (2026-08-17)
 
-**Goal:** exhaust all remaining data roots; load every real solar history; fix PDF bilingual rendering.  
-**Status:** REAL-HISTORY LOADED + INTERNAL COMPLETE — only raw 180/280 registers remain external
+**Goal:** server-authoritative correlation/causation middleware over the applied P12.2-A schema (P12-02-05 spec §3).  
+**Status:** COMPLETE — 7 tests + live certified
 
 | Item | Result |
 |------|--------|
-| Register search | ALL roots exhausted: files, all DBs (:5433 collection_tracker=15,012 cust/0 readings, meter_pulse all schemas), all git refs, Symbiot (PUSH-only), reports (A-2 confirms) |
-| REAL invoices | 65 imported (2021-01..2026-04), sum 77855.94 EXACT |
-| REAL payments | 23 imported (REC-SOLAR-52051449-*), sum 75124.50 EXACT |
-| Balance | 2731.44 EXACT (= replay report) |
-| Migration | 20260817010000_add_payment_reference applied LIVE |
-| PDF | bilingual Arabic (Tahoma) + amountInWords fix; REAL PDF via live API certified (36.10 + number + Arabic + words) |
-| Tests | Suite 441 (423/18) |
+| Middleware | correlationMiddleware upgraded in-place (errorHandler.js): full-UUID requestId; correlationId accepted ONLY if valid UUID else regenerated (server-authoritative, spoof-proof); X-Causation-ID validated passthrough |
+| Propagation | req.correlationId → auditLog (AuditEntry.correlationId col) → response headers X-Correlation-ID/X-Request-ID/X-Causation-ID |
+| Tests | +7 unit (valid preserve / invalid regen / absent gen / headers / causation passthrough+ignore / req propagation) |
+| Live cert | login 200: spoofed header regenerated to UUID, valid header preserved, causation echoed |
+| Suite | 448 (430/18) |
 | Verified | Graph 12/0/0, SpecKit 100%, FE tsc 0 |
-| External blocker | raw 180/280 registers (file / Symbiot endpoint / derived authorization) |
-| Next | user input (a)/(b)/(c) OR P12.2-B |
+| Next | P12.2-C (enqueueEvent outbox producer) or Solar G01 register input |
+| Solar (P13.8) | REAL history loaded (65 inv + 23 pay, totals exact); bilingual PDF certified; registers remain external |
 
 

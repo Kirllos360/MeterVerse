@@ -2145,3 +2145,15 @@
       "vitest: +2 pdf tests (words + bilingual); suite 441 (423/18)"
     ]
   }
+  ,
+  {
+    "task": "P12.2-B correlation + request-identity middleware",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "node", "vitest", "read"],
+    "tools_used": [
+      "edit: correlationMiddleware upgraded in-place (errorHandler.js) - full UUID requestId, server-authoritative correlationId (valid UUID or regenerate), causationId validated passthrough",
+      "vitest: +7 correlation-middleware unit tests; suite 448 (430/18)",
+      "live cert: login 200 - spoofed X-Correlation-ID regenerated, valid preserved, X-Causation-ID echoed",
+      "verified: Graph 12/0/0, SpecKit 100%, FE tsc 0"
+    ]
+  }
