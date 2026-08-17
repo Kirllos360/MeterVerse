@@ -69,6 +69,16 @@ export function createSymbiotBridge(options = {}) {
       }
     });
   });
+  httpServer.on('error', (err) => {
+    // P13.5: HTTP bridge must not crash the backend on port-in-use (EADDRINUSE),
+    // matching the TCP server's graceful tolerance. The bridge is a convenience;
+    // the backend must stay operational even if a bridge port is occupied.
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`[symbiot] HTTP port ${httpPort} in use — HTTP bridge skipped (ingestion continues via polling/TCP)`);
+      return;
+    }
+    console.error(`[symbiot] HTTP error: ${err.message}`);
+  });
   httpServer.listen(httpPort, () => console.log(`[symbiot] HTTP bridge on :${httpPort}`));
 
   return { tcpServer, httpServer, connections };
