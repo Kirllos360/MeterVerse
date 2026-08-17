@@ -2237,3 +2237,15 @@
       "regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
     ]
   }
+  ,
+  {
+    "task": "P12.3-09 outbox shadow validation + reconciliation",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "node", "read", "vitest"],
+    "tools_used": [
+      "write: scripts/outbox-shadow-check.mjs (TEST_MODE-gated reconciliation, P12-03-04 §6)",
+      "live cert: 3/3 shadow runs diff=0 (amount/type/source/status/idempotency/shadow)",
+      "safety: TEST_MODE refusal verified",
+      "regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
+    ]
+  }

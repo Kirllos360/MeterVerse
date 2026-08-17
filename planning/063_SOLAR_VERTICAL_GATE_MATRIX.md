@@ -193,3 +193,10 @@ source could not be located/accessed from this environment." (per §9 - NOT clai
   (FinancialEvent=0); failure path->DeadLetter DEAD; idempotency; FK-ordered cleanup (0 remain).
 - Regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0; browser Admin renders; Solar download 200
   (23,649 B %PDF-). Git clean.
+
+## P12.3-09 OUTBOX SHADOW VALIDATION + RECONCILIATION (2026-08-17)
+- scripts/outbox-shadow-check.mjs (TEST_MODE-gated, P12-03-04 §6 non-production).
+- Flow: enqueueEvent -> dispatcher -> shadow consumer; reconcile outbox row vs source.
+- Live cert: 3/3 consecutive runs diff=0 (amount/type/source/status/idempotency/shadow all true).
+- TEST_MODE refusal verified (refuses without TEST_MODE=true + NODE_ENV!=production).
+- Regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0.
