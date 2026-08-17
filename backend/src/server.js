@@ -67,6 +67,8 @@ import { financialReportsRouter } from "./routes/financial-reports.js"
 import { financialAiRouter } from "./routes/financial-ai.js"
 import { RuntimeManager } from "./services/runtime-manager.js"
 import { startIngestion, getIngestionStatus } from "./services/ingestion-runtime.js"
+import { startLedgerConsumer } from "./services/ledger-consumer.js"
+import { runDispatchCycle } from "./services/outbox-dispatcher.js"
 import { SchedulerEngine, HEARTBEAT_JOB, SYNC_METER_JOB, SYNC_READING_JOB, CLEANUP_JOB, RETRY_JOB } from "./services/scheduler-engine.js"
 import { authenticate } from "./middleware/auth.js"
 import { requirePermission } from "./middleware/security.js"
@@ -437,7 +439,13 @@ initWebSocket(httpServer)
 httpServer.listen(PORT, () => {
   runtime.start().then(() => {
     scheduler.start()
-    return startIngestion()
+    startIngestion()
+    // P12.2-D: start the outbox ledger consumer + periodic dispatcher (guarded).
+    const ledger = startLedgerConsumer()
+    console.log(`[outbox] ledger consumer registered (active=${ledger.active()}, shadow=${ledger.shadow()})`)
+    setInterval(() => {
+      runDispatchCycle().catch(err => console.error("[outbox] dispatch cycle error:", err.message))
+    }, Number(process.env.OUTBOX_DISPATCH_INTERVAL_MS) || 5000)
   }).catch(err => console.error("[runtime] Startup error:", err.message))
 })
 

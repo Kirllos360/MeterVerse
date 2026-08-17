@@ -3521,6 +3521,7 @@ model EventDeadLetter {
   replayedAt  DateTime?
   createdAt   DateTime @default(now())
 
+  @@unique([eventId, consumerKey])
   @@index([eventId, consumerKey])
 }
 

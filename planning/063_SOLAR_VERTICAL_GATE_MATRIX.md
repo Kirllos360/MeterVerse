@@ -182,3 +182,14 @@ source could not be located/accessed from this environment." (per §9 - NOT clai
 - PDF validated: 36.10, SOLAR-52051449-2021-01, Arabic name, "thirty six EGP", INVOICE, issued.
 - Tests: +1 pdf download test; suite 455 (437/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
 - Multi-path: browser(render) + API(download 200) + DB(invoice) + filesystem(artifact) + PDF(text) agree.
+
+## P12.2-D STABILIZATION + CERTIFICATION GATE (2026-08-17) - CERTIFIED
+- Forensic audit: one clean process per service. 3131 Admin BE (6952), 3535 Admin FE (21396),
+  3003 Portal BE (14980), 3030 Portal FE (4816), 5433 PG (7996), 9000/9001 Symbiot (same BE). No duplicates.
+- Startup: clean restart via MeterVerseAdminBE task -> exactly 1 listener on 3131, health 200, no EADDRINUSE. Deterministic.
+- Fixes: EventDeadLetter @@unique (migration 20260817020000), per-consumer delivery independent of PUBLISHED,
+  ledger consumer logger import + call-time flags.
+- Live cert 10/10: enqueue->claim->dispatch->consumer->EventDelivery DELIVERED->PUBLISHED; shadow no GL mutation
+  (FinancialEvent=0); failure path->DeadLetter DEAD; idempotency; FK-ordered cleanup (0 remain).
+- Regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0; browser Admin renders; Solar download 200
+  (23,649 B %PDF-). Git clean.

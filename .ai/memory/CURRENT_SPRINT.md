@@ -1,19 +1,22 @@
 ﻿# MeterVerse - Current Sprint
 
-## P12.2-C enqueueEvent Outbox Producer (2026-08-17)
+## P12.2-D Outbox Dispatcher + Ledger Consumer — CERTIFIED (2026-08-17)
 
-**Goal:** transactional outbox producer (P12-03-03) over the P12.2-A schema.  
-**Status:** COMPLETE — 6 tests + live certified
+**Goal:** complete the P12.2 outbox pipeline (producer → dispatcher → consumer).  
+**Status:** CERTIFIED — stabilization + full live certification passed
 
 | Item | Result |
 |------|--------|
-| Producer | `backend/src/services/outbox-producer.js` `enqueueEvent` — writes OutboxEvent (same-tx), dual-publishes to legacy postEvent; feature-flag aware (OUTBOX_ENABLED / FINANCIAL_POSTING_ENABLED read at call time) |
-| Idempotency | sha256(sourceId:eventType:amount:desc) deterministic key (64 hex) |
-| Correlation | stamps correlationId/causationId/actorId from request context |
-| Integration | `routes/invoices.js` INVOICE_ISSUED → `enqueueEvent` (removed dead postEvent import) |
-| Tests | +6 unit; suite 454 (436/18) |
-| Live cert | OUTBOX row written for real invoice (INVOICE_ISSUED, corr stamped, idem 64, PENDING); proof cleaned |
-| Next | P12.2-D (outbox dispatcher/consumer) or Solar register input |
-| Solar (P13.11) | Owner demo complete: runtime verified (Admin 3535 + Portal 3030 + BEs), real invoice+PDF; registers external |
+| Dispatcher | `backend/src/services/outbox-dispatcher.js` — claim (at-least-once via lock), dispatch to registered consumers, per-consumer EventDelivery, DeadLetter, backoff retry |
+| Consumer | `backend/src/services/ledger-consumer.js` — idempotency, financialReplayGuard, shadow/active modes |
+| Integration | `server.js` startup registers ledger consumer + periodic dispatch (guarded) |
+| Migration | 20260817020000_add_event_deadletter_unique (one DeadLetter per event+consumer) applied LIVE |
+| Fixes | EventDeadLetter @@unique (was missing — upsert failed); per-consumer delivery independent of PUBLISHED; ledger consumer logger import + call-time flags |
+| Unit tests | 9 (dispatcher claim/publish/dead + consumer idempotency/shadow/guard/active/key/register) |
+| Live cert | 10/10: enqueue→claim→dispatch→consumer→EventDelivery DELIVERED→PUBLISHED; no GL mutation in shadow; failure→DeadLetter DEAD; FK-ordered cleanup 0 remain |
+| Runtime | one process per service (3131/3535/3003/3030 single listener), clean restart, no EADDRINUSE |
+| Regression | 464 (446/18) |
+| Verified | Graph 12/0/0, SpecKit 100%, FE tsc 0; browser Admin renders; Solar download 200 (23,649 B %PDF-) |
+| Next | P12.2-E or next feature |
 
 

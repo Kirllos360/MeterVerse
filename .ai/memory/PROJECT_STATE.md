@@ -1,26 +1,28 @@
 ﻿# MeterVerse — Project State
-**Last Updated:** 2026-08-17 (P12.2-C - enqueueEvent outbox producer COMPLETE)  
-**Current Phase:** P12.2-C - Transactional Outbox Producer  
-**Version:** 10.20.0-P12.2-C  
-**Branch:** main (HEAD = P12.2-C commits, clean, pushed)  
+**Last Updated:** 2026-08-17 (P12.2-D outbox dispatcher+consumer CERTIFIED)  
+**Current Phase:** P12.2-D - Outbox Dispatcher + Ledger Consumer (certified)  
+**Version:** 10.20.0-P12.2-D  
+**Branch:** main (HEAD = P12.2-D commits, clean, pushed)  
 **MCPs Active:** 12 (sequential-thinking, git, filesystem, postgres, playwright, chrome-devtools, notion, odoo, serena, codebase-memory, figma, context7)  
 **Lead Engineer:** Active — Enterprise Engineering Protocol engaged
 
 ---
 
-## P12.2-C - enqueueEvent Outbox Producer (2026-08-17)
+## P12.2-D - Outbox Dispatcher + Ledger Consumer CERTIFIED (2026-08-17)
 
-**Transactional outbox producer (P12-03-03) over the P12.2-A schema.**
-- `backend/src/services/outbox-producer.js`: `enqueueEvent` writes OutboxEvent (same-tx atomic) + dual-publishes to legacy postEvent; feature-flag aware (OUTBOX_ENABLED / FINANCIAL_POSTING_ENABLED read at call time — fixed module-load bug).
-- Idempotency: sha256(sourceId:eventType:amount:desc) deterministic key. Correlation/causation/actor stamped.
-- Integration: `routes/invoices.js` INVOICE_ISSUED → enqueueEvent (removed dead postEvent import).
-- Tests: +6 unit. Suite 454 (436/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
-- Live cert: OUTBOX row written for real invoice (INVOICE_ISSUED, corr stamped, idem 64, PENDING); proof cleaned.
-- Next: P12.2-D (outbox dispatcher/consumer).
+**Completes the P12.2 outbox pipeline (producer → dispatcher → consumer).**
+- Dispatcher: `backend/src/services/outbox-dispatcher.js` (claim at-least-once, per-consumer EventDelivery, DeadLetter, backoff retry).
+- Consumer: `backend/src/services/ledger-consumer.js` (idempotency, financialReplayGuard, shadow/active).
+- Migration 20260817020000_add_event_deadletter_unique (one DeadLetter per event+consumer) applied LIVE.
+- Fixes: EventDeadLetter @@unique (was missing), per-consumer delivery independent of PUBLISHED, consumer logger import + call-time flags.
+- Unit tests: 9. Live cert: 10/10 (enqueue→dispatch→EventDelivery DELIVERED→PUBLISHED; no GL mutation in shadow; failure→DeadLetter DEAD; FK-cleanup 0 remain).
+- Stabilization: one process per service (3131/3535/3003/3030 single listener), clean restart, no EADDRINUSE.
+- Regression 464 (446/18). Graph 12/0/0. SpecKit 100%. FE tsc 0. Browser Admin renders. Solar download 200 (23,649 B).
+- Next: P12.2-E or next feature.
 
-## P13.11 - OWNER DEMO + TECHNICAL PROOF (2026-08-17)
+## P13.13 - FIRST SOLAR INVOICE E2E DOWNLOAD (2026-08-17)
 
-**Made system demonstrable.** Runtime verified: Admin FE :3535 + BE :3131, Portal FE :3030 + BE :3003 all up (Portal was down, started via existing mechanism). Owner docs: docs/solar/OWNER_SOLAR_INVOICE_TECHNICAL_DEMONSTRATION.md + ONE_PAGE + DEMONSTRATION_SCRIPT. Real invoice SOLAR-52051449-2021-01=36.10 + real bilingual PDF verified via live API. Real/Derived/Unknown strictly labeled. Commit 11e8f4ce.
+**Fixed the missing user-downloadable artifact.** Root cause: PDF endpoint returned JSON not a download. Added `GET /api/pdf/invoices/:id/download` streaming `application/pdf` with Content-Disposition attachment. User artifacts committed: `docs/solar/SOLAR-52051449-2021-01.pdf` (23,649 B) + `FIRST_SOLAR_INVOICE_EVIDENCE.zip`. Commit e059d63d.
 
 ## P12.2-A - Event Reliability Foundation IMPLEMENTED (2026-08-16)
 

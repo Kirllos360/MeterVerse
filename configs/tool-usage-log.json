@@ -2223,3 +2223,17 @@
       "vitest: +1 download test; suite 455 (437/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
     ]
   }
+  ,
+  {
+    "task": "P12.2-D stabilization + certification gate",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "playwright", "read"],
+    "tools_used": [
+      "process forensics: one clean process per service; no duplicates; clean restart via scheduled task -> 1 listener, health 200, no EADDRINUSE",
+      "prisma: migration 20260817020000_add_event_deadletter_unique applied live (EventDeadLetter @@unique)",
+      "fixes: per-consumer delivery independent of PUBLISHED; ledger consumer logger import + call-time flags",
+      "live cert script: 10/10 (enqueue->dispatch->DELIVERED->PUBLISHED; shadow no GL mutation; failure->DeadLetter DEAD; FK cleanup)",
+      "playwright: browser Admin renders; Solar download 200 (23,649 B %PDF-)",
+      "regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
+    ]
+  }
