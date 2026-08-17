@@ -113,3 +113,33 @@ NEW roots explored this window that P13.8 had NOT searched (all returned NO regi
 CONCLUSION (final, evidence-based): The real 180/280 register history for 52051449 existed ONLY in the live
 Collection System PostgreSQL which is NOT accessible in this environment. Every local copy (PG, both SQLite
 backups, xlsx, PDFs, git, Symbiot deployment, logs) has 0 meter_reading rows. The source is GENUINELY EXTERNAL.
+
+## FINAL LIVE-SOURCE ACCESS ATTEMPT (2026-08-17) — ACCESS-BOUNDARY PROOF (not a repeat of P13.9)
+
+Distinction PROVEN: not just "registers absent from copies" but "NO LIVE Collection/Symbiot/SEP source is
+reachable from this machine."
+
+LOCAL RUNTIME:
+- All listening ports: only 5433 (PG16) + 5434 (PG18) are Postgres. No port 5000/8400/8320/8420 (Collection Flask
+  / Symbiot SEP services NOT running).
+- No Flask/Collection/python web process. Only node (MeterVerse BE/FE) + 2 PG clusters.
+- Docker daemon OFF; WSL Ubuntu Uninstalling. No containerized source.
+- Scheduled tasks: only MeterVerseAdminBE + OneDriveSync. NO Collection/Symbiot service task.
+- PG clusters: only 16 (:5433, has collection_tracker = 0 readings) + 18 (:5434, unrelated).
+
+CONNECTION STRINGS:
+- Collection config.py + all .env (development/production.template/example) -> 127.0.0.1:5433/collection_tracker
+  (LOCAL). NO remote host in ANY Collection config.
+- Symbiot Unity.Config: DatabaseDataSource=Badya, tcp://localhost:8400/8320/8420, CORS 10.50.30.5:443.
+  Badya DB NOT present in PG16/PG18. SEP ports not listening.
+
+NETWORK TARGET (config-referenced only):
+- 10.50.30.5 (10.50.30.0/24 via gw 192.80.30.1): accepts TCP on 443/5432/5433/5434/80/5000/8080
+  BUT PostgreSQL wire-protocol SSLRequest probe -> TIMEOUT on 5432/5433/5434. NOT a PostgreSQL server.
+  Gateway 192.80.30.1:5432 -> TIMEOUT. No remote PG reachable.
+
+Symbiot configs: 12.xlsx = water meter job (ID 67119107, NOT 52051449). Global Jobs.s2e = no meter/register refs.
+No SEP/LiteDB/SQLite data store present in the deployment.
+
+PRECISE BLOCKER: "Registers are absent from every accessible source. A live original Collection/Symbiot/SEP
+source could not be located/accessed from this environment." (per §9 - NOT claiming an inaccessible DB holds them)

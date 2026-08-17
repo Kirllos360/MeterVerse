@@ -2157,3 +2157,15 @@
       "verified: Graph 12/0/0, SpecKit 100%, FE tsc 0"
     ]
   }
+  ,
+  {
+    "task": "P13.10 final live-source access attempt (access-boundary proof)",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "read"],
+    "tools_used": [
+      "network/process forensics: all listening ports (only 5433/5434 PG), no Collection Flask/Symbiot SEP processes, Docker off, WSL uninstalling, no Collection scheduled task",
+      "connection-string audit: all Collection .env + config.py point to 127.0.0.1:5433 (LOCAL); no remote host; Symbiot Unity.Config references Badya DB (absent) + tcp://localhost:8400/8320/8420 (not listening) + CORS 10.50.30.5:443",
+      "raw PG wire-protocol probe: 10.50.30.5 and gw 192.80.30.1 accept TCP but SSLRequest -> TIMEOUT (NOT PostgreSQL). No remote PG reachable",
+      "Symbiot 12.xlsx = water meter job (67119107, not 52051449); no SEP data store present"
+    ]
+  }
