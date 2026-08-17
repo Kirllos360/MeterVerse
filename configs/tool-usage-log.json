@@ -2210,3 +2210,16 @@
       "verified: regression 454, Graph 12/0/0, SpecKit 100%"
     ]
   }
+  ,
+  {
+    "task": "P13.13 first solar invoice E2E download certification",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "node", "playwright", "psql"],
+    "tools_used": [
+      "root cause: pdf endpoint returned JSON not a download -> added GET /api/pdf/invoices/:id/download (attachment stream)",
+      "playwright: browser render verified; download endpoint returns application/pdf + attachment + 23649 bytes %PDF-",
+      "artifact: docs/solar/SOLAR-52051449-2021-01.pdf + FIRST_SOLAR_INVOICE_EVIDENCE.zip created",
+      "pdf-parse: validated text (36.10, invoice number, Arabic name, thirty six EGP)",
+      "vitest: +1 download test; suite 455 (437/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
+    ]
+  }

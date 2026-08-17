@@ -4,6 +4,7 @@ import { prisma } from "../server.js"
 import { authenticate } from "../middleware/auth.js"
 import { requirePermission, auditLog } from "../middleware/security.js"
 import { generateInvoicePdf, generateStatementPdf } from "../services/pdf-engine.js"
+import fs from "fs"
 import path from "path"
 
 const router = Router()
@@ -16,6 +17,22 @@ router.post("/invoices/:id", requirePermission("documents.*"), async (req, res, 
     const result = await generateInvoicePdf(invoice, invoice.customer)
     auditLog(req, "pdf.invoice.generated", { invoiceId: invoice.id })
     res.json({ message: "PDF generated", file: result.filename, path: result.filepath })
+  } catch (err) { next(err) }
+})
+
+// Real user-downloadable PDF endpoint (P13.13): streams the PDF to the browser.
+// Generates (if needed) then sends with Content-Disposition: attachment so the
+// browser produces an actual download event, not just a server-side path.
+router.get("/invoices/:id/download", requirePermission("documents.*"), async (req, res, next) => {
+  try {
+    const invoice = await prisma.invoice.findUnique({ where: { id: req.params.id }, include: { customer: true } })
+    if (!invoice) return res.status(404).json({ error: "Invoice not found", code: "NOT_FOUND" })
+    const result = await generateInvoicePdf(invoice, invoice.customer)
+    const filename = `${invoice.number}.pdf`
+    auditLog(req, "pdf.invoice.downloaded", { invoiceId: invoice.id, filename })
+    res.setHeader("Content-Type", "application/pdf")
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`)
+    fs.createReadStream(result.filepath).pipe(res)
   } catch (err) { next(err) }
 })
 

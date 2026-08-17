@@ -38,9 +38,3 @@ All PDFs located in `backend/pdf-output/`.
 - **Portal:** http://localhost:3030 (local) / http://192.168.1.2:3030 (LAN)
 - **Admin API:** http://localhost:3131/api · **Portal API:** http://localhost:3003/api
 - **Login:** admin@meterverse.com / Admin@123
-
-## User-Downloadable Artifact (P13.13)
-- **Download endpoint:** `GET /api/pdf/invoices/:id/download` → streams `application/pdf` with `Content-Disposition: attachment; filename="SOLAR-52051449-2021-01.pdf"` (23,649 bytes, `%PDF-`)
-- **Repository artifact:** `docs/solar/SOLAR-52051449-2021-01.pdf`
-- **Evidence package:** `docs/solar/FIRST_SOLAR_INVOICE_EVIDENCE.zip` (contains the real PDF + this evidence doc)
-- **Validation:** PDF text contains 36.10, SOLAR-52051449-2021-01, Arabic customer name, "thirty six EGP", INVOICE, issued

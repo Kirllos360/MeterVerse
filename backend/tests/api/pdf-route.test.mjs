@@ -1,4 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 import { prisma, resetPrismaMocks } from '../helpers/mock-prisma.js';
 
 vi.mock('../../src/server.js', () => ({ prisma }));
@@ -72,5 +75,22 @@ describe('P13.7 pdf route (HTTP surface for document generation)', () => {
   it('denies unauthenticated access (401)', async () => {
     const res = await request(app).post('/api/pdf/invoices/inv-1');
     expect(res.status).toBe(401);
+  });
+
+  it('GET /api/pdf/invoices/:id/download streams the PDF as an attachment (P13.13)', async () => {
+    // Create a real temp PDF so fs.createReadStream succeeds
+    const tmpPdf = path.join(os.tmpdir(), 'download-test-invoice.pdf');
+    fs.writeFileSync(tmpPdf, Buffer.from('%PDF-1.4\nreal test pdf content'));
+    const { generateInvoicePdf } = await import('../../src/services/pdf-engine.js');
+    generateInvoicePdf.mockResolvedValue({ filepath: tmpPdf, filename: 'SOLAR-52051449-2021-01.pdf' });
+    prisma.invoice.findUnique.mockResolvedValue({ id: 'inv-1', number: 'SOLAR-52051449-2021-01', customer: { id: 'c-1', name: 'Ihab Shafie' } });
+
+    const res = await request(app).get('/api/pdf/invoices/inv-1/download').set(auth());
+    expect(res.status).toBe(200);
+    expect(res.headers['content-type']).toContain('application/pdf');
+    expect(res.headers['content-disposition']).toContain('attachment');
+    expect(res.headers['content-disposition']).toContain('SOLAR-52051449-2021-01.pdf');
+    expect(res.body.toString('ascii')).toContain('%PDF-');
+    fs.unlinkSync(tmpPdf);
   });
 });

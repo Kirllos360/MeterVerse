@@ -171,3 +171,14 @@ source could not be located/accessed from this environment." (per §9 - NOT clai
 - Docs updated/created: OWNER_SOLAR_INVOICE_TECHNICAL_DEMONSTRATION.md, ONE_PAGE, DEMONSTRATION_SCRIPT,
   OWNER_INVOICE_EVIDENCE.md.
 - Real/Derived/Unknown strictly labeled. Regression 454, Graph 12/0/0, SpecKit 100%.
+
+## P13.13 FIRST SOLAR INVOICE E2E RECOVERY + DOWNLOAD CERTIFICATION (2026-08-17)
+- ROOT CAUSE found for missing artifact: PDF endpoint returned JSON {file,path}, NOT a browser download.
+- FIX: added GET /api/pdf/invoices/:id/download -> streams application/pdf with Content-Disposition:
+  attachment; filename="<invoice-number>.pdf". Filename deduped (was SOLAR-SOLAR-...).
+- Browser cert (Playwright): Admin renders (MeterVerse OS + Customers); download endpoint returns
+  HTTP 200, application/pdf, attachment, 23,649 bytes %PDF-.
+- Artifact: docs/solar/SOLAR-52051449-2021-01.pdf (23,649 B) + FIRST_SOLAR_INVOICE_EVIDENCE.zip (24,269 B).
+- PDF validated: 36.10, SOLAR-52051449-2021-01, Arabic name, "thirty six EGP", INVOICE, issued.
+- Tests: +1 pdf download test; suite 455 (437/18). Graph 12/0/0. SpecKit 100%. FE tsc 0.
+- Multi-path: browser(render) + API(download 200) + DB(invoice) + filesystem(artifact) + PDF(text) agree.
