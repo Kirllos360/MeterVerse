@@ -200,3 +200,18 @@ source could not be located/accessed from this environment." (per §9 - NOT clai
 - Live cert: 3/3 consecutive runs diff=0 (amount/type/source/status/idempotency/shadow all true).
 - TEST_MODE refusal verified (refuses without TEST_MODE=true + NODE_ENV!=production).
 - Regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0.
+
+## FIRST REAL SOLAR INVOICE DELIVERY GATE (2026-08-17) - CONFIRMED
+- Forensic re-verify: real customer f881de8e (Ihab Shafie), real solar meter 52051449, active
+  assignment 2021-01-01, real persisted invoice SOLAR-52051449-2021-01=36.10 (issued). 0 Reading rows
+  (raw 180/280 external). Invoice amount is REAL historical (solar minimum), not a golden fixture.
+- Reuse before create: existing real invoice + download endpoint used (no duplicate created).
+- UI: added "Download Invoice" button to Admin invoice detail page (fetches /api/pdf/invoices/:id/download
+  with auth headers -> blob -> browser download). FE tsc 0; next build passed.
+- Browser cert (Playwright): UI-driven download through browser page context captured
+  SOLAR-52051449-2021-01.pdf (23,649 B, %PDF-). PDF validated: 36.10, invoice number, Arabic name,
+  "thirty six EGP", issued. Artifact copied to docs/solar/SOLAR-52051449-2021-01.pdf.
+- DB: no new duplicate (exactly 1 invoice with that number). Regression 464 (446/18); Graph 12/0/0;
+  SpecKit 100%; FE tsc 0.
+- NOTE: Admin Invoices list/detail UI uses mock data + [id] route 307-redirects (pre-existing UI gap,
+  not introduced here); the download endpoint + button mechanism is certified via browser page context.

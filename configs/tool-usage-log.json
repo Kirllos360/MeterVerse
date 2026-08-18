@@ -2249,3 +2249,16 @@
       "regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
     ]
   }
+  ,
+  {
+    "task": "First real solar invoice delivery gate",
+    "date": "2026-08-17",
+    "tools_activated": ["bash", "git", "psql", "node", "playwright"],
+    "tools_used": [
+      "psql: re-verified real customer/meter/assignment/invoice; confirmed 0 readings (raw 180/280 external); no new duplicate",
+      "edit: Admin invoice detail page added Download Invoice button (fetch download endpoint + blob download)",
+      "next build + restart: Admin FE rebuilt (tsc 0) and restarted serving new build",
+      "playwright: real UI-driven browser download captured SOLAR-52051449-2021-01.pdf (23649 B %PDF-); PDF validated",
+      "regression 464 (446/18); Graph 12/0/0; SpecKit 100%; FE tsc 0"
+    ]
+  }
