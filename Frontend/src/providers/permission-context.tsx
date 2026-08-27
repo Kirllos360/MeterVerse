@@ -51,9 +51,11 @@ export function PermissionProvider({ children }: { children: ReactNode }) {
 
 export function usePermission(): PermissionContextType {
   const ctx = useContext(PermissionContext)
+  // Rules-of-hooks: all hooks called unconditionally. usePermissionRuntime is a
+  // hook and must be invoked at the top level, not inside a conditional.
+  const runtime = usePermissionRuntime()
   if (ctx) return ctx
   // Fallback outside provider: delegate to the real store (never mock-allowed).
-  const runtime = usePermissionRuntime()
   return {
     role: runtime.role,
     permissions: runtime.permissions,

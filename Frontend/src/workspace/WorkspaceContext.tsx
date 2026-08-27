@@ -35,6 +35,7 @@ export function useWorkspace() {
 }
 
 export function WorkspaceProvider({ children, value }: { children: ReactNode; value?: Partial<WorkspaceState> }) {
-  const ctx = useMemo(() => ({ ...useContext(WorkspaceCtx), ...value }), [value])
+  const base = useContext(WorkspaceCtx)
+  const ctx = useMemo(() => ({ ...base, ...value }), [base, value])
   return <WorkspaceCtx.Provider value={ctx}>{children}</WorkspaceCtx.Provider>
 }

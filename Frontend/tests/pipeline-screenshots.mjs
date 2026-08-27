@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 // MeterVerse Enterprise Screenshot Pipeline â€” Rule 5.4
 // Captures: All pages Ã— 3 viewports Ã— 2 themes Ã— 2 directions
 // Also captures: dialogs, drawers, context menus, forms, tables, charts, empty/loading/error states

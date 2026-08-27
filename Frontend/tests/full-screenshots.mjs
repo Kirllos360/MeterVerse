@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 import { chromium } from "playwright"
 import { writeFileSync, mkdirSync } from "fs"
 import { join, dirname } from "path"
