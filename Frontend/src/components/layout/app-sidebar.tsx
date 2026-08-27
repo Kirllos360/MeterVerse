@@ -94,7 +94,7 @@ export default function AppSidebar() {
                           return (
                             <SidebarMenuSubItem key={subItem.title}>
                               <SidebarMenuSubButton
-                                render={<a href="#" aria-label={subItem.title} onClick={(e) => { e.preventDefault(); if (subPage) setActivePage(subPage); }} />}
+                                render={<button type="button" aria-label={subItem.title} onClick={() => { if (subPage) setActivePage(subPage); }} />}
                                 isActive={subPage === activePage}
                               >
                                 <span>{subItem.title}</span>
@@ -108,7 +108,7 @@ export default function AppSidebar() {
                 ) : (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton
-                      render={<a href="#" aria-label={item.title} onClick={(e) => { e.preventDefault(); handleNav(item.url); }} />}
+                      render={<button type="button" aria-label={item.title} onClick={() => handleNav(item.url)} />}
                       tooltip={item.title}
                       isActive={isActive}
                     >

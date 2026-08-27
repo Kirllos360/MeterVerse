@@ -132,7 +132,7 @@ export default function LoginPage() {
                   <input type="text" value={name} onChange={(e) => setName(e.target.value)}
                     className="w-full h-12 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
                     style={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.06)", color: "white" }}
-                    placeholder="Enter your name" required autoFocus />
+                    placeholder="Enter your name" required />
                 </div>
               )}
               <div>
@@ -140,7 +140,7 @@ export default function LoginPage() {
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   className="w-full h-12 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
                   style={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.06)", color: "white" }}
-                  placeholder="admin@meterverse.com" required autoFocus />
+                  placeholder="admin@meterverse.com" required />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Password</label>
