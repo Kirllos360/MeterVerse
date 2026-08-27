@@ -100,7 +100,7 @@ export default function LocationSettingsPage() {
         )}
         {!loading && tab === 3 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Type", "Count", "Meter Type"], UNIT_TYPES.map(u => [u.type, String(u.count), u.meterType]))}</motion.div>}
         {!loading && tab === 4 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-lg space-y-4">
-          <div><label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Default Area</label><select value={defaultArea} onChange={e => setDefaultArea(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}><option>October</option><option>New Cairo</option><option>SODIC</option></select></div>
+          <div><label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }} htmlFor="lbl-default-area">Default Area</label><select id="lbl-default-area" value={defaultArea} onChange={e => setDefaultArea(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}><option>October</option><option>New Cairo</option><option>SODIC</option></select></div>
           <button onClick={handleSave} disabled={saving} className="rounded-xl px-4 py-2 text-xs font-semibold text-white disabled:opacity-50" style={{ backgroundColor: "var(--brand)" }}>{saving ? "Saving..." : "Save"}</button>
         </motion.div>}
         {!loading && tab === 5 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>

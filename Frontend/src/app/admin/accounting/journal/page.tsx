@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -88,20 +88,20 @@ export default function JournalEntryPage() {
             <h3 className="text-sm font-bold mb-3" style={{ color: "var(--text-primary)" }}>New Entry</h3>
             <div className="space-y-3">
               <div>
-                <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-secondary)" }}>Description</label>
+                <span className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-secondary)" }}>Description</span>
                 <div className="rounded-xl border px-3 py-2 text-xs" style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)", backgroundColor: "rgba(var(--brand-rgb),0.03)" }}>
                   Enter description...
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-secondary)" }}>Date</label>
+                  <span className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-secondary)" }}>Date</span>
                   <div className="rounded-xl border px-3 py-2 text-xs" style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)", backgroundColor: "rgba(var(--brand-rgb),0.03)" }}>
                     2026-07-26
                   </div>
                 </div>
                 <div>
-                  <label className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-secondary)" }}>Period</label>
+                  <span className="text-xs font-semibold mb-1 block" style={{ color: "var(--text-secondary)" }}>Period</span>
                   <div className="rounded-xl border px-3 py-2 text-xs" style={{ borderColor: "var(--border-default)", color: "var(--text-secondary)", backgroundColor: "rgba(var(--brand-rgb),0.03)" }}>
                     2026-07
                   </div>
@@ -133,8 +133,8 @@ export default function JournalEntryPage() {
                     <tr key={l.id} className="border-t" style={{ borderColor: "var(--border-default)" }}>
                       <td className="px-5 py-2.5" style={{ color: "var(--text-primary)" }}>{l.account}</td>
                       <td className="px-5 py-2.5 font-mono" style={{ color: "var(--text-secondary)" }}>{l.accountCode}</td>
-                      <td className="px-5 py-2.5 text-right font-mono" style={{ color: l.debit > 0 ? "var(--text-primary)" : "var(--text-secondary)" }}>{l.debit > 0 ? `EGP ${l.debit.toLocaleString()}` : "—"}</td>
-                      <td className="px-5 py-2.5 text-right font-mono" style={{ color: l.credit > 0 ? "var(--text-primary)" : "var(--text-secondary)" }}>{l.credit > 0 ? `EGP ${l.credit.toLocaleString()}` : "—"}</td>
+                      <td className="px-5 py-2.5 text-right font-mono" style={{ color: l.debit > 0 ? "var(--text-primary)" : "var(--text-secondary)" }}>{l.debit > 0 ? `EGP ${l.debit.toLocaleString()}` : "â€”"}</td>
+                      <td className="px-5 py-2.5 text-right font-mono" style={{ color: l.credit > 0 ? "var(--text-primary)" : "var(--text-secondary)" }}>{l.credit > 0 ? `EGP ${l.credit.toLocaleString()}` : "â€”"}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -153,9 +153,9 @@ export default function JournalEntryPage() {
               </table>
             </div>
             {totalDebit === totalCredit ? (
-              <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#DC2626", backgroundColor: "rgba(220,38,38,0.05)" }}>✓ Balanced</div>
+              <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#DC2626", backgroundColor: "rgba(220,38,38,0.05)" }}>âœ“ Balanced</div>
             ) : (
-              <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#DC2626", backgroundColor: "rgba(220,38,38,0.05)" }}>✗ Unbalanced (difference: EGP {Math.abs(totalDebit - totalCredit).toLocaleString()})</div>
+              <div className="px-5 py-2 text-xs font-semibold" style={{ color: "#DC2626", backgroundColor: "rgba(220,38,38,0.05)" }}>âœ— Unbalanced (difference: EGP {Math.abs(totalDebit - totalCredit).toLocaleString()})</div>
             )}
           </motion.div>
         </div>

@@ -193,7 +193,7 @@ export function EnterpriseTable<T>({ data, columns: initialColumns, pageSize = 2
   const renderCell = (row: T, col: Column<T>) => {
     const value = col.accessor(row)
     const isEditing = editing?.row === getId(row) && editing?.col === col.id
-    if (isEditing) return <input autoFocus value={editValue} onChange={e => setEditValue(e.target.value)} className="w-full px-1 py-0.5 rounded text-xs outline-none" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--status-error)", color: "white" }} />
+    if (isEditing) return <input value={editValue} onChange={e => setEditValue(e.target.value)} className="w-full px-1 py-0.5 rounded text-xs outline-none" style={{ backgroundColor: "var(--admin-surface)", border: "1px solid var(--status-error)", color: "white" }} />
     const formatted = col.format ? col.format(value) : value ?? "—"
     return <span>{formatted}</span>
   }

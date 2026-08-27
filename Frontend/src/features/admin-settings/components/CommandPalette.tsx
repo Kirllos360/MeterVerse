@@ -86,7 +86,7 @@ export function CommandPalette() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" strokeWidth="2"><circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" /></svg>
               <input ref={inputRef} value={query} onChange={e => { setQuery(e.target.value); setSelectedIdx(0) }}
                 onKeyDown={e => { if (e.key === "ArrowDown") { e.preventDefault(); setSelectedIdx(i => Math.min(i + 1, filtered.length - 1)) } if (e.key === "ArrowUp") { e.preventDefault(); setSelectedIdx(i => Math.max(i - 1, 0)) } if (e.key === "Enter") executeSelected() }}
-                placeholder="Search pages and actions..." className="flex-1 bg-transparent text-sm outline-none" style={{ color: "var(--text-primary)" }} autoFocus />
+                placeholder="Search pages and actions..." className="flex-1 bg-transparent text-sm outline-none" style={{ color: "var(--text-primary)" }} />
               <span className="text-[10px] px-1.5 py-0.5 rounded font-mono" style={{ backgroundColor: "var(--border-default)", color: "var(--text-tertiary)" }}>ESC</span>
             </div>
             <div className="max-h-72 overflow-y-auto p-2 space-y-0.5">

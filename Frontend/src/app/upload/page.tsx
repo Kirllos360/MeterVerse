@@ -161,9 +161,10 @@ export default function UploadPage() {
           <p className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>New import</p>
 
           <div>
-            <label className="text-xs font-medium mb-1 block" style={{ color: "var(--text-secondary)" }}>Import type</label>
+            <label htmlFor="upload-import-type" className="text-xs font-medium mb-1 block" style={{ color: "var(--text-secondary)" }}>Import type</label>
             <div className="flex gap-2">
               <select
+                id="upload-import-type"
                 className="flex-1 rounded-xl h-9 px-3 text-sm bg-transparent"
                 style={{ color: "var(--text-primary)", border: "1px solid var(--border-default)" }}
                 value={selectedType}

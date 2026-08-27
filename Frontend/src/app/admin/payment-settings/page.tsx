@@ -81,7 +81,7 @@ export default function PaymentSettingsPage() {
         {!loading && tab === 2 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Code", "Name", "Direction"], JOURNALS.map(j => [j.code, j.name, j.direction]))}</motion.div>}
         {!loading && tab === 3 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-lg space-y-4">
-            <div><label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Default Currency</label><select value={currency} onChange={e => setCurrency(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}><option>EGP</option><option>USD</option></select></div>
+            <div><label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }} htmlFor="lbl-default-currency">Default Currency</label><select id="lbl-default-currency" value={currency} onChange={e => setCurrency(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}><option>EGP</option><option>USD</option></select></div>
             <button onClick={handleSave} disabled={saving} className="rounded-xl px-4 py-2 text-xs font-semibold text-white disabled:opacity-50" style={{ backgroundColor: "var(--brand)" }}>{saving ? "Saving..." : "Save"}</button>
           </motion.div>
         )}

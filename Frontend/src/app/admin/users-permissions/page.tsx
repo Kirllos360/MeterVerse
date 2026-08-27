@@ -61,18 +61,18 @@ export default function UsersPermissionsPage() {
         {!loading && tab === 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <h3 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>System Users</h3>
-            {users.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No users found</p> : table(["Name", "Email", "Role", "Status", "Last Login"], users.map((u: any) => [u.name, u.email, u.roleRel?.name || u.role, <span key={u.id ?? u.name ?? u} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: u.status === "active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: u.status === "active" ? "#DC2626" : "#6b7280" }}>{u.status}</span>, u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : "—"]))}
+            {users.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No users found</p> : table(["Name", "Email", "Role", "Status", "Last Login"], users.map((u: any) => [u.name, u.email, u.roleRel?.name || u.role, <span key={u.id ?? u.name ?? u} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: u.status === "active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: u.status === "active" ? "#DC2626" : "#6b7280" }}>{u.status}</span>, u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : "â€”"]))}
           </motion.div>
         )}
         {!loading && tab === 1 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <h3 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>Roles</h3>
-            {roles.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No roles configured</p> : table(["Name", "Users", "Description"], roles.map((r: any) => [r.name, String(r._count?.users || 0), r.description || "—"]))}
+            {roles.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No roles configured</p> : table(["Name", "Users", "Description"], roles.map((r: any) => [r.name, String(r._count?.users || 0), r.description || "â€”"]))}
           </motion.div>
         )}
         {!loading && tab === 2 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-lg space-y-4">
-            <div><label htmlFor="lbl-session-timeout-min" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Session Timeout (min)</label><input type="number" value={sessionTimeout} onChange={e => setSessionTimeout(Number(e.target.value))} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} /></div>
+            <div><label htmlFor="lbl-session-timeout-min" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Session Timeout (min)</label><input id="lbl-session-timeout-min" type="number" value={sessionTimeout} onChange={e => setSessionTimeout(Number(e.target.value))} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} /></div>
             <div><label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>MFA Enforcement</label><select id="lbl-session-timeout-min" value={mfaEnforcement} onChange={e => setMfaEnforcement(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}><option>All Users</option><option>Admins Only</option><option>Disabled</option></select></div>
             <button onClick={handleSave} disabled={saving} className="rounded-xl px-4 py-2 text-xs font-semibold text-white disabled:opacity-50" style={{ backgroundColor: "var(--brand)" }}>{saving ? "Saving..." : "Save"}</button>
           </motion.div>
@@ -86,7 +86,7 @@ export default function UsersPermissionsPage() {
         {!loading && tab === 5 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Permission settings available per role</p>
         </motion.div>}
-        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—"]))}</motion.div>}
+        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "â€”"]))}</motion.div>}
         {!loading && tab === 7 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Severity", "Action"], errors.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action]))}</motion.div>}
       </div>
     </div>
