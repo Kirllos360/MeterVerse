@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useMemo, useEffect, useRef } from "react"
 import { motion } from "framer-motion"
@@ -128,31 +128,31 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {mode === "signup" && (
                 <div>
-                  <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Full name</label>
-                  <input type="text" value={name} onChange={(e) => setName(e.target.value)}
+                  <label htmlFor="login-name" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Full name</label>
+                  <input id="login-name" type="text" value={name} onChange={(e) => setName(e.target.value)}
                     className="w-full h-12 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
                     style={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.06)", color: "white" }}
                     placeholder="Enter your name" required />
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Email</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
+                <label htmlFor="login-email" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Email</label>
+                <input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   className="w-full h-12 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
                   style={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.06)", color: "white" }}
                   placeholder="admin@meterverse.com" required />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
+                <label htmlFor="login-password" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Password</label>
+                <input id="login-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}
                   className="w-full h-12 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
                   style={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.06)", color: "white" }}
                   placeholder="Enter your password" required />
               </div>
               {mode === "signup" && (
                 <div>
-                  <label className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Confirm password</label>
-                  <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
+                  <label htmlFor="login-confirm" className="block text-sm font-medium mb-1.5" style={{ color: "rgba(255,255,255,0.6)", textShadow: "0 1px 3px rgba(0,0,0,0.2)" }}>Confirm password</label>
+                  <input id="login-confirm" type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}
                     className="w-full h-12 px-4 rounded-xl border text-sm outline-none transition-all focus:ring-2"
                     style={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.06)", color: "white" }}
                     placeholder="Confirm your password" required />

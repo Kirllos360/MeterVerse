@@ -84,8 +84,8 @@ export default function AdminCRUDPage() {
               <div className="px-4 py-3 border-b text-sm font-medium text-muted-foreground">CRUD Console</div>
               <CardContent className="space-y-4 pt-4">
                 <div>
-                  <label className="text-sm text-muted-foreground">Model</label>
-                  <select value={modelName} onChange={e=>setModelName(e.target.value)}
+                  <label htmlFor="lbl-model" className="text-sm text-muted-foreground">Model</label>
+                  <select id="lbl-model" value={modelName} onChange={e=>setModelName(e.target.value)}
                     className="w-full mt-1 h-10 px-3 rounded-md border border-input bg-background text-sm">
                     {models.map(m => <option key={m} value={m}>{m}</option>)}
                   </select>
