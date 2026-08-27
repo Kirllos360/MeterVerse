@@ -63,15 +63,15 @@ export default function ReportingStudioPage() {
           <h3 className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>Generate Report</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Format</label>
-              <select value={format} onChange={e => setFormat(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none"
+              <label htmlFor="lbl-format" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Format</label>
+              <select id="lbl-format" value={format} onChange={e => setFormat(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none"
                 style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
                 {FORMATS.map(f => <option key={f} value={f}>{f}</option>)}
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Date Range</label>
-              <select value={dateRange} onChange={e => setDateRange(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none"
+              <label htmlFor="lbl-date-range" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Date Range</label>
+              <select id="lbl-date-range" value={dateRange} onChange={e => setDateRange(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none"
                 style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
                 <option value="today">Today</option><option value="this-week">This Week</option>
                 <option value="this-month">This Month</option><option value="last-month">Last Month</option>

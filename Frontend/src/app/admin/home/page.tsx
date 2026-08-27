@@ -215,7 +215,7 @@ export default function HomePage() {
                   {[
                     { name: "Health Summary", method: "GET", status: health ? "ok" : "—" },
                     { name: "Health Counters", method: "GET", status: counters ? "ok" : "—" },
-                    { name: "Audit Log", method: "GET", status: audit.length > 0 || true ? "ok" : "—" },
+                    { name: "Audit Log", method: "GET", status: audit.length > 0 ? "ok" : "—" },
                     { name: "System Settings", method: "GET", status: "ok" },
                     { name: "Meter Types", method: "GET", status: "ok" },
                     { name: "Customer Groups", method: "GET", status: "ok" },

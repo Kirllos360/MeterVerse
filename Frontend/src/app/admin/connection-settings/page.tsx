@@ -172,14 +172,14 @@ export default function ConnectionSettingsPage() {
             </div>
           ))}
           <div>
-            <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Type</label>
-            <select value={form.type} onChange={e => setForm({ ...form, type: e.target.value })} className={inputClass} style={inputStyle}>
+            <label htmlFor="lbl-type" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Type</label>
+            <select id="lbl-type" value={form.type} onChange={e => setForm({ ...form, type: e.target.value })} className={inputClass} style={inputStyle}>
               {DB_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
             </select>
           </div>
           <div>
-            <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Area</label>
-            <input value={form.areaId} onChange={e => setForm({ ...form, areaId: e.target.value })} placeholder="e.g. October" className={inputClass} style={inputStyle} />
+            <label htmlFor="lbl-area" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Area</label>
+            <input id="lbl-area" value={form.areaId} onChange={e => setForm({ ...form, areaId: e.target.value })} placeholder="e.g. October" className={inputClass} style={inputStyle} />
           </div>
         </div>
         <div className="flex items-center gap-3 mt-5 pt-4 border-t" style={{ borderColor: "var(--border-default)" }}>

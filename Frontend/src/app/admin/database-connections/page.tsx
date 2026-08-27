@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -89,38 +89,38 @@ export default function DatabaseConnectionsPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2">
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Connection Name</label>
-              <input value={form.name} onChange={e => updateField("name", e.target.value)} placeholder="e.g. October Main DB" className={inputClass} style={inputStyle} />
+              <label htmlFor="db-connection-name" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Connection Name</label>
+              <input id="db-connection-name" value={form.name} onChange={e => updateField("name", e.target.value)} placeholder="e.g. October Main DB" className={inputClass} style={inputStyle} />
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Type</label>
-              <select value={form.type} onChange={e => updateField("type", e.target.value)} className={inputClass} style={inputStyle}>
+              <label htmlFor="db-type" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Type</label>
+              <select id="db-type" value={form.type} onChange={e => updateField("type", e.target.value)} className={inputClass} style={inputStyle}>
                 {DB_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
               </select>
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Area (optional)</label>
-              <input value={form.areaId} onChange={e => updateField("areaId", e.target.value)} placeholder="Area name" className={inputClass} style={inputStyle} />
+              <label htmlFor="db-area-optional-" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Area (optional)</label>
+              <input id="db-area-optional-" value={form.areaId} onChange={e => updateField("areaId", e.target.value)} placeholder="Area name" className={inputClass} style={inputStyle} />
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Host</label>
-              <input value={form.host} onChange={e => updateField("host", e.target.value)} placeholder="10.0.1.50" className={inputClass} style={inputStyle} />
+              <label htmlFor="db-host" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Host</label>
+              <input id="db-host" value={form.host} onChange={e => updateField("host", e.target.value)} placeholder="10.0.1.50" className={inputClass} style={inputStyle} />
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Port</label>
-              <input type="number" value={form.port} onChange={e => updateField("port", parseInt(e.target.value) || 5432)} className={inputClass} style={inputStyle} />
+              <label htmlFor="db-port" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Port</label>
+              <input id="db-port" type="number" value={form.port} onChange={e => updateField("port", parseInt(e.target.value) || 5432)} className={inputClass} style={inputStyle} />
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Database</label>
-              <input value={form.database} onChange={e => updateField("database", e.target.value)} placeholder="meter_db" className={inputClass} style={inputStyle} />
+              <label htmlFor="db-database" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Database</label>
+              <input id="db-database" value={form.database} onChange={e => updateField("database", e.target.value)} placeholder="meter_db" className={inputClass} style={inputStyle} />
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Username</label>
-              <input value={form.username} onChange={e => updateField("username", e.target.value)} placeholder="db_user" className={inputClass} style={inputStyle} />
+              <label htmlFor="db-username" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Username</label>
+              <input id="db-username" value={form.username} onChange={e => updateField("username", e.target.value)} placeholder="db_user" className={inputClass} style={inputStyle} />
             </div>
             <div>
-              <label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Password</label>
-              <input type="password" value={form.password} onChange={e => updateField("password", e.target.value)} placeholder="••••••••" className={inputClass} style={inputStyle} />
+              <label htmlFor="db-password" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>Password</label>
+              <input id="db-password" type="password" value={form.password} onChange={e => updateField("password", e.target.value)} placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" className={inputClass} style={inputStyle} />
             </div>
           </div>
 
@@ -163,7 +163,7 @@ export default function DatabaseConnectionsPage() {
                 <div key={conn.id} className="rounded-xl border p-3 flex items-center justify-between" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
                   <div>
                     <p className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>{conn.name}</p>
-                    <p className="text-[10px] mt-0.5" style={{ color: "var(--text-secondary)" }}>{conn.type.toUpperCase()} · {conn.host}:{conn.port}/{conn.database}</p>
+                    <p className="text-[10px] mt-0.5" style={{ color: "var(--text-secondary)" }}>{conn.type.toUpperCase()} Â· {conn.host}:{conn.port}/{conn.database}</p>
                     {conn.areaId && <p className="text-[10px]" style={{ color: "var(--brand)" }}>Area: {conn.areaId}</p>}
                   </div>
                   <div className="flex items-center gap-2">

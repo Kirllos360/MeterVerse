@@ -17,9 +17,8 @@ export default function AIOperationsDashboard() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    Promise.all([
-      apiClient<any>("/api/intelligence/health").catch(() => ({ result: { postgres: false, backend: false } })),
-    ]).then(([h]) => { setHealth(h?.result); setLoading(false) })
+    apiClient<any>("/api/intelligence/health").catch(() => ({ result: { postgres: false, backend: false } }))
+      .then((h) => { setHealth(h?.result); setLoading(false) })
   }, [])
 
   const handleSearch = async () => {

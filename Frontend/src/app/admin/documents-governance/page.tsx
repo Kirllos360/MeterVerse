@@ -52,12 +52,12 @@ export default function DocumentGovernancePage() {
 
       <div className="rounded-2xl border p-4 flex gap-2 items-end" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)" }}>
         <div className="flex-1">
-          <label className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>Title</label>
-          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="New document title" className="w-full px-3 py-2 mt-1 rounded-xl border text-sm" style={{ backgroundColor: "var(--surface)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
+          <label htmlFor="lbl-title" className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>Title</label>
+          <input id="lbl-title" value={title} onChange={e => setTitle(e.target.value)} placeholder="New document title" className="w-full px-3 py-2 mt-1 rounded-xl border text-sm" style={{ backgroundColor: "var(--surface)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
         </div>
         <div>
-          <label className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>Category</label>
-          <select value={categoryId} onChange={e => setCategoryId(e.target.value)} className="px-3 py-2 mt-1 rounded-xl border text-sm" style={{ backgroundColor: "var(--surface)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
+          <label htmlFor="lbl-category" className="text-xs font-semibold" style={{ color: "var(--text-secondary)" }}>Category</label>
+          <select id="lbl-category" value={categoryId} onChange={e => setCategoryId(e.target.value)} className="px-3 py-2 mt-1 rounded-xl border text-sm" style={{ backgroundColor: "var(--surface)", borderColor: "var(--border-default)", color: "var(--text-primary)" }}>
             <option value="">None</option>
             {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
           </select>
