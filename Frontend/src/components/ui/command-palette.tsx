@@ -106,7 +106,7 @@ export function CommandPalette() {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-[15vh]" onClick={() => setOpen(false)}>
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-start justify-center pt-[15vh]" role="button" tabIndex={-1} aria-label="Close command palette" onClick={() => setOpen(false)} onKeyDown={(e) => { if (e.key === "Escape") setOpen(false) }}>
       <div
         className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden"
         onClick={(e) => e.stopPropagation()}

@@ -191,6 +191,9 @@ export default function UploadPage() {
 
           <div
             className="rounded-xl border-2 border-dashed p-6 text-center transition-colors cursor-pointer"
+            role="button"
+            tabIndex={0}
+            aria-label="Upload file"
             style={{
               borderColor: dragOver ? "var(--brand)" : "var(--border-default)",
               backgroundColor: dragOver ? "var(--brand)" : "transparent",
@@ -199,6 +202,7 @@ export default function UploadPage() {
             onDragLeave={() => setDragOver(false)}
             onDrop={onDrop}
             onClick={() => document.getElementById("file-input")?.click()}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") document.getElementById("file-input")?.click() }}
           >
             <Icons.upload className="h-7 w-7 mx-auto mb-2" style={{ color: "var(--brand)" }} />
             <p className="text-sm" style={{ color: "var(--text-primary)" }}>{fileName || "Drag & drop or click to browse"}</p>

@@ -180,7 +180,7 @@ export default function RCAWorkspace() {
         {loading && <Skeleton className="h-20" />}
         {cases.map(c => (
           <div key={c.id} className="border rounded-lg p-4 space-y-3">
-            <div className="flex items-center justify-between" onClick={() => setSelected(selected?.id === c.id ? null : c)}>
+            <div className="flex items-center justify-between" role="button" tabIndex={0} aria-label={`Toggle case ${c.id}`} onClick={() => setSelected(selected?.id === c.id ? null : c)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setSelected(selected?.id === c.id ? null : c) }}>
               <div className="flex items-center gap-2">
                 <span className="font-mono text-sm font-bold">{c.id}</span>
                 <Badge variant={statusColor[c.status] || "outline"} className="text-[10px]">{c.status}</Badge>

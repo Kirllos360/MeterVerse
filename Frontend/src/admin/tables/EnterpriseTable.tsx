@@ -271,10 +271,10 @@ export function EnterpriseTable<T>({ data, columns: initialColumns, pageSize = 2
               {columns.filter(c => c.pinned === "left").map((col, i) => (
                 <th key={col.id} className="px-3 py-2 text-[10px] font-medium whitespace-nowrap" style={{ borderBottom: "1px solid var(--admin-border)", width: getWidth(col), minWidth: col.minWidth || 60, position: "sticky", left: 30, zIndex: 3, backgroundColor: "var(--admin-surface)", cursor: col.sortable ? "pointer" : "default" }}
                   draggable onDragStart={() => handleDragStart(col.id, i)} onDragOver={e => e.preventDefault()} onDrop={() => handleDrop(i)}>
-                  <div className="flex items-center gap-1" onClick={() => col.sortable && handleSort(col.id)}>
+                  <div className="flex items-center gap-1" role={col.sortable ? "button" : undefined} tabIndex={col.sortable ? 0 : undefined} aria-label={col.sortable ? `Sort by ${col.header}` : undefined} onClick={() => col.sortable && handleSort(col.id)} onKeyDown={(e) => { if (col.sortable && (e.key === "Enter" || e.key === " ")) handleSort(col.id) }}>
                     <span>{col.header}</span>
                     {sortField === col.id && <span>{sortDir === "asc" ? "↑" : "↓"}</span>}
-                    <button onClick={() => togglePin(col.id)} className="text-[8px] opacity-50 hover:opacity-100" title="Unpin">📌</button>
+                    <button onClick={() => togglePin(col.id)} className="text-[8px] opacity-50 hover:opacity-100" aria-label="Unpin" title="Unpin">📌</button>
                     <div onMouseDown={e => handleResizeStart(col.id, e)} style={{ width: 4, cursor: "col-resize", position: "absolute", right: 0, top: 0, bottom: 0 }} />
                   </div>
                 </th>
@@ -282,10 +282,10 @@ export function EnterpriseTable<T>({ data, columns: initialColumns, pageSize = 2
               {columns.filter(c => !c.pinned).map((col, i) => (
                 <th key={col.id} className="px-3 py-2 text-[10px] font-medium whitespace-nowrap" style={{ borderBottom: "1px solid var(--admin-border)", width: getWidth(col), minWidth: col.minWidth || 60, cursor: col.sortable ? "pointer" : "default" }}
                   draggable onDragStart={() => handleDragStart(col.id, columns.filter(c => c.pinned === "left").length + i)} onDragOver={e => e.preventDefault()} onDrop={() => handleDrop(columns.filter(c => c.pinned === "left").length + i)}>
-                  <div className="flex items-center gap-1" onClick={() => col.sortable && handleSort(col.id)}>
+                  <div className="flex items-center gap-1" role={col.sortable ? "button" : undefined} tabIndex={col.sortable ? 0 : undefined} aria-label={col.sortable ? `Sort by ${col.header}` : undefined} onClick={() => col.sortable && handleSort(col.id)} onKeyDown={(e) => { if (col.sortable && (e.key === "Enter" || e.key === " ")) handleSort(col.id) }}>
                     <span>{col.header}</span>
                     {sortField === col.id && <span>{sortDir === "asc" ? "↑" : "↓"}</span>}
-                    {col.pinned !== "left" && <button onClick={() => togglePin(col.id)} className="text-[8px] opacity-50 hover:opacity-100" title="Pin left">📌</button>}
+                    {col.pinned !== "left" && <button onClick={() => togglePin(col.id)} className="text-[8px] opacity-50 hover:opacity-100" aria-label="Pin left" title="Pin left">📌</button>}
                     <div onMouseDown={e => handleResizeStart(col.id, e)} style={{ width: 4, cursor: "col-resize", position: "absolute", right: 0, top: 0, bottom: 0 }} />
                   </div>
                 </th>

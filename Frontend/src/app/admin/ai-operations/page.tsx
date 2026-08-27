@@ -78,7 +78,7 @@ export default function AIOperationsDashboard() {
           {searchResults.length > 0 && (
             <div className="mt-4 space-y-2">
               {searchResults.map((r, i) => (
-                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 text-sm cursor-pointer hover:bg-muted/50" onClick={() => r.type === "meter" && router.push(`/admin/knowledge/meter/${r.serial}`)}>
+                <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 text-sm cursor-pointer hover:bg-muted/50" role="button" tabIndex={0} onClick={() => r.type === "meter" && router.push(`/admin/knowledge/meter/${r.serial}`)} onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") r.type === "meter" && router.push(`/admin/knowledge/meter/${r.serial}`) }}>
                   <Badge variant="outline" className="text-[10px]">{r.type}</Badge>
                   <span className="font-medium">{r.serial || r.name || r.number}</span>
                   <span className="text-muted-foreground ml-auto">{r.status}</span>
