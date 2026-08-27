@@ -61,7 +61,7 @@ export default function UsersPermissionsPage() {
         {!loading && tab === 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <h3 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>System Users</h3>
-            {users.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No users found</p> : table(["Name", "Email", "Role", "Status", "Last Login"], users.map((u: any) => [u.name, u.email, u.roleRel?.name || u.role, <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: u.status === "active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: u.status === "active" ? "#DC2626" : "#6b7280" }}>{u.status}</span>, u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : "—"]))}
+            {users.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No users found</p> : table(["Name", "Email", "Role", "Status", "Last Login"], users.map((u: any) => [u.name, u.email, u.roleRel?.name || u.role, <span key={u.id ?? u.name ?? u} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: u.status === "active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: u.status === "active" ? "#DC2626" : "#6b7280" }}>{u.status}</span>, u.lastLoginAt ? new Date(u.lastLoginAt).toLocaleString() : "—"]))}
           </motion.div>
         )}
         {!loading && tab === 1 && (
@@ -81,13 +81,13 @@ export default function UsersPermissionsPage() {
           <p className="text-xs" style={{ color: "var(--text-secondary)" }}>{roles.length} roles available with permissions</p>
         </motion.div>}
         {!loading && tab === 4 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          {users.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No user profiles</p> : table(["Name", "Email", "Role", "Status"], users.map((u: any) => [u.name, u.email, u.role, <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: u.status === "active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: u.status === "active" ? "#DC2626" : "#6b7280" }}>{u.status}</span>]))}
+          {users.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No user profiles</p> : table(["Name", "Email", "Role", "Status"], users.map((u: any) => [u.name, u.email, u.role, <span key={u.id ?? u.name ?? u} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: u.status === "active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: u.status === "active" ? "#DC2626" : "#6b7280" }}>{u.status}</span>]))}
         </motion.div>}
         {!loading && tab === 5 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Permission settings available per role</p>
         </motion.div>}
-        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—"]))}</motion.div>}
-        {!loading && tab === 7 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Severity", "Action"], errors.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action]))}</motion.div>}
+        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—"]))}</motion.div>}
+        {!loading && tab === 7 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Severity", "Action"], errors.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action]))}</motion.div>}
       </div>
     </div>
   )
