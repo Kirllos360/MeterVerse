@@ -14,7 +14,7 @@ const EV = (over = {}) => ({
   id: 'evt-1', eventType: 'INVOICE_ISSUED', eventVersion: 1, aggregateType: 'INVOICE', aggregateId: 'inv-1',
   areaId: 'a1', projectId: 'p1', correlationId: 'c1', causationId: null, idempotencyKey: 'k1',
   payload: JSON.stringify({ sourceType: 'INVOICE', sourceId: 'inv-1', eventType: 'INVOICE_ISSUED', amount: 100, description: 'x', context: { customerId: 'cust-1' } }),
-  occurredAt: new Date(), createdAt: new Date(), availableAt: new Date(), publishedAt: null, status: 'PENDING',
+  occurredAt: new Date('2026-08-17T00:00:00.000Z'), createdAt: new Date('2026-08-17T00:00:00.000Z'), availableAt: new Date('2026-08-17T00:00:00.000Z'), publishedAt: null, status: 'PENDING',
   attemptCount: 0, lastError: null, ...over,
 });
 
