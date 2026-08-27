@@ -76,7 +76,7 @@ export default function CustomerSettingsPage() {
         {!loading && tab === 2 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-md space-y-4">
             <div><label htmlFor="lbl-from-customer-id"  className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }} >From Customer ID</label><input id="lbl-from-customer-id" value={transferFrom} onChange={e => setTransferFrom(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} /></div>
-            <div><label className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>To Customer ID</label><input id="lbl-from-customer-id" value={transferTo} onChange={e => setTransferTo(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} /></div>
+            <div><label htmlFor="lbl-to-customer-id" className="text-xs font-semibold block mb-1" style={{ color: "var(--text-secondary)" }}>To Customer ID</label><input  id="lbl-to-customer-id" value={transferTo} onChange={e => setTransferTo(e.target.value)} className="w-full rounded-xl border px-3 py-2 text-xs outline-none" style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} /></div>
             <button className="rounded-xl px-4 py-2 text-xs font-semibold text-white" style={{ backgroundColor: "var(--brand)" }}>Transfer</button>
           </motion.div>
         )}
