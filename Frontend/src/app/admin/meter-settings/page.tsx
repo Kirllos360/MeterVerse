@@ -152,13 +152,13 @@ export default function MeterSettingsPage() {
           {events.length === 0 ? (
             <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No events logged</p>
           ) : table(["Timestamp", "Action", "Resource", "Actor"],
-            events.map(e => [new Date(e.createdAt).toLocaleString(), <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—", e.actor || "—"]))}
+            events.map(e => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—", e.actor || "—"]))}
         </motion.div>}
         {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           {errors.length === 0 ? (
             <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No errors logged</p>
           ) : table(["Time", "Severity", "Action", "Actor"],
-            errors.map(e => [new Date(e.createdAt).toLocaleString(), <span className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action, e.actor || "—"]))}
+            errors.map(e => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action, e.actor || "—"]))}
         </motion.div>}
       </div>
     </div>

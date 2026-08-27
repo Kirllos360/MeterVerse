@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -77,16 +77,16 @@ export default function BillCycleSettingsPage() {
               className="flex-1 rounded-xl border px-3 py-2 text-xs outline-none"
               style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
           </div>
-          {table(["Type", "Cycle", "Bill Day", "Read Day", "Status"], METER_TYPES.filter(m => m.type.toLowerCase().includes(searchTerm.toLowerCase())).map(m => [m.type, m.cycle, String(m.billDay), String(m.readDay), <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: m.status === "Active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: m.status === "Active" ? "#DC2626" : "#6b7280" }}>{m.status}</span>]))}
+          {table(["Type", "Cycle", "Bill Day", "Read Day", "Status"], METER_TYPES.filter(m => m.type.toLowerCase().includes(searchTerm.toLowerCase())).map(m => [m.type, m.cycle, String(m.billDay), String(m.readDay), <span key={m.id} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: m.status === "Active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: m.status === "Active" ? "#DC2626" : "#6b7280" }}>{m.status}</span>]))}
         </motion.div>}
         {!loading && tab === 1 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <h3 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>Bill Cycles from Database</h3>
           {cycles.length === 0 ? <p className="text-xs py-4" style={{ color: "var(--text-secondary)" }}>No cycles configured</p> : table(["Name", "Code", "Frequency", "Billing Day", "Due Day"], cycles.map((c: any) => [c.name, c.code, c.frequency, String(c.billingDay), String(c.dueDay)]))}
         </motion.div>}
         {!loading && tab === 2 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          {table(["Project", "Meters Read", "Verified", "Failed", "Status"], VERIFICATION.map(v => [v.project, String(v.metersRead), String(v.verified), String(v.failed), <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: v.status === "Verified" ? "rgba(220,38,38,0.1)" : v.status === "Pending" ? "rgba(245,158,11,0.1)" : "rgba(239,68,68,0.1)", color: v.status === "Verified" ? "#DC2626" : v.status === "Pending" ? "#f59e0b" : "#ef4444" }}>{v.status}</span>]))}
+          {table(["Project", "Meters Read", "Verified", "Failed", "Status"], VERIFICATION.map(v => [v.project, String(v.metersRead), String(v.verified), String(v.failed), <span key={v.id} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: v.status === "Verified" ? "rgba(220,38,38,0.1)" : v.status === "Pending" ? "rgba(245,158,11,0.1)" : "rgba(239,68,68,0.1)", color: v.status === "Verified" ? "#DC2626" : v.status === "Pending" ? "#f59e0b" : "#ef4444" }}>{v.status}</span>]))}
         </motion.div>}
-        {!loading && tab === 3 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—"]))}</motion.div>}
+        {!loading && tab === 3 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "â€”"]))}</motion.div>}
         {!loading && tab === 4 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Severity", "Action"], errors.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action]))}</motion.div>}
       </div>
     </div>

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -10,7 +10,7 @@ const CENTERS = [
   { name: "Cairo Main", code: "CAI-01", status: "Active", manager: "Ahmed Hassan", phone: "02-12345678" },
   { name: "October Branch", code: "OCT-01", status: "Active", manager: "Mona Ali", phone: "02-87654321" },
   { name: "New Cairo Branch", code: "NCR-01", status: "Active", manager: "Khaled Omar", phone: "02-11223344" },
-  { name: "SODIC Branch", code: "SOD-01", status: "Inactive", manager: "—", phone: "—" }
+  { name: "SODIC Branch", code: "SOD-01", status: "Inactive", manager: "â€”", phone: "â€”" }
 ]
 const TYPES = [
   { name: "Cash", code: "CASH", fee: "0%", enabled: true }, { name: "Credit Card", code: "CARD", fee: "2.5%", enabled: true },
@@ -76,8 +76,8 @@ export default function PaymentSettingsPage() {
       </div>
       <div className="rounded-2xl border p-6" style={{ backgroundColor: "var(--surface-raised)", borderColor: "var(--border-default)" }}>
         {loading && <div className="flex items-center justify-center py-12"><div className="w-6 h-6 border-2 border-t-transparent rounded-full animate-spin" style={{ borderColor: "var(--brand)", borderTopColor: "transparent" }} /></div>}
-        {!loading && tab === 0 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Name", "Code", "Status", "Manager", "Phone"], CENTERS.map(c => [c.name, c.code, <span className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: c.status === "Active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: c.status === "Active" ? "#DC2626" : "#6b7280" }}>{c.status}</span>, c.manager, c.phone]))}</motion.div>}
-        {!loading && tab === 1 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Name", "Code", "Fee", "Enabled"], TYPES.map(t => [t.name, t.code, t.fee, t.enabled ? <span className="text-green-500">✓</span> : <span className="text-red-500">✗</span>]))}</motion.div>}
+        {!loading && tab === 0 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Name", "Code", "Status", "Manager", "Phone"], CENTERS.map(c => [c.name, c.code, <span key={c.name} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: c.status === "Active" ? "rgba(220,38,38,0.1)" : "rgba(156,163,175,0.1)", color: c.status === "Active" ? "#DC2626" : "#6b7280" }}>{c.status}</span>, c.manager, c.phone]))}</motion.div>}
+        {!loading && tab === 1 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Name", "Code", "Fee", "Enabled"], TYPES.map(t => [t.name, t.code, t.fee, t.enabled ? <span key={t.name} className="text-green-500">âœ“</span> : <span className="text-red-500">âœ—</span>]))}</motion.div>}
         {!loading && tab === 2 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Code", "Name", "Direction"], JOURNALS.map(j => [j.code, j.name, j.direction]))}</motion.div>}
         {!loading && tab === 3 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-lg space-y-4">
@@ -89,7 +89,7 @@ export default function PaymentSettingsPage() {
         {!loading && tab === 5 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <p className="text-xs" style={{ color: "var(--text-secondary)" }}>Gateways: {gateways.length} configured</p>
         </motion.div>}
-        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—"]))}</motion.div>}
+        {!loading && tab === 6 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "â€”"]))}</motion.div>}
         {!loading && tab === 7 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{table(["Time", "Severity", "Action"], errors.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{ backgroundColor: `${sevColor(e.severity)}20`, color: sevColor(e.severity) }}>{e.severity.toUpperCase()}</span>, e.action]))}</motion.div>}
       </div>
     </div>

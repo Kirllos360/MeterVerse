@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
@@ -78,7 +78,7 @@ export default function LocationSettingsPage() {
             <input placeholder="Search areas..." value={searchArea} onChange={e => setSearchArea(e.target.value)}
               className="w-full rounded-xl border px-3 py-2 text-xs outline-none mb-4"
               style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
-            {table(["Area", "Status"], areas.filter(a => a.toLowerCase().includes(searchArea.toLowerCase())).map(a => [a, <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>Active</span>]))}
+            {table(["Area", "Status"], areas.filter(a => a.toLowerCase().includes(searchArea.toLowerCase())).map(a => [a, <span key={a} className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>Active</span>]))}
             <p className="text-xs mt-3" style={{ color: "var(--text-secondary)" }}>Loaded from live data. {meterTypes.length} meter types available.</p>
           </motion.div>
         )}
@@ -87,7 +87,7 @@ export default function LocationSettingsPage() {
             <input placeholder="Search projects..." value={searchProject} onChange={e => setSearchProject(e.target.value)}
               className="w-full rounded-xl border px-3 py-2 text-xs outline-none mb-4"
               style={{ backgroundColor: "var(--surface-topbar)", borderColor: "var(--border-default)", color: "var(--text-primary)" }} />
-            {table(["Name", "Area", "Units", "Status"], projects.filter(p => p.name.toLowerCase().includes(searchProject.toLowerCase())).map(p => [p.name, p.area, String(p.units), <span className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>{p.status}</span>]))}
+            {table(["Name", "Area", "Units", "Status"], projects.filter(p => p.name.toLowerCase().includes(searchProject.toLowerCase())).map(p => [p.name, p.area, String(p.units), <span key={p.name} className="px-2 py-0.5 rounded-full text-xs text-green-500" style={{ backgroundColor: "rgba(220,38,38,0.1)" }}>{p.status}</span>]))}
           </motion.div>
         )}
         {!loading && tab === 2 && (
@@ -104,7 +104,7 @@ export default function LocationSettingsPage() {
           <button onClick={handleSave} disabled={saving} className="rounded-xl px-4 py-2 text-xs font-semibold text-white disabled:opacity-50" style={{ backgroundColor: "var(--brand)" }}>{saving ? "Saving..." : "Save"}</button>
         </motion.div>}
         {!loading && tab === 5 && <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          {events.length === 0 ? <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No events</p> : table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "—"]))}
+          {events.length === 0 ? <p className="text-xs py-6 text-center" style={{ color: "var(--text-secondary)" }}>No events</p> : table(["Time", "Action", "Resource"], events.map((e: any) => [new Date(e.createdAt).toLocaleString(), <span key={e.id ?? e.name ?? e} className="px-2 py-0.5 rounded-full text-xs" style={{ backgroundColor: "rgba(59,130,246,0.1)", color: "#3b82f6" }}>{e.action}</span>, e.resource || "â€”"]))}
         </motion.div>}
       </div>
     </div>
