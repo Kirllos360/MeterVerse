@@ -76,7 +76,7 @@ export function GlobalSearch() {
         />
 
         {query && (
-          <button onClick={() => { setQuery(""); inputRef.current?.focus() }} className="px-2 flex items-center" style={{ color: "var(--text-tertiary)" }}>
+          <button onClick={() => { setQuery(""); inputRef.current?.focus() }} aria-label="Clear search" className="px-2 flex items-center" style={{ color: "var(--text-tertiary)" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         )}

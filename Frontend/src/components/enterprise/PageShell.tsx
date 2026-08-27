@@ -114,7 +114,7 @@ export function PageShell({
                 ))}
               </select>
               {sortField && (
-                <button onClick={() => handleSort(sortField)} className="p-1 rounded hover:bg-black/5" title={`${sortDir === "asc" ? "Ascending" : "Descending"}`}>
+                <button onClick={() => handleSort(sortField)} aria-label="Toggle sort direction" className="p-1 rounded hover:bg-black/5" title={`${sortDir === "asc" ? "Ascending" : "Descending"}`}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" strokeWidth="2">
                     <path d={sortDir === "asc" ? "M12 5v14M5 12l7-7 7 7" : "M12 19V5M5 12l7 7 7-7"} />
                   </svg>

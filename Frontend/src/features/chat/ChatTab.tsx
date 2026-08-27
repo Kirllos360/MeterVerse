@@ -77,7 +77,7 @@ export function ChatTab() {
             </div>
             {/* 3-dot menu */}
             <div className="relative">
-              <button onClick={() => setOpenMenu(openMenu === m.id ? null : m.id)}
+              <button onClick={() => setOpenMenu(openMenu === m.id ? null : m.id)} aria-label="Toggle menu"
                 className="w-5 h-5 flex items-center justify-center rounded-full transition-colors hover:bg-black/10 dark:hover:bg-white/10"
                 style={{ color: "var(--text-tertiary)" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>

@@ -99,7 +99,7 @@ export function ContextPanel() {
           </button>
         ))}
         <div className="mt-auto" />
-        <button onClick={() => setInspectorOpen(true)} className="w-8 h-8 flex items-center justify-center transition-colors hover:opacity-80" style={{ color: "var(--sidebar-text-muted)" }}>
+        <button onClick={() => setInspectorOpen(true)} aria-label="Open inspector" className="w-8 h-8 flex items-center justify-center transition-colors hover:opacity-80" style={{ color: "var(--sidebar-text-muted)" }}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18l6-6-6-6" /></svg>
         </button>
       </div>

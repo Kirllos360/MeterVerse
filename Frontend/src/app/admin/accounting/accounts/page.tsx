@@ -94,7 +94,7 @@ function AccountRow({ node, depth = 0 }: { node: AccountNode; depth?: number }) 
       <div className="flex items-center justify-between px-5 py-2.5 border-t text-sm" style={{ borderColor: "var(--border-default)", paddingLeft: `${20 + depth * 20}px` }}>
         <div className="flex items-center gap-2">
           {hasChildren ? (
-            <button onClick={() => setExpanded(!expanded)} className="w-4 h-4 flex items-center justify-center rounded hover:opacity-70"
+            <button onClick={() => setExpanded(!expanded)} aria-label="Toggle expand" className="w-4 h-4 flex items-center justify-center rounded hover:opacity-70"
               style={{ color: "var(--text-secondary)" }}>
               <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"
                 style={{ transform: expanded ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.15s" }}>

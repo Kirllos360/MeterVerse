@@ -333,7 +333,7 @@ export function AdminToolbar({ activePage, onToggleInspector, themeMode = "auto"
 
         {/* User menu */}
         <div className="relative" ref={userMenuRef}>
-          <button onClick={() => setShowUserMenu(!showUserMenu)}
+          <button onClick={() => setShowUserMenu(!showUserMenu)} aria-label="User menu"
             className="flex items-center gap-2 rounded-lg transition-all hover:bg-black/5 dark:hover:bg-white/10 px-2 py-1 active:scale-95">
             <div className="w-8 h-8 rounded-full flex items-center justify-center text-white" style={{ backgroundColor: "var(--admin-accent)" }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 100 8 4 4 0 000-8z"/></svg>

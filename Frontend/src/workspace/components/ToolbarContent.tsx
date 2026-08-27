@@ -138,7 +138,7 @@ export function ToolbarContent({ onToggleInspector }: ToolbarContentProps) {
                         <div className="text-sm" style={{ color: "var(--text-primary)" }}>{r.title}</div>
                         <div className="text-[10px] mt-0.5 font-medium" style={{ color: r.color }}>{r.time} {language === "ar" ? "مضت" : "ago"}</div>
                       </div>
-                      <button onClick={() => setReminders(reminders.filter((_, idx) => idx !== i))} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--text-tertiary)" }}>
+                      <button onClick={() => setReminders(reminders.filter((_, idx) => idx !== i))} aria-label="Remove reminder" className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--text-tertiary)" }}>
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                       </button>
                     </div>

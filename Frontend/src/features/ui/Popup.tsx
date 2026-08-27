@@ -47,6 +47,7 @@ export function Popup({ open, onClose, title, children }: PopupProps) {
             )}
             <button
               onClick={onClose}
+              aria-label="Close"
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-all active:scale-90"
               style={{ color: "var(--text-tertiary)" }}
             >

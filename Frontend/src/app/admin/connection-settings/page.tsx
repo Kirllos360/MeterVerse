@@ -73,7 +73,7 @@ export default function ConnectionSettingsPage() {
             onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-4 border-b" style={{ borderColor: "var(--border-default)" }}>
               <h3 className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>{title}</h3>
-              <button onClick={closePopup} className="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg></button>
+              <button onClick={closePopup} aria-label="Close" className="p-1 rounded-lg hover:bg-black/5 dark:hover:bg-white/10"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg></button>
             </div>
             <div className="p-5">{children}</div>
           </motion.div>
