@@ -40,3 +40,6 @@
 - `next-env.d.ts` shared between Admin/Portal builds.
 - `**/*.pdf` gitignored → `git add -f` for deliverable PDFs.
 - RAM reports read as KB (divide by 1024).
+## NEW — MASTER_HANDOVER.md (READ FIRST)
+
+**MASTER_HANDOVER.md** is the single-file complete handover (created 2026-08-27): full session record, migration control spec, DeepSeek bootstrap prompt, verified state snapshot, and completion signature template. **Read it first** — it supersedes and consolidates this package for the migration.
