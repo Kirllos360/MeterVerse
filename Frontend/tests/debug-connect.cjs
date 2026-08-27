@@ -1,6 +1,6 @@
 const { chromium } = require('playwright');
 (async () => {
-  const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--proxy-server=\"direct://\"'] });
+  const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--proxy-server="direct://"'] });
   const page = await browser.newPage();
   
   // Test basic connectivity

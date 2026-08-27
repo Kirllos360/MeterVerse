@@ -45,6 +45,6 @@ export const useToolbarRuntime = create<ToolbarState>((set, get) => ({
 
   getSortedActions: (zone) => {
     const actions = zone === "left" ? get().leftActions : zone === "center" ? get().centerActions : get().rightActions
-    return [...actions].sort((a, b) => (a.order || 0) - (b.order || 0))
+    return [...actions].toSorted((a, b) => (a.order || 0) - (b.order || 0))
   },
 }))

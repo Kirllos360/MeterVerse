@@ -64,7 +64,7 @@ export class WorkspacePersistenceImpl implements WorkspacePersistence {
       const key = localStorage.key(i)
       if (key?.startsWith(this.backupPrefix)) backups.push(key.replace(this.backupPrefix, ""))
     }
-    return backups.sort()
+    return backups.toSorted()
   }
 
   restoreBackup(backupId: string): WorkspaceSnapshot | null {

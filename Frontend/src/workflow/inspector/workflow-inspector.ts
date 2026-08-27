@@ -48,6 +48,6 @@ export class WorkflowInspector {
     if (execution.completedAt) {
       events.push({ timestamp: execution.completedAt, type: execution.status === "failed" ? "fail" : "complete", label: `Workflow ${execution.status}` })
     }
-    return events.sort((a, b) => a.timestamp - b.timestamp)
+    return events.toSorted((a, b) => a.timestamp - b.timestamp)
   }
 }

@@ -100,7 +100,7 @@ export function EnterpriseTable<T>({ data, columns: initialColumns, pageSize = 2
   })
 
   // ─── Sort ───────────────────────────────────────────────────────────────
-  const sortedData = [...filteredData].sort((a, b) => {
+  const sortedData = [...filteredData].toSorted((a, b) => {
     if (!sortField) return 0
     const col = columns.find(c => c.id === sortField)
     if (!col) return 0

@@ -98,7 +98,7 @@ export class RuntimeEventBus implements EventBus {
 
     // Dispatch to handlers
     const handlers = this.handlers.get(type) || []
-    const sorted = [...handlers].sort((a, b) => (b.options?.priority ?? EventPriority.NORMAL) - (a.options?.priority ?? EventPriority.NORMAL))
+    const sorted = [...handlers].toSorted((a, b) => (b.options?.priority ?? EventPriority.NORMAL) - (a.options?.priority ?? EventPriority.NORMAL))
 
     for (const h of sorted) {
       try {

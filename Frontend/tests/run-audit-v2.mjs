@@ -351,7 +351,7 @@ async function main() {
   console.log(`âœ… Passed: ${report.summary.passed}`)
   console.log(`âŒ Failed: ${report.summary.failed}`)
   console.log(`âš ï¸ Warnings: ${report.summary.warnings}`)
-  console.log(`Unique console errors: ${[...new Set(report.consoleErrors)].length}`)
+  console.log(`Unique console errors: ${new Set(report.consoleErrors).size}`)
   console.log(`Accessibility issues: ${report.findings.filter(f => f.includes("missing") || f.includes("without")).length}`)
 
   const summaryLines = [
@@ -366,7 +366,7 @@ async function main() {
     `âœ… Passed: ${report.summary.passed}`,
     `âŒ Failed: ${report.summary.failed}`,
     `âš ï¸ Warnings: ${report.summary.warnings}`,
-    `Console errors: ${[...new Set(report.consoleErrors)].length}`,
+    `Console errors: ${new Set(report.consoleErrors).size}`,
     `A11y issues: ${report.findings.filter(f => f.includes("missing") || f.includes("without")).length}`,
     "",
     "â”€â”€ ALL PAGE RESULTS â”€â”€",

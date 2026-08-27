@@ -55,7 +55,7 @@ export class CommandRegistry extends BaseRegistry<CommandRegistration> {
         return { command: cmd, score, matchedTerms: matched }
       })
       .filter((r) => r.score > 0)
-      .sort((a, b) => b.score - a.score)
+      .toSorted((a, b) => b.score - a.score)
   }
 
   getByGroup(group: string): CommandRegistration[] {

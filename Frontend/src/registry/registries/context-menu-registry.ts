@@ -42,6 +42,6 @@ export class ContextMenuRegistry extends BaseRegistry<ContextMenuRegistration> {
         if (m.context.programId && m.context.programId !== context.programId) return false
         return true
       })
-      .sort((a, b) => (a.order || 100) - (b.order || 100))
+      .toSorted((a, b) => (a.order || 100) - (b.order || 100))
   }
 }

@@ -50,7 +50,7 @@ export class NaturalLanguageSearch extends AIBase {
     let results = this.mockData
       .map((r) => ({ ...r, relevance: this.calculateRelevance(r, q, parsed) }))
       .filter((r) => r.relevance > 0)
-      .sort((a, b) => b.relevance - a.relevance)
+      .toSorted((a, b) => b.relevance - a.relevance)
 
     if (results.length === 0) {
       results = [{

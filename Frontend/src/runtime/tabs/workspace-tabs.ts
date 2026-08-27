@@ -81,7 +81,7 @@ export const useWorkspaceTabs = create<TabState>()(
       closeTabsToRight: (id) =>
         set((s) => {
           const idx = s.tabs.findIndex((t) => t.id === id)
-          return { tabs: [...s.tabs.slice(0, idx + 1)] }
+          return { tabs: s.tabs.slice(0, idx + 1) }
         }),
 
       setActiveTab: (id) => set({ activeTabId: id }),

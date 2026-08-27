@@ -101,7 +101,7 @@ export function ListGridPage({ config, initialData, renderDashboard, filterOptio
     }
     if (sort) {
       const [field, dir] = sort.split(":")
-      result = [...result].sort((a: any, b: any) => {
+      result = [...result].toSorted((a: any, b: any) => {
         const va = String(a[field] || "").toLowerCase()
         const vb = String(b[field] || "").toLowerCase()
         return dir === "desc" ? vb.localeCompare(va) : va.localeCompare(vb)

@@ -43,7 +43,7 @@ export function ChatTab() {
     else setFavorites([...favorites, id])
   }
 
-  const sortedMembers = [...members].sort((a, b) => {
+  const sortedMembers = [...members].toSorted((a, b) => {
     const aPin = pinned.includes(a.id) ? 0 : 1
     const bPin = pinned.includes(b.id) ? 0 : 1
     if (aPin !== bPin) return aPin - bPin

@@ -42,7 +42,7 @@ export class RouteRegistry extends BaseRegistry<RouteRegistration> {
       }
       return { route, params, score: routeParts.length * 10 } as RouteMatch
     }).filter(Boolean) as RouteMatch[]
-    return matches.sort((a, b) => b.score - a.score)[0]
+    return matches.toSorted((a, b) => b.score - a.score)[0]
   }
 
   generate(routeId: string, params?: Record<string, string>): string {

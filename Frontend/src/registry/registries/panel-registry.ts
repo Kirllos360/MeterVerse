@@ -26,7 +26,7 @@ export class PanelRegistry extends BaseRegistry<PanelRegistration> {
   getByEntityType(entityType: string): PanelRegistration[] {
     return this.getAll()
       .filter((p) => p.entityTypes.includes(entityType))
-      .sort((a, b) => a.order - b.order)
+      .toSorted((a, b) => a.order - b.order)
   }
 
   getDefaultPanel(entityType: string): PanelRegistration | undefined {

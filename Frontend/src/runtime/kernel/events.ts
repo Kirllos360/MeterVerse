@@ -22,7 +22,7 @@ export class TypedEvent<T> implements Event<T> {
   }
 
   async dispatch(payload: T): Promise<void> {
-    const sorted = [...this.handlers].sort((a, b) => (b.options?.priority ?? 0) - (a.options?.priority ?? 0))
+    const sorted = [...this.handlers].toSorted((a, b) => (b.options?.priority ?? 0) - (a.options?.priority ?? 0))
     const toRemove: number[] = []
     for (const h of sorted) {
       try {
