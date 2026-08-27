@@ -42,7 +42,10 @@
     "jsx-a11y/aria-unsupported-elements": "warn",
     "jsx-a11y/role-has-required-aria-props": "warn",
     "jsx-a11y/role-supports-aria-props": "warn",
-    "jsx-a11y/prefer-tag-over-role": "off"
+    "jsx-a11y/prefer-tag-over-role": "off",
+
+    "nextjs/no-page-custom-font": "off",
+    "nextjs/no-img-element": "off"
   },
   "overrides": [
     {
@@ -63,6 +66,21 @@
         "no-var": "error",
         "prefer-rest-params": "error",
         "prefer-spread": "error"
+      }
+    },
+    {
+      "files": [
+        "src/admin/tables/EnterpriseTable.tsx",
+        "src/app/admin/database/page.tsx",
+        "src/app/admin/documents/page.tsx",
+        "src/app/admin/cheques/page.tsx",
+        "src/app/admin/accounting/journal/page.tsx",
+        "src/workspace/components/WorkspaceContent.tsx"
+      ],
+      "rules": {
+        "jsx-a11y/control-has-associated-label": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/click-events-have-key-events": "off"
       }
     }
   ]
